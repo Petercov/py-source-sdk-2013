@@ -336,10 +336,11 @@ bool CSrcPython::InitInterpreter( void )
 	Import( "vmath" );
 	types = Import("types");
 	Import( "sound" ); // Import _sound before _entitiesmisc (register converters)
+	_physics = Import("_physics");
 	_entitiesmisc = Import("_entitiesmisc");
 	_entities = Import("_entities");
 	_particles = Import("_particles");
-	_physics = Import("_physics");
+	
 	// TODO: matchmaking = Import("matchmaking");
 #ifdef CLIENT_DLL
 	// TODO: Run( "import input" );		// Registers buttons

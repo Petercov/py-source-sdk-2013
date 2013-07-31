@@ -385,7 +385,10 @@ class Entities(SemiSharedModuleGenerator):
         
         # Returning a physics object (disabled for now, needs converter)
         physicsobject = mb.class_('IPhysicsObject')
-        mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(physicsobject))), allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+        #mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(physicsobject))), allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+        #mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(physicsobject))), allow_empty=True).call_policies = call_policies.return_internal_reference()
+        #mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(physicsobject))), allow_empty=True).call_policies = call_policies.with_custodian_and_ward_postcall(0, 1, call_policies.return_value_policy(call_policies.reference_existing_object))
+        mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(physicsobject))), allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
         if self.isclient:
             cls.mem_funs('ParticleProp').call_policies = call_policies.return_internal_reference() 
