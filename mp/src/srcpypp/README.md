@@ -13,9 +13,9 @@ A single module can be generated a follows:
 To create a new module you must do two things:
 1. Add a new python files with parse code to either one of the following folders 
 (depending on whether it is intended for the server, client or is shared code):
-- [mp/src/game/shared/python/modules](mp/src/game/shared/python/modules)
-- [mp/src/game/client/python/modules](mp/src/game/client/python/modules)
-- [mp/src/game/server/python/modules](mp/src/game/server/python/modules)
+- [mp/src/game/shared/python/modules](/mp/src/game/shared/python/modules)
+- [mp/src/game/client/python/modules](/mp/src/game/client/python/modules)
+- [mp/src/game/server/python/modules](/mp/src/game/server/python/modules)
 
 2. Open settings.py and add the new binding code to the module list.
 
