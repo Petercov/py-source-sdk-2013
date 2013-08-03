@@ -174,6 +174,36 @@ struct C_BasePlayer_wrapper : C_BasePlayer, bp::wrapper< C_BasePlayer > {
         C_BaseEntity::Activate( );
     }
 
+    virtual void ComputeWorldSpaceSurroundingBox( ::Vector * pVecWorldMins, ::Vector * pVecWorldMaxs ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ComputeWorldSpaceSurroundingBox: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ComputeWorldSpaceSurroundingBox( boost::python::ptr(pVecWorldMins), boost::python::ptr(pVecWorldMaxs) ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ComputeWorldSpaceSurroundingBox = this->get_override( "ComputeWorldSpaceSurroundingBox" );
+        if( func_ComputeWorldSpaceSurroundingBox.ptr() != Py_None )
+            try {
+                func_ComputeWorldSpaceSurroundingBox( boost::python::ptr(pVecWorldMins), boost::python::ptr(pVecWorldMaxs) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pVecWorldMins), boost::python::ptr(pVecWorldMaxs) );
+            }
+        else
+            this->C_BaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pVecWorldMins), boost::python::ptr(pVecWorldMaxs) );
+    }
+    
+    void default_ComputeWorldSpaceSurroundingBox( ::Vector * pVecWorldMins, ::Vector * pVecWorldMaxs ) {
+        C_BaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pVecWorldMins), boost::python::ptr(pVecWorldMaxs) );
+    }
+
     virtual bool CreateVPhysics(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -232,6 +262,36 @@ struct C_BasePlayer_wrapper : C_BasePlayer, bp::wrapper< C_BasePlayer > {
     
     void default_DoImpactEffect( ::trace_t & tr, int nDamageType ) {
         C_BaseEntity::DoImpactEffect( boost::ref(tr), nDamageType );
+    }
+
+    virtual void EndTouch( ::C_BaseEntity * pOther ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "EndTouch: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling EndTouch( boost::python::ptr(pOther) ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_EndTouch = this->get_override( "EndTouch" );
+        if( func_EndTouch.ptr() != Py_None )
+            try {
+                func_EndTouch( boost::python::ptr(pOther) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::EndTouch( boost::python::ptr(pOther) );
+            }
+        else
+            this->C_BaseEntity::EndTouch( boost::python::ptr(pOther) );
+    }
+    
+    void default_EndTouch( ::C_BaseEntity * pOther ) {
+        C_BaseEntity::EndTouch( boost::python::ptr(pOther) );
     }
 
     virtual ::CollideType_t GetCollideType(  ) {
@@ -382,6 +442,36 @@ struct C_BasePlayer_wrapper : C_BasePlayer, bp::wrapper< C_BasePlayer > {
     
     void default_Precache(  ) {
         C_BaseEntity::Precache( );
+    }
+
+    virtual void StartTouch( ::C_BaseEntity * pOther ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "StartTouch: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling StartTouch( boost::python::ptr(pOther) ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_StartTouch = this->get_override( "StartTouch" );
+        if( func_StartTouch.ptr() != Py_None )
+            try {
+                func_StartTouch( boost::python::ptr(pOther) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::StartTouch( boost::python::ptr(pOther) );
+            }
+        else
+            this->C_BaseEntity::StartTouch( boost::python::ptr(pOther) );
+    }
+    
+    void default_StartTouch( ::C_BaseEntity * pOther ) {
+        C_BaseEntity::StartTouch( boost::python::ptr(pOther) );
     }
 
     virtual void UpdateOnRemove(  ) {
@@ -1054,6 +1144,11 @@ void register_C_BasePlayer_class(){
             , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::Activate)
             , (void ( C_BasePlayer_wrapper::* )(  ) )(&C_BasePlayer_wrapper::default_Activate) )    
         .def( 
+            "ComputeWorldSpaceSurroundingBox"
+            , (void ( ::C_BaseEntity::* )( ::Vector *,::Vector * ) )(&::C_BaseEntity::ComputeWorldSpaceSurroundingBox)
+            , (void ( C_BasePlayer_wrapper::* )( ::Vector *,::Vector * ) )(&C_BasePlayer_wrapper::default_ComputeWorldSpaceSurroundingBox)
+            , ( bp::arg("pVecWorldMins"), bp::arg("pVecWorldMaxs") ) )    
+        .def( 
             "CreateVPhysics"
             , (bool ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::CreateVPhysics)
             , (bool ( C_BasePlayer_wrapper::* )(  ) )(&C_BasePlayer_wrapper::default_CreateVPhysics) )    
@@ -1062,6 +1157,11 @@ void register_C_BasePlayer_class(){
             , (void ( ::C_BaseEntity::* )( ::trace_t &,int ) )(&::C_BaseEntity::DoImpactEffect)
             , (void ( C_BasePlayer_wrapper::* )( ::trace_t &,int ) )(&C_BasePlayer_wrapper::default_DoImpactEffect)
             , ( bp::arg("tr"), bp::arg("nDamageType") ) )    
+        .def( 
+            "EndTouch"
+            , (void ( ::C_BaseEntity::* )( ::C_BaseEntity * ) )(&::C_BaseEntity::EndTouch)
+            , (void ( C_BasePlayer_wrapper::* )( ::C_BaseEntity * ) )(&C_BasePlayer_wrapper::default_EndTouch)
+            , ( bp::arg("pOther") ) )    
         .def( 
             "GetCollideType"
             , (::CollideType_t ( ::C_BaseAnimating::* )(  ) )(&::C_BaseAnimating::GetCollideType)
@@ -1085,6 +1185,11 @@ void register_C_BasePlayer_class(){
             "Precache"
             , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::Precache)
             , (void ( C_BasePlayer_wrapper::* )(  ) )(&C_BasePlayer_wrapper::default_Precache) )    
+        .def( 
+            "StartTouch"
+            , (void ( ::C_BaseEntity::* )( ::C_BaseEntity * ) )(&::C_BaseEntity::StartTouch)
+            , (void ( C_BasePlayer_wrapper::* )( ::C_BaseEntity * ) )(&C_BasePlayer_wrapper::default_StartTouch)
+            , ( bp::arg("pOther") ) )    
         .def( 
             "UpdateOnRemove"
             , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::UpdateOnRemove)

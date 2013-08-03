@@ -99,7 +99,7 @@ void CheckEntities(PyClientClassBase *pCC, boost::python::object pyClass );
 	}																								\
 	void name##::InitPyClass()																		\
 	{																								\
-		bp::object meth = SrcPySystem()->Get("InitEntityClass", m_PyClass, false);					\
+		boost::python::object meth = SrcPySystem()->Get("InitEntityClass", m_PyClass, false);		\
 		if( meth.ptr() == Py_None )																	\
 			return;																					\
 		SrcPySystem()->Run( meth );																	\

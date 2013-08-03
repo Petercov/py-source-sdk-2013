@@ -234,7 +234,7 @@ IClientNetworkable *ClientClassFactory( int iType, boost::python::object cls_typ
 			break;
 #endif // 0
 		default:
-			Warning("No default fallback for networktype %d. Warn a dev.\n");
+			Warning( "No default fallback for networktype %d. Warn a dev.\n", iType );
 			pResult = CALL_FALLBACK_FACTORY( C_BaseEntity, entnum, serialNum );
 			break;
 		}

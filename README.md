@@ -9,16 +9,18 @@ Currently Windows only:
 3. Start mp/game/PySource and load a map
 4. Test Python by entering one of the following commands:
 
-    spy print('Hello Source')
+        spy print('Hello Source')
 
-    spy print(UTIL_PlayerByIndex(1).GetPlayerName())
+        spy print(UTIL_PlayerByIndex(1).GetPlayerName())
 
 ## Examples
 Examples can be found in the Python game directory [examples](mp/game/pysource/python/examples) (WIP)
 
 ## Commands
-- spy - Evaluates a Python string on the server
-- cpy - Evaluates a Python string on the client
+
+        spy - Evaluates a Python string on the server
+
+        cpy - Evaluates a Python string on the client
 
 ## Generating new modules
 PySource makes use of gccxml, pygccxml and pyplusplus to generate Boost Python bindings.

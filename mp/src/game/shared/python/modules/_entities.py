@@ -360,7 +360,11 @@ class Entities(SemiSharedModuleGenerator):
         mb.mem_funs('GetTracerType').virtuality = 'virtual'
         mb.mem_funs('MakeTracer').virtuality = 'virtual'
         mb.mem_funs('DoImpactEffect').virtuality = 'virtual'
-    
+        mb.mem_funs('StartTouch').virtuality = 'virtual'
+        mb.mem_funs('EndTouch').virtuality = 'virtual'
+        mb.mem_funs('UpdateTransmitState').virtuality = 'virtual'
+        mb.mem_funs('ComputeWorldSpaceSurroundingBox').virtuality = 'virtual'
+        
         # Call policies
         cls.mem_funs('CollisionProp').call_policies = call_policies.return_internal_reference() 
         

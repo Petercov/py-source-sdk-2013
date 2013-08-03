@@ -54,6 +54,36 @@ struct CBaseEntity_wrapper : CBaseEntity, bp::wrapper< CBaseEntity > {
         CBaseEntity::Activate( );
     }
 
+    virtual void ComputeWorldSpaceSurroundingBox( ::Vector * pWorldMins, ::Vector * pWorldMaxs ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ComputeWorldSpaceSurroundingBox: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ComputeWorldSpaceSurroundingBox = this->get_override( "ComputeWorldSpaceSurroundingBox" );
+        if( func_ComputeWorldSpaceSurroundingBox.ptr() != Py_None )
+            try {
+                func_ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+            }
+        else
+            this->CBaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+    }
+    
+    void default_ComputeWorldSpaceSurroundingBox( ::Vector * pWorldMins, ::Vector * pWorldMaxs ) {
+        CBaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+    }
+
     virtual bool CreateVPhysics(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -172,6 +202,36 @@ struct CBaseEntity_wrapper : CBaseEntity, bp::wrapper< CBaseEntity > {
     
     int default_DrawDebugTextOverlays(  ) {
         return CBaseEntity::DrawDebugTextOverlays( );
+    }
+
+    virtual void EndTouch( ::CBaseEntity * pOther ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "EndTouch: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling EndTouch( boost::python::ptr(pOther) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_EndTouch = this->get_override( "EndTouch" );
+        if( func_EndTouch.ptr() != Py_None )
+            try {
+                func_EndTouch( boost::python::ptr(pOther) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::EndTouch( boost::python::ptr(pOther) );
+            }
+        else
+            this->CBaseEntity::EndTouch( boost::python::ptr(pOther) );
+    }
+    
+    void default_EndTouch( ::CBaseEntity * pOther ) {
+        CBaseEntity::EndTouch( boost::python::ptr(pOther) );
     }
 
     virtual void Event_Killed( ::CTakeDamageInfo const & info ) {
@@ -534,6 +594,36 @@ struct CBaseEntity_wrapper : CBaseEntity, bp::wrapper< CBaseEntity > {
         CBaseEntity::Spawn( );
     }
 
+    virtual void StartTouch( ::CBaseEntity * pOther ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "StartTouch: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling StartTouch( boost::python::ptr(pOther) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_StartTouch = this->get_override( "StartTouch" );
+        if( func_StartTouch.ptr() != Py_None )
+            try {
+                func_StartTouch( boost::python::ptr(pOther) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::StartTouch( boost::python::ptr(pOther) );
+            }
+        else
+            this->CBaseEntity::StartTouch( boost::python::ptr(pOther) );
+    }
+    
+    void default_StartTouch( ::CBaseEntity * pOther ) {
+        CBaseEntity::StartTouch( boost::python::ptr(pOther) );
+    }
+
     virtual void StopLoopingSounds(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -592,6 +682,36 @@ struct CBaseEntity_wrapper : CBaseEntity, bp::wrapper< CBaseEntity > {
     
     void default_UpdateOnRemove(  ) {
         CBaseEntity::UpdateOnRemove( );
+    }
+
+    virtual int UpdateTransmitState(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "UpdateTransmitState: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling UpdateTransmitState(  ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_UpdateTransmitState = this->get_override( "UpdateTransmitState" );
+        if( func_UpdateTransmitState.ptr() != Py_None )
+            try {
+                return func_UpdateTransmitState(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CBaseEntity::UpdateTransmitState(  );
+            }
+        else
+            return this->CBaseEntity::UpdateTransmitState(  );
+    }
+    
+    int default_UpdateTransmitState(  ) {
+        return CBaseEntity::UpdateTransmitState( );
     }
 
     virtual void VPhysicsCollision( int index, ::gamevcollisionevent_t * pEvent ) {
@@ -1066,10 +1186,12 @@ void register_CBaseEntity_class(){
         { //::CBaseEntity::ComputeWorldSpaceSurroundingBox
         
             typedef void ( ::CBaseEntity::*ComputeWorldSpaceSurroundingBox_function_type )( ::Vector *,::Vector * ) ;
+            typedef void ( CBaseEntity_wrapper::*default_ComputeWorldSpaceSurroundingBox_function_type )( ::Vector *,::Vector * ) ;
             
             CBaseEntity_exposer.def( 
                 "ComputeWorldSpaceSurroundingBox"
-                , ComputeWorldSpaceSurroundingBox_function_type( &::CBaseEntity::ComputeWorldSpaceSurroundingBox )
+                , ComputeWorldSpaceSurroundingBox_function_type(&::CBaseEntity::ComputeWorldSpaceSurroundingBox)
+                , default_ComputeWorldSpaceSurroundingBox_function_type(&CBaseEntity_wrapper::default_ComputeWorldSpaceSurroundingBox)
                 , ( bp::arg("pWorldMins"), bp::arg("pWorldMaxs") ) );
         
         }
@@ -1499,10 +1621,12 @@ void register_CBaseEntity_class(){
         { //::CBaseEntity::EndTouch
         
             typedef void ( ::CBaseEntity::*EndTouch_function_type )( ::CBaseEntity * ) ;
+            typedef void ( CBaseEntity_wrapper::*default_EndTouch_function_type )( ::CBaseEntity * ) ;
             
             CBaseEntity_exposer.def( 
                 "EndTouch"
-                , EndTouch_function_type( &::CBaseEntity::EndTouch )
+                , EndTouch_function_type(&::CBaseEntity::EndTouch)
+                , default_EndTouch_function_type(&CBaseEntity_wrapper::default_EndTouch)
                 , ( bp::arg("pOther") ) );
         
         }
@@ -5100,10 +5224,12 @@ void register_CBaseEntity_class(){
         { //::CBaseEntity::StartTouch
         
             typedef void ( ::CBaseEntity::*StartTouch_function_type )( ::CBaseEntity * ) ;
+            typedef void ( CBaseEntity_wrapper::*default_StartTouch_function_type )( ::CBaseEntity * ) ;
             
             CBaseEntity_exposer.def( 
                 "StartTouch"
-                , StartTouch_function_type( &::CBaseEntity::StartTouch )
+                , StartTouch_function_type(&::CBaseEntity::StartTouch)
+                , default_StartTouch_function_type(&CBaseEntity_wrapper::default_StartTouch)
                 , ( bp::arg("pOther") ) );
         
         }
@@ -5308,10 +5434,12 @@ void register_CBaseEntity_class(){
         { //::CBaseEntity::UpdateTransmitState
         
             typedef int ( ::CBaseEntity::*UpdateTransmitState_function_type )(  ) ;
+            typedef int ( CBaseEntity_wrapper::*default_UpdateTransmitState_function_type )(  ) ;
             
             CBaseEntity_exposer.def( 
                 "UpdateTransmitState"
-                , UpdateTransmitState_function_type( &::CBaseEntity::UpdateTransmitState ) );
+                , UpdateTransmitState_function_type(&::CBaseEntity::UpdateTransmitState)
+                , default_UpdateTransmitState_function_type(&CBaseEntity_wrapper::default_UpdateTransmitState) );
         
         }
         { //::CBaseEntity::UpdateWaterState

@@ -54,6 +54,36 @@ struct C_BaseAnimatingOverlay_wrapper : C_BaseAnimatingOverlay, bp::wrapper< C_B
         C_BaseEntity::Activate( );
     }
 
+    virtual void ComputeWorldSpaceSurroundingBox( ::Vector * pVecWorldMins, ::Vector * pVecWorldMaxs ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ComputeWorldSpaceSurroundingBox: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ComputeWorldSpaceSurroundingBox( boost::python::ptr(pVecWorldMins), boost::python::ptr(pVecWorldMaxs) ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ComputeWorldSpaceSurroundingBox = this->get_override( "ComputeWorldSpaceSurroundingBox" );
+        if( func_ComputeWorldSpaceSurroundingBox.ptr() != Py_None )
+            try {
+                func_ComputeWorldSpaceSurroundingBox( boost::python::ptr(pVecWorldMins), boost::python::ptr(pVecWorldMaxs) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pVecWorldMins), boost::python::ptr(pVecWorldMaxs) );
+            }
+        else
+            this->C_BaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pVecWorldMins), boost::python::ptr(pVecWorldMaxs) );
+    }
+    
+    void default_ComputeWorldSpaceSurroundingBox( ::Vector * pVecWorldMins, ::Vector * pVecWorldMaxs ) {
+        C_BaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pVecWorldMins), boost::python::ptr(pVecWorldMaxs) );
+    }
+
     virtual bool CreateVPhysics(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -112,6 +142,36 @@ struct C_BaseAnimatingOverlay_wrapper : C_BaseAnimatingOverlay, bp::wrapper< C_B
     
     void default_DoImpactEffect( ::trace_t & tr, int nDamageType ) {
         C_BaseEntity::DoImpactEffect( boost::ref(tr), nDamageType );
+    }
+
+    virtual void EndTouch( ::C_BaseEntity * pOther ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "EndTouch: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling EndTouch( boost::python::ptr(pOther) ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_EndTouch = this->get_override( "EndTouch" );
+        if( func_EndTouch.ptr() != Py_None )
+            try {
+                func_EndTouch( boost::python::ptr(pOther) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::EndTouch( boost::python::ptr(pOther) );
+            }
+        else
+            this->C_BaseEntity::EndTouch( boost::python::ptr(pOther) );
+    }
+    
+    void default_EndTouch( ::C_BaseEntity * pOther ) {
+        C_BaseEntity::EndTouch( boost::python::ptr(pOther) );
     }
 
     virtual ::CollideType_t GetCollideType(  ) {
@@ -384,6 +444,36 @@ struct C_BaseAnimatingOverlay_wrapper : C_BaseAnimatingOverlay, bp::wrapper< C_B
         C_BaseEntity::Spawn( );
     }
 
+    virtual void StartTouch( ::C_BaseEntity * pOther ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "StartTouch: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling StartTouch( boost::python::ptr(pOther) ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_StartTouch = this->get_override( "StartTouch" );
+        if( func_StartTouch.ptr() != Py_None )
+            try {
+                func_StartTouch( boost::python::ptr(pOther) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::StartTouch( boost::python::ptr(pOther) );
+            }
+        else
+            this->C_BaseEntity::StartTouch( boost::python::ptr(pOther) );
+    }
+    
+    void default_StartTouch( ::C_BaseEntity * pOther ) {
+        C_BaseEntity::StartTouch( boost::python::ptr(pOther) );
+    }
+
     virtual void UpdateOnRemove(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -514,6 +604,18 @@ void register_C_BaseAnimatingOverlay_class(){
                 , default_Activate_function_type(&C_BaseAnimatingOverlay_wrapper::default_Activate) );
         
         }
+        { //::C_BaseEntity::ComputeWorldSpaceSurroundingBox
+        
+            typedef void ( ::C_BaseEntity::*ComputeWorldSpaceSurroundingBox_function_type )( ::Vector *,::Vector * ) ;
+            typedef void ( C_BaseAnimatingOverlay_wrapper::*default_ComputeWorldSpaceSurroundingBox_function_type )( ::Vector *,::Vector * ) ;
+            
+            C_BaseAnimatingOverlay_exposer.def( 
+                "ComputeWorldSpaceSurroundingBox"
+                , ComputeWorldSpaceSurroundingBox_function_type(&::C_BaseEntity::ComputeWorldSpaceSurroundingBox)
+                , default_ComputeWorldSpaceSurroundingBox_function_type(&C_BaseAnimatingOverlay_wrapper::default_ComputeWorldSpaceSurroundingBox)
+                , ( bp::arg("pVecWorldMins"), bp::arg("pVecWorldMaxs") ) );
+        
+        }
         { //::C_BaseEntity::CreateVPhysics
         
             typedef bool ( ::C_BaseEntity::*CreateVPhysics_function_type )(  ) ;
@@ -535,6 +637,18 @@ void register_C_BaseAnimatingOverlay_class(){
                 , DoImpactEffect_function_type(&::C_BaseEntity::DoImpactEffect)
                 , default_DoImpactEffect_function_type(&C_BaseAnimatingOverlay_wrapper::default_DoImpactEffect)
                 , ( bp::arg("tr"), bp::arg("nDamageType") ) );
+        
+        }
+        { //::C_BaseEntity::EndTouch
+        
+            typedef void ( ::C_BaseEntity::*EndTouch_function_type )( ::C_BaseEntity * ) ;
+            typedef void ( C_BaseAnimatingOverlay_wrapper::*default_EndTouch_function_type )( ::C_BaseEntity * ) ;
+            
+            C_BaseAnimatingOverlay_exposer.def( 
+                "EndTouch"
+                , EndTouch_function_type(&::C_BaseEntity::EndTouch)
+                , default_EndTouch_function_type(&C_BaseAnimatingOverlay_wrapper::default_EndTouch)
+                , ( bp::arg("pOther") ) );
         
         }
         { //::C_BaseAnimating::GetCollideType
@@ -638,6 +752,18 @@ void register_C_BaseAnimatingOverlay_class(){
                 "Spawn"
                 , Spawn_function_type(&::C_BaseEntity::Spawn)
                 , default_Spawn_function_type(&C_BaseAnimatingOverlay_wrapper::default_Spawn) );
+        
+        }
+        { //::C_BaseEntity::StartTouch
+        
+            typedef void ( ::C_BaseEntity::*StartTouch_function_type )( ::C_BaseEntity * ) ;
+            typedef void ( C_BaseAnimatingOverlay_wrapper::*default_StartTouch_function_type )( ::C_BaseEntity * ) ;
+            
+            C_BaseAnimatingOverlay_exposer.def( 
+                "StartTouch"
+                , StartTouch_function_type(&::C_BaseEntity::StartTouch)
+                , default_StartTouch_function_type(&C_BaseAnimatingOverlay_wrapper::default_StartTouch)
+                , ( bp::arg("pOther") ) );
         
         }
         { //::C_BaseEntity::UpdateOnRemove

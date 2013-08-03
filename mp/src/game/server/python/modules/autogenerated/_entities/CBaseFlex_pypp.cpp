@@ -84,6 +84,36 @@ struct CBaseFlex_wrapper : CBaseFlex, bp::wrapper< CBaseFlex > {
         return CBaseAnimating::CanBecomeRagdoll( );
     }
 
+    virtual void ComputeWorldSpaceSurroundingBox( ::Vector * pWorldMins, ::Vector * pWorldMaxs ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ComputeWorldSpaceSurroundingBox: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ComputeWorldSpaceSurroundingBox = this->get_override( "ComputeWorldSpaceSurroundingBox" );
+        if( func_ComputeWorldSpaceSurroundingBox.ptr() != Py_None )
+            try {
+                func_ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+            }
+        else
+            this->CBaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+    }
+    
+    void default_ComputeWorldSpaceSurroundingBox( ::Vector * pWorldMins, ::Vector * pWorldMaxs ) {
+        CBaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+    }
+
     virtual bool CreateVPhysics(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -202,6 +232,36 @@ struct CBaseFlex_wrapper : CBaseFlex, bp::wrapper< CBaseFlex > {
     
     int default_DrawDebugTextOverlays(  ) {
         return CBaseAnimating::DrawDebugTextOverlays( );
+    }
+
+    virtual void EndTouch( ::CBaseEntity * pOther ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "EndTouch: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling EndTouch( boost::python::ptr(pOther) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_EndTouch = this->get_override( "EndTouch" );
+        if( func_EndTouch.ptr() != Py_None )
+            try {
+                func_EndTouch( boost::python::ptr(pOther) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::EndTouch( boost::python::ptr(pOther) );
+            }
+        else
+            this->CBaseEntity::EndTouch( boost::python::ptr(pOther) );
+    }
+    
+    void default_EndTouch( ::CBaseEntity * pOther ) {
+        CBaseEntity::EndTouch( boost::python::ptr(pOther) );
     }
 
     virtual void Event_Killed( ::CTakeDamageInfo const & info ) {
@@ -564,6 +624,36 @@ struct CBaseFlex_wrapper : CBaseFlex, bp::wrapper< CBaseFlex > {
         CBaseAnimating::Spawn( );
     }
 
+    virtual void StartTouch( ::CBaseEntity * pOther ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "StartTouch: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling StartTouch( boost::python::ptr(pOther) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_StartTouch = this->get_override( "StartTouch" );
+        if( func_StartTouch.ptr() != Py_None )
+            try {
+                func_StartTouch( boost::python::ptr(pOther) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::StartTouch( boost::python::ptr(pOther) );
+            }
+        else
+            this->CBaseEntity::StartTouch( boost::python::ptr(pOther) );
+    }
+    
+    void default_StartTouch( ::CBaseEntity * pOther ) {
+        CBaseEntity::StartTouch( boost::python::ptr(pOther) );
+    }
+
     virtual void StopLoopingSounds(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -622,6 +712,36 @@ struct CBaseFlex_wrapper : CBaseFlex, bp::wrapper< CBaseFlex > {
     
     void default_UpdateOnRemove(  ) {
         CBaseEntity::UpdateOnRemove( );
+    }
+
+    virtual int UpdateTransmitState(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "UpdateTransmitState: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling UpdateTransmitState(  ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_UpdateTransmitState = this->get_override( "UpdateTransmitState" );
+        if( func_UpdateTransmitState.ptr() != Py_None )
+            try {
+                return func_UpdateTransmitState(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CBaseEntity::UpdateTransmitState(  );
+            }
+        else
+            return this->CBaseEntity::UpdateTransmitState(  );
+    }
+    
+    int default_UpdateTransmitState(  ) {
+        return CBaseEntity::UpdateTransmitState( );
     }
 
     virtual void VPhysicsCollision( int index, ::gamevcollisionevent_t * pEvent ) {
@@ -816,6 +936,11 @@ void register_CBaseFlex_class(){
             , (bool ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::CanBecomeRagdoll)
             , (bool ( CBaseFlex_wrapper::* )(  ) )(&CBaseFlex_wrapper::default_CanBecomeRagdoll) )    
         .def( 
+            "ComputeWorldSpaceSurroundingBox"
+            , (void ( ::CBaseEntity::* )( ::Vector *,::Vector * ) )(&::CBaseEntity::ComputeWorldSpaceSurroundingBox)
+            , (void ( CBaseFlex_wrapper::* )( ::Vector *,::Vector * ) )(&CBaseFlex_wrapper::default_ComputeWorldSpaceSurroundingBox)
+            , ( bp::arg("pWorldMins"), bp::arg("pWorldMaxs") ) )    
+        .def( 
             "CreateVPhysics"
             , (bool ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::CreateVPhysics)
             , (bool ( CBaseFlex_wrapper::* )(  ) )(&CBaseFlex_wrapper::default_CreateVPhysics) )    
@@ -832,6 +957,11 @@ void register_CBaseFlex_class(){
             "DrawDebugTextOverlays"
             , (int ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::DrawDebugTextOverlays)
             , (int ( CBaseFlex_wrapper::* )(  ) )(&CBaseFlex_wrapper::default_DrawDebugTextOverlays) )    
+        .def( 
+            "EndTouch"
+            , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::EndTouch)
+            , (void ( CBaseFlex_wrapper::* )( ::CBaseEntity * ) )(&CBaseFlex_wrapper::default_EndTouch)
+            , ( bp::arg("pOther") ) )    
         .def( 
             "Event_Killed"
             , (void ( ::CBaseEntity::* )( ::CTakeDamageInfo const & ) )(&::CBaseEntity::Event_Killed)
@@ -889,6 +1019,11 @@ void register_CBaseFlex_class(){
             , (void ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::Spawn)
             , (void ( CBaseFlex_wrapper::* )(  ) )(&CBaseFlex_wrapper::default_Spawn) )    
         .def( 
+            "StartTouch"
+            , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::StartTouch)
+            , (void ( CBaseFlex_wrapper::* )( ::CBaseEntity * ) )(&CBaseFlex_wrapper::default_StartTouch)
+            , ( bp::arg("pOther") ) )    
+        .def( 
             "StopLoopingSounds"
             , (void ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::StopLoopingSounds)
             , (void ( CBaseFlex_wrapper::* )(  ) )(&CBaseFlex_wrapper::default_StopLoopingSounds) )    
@@ -896,6 +1031,10 @@ void register_CBaseFlex_class(){
             "UpdateOnRemove"
             , (void ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::UpdateOnRemove)
             , (void ( CBaseFlex_wrapper::* )(  ) )(&CBaseFlex_wrapper::default_UpdateOnRemove) )    
+        .def( 
+            "UpdateTransmitState"
+            , (int ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::UpdateTransmitState)
+            , (int ( CBaseFlex_wrapper::* )(  ) )(&CBaseFlex_wrapper::default_UpdateTransmitState) )    
         .def( 
             "VPhysicsCollision"
             , (void ( ::CBaseEntity::* )( int,::gamevcollisionevent_t * ) )(&::CBaseEntity::VPhysicsCollision)

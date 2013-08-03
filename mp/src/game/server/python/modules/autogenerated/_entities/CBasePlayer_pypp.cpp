@@ -354,6 +354,36 @@ struct CBasePlayer_wrapper : CBasePlayer, bp::wrapper< CBasePlayer > {
         CBasePlayer::UpdateOnRemove( );
     }
 
+    virtual int UpdateTransmitState(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "UpdateTransmitState: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling UpdateTransmitState(  ) of Class: CBasePlayer\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_UpdateTransmitState = this->get_override( "UpdateTransmitState" );
+        if( func_UpdateTransmitState.ptr() != Py_None )
+            try {
+                return func_UpdateTransmitState(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CBasePlayer::UpdateTransmitState(  );
+            }
+        else
+            return this->CBasePlayer::UpdateTransmitState(  );
+    }
+    
+    int default_UpdateTransmitState(  ) {
+        return CBasePlayer::UpdateTransmitState( );
+    }
+
     virtual void VPhysicsCollision( int index, ::gamevcollisionevent_t * pEvent ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -444,6 +474,36 @@ struct CBasePlayer_wrapper : CBasePlayer, bp::wrapper< CBasePlayer > {
         return CBaseAnimating::CanBecomeRagdoll( );
     }
 
+    virtual void ComputeWorldSpaceSurroundingBox( ::Vector * pWorldMins, ::Vector * pWorldMaxs ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ComputeWorldSpaceSurroundingBox: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ComputeWorldSpaceSurroundingBox = this->get_override( "ComputeWorldSpaceSurroundingBox" );
+        if( func_ComputeWorldSpaceSurroundingBox.ptr() != Py_None )
+            try {
+                func_ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+            }
+        else
+            this->CBaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+    }
+    
+    void default_ComputeWorldSpaceSurroundingBox( ::Vector * pWorldMins, ::Vector * pWorldMaxs ) {
+        CBaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+    }
+
     virtual bool CorpseGib( ::CTakeDamageInfo const & info ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -532,6 +592,36 @@ struct CBasePlayer_wrapper : CBasePlayer, bp::wrapper< CBasePlayer > {
     
     int default_DrawDebugTextOverlays(  ) {
         return CBaseAnimating::DrawDebugTextOverlays( );
+    }
+
+    virtual void EndTouch( ::CBaseEntity * pOther ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "EndTouch: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling EndTouch( boost::python::ptr(pOther) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_EndTouch = this->get_override( "EndTouch" );
+        if( func_EndTouch.ptr() != Py_None )
+            try {
+                func_EndTouch( boost::python::ptr(pOther) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::EndTouch( boost::python::ptr(pOther) );
+            }
+        else
+            this->CBaseEntity::EndTouch( boost::python::ptr(pOther) );
+    }
+    
+    void default_EndTouch( ::CBaseEntity * pOther ) {
+        CBaseEntity::EndTouch( boost::python::ptr(pOther) );
     }
 
     virtual bool Event_Gibbed( ::CTakeDamageInfo const & info ) {
@@ -772,6 +862,36 @@ struct CBasePlayer_wrapper : CBasePlayer, bp::wrapper< CBasePlayer > {
     
     bool default_ShouldGib( ::CTakeDamageInfo const & info ) {
         return CBaseCombatCharacter::ShouldGib( boost::ref(info) );
+    }
+
+    virtual void StartTouch( ::CBaseEntity * pOther ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "StartTouch: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling StartTouch( boost::python::ptr(pOther) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_StartTouch = this->get_override( "StartTouch" );
+        if( func_StartTouch.ptr() != Py_None )
+            try {
+                func_StartTouch( boost::python::ptr(pOther) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::StartTouch( boost::python::ptr(pOther) );
+            }
+        else
+            this->CBaseEntity::StartTouch( boost::python::ptr(pOther) );
+    }
+    
+    void default_StartTouch( ::CBaseEntity * pOther ) {
+        CBaseEntity::StartTouch( boost::python::ptr(pOther) );
     }
 
     virtual void StopLoopingSounds(  ) {
@@ -2110,7 +2230,8 @@ void register_CBasePlayer_class(){
             , ( bp::arg("psurface"), bp::arg("vecOrigin"), bp::arg("vecVelocity") ) )    
         .def( 
             "UpdateTransmitState"
-            , (int ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::UpdateTransmitState ) )    
+            , (int ( ::CBasePlayer::* )(  ) )(&::CBasePlayer::UpdateTransmitState)
+            , (int ( CBasePlayer_wrapper::* )(  ) )(&CBasePlayer_wrapper::default_UpdateTransmitState) )    
         .def( 
             "UpdateUnderwaterState"
             , (void ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::UpdateUnderwaterState ) )    
@@ -2208,6 +2329,11 @@ void register_CBasePlayer_class(){
             , (bool ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::CanBecomeRagdoll)
             , (bool ( CBasePlayer_wrapper::* )(  ) )(&CBasePlayer_wrapper::default_CanBecomeRagdoll) )    
         .def( 
+            "ComputeWorldSpaceSurroundingBox"
+            , (void ( ::CBaseEntity::* )( ::Vector *,::Vector * ) )(&::CBaseEntity::ComputeWorldSpaceSurroundingBox)
+            , (void ( CBasePlayer_wrapper::* )( ::Vector *,::Vector * ) )(&CBasePlayer_wrapper::default_ComputeWorldSpaceSurroundingBox)
+            , ( bp::arg("pWorldMins"), bp::arg("pWorldMaxs") ) )    
+        .def( 
             "CorpseGib"
             , (bool ( ::CBaseCombatCharacter::* )( ::CTakeDamageInfo const & ) )(&::CBaseCombatCharacter::CorpseGib)
             , (bool ( CBasePlayer_wrapper::* )( ::CTakeDamageInfo const & ) )(&CBasePlayer_wrapper::default_CorpseGib)
@@ -2220,6 +2346,11 @@ void register_CBasePlayer_class(){
             "DrawDebugTextOverlays"
             , (int ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::DrawDebugTextOverlays)
             , (int ( CBasePlayer_wrapper::* )(  ) )(&CBasePlayer_wrapper::default_DrawDebugTextOverlays) )    
+        .def( 
+            "EndTouch"
+            , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::EndTouch)
+            , (void ( CBasePlayer_wrapper::* )( ::CBaseEntity * ) )(&CBasePlayer_wrapper::default_EndTouch)
+            , ( bp::arg("pOther") ) )    
         .def( 
             "Event_Gibbed"
             , (bool ( ::CBaseCombatCharacter::* )( ::CTakeDamageInfo const & ) )(&::CBaseCombatCharacter::Event_Gibbed)
@@ -2259,6 +2390,11 @@ void register_CBasePlayer_class(){
             , (bool ( ::CBaseCombatCharacter::* )( ::CTakeDamageInfo const & ) )(&::CBaseCombatCharacter::ShouldGib)
             , (bool ( CBasePlayer_wrapper::* )( ::CTakeDamageInfo const & ) )(&CBasePlayer_wrapper::default_ShouldGib)
             , ( bp::arg("info") ) )    
+        .def( 
+            "StartTouch"
+            , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::StartTouch)
+            , (void ( CBasePlayer_wrapper::* )( ::CBaseEntity * ) )(&CBasePlayer_wrapper::default_StartTouch)
+            , ( bp::arg("pOther") ) )    
         .def( 
             "StopLoopingSounds"
             , (void ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::StopLoopingSounds)

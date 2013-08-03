@@ -18,7 +18,7 @@ else:
     ]
 
 # Friendly aliases
-eventqueue = g_EventQueue
+eventqueue = g_EventQueue if isserver else None
     
 @classmethod    
 def InitEntityClass(cls):
