@@ -4,21 +4,21 @@ They define some more info about the used types. The attribute editor will use t
 Fields can also be written back to file in case of class info.
 In case of entities we can use them to define keyvalues or add save/restore functionality (single player).
 """
-from srcbase import Color
+from srcbuiltins import Color
 from vmath import Vector, QAngle
-from core.dispatch import receiver
-from core.signals import postlevelshutdown
+from game.dispatch import receiver
+from game.signals import postlevelshutdown
+from utils import UTIL_StringToVector, UTIL_StringToAngle, UTIL_StringToColor
+from . networkvar import NetworkVar, NetworkArray, NetworkDict, NetworkDefaultDict, NetworkVarProp
+from _entitiesmisc import _fieldtypes as fieldtypes
+if isserver:
+    from _entitiesmisc import COutputEvent, variant_t
+
 import inspect
-from readmap import StringToVector, StringToAngle, StringToColor
 import copy
 import weakref
 from types import MethodType
 from collections import defaultdict
-from networkvar import NetworkVar, NetworkArray, NetworkDict, NetworkDefaultDict, NetworkVarProp
-
-from _entities_misc import _fieldtypes as fieldtypes
-if isserver:
-    from _entities_misc import COutputEvent, variant_t
 
 # List of weak refs to all fields
 # Used for resetting all fields to the defaults
@@ -259,7 +259,7 @@ class VectorField(BaseField):
     def ToValue(self, value):
         if type(value) is Vector:
             return Vector(value)
-        return StringToVector(value)
+        return UTIL_StringToVector(value)
         
     def InitField(self, inst):
         if self.networked:
@@ -288,7 +288,7 @@ class QAngleField(BaseField):
     def ToValue(self, value):
         if type(value) is QAngle:
             return QAngle(value)
-        return StringToAngle(value)
+        return UTIL_StringToAngle(value)
         
     def InitField(self, inst):
         if self.networked:
@@ -312,7 +312,7 @@ class ColorField(BaseField):
     def ToValue(self, value):
         if type(value) is Color:
             return Color(value)
-        return StringToColor(value)
+        return UTIL_StringToColor(value)
         
     fgdtype = 'color255'
         
@@ -457,66 +457,6 @@ class OutputField(BaseField):
     hidden = True
     requiresinit = True
 
-# Wars Game specific fields
-class UpgradeField(GenericField):
-    """ Upgrade field (unit only)"""
-    def __init__(self, abilityname, *args, **kwargs):
-        super(UpgradeField, self).__init__(*args, **kwargs)
-        self.abilityname = abilityname
-    
-    def InitField(self, unit):
-        # Sucky confusing upgrade/tech upgrade code
-        unitinfo = unit.unitinfo
-        
-        # Get ability info + prev
-        abiinfo, prevabiinfo = unitinfo.GetAbilityInfoAndPrev(self.abilityname, unit.GetOwnerNumber())
-        if abiinfo:
-            technode = abiinfo.GetTechNode(abiinfo.name, unit.GetOwnerNumber())
-            if technode.techenabled:
-                if self.networked:
-                    NetworkVar(unit, self.name, technode.upgradevalue, changedcallback=self.clientchangecallback, sendproxy=self.sendproxy).NetworkStateChanged()
-                else:
-                    setattr(unit, self.name, technode.upgradevalue)
-            elif prevabiinfo:
-                technode = prevabiinfo.GetTechNode(prevabiinfo.name, unit.GetOwnerNumber())
-                if self.networked:
-                    NetworkVar(unit, self.name, technode.upgradevalue, changedcallback=self.clientchangecallback, sendproxy=self.sendproxy).NetworkStateChanged()
-                else:
-                    setattr(unit, self.name, technode.upgradevalue)
-        elif prevabiinfo:
-            technode = prevabiinfo.GetTechNode(prevabiinfo.name, unit.GetOwnerNumber())
-            if self.networked:
-                NetworkVar(unit, self.name, technode.upgradevalue, changedcallback=self.clientchangecallback, sendproxy=self.sendproxy).NetworkStateChanged()
-            else:
-                setattr(unit, self.name, technode.upgradevalue)
-        else:
-            # Fallback to default if none of the abilities are available
-            super(UpgradeField, self).InitField(unit)
-            
-    def OnChangeOwnerNumber(self, unit, oldownernumber):
-        self.InitField(unit)
-    
-    requiresinit = True
-    callonchangeownernumber = True
-    hidden = True # Edit related ability instead
-    
-class PlayerField(IntegerField):
-    playerchoices = [
-        (0, 'Neutral'),
-        (1, 'Enemy'),
-        (2, 'Player_0'),
-        (3, 'Player_1'),
-        (4, 'Player_2'),
-        (5, 'Player_3'),
-        (6, 'Player_4'),
-        (7, 'Player_5'),
-        (8, 'Player_6'),
-        (8, 'Player_7'),
-    ]
-
-    def __init__(self, value=2, **kwargs):
-        super(PlayerField, self).__init__(value=value, choices=self.playerchoices, **kwargs)
-    
 # Misc
 @receiver(postlevelshutdown)
 def ResetFields(sender, **kwargs):
@@ -594,7 +534,7 @@ def SetupClassFields(cls, done=None):
     keyfields = {}
     initfields = {}
     ownernumberchangefields = {}
-    for name, f in cls.__dict__.items():
+    for name, f in list(cls.__dict__.items()):
         field = None
         if isinstance(f, BaseField):
             # f is a field
@@ -615,7 +555,6 @@ def SetupClassFields(cls, done=None):
                 initfields[field.name] = field
             if field.callonchangeownernumber:
                 ownernumberchangefields[field.name] = field
-            continue
          
     # Bind list of fields to the class         
     # Get base fields map. Merge from all bases!
@@ -651,17 +590,6 @@ def SetupClassFields(cls, done=None):
             pass
     fieldinitmap.update(initfields)
     cls.fieldinitmap = fieldinitmap
-    
-    # Setup ownernumber change map (unit only)
-    ownernumberchangemap = {}
-    for basecls in cls.__bases__:
-        try:
-            baseownernumberchangemap = dict(getattr(basecls, 'ownernumberchangemap'))
-            ownernumberchangemap.update(baseownernumberchangemap)
-        except:
-            pass
-    ownernumberchangemap.update(ownernumberchangefields)
-    cls.ownernumberchangemap = ownernumberchangemap
     
     # Mark this class as parsed
     setattr(cls, '__fieldsparsed', True)

@@ -225,7 +225,6 @@ class Entities(SemiSharedModuleGenerator):
         
         cls.include()
         cls.calldefs(matchers.access_type_matcher_t( 'protected' ), allow_empty=True).exclude()
-        cls.no_init = True
         
         # Be selective about we need to override
         # DO NOT REMOVE. Some functions are not thread safe, which will cause runtime errors because we did not setup python threadsafe (slower)

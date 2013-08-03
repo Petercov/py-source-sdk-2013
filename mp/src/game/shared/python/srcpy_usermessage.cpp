@@ -116,8 +116,8 @@ void PyFillWriteElement( pywrite &w, bp::object data )
 		unsigned long ulCount = bp::len(data); 
 		for( unsigned long u = 0; u < ulCount; u++ )
 		{
-			objectKey = objectKeys.attr( "next" )();
-			objectValue = objectValues.attr( "next" )();
+			objectKey = objectKeys.attr( "__next__" )();
+			objectValue = objectValues.attr( "__next__" )();
 
 			pywrite write;
 			PyFillWriteElement( write, objectKey );

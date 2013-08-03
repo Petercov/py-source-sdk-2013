@@ -630,7 +630,7 @@ struct CPointEntity_wrapper : CPointEntity, bp::wrapper< CPointEntity > {
 
 void register_CPointEntity_class(){
 
-    bp::class_< CPointEntity_wrapper, bp::bases< CBaseEntity >, boost::noncopyable >( "CPointEntity", bp::no_init )    
+    bp::class_< CPointEntity_wrapper, bp::bases< CBaseEntity >, boost::noncopyable >( "CPointEntity" )    
         .def( 
             "KeyValue"
             , (bool ( ::CPointEntity::* )( char const *,char const * ) )(&::CPointEntity::KeyValue)

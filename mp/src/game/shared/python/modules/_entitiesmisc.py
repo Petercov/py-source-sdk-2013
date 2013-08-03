@@ -232,7 +232,12 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         #mb.class_('COutputColor32').include()        
         
         # Inputdata_t and variant_t
-        mb.class_('inputdata_t').include()
+        cls = mb.class_('inputdata_t')
+        cls.include()
+        cls.var('nOutputID').rename('outputid')
+        cls.var('pActivator').rename('activator')
+        cls.var('pCaller').rename('caller')
+        
         mb.class_('variant_t').include()
         mb.class_('variant_t').vars( lambda decl: 'm_Save' in decl.name ).exclude()
         mb.class_('variant_t').vars('vecVal').exclude()

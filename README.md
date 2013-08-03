@@ -7,7 +7,11 @@ Currently Windows only:
 1. Run [mp/src/createpysourceprojects.bat](mp/src/createpysourceprojects.bat) 
 2. Open games.sln and compile
 3. Start mp/game/PySource and load a map
-4. Test Python by entering the command "spy print('Hello Source')" or "spy print(UTIL_PlayerByIndex(1).GetPlayerName())"
+4. Test Python by entering one of the following commands:
+
+    spy print('Hello Source')
+
+    spy print(UTIL_PlayerByIndex(1).GetPlayerName())
 
 ## Examples
 Examples can be found in the Python game directory [examples](mp/game/pysource/python/examples) (WIP)
@@ -20,7 +24,7 @@ Examples can be found in the Python game directory [examples](mp/game/pysource/p
 PySource makes use of gccxml, pygccxml and pyplusplus to generate Boost Python bindings.
 You can find instructions in [mp/src/srcpypp](mp/src/srcpypp).
 
-## List of modules
+## List of binding modules
 - [srcbuiltins](mp/src/game/shared/python/modules/srcbuiltins.py): Exposes debug Msg functions, used for redirecting output of Python
 - [_vmath](mp/src/game/shared/python/modules/_vmath.py): Exposes mathlib
 - [_entities](mp/src/game/shared/python/modules/_entities.py): Exposes most base entity classes (CBaseEntity, CBaseAnimating, etc)
@@ -32,3 +36,5 @@ You can find instructions in [mp/src/srcpypp](mp/src/srcpypp).
 - [_animation](mp/src/game/shared/python/modules/_animation.py): Exposed functions from - [animation.h](mp/src/game/shared/animation.h)
 - [_ndebugoverlay](mp/src/game/shared/python/modules/_ndebugoverlay.py): Exposes [NDebugOverlay](mp/src/game/shared/debugoverlay_shared.h) functions.
 - [vprof](mp/src/game/shared/python/modules/vprof.py): Exposes VProfiling
+
+Note: Most of these modules are complemented by [Python modules](mp/game/pysource/python) (e.g. [entities](mp/game/pysource/python/entities.py)

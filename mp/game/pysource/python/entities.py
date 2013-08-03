@@ -1,5 +1,6 @@
 from _entitiesmisc import *
 from _entities import *
+from game.fields import SetupClassFields, SetupInputMethods
 
 # Lists of all entity classes
 if isclient:
@@ -16,14 +17,17 @@ else:
 
     ]
 
+# Friendly aliases
+eventqueue = g_EventQueue
+    
 @classmethod    
 def InitEntityClass(cls):
     """ Entity Class initializer, could be seen as a metaclass.
         It is called when the class is created and when a new map is loaded.
         Used for one time initializations per map.
     """
-    #SetupClassFields(cls)
-    #SetupInputMethods(cls)
+    SetupClassFields(cls)
+    SetupInputMethods(cls)
     
 # Bind the following methods to each entity class
 for cls in list_ents:

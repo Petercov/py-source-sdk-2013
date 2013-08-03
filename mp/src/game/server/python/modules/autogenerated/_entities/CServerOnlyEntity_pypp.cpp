@@ -630,8 +630,7 @@ struct CServerOnlyEntity_wrapper : CServerOnlyEntity, bp::wrapper< CServerOnlyEn
 
 void register_CServerOnlyEntity_class(){
 
-    bp::class_< CServerOnlyEntity_wrapper, bp::bases< CBaseEntity >, boost::noncopyable >( "CServerOnlyEntity", bp::no_init )    
-        .def( bp::init< >() )    
+    bp::class_< CServerOnlyEntity_wrapper, bp::bases< CBaseEntity >, boost::noncopyable >( "CServerOnlyEntity", bp::init< >() )    
         .def( 
             "ObjectCaps"
             , (int ( ::CServerOnlyEntity::* )(  ) )( &::CServerOnlyEntity::ObjectCaps ) )    

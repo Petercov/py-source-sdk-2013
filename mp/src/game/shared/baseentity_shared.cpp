@@ -55,6 +55,16 @@ ConVar hl2_episodic( "hl2_episodic", "0", FCVAR_REPLICATED );
 
 #include "rumble_shared.h"
 
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+#include "srcpy_boostpython.h"
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -490,6 +500,44 @@ bool CBaseEntity::KeyValue( const char *szKeyName, const char *szValue )
 	}
 
 #endif
+
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	// Check Python keyvalues map
+	if( m_pyInstance.ptr() != Py_None )
+	{
+		boost::python::object keyvaluemap;
+		try
+		{
+			keyvaluemap = m_pyInstance.attr("keyvaluemap");
+		} 
+		catch( boost::python::error_already_set & )
+		{
+			Warning("Python entity has no keyvaluesmap!\n");
+			PyErr_Clear();
+		}
+
+		try
+		{
+			boost::python::object field = keyvaluemap.attr("get")(szKeyName, boost::python::object());
+			if( field.ptr() != Py_None )
+			{
+				field.attr("Set")(m_pyInstance, szValue);
+				return true;
+			}
+		} 
+		catch( boost::python::error_already_set & )
+		{
+			Warning("Python entity has an invalid keyvalues map!\n");
+			PyErr_Print();
+		}
+	}
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 
 	// key hasn't been handled
 	return false;

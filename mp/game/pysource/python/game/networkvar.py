@@ -22,7 +22,7 @@ def SetupNetworkVar(cls, name, networkvarname):
 
 # SERVER
 if isserver:
-    from _entities_misc import NetworkVarInternal, NetworkArrayInternal, NetworkDictInternal
+    from _entitiesmisc import NetworkVarInternal, NetworkArrayInternal, NetworkDictInternal
 
     class NetworkVar(NetworkVarInternal):
         def __init__(self, ent, name, data, changedcallback=None, sendproxy=None):

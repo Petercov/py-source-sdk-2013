@@ -630,7 +630,7 @@ struct CServerOnlyPointEntity_wrapper : CServerOnlyPointEntity, bp::wrapper< CSe
 
 void register_CServerOnlyPointEntity_class(){
 
-    bp::class_< CServerOnlyPointEntity_wrapper, bp::bases< CServerOnlyEntity >, boost::noncopyable >( "CServerOnlyPointEntity", bp::no_init )    
+    bp::class_< CServerOnlyPointEntity_wrapper, bp::bases< CServerOnlyEntity >, boost::noncopyable >( "CServerOnlyPointEntity" )    
         .def( 
             "KeyValue"
             , (bool ( ::CServerOnlyPointEntity::* )( char const *,char const * ) )(&::CServerOnlyPointEntity::KeyValue)

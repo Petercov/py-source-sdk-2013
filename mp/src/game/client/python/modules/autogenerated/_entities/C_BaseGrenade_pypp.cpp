@@ -429,8 +429,7 @@ struct C_BaseGrenade_wrapper : C_BaseGrenade, bp::wrapper< C_BaseGrenade > {
 
 void register_C_BaseGrenade_class(){
 
-    bp::class_< C_BaseGrenade_wrapper, bp::bases< C_BaseAnimating >, boost::noncopyable >( "C_BaseGrenade", bp::no_init )    
-        .def( bp::init< >() )    
+    bp::class_< C_BaseGrenade_wrapper, bp::bases< C_BaseAnimating >, boost::noncopyable >( "C_BaseGrenade", bp::init< >() )    
         .def( 
             "BloodColor"
             , (int ( ::C_BaseGrenade::* )(  ) )( &::C_BaseGrenade::BloodColor ) )    

@@ -548,12 +548,12 @@ void CBaseEntity::PostConstructor( const char *szClassname )
 		}
 
 		boost::python::object elem;
-		const boost::python::object objectValues = fieldinitmap.values();
+		boost::python::list objectValues = fieldinitmap.values();
 
 		boost::python::ssize_t n = boost::python::len(fieldinitmap);
-		for( boost::python::ssize_t i=0; i < n; i++ ) 
+		for( boost::python::ssize_t i = 0; i < n; i++ ) 
 		{
-			elem = objectValues.attr( "next" )();
+			elem = objectValues[i];
 			try 
 			{
 				elem.attr("InitField")(m_pyInstance);
@@ -4025,6 +4025,88 @@ bool CBaseEntity::AcceptInput( const char *szInputName, CBaseEntity *pActivator,
 			}
 		}
 	}
+
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	// Check Python input map
+	if( m_pyInstance.ptr() != Py_None )
+	{
+		try
+		{
+			boost::python::object inputmap = m_pyInstance.attr("inputmap");
+
+			boost::python::object inputmethod = inputmap.attr("get")(szInputName, boost::python::object());
+			if( inputmethod.ptr() != Py_None )
+			{
+				// found a match
+
+				char szBuffer[256];
+				// mapper debug message
+				if (pCaller != NULL)
+				{
+					Q_snprintf( szBuffer, sizeof(szBuffer), "(%0.2f) input %s: %s.%s(%s)\n", gpGlobals->curtime, STRING(pCaller->m_iName), GetDebugName(), szInputName, Value.String() );
+				}
+				else
+				{
+					Q_snprintf( szBuffer, sizeof(szBuffer), "(%0.2f) input <NULL>: %s.%s(%s)\n", gpGlobals->curtime, GetDebugName(), szInputName, Value.String() );
+				}
+				DevMsg( 2, "%s", szBuffer );
+				ADD_DEBUG_HISTORY( HISTORY_ENTITY_IO, szBuffer );
+
+				if (m_debugOverlays & OVERLAY_MESSAGE_BIT)
+				{
+					DrawInputOverlay(szInputName,pCaller,Value);
+				}
+
+				// convert the value if necessary
+				fieldtype_t fieldtype = boost::python::extract< fieldtype_t >( inputmethod.attr("fieldtype") );
+				if ( Value.FieldType() != fieldtype )
+				{
+					if ( !(Value.FieldType() == FIELD_VOID && fieldtype == FIELD_STRING) ) // allow empty strings
+					{
+						if ( !Value.Convert( fieldtype ) )
+						{
+							// bad conversion
+							Warning( "!! ERROR: bad input/output link:\n!! %s(%s,%s) doesn't match type from %s(%s)\n", 
+								STRING(m_iClassname), GetDebugName(), szInputName, 
+								( pCaller != NULL ) ? STRING(pCaller->m_iClassname) : "<null>",
+								( pCaller != NULL ) ? STRING(pCaller->m_iName) : "<null>" );
+							return false;
+						}
+					}
+				}
+
+				// Package the data into a struct for passing to the input handler.
+				inputdata_t data;
+				data.pActivator = pActivator;
+				data.pCaller = pCaller;
+				data.value = Value;
+				data.nOutputID = outputID;
+
+				try
+				{
+					inputmethod(m_pyInstance, data);
+				}
+				catch( boost::python::error_already_set & )
+				{
+					Warning("Exception during executing an input method:\n");
+					PyErr_Print();
+				}
+				return true;
+			}
+		} 
+		catch( boost::python::error_already_set & )
+		{
+			Warning("Python entity has an invalid inputmap map!\n");
+			PyErr_Print();
+		}
+	}
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 
 	DevMsg( 2, "unhandled input: (%s) -> (%s,%s)\n", szInputName, STRING(m_iClassname), GetDebugName()/*,", from (%s,%s)" STRING(pCaller->m_iClassname), STRING(pCaller->m_iName)*/ );
 	return false;

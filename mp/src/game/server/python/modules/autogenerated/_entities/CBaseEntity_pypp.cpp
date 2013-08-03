@@ -651,9 +651,8 @@ void register_CBaseEntity_class(){
 
     { //::CBaseEntity
         typedef bp::class_< CBaseEntity_wrapper, bp::bases< IServerEntity >, boost::noncopyable > CBaseEntity_exposer_t;
-        CBaseEntity_exposer_t CBaseEntity_exposer = CBaseEntity_exposer_t( "CBaseEntity", bp::no_init );
+        CBaseEntity_exposer_t CBaseEntity_exposer = CBaseEntity_exposer_t( "CBaseEntity", bp::init< bp::optional< bool > >(( bp::arg("bServerOnly")=(bool)(false) )) );
         bp::scope CBaseEntity_scope( CBaseEntity_exposer );
-        CBaseEntity_exposer.def( bp::init< bp::optional< bool > >(( bp::arg("bServerOnly")=(bool)(false) )) );
         bp::implicitly_convertible< bool, CBaseEntity >();
         { //::CBaseEntity::AcceptInput
         

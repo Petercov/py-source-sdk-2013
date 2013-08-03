@@ -431,7 +431,7 @@ void register_C_BaseCombatCharacter_class(){
 
     { //::C_BaseCombatCharacter
         typedef bp::class_< C_BaseCombatCharacter_wrapper, bp::bases< C_BaseFlex >, boost::noncopyable > C_BaseCombatCharacter_exposer_t;
-        C_BaseCombatCharacter_exposer_t C_BaseCombatCharacter_exposer = C_BaseCombatCharacter_exposer_t( "C_BaseCombatCharacter", bp::no_init );
+        C_BaseCombatCharacter_exposer_t C_BaseCombatCharacter_exposer = C_BaseCombatCharacter_exposer_t( "C_BaseCombatCharacter", bp::init< >() );
         bp::scope C_BaseCombatCharacter_scope( C_BaseCombatCharacter_exposer );
         bp::enum_< C_BaseCombatCharacter::FieldOfViewCheckType>("FieldOfViewCheckType")
             .value("USE_FOV", C_BaseCombatCharacter::USE_FOV)
@@ -443,7 +443,6 @@ void register_C_BaseCombatCharacter_class(){
             .value("IGNORE_ACTORS", C_BaseCombatCharacter::IGNORE_ACTORS)
             .export_values()
             ;
-        C_BaseCombatCharacter_exposer.def( bp::init< >() );
         { //::C_BaseCombatCharacter::BloodColor
         
             typedef int ( ::C_BaseCombatCharacter::*BloodColor_function_type )(  ) ;

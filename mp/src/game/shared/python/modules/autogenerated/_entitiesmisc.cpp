@@ -5761,11 +5761,11 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
     }
 
     bp::class_< inputdata_t_wrapper >( "inputdata_t" )    
-        .def_readwrite( "nOutputID", &inputdata_t::nOutputID )    
-        .add_property( "pActivator"
+        .def_readwrite( "outputid", &inputdata_t::nOutputID )    
+        .add_property( "activator"
                     , bp::make_function( (::CBaseEntity * (*)( ::inputdata_t const & ))(&inputdata_t_wrapper::get_pActivator), bp::return_internal_reference< >() )
                     , bp::make_function( (void (*)( ::inputdata_t &,::CBaseEntity * ))(&inputdata_t_wrapper::set_pActivator), bp::with_custodian_and_ward_postcall< 1, 2 >() ) )    
-        .add_property( "pCaller"
+        .add_property( "caller"
                     , bp::make_function( (::CBaseEntity * (*)( ::inputdata_t const & ))(&inputdata_t_wrapper::get_pCaller), bp::return_internal_reference< >() )
                     , bp::make_function( (void (*)( ::inputdata_t &,::CBaseEntity * ))(&inputdata_t_wrapper::set_pCaller), bp::with_custodian_and_ward_postcall< 1, 2 >() ) )    
         .def_readwrite( "value", &inputdata_t::value );

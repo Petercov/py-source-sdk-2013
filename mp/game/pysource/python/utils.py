@@ -21,6 +21,29 @@ FX_BLOODSPRAY_GORE = 0x02
 FX_BLOODSPRAY_CLOUD = 0x04
 FX_BLOODSPRAY_ALL = 0xFF
 
+def UTIL_StringToVector(value):   
+    """ Try to convert a string to a Vector, if possible. The values must be separated by spaces """
+    v = value.split()
+    if len(v) != 3:
+        raise ValueError('Value is not a Vector')
+    return Vector(float(v[0]), float(v[1]), float(v[2]))
+    
+def UTIL_StringToAngle(value):
+    """ Try to convert a string to a QAngle, if possible. The values must be separated by spaces """
+    v = value.split()
+    if len(v) != 3:
+        raise ValueError('Value is not a QAngle')
+    return QAngle(float(v[0]), float(v[1]), float(v[2]))
+    
+def UTIL_StringToColor(value):
+    """ Try to convert a string to a Color, if possible. The values must be separated by spaces """
+    v = value.split()
+    if len(v) == 3:
+        return Color(float(v[0]), float(v[1]), float(v[2]))
+    elif len(v) == 4:
+        return Color(float(v[0]), float(v[1]), float(v[2]), float(v[3]))
+    raise ValueError('Value is not a Color')
+
 if isserver:
     def ClientPrint(player, msg_dest, msg_name, param1, param2, param3, param4):
         if not player:

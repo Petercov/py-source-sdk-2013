@@ -630,7 +630,7 @@ struct CLogicalEntity_wrapper : CLogicalEntity, bp::wrapper< CLogicalEntity > {
 
 void register_CLogicalEntity_class(){
 
-    bp::class_< CLogicalEntity_wrapper, bp::bases< CServerOnlyEntity >, boost::noncopyable >( "CLogicalEntity", bp::no_init )    
+    bp::class_< CLogicalEntity_wrapper, bp::bases< CServerOnlyEntity >, boost::noncopyable >( "CLogicalEntity" )    
         .def( 
             "KeyValue"
             , (bool ( ::CLogicalEntity::* )( char const *,char const * ) )(&::CLogicalEntity::KeyValue)

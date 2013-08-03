@@ -489,8 +489,7 @@ struct C_BaseCombatWeapon_wrapper : C_BaseCombatWeapon, bp::wrapper< C_BaseComba
 
 void register_C_BaseCombatWeapon_class(){
 
-    bp::class_< C_BaseCombatWeapon_wrapper, bp::bases< C_BaseAnimating >, boost::noncopyable >( "C_BaseCombatWeapon", bp::no_init )    
-        .def( bp::init< >() )    
+    bp::class_< C_BaseCombatWeapon_wrapper, bp::bases< C_BaseAnimating >, boost::noncopyable >( "C_BaseCombatWeapon", bp::init< >() )    
         .def( 
             "AbortReload"
             , (void ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::AbortReload ) )    

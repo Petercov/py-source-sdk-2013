@@ -7,10 +7,8 @@ class SrcBuiltins(SharedModuleGenerator):
     module_name = 'srcbuiltins'
     
     files = [
-        #'cbase.h',
-        #'tier0\dbg.h',
-        
         'srcpy_srcbuiltins.h',
+        'Color.h',
     ]
     
     def Parse(self, mb):
@@ -29,3 +27,9 @@ class SrcBuiltins(SharedModuleGenerator):
         # Include classes for redirecting output (replace stdout and stderr)
         mb.class_('SrcPyStdOut').include()
         mb.class_('SrcPyStdErr').include()
+        
+        # Color class
+        cls = mb.class_('Color')
+        cls.include()
+        cls.mem_funs('GetColor').add_transformation( FT.output('_r'), FT.output('_g'), FT.output('_b'), FT.output('_a') )
+        cls.mem_opers('=').exclude() # Breaks debug mode and don't really need it

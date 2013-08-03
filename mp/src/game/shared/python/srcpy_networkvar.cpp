@@ -365,8 +365,8 @@ void CPythonNetworkDict::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient
 			length = bp::len(m_dataInternal); 
 			for( unsigned long u = 0; u < length; u++ )
 			{
-				objectKey = objectKeys.attr( "next" )();
-				objectValue = objectValues.attr( "next" )();
+				objectKey = objectKeys.attr( "__next__" )();
+				objectValue = objectValues.attr( "__next__" )();
 
 				pywrite write;
 				PyFillWriteElement( write, objectKey );
