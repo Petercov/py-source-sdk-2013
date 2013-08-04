@@ -159,6 +159,9 @@ class Entities(SemiSharedModuleGenerator):
         '$c_ai_basenpc.h',
         '#SkyCamera.h',
         '#ai_basenpc.h',
+        '#modelentities.h',
+        '#basetoggle.h',
+        '#triggers.h',
     ]
     
     # List of entity classes want to have exposed
@@ -186,6 +189,9 @@ class Entities(SemiSharedModuleGenerator):
         'CServerOnlyEntity',
         'CServerOnlyPointEntity',
         'CLogicalEntity',
+        'CFuncBrush',
+        'CBaseToggle',
+        'CBaseTrigger',
     ]
 
     # Handle expose code
@@ -564,6 +570,12 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_fun('SendAmmoUpdate').exclude() # No definition
             cls.mem_fun('DeathMessage').exclude() # No definition
             
+    def ParseTriggers(self, mb):
+        # CBaseTrigger
+        cls_name = 'C_BaseTrigger' if self.isclient else 'CBaseTrigger'
+        cls = mb.class_(cls_name)
+        cls.no_init = False
+            
     def ParseEntities(self, mb):
         self.ParseBaseEntityHandles(mb)
         
@@ -580,6 +592,9 @@ class Entities(SemiSharedModuleGenerator):
         self.ParseBaseCombatWeapon(mb)
         self.ParseBaseCombatCharacter(mb)
         self.ParseBasePlayer(mb)
+        
+        if self.isserver:
+            self.ParseTriggers(mb)
         
     def Parse(self, mb):
         # Exclude everything by default

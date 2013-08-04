@@ -42,6 +42,14 @@ enum
 class CBaseTrigger : public CBaseToggle
 {
 	DECLARE_CLASS( CBaseTrigger, CBaseToggle );
+// =======================================
+// PySource Additions
+// =======================================
+	DECLARE_PYCLASS( CBaseTrigger );
+// =======================================
+// END PySource Additions
+// =======================================
+
 public:
 	CBaseTrigger();
 	
