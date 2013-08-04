@@ -12,6 +12,12 @@
 
 #include "Color.h"
 
+#include "globalvars_base.h"
+
+#include "edict.h"
+
+#include "srcpy_srcbuiltins_converters.h"
+
 #include "srcpy.h"
 
 #include "tier0/memdbgon.h"
@@ -29,6 +35,60 @@ static boost::python::tuple GetColor_5697770b5e791413a33cc9b5367a16b8( ::Color c
 
 BOOST_PYTHON_MODULE(srcbuiltins){
     bp::docstring_options doc_options( true, true, false );
+
+    { //::CGlobalVarsBase
+        typedef bp::class_< CGlobalVarsBase > CGlobalVarsBase_exposer_t;
+        CGlobalVarsBase_exposer_t CGlobalVarsBase_exposer = CGlobalVarsBase_exposer_t( "CGlobalVarsBase", bp::init< bool >(( bp::arg("bIsClient") )) );
+        bp::scope CGlobalVarsBase_scope( CGlobalVarsBase_exposer );
+        bp::implicitly_convertible< bool, CGlobalVarsBase >();
+        { //::CGlobalVarsBase::GetNetworkBase
+        
+            typedef int ( ::CGlobalVarsBase::*GetNetworkBase_function_type )( int,int ) ;
+            
+            CGlobalVarsBase_exposer.def( 
+                "GetNetworkBase"
+                , GetNetworkBase_function_type( &::CGlobalVarsBase::GetNetworkBase )
+                , ( bp::arg("nTick"), bp::arg("nEntity") ) );
+        
+        }
+        { //::CGlobalVarsBase::IsClient
+        
+            typedef bool ( ::CGlobalVarsBase::*IsClient_function_type )(  ) const;
+            
+            CGlobalVarsBase_exposer.def( 
+                "IsClient"
+                , IsClient_function_type( &::CGlobalVarsBase::IsClient ) );
+        
+        }
+        CGlobalVarsBase_exposer.def_readwrite( "absoluteframetime", &CGlobalVarsBase::absoluteframetime );
+        CGlobalVarsBase_exposer.def_readwrite( "curtime", &CGlobalVarsBase::curtime );
+        CGlobalVarsBase_exposer.def_readwrite( "framecount", &CGlobalVarsBase::framecount );
+        CGlobalVarsBase_exposer.def_readwrite( "frametime", &CGlobalVarsBase::frametime );
+        CGlobalVarsBase_exposer.def_readwrite( "interpolation_amount", &CGlobalVarsBase::interpolation_amount );
+        CGlobalVarsBase_exposer.def_readwrite( "interval_per_tick", &CGlobalVarsBase::interval_per_tick );
+        CGlobalVarsBase_exposer.def_readwrite( "maxClients", &CGlobalVarsBase::maxClients );
+        CGlobalVarsBase_exposer.def_readwrite( "network_protocol", &CGlobalVarsBase::network_protocol );
+        CGlobalVarsBase_exposer.def_readwrite( "realtime", &CGlobalVarsBase::realtime );
+        CGlobalVarsBase_exposer.def_readwrite( "simTicksThisFrame", &CGlobalVarsBase::simTicksThisFrame );
+        CGlobalVarsBase_exposer.def_readwrite( "tickcount", &CGlobalVarsBase::tickcount );
+    }
+
+    { //::CGlobalVars
+        typedef bp::class_< CGlobalVars, bp::bases< CGlobalVarsBase > > CGlobalVars_exposer_t;
+        CGlobalVars_exposer_t CGlobalVars_exposer = CGlobalVars_exposer_t( "CGlobalVars", bp::init< bool >(( bp::arg("bIsClient") )) );
+        bp::scope CGlobalVars_scope( CGlobalVars_exposer );
+        bp::implicitly_convertible< bool, CGlobalVars >();
+        CGlobalVars_exposer.def_readwrite( "bMapLoadFailed", &CGlobalVars::bMapLoadFailed );
+        CGlobalVars_exposer.def_readwrite( "coop", &CGlobalVars::coop );
+        CGlobalVars_exposer.def_readwrite( "deathmatch", &CGlobalVars::deathmatch );
+        CGlobalVars_exposer.def_readwrite( "eLoadType", &CGlobalVars::eLoadType );
+        CGlobalVars_exposer.def_readwrite( "mapname", &CGlobalVars::mapname );
+        CGlobalVars_exposer.def_readwrite( "mapversion", &CGlobalVars::mapversion );
+        CGlobalVars_exposer.def_readwrite( "maxEntities", &CGlobalVars::maxEntities );
+        CGlobalVars_exposer.def_readwrite( "serverCount", &CGlobalVars::serverCount );
+        CGlobalVars_exposer.def_readwrite( "startspot", &CGlobalVars::startspot );
+        CGlobalVars_exposer.def_readwrite( "teamplay", &CGlobalVars::teamplay );
+    }
 
     { //::Color
         typedef bp::class_< Color > Color_exposer_t;
@@ -176,6 +236,16 @@ BOOST_PYTHON_MODULE(srcbuiltins){
             , ( bp::arg("msg") ) );
     
     }
+
+    string_t_to_python_str();
+
+    python_str_to_string_t();
+
+    wchar_t_to_python_str();
+
+    ptr_wchar_t_to_python_str();
+
+    python_str_to_wchar_t();
 
     { //::SrcPyWarning
     

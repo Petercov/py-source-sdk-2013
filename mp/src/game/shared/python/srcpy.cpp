@@ -320,7 +320,7 @@ bool CSrcPython::InitInterpreter( void )
 		builtins.attr("isclient") = false;
 		builtins.attr("isserver") = true;
 #endif // CLIENT_DLL
-		// TODO: builtins.attr("gpGlobals") = srcbase.attr("gpGlobals");
+		builtins.attr("gpGlobals") = boost::ref( gpGlobals );
 	} 
 	catch( bp::error_already_set & ) 
 	{
@@ -1271,9 +1271,9 @@ CON_COMMAND_F( cpy, "Run a string on the python interpreter", FCVAR_CHEAT)
 }
 
 #ifndef CLIENT_DLL
-CON_COMMAND( py_restart, "")
+CON_COMMAND( py_restart, "Restarts the Python interpreter on the Server")
 #else
-CON_COMMAND_F( cl_py_restart, "", FCVAR_CHEAT)
+CON_COMMAND_F( cl_py_restart, "Restarts the Python interpreter on the Client", FCVAR_CHEAT)
 #endif // CLIENT_DLL
 {
 	if( !SrcPySystem()->IsPythonRunning() )
