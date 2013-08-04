@@ -1335,15 +1335,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("pDeflectedBy"), bp::arg("vecDir") ) );
         
         }
-        { //::CBaseEntity::DestroyPyInstance
-        
-            typedef void ( ::CBaseEntity::*DestroyPyInstance_function_type )(  ) ;
-            
-            CBaseEntity_exposer.def( 
-                "DestroyPyInstance"
-                , DestroyPyInstance_function_type( &::CBaseEntity::DestroyPyInstance ) );
-        
-        }
         { //::CBaseEntity::DetectInSkybox
         
             typedef bool ( ::CBaseEntity::*DetectInSkybox_function_type )(  ) ;

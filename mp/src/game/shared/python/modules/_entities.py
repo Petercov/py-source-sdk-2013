@@ -377,6 +377,7 @@ class Entities(SemiSharedModuleGenerator):
         mb.mem_funs('RemoveDataObjectType').exclude() # Don't care
         mb.mem_funs('HasDataObjectType').exclude() # Don't care
         cls.mem_funs('GetPyInstance').exclude()          # Not needed, used when converting entities to python
+        mb.mem_funs('DestroyPyInstance').exclude()        # Not needed, used for cleaning up python entities
         cls.mem_funs('PyAllocate').exclude()             # Python Intern only
         cls.mem_funs('PyDeallocate').exclude()             # Python Intern only
         cls.mem_funs('GetRefEHandle').exclude()          # We already got an auto conversion to a safe handle
@@ -405,6 +406,7 @@ class Entities(SemiSharedModuleGenerator):
             mb.mem_funs('GetCollideType').virtuality = 'virtual'
             
             # Excludes
+            cls.mem_funs('Release').exclude()
             cls.mem_funs('FirstShadowChild').exclude()
             cls.mem_funs('GetClientNetworkable').exclude()
             cls.mem_funs('GetClientRenderable').exclude()
@@ -424,6 +426,7 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_funs('PhysicsMarkEntityAsTouched').exclude() # Don't care for now
             cls.mem_funs('RenderHandle').exclude()
             mb.mem_funs('PhysicsAddHalfGravity').exclude()  # No definition on the client!
+            cls.mem_funs('PyUpdateNetworkVar').exclude()     # Internal for network vars
         else:
             # List of server functions overridable in Python
             mb.mem_funs('PostConstructor').virtuality = 'virtual'

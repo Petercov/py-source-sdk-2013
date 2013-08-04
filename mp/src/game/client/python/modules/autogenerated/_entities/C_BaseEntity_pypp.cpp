@@ -1019,15 +1019,6 @@ void register_C_BaseEntity_class(){
                 , DestroyIntermediateData_function_type( &::C_BaseEntity::DestroyIntermediateData ) );
         
         }
-        { //::C_BaseEntity::DestroyPyInstance
-        
-            typedef void ( ::C_BaseEntity::*DestroyPyInstance_function_type )(  ) ;
-            
-            C_BaseEntity_exposer.def( 
-                "DestroyPyInstance"
-                , DestroyPyInstance_function_type( &::C_BaseEntity::DestroyPyInstance ) );
-        
-        }
         { //::C_BaseEntity::DestroyShadow
         
             typedef void ( ::C_BaseEntity::*DestroyShadow_function_type )(  ) ;
@@ -3890,16 +3881,6 @@ void register_C_BaseEntity_class(){
                 , ( bp::arg("bEnable") ) );
         
         }
-        { //::C_BaseEntity::PyUpdateNetworkVar
-        
-            typedef void ( ::C_BaseEntity::*PyUpdateNetworkVar_function_type )( char const *,::boost::python::object,bool ) ;
-            
-            C_BaseEntity_exposer.def( 
-                "PyUpdateNetworkVar"
-                , PyUpdateNetworkVar_function_type( &::C_BaseEntity::PyUpdateNetworkVar )
-                , ( bp::arg("pName"), bp::arg("data"), bp::arg("callchanged")=(bool)(false) ) );
-        
-        }
         { //::C_BaseEntity::ReceiveMessage
         
             typedef void ( ::C_BaseEntity::*ReceiveMessage_function_type )( int,::bf_read & ) ;
@@ -3927,15 +3908,6 @@ void register_C_BaseEntity_class(){
                 "RegisterThinkContext"
                 , RegisterThinkContext_function_type( &::C_BaseEntity::RegisterThinkContext )
                 , ( bp::arg("szContext") ) );
-        
-        }
-        { //::C_BaseEntity::Release
-        
-            typedef void ( ::C_BaseEntity::*Release_function_type )(  ) ;
-            
-            C_BaseEntity_exposer.def( 
-                "Release"
-                , Release_function_type( &::C_BaseEntity::Release ) );
         
         }
         { //::C_BaseEntity::Remove
