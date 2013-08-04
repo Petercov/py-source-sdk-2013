@@ -1,3 +1,5 @@
+import os
+
 from . basesource import SourceModuleGenerator
 
 class ClientModuleGenerator(SourceModuleGenerator):
@@ -6,7 +8,7 @@ class ClientModuleGenerator(SourceModuleGenerator):
     
     @property
     def path(self):
-        return self.settings.client_path
+        return os.path.join(self.settings.srcpath, self.settings.client_path)
     
     # Create builder
     def CreateBuilder(self, files):

@@ -1,3 +1,5 @@
+import os
+
 from . basesource import SourceModuleGenerator
 
 class ServerModuleGenerator(SourceModuleGenerator):
@@ -6,4 +8,4 @@ class ServerModuleGenerator(SourceModuleGenerator):
     
     @property
     def path(self):
-        return self.settings.server_path
+        return os.path.join(self.settings.srcpath, self.settings.server_path)

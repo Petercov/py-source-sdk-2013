@@ -1,3 +1,5 @@
+import os
+
 from . basesource import SourceModuleGenerator
 
 class SharedModuleGenerator(SourceModuleGenerator):
@@ -10,4 +12,4 @@ class SharedModuleGenerator(SourceModuleGenerator):
     
     @property
     def path(self):
-        return self.settings.shared_path
+        return os.path.join(self.settings.srcpath, self.settings.shared_path)

@@ -154,11 +154,11 @@ class SemiSharedModuleGenerator(SourceModuleGenerator):
     @property
     def path(self):
         if not self.split:
-            return self.settings.shared_path # Into one file with #ifdefs around the different parts
+            return os.path.join(self.settings.srcpath, self.settings.shared_path) # Into one file with #ifdefs around the different parts
         else:
             if self.isclient:
-                return self.settings.client_path
-            return self.settings.server_path
+                return os.path.join(self.settings.srcpath, self.settings.client_path)
+            return os.path.join(self.settings.srcpath, self.settings.server_path)
     
     client_huge_classes = None
     server_huge_classes = None
