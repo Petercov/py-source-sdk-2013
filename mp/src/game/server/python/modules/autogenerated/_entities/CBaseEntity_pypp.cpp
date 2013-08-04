@@ -2439,6 +2439,15 @@ void register_CBaseEntity_class(){
                 , GetPyNetworkType_function_type( &::CBaseEntity::GetPyNetworkType ) );
         
         }
+        { //::CBaseEntity::GetPyThink
+        
+            typedef ::boost::python::object ( ::CBaseEntity::*GetThink_function_type )(  ) ;
+            
+            CBaseEntity_exposer.def( 
+                "GetThink"
+                , GetThink_function_type( &::CBaseEntity::GetPyThink ) );
+        
+        }
         { //::CBaseEntity::GetReceivedDamageScale
         
             typedef float ( ::CBaseEntity::*GetReceivedDamageScale_function_type )( ::CBaseEntity * ) ;
@@ -3966,6 +3975,26 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("push"), bp::arg("pTrace") ) );
         
         }
+        { //::CBaseEntity::PhysicsPyDispatchThink
+        
+            typedef void ( ::CBaseEntity::*PhysicsPyDispatchThink_function_type )( ::boost::python::object ) ;
+            
+            CBaseEntity_exposer.def( 
+                "PhysicsPyDispatchThink"
+                , PhysicsPyDispatchThink_function_type( &::CBaseEntity::PhysicsPyDispatchThink )
+                , ( bp::arg("thinkFunc") ) );
+        
+        }
+        { //::CBaseEntity::PhysicsPyRunSpecificThink
+        
+            typedef bool ( ::CBaseEntity::*PhysicsPyRunSpecificThink_function_type )( int,::boost::python::object ) ;
+            
+            CBaseEntity_exposer.def( 
+                "PhysicsPyRunSpecificThink"
+                , PhysicsPyRunSpecificThink_function_type( &::CBaseEntity::PhysicsPyRunSpecificThink )
+                , ( bp::arg("nContextIndex"), bp::arg("thinkFunc") ) );
+        
+        }
         { //::CBaseEntity::PhysicsRemoveGround
         
             typedef void ( *PhysicsRemoveGround_function_type )( ::CBaseEntity *,::groundlink_t * );
@@ -4910,6 +4939,26 @@ void register_CBaseEntity_class(){
                 "SetPyInstance"
                 , SetPyInstance_function_type( &::CBaseEntity::SetPyInstance )
                 , ( bp::arg("inst") ) );
+        
+        }
+        { //::CBaseEntity::SetPyThink
+        
+            typedef void ( ::CBaseEntity::*SetThink_function_type )( ::boost::python::object,float,char const * ) ;
+            
+            CBaseEntity_exposer.def( 
+                "SetThink"
+                , SetThink_function_type( &::CBaseEntity::SetPyThink )
+                , ( bp::arg("think_method"), bp::arg("flNextThinkTime")=0, bp::arg("szContext")=bp::object() ) );
+        
+        }
+        { //::CBaseEntity::SetPyTouch
+        
+            typedef void ( ::CBaseEntity::*SetTouch_function_type )( ::boost::python::object ) ;
+            
+            CBaseEntity_exposer.def( 
+                "SetTouch"
+                , SetTouch_function_type( &::CBaseEntity::SetPyTouch )
+                , ( bp::arg("touch_method") ) );
         
         }
         { //::CBaseEntity::SetRefEHandle

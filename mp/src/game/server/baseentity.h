@@ -345,6 +345,17 @@ struct thinkfunc_t
 	int			m_nLastThinkTick;
 
 	DECLARE_SIMPLE_DATADESC();
+
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	// MUST BE LAST
+	boost::python::object  m_pyThink; // If not Py_None and m_pfnThink != NULL, then call the python method
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 };
 
 struct EmitSound_t;
@@ -1836,9 +1847,23 @@ public:
 	// This functions destroys the entity
 	virtual void					DestroyPyInstance();
 
+	// Python Think support
+	void							SetPyThink( boost::python::object think_method, float flNextThinkTime = 0, const char *szContext = 0 );
+	boost::python::object			GetPyThink();
+	void							PyThink();
+	bool							PhysicsPyRunSpecificThink( int nContextIndex, boost::python::object thinkFunc );
+	void							PhysicsPyDispatchThink( boost::python::object thinkFunc );
+
+	// Python touch support
+	void							SetPyTouch( boost::python::object touch_method );
+	void							PyTouch( ::CBaseEntity *pOther );
+
 private:
+	bool m_bPyDestroyed;
 	boost::python::object m_pyInstance;
 	boost::python::object m_pyHandle;
+	boost::python::object m_pyTouchMethod;
+	boost::python::object m_pyThink;
 
 public:
 	// This is the list of network vars in Python
@@ -2674,6 +2699,11 @@ inline void CBaseEntity::SetPyInstance( boost::python::object inst )
 inline boost::python::object CBaseEntity::GetPyHandle() const 
 { 
 	return m_pyHandle; 
+}
+
+inline boost::python::object CBaseEntity::GetPyThink()
+{
+	return m_pyThink; 
 }
 #endif // ENABLE_PYTHON
 // =======================================

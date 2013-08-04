@@ -975,13 +975,24 @@ C_BaseEntity::C_BaseEntity() :
 //-----------------------------------------------------------------------------
 C_BaseEntity::~C_BaseEntity()
 {
-	Term();
-	ClearDataChangedEvent( m_DataChangeEventRef );
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	if( !m_bPyDestroyed )
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+	{
+		Term();
+		ClearDataChangedEvent( m_DataChangeEventRef );
 #if !defined( NO_ENTITY_PREDICTION )
-	delete m_pPredictionContext;
+		delete m_pPredictionContext;
 #endif
-	RemoveFromInterpolationList();
-	RemoveFromTeleportList();
+		RemoveFromInterpolationList();
+		RemoveFromTeleportList();
+	}
 }
 
 void C_BaseEntity::Clear( void )
@@ -1231,7 +1242,22 @@ void C_BaseEntity::Release()
 
 	UpdateOnRemove();
 
-	delete this;
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	if( m_pyInstance.ptr() != Py_None )
+	{
+		DestroyPyInstance();	
+	}
+	else
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+	{
+		delete this;
+	}
 }
 
 
@@ -6344,7 +6370,47 @@ void C_BaseEntity::PyDeallocate(PyObject* self_, void *storage)
 {
 	// get the engine to free the memory
 	MemAlloc_Free( storage );
-}	
+}
+
+//------------------------------------------------------------------------------
+// Purpose:
+//------------------------------------------------------------------------------
+void C_BaseEntity::DestroyPyInstance()
+{
+	m_bPyDestroyed = true;
+
+	// C_Baseentity destruction
+	Term();
+	ClearDataChangedEvent( m_DataChangeEventRef );
+#if !defined( NO_ENTITY_PREDICTION )
+	delete m_pPredictionContext;
+#endif
+	RemoveFromInterpolationList();
+	RemoveFromTeleportList();
+	
+	// Destroy collision + particle stuff
+	m_Collision.DestroyPartitionHandle();
+	//m_Particles.StopEmission( NULL, false, true );
+	m_Particles.StopEmissionAndDestroyImmediately( NULL ); // TEMP
+
+	// Dereference py think functions
+	m_pyTouchMethod = boost::python::object();
+	SetPyThink(boost::python::object());
+	int i;
+	for( i=0; i < m_aThinkFunctions.Count(); i++ )
+	{
+		if( m_aThinkFunctions.Element(i).m_pyThink.ptr() != Py_None )
+			m_aThinkFunctions.Element(i).m_pyThink = boost::python::object();
+	}
+
+	setattr(m_pyInstance, "__class__",  _entities.attr("DeadEntity"));
+
+	// Add m_pyInstance to the delete list before dereferencing it
+	// Dereferencing m_pyInstance here might result in direct deletion of the entity
+	// This will result into heap corruption.
+	SrcPySystem()->AddToDeleteList( m_pyInstance );
+	m_pyInstance = boost::python::object();
+}
 
 //------------------------------------------------------------------------------
 // Purpose:

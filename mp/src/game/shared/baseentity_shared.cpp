@@ -786,7 +786,11 @@ int CBaseEntity::RegisterThinkContext( const char *szContext )
 
 	// Make a new think func
 	thinkfunc_t sNewFunc;
+#ifdef ENABLE_PYTHON
+	Q_memset( &sNewFunc, 0, sizeof( sNewFunc ) - sizeof( boost::python::object ) );	//  m_pyThink is last in struct. DON'T SET TO NULL!
+#else
 	Q_memset( &sNewFunc, 0, sizeof( sNewFunc ) );
+#endif // ENABLE_PYTHON
 	sNewFunc.m_pfnThink = NULL;
 	sNewFunc.m_nNextThinkTick = 0;
 	sNewFunc.m_iszContext = AllocPooledString(szContext);
@@ -2604,3 +2608,110 @@ bool CBaseEntity::IsToolRecording() const
 #endif
 }
 #endif
+
+
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CBaseEntity::SetPyTouch( boost::python::object touch_method )
+{
+	// Can't set touch if m_pyInstance is None
+	if( m_pyInstance.ptr() == Py_None )
+	{
+		Warning("SetPyTouch: Can't set touch after entity removal!\n");
+		return;
+	}
+
+	m_pyTouchMethod = touch_method;
+	SetTouch( &CBaseEntity::PyTouch );
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CBaseEntity::SetPyThink( boost::python::object func, float thinkTime, const char *szContext )
+{
+	// Can't think if m_pyInstance is None
+	if( m_pyInstance.ptr() == Py_None )
+	{
+		Warning("SetPyThink: Can't set think after entity removal!\n");
+		return;
+	}
+
+	// Context think?
+	if( !szContext )
+	{
+		if( func.ptr() == Py_None )
+		{
+			SetThink(NULL);
+			m_pyThink = func;
+		}
+		else {
+			SetThink( &CBaseEntity::PyThink );
+			m_pyThink = func;
+			int thinkTick = ( thinkTime == TICK_NEVER_THINK ) ? TICK_NEVER_THINK : TIME_TO_TICKS( thinkTime );
+			if ( thinkTick != 0 )
+			{
+				m_nNextThinkTick = thinkTick;
+				CheckHasThinkFunction( thinkTick == TICK_NEVER_THINK ? false : true );
+			}
+		}
+		return;
+	}
+
+	// Find the think function in our list, and if we couldn't find it, register it
+	int iIndex = GetIndexForThinkContext( szContext );
+	if ( iIndex == NO_THINK_CONTEXT )
+	{
+		iIndex = RegisterThinkContext( szContext );
+	}
+
+	m_aThinkFunctions[ iIndex ].m_pyThink = func;
+
+	if ( thinkTime != 0 )
+	{
+		int thinkTick = ( thinkTime == TICK_NEVER_THINK ) ? TICK_NEVER_THINK : TIME_TO_TICKS( thinkTime );
+		m_aThinkFunctions[ iIndex ].m_nNextThinkTick = thinkTick;
+		CheckHasThinkFunction( thinkTick == TICK_NEVER_THINK ? false : true );
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//----------------------------------------------------------------------------
+void CBaseEntity::PyThink()
+{
+	try	
+	{
+		m_pyThink();
+	} 
+	catch( boost::python::error_already_set & ) 
+	{
+		PyErr_Print();
+		PyErr_Clear();
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//----------------------------------------------------------------------------
+void CBaseEntity::PyTouch( ::CBaseEntity *pOther )
+{
+	try	
+	{
+		m_pyTouchMethod( pOther ? pOther->GetPyHandle() : boost::python::object() );
+	} 
+	catch( boost::python::error_already_set & ) 
+	{
+		PyErr_Print();
+		PyErr_Clear();
+	}
+}
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================

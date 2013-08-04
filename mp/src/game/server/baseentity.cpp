@@ -70,7 +70,10 @@
 // =======================================
 // PySource Additions
 // =======================================
+#ifdef ENABLE_PYTHON
 #include "srcpy.h"
+#include "srcpy_networkvar.h"
+#endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
 // =======================================
@@ -445,34 +448,45 @@ extern bool g_bDisableEhandleAccess;
 //-----------------------------------------------------------------------------
 CBaseEntity::~CBaseEntity( )
 {
-	// FIXME: This can't be called from UpdateOnRemove! There's at least one
-	// case where friction sounds are added between the call to UpdateOnRemove + ~CBaseEntity
-	PhysCleanupFrictionSounds( this );
-
-	Assert( !IsDynamicModelIndex( m_nModelIndex ) );
-	Verify( !sg_DynamicLoadHandlers.Remove( this ) );
-
-	// In debug make sure that we don't call delete on an entity without setting
-	//  the disable flag first!
-	// EHANDLE accessors will check, in debug, for access to entities during destruction of
-	//  another entity.
-	// That kind of operation should only occur in UpdateOnRemove calls
-	// Deletion should only occur via UTIL_Remove(Immediate) calls, not via naked delete calls
-	Assert( g_bDisableEhandleAccess );
-
-	VPhysicsDestroyObject();
-
-	// Need to remove references to this entity before EHANDLES go null
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	if( !m_bPyDestroyed )
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 	{
-		g_bDisableEhandleAccess = false;
-		CBaseEntity::PhysicsRemoveTouchedList( this );
-		CBaseEntity::PhysicsRemoveGroundList( this );
-		SetGroundEntity( NULL ); // remove us from the ground entity if we are on it
-		DestroyAllDataObjects();
-		g_bDisableEhandleAccess = true;
+		// FIXME: This can't be called from UpdateOnRemove! There's at least one
+		// case where friction sounds are added between the call to UpdateOnRemove + ~CBaseEntity
+		PhysCleanupFrictionSounds( this );
 
-		// Remove this entity from the ent list (NOTE:  This Makes EHANDLES go NULL)
-		gEntList.RemoveEntity( GetRefEHandle() );
+		Assert( !IsDynamicModelIndex( m_nModelIndex ) );
+		Verify( !sg_DynamicLoadHandlers.Remove( this ) );
+
+		// In debug make sure that we don't call delete on an entity without setting
+		//  the disable flag first!
+		// EHANDLE accessors will check, in debug, for access to entities during destruction of
+		//  another entity.
+		// That kind of operation should only occur in UpdateOnRemove calls
+		// Deletion should only occur via UTIL_Remove(Immediate) calls, not via naked delete calls
+		Assert( g_bDisableEhandleAccess );
+
+		VPhysicsDestroyObject();
+
+		// Need to remove references to this entity before EHANDLES go null
+		{
+			g_bDisableEhandleAccess = false;
+			CBaseEntity::PhysicsRemoveTouchedList( this );
+			CBaseEntity::PhysicsRemoveGroundList( this );
+			SetGroundEntity( NULL ); // remove us from the ground entity if we are on it
+			DestroyAllDataObjects();
+			g_bDisableEhandleAccess = true;
+
+			// Remove this entity from the ent list (NOTE:  This Makes EHANDLES go NULL)
+			gEntList.RemoveEntity( GetRefEHandle() );
+		}
 	}
 }
 
@@ -7461,6 +7475,68 @@ void CBaseEntity::PyDeallocate(PyObject* self_, void *storage)
 //------------------------------------------------------------------------------
 void CBaseEntity::DestroyPyInstance()
 {
+	// FIXME: This can't be called from UpdateOnRemove! There's at least one
+	// case where friction sounds are added between the call to UpdateOnRemove + ~CBaseEntity
+	PhysCleanupFrictionSounds( this );
+
+	Assert( !IsDynamicModelIndex( m_nModelIndex ) );
+	Verify( !sg_DynamicLoadHandlers.Remove( this ) );
+
+	// In debug make sure that we don't call delete on an entity without setting
+	//  the disable flag first!
+	// EHANDLE accessors will check, in debug, for access to entities during destruction of
+	//  another entity.
+	// That kind of operation should only occur in UpdateOnRemove calls
+	// Deletion should only occur via UTIL_Remove(Immediate) calls, not via naked delete calls
+	Assert( g_bDisableEhandleAccess );
+
+	VPhysicsDestroyObject();
+
+	// Need to remove references to this entity before EHANDLES go null
+	{
+		g_bDisableEhandleAccess = false;
+		CBaseEntity::PhysicsRemoveTouchedList( this );
+		CBaseEntity::PhysicsRemoveGroundList( this );
+		SetGroundEntity( NULL ); // remove us from the ground entity if we are on it
+		DestroyAllDataObjects();
+		g_bDisableEhandleAccess = true;
+
+		// Remove this entity from the ent list (NOTE:  This Makes EHANDLES go NULL)
+		gEntList.RemoveEntity( GetRefEHandle() );
+	}
+
+	// Python cleanup
+	m_bPyDestroyed = true;
+
+	// CLOSE NETWORKPROP (ensure client side is cleaned up)
+	m_Network.DestroyNetworkProperty();
+
+	// Close collision property
+	m_Collision.DestroyPartitionHandle();
+
+	// Clear Python network vars
+	for( int i = m_utlPyNetworkVars.Count() - 1; i >= 0; i-- )
+		m_utlPyNetworkVars[i]->Remove( this );
+
+	// Dereference py think/touch functions
+	m_pyHandle = boost::python::object();
+	m_pyTouchMethod = boost::python::object();
+	SetPyThink(boost::python::object());
+	int i;
+	for( i=0; i < m_aThinkFunctions.Count(); i++ )
+	{
+		if( m_aThinkFunctions.Element(i).m_pyThink.ptr() != Py_None )
+			m_aThinkFunctions.Element(i).m_pyThink = boost::python::object();
+	}
+
+	// Rebind the class, so we can't accidently access unbound methods of the class (some methods might
+	// be dangerous after deletion of the entity)
+	setattr(m_pyInstance, "__class__",  _entities.attr("DeadEntity"));
+
+	// Add m_pyInstance to the delete list before dereferencing it
+	// Dereferencing m_pyInstance here might result in direct deletion of the entity
+	// This will result into heap corruption.
+	SrcPySystem()->AddToDeleteList( m_pyInstance );
 	m_pyInstance = boost::python::object();
 }
 #endif // ENABLE_PYTHON

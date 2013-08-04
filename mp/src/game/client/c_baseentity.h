@@ -165,6 +165,17 @@ struct thinkfunc_t
 	string_t	m_iszContext;
 	int			m_nNextThinkTick;
 	int			m_nLastThinkTick;
+
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	// MUST BE LAST
+	boost::python::object  m_pyThink; // If not Py_None and m_pfnThink != NULL, then call the python method
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 };
 
 #define CREATE_PREDICTED_ENTITY( className )	\
@@ -1710,12 +1721,29 @@ public:
 	// This returns the entity handle for usage in Python
 	boost::python::object			GetPyHandle() const;
 
+	// This functions destroys the entity
+	virtual void					DestroyPyInstance();
+
 	// Updates a Python network var after receiving
 	void							PyUpdateNetworkVar( const char *pName, boost::python::object data, bool callchanged = false );
 
+	// Python Think support
+	void							SetPyThink( boost::python::object think_method, float flNextThinkTime = 0, const char *szContext = 0 );
+	boost::python::object			GetPyThink();
+	void							PyThink();
+	bool							PhysicsPyRunSpecificThink( int nContextIndex, boost::python::object thinkFunc );
+	void							PhysicsPyDispatchThink( boost::python::object thinkFunc );
+
+	// Python touch support
+	void							SetPyTouch( boost::python::object touch_method );
+	void							PyTouch( ::CBaseEntity *pOther );
+
 private:
+	bool m_bPyDestroyed;
 	boost::python::object m_pyInstance;
 	boost::python::object m_pyHandle;
+	boost::python::object m_pyTouchMethod;
+	boost::python::object m_pyThink;
 #endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
@@ -2247,6 +2275,11 @@ inline void C_BaseEntity::SetPyInstance( boost::python::object inst )
 {
 	Assert( GetRefEHandle() == NULL );
 	m_pyInstance = inst;
+}
+
+inline boost::python::object CBaseEntity::GetPyThink()
+{
+	return m_pyThink; 
 }
 #endif // ENABLE_PYTHON
 // =======================================

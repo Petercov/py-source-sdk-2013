@@ -1019,6 +1019,15 @@ void register_C_BaseEntity_class(){
                 , DestroyIntermediateData_function_type( &::C_BaseEntity::DestroyIntermediateData ) );
         
         }
+        { //::C_BaseEntity::DestroyPyInstance
+        
+            typedef void ( ::C_BaseEntity::*DestroyPyInstance_function_type )(  ) ;
+            
+            C_BaseEntity_exposer.def( 
+                "DestroyPyInstance"
+                , DestroyPyInstance_function_type( &::C_BaseEntity::DestroyPyInstance ) );
+        
+        }
         { //::C_BaseEntity::DestroyShadow
         
             typedef void ( ::C_BaseEntity::*DestroyShadow_function_type )(  ) ;
@@ -2081,6 +2090,15 @@ void register_C_BaseEntity_class(){
             C_BaseEntity_exposer.def( 
                 "GetPyNetworkType"
                 , GetPyNetworkType_function_type( &::C_BaseEntity::GetPyNetworkType ) );
+        
+        }
+        { //::C_BaseEntity::GetPyThink
+        
+            typedef ::boost::python::object ( ::C_BaseEntity::*GetThink_function_type )(  ) ;
+            
+            C_BaseEntity_exposer.def( 
+                "GetThink"
+                , GetThink_function_type( &::C_BaseEntity::GetPyThink ) );
         
         }
         { //::C_BaseEntity::GetRenderAngles
@@ -3617,6 +3635,26 @@ void register_C_BaseEntity_class(){
                 , ( bp::arg("push"), bp::arg("pTrace") ) );
         
         }
+        { //::C_BaseEntity::PhysicsPyDispatchThink
+        
+            typedef void ( ::C_BaseEntity::*PhysicsPyDispatchThink_function_type )( ::boost::python::object ) ;
+            
+            C_BaseEntity_exposer.def( 
+                "PhysicsPyDispatchThink"
+                , PhysicsPyDispatchThink_function_type( &::C_BaseEntity::PhysicsPyDispatchThink )
+                , ( bp::arg("thinkFunc") ) );
+        
+        }
+        { //::C_BaseEntity::PhysicsPyRunSpecificThink
+        
+            typedef bool ( ::C_BaseEntity::*PhysicsPyRunSpecificThink_function_type )( int,::boost::python::object ) ;
+            
+            C_BaseEntity_exposer.def( 
+                "PhysicsPyRunSpecificThink"
+                , PhysicsPyRunSpecificThink_function_type( &::C_BaseEntity::PhysicsPyRunSpecificThink )
+                , ( bp::arg("nContextIndex"), bp::arg("thinkFunc") ) );
+        
+        }
         { //::C_BaseEntity::PhysicsRemoveGround
         
             typedef void ( *PhysicsRemoveGround_function_type )( ::C_BaseEntity *,::groundlink_t * );
@@ -4621,6 +4659,26 @@ void register_C_BaseEntity_class(){
                 "SetPyInstance"
                 , SetPyInstance_function_type( &::C_BaseEntity::SetPyInstance )
                 , ( bp::arg("inst") ) );
+        
+        }
+        { //::C_BaseEntity::SetPyThink
+        
+            typedef void ( ::C_BaseEntity::*SetThink_function_type )( ::boost::python::object,float,char const * ) ;
+            
+            C_BaseEntity_exposer.def( 
+                "SetThink"
+                , SetThink_function_type( &::C_BaseEntity::SetPyThink )
+                , ( bp::arg("think_method"), bp::arg("flNextThinkTime")=0, bp::arg("szContext")=bp::object() ) );
+        
+        }
+        { //::C_BaseEntity::SetPyTouch
+        
+            typedef void ( ::C_BaseEntity::*SetTouch_function_type )( ::boost::python::object ) ;
+            
+            C_BaseEntity_exposer.def( 
+                "SetTouch"
+                , SetTouch_function_type( &::C_BaseEntity::SetPyTouch )
+                , ( bp::arg("touch_method") ) );
         
         }
         { //::C_BaseEntity::SetRefEHandle

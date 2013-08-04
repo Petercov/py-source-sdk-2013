@@ -386,12 +386,16 @@ class Entities(SemiSharedModuleGenerator):
         cls.mem_funs('GetTeam').exclude()     # Don't care
         cls.mem_funs('AddEntityToGroundList').exclude()
         
-        # Returning a physics object (disabled for now, needs converter)
+        # Returning a physics object -> Convert by value, which results in the wrapper object being returned
         physicsobject = mb.class_('IPhysicsObject')
-        #mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(physicsobject))), allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
-        #mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(physicsobject))), allow_empty=True).call_policies = call_policies.return_internal_reference()
-        #mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(physicsobject))), allow_empty=True).call_policies = call_policies.with_custodian_and_ward_postcall(0, 1, call_policies.return_value_policy(call_policies.reference_existing_object))
         mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(physicsobject))), allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        
+        # Rename python methods to match the c++ names ( but in c++ they got python prefixes )
+        mb.mem_funs('SetPyTouch').rename('SetTouch')
+        mb.mem_funs('SetPyThink').rename('SetThink')
+        mb.mem_funs('GetPyThink').rename('GetThink')
+        mb.mem_funs('PyThink').exclude()
+        mb.mem_funs('PyTouch').exclude()
         
         if self.isclient:
             cls.mem_funs('ParticleProp').call_policies = call_policies.return_internal_reference() 
