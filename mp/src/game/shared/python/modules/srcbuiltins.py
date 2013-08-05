@@ -42,7 +42,7 @@ class SrcBuiltins(SharedModuleGenerator):
         mb.vars('pSaveData').exclude()
         
         # Add converters
-        mb.add_registration_code( "string_t_to_python_str();" )
+        mb.add_registration_code( "bp::to_python_converter<\n\tstring_t,\n\tstring_t_to_python_str>();")
         mb.add_registration_code( "python_str_to_string_t();" )
         mb.add_registration_code( "wchar_t_to_python_str();" )
         mb.add_registration_code( "ptr_wchar_t_to_python_str();" )

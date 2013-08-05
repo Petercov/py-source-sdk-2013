@@ -340,6 +340,7 @@ bool CSrcPython::InitInterpreter( void )
 	_entitiesmisc = Import("_entitiesmisc");
 	_entities = Import("_entities");
 	_particles = Import("_particles");
+	Import("_utils"); // Register after _entitiesmisc
 	
 	// TODO: matchmaking = Import("matchmaking");
 #ifdef CLIENT_DLL

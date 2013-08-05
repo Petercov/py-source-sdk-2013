@@ -237,7 +237,9 @@ BOOST_PYTHON_MODULE(srcbuiltins){
     
     }
 
-    string_t_to_python_str();
+    bp::to_python_converter<
+	string_t,
+	string_t_to_python_str>();
 
     python_str_to_string_t();
 
