@@ -51,4 +51,4 @@ You can find instructions in [mp/src/srcpypp](mp/src/srcpypp).
 - [_ndebugoverlay](mp/src/game/shared/python/modules/_ndebugoverlay.py): Exposes [NDebugOverlay](mp/src/game/shared/debugoverlay_shared.h) functions.
 - [vprof](mp/src/game/shared/python/modules/vprof.py): Exposes VProfiling
 
-Note: Most of these modules are complemented by [Python modules](mp/game/pysource/python) (e.g. [entities](mp/game/pysource/python/entities.py)
+Note: Most of these modules are complemented by [Python modules](mp/game/pysource/python) (e.g. [entities](mp/game/pysource/python/entities.py))
