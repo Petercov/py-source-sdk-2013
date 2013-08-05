@@ -1,0 +1,2 @@
+# Register examples
+import examples

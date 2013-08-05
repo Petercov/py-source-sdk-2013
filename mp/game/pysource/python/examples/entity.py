@@ -1,5 +1,5 @@
 from vmath import Vector, QAngle, vec3_origin, VectorAngles, RandomVector
-from entities import CBaseEntity, CLogicalEntity, CBaseAnimating, entity, SOLID_BBOX, MOVETYPE_FLY, MOVETYPE_NONE
+from entities import CBaseEntity, CLogicalEntity, CBaseAnimating, CBaseTrigger, entity, SOLID_BBOX, SOLID_VPHYSICS, MOVETYPE_FLY, MOVETYPE_PUSH, MOVETYPE_NONE
 from utils import UTIL_SetSize
 from game.fields import IntegerField, BooleanField, FloatField, OutputField, input
 
@@ -105,4 +105,38 @@ class CMyModelEntity(CBaseAnimating):
             self.SetMoveType(MOVETYPE_NONE)
      
             self.active = False
+    
+# Python example of https://developer.valvesoftware.com/wiki/Authoring_a_Brush_Entity
+@entity('my_brush_entity')
+class CMyBrushEntity(CBaseTrigger):
+    def Spawn(self):
+        # We want to capture touches from other entities
+        self.SetTouch(self.BrushTouch)
+     
+        # We should collide with physics
+        self.SetSolid(SOLID_VPHYSICS)
+     
+        # Use our brushmodel
+        self.SetModel(self.GetModelName())
+     
+        # We push things out of our way
+        self.SetMoveType(MOVETYPE_PUSH)
+     
+        # Create our physics hull information
+        self.VPhysicsInitShadow(False, False)
+        
+    def BrushTouch(self, other):
+        # Get the collision information
+        tr = self.GetTouchTrace()
+     
+        # We want to move away from the impact point along our surface
+        vecPushDir = tr.plane.normal
+        vecPushDir.Negate()
+        vecPushDir.z = 0.0
+     
+        # Uncomment this line to print plane information to the console in developer mode
+        #DevMsg ( "%s (%s) touch plane's normal: [%f %f]\n" % (self.GetClassname(), self.GetDebugName(), tr.plane.normal.x, tr.plane.normal.y)
+     
+        # Move slowly in that direction
+        self.LinearMove(self.GetAbsOrigin() + (vecPushDir * 64.0), 32.0)
     
