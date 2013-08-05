@@ -5,16 +5,48 @@ from game.fields import SetupClassFields, SetupInputMethods
 # Lists of all entity classes
 if isclient:
     list_ents = [ 
-        C_BaseEntity, 
+        C_BaseEntity,
+        C_BaseAnimating,
+        C_BaseAnimatingOverlay,
+        C_BaseFlex,
+        C_BaseCombatCharacter,
+        C_BaseGrenade,
+        C_BasePlayer,
+        C_BaseCombatWeapon,
     ]
     
     # List of aliases
     CBaseEntity = C_BaseEntity
+    CBaseAnimating = C_BaseAnimating
+    CBaseAnimatingOverlay = C_BaseAnimatingOverlay
+    CBaseFlex = C_BaseFlex
+    CBaseCombatCharacter = C_BaseCombatCharacter
+    CBaseGrenade = C_BaseGrenade
+    CBasePlayer = C_BasePlayer
+    CBaseCombatWeapon = C_BaseCombatWeapon
+    
+    # Server only, add an alias anyway (for convenience)
+    CPointEntity = CBaseEntity
 
 else:
     list_ents = [ 
         CBaseEntity, 
-
+        CBaseAnimating, 
+        CBaseAnimatingOverlay, 
+        CBaseFlex, 
+        CBaseCombatCharacter,
+        CBaseGrenade,
+        CBasePlayer,
+        CPointEntity,
+        CServerOnlyEntity,
+        CServerOnlyPointEntity,
+        CLogicalEntity,
+        CFuncBrush,
+        CBaseToggle,
+        CBaseTrigger,
+        # TODO CTriggerMultiple,
+        CBaseCombatWeapon,
+        # TODO CBaseFilter,
     ]
 
 # Friendly aliases
