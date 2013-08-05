@@ -5,6 +5,10 @@ from utils import UTIL_GetCommandClient, UTIL_RemoveImmediate
 
 import traceback
 
+# Register entity factories, if not done already
+from . import entity
+from . import networkedentity
+
 print('Registering examples package commands. Use "py_example_*" commands to run the examples!')
 
 @concommand('py_example_entity')
@@ -14,10 +18,6 @@ def PyExampleEntity(args):
     origin = player.GetAbsOrigin()
     print('Player origin: %s' % (str(origin)))
 
-    # Register our entity factories by importing the module containing them (if not already imported)
-    print('Creating entity classes and factories...')
-    from . import entity
-    
     # Spawn example_ent at our origin
     entexample = CreateEntityByName('ent_example')
     entexample.SetAbsOrigin(origin)
@@ -31,10 +31,6 @@ def PyExampleMyLogicalEntity(args):
     origin = player.GetAbsOrigin()
     print('Player origin: %s' % (str(origin)))
 
-    # Register our entity factories by importing the module containing them (if not already imported)
-    print('Creating entity classes and factories...')
-    from . import entity
-    
     # Spawn my_logical_entity at our origin
     # Also setup key values (as you would have done when adding the entity in Hammer)
     print('Spawning my_logical_entity')
@@ -55,10 +51,6 @@ def PyExampleMyLogicalEntity(args):
     
 @concommand('py_example_mymodelentity')
 def PyExampleMyModelEntity(args):
-    # Register our entity factories by importing the module containing them (if not already imported)
-    print('Creating entity classes and factories...')
-    from . import entity
-
     # Spawn model entity
     forward = Vector()
     player = UTIL_GetCommandClient()
@@ -109,10 +101,6 @@ def PyExampleNetworkedEntity(args):
     player = UTIL_GetCommandClient()
     origin = player.GetAbsOrigin()
     print('Player origin: %s' % (str(origin)))
-    
-    # Register our entity factories by importing the module containing them (if not already imported)
-    print('Creating networked entity classes and factories...')
-    from . import networkedentity
     
     # Spawn example_ent at our origin
     entexample = CreateEntityByName('netent_example')
