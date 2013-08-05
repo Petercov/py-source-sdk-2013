@@ -1,5 +1,16 @@
 ## PySource
-A Source SDK 2013 fork with automatically generated bindings for Python 3.
+A Source SDK 2013 fork with automatically generated bindings for Python 3. 
+The aim of these bindings is to have a (semi) safe Python environment of Source Engine.
+For a better idea of what these bindings offer, check out the [examples](mp/game/pysource/python/examples) directory.
+
+These automatic bindings were originally made for [Half-Life 2: Wars](https://github.com/Sandern/hl2wars_asw_dev) mod, which
+uses Python 2. Also see the [Python folder](http://svn.hl2wars.com/hl2wars_asw_dev/trunk/python/) of this for more examples 
+of what ispossible (most game code of the mod is written in Python!).
+
+This Source SDK 2013 version is a cleaned up port of these auto generated bindings to Python 3. Due this, some things
+might still be missing or are incomplete and will be added in time.
+
+Please let me know if you have any issues. Pull requests are welcome too!
 
 ## Quickstart
 Currently Windows only:
@@ -14,7 +25,8 @@ Currently Windows only:
         spy print(UTIL_PlayerByIndex(1).GetPlayerName())
 
 ## Examples
-Examples can be found in the Python game directory [examples](mp/game/pysource/python/examples) (WIP)
+Examples can be found in the Python game directory [examples](mp/game/pysource/python/examples). 
+These examples cover the [Your First Entity](https://developer.valvesoftware.com/wiki/Your_First_Entity) page from VDC among others.
 
 ## Commands
 
