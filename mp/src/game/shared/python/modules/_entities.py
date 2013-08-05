@@ -372,7 +372,9 @@ class Entities(SemiSharedModuleGenerator):
         mb.mem_funs('ComputeWorldSpaceSurroundingBox').virtuality = 'virtual'
         
         # Call policies
-        cls.mem_funs('CollisionProp').call_policies = call_policies.return_internal_reference() 
+        cls.mem_funs('CollisionProp').call_policies = call_policies.return_internal_reference()
+        
+        mb.mem_funs('GetTouchTrace').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)  # Temp fix, relative unsafe
         
         # Excludes
         mb.mem_funs('GetDataObject').exclude() # Don't care

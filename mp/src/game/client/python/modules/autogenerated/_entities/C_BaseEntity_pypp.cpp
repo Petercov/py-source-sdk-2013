@@ -2364,7 +2364,7 @@ void register_C_BaseEntity_class(){
             C_BaseEntity_exposer.def( 
                 "GetTouchTrace"
                 , GetTouchTrace_function_type( &::C_BaseEntity::GetTouchTrace )
-                , bp::return_value_policy< bp::copy_const_reference >() );
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::C_BaseEntity::GetTracerAttachment
