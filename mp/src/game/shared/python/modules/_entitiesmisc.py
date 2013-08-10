@@ -7,6 +7,30 @@ class EntitiesMisc(SemiSharedModuleGenerator):
     module_name = '_entitiesmisc'
     
     files = [
+        'cbase.h',
+        'takedamageinfo.h',
+        '$cliententitylist.h',
+        '$soundinfo.h',
+        
+        '#mathlib/vmatrix.h', 
+        '#utlvector.h', 
+        '#shareddefs.h', 
+        '#util.h',
+        
+        '#networkvar.h',
+        '#eventqueue.h',
+        '#entitylist.h',
+        '#takedamageinfo.h',
+        '#srcpy_networkvar.h',
+        '#soundent.h',
+        '#entityoutput.h',
+        '#SkyCamera.h',
+        '#world.h',
+        '#globals.h',
+        '#physics_prop_ragdoll.h',
+
+        '#srcpy_srcbuiltins.h',
+        
         'shared_classnames.h',
         'npcevent.h',
         'studio.h',
@@ -19,39 +43,6 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         'beam_shared.h',
         'shot_manipulator.h',
     ]
-    
-    client_files = [
-        'cbase.h',
-        'takedamageinfo.h',
-        'cliententitylist.h',
-    ]
-
-    server_files = [
-        'cbase.h', 
-        'mathlib/vmatrix.h', 
-        'utlvector.h', 
-        'shareddefs.h', 
-        'util.h',
-        
-        'networkvar.h',
-        'eventqueue.h',
-        'entitylist.h',
-        'takedamageinfo.h',
-        'srcpy_networkvar.h',
-        'soundent.h',
-        'entityoutput.h',
-        'SkyCamera.h',
-        'world.h',
-        'globals.h',
-        'physics_prop_ragdoll.h',
-
-        'srcpy_srcbuiltins.h',
-    ]
-    
-    def GetFiles(self):
-        if self.isclient:
-            return self.client_files + self.files 
-        return self.server_files + self.files 
         
     def ParseClientEntityRelated(self, mb):    
         # Creating a client class
@@ -94,6 +85,13 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         mb.free_function('PyGetClassByClassname').rename('GetClassByClassname')
         mb.free_function('PyGetAllClassnames').include()
         mb.free_function('PyGetAllClassnames').rename('GetAllClassnames')
+        
+        # Client only structs
+        cls = mb.class_('SpatializationInfo_t')
+        cls.include()
+        cls.var('pOrigin').exclude()
+        cls.var('pAngles').exclude()
+        cls.var('pflRadius').exclude()
         
     def ParseServerEntityRelated(self, mb):
         # PyEntityFactory    

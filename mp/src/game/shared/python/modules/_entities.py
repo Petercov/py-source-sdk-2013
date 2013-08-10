@@ -162,6 +162,7 @@ class Entities(SemiSharedModuleGenerator):
         '#modelentities.h',
         '#basetoggle.h',
         '#triggers.h',
+        '$soundinfo.h',
     ]
     
     # List of entity classes want to have exposed

@@ -10,6 +10,8 @@
 
 #include "cliententitylist.h"
 
+#include "soundinfo.h"
+
 #include "shared_classnames.h"
 
 #include "npcevent.h"
@@ -2590,6 +2592,19 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
     bp::class_< PyEntityFactory >( "EntityFactory", bp::no_init )    
         .def( bp::init< char const *, bp::object >(( bp::arg("pClassName"), bp::arg("PyClass") )) );
 
+    { //::SpatializationInfo_t
+        typedef bp::class_< SpatializationInfo_t > SpatializationInfo_t_exposer_t;
+        SpatializationInfo_t_exposer_t SpatializationInfo_t_exposer = SpatializationInfo_t_exposer_t( "SpatializationInfo_t" );
+        bp::scope SpatializationInfo_t_scope( SpatializationInfo_t_exposer );
+        bp::enum_< SpatializationInfo_t::SPATIALIZATIONTYPE>("SPATIALIZATIONTYPE")
+            .value("SI_INCREATION", SpatializationInfo_t::SI_INCREATION)
+            .value("SI_INSPATIALIZATION", SpatializationInfo_t::SI_INSPATIALIZATION)
+            .export_values()
+            ;
+        SpatializationInfo_t_exposer.def_readwrite( "info", &SpatializationInfo_t::info );
+        SpatializationInfo_t_exposer.def_readwrite( "type", &SpatializationInfo_t::type );
+    }
+
     bp::class_< animevent_t_wrapper >( "animevent_t" )    
         .def_readwrite( "cycle", &animevent_t::cycle )    
         .def_readwrite( "event", &animevent_t::event )    
@@ -2833,6 +2848,8 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
 #include "__array_1.pypp.hpp"
 
 #include "cbase.h"
+
+#include "takedamageinfo.h"
 
 #include "mathlib/vmatrix.h"
 

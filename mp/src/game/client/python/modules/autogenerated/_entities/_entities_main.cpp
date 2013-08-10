@@ -19,6 +19,8 @@
 
 #include "c_ai_basenpc.h"
 
+#include "soundinfo.h"
+
 #include "srcpy.h"
 
 #include "tier0/memdbgon.h"
