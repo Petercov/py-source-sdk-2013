@@ -1,0 +1,4 @@
+#!/bin/bash
+
+devtools/bin/vpc /pysource +game /mksln games
+
