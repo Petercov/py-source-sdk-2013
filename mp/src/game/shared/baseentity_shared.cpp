@@ -2627,7 +2627,11 @@ void CBaseEntity::SetPyTouch( boost::python::object touch_method )
 	}
 
 	m_pyTouchMethod = touch_method;
-	SetTouch( &CBaseEntity::PyTouch );
+
+	if( m_pyTouchMethod.ptr() != Py_None )
+		SetTouch( &CBaseEntity::PyTouch );
+	else
+		SetTouch( NULL );
 }
 
 //-----------------------------------------------------------------------------
