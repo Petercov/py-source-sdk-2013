@@ -8,7 +8,7 @@ class Particles(SemiSharedModuleGenerator):
     
     clientfiles = [
         'tier1/utlvector.h',
-        'tier1/utlsortvector.h',
+        'tier1/UtlSortVector.h',
         'tier1/utlobjectreference.h',
 
         'cbase.h',

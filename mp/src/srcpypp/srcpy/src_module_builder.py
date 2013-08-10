@@ -5,6 +5,8 @@ from pyplusplus import module_builder
 from pygccxml import parser
 import settings
 
+import platform
+
 # Include directories
 incl_paths = [
     # GCCXML Support files
@@ -127,6 +129,13 @@ SHLIBCFLAGS = '-fPIC '
 SHLIBLDFLAGS = '-shared -Wl,-Map,$@_map.txt -Wl '
 default_cflags = ARCH_CFLAGS+BASE_CFLAGS+SHLIBCFLAGS#+'-fpermissive '
 
+if platform.system() == 'Windows':
+    gccbinpath = 'gccxml_bin/win32'
+elif platform.system() == 'Linux':
+    gccbinpath = 'gccxml_bin/linux'
+else:
+    gccbinpath = 'gccxml_bin/linux'
+
 # NOTE: module_builder_t == builder_t
 class src_module_builder_t(module_builder.module_builder_t):
     """
@@ -147,7 +156,7 @@ class src_module_builder_t(module_builder.module_builder_t):
         module_builder.module_builder_t.__init__(
                     self
                     , files
-                    , gccxml_path='gccxml_bin/win32'
+                    , gccxml_path=gccbinpath
                     , working_directory='.'
                     , include_paths=incl
                     , define_symbols=ds

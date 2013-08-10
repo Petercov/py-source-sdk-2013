@@ -23,7 +23,7 @@ class Utils(SemiSharedModuleGenerator):
         'srcpy_util.h',
         'util_shared.h',
         'gametrace.h',
-        'engine\IEngineTrace.h',
+        'engine/IEngineTrace.h',
         
         '#mathlib/vmatrix.h', 
         '#utlvector.h', 

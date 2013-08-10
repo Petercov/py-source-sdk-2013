@@ -37,11 +37,13 @@ class SourceModuleGenerator(ModuleGenerator):
         # Remove boost\python.hpp header. This is already included by srcpy.h
         # and directly including can break debug mode (because it redefines _DEBUG)
         # TODO: Maybe do this in a nicer way, but it's not too important.
-        header = code_creators.include_t( r'boost\python.hpp' )
+        header = code_creators.include_t(os.path.normpath(r'boost/python.hpp'))
+        originaltestpath = os.path.normpath(header.header)
         found = False
         for creator in mb.code_creator.creators:
             try:
-                if header.header == creator.header:
+                testpath = os.path.normpath(creator.header)
+                if originaltestpath == testpath:
                     found = True
                     mb.code_creator.remove_creator(creator)
                     break
