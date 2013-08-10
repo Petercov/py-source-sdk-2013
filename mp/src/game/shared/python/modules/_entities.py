@@ -8,33 +8,35 @@ from pyplusplus import code_creators
 
 # Templates for client and server class
 tmpl_clientclass = '''virtual ClientClass* GetClientClass() {
-    if( GetCurrentThreadId() != g_hPythonThreadID )
+#if defined(_WIN32) // POSIX: TODO
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            return %(clsname)s::GetClientClass();
+#endif // _WIN32
+        ClientClass *pClientClass = SrcPySystem()->Get<ClientClass *>( "pyClientClass", GetPyInstance(), NULL, true );
+        if( pClientClass )
+            return pClientClass;
         return %(clsname)s::GetClientClass();
-    ClientClass *pClientClass = SrcPySystem()->Get<ClientClass *>( "pyClientClass", GetPyInstance(), NULL, true );
-    if( pClientClass )
-        return pClientClass;
-    return %(clsname)s::GetClientClass();
-}
+    }
 '''
 
 tmpl_serverclass = '''virtual ServerClass* GetServerClass() {
-    #if defined(_WIN32)
-    #if defined(_DEBUG)
-    Assert( GetCurrentThreadId() == g_hPythonThreadID );
-    #elif defined(PY_CHECKTHREADID)
-    if( GetCurrentThreadId() != g_hPythonThreadID )
-        Error( "GetServerClass: Client? %%d. Thread ID is not the same as in which the python interpreter is initialized! %%d != %%d. Tell a developer.\\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-    #endif // _DEBUG/PY_CHECKTHREADID
-    #endif // _WIN32
-    #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-    if( py_log_overrides.GetBool() )
-        Msg("Calling GetServerClass(  ) of Class: %(clsname)s\\n");
-    #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
-    ServerClass *pServerClass = SrcPySystem()->Get<ServerClass *>( "pyServerClass", GetPyInstance(), NULL, true );
-    if( pServerClass )
-        return pServerClass;
-    return %(clsname)s::GetServerClass();
-}
+#if defined(_WIN32)
+#if defined(_DEBUG)
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+#elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "GetServerClass: Client? %%d. Thread ID is not the same as in which the python interpreter is initialized! %%d != %%d. Tell a developer.\\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+#endif // _DEBUG/PY_CHECKTHREADID
+#endif // _WIN32
+#if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling GetServerClass(  ) of Class: %(clsname)s\\n");
+#endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        ServerClass *pServerClass = SrcPySystem()->Get<ServerClass *>( "pyServerClass", GetPyInstance(), NULL, true );
+        if( pServerClass )
+            return pServerClass;
+        return %(clsname)s::GetServerClass();
+    }
 '''
 
 # Templates for entities handles and converters

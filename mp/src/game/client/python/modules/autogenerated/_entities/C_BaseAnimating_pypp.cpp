@@ -517,13 +517,15 @@ struct C_BaseAnimating_wrapper : C_BaseAnimating, bp::wrapper< C_BaseAnimating >
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ClientClass* GetClientClass() {
-    if( GetCurrentThreadId() != g_hPythonThreadID )
+#if defined(_WIN32) // POSIX: TODO
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            return C_BaseAnimating::GetClientClass();
+#endif // _WIN32
+        ClientClass *pClientClass = SrcPySystem()->Get<ClientClass *>( "pyClientClass", GetPyInstance(), NULL, true );
+        if( pClientClass )
+            return pClientClass;
         return C_BaseAnimating::GetClientClass();
-    ClientClass *pClientClass = SrcPySystem()->Get<ClientClass *>( "pyClientClass", GetPyInstance(), NULL, true );
-    if( pClientClass )
-        return pClientClass;
-    return C_BaseAnimating::GetClientClass();
-}
+    }
 
 };
 
