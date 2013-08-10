@@ -26,7 +26,11 @@
 
 #include "view.h"
 
+#include "tier0/valve_minmax_off.h"
+
 #include "srcpy.h"
+
+#include "tier0/valve_minmax_on.h"
 
 #include "tier0/memdbgon.h"
 
@@ -1594,7 +1598,11 @@ BOOST_PYTHON_MODULE(_utils){
 
 #include "explode.h"
 
+#include "tier0/valve_minmax_off.h"
+
 #include "srcpy.h"
+
+#include "tier0/valve_minmax_on.h"
 
 #include "tier0/memdbgon.h"
 

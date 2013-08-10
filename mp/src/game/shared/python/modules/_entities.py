@@ -153,8 +153,8 @@ class Entities(SemiSharedModuleGenerator):
     # Includes
     files = [
         'cbase.h',
+        'npcevent.h',
         'srcpy_entities.h',
-        
         'bone_setup.h',
         'basegrenade_shared.h',
         '$takedamageinfo.h',
