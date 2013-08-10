@@ -11,7 +11,10 @@
 #pragma once
 #endif
 
+#include "valve_minmax_off.h"
 #include <boost/python.hpp>
+#include "valve_minmax_on.h"
+
 #ifdef _DEBUG
 	// boost redefines _DEBUG
 	#undef _DEBUG
