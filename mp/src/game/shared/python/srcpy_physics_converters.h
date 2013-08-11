@@ -47,7 +47,7 @@ struct PyPhysicsObject_to_IPhysicsObject
 	{
 		boost::python::converter::registry::insert(
 			&extract_IPhysicsObject, 
-			boost::python::type_id<PyPhysicsObject>()
+			boost::python::type_id<IPhysicsObject>()
 			);
 	}
 

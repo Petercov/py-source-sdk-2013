@@ -45,17 +45,18 @@ void PyPhysicsShadowController::CheckValid()
 // ? Is using memcmp on a PyObject correct ?
 bool PyPhysicsShadowController::Cmp( boost::python::object other )
 {
-	if( other.ptr() == Py_None ) {
+	if( other.ptr() == Py_None ) 
+	{
 		return m_pShadCont != NULL;
 	}
 
 	if( PyObject_IsInstance(other.ptr(), boost::python::object(_physics.attr("PyPhysicsShadowController")).ptr()) )
 	{
 		IPhysicsShadowController *other_ext = boost::python::extract<IPhysicsShadowController *>(other);
-		return memcmp(other_ext, m_pShadCont, sizeof(int));
+		return V_memcmp(other_ext, m_pShadCont, sizeof(IPhysicsShadowController *));
 	}
 
-	return memcmp(other.ptr(), m_pShadCont, sizeof(int));
+	return V_memcmp(other.ptr(), m_pShadCont, sizeof(IPhysicsShadowController *));
 }
 
 bool PyPhysicsShadowController::NonZero()
@@ -233,17 +234,18 @@ void PyPhysicsObject::Destroy()
 //-----------------------------------------------------------------------------
 bool PyPhysicsObject::Cmp( boost::python::object other )
 {
-	if( other.ptr() == Py_None ) {
+	if( other.ptr() == Py_None ) 
+	{
 		return m_pPhysObj != NULL;
 	}
 
 	if( PyObject_IsInstance(other.ptr(), boost::python::object(_physics.attr("PyPhysicsObject")).ptr()) )
 	{
 		IPhysicsObject *other_ext = boost::python::extract<IPhysicsObject *>(other);
-		return memcmp(other_ext, m_pPhysObj, sizeof(int));
+		return V_memcmp(other_ext, m_pPhysObj, sizeof(IPhysicsObject *));
 	}
 
-	return memcmp(other.ptr(), m_pPhysObj, sizeof(int));
+	return V_memcmp(other.ptr(), m_pPhysObj, sizeof(IPhysicsObject *));
 }
 
 bool PyPhysicsObject::NonZero()

@@ -39,23 +39,6 @@ class Physics(SemiSharedModuleGenerator):
         mb.add_registration_code( "const_ptr_IPhysicsObject_to_PyPhysicsObject();" )
         mb.add_registration_code( "PyPhysicsObject_to_IPhysicsObject();" )
 
-        # 
-        '''cls = mb.class_('IPhysicsObject')
-        cls.include()
-        cls.calldefs().virtuality = 'not virtual' 
-        
-        IPhysicsFrictionSnapshot = mb.class_('IPhysicsFrictionSnapshot')
-        mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(IPhysicsFrictionSnapshot))), allow_empty=True).call_policies = call_policies.return_internal_reference()
-        #CPhysCollide = mb.class_('CPhysCollide')
-        #mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(CPhysCollide))), allow_empty=True).call_policies = call_policies.return_internal_reference()
-        mb.calldefs('GetCollide').call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
-        mb.calldefs('GetCollide').exclude()
-        mb.calldefs('GetGameData').call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
-        mb.calldefs('GetGameData').exclude()
-        IPhysicsShadowController = mb.class_('IPhysicsShadowController')
-        mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(IPhysicsShadowController))), allow_empty=True).call_policies = call_policies.return_internal_reference()
-        ''' 
-
         # Shadow controller
         cls = mb.class_('PyPhysicsShadowController')
         cls.rename('PhysicsShadowController')
