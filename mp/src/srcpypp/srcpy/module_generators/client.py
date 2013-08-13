@@ -1,6 +1,7 @@
 import os
 
 from . basesource import SourceModuleGenerator
+from .. src_module_builder import src_module_builder_t
 
 class ClientModuleGenerator(SourceModuleGenerator):
     module_type = 'client'
