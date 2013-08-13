@@ -27,6 +27,9 @@ if isclient:
     
     # Server only, add an alias anyway (for convenience)
     CPointEntity = CBaseEntity
+    
+    # Client sub
+    entlist = None
 
 else:
     list_ents = [ 
