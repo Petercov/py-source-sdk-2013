@@ -14,9 +14,8 @@ class LevelInitSignal(Signal):
     """ Special signal class for levelinit signals.
     
         Takes an additional argument to immediately call if the level is already initialized.
-        Convenience.
     """
-    def connect(self, receiver, sender=None, weak=True, dispatch_uid=None, callifinit=False):
+    def connect(self, receiver, sender=None, weak=True, dispatch_uid=None): # TODO:, callifinit=False):
         super(LevelInitSignal, self).connect(receiver, sender, weak, dispatch_uid)
         # TODO?
         #if callifinit and srcmgr.levelinit:

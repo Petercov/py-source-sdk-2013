@@ -1,4 +1,4 @@
-core.dispatch was originally forked from Django (1.3) & PyDispatcher.
+core.dispatch was originally forked from Django (1.5) & PyDispatcher.
 
 Django License:
     Copyright (c) Django Software Foundation and individual contributors.
