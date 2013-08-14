@@ -2,7 +2,7 @@ import weakref
 import threading
 import traceback
 
-from core.dispatch import saferef
+from . import saferef
 
 WEAKREF_TYPES = (weakref.ReferenceType, saferef.BoundMethodWeakref)
 
