@@ -40,6 +40,7 @@ modules = [
     ('_particles', 'Particles'),
 
     # Misc
+    ('steam', 'Steam'),
     ('_ndebugoverlay', 'NDebugOverlay'),
     ('vprof', 'VProf'),
 ]
@@ -48,7 +49,6 @@ modules = [
 ('materials', 'Materials'),
 
 # # Client
-('isteam', 'ISteam'),
 ('_input', 'Input'),
 ('_vgui', 'VGUI'),
 ('_vguicontrols', 'VGUIControls'),

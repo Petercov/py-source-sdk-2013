@@ -69,6 +69,7 @@ bp::object sys;
 
 bp::object weakref;
 bp::object srcbuiltins;
+bp::object steam;
 bp::object _entitiesmisc;
 bp::object _entities;
 bp::object _particles;
@@ -305,7 +306,6 @@ bool CSrcPython::InitInterpreter( void )
 	srcbuiltins = Import("srcbuiltins");
 	sys.attr("stdout") = srcbuiltins.attr("SrcPyStdOut")();
 	sys.attr("stderr") = srcbuiltins.attr("SrcPyStdErr")();
-	PyErr_Print();
 
 	weakref = Import("weakref");
 	builtins = Import("builtins");
@@ -335,6 +335,7 @@ bool CSrcPython::InitInterpreter( void )
 	// Default imports
 	Import( "vmath" );
 	types = Import("types");
+	steam = Import("steam");
 	Import( "sound" ); // Import _sound before _entitiesmisc (register converters)
 	_physics = Import("_physics");
 	_entitiesmisc = Import("_entitiesmisc");
@@ -492,6 +493,7 @@ bool CSrcPython::ShutdownInterpreter( void )
 	sys = bp::object();
 	types = bp::object();
 	weakref = bp::object();
+	steam = bp::object();
 	_entitiesmisc = bp::object();
 	_entities = bp::object();
 	_particles = bp::object();

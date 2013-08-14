@@ -381,8 +381,7 @@ void PyEntityFactory::Destroy( IServerNetworkable *pNetworkable )
 		CBaseEntity *pEnt = pNetworkable->GetBaseEntity();
 		if( pEnt )
 		{
-			// TODO:
-			//pEnt->SetPyInstance( boost::python::object() );
+			pEnt->SetPyInstance( boost::python::object() );
 		}
 		pNetworkable->Release();
 	}
