@@ -1103,6 +1103,50 @@ bool C_BaseEntity::Init( int entnum, int iSerialNum )
 
 	m_nCreationTick = gpGlobals->tickcount;
 
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	if( SrcPySystem()->IsPythonRunning() )
+		m_pyHandle = CreatePyHandle();
+
+	// Check Python init list
+	if( m_pyInstance.ptr() != Py_None )
+	{
+		boost::python::dict fieldinitmap;
+		try
+		{
+			fieldinitmap = boost::python::dict(m_pyInstance.attr("fieldinitmap"));
+		} 
+		catch( boost::python::error_already_set & )
+		{
+			Warning("Python entity has no field init list!\n");
+			PyErr_Clear();
+		}
+
+		boost::python::object elem;
+		boost::python::list objectValues = fieldinitmap.values();
+
+		boost::python::ssize_t n = boost::python::len(fieldinitmap);
+		for( boost::python::ssize_t i = 0; i < n; i++ ) 
+		{
+			elem = objectValues[i];
+			try 
+			{
+				elem.attr("InitField")(m_pyInstance);
+			}
+			catch( boost::python::error_already_set & )
+			{
+				Warning("Failed to initialize field: \n");
+				PyErr_Print();
+			}
+		}
+	}
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+
 	return true;
 }
 
