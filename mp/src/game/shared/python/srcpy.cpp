@@ -22,7 +22,9 @@
 	#include "networkstringtable_gamedll.h"
 #endif // CLIENT_DLL
 
+#ifdef WIN32
 #include <winlite.h>
+#endif // WIN32
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -221,7 +223,6 @@ bool CSrcPython::InitInterpreter( void )
 	/*const char *pGameDir = COM_GetModDirectory();
 	const char *pDevModDir = "hl2wars_asw_dev";
 	if( V_strncmp( pGameDir, pDevModDir, V_strlen( pDevModDir ) ) != 0 )*/
-	DevMsg("CommandLine: %s\n", CommandLine()->GetCmdLine());
 	m_bPathProtected = CommandLine() ? CommandLine()->FindParm("-nopathprotection") == 0 : true;
 
 	bool bNoChangeWorkingDirectory = CommandLine() ? CommandLine()->FindParm("-testnochangeworkingdir") != 0 : false;
@@ -356,6 +357,7 @@ bool CSrcPython::InitInterpreter( void )
 #endif // CLIENT_DLL
 	DevMsg( "Initialized Python default modules... (%f seconds)\n", Plat_FloatTime() - fStartTime );
 
+#ifdef WIN32
 	// Support for Visual Studio Python Tools
 	if( bRunInterpreter && CommandLine() )
 	{
@@ -450,6 +452,7 @@ bool CSrcPython::InitInterpreter( void )
 		}
 		return true;
 	}
+#endif // WIN32
 
 	return true;
 }
