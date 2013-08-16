@@ -3,6 +3,8 @@ from game.fields import IntegerField
 
 if isserver:
     from entities import FL_EDICT_ALWAYS
+else:
+    from entities import DATA_UPDATE_CREATED
 
 @entity('netent_example', networked=True)
 class NetEntExample(CBaseEntity):
@@ -17,6 +19,12 @@ class NetEntExample(CBaseEntity):
         
         print('netent_example spawned on the %s!' % ('Client' if isclient else 'Server'))
         
+    def OnDataChanged(self, type):
+        super(NetEntExample, self).OnDataChanged(type)
+        
+        if type == DATA_UPDATE_CREATED:
+            print('#%d: netent_example is created on the client' % (self.entindex()))
+        
     def OnNetValueChanged(self):
-        print('netvalue changed to %d' % (self.netvalue))
+        print('#%d: netvalue changed to %d' % (self.entindex(), self.netvalue))
 

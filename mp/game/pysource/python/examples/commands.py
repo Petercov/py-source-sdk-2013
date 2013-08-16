@@ -2,12 +2,14 @@ from vmath import Vector, QAngle, AngleVectors
 from gameinterface import concommand, engine
 from entities import CreateEntityByName, DispatchSpawn, eventqueue, variant_t, entlist
 from utils import UTIL_GetCommandClient, UTIL_RemoveImmediate
+from game.usermessages import CReliableSingleUserRecipientFilter
 
 import traceback
 
 # Register entity factories, if not done already
 from . import entity
 from . import networkedentity
+from . import usermessages
 
 print('Registering examples package commands. Use "py_example_*" commands to run the examples!')
 
@@ -107,4 +109,22 @@ def PyExampleNetworkedEntity(args):
     entexample.SetAbsOrigin(origin)
     DispatchSpawn(entexample)
     entexample.Activate()
+    
+    # Change a networked variable
+    # Internally, this uses uesrmessages
+    entexample.netvalue = 5
+    
+@concommand('py_example_usermessage')
+def PyExampleUserMessage(args):
+    player = UTIL_GetCommandClient()
+    
+    # Send a usermessage to all clients
+    usermessages.PyExampleUserMessage(42, ['hi', 'source', [5], 42.0], {'data' : 666, None : (2, 3, 4)})
+    
+    # Send an usermessage to all clients and the server (where on the server it is just a direct call to the method)
+    usermessages.PyExampleUserMessageShared(666, ['engine', 'source', [5], 2325.0], {'data' : 42, 3 : (7, 32, 49)})
+    
+    # You can also filter the target player by passing a filter keyword argument
+    filter = CReliableSingleUserRecipientFilter(player)
+    usermessages.PyExampleUserMessage('not an int', ['message'], {'hap' : 666}, filter=filter)
     
