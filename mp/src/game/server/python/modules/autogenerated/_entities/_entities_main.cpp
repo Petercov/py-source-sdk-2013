@@ -1791,7 +1791,7 @@ BOOST_PYTHON_MODULE(_entities){
 
     handle_to_CBaseTrigger();
 
-    register_free_functions();
+    _entities_register_free_functions();
 }
 
 

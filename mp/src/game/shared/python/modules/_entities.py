@@ -415,6 +415,9 @@ class Entities(SemiSharedModuleGenerator):
             # List of client functions overridable in Python
             mb.mem_funs('ShouldDraw').virtuality = 'virtual' # Called when visibility is updated, doesn't happens a lot.
             mb.mem_funs('GetCollideType').virtuality = 'virtual'
+            mb.mem_funs('ClientThink').virtuality = 'virtual'
+            mb.mem_funs('OnDataChanged').virtuality = 'virtual'
+            mb.mem_funs('Simulate').virtuality = 'virtual'
             
             # Excludes
             cls.mem_funs('Release').exclude()

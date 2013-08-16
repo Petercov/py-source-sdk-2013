@@ -21,7 +21,7 @@
 
 namespace bp = boost::python;
 
-void register_free_functions(){
+void _entities_register_free_functions(){
 
     { //::CreateEntityByName
     

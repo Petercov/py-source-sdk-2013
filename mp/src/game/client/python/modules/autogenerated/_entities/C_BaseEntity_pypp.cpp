@@ -58,6 +58,36 @@ struct C_BaseEntity_wrapper : C_BaseEntity, bp::wrapper< C_BaseEntity > {
         C_BaseEntity::Activate( );
     }
 
+    virtual void ClientThink(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ClientThink: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ClientThink(  ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ClientThink = this->get_override( "ClientThink" );
+        if( func_ClientThink.ptr() != Py_None )
+            try {
+                func_ClientThink(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::ClientThink(  );
+            }
+        else
+            this->C_BaseEntity::ClientThink(  );
+    }
+    
+    void default_ClientThink(  ) {
+        C_BaseEntity::ClientThink( );
+    }
+
     virtual void ComputeWorldSpaceSurroundingBox( ::Vector * pVecWorldMins, ::Vector * pVecWorldMaxs ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -358,6 +388,36 @@ struct C_BaseEntity_wrapper : C_BaseEntity, bp::wrapper< C_BaseEntity > {
         C_BaseEntity::MakeTracer( boost::ref(vecTracerSrc), boost::ref(tr), iTracerType );
     }
 
+    virtual void OnDataChanged( ::DataUpdateType_t type ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnDataChanged: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnDataChanged( type ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnDataChanged = this->get_override( "OnDataChanged" );
+        if( func_OnDataChanged.ptr() != Py_None )
+            try {
+                func_OnDataChanged( type );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::OnDataChanged( type );
+            }
+        else
+            this->C_BaseEntity::OnDataChanged( type );
+    }
+    
+    void default_OnDataChanged( ::DataUpdateType_t type ) {
+        C_BaseEntity::OnDataChanged( type );
+    }
+
     virtual void Precache(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -416,6 +476,36 @@ struct C_BaseEntity_wrapper : C_BaseEntity, bp::wrapper< C_BaseEntity > {
     
     bool default_ShouldDraw(  ) {
         return C_BaseEntity::ShouldDraw( );
+    }
+
+    virtual void Simulate(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "Simulate: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling Simulate(  ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_Simulate = this->get_override( "Simulate" );
+        if( func_Simulate.ptr() != Py_None )
+            try {
+                func_Simulate(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::Simulate(  );
+            }
+        else
+            this->C_BaseEntity::Simulate(  );
+    }
+    
+    void default_Simulate(  ) {
+        C_BaseEntity::Simulate( );
     }
 
     virtual void Spawn(  ) {
@@ -861,10 +951,12 @@ void register_C_BaseEntity_class(){
         { //::C_BaseEntity::ClientThink
         
             typedef void ( ::C_BaseEntity::*ClientThink_function_type )(  ) ;
+            typedef void ( C_BaseEntity_wrapper::*default_ClientThink_function_type )(  ) ;
             
             C_BaseEntity_exposer.def( 
                 "ClientThink"
-                , ClientThink_function_type( &::C_BaseEntity::ClientThink ) );
+                , ClientThink_function_type(&::C_BaseEntity::ClientThink)
+                , default_ClientThink_function_type(&C_BaseEntity_wrapper::default_ClientThink) );
         
         }
         { //::C_BaseEntity::CollisionProp
@@ -3403,10 +3495,12 @@ void register_C_BaseEntity_class(){
         { //::C_BaseEntity::OnDataChanged
         
             typedef void ( ::C_BaseEntity::*OnDataChanged_function_type )( ::DataUpdateType_t ) ;
+            typedef void ( C_BaseEntity_wrapper::*default_OnDataChanged_function_type )( ::DataUpdateType_t ) ;
             
             C_BaseEntity_exposer.def( 
                 "OnDataChanged"
-                , OnDataChanged_function_type( &::C_BaseEntity::OnDataChanged )
+                , OnDataChanged_function_type(&::C_BaseEntity::OnDataChanged)
+                , default_OnDataChanged_function_type(&C_BaseEntity_wrapper::default_OnDataChanged)
                 , ( bp::arg("type") ) );
         
         }
@@ -5006,10 +5100,12 @@ void register_C_BaseEntity_class(){
         { //::C_BaseEntity::Simulate
         
             typedef void ( ::C_BaseEntity::*Simulate_function_type )(  ) ;
+            typedef void ( C_BaseEntity_wrapper::*default_Simulate_function_type )(  ) ;
             
             C_BaseEntity_exposer.def( 
                 "Simulate"
-                , Simulate_function_type( &::C_BaseEntity::Simulate ) );
+                , Simulate_function_type(&::C_BaseEntity::Simulate)
+                , default_Simulate_function_type(&C_BaseEntity_wrapper::default_Simulate) );
         
         }
         { //::C_BaseEntity::SnatchModelInstance

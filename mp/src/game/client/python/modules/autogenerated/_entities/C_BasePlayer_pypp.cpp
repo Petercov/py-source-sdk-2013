@@ -88,6 +88,36 @@ struct C_BasePlayer_wrapper : C_BasePlayer, bp::wrapper< C_BasePlayer > {
         C_BasePlayer::MakeTracer( boost::ref(vecTracerSrc), boost::ref(tr), iTracerType );
     }
 
+    virtual void OnDataChanged( ::DataUpdateType_t updateType ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnDataChanged: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnDataChanged( updateType ) of Class: C_BasePlayer\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnDataChanged = this->get_override( "OnDataChanged" );
+        if( func_OnDataChanged.ptr() != Py_None )
+            try {
+                func_OnDataChanged( updateType );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BasePlayer::OnDataChanged( updateType );
+            }
+        else
+            this->C_BasePlayer::OnDataChanged( updateType );
+    }
+    
+    void default_OnDataChanged( ::DataUpdateType_t updateType ) {
+        C_BasePlayer::OnDataChanged( updateType );
+    }
+
     virtual bool ShouldDraw(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -116,6 +146,36 @@ struct C_BasePlayer_wrapper : C_BasePlayer, bp::wrapper< C_BasePlayer > {
     
     bool default_ShouldDraw(  ) {
         return C_BasePlayer::ShouldDraw( );
+    }
+
+    virtual void Simulate(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "Simulate: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling Simulate(  ) of Class: C_BasePlayer\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_Simulate = this->get_override( "Simulate" );
+        if( func_Simulate.ptr() != Py_None )
+            try {
+                func_Simulate(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BasePlayer::Simulate(  );
+            }
+        else
+            this->C_BasePlayer::Simulate(  );
+    }
+    
+    void default_Simulate(  ) {
+        C_BasePlayer::Simulate( );
     }
 
     virtual void Spawn(  ) {
@@ -176,6 +236,36 @@ struct C_BasePlayer_wrapper : C_BasePlayer, bp::wrapper< C_BasePlayer > {
     
     void default_Activate(  ) {
         C_BaseEntity::Activate( );
+    }
+
+    virtual void ClientThink(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ClientThink: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ClientThink(  ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ClientThink = this->get_override( "ClientThink" );
+        if( func_ClientThink.ptr() != Py_None )
+            try {
+                func_ClientThink(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::ClientThink(  );
+            }
+        else
+            this->C_BaseEntity::ClientThink(  );
+    }
+    
+    void default_ClientThink(  ) {
+        C_BaseEntity::ClientThink( );
     }
 
     virtual void ComputeWorldSpaceSurroundingBox( ::Vector * pVecWorldMins, ::Vector * pVecWorldMaxs ) {
@@ -889,7 +979,8 @@ void register_C_BasePlayer_class(){
             , ( bp::arg("iAchievement") ) )    
         .def( 
             "OnDataChanged"
-            , (void ( ::C_BasePlayer::* )( ::DataUpdateType_t ) )( &::C_BasePlayer::OnDataChanged )
+            , (void ( ::C_BasePlayer::* )( ::DataUpdateType_t ) )(&::C_BasePlayer::OnDataChanged)
+            , (void ( C_BasePlayer_wrapper::* )( ::DataUpdateType_t ) )(&C_BasePlayer_wrapper::default_OnDataChanged)
             , ( bp::arg("updateType") ) )    
         .def( 
             "OnEmitFootstepSound"
@@ -1063,7 +1154,8 @@ void register_C_BasePlayer_class(){
             , (bool ( ::C_BasePlayer::* )(  ) )( &::C_BasePlayer::ShouldShowHints ) )    
         .def( 
             "Simulate"
-            , (void ( ::C_BasePlayer::* )(  ) )( &::C_BasePlayer::Simulate ) )    
+            , (void ( ::C_BasePlayer::* )(  ) )(&::C_BasePlayer::Simulate)
+            , (void ( C_BasePlayer_wrapper::* )(  ) )(&C_BasePlayer_wrapper::default_Simulate) )    
         .def( 
             "SimulatePlayerSimulatedEntities"
             , (void ( ::C_BasePlayer::* )(  ) )( &::C_BasePlayer::SimulatePlayerSimulatedEntities ) )    
@@ -1149,6 +1241,10 @@ void register_C_BasePlayer_class(){
             "Activate"
             , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::Activate)
             , (void ( C_BasePlayer_wrapper::* )(  ) )(&C_BasePlayer_wrapper::default_Activate) )    
+        .def( 
+            "ClientThink"
+            , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::ClientThink)
+            , (void ( C_BasePlayer_wrapper::* )(  ) )(&C_BasePlayer_wrapper::default_ClientThink) )    
         .def( 
             "ComputeWorldSpaceSurroundingBox"
             , (void ( ::C_BaseEntity::* )( ::Vector *,::Vector * ) )(&::C_BaseEntity::ComputeWorldSpaceSurroundingBox)

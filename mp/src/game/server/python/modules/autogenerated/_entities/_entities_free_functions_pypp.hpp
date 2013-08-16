@@ -6,7 +6,7 @@
 #ifndef _entities_free_functions_hpp__pyplusplus_wrapper
 #define _entities_free_functions_hpp__pyplusplus_wrapper
 
-void register_free_functions();
+void _entities_register_free_functions();
 
 #endif//_entities_free_functions_hpp__pyplusplus_wrapper
 

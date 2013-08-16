@@ -88,6 +88,36 @@ struct C_BaseCombatWeapon_wrapper : C_BaseCombatWeapon, bp::wrapper< C_BaseComba
         C_BaseCombatWeapon::MakeTracer( boost::ref(vecTracerSrc), boost::ref(tr), iTracerType );
     }
 
+    virtual void OnDataChanged( ::DataUpdateType_t updateType ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnDataChanged: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnDataChanged( updateType ) of Class: C_BaseCombatWeapon\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnDataChanged = this->get_override( "OnDataChanged" );
+        if( func_OnDataChanged.ptr() != Py_None )
+            try {
+                func_OnDataChanged( updateType );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseCombatWeapon::OnDataChanged( updateType );
+            }
+        else
+            this->C_BaseCombatWeapon::OnDataChanged( updateType );
+    }
+    
+    void default_OnDataChanged( ::DataUpdateType_t updateType ) {
+        C_BaseCombatWeapon::OnDataChanged( updateType );
+    }
+
     virtual void Precache(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -236,6 +266,36 @@ struct C_BaseCombatWeapon_wrapper : C_BaseCombatWeapon, bp::wrapper< C_BaseComba
     
     void default_Spawn(  ) {
         C_BaseCombatWeapon::Spawn( );
+    }
+
+    virtual void ClientThink(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ClientThink: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ClientThink(  ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ClientThink = this->get_override( "ClientThink" );
+        if( func_ClientThink.ptr() != Py_None )
+            try {
+                func_ClientThink(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::ClientThink(  );
+            }
+        else
+            this->C_BaseEntity::ClientThink(  );
+    }
+    
+    void default_ClientThink(  ) {
+        C_BaseEntity::ClientThink( );
     }
 
     virtual void ComputeWorldSpaceSurroundingBox( ::Vector * pVecWorldMins, ::Vector * pVecWorldMaxs ) {
@@ -506,6 +566,36 @@ struct C_BaseCombatWeapon_wrapper : C_BaseCombatWeapon, bp::wrapper< C_BaseComba
     
     bool default_KeyValue( char const * szKeyName, ::Vector const & vecValue ) {
         return C_BaseEntity::KeyValue( szKeyName, boost::ref(vecValue) );
+    }
+
+    virtual void Simulate(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "Simulate: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling Simulate(  ) of Class: C_BaseAnimating\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_Simulate = this->get_override( "Simulate" );
+        if( func_Simulate.ptr() != Py_None )
+            try {
+                func_Simulate(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseAnimating::Simulate(  );
+            }
+        else
+            this->C_BaseAnimating::Simulate(  );
+    }
+    
+    void default_Simulate(  ) {
+        C_BaseAnimating::Simulate( );
     }
 
     virtual void StartTouch( ::C_BaseEntity * pOther ) {
@@ -1019,7 +1109,8 @@ void register_C_BaseCombatWeapon_class(){
             , ( bp::arg("iOldState") ) )    
         .def( 
             "OnDataChanged"
-            , (void ( ::C_BaseCombatWeapon::* )( ::DataUpdateType_t ) )( &::C_BaseCombatWeapon::OnDataChanged )
+            , (void ( ::C_BaseCombatWeapon::* )( ::DataUpdateType_t ) )(&::C_BaseCombatWeapon::OnDataChanged)
+            , (void ( C_BaseCombatWeapon_wrapper::* )( ::DataUpdateType_t ) )(&C_BaseCombatWeapon_wrapper::default_OnDataChanged)
             , ( bp::arg("updateType") ) )    
         .def( 
             "OnFireEvent"
@@ -1224,6 +1315,10 @@ void register_C_BaseCombatWeapon_class(){
             "WeaponState"
             , (int ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::WeaponState ) )    
         .def( 
+            "ClientThink"
+            , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::ClientThink)
+            , (void ( C_BaseCombatWeapon_wrapper::* )(  ) )(&C_BaseCombatWeapon_wrapper::default_ClientThink) )    
+        .def( 
             "ComputeWorldSpaceSurroundingBox"
             , (void ( ::C_BaseEntity::* )( ::Vector *,::Vector * ) )(&::C_BaseEntity::ComputeWorldSpaceSurroundingBox)
             , (void ( C_BaseCombatWeapon_wrapper::* )( ::Vector *,::Vector * ) )(&C_BaseCombatWeapon_wrapper::default_ComputeWorldSpaceSurroundingBox)
@@ -1265,6 +1360,10 @@ void register_C_BaseCombatWeapon_class(){
             , (bool ( ::C_BaseEntity::* )( char const *,::Vector const & ) )(&::C_BaseEntity::KeyValue)
             , (bool ( C_BaseCombatWeapon_wrapper::* )( char const *,::Vector const & ) )(&C_BaseCombatWeapon_wrapper::default_KeyValue)
             , ( bp::arg("szKeyName"), bp::arg("vecValue") ) )    
+        .def( 
+            "Simulate"
+            , (void ( ::C_BaseAnimating::* )(  ) )(&::C_BaseAnimating::Simulate)
+            , (void ( C_BaseCombatWeapon_wrapper::* )(  ) )(&C_BaseCombatWeapon_wrapper::default_Simulate) )    
         .def( 
             "StartTouch"
             , (void ( ::C_BaseEntity::* )( ::C_BaseEntity * ) )(&::C_BaseEntity::StartTouch)

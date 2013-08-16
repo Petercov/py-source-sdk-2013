@@ -67,6 +67,36 @@ struct C_BaseAnimating_wrapper : C_BaseAnimating, bp::wrapper< C_BaseAnimating >
         return bp::make_tuple( result, minValue2, maxValue2 );
     }
 
+    virtual void OnDataChanged( ::DataUpdateType_t updateType ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnDataChanged: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnDataChanged( updateType ) of Class: C_BaseAnimating\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnDataChanged = this->get_override( "OnDataChanged" );
+        if( func_OnDataChanged.ptr() != Py_None )
+            try {
+                func_OnDataChanged( updateType );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseAnimating::OnDataChanged( updateType );
+            }
+        else
+            this->C_BaseAnimating::OnDataChanged( updateType );
+    }
+    
+    void default_OnDataChanged( ::DataUpdateType_t updateType ) {
+        C_BaseAnimating::OnDataChanged( updateType );
+    }
+
     virtual bool ShouldDraw(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -97,6 +127,36 @@ struct C_BaseAnimating_wrapper : C_BaseAnimating, bp::wrapper< C_BaseAnimating >
         return C_BaseAnimating::ShouldDraw( );
     }
 
+    virtual void Simulate(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "Simulate: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling Simulate(  ) of Class: C_BaseAnimating\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_Simulate = this->get_override( "Simulate" );
+        if( func_Simulate.ptr() != Py_None )
+            try {
+                func_Simulate(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseAnimating::Simulate(  );
+            }
+        else
+            this->C_BaseAnimating::Simulate(  );
+    }
+    
+    void default_Simulate(  ) {
+        C_BaseAnimating::Simulate( );
+    }
+
     virtual void Activate(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -125,6 +185,36 @@ struct C_BaseAnimating_wrapper : C_BaseAnimating, bp::wrapper< C_BaseAnimating >
     
     void default_Activate(  ) {
         C_BaseEntity::Activate( );
+    }
+
+    virtual void ClientThink(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ClientThink: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ClientThink(  ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ClientThink = this->get_override( "ClientThink" );
+        if( func_ClientThink.ptr() != Py_None )
+            try {
+                func_ClientThink(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::ClientThink(  );
+            }
+        else
+            this->C_BaseEntity::ClientThink(  );
+    }
+    
+    void default_ClientThink(  ) {
+        C_BaseEntity::ClientThink( );
     }
 
     virtual void ComputeWorldSpaceSurroundingBox( ::Vector * pVecWorldMins, ::Vector * pVecWorldMaxs ) {
@@ -1867,10 +1957,12 @@ void register_C_BaseAnimating_class(){
         { //::C_BaseAnimating::OnDataChanged
         
             typedef void ( ::C_BaseAnimating::*OnDataChanged_function_type )( ::DataUpdateType_t ) ;
+            typedef void ( C_BaseAnimating_wrapper::*default_OnDataChanged_function_type )( ::DataUpdateType_t ) ;
             
             C_BaseAnimating_exposer.def( 
                 "OnDataChanged"
-                , OnDataChanged_function_type( &::C_BaseAnimating::OnDataChanged )
+                , OnDataChanged_function_type(&::C_BaseAnimating::OnDataChanged)
+                , default_OnDataChanged_function_type(&C_BaseAnimating_wrapper::default_OnDataChanged)
                 , ( bp::arg("updateType") ) );
         
         }
@@ -2323,10 +2415,12 @@ void register_C_BaseAnimating_class(){
         { //::C_BaseAnimating::Simulate
         
             typedef void ( ::C_BaseAnimating::*Simulate_function_type )(  ) ;
+            typedef void ( C_BaseAnimating_wrapper::*default_Simulate_function_type )(  ) ;
             
             C_BaseAnimating_exposer.def( 
                 "Simulate"
-                , Simulate_function_type( &::C_BaseAnimating::Simulate ) );
+                , Simulate_function_type(&::C_BaseAnimating::Simulate)
+                , default_Simulate_function_type(&C_BaseAnimating_wrapper::default_Simulate) );
         
         }
         { //::C_BaseAnimating::StandardBlendingRules
@@ -2509,6 +2603,17 @@ void register_C_BaseAnimating_class(){
                 "Activate"
                 , Activate_function_type(&::C_BaseEntity::Activate)
                 , default_Activate_function_type(&C_BaseAnimating_wrapper::default_Activate) );
+        
+        }
+        { //::C_BaseEntity::ClientThink
+        
+            typedef void ( ::C_BaseEntity::*ClientThink_function_type )(  ) ;
+            typedef void ( C_BaseAnimating_wrapper::*default_ClientThink_function_type )(  ) ;
+            
+            C_BaseAnimating_exposer.def( 
+                "ClientThink"
+                , ClientThink_function_type(&::C_BaseEntity::ClientThink)
+                , default_ClientThink_function_type(&C_BaseAnimating_wrapper::default_ClientThink) );
         
         }
         { //::C_BaseEntity::ComputeWorldSpaceSurroundingBox
