@@ -15,6 +15,9 @@
 #include "modelentities.h"
 #include "basetoggle.h"
 #include "triggers.h"
+#include "nav_area.h"
+#include "AI_Criteria.h"
+#include "isaverestore.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -792,23 +795,23 @@ struct CBaseAnimating_wrapper : CBaseAnimating, bp::wrapper< CBaseAnimating > {
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ServerClass* GetServerClass() {
-#if defined(_WIN32)
-#if defined(_DEBUG)
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-#elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "GetServerClass: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-#endif // _DEBUG/PY_CHECKTHREADID
-#endif // _WIN32
-#if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling GetServerClass(  ) of Class: CBaseAnimating\n");
-#endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
-        ServerClass *pServerClass = SrcPySystem()->Get<ServerClass *>( "pyServerClass", GetPyInstance(), NULL, true );
-        if( pServerClass )
-            return pServerClass;
-        return CBaseAnimating::GetServerClass();
-    }
+    #if defined(_WIN32)
+    #if defined(_DEBUG)
+            Assert( GetCurrentThreadId() == g_hPythonThreadID );
+    #elif defined(PY_CHECKTHREADID)
+            if( GetCurrentThreadId() != g_hPythonThreadID )
+                Error( "GetServerClass: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+    #endif // _DEBUG/PY_CHECKTHREADID
+    #endif // _WIN32
+    #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+            if( py_log_overrides.GetBool() )
+                Msg("Calling GetServerClass(  ) of Class: CBaseAnimating\n");
+    #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+            ServerClass *pServerClass = SrcPySystem()->Get<ServerClass *>( "pyServerClass", GetPyInstance(), NULL, true );
+            if( pServerClass )
+                return pServerClass;
+            return CBaseAnimating::GetServerClass();
+        }
 
 };
 

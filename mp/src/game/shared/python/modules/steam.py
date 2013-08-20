@@ -9,12 +9,10 @@ class Steam(SemiSharedModuleGenerator):
     
     files = [
         'cbase.h',
-        'steam\steam_api.h',
-        'steam\isteamfriends.h',
-        'steam\isteamutils.h',
-        'steam\steamclientpublic.h',
-        
-        '$vgui_avatarimage.h',
+        'steam/steam_api.h',
+        'steam/isteamfriends.h',
+        'steam/isteamutils.h',
+        'steam/steamclientpublic.h',
     ]
     
     def ParseClient(self, mb):

@@ -2591,8 +2591,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , ( bp::arg("nIndex") ) )    
         .staticmethod( "MaxCommandLength" )    
         .def( 
-            "__len__"
-            , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) );
+                    "__len__"
+                    , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) );
 
     bp::class_< CLocalPlayerFilter, bp::bases< C_RecipientFilter >, boost::noncopyable >( "CLocalPlayerFilter", bp::init< >() );
 
@@ -2831,51 +2831,51 @@ BOOST_PYTHON_MODULE(_gameinterface){
         .def( bp::init< char const *, char const *, int, char const *, bp::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("callback") )) )    
         .def( bp::init< char const *, char const *, int, char const *, bool, float, bool, float, bp::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("bMin"), bp::arg("fMin"), bp::arg("bMax"), bp::arg("fMax"), bp::arg("callback") )) )    
         .def( 
-            "AddFlags"
-            , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
-            , ( bp::arg("flags") ) )    
+                    "AddFlags"
+                    , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
+                    , ( bp::arg("flags") ) )    
         .def( 
-            "GetBool"
-            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::GetBool ) )    
+                    "GetBool"
+                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::GetBool ) )    
         .def( 
-            "GetDefault"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetDefault ) )    
+                    "GetDefault"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetDefault ) )    
         .def( 
-            "GetFloat"
-            , (float ( ::ConVar::* )(  ) const)( &::ConVar::GetFloat ) )    
+                    "GetFloat"
+                    , (float ( ::ConVar::* )(  ) const)( &::ConVar::GetFloat ) )    
         .def( 
-            "GetHelpText"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetHelpText ) )    
+                    "GetHelpText"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetHelpText ) )    
         .def( 
-            "GetInt"
-            , (int ( ::ConVar::* )(  ) const)( &::ConVar::GetInt ) )    
+                    "GetInt"
+                    , (int ( ::ConVar::* )(  ) const)( &::ConVar::GetInt ) )    
         .def( 
-            "GetMax"
-            , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMax )
-            , ( bp::arg("maxVal") ) )    
+                    "GetMax"
+                    , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMax )
+                    , ( bp::arg("maxVal") ) )    
         .def( 
-            "GetMin"
-            , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMin )
-            , ( bp::arg("minVal") ) )    
+                    "GetMin"
+                    , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMin )
+                    , ( bp::arg("minVal") ) )    
         .def( 
-            "GetName"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetName ) )    
+                    "GetName"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetName ) )    
         .def( 
-            "GetString"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetString ) )    
+                    "GetString"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetString ) )    
         .def( 
-            "IsCommand"
-            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsCommand ) )    
+                    "IsCommand"
+                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsCommand ) )    
         .def( 
-            "IsFlagSet"
-            , (bool ( ::ConVar::* )( int ) const)( &::ConVar::IsFlagSet )
-            , ( bp::arg("flag") ) )    
+                    "IsFlagSet"
+                    , (bool ( ::ConVar::* )( int ) const)( &::ConVar::IsFlagSet )
+                    , ( bp::arg("flag") ) )    
         .def( 
-            "IsRegistered"
-            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsRegistered ) )    
+                    "IsRegistered"
+                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsRegistered ) )    
         .def( 
-            "Revert"
-            , (void ( ::ConVar::* )(  ) )( &::ConVar::Revert ) );
+                    "Revert"
+                    , (void ( ::ConVar::* )(  ) )( &::ConVar::Revert ) );
 
     { //::PyGameEvent
         typedef bp::class_< PyGameEvent > GameEvent_exposer_t;
@@ -6163,8 +6163,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , ( bp::arg("nIndex") ) )    
         .staticmethod( "MaxCommandLength" )    
         .def( 
-            "__len__"
-            , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) );
+                    "__len__"
+                    , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) );
 
     bp::class_< CMapEntityRef >( "CMapEntityRef" )    
         .def_readwrite( "m_iEdict", &CMapEntityRef::m_iEdict )    
@@ -6430,51 +6430,51 @@ BOOST_PYTHON_MODULE(_gameinterface){
         .def( bp::init< char const *, char const *, int, char const *, bp::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("callback") )) )    
         .def( bp::init< char const *, char const *, int, char const *, bool, float, bool, float, bp::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("bMin"), bp::arg("fMin"), bp::arg("bMax"), bp::arg("fMax"), bp::arg("callback") )) )    
         .def( 
-            "AddFlags"
-            , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
-            , ( bp::arg("flags") ) )    
+                    "AddFlags"
+                    , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
+                    , ( bp::arg("flags") ) )    
         .def( 
-            "GetBool"
-            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::GetBool ) )    
+                    "GetBool"
+                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::GetBool ) )    
         .def( 
-            "GetDefault"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetDefault ) )    
+                    "GetDefault"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetDefault ) )    
         .def( 
-            "GetFloat"
-            , (float ( ::ConVar::* )(  ) const)( &::ConVar::GetFloat ) )    
+                    "GetFloat"
+                    , (float ( ::ConVar::* )(  ) const)( &::ConVar::GetFloat ) )    
         .def( 
-            "GetHelpText"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetHelpText ) )    
+                    "GetHelpText"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetHelpText ) )    
         .def( 
-            "GetInt"
-            , (int ( ::ConVar::* )(  ) const)( &::ConVar::GetInt ) )    
+                    "GetInt"
+                    , (int ( ::ConVar::* )(  ) const)( &::ConVar::GetInt ) )    
         .def( 
-            "GetMax"
-            , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMax )
-            , ( bp::arg("maxVal") ) )    
+                    "GetMax"
+                    , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMax )
+                    , ( bp::arg("maxVal") ) )    
         .def( 
-            "GetMin"
-            , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMin )
-            , ( bp::arg("minVal") ) )    
+                    "GetMin"
+                    , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMin )
+                    , ( bp::arg("minVal") ) )    
         .def( 
-            "GetName"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetName ) )    
+                    "GetName"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetName ) )    
         .def( 
-            "GetString"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetString ) )    
+                    "GetString"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetString ) )    
         .def( 
-            "IsCommand"
-            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsCommand ) )    
+                    "IsCommand"
+                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsCommand ) )    
         .def( 
-            "IsFlagSet"
-            , (bool ( ::ConVar::* )( int ) const)( &::ConVar::IsFlagSet )
-            , ( bp::arg("flag") ) )    
+                    "IsFlagSet"
+                    , (bool ( ::ConVar::* )( int ) const)( &::ConVar::IsFlagSet )
+                    , ( bp::arg("flag") ) )    
         .def( 
-            "IsRegistered"
-            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsRegistered ) )    
+                    "IsRegistered"
+                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsRegistered ) )    
         .def( 
-            "Revert"
-            , (void ( ::ConVar::* )(  ) )( &::ConVar::Revert ) );
+                    "Revert"
+                    , (void ( ::ConVar::* )(  ) )( &::ConVar::Revert ) );
 
     { //::PyGameEvent
         typedef bp::class_< PyGameEvent > GameEvent_exposer_t;

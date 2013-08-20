@@ -165,6 +165,9 @@ class Entities(SemiSharedModuleGenerator):
         '#basetoggle.h',
         '#triggers.h',
         '$soundinfo.h',
+        '#nav_area.h',
+        '#AI_Criteria.h',
+        'isaverestore.h',
     ]
     
     # List of entity classes want to have exposed
@@ -279,8 +282,11 @@ class Entities(SemiSharedModuleGenerator):
         # Made not virtual so no wrapper code is generated in IClientUnknown and IClientEntity
         mb.class_('IClientRenderable').mem_funs().virtuality = 'not virtual' 
         mb.class_('IClientNetworkable').mem_funs().virtuality = 'not virtual' 
-        mb.class_('IClientThinkable').mem_funs().virtuality = 'not virtual' 
-        
+        mb.class_('IClientThinkable').mem_funs().virtuality = 'not virtual'
+ 
+        mb.mem_funs('SetThinkHandle').exclude()
+        mb.mem_funs('GetThinkHandle').exclude()
+
         self.IncludeEmptyClass(mb, 'IClientUnknown')
         self.IncludeEmptyClass(mb, 'IClientEntity')
         
@@ -468,6 +474,7 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_funs('GetServerVehicle').exclude()     # Don't care
             cls.mem_funs('NetworkProp').exclude()            # Don't care
             cls.mem_funs('GetResponseSystem').exclude()         # Don't care for now
+            cls.mem_funs('MyNextBotPointer').exclude()
             
             cls.vars('m_pTimedOverlay').exclude()
     
@@ -541,6 +548,7 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_fun('GetLastKnownArea').exclude()
             cls.mem_fun('RemoveWeapon').exclude() # No definition
             cls.mem_fun('CauseDeath').exclude() # No definition
+            cls.mem_fun('OnPursuedBy').exclude() # No INextBot definition
             
     def ParseBasePlayer(self, mb):
         cls = mb.class_('C_BasePlayer') if self.isclient else mb.class_('CBasePlayer')

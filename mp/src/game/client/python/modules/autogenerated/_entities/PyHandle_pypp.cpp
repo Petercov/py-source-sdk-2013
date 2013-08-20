@@ -11,6 +11,7 @@
 #include "takedamageinfo.h"
 #include "c_ai_basenpc.h"
 #include "soundinfo.h"
+#include "isaverestore.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"

@@ -18,11 +18,7 @@
 
 #include "srcpy_srcbuiltins_converters.h"
 
-#include "tier0/valve_minmax_off.h"
-
 #include "srcpy.h"
-
-#include "tier0/valve_minmax_on.h"
 
 #include "tier0/memdbgon.h"
 
@@ -242,8 +238,8 @@ BOOST_PYTHON_MODULE(srcbuiltins){
     }
 
     bp::to_python_converter<
-	string_t,
-	string_t_to_python_str>();
+    	string_t,
+    	string_t_to_python_str>();
 
     python_str_to_string_t();
 

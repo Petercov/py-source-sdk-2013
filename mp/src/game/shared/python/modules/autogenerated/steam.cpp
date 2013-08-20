@@ -12,8 +12,6 @@
 
 #include "steam/steamclientpublic.h"
 
-#include "vgui_avatarimage.h"
-
 #include "tier0/valve_minmax_off.h"
 
 #include "srcpy.h"

@@ -21,7 +21,7 @@
 	class CRagdollProp;
 #endif // CLIENT_DLL
 
-#include <boost/python.hpp>
+#include "srcpy_boostpython.h"
 
 extern boost::python::object _entities;
 
@@ -45,7 +45,7 @@ public:
 template< class T >
 inline boost::python::object CEPyHandle<T>::GetAttr( const char *name )
 {
-	return boost::python::object(boost::python::ptr(Get())).attr(name);
+	return boost::python::object(boost::python::ptr(this->Get())).attr(name);
 }
 
 template< class T >
@@ -54,11 +54,11 @@ int CEPyHandle<T>::Cmp( boost::python::object other )
 	// The thing to which we compare is NULL
 	PyObject *pPyObject = other.ptr();
 	if( pPyObject == Py_None ) {
-		return Get() != NULL;
+		return this->Get() != NULL;
 	}
 
 	// We are NULL
-	if( Get() == NULL )
+	if( this->Get() == NULL )
 	{
 		return pPyObject != NULL;
 	}
@@ -70,7 +70,7 @@ int CEPyHandle<T>::Cmp( boost::python::object other )
 	if( PyObject_IsInstance(pPyObject, boost::python::object(_entities.attr("CBaseEntity")).ptr()) )
 #endif // CLIENT_DLL
 	{
-		CBaseEntity *pSelf = Get();
+		CBaseEntity *pSelf = this->Get();
 		CBaseEntity *pOther = boost::python::extract<CBaseEntity *>(other);
 		if( pOther == pSelf )
 		{
@@ -90,9 +90,9 @@ int CEPyHandle<T>::Cmp( boost::python::object other )
 	CBaseHandle *pHandle = boost::python::extract<CBaseHandle *>( other );
 	if( pHandle )
 	{
-		if( pHandle->ToInt() == ToInt() )
+		if( pHandle->ToInt() == this->ToInt() )
 			return 0;
-		else if( pHandle->GetEntryIndex() > GetEntryIndex() )
+		else if( pHandle->GetEntryIndex() > this->GetEntryIndex() )
 			return 1;
 		else
 			return -1;
@@ -104,7 +104,7 @@ int CEPyHandle<T>::Cmp( boost::python::object other )
 template< class T >
 inline bool CEPyHandle<T>::NonZero()
 {
-	return Get() != NULL;
+	return this->Get() != NULL;
 }
 
 //----------------------------------------------------------------------------
