@@ -31,6 +31,7 @@
 // =======================================
 // PySource Additions
 // =======================================
+#include "srcpy.h"
 #include "srcpy_entities.h"
 // =======================================
 // END PySource Additions
@@ -114,11 +115,39 @@ void ClientActive( edict_t *pEdict, bool bLoadGame )
 // PySource Additions
 // =======================================
 #ifdef ENABLE_PYTHON
-	// Give a full update of the networked python entities
-	// NOTE: Only dedicated servers and the listened host. Listened and clients are done in ClientConnect
-	if( engine->IsDedicatedServer() || ENTINDEX(pEdict) > 1 )
+	if( SrcPySystem()->IsPythonRunning() )
 	{
-		FullClientUpdatePyNetworkCls( pPlayer );
+		// Give a full update of the networked python entities
+		// NOTE: Only dedicated servers and the listened host. Listened and clients are done in ClientConnect
+		if( engine->IsDedicatedServer() || ENTINDEX(pEdict) > 1 )
+		{
+			FullClientUpdatePyNetworkCls( pPlayer );
+		}
+
+		// Send clientactive signal
+#ifdef CLIENT_DLL
+		char pLevelName[_MAX_PATH];
+		V_FileBase(engine->GetLevelName(), pLevelName, _MAX_PATH);
+#else
+		const char *pLevelName = STRING(gpGlobals->mapname);
+#endif
+		
+		try 
+		{
+			boost::python::dict kwargs;
+			kwargs["sender"] = boost::python::object();
+			kwargs["client"] = pPlayer->GetPyHandle();
+			boost::python::object signal = SrcPySystem()->Get( "clientactive", "game.signals", true );
+			SrcPySystem()->CallSignal( signal, kwargs );
+
+			signal = SrcPySystem()->Get( "map_clientactive", "game.signals", true )[pLevelName];
+			SrcPySystem()->CallSignal( signal, kwargs );
+		} 
+		catch( boost::python::error_already_set & ) 
+		{
+			Warning( "Failed to retrieve clientactive signal:\n" );
+			PyErr_Print();
+		}
 	}
 #endif // ENABLE_PYTHON
 // =======================================

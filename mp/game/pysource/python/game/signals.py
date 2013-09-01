@@ -9,6 +9,15 @@ def FireSignalRobust(s, **kwargs):
     for r in responses:
         if isinstance(r[1], Exception):
             PrintWarning('Error in receiver %s (module: %s): %s\n' % (r[0], r[0].__module__, r[1]))
+            
+def _CheckReponses(responses):
+    for r in responses:
+        if isinstance(r[1], Exception):
+            PrintWarning('Error in receiver %s (module: %s): \n%s' %
+                (r[0], r[0].__module__, r[2]))
+            
+def _CallSignal(method, kwargs):
+    _CheckReponses(method(**kwargs))
 
 class LevelInitSignal(Signal):
     """ Special signal class for levelinit signals.
@@ -37,6 +46,11 @@ map_prelevelshutdown = defaultdict(lambda : Signal())
 # Send at level shutdown after entities are removed
 postlevelshutdown = Signal()
 map_postlevelshutdown = defaultdict(lambda : Signal())
+
+if isserver:
+    # Send when a new client connected
+    clientactive = Signal(providing_args=["client"])
+    map_clientactive = defaultdict(lambda : Signal(providing_args=["client"]))
 
 '''
 # Examples of several signals:

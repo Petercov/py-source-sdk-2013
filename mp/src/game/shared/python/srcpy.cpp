@@ -69,6 +69,8 @@ bp::object builtins;
 bp::object types;
 bp::object sys;
 
+bp::object game;
+
 bp::object weakref;
 bp::object srcbuiltins;
 bp::object steam;
@@ -350,6 +352,11 @@ bool CSrcPython::InitInterpreter( void )
 	// TODO: _vguicontrols = Import("_vguicontrols");
 #endif	// CLIENT_DLL
 
+	game = Import("game");
+
+	// For spy/cpy commands
+	Run( "import consolespace" );
+
 #ifdef CLIENT_DLL
 	DevMsg( "CLIENT: " );
 #else
@@ -505,6 +512,10 @@ bool CSrcPython::ShutdownInterpreter( void )
 #ifdef CLIENT_DLL
 	_vguicontrols = bp::object();
 #endif // CLIENT_DLL
+
+	game = bp::object();
+
+	fntype = bp::object();
 
 	// Finalize
 	m_bPythonIsFinalizing = true;
@@ -1002,11 +1013,9 @@ const char * CSrcPython::GetModuleNameFromIndex( int nModuleIndex )
 //-----------------------------------------------------------------------------
 void CSrcPython::CallSignalNoArgs( bp::object signal )
 {
-	// TODO
-#if 0
 	try 
 	{
-		srcmgr.attr("_CheckReponses")( 
+		game.attr("signals").attr("_CheckReponses")( 
 			signal.attr("send_robust")( bp::object() )
 		);
 	} 
@@ -1015,7 +1024,6 @@ void CSrcPython::CallSignalNoArgs( bp::object signal )
 		Warning("Failed to call signal:\n");
 		PyErr_Print();
 	}
-#endif // 0
 }
 
 //-----------------------------------------------------------------------------
@@ -1023,18 +1031,15 @@ void CSrcPython::CallSignalNoArgs( bp::object signal )
 //-----------------------------------------------------------------------------
 void CSrcPython::CallSignal( bp::object signal, bp::dict kwargs )
 {
-	// TODO
-#if 0
 	try 
 	{
-		srcmgr.attr("_CallSignal")( bp::object(signal.attr("send_robust")), kwargs );
+		game.attr("signals").attr("_CallSignal")( bp::object(signal.attr("send_robust")), kwargs );
 	} 
 	catch( bp::error_already_set & ) 
 	{
 		Warning("Failed to call signal:\n");
 		PyErr_Print();
 	}
-#endif // 0
 }
 
 //-----------------------------------------------------------------------------
