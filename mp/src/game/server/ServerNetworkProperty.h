@@ -32,7 +32,9 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
+#ifdef ENABLE_PYTHON
 	void DestroyNetworkProperty();
+#endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
 // =======================================
