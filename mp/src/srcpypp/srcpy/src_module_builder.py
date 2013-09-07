@@ -89,6 +89,8 @@ dsymbols = [
     'LINUX=1',
     'POSIX=1',
     
+    'GLOWS_ENABLE',
+    
     'BOOST_AUTO_LINK_NOMANGLE',
     'BOOST_PYTHON_STATIC_LIB',
     'BOOST_PYTHON_NO_PY_SIGNATURES',
@@ -152,6 +154,8 @@ class src_module_builder_t(module_builder.module_builder_t):
         else:
             ds = dsymbols+dsymbols_server
             incl = incl_paths_server+incl_paths  
+            
+        self.definedsymbols = ds
         
         module_builder.module_builder_t.__init__(
                     self
