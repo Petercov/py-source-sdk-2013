@@ -19,8 +19,20 @@
 #include "hl2mptextwindow.h"
 #include "ienginevgui.h"
 
+#include "glow_outline_effect.h"
+#include "clienteffectprecachesystem.h"
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
+
+CLIENTEFFECT_REGISTER_BEGIN( PrecachePostProcessingEffectsGlow )
+	CLIENTEFFECT_MATERIAL( "dev/glow_color" )
+	CLIENTEFFECT_MATERIAL( "dev/glow_downsample" )
+	CLIENTEFFECT_MATERIAL( "dev/glow_blur_x" )
+	CLIENTEFFECT_MATERIAL( "dev/glow_blur_y" )
+	CLIENTEFFECT_MATERIAL( "dev/halo_add_to_screen" )
+CLIENTEFFECT_REGISTER_END_CONDITIONAL( engine->GetDXSupportLevel() >= 90 )
+
 //-----------------------------------------------------------------------------
 // Globals
 //-----------------------------------------------------------------------------
@@ -124,5 +136,18 @@ void ClientModeHL2MPNormal::Init()
 	}
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+bool ClientModeHL2MPNormal::DoPostScreenSpaceEffects( const CViewSetup *pSetup )
+{
+	CMatRenderContextPtr pRenderContext( materials );
 
+	pRenderContext->PushRenderTargetAndViewport();
+	g_GlowObjectManager.RenderGlowEffects( pSetup, 0 /*GetSplitScreenPlayerSlot()*/ );
+	pRenderContext->PopRenderTargetAndViewport();
 
+	pRenderContext.SafeRelease();
+
+	return BaseClass::DoPostScreenSpaceEffects( pSetup );
+}

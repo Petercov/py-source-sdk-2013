@@ -37,6 +37,8 @@ public:
 
 	virtual void	Init();
 	virtual int		GetDeathMessageStartHeight( void );
+
+	virtual bool	DoPostScreenSpaceEffects( const CViewSetup *pSetup );
 };
 
 extern IClientMode *GetClientModeNormal();

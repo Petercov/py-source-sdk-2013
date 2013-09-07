@@ -936,23 +936,23 @@ struct CBaseCombatCharacter_wrapper : CBaseCombatCharacter, bp::wrapper< CBaseCo
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ServerClass* GetServerClass() {
-    #if defined(_WIN32)
-    #if defined(_DEBUG)
-            Assert( GetCurrentThreadId() == g_hPythonThreadID );
-    #elif defined(PY_CHECKTHREADID)
-            if( GetCurrentThreadId() != g_hPythonThreadID )
-                Error( "GetServerClass: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-    #endif // _DEBUG/PY_CHECKTHREADID
-    #endif // _WIN32
-    #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-            if( py_log_overrides.GetBool() )
-                Msg("Calling GetServerClass(  ) of Class: CBaseCombatCharacter\n");
-    #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
-            ServerClass *pServerClass = SrcPySystem()->Get<ServerClass *>( "pyServerClass", GetPyInstance(), NULL, true );
-            if( pServerClass )
-                return pServerClass;
-            return CBaseCombatCharacter::GetServerClass();
-        }
+#if defined(_WIN32)
+#if defined(_DEBUG)
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+#elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "GetServerClass: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+#endif // _DEBUG/PY_CHECKTHREADID
+#endif // _WIN32
+#if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling GetServerClass(  ) of Class: CBaseCombatCharacter\n");
+#endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        ServerClass *pServerClass = SrcPySystem()->Get<ServerClass *>( "pyServerClass", GetPyInstance(), NULL, true );
+        if( pServerClass )
+            return pServerClass;
+        return CBaseCombatCharacter::GetServerClass();
+    }
 
 };
 
@@ -991,6 +991,15 @@ void register_CBaseCombatCharacter_class(){
                 "AddEntityRelationship"
                 , AddEntityRelationship_function_type( &::CBaseCombatCharacter::AddEntityRelationship )
                 , ( bp::arg("pEntity"), bp::arg("nDisposition"), bp::arg("nPriority") ) );
+        
+        }
+        { //::CBaseCombatCharacter::AddGlowEffect
+        
+            typedef void ( ::CBaseCombatCharacter::*AddGlowEffect_function_type )(  ) ;
+            
+            CBaseCombatCharacter_exposer.def( 
+                "AddGlowEffect"
+                , AddGlowEffect_function_type( &::CBaseCombatCharacter::AddGlowEffect ) );
         
         }
         { //::CBaseCombatCharacter::AddPlayerItem
@@ -1736,6 +1745,15 @@ void register_CBaseCombatCharacter_class(){
                 , ( bp::arg("area") ) );
         
         }
+        { //::CBaseCombatCharacter::IsGlowEffectActive
+        
+            typedef bool ( ::CBaseCombatCharacter::*IsGlowEffectActive_function_type )(  ) ;
+            
+            CBaseCombatCharacter_exposer.def( 
+                "IsGlowEffectActive"
+                , IsGlowEffectActive_function_type( &::CBaseCombatCharacter::IsGlowEffectActive ) );
+        
+        }
         { //::CBaseCombatCharacter::IsHiddenByFog
         
             typedef bool ( ::CBaseCombatCharacter::*IsHiddenByFog_function_type )( ::Vector const & ) const;
@@ -2045,6 +2063,15 @@ void register_CBaseCombatCharacter_class(){
                 "RemoveEntityRelationship"
                 , RemoveEntityRelationship_function_type( &::CBaseCombatCharacter::RemoveEntityRelationship )
                 , ( bp::arg("pEntity") ) );
+        
+        }
+        { //::CBaseCombatCharacter::RemoveGlowEffect
+        
+            typedef void ( ::CBaseCombatCharacter::*RemoveGlowEffect_function_type )(  ) ;
+            
+            CBaseCombatCharacter_exposer.def( 
+                "RemoveGlowEffect"
+                , RemoveGlowEffect_function_type( &::CBaseCombatCharacter::RemoveGlowEffect ) );
         
         }
         { //::CBaseCombatCharacter::RemovePlayerItem

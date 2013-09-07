@@ -538,7 +538,7 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_fun('IsInBadPosition').exclude() # No definition
             
     def ParseBaseCombatCharacter(self, mb):
-        cls = mb.class_('C_BaseCombatCharacter') if self.isclient else mb.class_('CBaseCombatCharacter')
+        cls = mb.class_('C_BaseCombatCharacter' if self.isclient else 'CBaseCombatCharacter')
         
         # Shared excludes
         mb.mem_funs('GetVehicle').exclude()
@@ -549,6 +549,11 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_fun('RemoveWeapon').exclude() # No definition
             cls.mem_fun('CauseDeath').exclude() # No definition
             cls.mem_fun('OnPursuedBy').exclude() # No INextBot definition
+        else:
+            # When GLOWS_ENABLE define is added:
+            if 'GLOWS_ENABLE' in self.definedsymbols:
+                mb.mem_funs('GetGlowObject', allow_empty=True).exclude()
+                mb.mem_funs('GetGlowEffectColor', allow_empty=True).add_transformation( FT.output('r'), FT.output('g'), FT.output('b') )
             
     def ParseBasePlayer(self, mb):
         cls = mb.class_('C_BasePlayer') if self.isclient else mb.class_('CBasePlayer')

@@ -673,73 +673,73 @@ BOOST_PYTHON_MODULE(_entities){
     register_PyHandle_class();
 
     { //::CBaseEntityHANDLE
-            typedef bp::class_< CBaseEntityHANDLE, bp::bases< CBaseHandle > > CBaseEntityHANDLE_exposer_t;
-            CBaseEntityHANDLE_exposer_t CBaseEntityHANDLE_exposer = CBaseEntityHANDLE_exposer_t( "CBaseEntityHANDLE", bp::init< >() );
-            CBaseEntityHANDLE_exposer.def( bp::init< CBaseEntity * >(( bp::arg("pVal") )) );
-            CBaseEntityHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CBaseEntityHANDLE::GetAttr
+        typedef bp::class_< CBaseEntityHANDLE, bp::bases< CBaseHandle > > CBaseEntityHANDLE_exposer_t;
+        CBaseEntityHANDLE_exposer_t CBaseEntityHANDLE_exposer = CBaseEntityHANDLE_exposer_t( "CBaseEntityHANDLE", bp::init< >() );
+        CBaseEntityHANDLE_exposer.def( bp::init< CBaseEntity * >(( bp::arg("pVal") )) );
+        CBaseEntityHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CBaseEntityHANDLE::GetAttr
+        
+            typedef bp::object ( ::CBaseEntityHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CBaseEntityHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CBaseEntityHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CBaseEntityHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CBaseEntityHANDLE::Cmp
-            
-                typedef bool ( ::CBaseEntityHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CBaseEntityHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CBaseEntityHANDLE::Cmp )
-                );
-            
-            }
-            { //::CBaseEntityHANDLE::NonZero
-            
-                typedef bool ( ::CBaseEntityHANDLE::*NonZero_function_type )( ) const;
-                
-                CBaseEntityHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CBaseEntityHANDLE::NonZero )
-                );
-            
-            }
-            { //::CBaseEntityHANDLE::Set
-            
-                typedef void ( ::CBaseEntityHANDLE::*Set_function_type )( CBaseEntity * ) const;
-                
-                CBaseEntityHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CBaseEntityHANDLE::Set )
-                );
-            
-            }
-            { //::CBaseEntityHANDLE::GetSerialNumber
-            
-                typedef int ( ::CBaseEntityHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CBaseEntityHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CBaseEntityHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CBaseEntityHANDLE::GetEntryIndex
-            
-                typedef int ( ::CBaseEntityHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CBaseEntityHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CBaseEntityHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CBaseEntityHANDLE_exposer.def( bp::self != bp::self );
-            CBaseEntityHANDLE_exposer.def( bp::self == bp::self );
+            CBaseEntityHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CBaseEntityHANDLE::GetAttr )
+            );
+        
         }
+        { //::CBaseEntityHANDLE::Cmp
+        
+            typedef bool ( ::CBaseEntityHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CBaseEntityHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CBaseEntityHANDLE::Cmp )
+            );
+        
+        }
+        { //::CBaseEntityHANDLE::NonZero
+        
+            typedef bool ( ::CBaseEntityHANDLE::*NonZero_function_type )( ) const;
+            
+            CBaseEntityHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CBaseEntityHANDLE::NonZero )
+            );
+        
+        }
+        { //::CBaseEntityHANDLE::Set
+        
+            typedef void ( ::CBaseEntityHANDLE::*Set_function_type )( CBaseEntity * ) const;
+            
+            CBaseEntityHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CBaseEntityHANDLE::Set )
+            );
+        
+        }
+        { //::CBaseEntityHANDLE::GetSerialNumber
+        
+            typedef int ( ::CBaseEntityHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CBaseEntityHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CBaseEntityHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CBaseEntityHANDLE::GetEntryIndex
+        
+            typedef int ( ::CBaseEntityHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CBaseEntityHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CBaseEntityHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CBaseEntityHANDLE_exposer.def( bp::self != bp::self );
+        CBaseEntityHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CBaseEntity_to_handle();
 
@@ -748,73 +748,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CBaseEntity();
 
     { //::CBaseAnimatingHANDLE
-            typedef bp::class_< CBaseAnimatingHANDLE, bp::bases< CBaseHandle > > CBaseAnimatingHANDLE_exposer_t;
-            CBaseAnimatingHANDLE_exposer_t CBaseAnimatingHANDLE_exposer = CBaseAnimatingHANDLE_exposer_t( "CBaseAnimatingHANDLE", bp::init< >() );
-            CBaseAnimatingHANDLE_exposer.def( bp::init< CBaseAnimating * >(( bp::arg("pVal") )) );
-            CBaseAnimatingHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CBaseAnimatingHANDLE::GetAttr
+        typedef bp::class_< CBaseAnimatingHANDLE, bp::bases< CBaseHandle > > CBaseAnimatingHANDLE_exposer_t;
+        CBaseAnimatingHANDLE_exposer_t CBaseAnimatingHANDLE_exposer = CBaseAnimatingHANDLE_exposer_t( "CBaseAnimatingHANDLE", bp::init< >() );
+        CBaseAnimatingHANDLE_exposer.def( bp::init< CBaseAnimating * >(( bp::arg("pVal") )) );
+        CBaseAnimatingHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CBaseAnimatingHANDLE::GetAttr
+        
+            typedef bp::object ( ::CBaseAnimatingHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CBaseAnimatingHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CBaseAnimatingHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CBaseAnimatingHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CBaseAnimatingHANDLE::Cmp
-            
-                typedef bool ( ::CBaseAnimatingHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CBaseAnimatingHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CBaseAnimatingHANDLE::Cmp )
-                );
-            
-            }
-            { //::CBaseAnimatingHANDLE::NonZero
-            
-                typedef bool ( ::CBaseAnimatingHANDLE::*NonZero_function_type )( ) const;
-                
-                CBaseAnimatingHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CBaseAnimatingHANDLE::NonZero )
-                );
-            
-            }
-            { //::CBaseAnimatingHANDLE::Set
-            
-                typedef void ( ::CBaseAnimatingHANDLE::*Set_function_type )( CBaseAnimating * ) const;
-                
-                CBaseAnimatingHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CBaseAnimatingHANDLE::Set )
-                );
-            
-            }
-            { //::CBaseAnimatingHANDLE::GetSerialNumber
-            
-                typedef int ( ::CBaseAnimatingHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CBaseAnimatingHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CBaseAnimatingHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CBaseAnimatingHANDLE::GetEntryIndex
-            
-                typedef int ( ::CBaseAnimatingHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CBaseAnimatingHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CBaseAnimatingHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CBaseAnimatingHANDLE_exposer.def( bp::self != bp::self );
-            CBaseAnimatingHANDLE_exposer.def( bp::self == bp::self );
+            CBaseAnimatingHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CBaseAnimatingHANDLE::GetAttr )
+            );
+        
         }
+        { //::CBaseAnimatingHANDLE::Cmp
+        
+            typedef bool ( ::CBaseAnimatingHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CBaseAnimatingHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CBaseAnimatingHANDLE::Cmp )
+            );
+        
+        }
+        { //::CBaseAnimatingHANDLE::NonZero
+        
+            typedef bool ( ::CBaseAnimatingHANDLE::*NonZero_function_type )( ) const;
+            
+            CBaseAnimatingHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CBaseAnimatingHANDLE::NonZero )
+            );
+        
+        }
+        { //::CBaseAnimatingHANDLE::Set
+        
+            typedef void ( ::CBaseAnimatingHANDLE::*Set_function_type )( CBaseAnimating * ) const;
+            
+            CBaseAnimatingHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CBaseAnimatingHANDLE::Set )
+            );
+        
+        }
+        { //::CBaseAnimatingHANDLE::GetSerialNumber
+        
+            typedef int ( ::CBaseAnimatingHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CBaseAnimatingHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CBaseAnimatingHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CBaseAnimatingHANDLE::GetEntryIndex
+        
+            typedef int ( ::CBaseAnimatingHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CBaseAnimatingHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CBaseAnimatingHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CBaseAnimatingHANDLE_exposer.def( bp::self != bp::self );
+        CBaseAnimatingHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CBaseAnimating_to_handle();
 
@@ -823,73 +823,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CBaseAnimating();
 
     { //::CBaseAnimatingOverlayHANDLE
-            typedef bp::class_< CBaseAnimatingOverlayHANDLE, bp::bases< CBaseHandle > > CBaseAnimatingOverlayHANDLE_exposer_t;
-            CBaseAnimatingOverlayHANDLE_exposer_t CBaseAnimatingOverlayHANDLE_exposer = CBaseAnimatingOverlayHANDLE_exposer_t( "CBaseAnimatingOverlayHANDLE", bp::init< >() );
-            CBaseAnimatingOverlayHANDLE_exposer.def( bp::init< CBaseAnimatingOverlay * >(( bp::arg("pVal") )) );
-            CBaseAnimatingOverlayHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CBaseAnimatingOverlayHANDLE::GetAttr
+        typedef bp::class_< CBaseAnimatingOverlayHANDLE, bp::bases< CBaseHandle > > CBaseAnimatingOverlayHANDLE_exposer_t;
+        CBaseAnimatingOverlayHANDLE_exposer_t CBaseAnimatingOverlayHANDLE_exposer = CBaseAnimatingOverlayHANDLE_exposer_t( "CBaseAnimatingOverlayHANDLE", bp::init< >() );
+        CBaseAnimatingOverlayHANDLE_exposer.def( bp::init< CBaseAnimatingOverlay * >(( bp::arg("pVal") )) );
+        CBaseAnimatingOverlayHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CBaseAnimatingOverlayHANDLE::GetAttr
+        
+            typedef bp::object ( ::CBaseAnimatingOverlayHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CBaseAnimatingOverlayHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CBaseAnimatingOverlayHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CBaseAnimatingOverlayHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CBaseAnimatingOverlayHANDLE::Cmp
-            
-                typedef bool ( ::CBaseAnimatingOverlayHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CBaseAnimatingOverlayHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CBaseAnimatingOverlayHANDLE::Cmp )
-                );
-            
-            }
-            { //::CBaseAnimatingOverlayHANDLE::NonZero
-            
-                typedef bool ( ::CBaseAnimatingOverlayHANDLE::*NonZero_function_type )( ) const;
-                
-                CBaseAnimatingOverlayHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CBaseAnimatingOverlayHANDLE::NonZero )
-                );
-            
-            }
-            { //::CBaseAnimatingOverlayHANDLE::Set
-            
-                typedef void ( ::CBaseAnimatingOverlayHANDLE::*Set_function_type )( CBaseAnimatingOverlay * ) const;
-                
-                CBaseAnimatingOverlayHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CBaseAnimatingOverlayHANDLE::Set )
-                );
-            
-            }
-            { //::CBaseAnimatingOverlayHANDLE::GetSerialNumber
-            
-                typedef int ( ::CBaseAnimatingOverlayHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CBaseAnimatingOverlayHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CBaseAnimatingOverlayHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CBaseAnimatingOverlayHANDLE::GetEntryIndex
-            
-                typedef int ( ::CBaseAnimatingOverlayHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CBaseAnimatingOverlayHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CBaseAnimatingOverlayHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CBaseAnimatingOverlayHANDLE_exposer.def( bp::self != bp::self );
-            CBaseAnimatingOverlayHANDLE_exposer.def( bp::self == bp::self );
+            CBaseAnimatingOverlayHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CBaseAnimatingOverlayHANDLE::GetAttr )
+            );
+        
         }
+        { //::CBaseAnimatingOverlayHANDLE::Cmp
+        
+            typedef bool ( ::CBaseAnimatingOverlayHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CBaseAnimatingOverlayHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CBaseAnimatingOverlayHANDLE::Cmp )
+            );
+        
+        }
+        { //::CBaseAnimatingOverlayHANDLE::NonZero
+        
+            typedef bool ( ::CBaseAnimatingOverlayHANDLE::*NonZero_function_type )( ) const;
+            
+            CBaseAnimatingOverlayHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CBaseAnimatingOverlayHANDLE::NonZero )
+            );
+        
+        }
+        { //::CBaseAnimatingOverlayHANDLE::Set
+        
+            typedef void ( ::CBaseAnimatingOverlayHANDLE::*Set_function_type )( CBaseAnimatingOverlay * ) const;
+            
+            CBaseAnimatingOverlayHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CBaseAnimatingOverlayHANDLE::Set )
+            );
+        
+        }
+        { //::CBaseAnimatingOverlayHANDLE::GetSerialNumber
+        
+            typedef int ( ::CBaseAnimatingOverlayHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CBaseAnimatingOverlayHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CBaseAnimatingOverlayHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CBaseAnimatingOverlayHANDLE::GetEntryIndex
+        
+            typedef int ( ::CBaseAnimatingOverlayHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CBaseAnimatingOverlayHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CBaseAnimatingOverlayHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CBaseAnimatingOverlayHANDLE_exposer.def( bp::self != bp::self );
+        CBaseAnimatingOverlayHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CBaseAnimatingOverlay_to_handle();
 
@@ -898,73 +898,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CBaseAnimatingOverlay();
 
     { //::CBaseFlexHANDLE
-            typedef bp::class_< CBaseFlexHANDLE, bp::bases< CBaseHandle > > CBaseFlexHANDLE_exposer_t;
-            CBaseFlexHANDLE_exposer_t CBaseFlexHANDLE_exposer = CBaseFlexHANDLE_exposer_t( "CBaseFlexHANDLE", bp::init< >() );
-            CBaseFlexHANDLE_exposer.def( bp::init< CBaseFlex * >(( bp::arg("pVal") )) );
-            CBaseFlexHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CBaseFlexHANDLE::GetAttr
+        typedef bp::class_< CBaseFlexHANDLE, bp::bases< CBaseHandle > > CBaseFlexHANDLE_exposer_t;
+        CBaseFlexHANDLE_exposer_t CBaseFlexHANDLE_exposer = CBaseFlexHANDLE_exposer_t( "CBaseFlexHANDLE", bp::init< >() );
+        CBaseFlexHANDLE_exposer.def( bp::init< CBaseFlex * >(( bp::arg("pVal") )) );
+        CBaseFlexHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CBaseFlexHANDLE::GetAttr
+        
+            typedef bp::object ( ::CBaseFlexHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CBaseFlexHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CBaseFlexHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CBaseFlexHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CBaseFlexHANDLE::Cmp
-            
-                typedef bool ( ::CBaseFlexHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CBaseFlexHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CBaseFlexHANDLE::Cmp )
-                );
-            
-            }
-            { //::CBaseFlexHANDLE::NonZero
-            
-                typedef bool ( ::CBaseFlexHANDLE::*NonZero_function_type )( ) const;
-                
-                CBaseFlexHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CBaseFlexHANDLE::NonZero )
-                );
-            
-            }
-            { //::CBaseFlexHANDLE::Set
-            
-                typedef void ( ::CBaseFlexHANDLE::*Set_function_type )( CBaseFlex * ) const;
-                
-                CBaseFlexHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CBaseFlexHANDLE::Set )
-                );
-            
-            }
-            { //::CBaseFlexHANDLE::GetSerialNumber
-            
-                typedef int ( ::CBaseFlexHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CBaseFlexHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CBaseFlexHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CBaseFlexHANDLE::GetEntryIndex
-            
-                typedef int ( ::CBaseFlexHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CBaseFlexHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CBaseFlexHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CBaseFlexHANDLE_exposer.def( bp::self != bp::self );
-            CBaseFlexHANDLE_exposer.def( bp::self == bp::self );
+            CBaseFlexHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CBaseFlexHANDLE::GetAttr )
+            );
+        
         }
+        { //::CBaseFlexHANDLE::Cmp
+        
+            typedef bool ( ::CBaseFlexHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CBaseFlexHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CBaseFlexHANDLE::Cmp )
+            );
+        
+        }
+        { //::CBaseFlexHANDLE::NonZero
+        
+            typedef bool ( ::CBaseFlexHANDLE::*NonZero_function_type )( ) const;
+            
+            CBaseFlexHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CBaseFlexHANDLE::NonZero )
+            );
+        
+        }
+        { //::CBaseFlexHANDLE::Set
+        
+            typedef void ( ::CBaseFlexHANDLE::*Set_function_type )( CBaseFlex * ) const;
+            
+            CBaseFlexHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CBaseFlexHANDLE::Set )
+            );
+        
+        }
+        { //::CBaseFlexHANDLE::GetSerialNumber
+        
+            typedef int ( ::CBaseFlexHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CBaseFlexHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CBaseFlexHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CBaseFlexHANDLE::GetEntryIndex
+        
+            typedef int ( ::CBaseFlexHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CBaseFlexHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CBaseFlexHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CBaseFlexHANDLE_exposer.def( bp::self != bp::self );
+        CBaseFlexHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CBaseFlex_to_handle();
 
@@ -973,73 +973,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CBaseFlex();
 
     { //::CBaseCombatCharacterHANDLE
-            typedef bp::class_< CBaseCombatCharacterHANDLE, bp::bases< CBaseHandle > > CBaseCombatCharacterHANDLE_exposer_t;
-            CBaseCombatCharacterHANDLE_exposer_t CBaseCombatCharacterHANDLE_exposer = CBaseCombatCharacterHANDLE_exposer_t( "CBaseCombatCharacterHANDLE", bp::init< >() );
-            CBaseCombatCharacterHANDLE_exposer.def( bp::init< CBaseCombatCharacter * >(( bp::arg("pVal") )) );
-            CBaseCombatCharacterHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CBaseCombatCharacterHANDLE::GetAttr
+        typedef bp::class_< CBaseCombatCharacterHANDLE, bp::bases< CBaseHandle > > CBaseCombatCharacterHANDLE_exposer_t;
+        CBaseCombatCharacterHANDLE_exposer_t CBaseCombatCharacterHANDLE_exposer = CBaseCombatCharacterHANDLE_exposer_t( "CBaseCombatCharacterHANDLE", bp::init< >() );
+        CBaseCombatCharacterHANDLE_exposer.def( bp::init< CBaseCombatCharacter * >(( bp::arg("pVal") )) );
+        CBaseCombatCharacterHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CBaseCombatCharacterHANDLE::GetAttr
+        
+            typedef bp::object ( ::CBaseCombatCharacterHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CBaseCombatCharacterHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CBaseCombatCharacterHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CBaseCombatCharacterHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CBaseCombatCharacterHANDLE::Cmp
-            
-                typedef bool ( ::CBaseCombatCharacterHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CBaseCombatCharacterHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CBaseCombatCharacterHANDLE::Cmp )
-                );
-            
-            }
-            { //::CBaseCombatCharacterHANDLE::NonZero
-            
-                typedef bool ( ::CBaseCombatCharacterHANDLE::*NonZero_function_type )( ) const;
-                
-                CBaseCombatCharacterHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CBaseCombatCharacterHANDLE::NonZero )
-                );
-            
-            }
-            { //::CBaseCombatCharacterHANDLE::Set
-            
-                typedef void ( ::CBaseCombatCharacterHANDLE::*Set_function_type )( CBaseCombatCharacter * ) const;
-                
-                CBaseCombatCharacterHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CBaseCombatCharacterHANDLE::Set )
-                );
-            
-            }
-            { //::CBaseCombatCharacterHANDLE::GetSerialNumber
-            
-                typedef int ( ::CBaseCombatCharacterHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CBaseCombatCharacterHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CBaseCombatCharacterHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CBaseCombatCharacterHANDLE::GetEntryIndex
-            
-                typedef int ( ::CBaseCombatCharacterHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CBaseCombatCharacterHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CBaseCombatCharacterHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CBaseCombatCharacterHANDLE_exposer.def( bp::self != bp::self );
-            CBaseCombatCharacterHANDLE_exposer.def( bp::self == bp::self );
+            CBaseCombatCharacterHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CBaseCombatCharacterHANDLE::GetAttr )
+            );
+        
         }
+        { //::CBaseCombatCharacterHANDLE::Cmp
+        
+            typedef bool ( ::CBaseCombatCharacterHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CBaseCombatCharacterHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CBaseCombatCharacterHANDLE::Cmp )
+            );
+        
+        }
+        { //::CBaseCombatCharacterHANDLE::NonZero
+        
+            typedef bool ( ::CBaseCombatCharacterHANDLE::*NonZero_function_type )( ) const;
+            
+            CBaseCombatCharacterHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CBaseCombatCharacterHANDLE::NonZero )
+            );
+        
+        }
+        { //::CBaseCombatCharacterHANDLE::Set
+        
+            typedef void ( ::CBaseCombatCharacterHANDLE::*Set_function_type )( CBaseCombatCharacter * ) const;
+            
+            CBaseCombatCharacterHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CBaseCombatCharacterHANDLE::Set )
+            );
+        
+        }
+        { //::CBaseCombatCharacterHANDLE::GetSerialNumber
+        
+            typedef int ( ::CBaseCombatCharacterHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CBaseCombatCharacterHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CBaseCombatCharacterHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CBaseCombatCharacterHANDLE::GetEntryIndex
+        
+            typedef int ( ::CBaseCombatCharacterHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CBaseCombatCharacterHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CBaseCombatCharacterHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CBaseCombatCharacterHANDLE_exposer.def( bp::self != bp::self );
+        CBaseCombatCharacterHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CBaseCombatCharacter_to_handle();
 
@@ -1048,73 +1048,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CBaseCombatCharacter();
 
     { //::CBaseGrenadeHANDLE
-            typedef bp::class_< CBaseGrenadeHANDLE, bp::bases< CBaseHandle > > CBaseGrenadeHANDLE_exposer_t;
-            CBaseGrenadeHANDLE_exposer_t CBaseGrenadeHANDLE_exposer = CBaseGrenadeHANDLE_exposer_t( "CBaseGrenadeHANDLE", bp::init< >() );
-            CBaseGrenadeHANDLE_exposer.def( bp::init< CBaseGrenade * >(( bp::arg("pVal") )) );
-            CBaseGrenadeHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CBaseGrenadeHANDLE::GetAttr
+        typedef bp::class_< CBaseGrenadeHANDLE, bp::bases< CBaseHandle > > CBaseGrenadeHANDLE_exposer_t;
+        CBaseGrenadeHANDLE_exposer_t CBaseGrenadeHANDLE_exposer = CBaseGrenadeHANDLE_exposer_t( "CBaseGrenadeHANDLE", bp::init< >() );
+        CBaseGrenadeHANDLE_exposer.def( bp::init< CBaseGrenade * >(( bp::arg("pVal") )) );
+        CBaseGrenadeHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CBaseGrenadeHANDLE::GetAttr
+        
+            typedef bp::object ( ::CBaseGrenadeHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CBaseGrenadeHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CBaseGrenadeHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CBaseGrenadeHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CBaseGrenadeHANDLE::Cmp
-            
-                typedef bool ( ::CBaseGrenadeHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CBaseGrenadeHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CBaseGrenadeHANDLE::Cmp )
-                );
-            
-            }
-            { //::CBaseGrenadeHANDLE::NonZero
-            
-                typedef bool ( ::CBaseGrenadeHANDLE::*NonZero_function_type )( ) const;
-                
-                CBaseGrenadeHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CBaseGrenadeHANDLE::NonZero )
-                );
-            
-            }
-            { //::CBaseGrenadeHANDLE::Set
-            
-                typedef void ( ::CBaseGrenadeHANDLE::*Set_function_type )( CBaseGrenade * ) const;
-                
-                CBaseGrenadeHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CBaseGrenadeHANDLE::Set )
-                );
-            
-            }
-            { //::CBaseGrenadeHANDLE::GetSerialNumber
-            
-                typedef int ( ::CBaseGrenadeHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CBaseGrenadeHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CBaseGrenadeHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CBaseGrenadeHANDLE::GetEntryIndex
-            
-                typedef int ( ::CBaseGrenadeHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CBaseGrenadeHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CBaseGrenadeHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CBaseGrenadeHANDLE_exposer.def( bp::self != bp::self );
-            CBaseGrenadeHANDLE_exposer.def( bp::self == bp::self );
+            CBaseGrenadeHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CBaseGrenadeHANDLE::GetAttr )
+            );
+        
         }
+        { //::CBaseGrenadeHANDLE::Cmp
+        
+            typedef bool ( ::CBaseGrenadeHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CBaseGrenadeHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CBaseGrenadeHANDLE::Cmp )
+            );
+        
+        }
+        { //::CBaseGrenadeHANDLE::NonZero
+        
+            typedef bool ( ::CBaseGrenadeHANDLE::*NonZero_function_type )( ) const;
+            
+            CBaseGrenadeHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CBaseGrenadeHANDLE::NonZero )
+            );
+        
+        }
+        { //::CBaseGrenadeHANDLE::Set
+        
+            typedef void ( ::CBaseGrenadeHANDLE::*Set_function_type )( CBaseGrenade * ) const;
+            
+            CBaseGrenadeHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CBaseGrenadeHANDLE::Set )
+            );
+        
+        }
+        { //::CBaseGrenadeHANDLE::GetSerialNumber
+        
+            typedef int ( ::CBaseGrenadeHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CBaseGrenadeHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CBaseGrenadeHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CBaseGrenadeHANDLE::GetEntryIndex
+        
+            typedef int ( ::CBaseGrenadeHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CBaseGrenadeHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CBaseGrenadeHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CBaseGrenadeHANDLE_exposer.def( bp::self != bp::self );
+        CBaseGrenadeHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CBaseGrenade_to_handle();
 
@@ -1123,73 +1123,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CBaseGrenade();
 
     { //::CBasePlayerHANDLE
-            typedef bp::class_< CBasePlayerHANDLE, bp::bases< CBaseHandle > > CBasePlayerHANDLE_exposer_t;
-            CBasePlayerHANDLE_exposer_t CBasePlayerHANDLE_exposer = CBasePlayerHANDLE_exposer_t( "CBasePlayerHANDLE", bp::init< >() );
-            CBasePlayerHANDLE_exposer.def( bp::init< CBasePlayer * >(( bp::arg("pVal") )) );
-            CBasePlayerHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CBasePlayerHANDLE::GetAttr
+        typedef bp::class_< CBasePlayerHANDLE, bp::bases< CBaseHandle > > CBasePlayerHANDLE_exposer_t;
+        CBasePlayerHANDLE_exposer_t CBasePlayerHANDLE_exposer = CBasePlayerHANDLE_exposer_t( "CBasePlayerHANDLE", bp::init< >() );
+        CBasePlayerHANDLE_exposer.def( bp::init< CBasePlayer * >(( bp::arg("pVal") )) );
+        CBasePlayerHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CBasePlayerHANDLE::GetAttr
+        
+            typedef bp::object ( ::CBasePlayerHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CBasePlayerHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CBasePlayerHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CBasePlayerHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CBasePlayerHANDLE::Cmp
-            
-                typedef bool ( ::CBasePlayerHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CBasePlayerHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CBasePlayerHANDLE::Cmp )
-                );
-            
-            }
-            { //::CBasePlayerHANDLE::NonZero
-            
-                typedef bool ( ::CBasePlayerHANDLE::*NonZero_function_type )( ) const;
-                
-                CBasePlayerHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CBasePlayerHANDLE::NonZero )
-                );
-            
-            }
-            { //::CBasePlayerHANDLE::Set
-            
-                typedef void ( ::CBasePlayerHANDLE::*Set_function_type )( CBasePlayer * ) const;
-                
-                CBasePlayerHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CBasePlayerHANDLE::Set )
-                );
-            
-            }
-            { //::CBasePlayerHANDLE::GetSerialNumber
-            
-                typedef int ( ::CBasePlayerHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CBasePlayerHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CBasePlayerHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CBasePlayerHANDLE::GetEntryIndex
-            
-                typedef int ( ::CBasePlayerHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CBasePlayerHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CBasePlayerHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CBasePlayerHANDLE_exposer.def( bp::self != bp::self );
-            CBasePlayerHANDLE_exposer.def( bp::self == bp::self );
+            CBasePlayerHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CBasePlayerHANDLE::GetAttr )
+            );
+        
         }
+        { //::CBasePlayerHANDLE::Cmp
+        
+            typedef bool ( ::CBasePlayerHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CBasePlayerHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CBasePlayerHANDLE::Cmp )
+            );
+        
+        }
+        { //::CBasePlayerHANDLE::NonZero
+        
+            typedef bool ( ::CBasePlayerHANDLE::*NonZero_function_type )( ) const;
+            
+            CBasePlayerHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CBasePlayerHANDLE::NonZero )
+            );
+        
+        }
+        { //::CBasePlayerHANDLE::Set
+        
+            typedef void ( ::CBasePlayerHANDLE::*Set_function_type )( CBasePlayer * ) const;
+            
+            CBasePlayerHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CBasePlayerHANDLE::Set )
+            );
+        
+        }
+        { //::CBasePlayerHANDLE::GetSerialNumber
+        
+            typedef int ( ::CBasePlayerHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CBasePlayerHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CBasePlayerHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CBasePlayerHANDLE::GetEntryIndex
+        
+            typedef int ( ::CBasePlayerHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CBasePlayerHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CBasePlayerHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CBasePlayerHANDLE_exposer.def( bp::self != bp::self );
+        CBasePlayerHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CBasePlayer_to_handle();
 
@@ -1198,73 +1198,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CBasePlayer();
 
     { //::CBaseCombatWeaponHANDLE
-            typedef bp::class_< CBaseCombatWeaponHANDLE, bp::bases< CBaseHandle > > CBaseCombatWeaponHANDLE_exposer_t;
-            CBaseCombatWeaponHANDLE_exposer_t CBaseCombatWeaponHANDLE_exposer = CBaseCombatWeaponHANDLE_exposer_t( "CBaseCombatWeaponHANDLE", bp::init< >() );
-            CBaseCombatWeaponHANDLE_exposer.def( bp::init< CBaseCombatWeapon * >(( bp::arg("pVal") )) );
-            CBaseCombatWeaponHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CBaseCombatWeaponHANDLE::GetAttr
+        typedef bp::class_< CBaseCombatWeaponHANDLE, bp::bases< CBaseHandle > > CBaseCombatWeaponHANDLE_exposer_t;
+        CBaseCombatWeaponHANDLE_exposer_t CBaseCombatWeaponHANDLE_exposer = CBaseCombatWeaponHANDLE_exposer_t( "CBaseCombatWeaponHANDLE", bp::init< >() );
+        CBaseCombatWeaponHANDLE_exposer.def( bp::init< CBaseCombatWeapon * >(( bp::arg("pVal") )) );
+        CBaseCombatWeaponHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CBaseCombatWeaponHANDLE::GetAttr
+        
+            typedef bp::object ( ::CBaseCombatWeaponHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CBaseCombatWeaponHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CBaseCombatWeaponHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CBaseCombatWeaponHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CBaseCombatWeaponHANDLE::Cmp
-            
-                typedef bool ( ::CBaseCombatWeaponHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CBaseCombatWeaponHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CBaseCombatWeaponHANDLE::Cmp )
-                );
-            
-            }
-            { //::CBaseCombatWeaponHANDLE::NonZero
-            
-                typedef bool ( ::CBaseCombatWeaponHANDLE::*NonZero_function_type )( ) const;
-                
-                CBaseCombatWeaponHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CBaseCombatWeaponHANDLE::NonZero )
-                );
-            
-            }
-            { //::CBaseCombatWeaponHANDLE::Set
-            
-                typedef void ( ::CBaseCombatWeaponHANDLE::*Set_function_type )( CBaseCombatWeapon * ) const;
-                
-                CBaseCombatWeaponHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CBaseCombatWeaponHANDLE::Set )
-                );
-            
-            }
-            { //::CBaseCombatWeaponHANDLE::GetSerialNumber
-            
-                typedef int ( ::CBaseCombatWeaponHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CBaseCombatWeaponHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CBaseCombatWeaponHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CBaseCombatWeaponHANDLE::GetEntryIndex
-            
-                typedef int ( ::CBaseCombatWeaponHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CBaseCombatWeaponHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CBaseCombatWeaponHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CBaseCombatWeaponHANDLE_exposer.def( bp::self != bp::self );
-            CBaseCombatWeaponHANDLE_exposer.def( bp::self == bp::self );
+            CBaseCombatWeaponHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CBaseCombatWeaponHANDLE::GetAttr )
+            );
+        
         }
+        { //::CBaseCombatWeaponHANDLE::Cmp
+        
+            typedef bool ( ::CBaseCombatWeaponHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CBaseCombatWeaponHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CBaseCombatWeaponHANDLE::Cmp )
+            );
+        
+        }
+        { //::CBaseCombatWeaponHANDLE::NonZero
+        
+            typedef bool ( ::CBaseCombatWeaponHANDLE::*NonZero_function_type )( ) const;
+            
+            CBaseCombatWeaponHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CBaseCombatWeaponHANDLE::NonZero )
+            );
+        
+        }
+        { //::CBaseCombatWeaponHANDLE::Set
+        
+            typedef void ( ::CBaseCombatWeaponHANDLE::*Set_function_type )( CBaseCombatWeapon * ) const;
+            
+            CBaseCombatWeaponHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CBaseCombatWeaponHANDLE::Set )
+            );
+        
+        }
+        { //::CBaseCombatWeaponHANDLE::GetSerialNumber
+        
+            typedef int ( ::CBaseCombatWeaponHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CBaseCombatWeaponHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CBaseCombatWeaponHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CBaseCombatWeaponHANDLE::GetEntryIndex
+        
+            typedef int ( ::CBaseCombatWeaponHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CBaseCombatWeaponHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CBaseCombatWeaponHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CBaseCombatWeaponHANDLE_exposer.def( bp::self != bp::self );
+        CBaseCombatWeaponHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CBaseCombatWeapon_to_handle();
 
@@ -1273,73 +1273,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CBaseCombatWeapon();
 
     { //::CPointEntityHANDLE
-            typedef bp::class_< CPointEntityHANDLE, bp::bases< CBaseHandle > > CPointEntityHANDLE_exposer_t;
-            CPointEntityHANDLE_exposer_t CPointEntityHANDLE_exposer = CPointEntityHANDLE_exposer_t( "CPointEntityHANDLE", bp::init< >() );
-            CPointEntityHANDLE_exposer.def( bp::init< CPointEntity * >(( bp::arg("pVal") )) );
-            CPointEntityHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CPointEntityHANDLE::GetAttr
+        typedef bp::class_< CPointEntityHANDLE, bp::bases< CBaseHandle > > CPointEntityHANDLE_exposer_t;
+        CPointEntityHANDLE_exposer_t CPointEntityHANDLE_exposer = CPointEntityHANDLE_exposer_t( "CPointEntityHANDLE", bp::init< >() );
+        CPointEntityHANDLE_exposer.def( bp::init< CPointEntity * >(( bp::arg("pVal") )) );
+        CPointEntityHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CPointEntityHANDLE::GetAttr
+        
+            typedef bp::object ( ::CPointEntityHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CPointEntityHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CPointEntityHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CPointEntityHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CPointEntityHANDLE::Cmp
-            
-                typedef bool ( ::CPointEntityHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CPointEntityHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CPointEntityHANDLE::Cmp )
-                );
-            
-            }
-            { //::CPointEntityHANDLE::NonZero
-            
-                typedef bool ( ::CPointEntityHANDLE::*NonZero_function_type )( ) const;
-                
-                CPointEntityHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CPointEntityHANDLE::NonZero )
-                );
-            
-            }
-            { //::CPointEntityHANDLE::Set
-            
-                typedef void ( ::CPointEntityHANDLE::*Set_function_type )( CPointEntity * ) const;
-                
-                CPointEntityHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CPointEntityHANDLE::Set )
-                );
-            
-            }
-            { //::CPointEntityHANDLE::GetSerialNumber
-            
-                typedef int ( ::CPointEntityHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CPointEntityHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CPointEntityHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CPointEntityHANDLE::GetEntryIndex
-            
-                typedef int ( ::CPointEntityHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CPointEntityHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CPointEntityHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CPointEntityHANDLE_exposer.def( bp::self != bp::self );
-            CPointEntityHANDLE_exposer.def( bp::self == bp::self );
+            CPointEntityHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CPointEntityHANDLE::GetAttr )
+            );
+        
         }
+        { //::CPointEntityHANDLE::Cmp
+        
+            typedef bool ( ::CPointEntityHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CPointEntityHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CPointEntityHANDLE::Cmp )
+            );
+        
+        }
+        { //::CPointEntityHANDLE::NonZero
+        
+            typedef bool ( ::CPointEntityHANDLE::*NonZero_function_type )( ) const;
+            
+            CPointEntityHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CPointEntityHANDLE::NonZero )
+            );
+        
+        }
+        { //::CPointEntityHANDLE::Set
+        
+            typedef void ( ::CPointEntityHANDLE::*Set_function_type )( CPointEntity * ) const;
+            
+            CPointEntityHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CPointEntityHANDLE::Set )
+            );
+        
+        }
+        { //::CPointEntityHANDLE::GetSerialNumber
+        
+            typedef int ( ::CPointEntityHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CPointEntityHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CPointEntityHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CPointEntityHANDLE::GetEntryIndex
+        
+            typedef int ( ::CPointEntityHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CPointEntityHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CPointEntityHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CPointEntityHANDLE_exposer.def( bp::self != bp::self );
+        CPointEntityHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CPointEntity_to_handle();
 
@@ -1348,73 +1348,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CPointEntity();
 
     { //::CServerOnlyEntityHANDLE
-            typedef bp::class_< CServerOnlyEntityHANDLE, bp::bases< CBaseHandle > > CServerOnlyEntityHANDLE_exposer_t;
-            CServerOnlyEntityHANDLE_exposer_t CServerOnlyEntityHANDLE_exposer = CServerOnlyEntityHANDLE_exposer_t( "CServerOnlyEntityHANDLE", bp::init< >() );
-            CServerOnlyEntityHANDLE_exposer.def( bp::init< CServerOnlyEntity * >(( bp::arg("pVal") )) );
-            CServerOnlyEntityHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CServerOnlyEntityHANDLE::GetAttr
+        typedef bp::class_< CServerOnlyEntityHANDLE, bp::bases< CBaseHandle > > CServerOnlyEntityHANDLE_exposer_t;
+        CServerOnlyEntityHANDLE_exposer_t CServerOnlyEntityHANDLE_exposer = CServerOnlyEntityHANDLE_exposer_t( "CServerOnlyEntityHANDLE", bp::init< >() );
+        CServerOnlyEntityHANDLE_exposer.def( bp::init< CServerOnlyEntity * >(( bp::arg("pVal") )) );
+        CServerOnlyEntityHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CServerOnlyEntityHANDLE::GetAttr
+        
+            typedef bp::object ( ::CServerOnlyEntityHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CServerOnlyEntityHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CServerOnlyEntityHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CServerOnlyEntityHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CServerOnlyEntityHANDLE::Cmp
-            
-                typedef bool ( ::CServerOnlyEntityHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CServerOnlyEntityHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CServerOnlyEntityHANDLE::Cmp )
-                );
-            
-            }
-            { //::CServerOnlyEntityHANDLE::NonZero
-            
-                typedef bool ( ::CServerOnlyEntityHANDLE::*NonZero_function_type )( ) const;
-                
-                CServerOnlyEntityHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CServerOnlyEntityHANDLE::NonZero )
-                );
-            
-            }
-            { //::CServerOnlyEntityHANDLE::Set
-            
-                typedef void ( ::CServerOnlyEntityHANDLE::*Set_function_type )( CServerOnlyEntity * ) const;
-                
-                CServerOnlyEntityHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CServerOnlyEntityHANDLE::Set )
-                );
-            
-            }
-            { //::CServerOnlyEntityHANDLE::GetSerialNumber
-            
-                typedef int ( ::CServerOnlyEntityHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CServerOnlyEntityHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CServerOnlyEntityHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CServerOnlyEntityHANDLE::GetEntryIndex
-            
-                typedef int ( ::CServerOnlyEntityHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CServerOnlyEntityHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CServerOnlyEntityHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CServerOnlyEntityHANDLE_exposer.def( bp::self != bp::self );
-            CServerOnlyEntityHANDLE_exposer.def( bp::self == bp::self );
+            CServerOnlyEntityHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CServerOnlyEntityHANDLE::GetAttr )
+            );
+        
         }
+        { //::CServerOnlyEntityHANDLE::Cmp
+        
+            typedef bool ( ::CServerOnlyEntityHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CServerOnlyEntityHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CServerOnlyEntityHANDLE::Cmp )
+            );
+        
+        }
+        { //::CServerOnlyEntityHANDLE::NonZero
+        
+            typedef bool ( ::CServerOnlyEntityHANDLE::*NonZero_function_type )( ) const;
+            
+            CServerOnlyEntityHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CServerOnlyEntityHANDLE::NonZero )
+            );
+        
+        }
+        { //::CServerOnlyEntityHANDLE::Set
+        
+            typedef void ( ::CServerOnlyEntityHANDLE::*Set_function_type )( CServerOnlyEntity * ) const;
+            
+            CServerOnlyEntityHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CServerOnlyEntityHANDLE::Set )
+            );
+        
+        }
+        { //::CServerOnlyEntityHANDLE::GetSerialNumber
+        
+            typedef int ( ::CServerOnlyEntityHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CServerOnlyEntityHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CServerOnlyEntityHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CServerOnlyEntityHANDLE::GetEntryIndex
+        
+            typedef int ( ::CServerOnlyEntityHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CServerOnlyEntityHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CServerOnlyEntityHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CServerOnlyEntityHANDLE_exposer.def( bp::self != bp::self );
+        CServerOnlyEntityHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CServerOnlyEntity_to_handle();
 
@@ -1423,73 +1423,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CServerOnlyEntity();
 
     { //::CServerOnlyPointEntityHANDLE
-            typedef bp::class_< CServerOnlyPointEntityHANDLE, bp::bases< CBaseHandle > > CServerOnlyPointEntityHANDLE_exposer_t;
-            CServerOnlyPointEntityHANDLE_exposer_t CServerOnlyPointEntityHANDLE_exposer = CServerOnlyPointEntityHANDLE_exposer_t( "CServerOnlyPointEntityHANDLE", bp::init< >() );
-            CServerOnlyPointEntityHANDLE_exposer.def( bp::init< CServerOnlyPointEntity * >(( bp::arg("pVal") )) );
-            CServerOnlyPointEntityHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CServerOnlyPointEntityHANDLE::GetAttr
+        typedef bp::class_< CServerOnlyPointEntityHANDLE, bp::bases< CBaseHandle > > CServerOnlyPointEntityHANDLE_exposer_t;
+        CServerOnlyPointEntityHANDLE_exposer_t CServerOnlyPointEntityHANDLE_exposer = CServerOnlyPointEntityHANDLE_exposer_t( "CServerOnlyPointEntityHANDLE", bp::init< >() );
+        CServerOnlyPointEntityHANDLE_exposer.def( bp::init< CServerOnlyPointEntity * >(( bp::arg("pVal") )) );
+        CServerOnlyPointEntityHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CServerOnlyPointEntityHANDLE::GetAttr
+        
+            typedef bp::object ( ::CServerOnlyPointEntityHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CServerOnlyPointEntityHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CServerOnlyPointEntityHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CServerOnlyPointEntityHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CServerOnlyPointEntityHANDLE::Cmp
-            
-                typedef bool ( ::CServerOnlyPointEntityHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CServerOnlyPointEntityHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CServerOnlyPointEntityHANDLE::Cmp )
-                );
-            
-            }
-            { //::CServerOnlyPointEntityHANDLE::NonZero
-            
-                typedef bool ( ::CServerOnlyPointEntityHANDLE::*NonZero_function_type )( ) const;
-                
-                CServerOnlyPointEntityHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CServerOnlyPointEntityHANDLE::NonZero )
-                );
-            
-            }
-            { //::CServerOnlyPointEntityHANDLE::Set
-            
-                typedef void ( ::CServerOnlyPointEntityHANDLE::*Set_function_type )( CServerOnlyPointEntity * ) const;
-                
-                CServerOnlyPointEntityHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CServerOnlyPointEntityHANDLE::Set )
-                );
-            
-            }
-            { //::CServerOnlyPointEntityHANDLE::GetSerialNumber
-            
-                typedef int ( ::CServerOnlyPointEntityHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CServerOnlyPointEntityHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CServerOnlyPointEntityHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CServerOnlyPointEntityHANDLE::GetEntryIndex
-            
-                typedef int ( ::CServerOnlyPointEntityHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CServerOnlyPointEntityHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CServerOnlyPointEntityHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CServerOnlyPointEntityHANDLE_exposer.def( bp::self != bp::self );
-            CServerOnlyPointEntityHANDLE_exposer.def( bp::self == bp::self );
+            CServerOnlyPointEntityHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CServerOnlyPointEntityHANDLE::GetAttr )
+            );
+        
         }
+        { //::CServerOnlyPointEntityHANDLE::Cmp
+        
+            typedef bool ( ::CServerOnlyPointEntityHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CServerOnlyPointEntityHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CServerOnlyPointEntityHANDLE::Cmp )
+            );
+        
+        }
+        { //::CServerOnlyPointEntityHANDLE::NonZero
+        
+            typedef bool ( ::CServerOnlyPointEntityHANDLE::*NonZero_function_type )( ) const;
+            
+            CServerOnlyPointEntityHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CServerOnlyPointEntityHANDLE::NonZero )
+            );
+        
+        }
+        { //::CServerOnlyPointEntityHANDLE::Set
+        
+            typedef void ( ::CServerOnlyPointEntityHANDLE::*Set_function_type )( CServerOnlyPointEntity * ) const;
+            
+            CServerOnlyPointEntityHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CServerOnlyPointEntityHANDLE::Set )
+            );
+        
+        }
+        { //::CServerOnlyPointEntityHANDLE::GetSerialNumber
+        
+            typedef int ( ::CServerOnlyPointEntityHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CServerOnlyPointEntityHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CServerOnlyPointEntityHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CServerOnlyPointEntityHANDLE::GetEntryIndex
+        
+            typedef int ( ::CServerOnlyPointEntityHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CServerOnlyPointEntityHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CServerOnlyPointEntityHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CServerOnlyPointEntityHANDLE_exposer.def( bp::self != bp::self );
+        CServerOnlyPointEntityHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CServerOnlyPointEntity_to_handle();
 
@@ -1498,73 +1498,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CServerOnlyPointEntity();
 
     { //::CLogicalEntityHANDLE
-            typedef bp::class_< CLogicalEntityHANDLE, bp::bases< CBaseHandle > > CLogicalEntityHANDLE_exposer_t;
-            CLogicalEntityHANDLE_exposer_t CLogicalEntityHANDLE_exposer = CLogicalEntityHANDLE_exposer_t( "CLogicalEntityHANDLE", bp::init< >() );
-            CLogicalEntityHANDLE_exposer.def( bp::init< CLogicalEntity * >(( bp::arg("pVal") )) );
-            CLogicalEntityHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CLogicalEntityHANDLE::GetAttr
+        typedef bp::class_< CLogicalEntityHANDLE, bp::bases< CBaseHandle > > CLogicalEntityHANDLE_exposer_t;
+        CLogicalEntityHANDLE_exposer_t CLogicalEntityHANDLE_exposer = CLogicalEntityHANDLE_exposer_t( "CLogicalEntityHANDLE", bp::init< >() );
+        CLogicalEntityHANDLE_exposer.def( bp::init< CLogicalEntity * >(( bp::arg("pVal") )) );
+        CLogicalEntityHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CLogicalEntityHANDLE::GetAttr
+        
+            typedef bp::object ( ::CLogicalEntityHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CLogicalEntityHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CLogicalEntityHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CLogicalEntityHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CLogicalEntityHANDLE::Cmp
-            
-                typedef bool ( ::CLogicalEntityHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CLogicalEntityHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CLogicalEntityHANDLE::Cmp )
-                );
-            
-            }
-            { //::CLogicalEntityHANDLE::NonZero
-            
-                typedef bool ( ::CLogicalEntityHANDLE::*NonZero_function_type )( ) const;
-                
-                CLogicalEntityHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CLogicalEntityHANDLE::NonZero )
-                );
-            
-            }
-            { //::CLogicalEntityHANDLE::Set
-            
-                typedef void ( ::CLogicalEntityHANDLE::*Set_function_type )( CLogicalEntity * ) const;
-                
-                CLogicalEntityHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CLogicalEntityHANDLE::Set )
-                );
-            
-            }
-            { //::CLogicalEntityHANDLE::GetSerialNumber
-            
-                typedef int ( ::CLogicalEntityHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CLogicalEntityHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CLogicalEntityHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CLogicalEntityHANDLE::GetEntryIndex
-            
-                typedef int ( ::CLogicalEntityHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CLogicalEntityHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CLogicalEntityHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CLogicalEntityHANDLE_exposer.def( bp::self != bp::self );
-            CLogicalEntityHANDLE_exposer.def( bp::self == bp::self );
+            CLogicalEntityHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CLogicalEntityHANDLE::GetAttr )
+            );
+        
         }
+        { //::CLogicalEntityHANDLE::Cmp
+        
+            typedef bool ( ::CLogicalEntityHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CLogicalEntityHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CLogicalEntityHANDLE::Cmp )
+            );
+        
+        }
+        { //::CLogicalEntityHANDLE::NonZero
+        
+            typedef bool ( ::CLogicalEntityHANDLE::*NonZero_function_type )( ) const;
+            
+            CLogicalEntityHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CLogicalEntityHANDLE::NonZero )
+            );
+        
+        }
+        { //::CLogicalEntityHANDLE::Set
+        
+            typedef void ( ::CLogicalEntityHANDLE::*Set_function_type )( CLogicalEntity * ) const;
+            
+            CLogicalEntityHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CLogicalEntityHANDLE::Set )
+            );
+        
+        }
+        { //::CLogicalEntityHANDLE::GetSerialNumber
+        
+            typedef int ( ::CLogicalEntityHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CLogicalEntityHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CLogicalEntityHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CLogicalEntityHANDLE::GetEntryIndex
+        
+            typedef int ( ::CLogicalEntityHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CLogicalEntityHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CLogicalEntityHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CLogicalEntityHANDLE_exposer.def( bp::self != bp::self );
+        CLogicalEntityHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CLogicalEntity_to_handle();
 
@@ -1573,73 +1573,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CLogicalEntity();
 
     { //::CFuncBrushHANDLE
-            typedef bp::class_< CFuncBrushHANDLE, bp::bases< CBaseHandle > > CFuncBrushHANDLE_exposer_t;
-            CFuncBrushHANDLE_exposer_t CFuncBrushHANDLE_exposer = CFuncBrushHANDLE_exposer_t( "CFuncBrushHANDLE", bp::init< >() );
-            CFuncBrushHANDLE_exposer.def( bp::init< CFuncBrush * >(( bp::arg("pVal") )) );
-            CFuncBrushHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CFuncBrushHANDLE::GetAttr
+        typedef bp::class_< CFuncBrushHANDLE, bp::bases< CBaseHandle > > CFuncBrushHANDLE_exposer_t;
+        CFuncBrushHANDLE_exposer_t CFuncBrushHANDLE_exposer = CFuncBrushHANDLE_exposer_t( "CFuncBrushHANDLE", bp::init< >() );
+        CFuncBrushHANDLE_exposer.def( bp::init< CFuncBrush * >(( bp::arg("pVal") )) );
+        CFuncBrushHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CFuncBrushHANDLE::GetAttr
+        
+            typedef bp::object ( ::CFuncBrushHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CFuncBrushHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CFuncBrushHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CFuncBrushHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CFuncBrushHANDLE::Cmp
-            
-                typedef bool ( ::CFuncBrushHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CFuncBrushHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CFuncBrushHANDLE::Cmp )
-                );
-            
-            }
-            { //::CFuncBrushHANDLE::NonZero
-            
-                typedef bool ( ::CFuncBrushHANDLE::*NonZero_function_type )( ) const;
-                
-                CFuncBrushHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CFuncBrushHANDLE::NonZero )
-                );
-            
-            }
-            { //::CFuncBrushHANDLE::Set
-            
-                typedef void ( ::CFuncBrushHANDLE::*Set_function_type )( CFuncBrush * ) const;
-                
-                CFuncBrushHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CFuncBrushHANDLE::Set )
-                );
-            
-            }
-            { //::CFuncBrushHANDLE::GetSerialNumber
-            
-                typedef int ( ::CFuncBrushHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CFuncBrushHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CFuncBrushHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CFuncBrushHANDLE::GetEntryIndex
-            
-                typedef int ( ::CFuncBrushHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CFuncBrushHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CFuncBrushHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CFuncBrushHANDLE_exposer.def( bp::self != bp::self );
-            CFuncBrushHANDLE_exposer.def( bp::self == bp::self );
+            CFuncBrushHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CFuncBrushHANDLE::GetAttr )
+            );
+        
         }
+        { //::CFuncBrushHANDLE::Cmp
+        
+            typedef bool ( ::CFuncBrushHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CFuncBrushHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CFuncBrushHANDLE::Cmp )
+            );
+        
+        }
+        { //::CFuncBrushHANDLE::NonZero
+        
+            typedef bool ( ::CFuncBrushHANDLE::*NonZero_function_type )( ) const;
+            
+            CFuncBrushHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CFuncBrushHANDLE::NonZero )
+            );
+        
+        }
+        { //::CFuncBrushHANDLE::Set
+        
+            typedef void ( ::CFuncBrushHANDLE::*Set_function_type )( CFuncBrush * ) const;
+            
+            CFuncBrushHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CFuncBrushHANDLE::Set )
+            );
+        
+        }
+        { //::CFuncBrushHANDLE::GetSerialNumber
+        
+            typedef int ( ::CFuncBrushHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CFuncBrushHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CFuncBrushHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CFuncBrushHANDLE::GetEntryIndex
+        
+            typedef int ( ::CFuncBrushHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CFuncBrushHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CFuncBrushHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CFuncBrushHANDLE_exposer.def( bp::self != bp::self );
+        CFuncBrushHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CFuncBrush_to_handle();
 
@@ -1648,73 +1648,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CFuncBrush();
 
     { //::CBaseToggleHANDLE
-            typedef bp::class_< CBaseToggleHANDLE, bp::bases< CBaseHandle > > CBaseToggleHANDLE_exposer_t;
-            CBaseToggleHANDLE_exposer_t CBaseToggleHANDLE_exposer = CBaseToggleHANDLE_exposer_t( "CBaseToggleHANDLE", bp::init< >() );
-            CBaseToggleHANDLE_exposer.def( bp::init< CBaseToggle * >(( bp::arg("pVal") )) );
-            CBaseToggleHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CBaseToggleHANDLE::GetAttr
+        typedef bp::class_< CBaseToggleHANDLE, bp::bases< CBaseHandle > > CBaseToggleHANDLE_exposer_t;
+        CBaseToggleHANDLE_exposer_t CBaseToggleHANDLE_exposer = CBaseToggleHANDLE_exposer_t( "CBaseToggleHANDLE", bp::init< >() );
+        CBaseToggleHANDLE_exposer.def( bp::init< CBaseToggle * >(( bp::arg("pVal") )) );
+        CBaseToggleHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CBaseToggleHANDLE::GetAttr
+        
+            typedef bp::object ( ::CBaseToggleHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CBaseToggleHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CBaseToggleHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CBaseToggleHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CBaseToggleHANDLE::Cmp
-            
-                typedef bool ( ::CBaseToggleHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CBaseToggleHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CBaseToggleHANDLE::Cmp )
-                );
-            
-            }
-            { //::CBaseToggleHANDLE::NonZero
-            
-                typedef bool ( ::CBaseToggleHANDLE::*NonZero_function_type )( ) const;
-                
-                CBaseToggleHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CBaseToggleHANDLE::NonZero )
-                );
-            
-            }
-            { //::CBaseToggleHANDLE::Set
-            
-                typedef void ( ::CBaseToggleHANDLE::*Set_function_type )( CBaseToggle * ) const;
-                
-                CBaseToggleHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CBaseToggleHANDLE::Set )
-                );
-            
-            }
-            { //::CBaseToggleHANDLE::GetSerialNumber
-            
-                typedef int ( ::CBaseToggleHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CBaseToggleHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CBaseToggleHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CBaseToggleHANDLE::GetEntryIndex
-            
-                typedef int ( ::CBaseToggleHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CBaseToggleHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CBaseToggleHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CBaseToggleHANDLE_exposer.def( bp::self != bp::self );
-            CBaseToggleHANDLE_exposer.def( bp::self == bp::self );
+            CBaseToggleHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CBaseToggleHANDLE::GetAttr )
+            );
+        
         }
+        { //::CBaseToggleHANDLE::Cmp
+        
+            typedef bool ( ::CBaseToggleHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CBaseToggleHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CBaseToggleHANDLE::Cmp )
+            );
+        
+        }
+        { //::CBaseToggleHANDLE::NonZero
+        
+            typedef bool ( ::CBaseToggleHANDLE::*NonZero_function_type )( ) const;
+            
+            CBaseToggleHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CBaseToggleHANDLE::NonZero )
+            );
+        
+        }
+        { //::CBaseToggleHANDLE::Set
+        
+            typedef void ( ::CBaseToggleHANDLE::*Set_function_type )( CBaseToggle * ) const;
+            
+            CBaseToggleHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CBaseToggleHANDLE::Set )
+            );
+        
+        }
+        { //::CBaseToggleHANDLE::GetSerialNumber
+        
+            typedef int ( ::CBaseToggleHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CBaseToggleHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CBaseToggleHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CBaseToggleHANDLE::GetEntryIndex
+        
+            typedef int ( ::CBaseToggleHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CBaseToggleHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CBaseToggleHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CBaseToggleHANDLE_exposer.def( bp::self != bp::self );
+        CBaseToggleHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CBaseToggle_to_handle();
 
@@ -1723,73 +1723,73 @@ BOOST_PYTHON_MODULE(_entities){
     handle_to_CBaseToggle();
 
     { //::CBaseTriggerHANDLE
-            typedef bp::class_< CBaseTriggerHANDLE, bp::bases< CBaseHandle > > CBaseTriggerHANDLE_exposer_t;
-            CBaseTriggerHANDLE_exposer_t CBaseTriggerHANDLE_exposer = CBaseTriggerHANDLE_exposer_t( "CBaseTriggerHANDLE", bp::init< >() );
-            CBaseTriggerHANDLE_exposer.def( bp::init< CBaseTrigger * >(( bp::arg("pVal") )) );
-            CBaseTriggerHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
-            { //::CBaseTriggerHANDLE::GetAttr
+        typedef bp::class_< CBaseTriggerHANDLE, bp::bases< CBaseHandle > > CBaseTriggerHANDLE_exposer_t;
+        CBaseTriggerHANDLE_exposer_t CBaseTriggerHANDLE_exposer = CBaseTriggerHANDLE_exposer_t( "CBaseTriggerHANDLE", bp::init< >() );
+        CBaseTriggerHANDLE_exposer.def( bp::init< CBaseTrigger * >(( bp::arg("pVal") )) );
+        CBaseTriggerHANDLE_exposer.def( bp::init< int, int >(( bp::arg("iEntry"), bp::arg("iSerialNumber") )) );
+        { //::CBaseTriggerHANDLE::GetAttr
+        
+            typedef bp::object ( ::CBaseTriggerHANDLE::*GetAttr_function_type )( const char * ) const;
             
-                typedef bp::object ( ::CBaseTriggerHANDLE::*GetAttr_function_type )( const char * ) const;
-                
-                CBaseTriggerHANDLE_exposer.def( 
-                    "__getattr__"
-                    , GetAttr_function_type( &::CBaseTriggerHANDLE::GetAttr )
-                );
-            
-            }
-            { //::CBaseTriggerHANDLE::Cmp
-            
-                typedef bool ( ::CBaseTriggerHANDLE::*Cmp_function_type )( bp::object ) const;
-                
-                CBaseTriggerHANDLE_exposer.def( 
-                    "__cmp__"
-                    , Cmp_function_type( &::CBaseTriggerHANDLE::Cmp )
-                );
-            
-            }
-            { //::CBaseTriggerHANDLE::NonZero
-            
-                typedef bool ( ::CBaseTriggerHANDLE::*NonZero_function_type )( ) const;
-                
-                CBaseTriggerHANDLE_exposer.def( 
-                    "__nonzero__"
-                    , NonZero_function_type( &::CBaseTriggerHANDLE::NonZero )
-                );
-            
-            }
-            { //::CBaseTriggerHANDLE::Set
-            
-                typedef void ( ::CBaseTriggerHANDLE::*Set_function_type )( CBaseTrigger * ) const;
-                
-                CBaseTriggerHANDLE_exposer.def( 
-                    "Set"
-                    , Set_function_type( &::CBaseTriggerHANDLE::Set )
-                );
-            
-            }
-            { //::CBaseTriggerHANDLE::GetSerialNumber
-            
-                typedef int ( ::CBaseTriggerHANDLE::*GetSerialNumber_function_type )( ) const;
-                
-                CBaseTriggerHANDLE_exposer.def( 
-                    "GetSerialNumber"
-                    , GetSerialNumber_function_type( &::CBaseTriggerHANDLE::GetSerialNumber )
-                );
-            
-            }
-            { //::CBaseTriggerHANDLE::GetEntryIndex
-            
-                typedef int ( ::CBaseTriggerHANDLE::*GetEntryIndex_function_type )(  ) const;
-                
-                CBaseTriggerHANDLE_exposer.def( 
-                    "GetEntryIndex"
-                    , GetEntryIndex_function_type( &::CBaseTriggerHANDLE::GetEntryIndex )
-                );
-            
-            }
-            CBaseTriggerHANDLE_exposer.def( bp::self != bp::self );
-            CBaseTriggerHANDLE_exposer.def( bp::self == bp::self );
+            CBaseTriggerHANDLE_exposer.def( 
+                "__getattr__"
+                , GetAttr_function_type( &::CBaseTriggerHANDLE::GetAttr )
+            );
+        
         }
+        { //::CBaseTriggerHANDLE::Cmp
+        
+            typedef bool ( ::CBaseTriggerHANDLE::*Cmp_function_type )( bp::object ) const;
+            
+            CBaseTriggerHANDLE_exposer.def( 
+                "__cmp__"
+                , Cmp_function_type( &::CBaseTriggerHANDLE::Cmp )
+            );
+        
+        }
+        { //::CBaseTriggerHANDLE::NonZero
+        
+            typedef bool ( ::CBaseTriggerHANDLE::*NonZero_function_type )( ) const;
+            
+            CBaseTriggerHANDLE_exposer.def( 
+                "__nonzero__"
+                , NonZero_function_type( &::CBaseTriggerHANDLE::NonZero )
+            );
+        
+        }
+        { //::CBaseTriggerHANDLE::Set
+        
+            typedef void ( ::CBaseTriggerHANDLE::*Set_function_type )( CBaseTrigger * ) const;
+            
+            CBaseTriggerHANDLE_exposer.def( 
+                "Set"
+                , Set_function_type( &::CBaseTriggerHANDLE::Set )
+            );
+        
+        }
+        { //::CBaseTriggerHANDLE::GetSerialNumber
+        
+            typedef int ( ::CBaseTriggerHANDLE::*GetSerialNumber_function_type )( ) const;
+            
+            CBaseTriggerHANDLE_exposer.def( 
+                "GetSerialNumber"
+                , GetSerialNumber_function_type( &::CBaseTriggerHANDLE::GetSerialNumber )
+            );
+        
+        }
+        { //::CBaseTriggerHANDLE::GetEntryIndex
+        
+            typedef int ( ::CBaseTriggerHANDLE::*GetEntryIndex_function_type )(  ) const;
+            
+            CBaseTriggerHANDLE_exposer.def( 
+                "GetEntryIndex"
+                , GetEntryIndex_function_type( &::CBaseTriggerHANDLE::GetEntryIndex )
+            );
+        
+        }
+        CBaseTriggerHANDLE_exposer.def( bp::self != bp::self );
+        CBaseTriggerHANDLE_exposer.def( bp::self == bp::self );
+    }
 
     ptr_CBaseTrigger_to_handle();
 

@@ -82,6 +82,7 @@ void C_TeamTrainWatcher::UpdateGlowEffect( void )
 		DestroyGlowEffect();
 	}
 
+#ifdef TF_CLIENT_DLL
 	// create a new effect if we have a cart
 	if ( m_hGlowEnt )
 	{
@@ -89,6 +90,7 @@ void C_TeamTrainWatcher::UpdateGlowEffect( void )
 		TeamplayRoundBasedRules()->GetTeamGlowColor( GetTeamNumber(), r, g, b );
 		m_pGlowEffect = new CGlowObject( m_hGlowEnt, Vector( r, g, b ), 1.0, true );
 	}
+#endif // TF_CLIENT_DLL
 }
 
 //-----------------------------------------------------------------------------

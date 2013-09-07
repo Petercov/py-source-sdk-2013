@@ -602,15 +602,15 @@ struct C_BaseEntity_wrapper : C_BaseEntity, bp::wrapper< C_BaseEntity > {
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ClientClass* GetClientClass() {
-    #if defined(_WIN32) // POSIX: TODO
-            if( GetCurrentThreadId() != g_hPythonThreadID )
-                return C_BaseEntity::GetClientClass();
-    #endif // _WIN32
-            ClientClass *pClientClass = SrcPySystem()->Get<ClientClass *>( "pyClientClass", GetPyInstance(), NULL, true );
-            if( pClientClass )
-                return pClientClass;
+#if defined(_WIN32) // POSIX: TODO
+        if( GetCurrentThreadId() != g_hPythonThreadID )
             return C_BaseEntity::GetClientClass();
-        }
+#endif // _WIN32
+        ClientClass *pClientClass = SrcPySystem()->Get<ClientClass *>( "pyClientClass", GetPyInstance(), NULL, true );
+        if( pClientClass )
+            return pClientClass;
+        return C_BaseEntity::GetClientClass();
+    }
 
 };
 
