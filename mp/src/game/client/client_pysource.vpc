@@ -11,9 +11,6 @@ $Include "$SRCDIR\game\client\client_base.vpc"
 $Include "$SRCDIR\vpc_scripts\pysource_base.vpc"
 $Include "$SRCDIR\game\client\client_pysource_autogen.vpc"
 
-$macro VSLIBDIR  "." [!$VS2010]
-$macro VSLIBDIR  "VS2010" [$VS2010]
-
 $Configuration
 {
 	$Compiler
@@ -208,19 +205,6 @@ $Project "Client (PySource)"
 			$File	"python\srcpy_client_class.h"
 		}
 	}
-	$Folder "Libraries"
-	{
-		$File "$SRCDIR\lib\$PLATFORM\release\$VSLIBDIR\libprotobuf.lib" [$WINDOWS]
-		{
-			$Configuration "Debug" { $ExcludedFromBuild	"Yes" }
-		}
-		$File "$SRCDIR\lib\$PLATFORM\debug\$VSLIBDIR\libprotobuf.lib" [$WINDOWS]
-		{
-			$Configuration "Release" { $ExcludedFromBuild "Yes" }
-		}
-		$File "$SRCDIR\lib\$PLATFORM\release\libprotobuf.a"         [$POSIX]
-	}
-	
 	
 	$Folder	"Link Libraries" [$WIN32]
 	{

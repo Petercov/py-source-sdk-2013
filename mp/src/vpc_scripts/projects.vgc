@@ -24,6 +24,11 @@ $Project "client"
 	"game\client\client_pysource.vpc"		[($WIN32||$POSIX) && $PYSOURCE]
 }
 
+$Project "fgdlib"
+{
+	"fgdlib\fgdlib.vpc" [$WIN32]
+}
+
 $Project "game_shader_dx9"
 {
 	"materialsystem\stdshaders\game_shader_dx9_hl2mp.vpc" [$HL2MP]
@@ -58,6 +63,11 @@ $Project "motionmapper"
 $Project "phonemeextractor"
 {
 	"utils\phonemeextractor\phonemeextractor.vpc" [$WIN32]
+}
+
+$Project "raytrace"
+{
+	"raytrace\raytrace.vpc" [$WIN32||$X360||$POSIX]
 }
 
 $Project "qc_eyes"
