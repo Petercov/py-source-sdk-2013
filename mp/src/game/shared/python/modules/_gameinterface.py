@@ -276,6 +276,8 @@ class GameInterface(SemiSharedModuleGenerator):
         # Command line access
         cls = mb.class_('ICommandLine')
         cls.include()
+        cls.mem_funs().virtuality = 'not virtual'
+		
         mb.free_function('CommandLine_Tier0').include()
         mb.free_function('CommandLine_Tier0').rename('CommandLine')
         mb.free_function('CommandLine_Tier0').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)

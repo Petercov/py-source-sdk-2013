@@ -1626,134 +1626,6 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
 
 };
 
-struct ICommandLine_wrapper : ICommandLine, bp::wrapper< ICommandLine > {
-
-    ICommandLine_wrapper()
-    : ICommandLine()
-      , bp::wrapper< ICommandLine >(){
-        // null constructor
-        
-    }
-
-    virtual void AppendParm( char const * pszParm, char const * pszValues ){
-        bp::override func_AppendParm = this->get_override( "AppendParm" );
-        try {
-            func_AppendParm( pszParm, pszValues );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual char const * CheckParm( char const * psz, char const * * ppszValue=0 ) const {
-        bp::override func_CheckParm = this->get_override( "CheckParm" );
-        try {
-            return func_CheckParm( psz, ppszValue );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual void CreateCmdLine( char const * commandline ){
-        bp::override func_CreateCmdLine = this->get_override( "CreateCmdLine" );
-        try {
-            func_CreateCmdLine( commandline );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual void CreateCmdLine( int argc, char * * argv ){
-        bp::override func_CreateCmdLine = this->get_override( "CreateCmdLine" );
-        try {
-            func_CreateCmdLine( argc, argv );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual int FindParm( char const * psz ) const {
-        bp::override func_FindParm = this->get_override( "FindParm" );
-        try {
-            return func_FindParm( psz );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual char const * GetCmdLine(  ) const {
-        bp::override func_GetCmdLine = this->get_override( "GetCmdLine" );
-        try {
-            return func_GetCmdLine(  );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual char const * GetParm( int nIndex ) const {
-        bp::override func_GetParm = this->get_override( "GetParm" );
-        try {
-            return func_GetParm( nIndex );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual int ParmCount(  ) const {
-        bp::override func_ParmCount = this->get_override( "ParmCount" );
-        try {
-            return func_ParmCount(  );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual char const * ParmValue( char const * psz, char const * pDefaultVal=0 ) const {
-        bp::override func_ParmValue = this->get_override( "ParmValue" );
-        try {
-            return func_ParmValue( psz, pDefaultVal );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual int ParmValue( char const * psz, int nDefaultVal ) const {
-        bp::override func_ParmValue = this->get_override( "ParmValue" );
-        try {
-            return func_ParmValue( psz, nDefaultVal );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual float ParmValue( char const * psz, float flDefaultVal ) const {
-        bp::override func_ParmValue = this->get_override( "ParmValue" );
-        try {
-            return func_ParmValue( psz, flDefaultVal );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual void RemoveParm( char const * parm ){
-        bp::override func_RemoveParm = this->get_override( "RemoveParm" );
-        try {
-            func_RemoveParm( parm );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual void SetParm( int nIndex, char const * pNewParm ){
-        bp::override func_SetParm = this->get_override( "SetParm" );
-        try {
-            func_SetParm( nIndex, pNewParm );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-};
-
 struct PyGameEventListener_wrapper : PyGameEventListener, bp::wrapper< PyGameEventListener > {
 
     PyGameEventListener_wrapper(PyGameEventListener const & arg )
@@ -2591,8 +2463,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , ( bp::arg("nIndex") ) )    
         .staticmethod( "MaxCommandLength" )    
         .def( 
-                    "__len__"
-                    , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) );
+            "__len__"
+            , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) );
 
     bp::class_< CLocalPlayerFilter, bp::bases< C_RecipientFilter >, boost::noncopyable >( "CLocalPlayerFilter", bp::init< >() );
 
@@ -2765,56 +2637,56 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
     }
 
-    bp::class_< ICommandLine_wrapper, boost::noncopyable >( "ICommandLine" )    
+    bp::class_< ICommandLine, boost::noncopyable >( "ICommandLine", bp::no_init )    
         .def( 
             "AppendParm"
-            , bp::pure_virtual( (void ( ::ICommandLine::* )( char const *,char const * ) )(&::ICommandLine::AppendParm) )
+            , (void ( ::ICommandLine::* )( char const *,char const * ) )( &::ICommandLine::AppendParm )
             , ( bp::arg("pszParm"), bp::arg("pszValues") ) )    
         .def( 
             "CheckParm"
-            , bp::pure_virtual( (char const * ( ::ICommandLine::* )( char const *,char const * * ) const)(&::ICommandLine::CheckParm) )
+            , (char const * ( ::ICommandLine::* )( char const *,char const * * ) const)( &::ICommandLine::CheckParm )
             , ( bp::arg("psz"), bp::arg("ppszValue")=bp::object() ) )    
         .def( 
             "CreateCmdLine"
-            , bp::pure_virtual( (void ( ::ICommandLine::* )( char const * ) )(&::ICommandLine::CreateCmdLine) )
+            , (void ( ::ICommandLine::* )( char const * ) )( &::ICommandLine::CreateCmdLine )
             , ( bp::arg("commandline") ) )    
         .def( 
             "CreateCmdLine"
-            , bp::pure_virtual( (void ( ::ICommandLine::* )( int,char * * ) )(&::ICommandLine::CreateCmdLine) )
+            , (void ( ::ICommandLine::* )( int,char * * ) )( &::ICommandLine::CreateCmdLine )
             , ( bp::arg("argc"), bp::arg("argv") ) )    
         .def( 
             "FindParm"
-            , bp::pure_virtual( (int ( ::ICommandLine::* )( char const * ) const)(&::ICommandLine::FindParm) )
+            , (int ( ::ICommandLine::* )( char const * ) const)( &::ICommandLine::FindParm )
             , ( bp::arg("psz") ) )    
         .def( 
             "GetCmdLine"
-            , bp::pure_virtual( (char const * ( ::ICommandLine::* )(  ) const)(&::ICommandLine::GetCmdLine) ) )    
+            , (char const * ( ::ICommandLine::* )(  ) const)( &::ICommandLine::GetCmdLine ) )    
         .def( 
             "GetParm"
-            , bp::pure_virtual( (char const * ( ::ICommandLine::* )( int ) const)(&::ICommandLine::GetParm) )
+            , (char const * ( ::ICommandLine::* )( int ) const)( &::ICommandLine::GetParm )
             , ( bp::arg("nIndex") ) )    
         .def( 
             "ParmCount"
-            , bp::pure_virtual( (int ( ::ICommandLine::* )(  ) const)(&::ICommandLine::ParmCount) ) )    
+            , (int ( ::ICommandLine::* )(  ) const)( &::ICommandLine::ParmCount ) )    
         .def( 
             "ParmValue"
-            , bp::pure_virtual( (char const * ( ::ICommandLine::* )( char const *,char const * ) const)(&::ICommandLine::ParmValue) )
+            , (char const * ( ::ICommandLine::* )( char const *,char const * ) const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("pDefaultVal")=bp::object() ) )    
         .def( 
             "ParmValue"
-            , bp::pure_virtual( (int ( ::ICommandLine::* )( char const *,int ) const)(&::ICommandLine::ParmValue) )
+            , (int ( ::ICommandLine::* )( char const *,int ) const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("nDefaultVal") ) )    
         .def( 
             "ParmValue"
-            , bp::pure_virtual( (float ( ::ICommandLine::* )( char const *,float ) const)(&::ICommandLine::ParmValue) )
+            , (float ( ::ICommandLine::* )( char const *,float ) const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("flDefaultVal") ) )    
         .def( 
             "RemoveParm"
-            , bp::pure_virtual( (void ( ::ICommandLine::* )( char const * ) )(&::ICommandLine::RemoveParm) )
+            , (void ( ::ICommandLine::* )( char const * ) )( &::ICommandLine::RemoveParm )
             , ( bp::arg("parm") ) )    
         .def( 
             "SetParm"
-            , bp::pure_virtual( (void ( ::ICommandLine::* )( int,char const * ) )(&::ICommandLine::SetParm) )
+            , (void ( ::ICommandLine::* )( int,char const * ) )( &::ICommandLine::SetParm )
             , ( bp::arg("nIndex"), bp::arg("pNewParm") ) );
 
     bp::class_< PyConCommand >( "ConCommand", bp::init< char const *, bp::object, bp::optional< char const *, int, bp::object, bool > >(( bp::arg("pName"), bp::arg("method"), bp::arg("helpstring")=bp::object(), bp::arg("flags")=(int)(0), bp::arg("completionfunc")=boost::python::object(), bp::arg("useweakref")=(bool)(false) )) )    
@@ -2831,51 +2703,51 @@ BOOST_PYTHON_MODULE(_gameinterface){
         .def( bp::init< char const *, char const *, int, char const *, bp::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("callback") )) )    
         .def( bp::init< char const *, char const *, int, char const *, bool, float, bool, float, bp::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("bMin"), bp::arg("fMin"), bp::arg("bMax"), bp::arg("fMax"), bp::arg("callback") )) )    
         .def( 
-                    "AddFlags"
-                    , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
-                    , ( bp::arg("flags") ) )    
+            "AddFlags"
+            , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
+            , ( bp::arg("flags") ) )    
         .def( 
-                    "GetBool"
-                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::GetBool ) )    
+            "GetBool"
+            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::GetBool ) )    
         .def( 
-                    "GetDefault"
-                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetDefault ) )    
+            "GetDefault"
+            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetDefault ) )    
         .def( 
-                    "GetFloat"
-                    , (float ( ::ConVar::* )(  ) const)( &::ConVar::GetFloat ) )    
+            "GetFloat"
+            , (float ( ::ConVar::* )(  ) const)( &::ConVar::GetFloat ) )    
         .def( 
-                    "GetHelpText"
-                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetHelpText ) )    
+            "GetHelpText"
+            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetHelpText ) )    
         .def( 
-                    "GetInt"
-                    , (int ( ::ConVar::* )(  ) const)( &::ConVar::GetInt ) )    
+            "GetInt"
+            , (int ( ::ConVar::* )(  ) const)( &::ConVar::GetInt ) )    
         .def( 
-                    "GetMax"
-                    , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMax )
-                    , ( bp::arg("maxVal") ) )    
+            "GetMax"
+            , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMax )
+            , ( bp::arg("maxVal") ) )    
         .def( 
-                    "GetMin"
-                    , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMin )
-                    , ( bp::arg("minVal") ) )    
+            "GetMin"
+            , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMin )
+            , ( bp::arg("minVal") ) )    
         .def( 
-                    "GetName"
-                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetName ) )    
+            "GetName"
+            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetName ) )    
         .def( 
-                    "GetString"
-                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetString ) )    
+            "GetString"
+            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetString ) )    
         .def( 
-                    "IsCommand"
-                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsCommand ) )    
+            "IsCommand"
+            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsCommand ) )    
         .def( 
-                    "IsFlagSet"
-                    , (bool ( ::ConVar::* )( int ) const)( &::ConVar::IsFlagSet )
-                    , ( bp::arg("flag") ) )    
+            "IsFlagSet"
+            , (bool ( ::ConVar::* )( int ) const)( &::ConVar::IsFlagSet )
+            , ( bp::arg("flag") ) )    
         .def( 
-                    "IsRegistered"
-                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsRegistered ) )    
+            "IsRegistered"
+            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsRegistered ) )    
         .def( 
-                    "Revert"
-                    , (void ( ::ConVar::* )(  ) )( &::ConVar::Revert ) );
+            "Revert"
+            , (void ( ::ConVar::* )(  ) )( &::ConVar::Revert ) );
 
     { //::PyGameEvent
         typedef bp::class_< PyGameEvent > GameEvent_exposer_t;
@@ -5193,134 +5065,6 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
 
 };
 
-struct ICommandLine_wrapper : ICommandLine, bp::wrapper< ICommandLine > {
-
-    ICommandLine_wrapper()
-    : ICommandLine()
-      , bp::wrapper< ICommandLine >(){
-        // null constructor
-        
-    }
-
-    virtual void AppendParm( char const * pszParm, char const * pszValues ){
-        bp::override func_AppendParm = this->get_override( "AppendParm" );
-        try {
-            func_AppendParm( pszParm, pszValues );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual char const * CheckParm( char const * psz, char const * * ppszValue=0 ) const {
-        bp::override func_CheckParm = this->get_override( "CheckParm" );
-        try {
-            return func_CheckParm( psz, ppszValue );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual void CreateCmdLine( char const * commandline ){
-        bp::override func_CreateCmdLine = this->get_override( "CreateCmdLine" );
-        try {
-            func_CreateCmdLine( commandline );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual void CreateCmdLine( int argc, char * * argv ){
-        bp::override func_CreateCmdLine = this->get_override( "CreateCmdLine" );
-        try {
-            func_CreateCmdLine( argc, argv );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual int FindParm( char const * psz ) const {
-        bp::override func_FindParm = this->get_override( "FindParm" );
-        try {
-            return func_FindParm( psz );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual char const * GetCmdLine(  ) const {
-        bp::override func_GetCmdLine = this->get_override( "GetCmdLine" );
-        try {
-            return func_GetCmdLine(  );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual char const * GetParm( int nIndex ) const {
-        bp::override func_GetParm = this->get_override( "GetParm" );
-        try {
-            return func_GetParm( nIndex );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual int ParmCount(  ) const {
-        bp::override func_ParmCount = this->get_override( "ParmCount" );
-        try {
-            return func_ParmCount(  );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual char const * ParmValue( char const * psz, char const * pDefaultVal=0 ) const {
-        bp::override func_ParmValue = this->get_override( "ParmValue" );
-        try {
-            return func_ParmValue( psz, pDefaultVal );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual int ParmValue( char const * psz, int nDefaultVal ) const {
-        bp::override func_ParmValue = this->get_override( "ParmValue" );
-        try {
-            return func_ParmValue( psz, nDefaultVal );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual float ParmValue( char const * psz, float flDefaultVal ) const {
-        bp::override func_ParmValue = this->get_override( "ParmValue" );
-        try {
-            return func_ParmValue( psz, flDefaultVal );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual void RemoveParm( char const * parm ){
-        bp::override func_RemoveParm = this->get_override( "RemoveParm" );
-        try {
-            func_RemoveParm( parm );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-    virtual void SetParm( int nIndex, char const * pNewParm ){
-        bp::override func_SetParm = this->get_override( "SetParm" );
-        try {
-            func_SetParm( nIndex, pNewParm );
-        } catch(bp::error_already_set &) {
-            throw boost::python::error_already_set();
-        }
-    }
-
-};
-
 struct IMapEntityFilter_wrapper : IMapEntityFilter, bp::wrapper< IMapEntityFilter > {
 
     IMapEntityFilter_wrapper()
@@ -6163,8 +5907,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , ( bp::arg("nIndex") ) )    
         .staticmethod( "MaxCommandLength" )    
         .def( 
-                    "__len__"
-                    , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) );
+            "__len__"
+            , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) );
 
     bp::class_< CMapEntityRef >( "CMapEntityRef" )    
         .def_readwrite( "m_iEdict", &CMapEntityRef::m_iEdict )    
@@ -6353,56 +6097,56 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
     }
 
-    bp::class_< ICommandLine_wrapper, boost::noncopyable >( "ICommandLine" )    
+    bp::class_< ICommandLine, boost::noncopyable >( "ICommandLine", bp::no_init )    
         .def( 
             "AppendParm"
-            , bp::pure_virtual( (void ( ::ICommandLine::* )( char const *,char const * ) )(&::ICommandLine::AppendParm) )
+            , (void ( ::ICommandLine::* )( char const *,char const * ) )( &::ICommandLine::AppendParm )
             , ( bp::arg("pszParm"), bp::arg("pszValues") ) )    
         .def( 
             "CheckParm"
-            , bp::pure_virtual( (char const * ( ::ICommandLine::* )( char const *,char const * * ) const)(&::ICommandLine::CheckParm) )
+            , (char const * ( ::ICommandLine::* )( char const *,char const * * ) const)( &::ICommandLine::CheckParm )
             , ( bp::arg("psz"), bp::arg("ppszValue")=bp::object() ) )    
         .def( 
             "CreateCmdLine"
-            , bp::pure_virtual( (void ( ::ICommandLine::* )( char const * ) )(&::ICommandLine::CreateCmdLine) )
+            , (void ( ::ICommandLine::* )( char const * ) )( &::ICommandLine::CreateCmdLine )
             , ( bp::arg("commandline") ) )    
         .def( 
             "CreateCmdLine"
-            , bp::pure_virtual( (void ( ::ICommandLine::* )( int,char * * ) )(&::ICommandLine::CreateCmdLine) )
+            , (void ( ::ICommandLine::* )( int,char * * ) )( &::ICommandLine::CreateCmdLine )
             , ( bp::arg("argc"), bp::arg("argv") ) )    
         .def( 
             "FindParm"
-            , bp::pure_virtual( (int ( ::ICommandLine::* )( char const * ) const)(&::ICommandLine::FindParm) )
+            , (int ( ::ICommandLine::* )( char const * ) const)( &::ICommandLine::FindParm )
             , ( bp::arg("psz") ) )    
         .def( 
             "GetCmdLine"
-            , bp::pure_virtual( (char const * ( ::ICommandLine::* )(  ) const)(&::ICommandLine::GetCmdLine) ) )    
+            , (char const * ( ::ICommandLine::* )(  ) const)( &::ICommandLine::GetCmdLine ) )    
         .def( 
             "GetParm"
-            , bp::pure_virtual( (char const * ( ::ICommandLine::* )( int ) const)(&::ICommandLine::GetParm) )
+            , (char const * ( ::ICommandLine::* )( int ) const)( &::ICommandLine::GetParm )
             , ( bp::arg("nIndex") ) )    
         .def( 
             "ParmCount"
-            , bp::pure_virtual( (int ( ::ICommandLine::* )(  ) const)(&::ICommandLine::ParmCount) ) )    
+            , (int ( ::ICommandLine::* )(  ) const)( &::ICommandLine::ParmCount ) )    
         .def( 
             "ParmValue"
-            , bp::pure_virtual( (char const * ( ::ICommandLine::* )( char const *,char const * ) const)(&::ICommandLine::ParmValue) )
+            , (char const * ( ::ICommandLine::* )( char const *,char const * ) const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("pDefaultVal")=bp::object() ) )    
         .def( 
             "ParmValue"
-            , bp::pure_virtual( (int ( ::ICommandLine::* )( char const *,int ) const)(&::ICommandLine::ParmValue) )
+            , (int ( ::ICommandLine::* )( char const *,int ) const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("nDefaultVal") ) )    
         .def( 
             "ParmValue"
-            , bp::pure_virtual( (float ( ::ICommandLine::* )( char const *,float ) const)(&::ICommandLine::ParmValue) )
+            , (float ( ::ICommandLine::* )( char const *,float ) const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("flDefaultVal") ) )    
         .def( 
             "RemoveParm"
-            , bp::pure_virtual( (void ( ::ICommandLine::* )( char const * ) )(&::ICommandLine::RemoveParm) )
+            , (void ( ::ICommandLine::* )( char const * ) )( &::ICommandLine::RemoveParm )
             , ( bp::arg("parm") ) )    
         .def( 
             "SetParm"
-            , bp::pure_virtual( (void ( ::ICommandLine::* )( int,char const * ) )(&::ICommandLine::SetParm) )
+            , (void ( ::ICommandLine::* )( int,char const * ) )( &::ICommandLine::SetParm )
             , ( bp::arg("nIndex"), bp::arg("pNewParm") ) );
 
     bp::class_< IMapEntityFilter_wrapper, boost::noncopyable >( "IMapEntityFilter" )    
@@ -6430,51 +6174,51 @@ BOOST_PYTHON_MODULE(_gameinterface){
         .def( bp::init< char const *, char const *, int, char const *, bp::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("callback") )) )    
         .def( bp::init< char const *, char const *, int, char const *, bool, float, bool, float, bp::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("bMin"), bp::arg("fMin"), bp::arg("bMax"), bp::arg("fMax"), bp::arg("callback") )) )    
         .def( 
-                    "AddFlags"
-                    , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
-                    , ( bp::arg("flags") ) )    
+            "AddFlags"
+            , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
+            , ( bp::arg("flags") ) )    
         .def( 
-                    "GetBool"
-                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::GetBool ) )    
+            "GetBool"
+            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::GetBool ) )    
         .def( 
-                    "GetDefault"
-                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetDefault ) )    
+            "GetDefault"
+            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetDefault ) )    
         .def( 
-                    "GetFloat"
-                    , (float ( ::ConVar::* )(  ) const)( &::ConVar::GetFloat ) )    
+            "GetFloat"
+            , (float ( ::ConVar::* )(  ) const)( &::ConVar::GetFloat ) )    
         .def( 
-                    "GetHelpText"
-                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetHelpText ) )    
+            "GetHelpText"
+            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetHelpText ) )    
         .def( 
-                    "GetInt"
-                    , (int ( ::ConVar::* )(  ) const)( &::ConVar::GetInt ) )    
+            "GetInt"
+            , (int ( ::ConVar::* )(  ) const)( &::ConVar::GetInt ) )    
         .def( 
-                    "GetMax"
-                    , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMax )
-                    , ( bp::arg("maxVal") ) )    
+            "GetMax"
+            , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMax )
+            , ( bp::arg("maxVal") ) )    
         .def( 
-                    "GetMin"
-                    , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMin )
-                    , ( bp::arg("minVal") ) )    
+            "GetMin"
+            , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMin )
+            , ( bp::arg("minVal") ) )    
         .def( 
-                    "GetName"
-                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetName ) )    
+            "GetName"
+            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetName ) )    
         .def( 
-                    "GetString"
-                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetString ) )    
+            "GetString"
+            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetString ) )    
         .def( 
-                    "IsCommand"
-                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsCommand ) )    
+            "IsCommand"
+            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsCommand ) )    
         .def( 
-                    "IsFlagSet"
-                    , (bool ( ::ConVar::* )( int ) const)( &::ConVar::IsFlagSet )
-                    , ( bp::arg("flag") ) )    
+            "IsFlagSet"
+            , (bool ( ::ConVar::* )( int ) const)( &::ConVar::IsFlagSet )
+            , ( bp::arg("flag") ) )    
         .def( 
-                    "IsRegistered"
-                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsRegistered ) )    
+            "IsRegistered"
+            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsRegistered ) )    
         .def( 
-                    "Revert"
-                    , (void ( ::ConVar::* )(  ) )( &::ConVar::Revert ) );
+            "Revert"
+            , (void ( ::ConVar::* )(  ) )( &::ConVar::Revert ) );
 
     { //::PyGameEvent
         typedef bp::class_< PyGameEvent > GameEvent_exposer_t;
