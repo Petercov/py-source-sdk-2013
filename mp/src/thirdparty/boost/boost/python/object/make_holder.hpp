@@ -96,18 +96,18 @@ struct make_holder<N>
 #endif
             BOOST_PP_ENUM_TRAILING_BINARY_PARAMS_Z(1, N, t, a))
         {
-			typedef is_base_of<IClientEntity, Holder::value_type> is_IClientEntity;
-			typedef is_base_of<IServerEntity, Holder::value_type> is_IServerEntity;
+			typedef is_base_of<IClientEntity, typename Holder::value_type> is_IClientEntity;
+			typedef is_base_of<IServerEntity, typename Holder::value_type> is_IServerEntity;
 
 			typedef typename mpl::if_<
 				is_IClientEntity
-				, value_holder_custom<Holder::value_type>
+				, value_holder_custom<typename Holder::value_type>
 				, Holder
 			>::type NewHolder;
 
 			typedef typename mpl::if_<
 				is_IServerEntity
-				, value_holder_custom<Holder::value_type>
+				, value_holder_custom<typename Holder::value_type>
 				, NewHolder
 			>::type NewHolder2;
 
