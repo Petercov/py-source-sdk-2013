@@ -18,18 +18,33 @@ class SourceModuleGenerator(ModuleGenerator):
     isserver = False
     
     def GetFiles(self):
+        self.parseonlyfiles = []
         files = []
         for filename in self.files:
             if not filename:
                 continue
-            if filename.startswith('#'):
-                if self.isserver:
-                    files.append(filename[1:])
-            elif filename.startswith('$'):
-                if self.isclient:
-                    files.append(filename[1:])
-            else:
+                
+            addtoserver = False
+            addtoclient = False
+            parseonly = False
+            while filename[0] in ['#', '$', '%']:
+                if filename.startswith('#'):
+                    addtoserver = True 
+                elif filename.startswith('$'):
+                    addtoclient = True
+                elif filename.startswith('%'):
+                    parseonly = True
+                filename = filename[1:]
+                
+            if not addtoserver and not addtoclient:
                 files.append(filename)
+            if self.isserver and addtoserver:
+                files.append(filename)
+            if self.isclient and addtoclient:
+                files.append(filename)
+            if parseonly and filename in files:
+                self.parseonlyfiles.append(filename)
+                
         return files
         
     def PostCodeCreation(self, mb):
@@ -52,7 +67,21 @@ class SourceModuleGenerator(ModuleGenerator):
         
         if not found:
             raise Exception('Could not find boost/python.hpp header''')
- 
+            
+        # Remove files which where added for parsing only
+        for filename in self.parseonlyfiles:
+            for creator in mb.code_creator.creators:
+                try:
+                    testpath = os.path.normpath(creator.header)
+                    if filename == testpath:
+                        found = True
+                        mb.code_creator.remove_creator(creator)
+                        break
+                except:
+                    pass
+            if not found:
+                raise Exception('Could not find %s header''' % (filename))
+            
     # Applies common rules to code
     def ApplyCommonRules(self, mb):
         # Common function added for getting the "PyObject" of an entity
