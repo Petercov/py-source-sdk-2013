@@ -1,4 +1,5 @@
 from srcpy.module_generators import SemiSharedModuleGenerator
+from srcpy.matchers import calldef_withtypes
 
 from pyplusplus import function_transformers as FT
 from pyplusplus.module_builder import call_policies
@@ -167,7 +168,15 @@ class Entities(SemiSharedModuleGenerator):
         '$soundinfo.h',
         '#nav_area.h',
         '#AI_Criteria.h',
-        'isaverestore.h',
+        'saverestore.h',
+        'vcollide_parse.h', # solid_t
+        '#iservervehicle.h',
+        '$iclientvehicle.h',
+        '%choreoscene.h',
+        '%choreoactor.h',
+        '$steam/steamclientpublic.h', # CSteamID
+        '$view_shared.h', # CViewSetup
+        #'#%damagemodifier.h'
     ]
     
     # List of entity classes want to have exposed
@@ -283,9 +292,6 @@ class Entities(SemiSharedModuleGenerator):
         mb.class_('IClientRenderable').mem_funs().virtuality = 'not virtual' 
         mb.class_('IClientNetworkable').mem_funs().virtuality = 'not virtual' 
         mb.class_('IClientThinkable').mem_funs().virtuality = 'not virtual'
- 
-        mb.mem_funs('SetThinkHandle').exclude()
-        mb.mem_funs('GetThinkHandle').exclude()
 
         self.IncludeEmptyClass(mb, 'IClientUnknown')
         self.IncludeEmptyClass(mb, 'IClientEntity')
@@ -305,6 +311,9 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_funs('OnNewModel', allow_empty=True).exclude() # Don't care for now
             cls.mem_funs('GetClientClass', allow_empty=True).exclude()
             cls.mem_funs('GetMouth', allow_empty=True).exclude()
+
+        mb.mem_funs('SetThinkHandle').exclude()
+        mb.mem_funs('GetThinkHandle').exclude()
             
     def ParseServerEntities(self, mb):
         self.IncludeEmptyClass(mb, 'IServerUnknown')
@@ -401,8 +410,9 @@ class Entities(SemiSharedModuleGenerator):
         cls.mem_funs('GetBeamTraceFilter').exclude()     # Don't care
         cls.mem_funs('GetCollideable').exclude()         # Don't care for now
         cls.mem_funs('GetModel').exclude()               # Do we want this? 
-        cls.mem_funs('GetTeam').exclude()     # Don't care
+        cls.mem_funs('GetTeam').exclude()     # Don't care about CTeam for now
         cls.mem_funs('AddEntityToGroundList').exclude()
+        cls.mem_funs('ParseMapData').exclude() # Won't call this from python, needs CEntityMapData * argument
         
         # Returning a physics object -> Convert by value, which results in the wrapper object being returned
         physicsobject = mb.class_('IPhysicsObject')
@@ -447,6 +457,9 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_funs('RenderHandle').exclude()
             mb.mem_funs('PhysicsAddHalfGravity').exclude()  # No definition on the client!
             cls.mem_funs('PyUpdateNetworkVar').exclude()     # Internal for network vars
+            cls.mem_funs('SetModelPointer').exclude() # Likely never needed, can use SetModel or SetModelIndex
+
+            cls.mem_funs('AttemptToPowerup').exclude() # CDamageModifier has no class on the client...
         else:
             # List of server functions overridable in Python
             mb.mem_funs('PostConstructor').virtuality = 'virtual'
@@ -475,8 +488,15 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_funs('NetworkProp').exclude()            # Don't care
             cls.mem_funs('GetResponseSystem').exclude()         # Don't care for now
             cls.mem_funs('MyNextBotPointer').exclude()
+            cls.mem_funs('IsInTeam').exclude()              # Don't care about CTeam fow now
             
             cls.vars('m_pTimedOverlay').exclude()
+
+            # Excludes
+            #excludetypes = [
+            #    pointer_t(declarated_t(mb.class_('CDamageModifier'))),
+            #]
+            #mb.calldefs( calldef_withtypes( excludetypes ) ).exclude()
     
     def ParseBaseAnimating(self, mb):
         cls = mb.class_('C_BaseAnimating') if self.isclient else mb.class_('CBaseAnimating')
@@ -506,6 +526,15 @@ class Entities(SemiSharedModuleGenerator):
         cls = mb.class_('C_BaseAnimatingOverlay') if self.isclient else mb.class_('CBaseAnimatingOverlay')
     
         cls.mem_funs('GetAnimOverlay').exclude()
+
+    def ParseBaseFlex(self, mb):
+        cls = mb.class_('C_BaseFlex') if self.isclient else mb.class_('CBaseFlex')
+
+        excludetypes = [
+            pointer_t(declarated_t(mb.class_('CChoreoScene'))),
+            pointer_t(declarated_t(mb.class_('CChoreoActor'))),
+        ]
+        mb.calldefs( calldef_withtypes( excludetypes ) ).exclude()
 
     def ParseBaseCombatWeapon(self, mb):
         cls_name = 'C_BaseCombatWeapon' if self.isclient else 'CBaseCombatWeapon'
@@ -590,6 +619,7 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_fun('SetTargetInfo').exclude() # No definition
             cls.mem_fun('SendAmmoUpdate').exclude() # No definition
             cls.mem_fun('DeathMessage').exclude() # No definition
+            cls.mem_fun('SetupVPhysicsShadow').exclude() # Requires CPhysCollide, would need manually wrapping
             
     def ParseTriggers(self, mb):
         # CBaseTrigger
@@ -610,6 +640,7 @@ class Entities(SemiSharedModuleGenerator):
         self.ParseBaseEntity(mb)
         self.ParseBaseAnimating(mb)
         self.ParseBaseAnimatingOverlay(mb)
+        self.ParseBaseFlex(mb)
         self.ParseBaseCombatWeapon(mb)
         self.ParseBaseCombatCharacter(mb)
         self.ParseBasePlayer(mb)

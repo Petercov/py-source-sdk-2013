@@ -1,5 +1,5 @@
 from srcpy.module_generators import SemiSharedModuleGenerator
-import settings
+from srcpy.matchers import calldef_withtypes
 
 from pygccxml import declarations 
 from pyplusplus.module_builder import call_policies
@@ -35,17 +35,19 @@ class GameInterface(SemiSharedModuleGenerator):
         'irecipientfilter.h',
         'srcpy_gameinterface.h',
         'cdll_int.h',
+        '#%team.h',
+        '$%c_team.h',
     ]
 
     def Parse(self, mb):
         # Exclude everything by default
         mb.decls().exclude() 
         
-        # Linux model_t fix ( correct? )
-        '''mb.add_declaration_code( '#ifdef _LINUX\r\n' + \
+        # POSIX compiler model_t fix ( ok to do? maybe find another fix )
+        mb.add_declaration_code( '#ifdef POSIX\r\n' + \
                              'typedef struct model_t {};\r\n' + \
-                             '#endif // _LINUX\r\n'
-                           )'''
+                             '#endif // POSIX\r\n'
+                           )
                            
         # Filesystem functions
         # TODO: mb.free_function('PyRemoveFile').include()
@@ -351,9 +353,16 @@ class GameInterface(SemiSharedModuleGenerator):
         mb.add_registration_code( "bp::scope().attr( \"FCVAR_CLIENTCMD_CAN_EXECUTE\" ) = (int)FCVAR_CLIENTCMD_CAN_EXECUTE;" )
         
         # Excludes
-        #if self.isserver:
-        #    mb.mem_funs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(mb.class_('CTeam'))))).exclude()
-            
+        if self.isserver:
+            excludetypes = [
+                        pointer_t(declarated_t(mb.class_('CTeam'))),
+            ]
+        else:
+            excludetypes = [
+                        pointer_t(declarated_t(mb.class_('C_Team'))),
+            ]
+        mb.calldefs( calldef_withtypes( excludetypes ) ).exclude()
+    
     def AddAdditionalCode(self, mb):
         header = code_creators.include_t( 'srcpy_gameinterface_converters.h' )
         mb.code_creator.adopt_include(header)
