@@ -1036,7 +1036,7 @@ void CBaseEntity::PhysicsPyDispatchThink( boost::python::object thinkFunc )
 			{
 #ifdef _WIN32
 				Msg( "%s(%s) thinking for %.02f ms!!!\n", GetClassname(), typeid(this).raw_name(), time );
-#elif _LINUX
+#elif POSIX
 				Msg( "%s(%s) thinking for %.02f ms!!!\n", GetClassname(), typeid(this).name(), time );
 #else
 #error "typeinfo"
