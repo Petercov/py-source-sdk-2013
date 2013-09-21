@@ -551,7 +551,7 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_fun('OnPursuedBy').exclude() # No INextBot definition
         else:
             # When GLOWS_ENABLE define is added:
-            if 'GLOWS_ENABLE' in self.definedsymbols:
+            if 'GLOWS_ENABLE' in mb.definedsymbols:
                 mb.mem_funs('GetGlowObject', allow_empty=True).exclude()
                 mb.mem_funs('GetGlowEffectColor', allow_empty=True).add_transformation( FT.output('r'), FT.output('g'), FT.output('b') )
             

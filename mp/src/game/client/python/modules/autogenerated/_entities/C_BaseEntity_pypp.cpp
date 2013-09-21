@@ -636,6 +636,16 @@ void register_C_BaseEntity_class(){
                 , default_Activate_function_type(&C_BaseEntity_wrapper::default_Activate) );
         
         }
+        { //::C_BaseEntity::AddColoredDecal
+        
+            typedef void ( ::C_BaseEntity::*AddColoredDecal_function_type )( ::Vector const &,::Vector const &,::Vector const &,int,int,bool,::trace_t &,::Color,int ) ;
+            
+            C_BaseEntity_exposer.def( 
+                "AddColoredDecal"
+                , AddColoredDecal_function_type( &::C_BaseEntity::AddColoredDecal )
+                , ( bp::arg("rayStart"), bp::arg("rayEnd"), bp::arg("decalCenter"), bp::arg("hitbox"), bp::arg("decalIndex"), bp::arg("doTrace"), bp::arg("tr"), bp::arg("cColor"), bp::arg("maxLODToDecal")=int(::ADDDECAL_TO_ALL_LODS) ) );
+        
+        }
         { //::C_BaseEntity::AddDecal
         
             typedef void ( ::C_BaseEntity::*AddDecal_function_type )( ::Vector const &,::Vector const &,::Vector const &,int,int,bool,::trace_t &,int ) ;
