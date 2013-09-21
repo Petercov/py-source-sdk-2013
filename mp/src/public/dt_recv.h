@@ -283,17 +283,22 @@ inline bool RecvTable::IsInMainList() const
 		return 1; \
 	}
 
+#ifdef OSX
+// Changed offsetof to builtin on OSX, but results in an error here. Just use the old "offsetof" for this one case.
+#define offsetofrecvinfo(s,m)	(size_t)&(((s *)0)->m)
+#endif // OSX
 
-#define RECVINFO(varName)						#varName, offsetof(currentRecvDTClass, varName), sizeof(((currentRecvDTClass*)0)->varName)
-#define RECVINFO_NAME(varName, remoteVarName)	#remoteVarName, offsetof(currentRecvDTClass, varName), sizeof(((currentRecvDTClass*)0)->varName)
-#define RECVINFO_STRING(varName)				#varName, offsetof(currentRecvDTClass, varName), STRINGBUFSIZE(currentRecvDTClass, varName)
+#define RECVINFO(varName)						#varName, offsetofrecvinfo(currentRecvDTClass, varName), sizeof(((currentRecvDTClass*)0)->varName)
+#define RECVINFO_NAME(varName, remoteVarName)	#remoteVarName, offsetofrecvinfo(currentRecvDTClass, varName), sizeof(((currentRecvDTClass*)0)->varName)
+#define RECVINFO_STRING(varName)				#varName, offsetofrecvinfo(currentRecvDTClass, varName), STRINGBUFSIZE(currentRecvDTClass, varName)
 #define RECVINFO_BASECLASS(tableName)			RecvPropDataTable("this", 0, 0, &REFERENCE_RECV_TABLE(tableName))
-#define RECVINFO_ARRAY(varName)					#varName, offsetof(currentRecvDTClass, varName), sizeof(((currentRecvDTClass*)0)->varName[0]), sizeof(((currentRecvDTClass*)0)->varName)/sizeof(((currentRecvDTClass*)0)->varName[0])
+#define RECVINFO_ARRAY(varName)					#varName, offsetofrecvinfo(currentRecvDTClass, varName), sizeof(((currentRecvDTClass*)0)->varName[0]), sizeof(((currentRecvDTClass*)0)->varName)/sizeof(((currentRecvDTClass*)0)->varName[0])
+
 
 // Just specify the name and offset. Used for strings and data tables.
-#define RECVINFO_NOSIZE(varName)				#varName, offsetof(currentRecvDTClass, varName)
+#define RECVINFO_NOSIZE(varName)				#varName, offsetofrecvinfo(currentRecvDTClass, varName)
 #define RECVINFO_DT(varName)					RECVINFO_NOSIZE(varName)
-#define RECVINFO_DTNAME(varName,remoteVarName)	#remoteVarName, offsetof(currentRecvDTClass, varName)
+#define RECVINFO_DTNAME(varName,remoteVarName)	#remoteVarName, offsetofrecvinfo(currentRecvDTClass, varName)
 
 
 void RecvProxy_FloatToFloat  ( const CRecvProxyData *pData, void *pStruct, void *pOut );
