@@ -286,6 +286,8 @@ inline bool RecvTable::IsInMainList() const
 #ifdef OSX
 // Changed offsetof to builtin on OSX, but results in an error here. Just use the old "offsetof" for this one case.
 #define offsetofrecvinfo(s,m)	(size_t)&(((s *)0)->m)
+#else
+#define offsetofrecvinfo offsetof
 #endif // OSX
 
 #define RECVINFO(varName)						#varName, offsetofrecvinfo(currentRecvDTClass, varName), sizeof(((currentRecvDTClass*)0)->varName)
