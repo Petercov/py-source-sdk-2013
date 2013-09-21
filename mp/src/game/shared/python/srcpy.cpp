@@ -270,8 +270,12 @@ bool CSrcPython::InitInterpreter( void )
 	V_FixupPathName(buf, MAX_PATH, buf);
 	V_strcat( pythonpath, buf, MAX_PATH );
 
+#ifdef WIN32
 	::SetEnvironmentVariable( "PYTHONPATH", pythonpath );
-
+#else
+    ::setenv( "PYTHONPATH", pythonpath, 1 );
+#endif // WIN32
+    
 	// Initialize an interpreter
 	Py_InitializeEx( 0 );
 #ifdef CLIENT_DLL
