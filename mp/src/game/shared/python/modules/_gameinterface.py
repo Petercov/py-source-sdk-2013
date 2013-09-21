@@ -10,31 +10,26 @@ from pygccxml.declarations import matchers, pointer_t, reference_t, declarated_t
 class GameInterface(SemiSharedModuleGenerator):
     module_name = '_gameinterface'
     
-    clientfiles = [
-        'cbase.h',
-        'gamerules.h',
-        'multiplay_gamerules.h',
-        'teamplay_gamerules.h',
-        # TODO: 'srcpy_gamerules.h',
-        'c_recipientfilter.h',
-        'tier0/icommandline.h',
-    ]
-    
-    serverfiles = [
-        'cbase.h',
-        'mathlib/vmatrix.h', 
-        'utlvector.h', 
-        'shareddefs.h',
-        'util.h',
-        'iservernetworkable.h',
-        #'enginecallback.h',
-        'recipientfilter.h',
-        'srcpy_usermessage.h',
-        'mapentities.h',
-        'tier0/icommandline.h',
-    ]
-    
     files = [
+        'cbase.h',
+        
+        '#mathlib/vmatrix.h', 
+        '#utlvector.h', 
+        '#shareddefs.h',
+        '#util.h',
+        '#iservernetworkable.h',
+        #'#enginecallback.h',
+        '#recipientfilter.h',
+        '#srcpy_usermessage.h',
+        '#mapentities.h',
+        
+        '$gamerules.h',
+        '$multiplay_gamerules.h',
+        '$teamplay_gamerules.h',
+        # TODO: '$srcpy_gamerules.h',
+        '$c_recipientfilter.h',
+        
+        'tier0/icommandline.h',
         'convar.h',
         'igameevents.h',
         'irecipientfilter.h',

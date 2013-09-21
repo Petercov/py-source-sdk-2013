@@ -8,8 +8,6 @@
 
 #include "cbase.h"
 
-#include "cbase.h"
-
 #include "srcpy_util.h"
 
 #include "util_shared.h"

@@ -9,15 +9,6 @@ from srcpy.matchers import calldef_withtypes
 class Utils(SemiSharedModuleGenerator):
     module_name = '_utils'
     
-    clientfiles = [
-        'cbase.h',
-
-    ]
-    
-    serverfiles = [
-
-    ]
-    
     files = [
         'cbase.h',
         'srcpy_util.h',

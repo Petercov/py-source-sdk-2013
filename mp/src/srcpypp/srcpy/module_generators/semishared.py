@@ -163,30 +163,6 @@ class SemiSharedModuleGenerator(SourceModuleGenerator):
     client_huge_classes = None
     server_huge_classes = None
     
-    clientfiles = []
-    serverfiles = []
-    
-    def GetFiles(self):
-        # TODO: Remove
-        if self.isclient:
-            allfiles = self.clientfiles + self.files
-        else:
-            allfiles = self.serverfiles + self.files 
-        
-        files = []
-        for filename in allfiles:
-            if not filename:
-                continue
-            if filename.startswith('#'):
-                if self.isserver:
-                    files.append(filename[1:])
-            elif filename.startswith('$'):
-                if self.isclient:
-                    files.append(filename[1:])
-            else:
-                files.append(filename)
-        return files
-    
     # Main method
     def Run(self):
         self.isclient = True
