@@ -6,24 +6,17 @@ from pyplusplus import code_creators
 class Particles(SemiSharedModuleGenerator):
     module_name = '_particles'
     
-    clientfiles = [
-        'tier1/utlvector.h',
-        'tier1/UtlSortVector.h',
-        'tier1/utlobjectreference.h',
-
-        'cbase.h',
-        'particles_ez.h',
-        'icliententityinternal.h',
-        'convar.h',
-        'fx.h',
-    ]
-
-    serverfiles = [
-        'cbase.h',
-        'gameinterface.h'
-    ]
-    
     files = [
+        '$tier1/utlvector.h',
+        '$tier1/UtlSortVector.h',
+        '$tier1/utlobjectreference.h',
+        
+        'cbase.h',
+        '#gameinterface.h',
+        '$particles_ez.h',
+        '$icliententityinternal.h',
+        '$convar.h',
+        '$fx.h',
         'particle_parse.h',
         'srcpy_particles.h',
     ]
