@@ -136,7 +136,7 @@ if platform.system() == 'Windows':
 elif platform.system() == 'Linux':
     gccbinpath = 'gccxml_bin/linux'
 else:
-    gccbinpath = 'gccxml_bin/linux'
+    gccbinpath = 'gccxml_bin/mac'
 
 # NOTE: module_builder_t == builder_t
 class src_module_builder_t(module_builder.module_builder_t):
