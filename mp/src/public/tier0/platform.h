@@ -369,6 +369,10 @@ typedef void * HINSTANCE;
 
 #define MAX_UNICODE_PATH_IN_UTF8 MAX_UNICODE_PATH*4
 
+#ifdef OSX
+#undef offsetof
+#define offsetof( type, var ) __builtin_offsetof( type, var )
+#else
 #ifdef GNUC
 #undef offsetof
 //#define offsetof( type, var ) __builtin_offsetof( type, var ) 
@@ -377,6 +381,7 @@ typedef void * HINSTANCE;
 #undef offsetof
 #define offsetof(s,m)	(size_t)&(((s *)0)->m)
 #endif
+#endif 
 
 
 #define ALIGN_VALUE( val, alignment ) ( ( val + alignment - 1 ) & ~( alignment - 1 ) ) //  need macro for constant expression
