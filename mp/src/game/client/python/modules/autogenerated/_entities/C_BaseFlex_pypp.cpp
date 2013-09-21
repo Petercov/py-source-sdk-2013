@@ -11,7 +11,11 @@
 #include "takedamageinfo.h"
 #include "c_ai_basenpc.h"
 #include "soundinfo.h"
-#include "isaverestore.h"
+#include "saverestore.h"
+#include "vcollide_parse.h"
+#include "iclientvehicle.h"
+#include "steam/steamclientpublic.h"
+#include "view_shared.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -627,25 +631,9 @@ void register_C_BaseFlex_class(){
             , (int (*)( char const * ))( &::C_BaseFlex::AddGlobalFlexController )
             , ( bp::arg("szName") ) )    
         .def( 
-            "AddSceneEvent"
-            , (void ( ::C_BaseFlex::* )( ::CChoreoScene *,::CChoreoEvent *,::C_BaseEntity *,bool ) )( &::C_BaseFlex::AddSceneEvent )
-            , ( bp::arg("scene"), bp::arg("event"), bp::arg("pTarget")=bp::object(), bp::arg("bClientSide")=(bool)(false) ) )    
-        .def( 
-            "CheckSceneEvent"
-            , (bool ( ::C_BaseFlex::* )( float,::CChoreoScene *,::CChoreoEvent * ) )( &::C_BaseFlex::CheckSceneEvent )
-            , ( bp::arg("currenttime"), bp::arg("scene"), bp::arg("event") ) )    
-        .def( 
-            "CheckSceneEventCompletion"
-            , (bool ( ::C_BaseFlex::* )( ::CSceneEventInfo *,float,::CChoreoScene *,::CChoreoEvent * ) )( &::C_BaseFlex::CheckSceneEventCompletion )
-            , ( bp::arg("info"), bp::arg("currenttime"), bp::arg("scene"), bp::arg("event") ) )    
-        .def( 
             "ClearSceneEvent"
             , (bool ( ::C_BaseFlex::* )( ::CSceneEventInfo *,bool,bool ) )( &::C_BaseFlex::ClearSceneEvent )
             , ( bp::arg("info"), bp::arg("fastKill"), bp::arg("canceled") ) )    
-        .def( 
-            "ClearSceneEvents"
-            , (void ( ::C_BaseFlex::* )( ::CChoreoScene *,bool ) )( &::C_BaseFlex::ClearSceneEvents )
-            , ( bp::arg("scene"), bp::arg("canceled") ) )    
         .def( 
             "EnsureTranslations"
             , (void ( ::C_BaseFlex::* )( ::flexsettinghdr_t const * ) )( &::C_BaseFlex::EnsureTranslations )
@@ -688,25 +676,9 @@ void register_C_BaseFlex_class(){
             "OnThreadedDrawSetup"
             , (void ( ::C_BaseFlex::* )(  ) )( &::C_BaseFlex::OnThreadedDrawSetup ) )    
         .def( 
-            "ProcessSceneEvent"
-            , (bool ( ::C_BaseFlex::* )( bool,::CSceneEventInfo *,::CChoreoScene *,::CChoreoEvent * ) )( &::C_BaseFlex::ProcessSceneEvent )
-            , ( bp::arg("bFlexEvents"), bp::arg("info"), bp::arg("scene"), bp::arg("event") ) )    
-        .def( 
             "ProcessSceneEvents"
             , (void ( ::C_BaseFlex::* )( bool ) )( &::C_BaseFlex::ProcessSceneEvents )
             , ( bp::arg("bFlexEvents") ) )    
-        .def( 
-            "ProcessSequenceSceneEvent"
-            , (bool ( ::C_BaseFlex::* )( ::CSceneEventInfo *,::CChoreoScene *,::CChoreoEvent * ) )( &::C_BaseFlex::ProcessSequenceSceneEvent )
-            , ( bp::arg("info"), bp::arg("scene"), bp::arg("event") ) )    
-        .def( 
-            "RemoveChoreoScene"
-            , (void ( ::C_BaseFlex::* )( ::CChoreoScene * ) )( &::C_BaseFlex::RemoveChoreoScene )
-            , ( bp::arg("scene") ) )    
-        .def( 
-            "RemoveSceneEvent"
-            , (void ( ::C_BaseFlex::* )( ::CChoreoScene *,::CChoreoEvent *,bool ) )( &::C_BaseFlex::RemoveSceneEvent )
-            , ( bp::arg("scene"), bp::arg("event"), bp::arg("fastKill") ) )    
         .def( 
             "RunFlexDelay"
             , (void (*)( int,float *,float *,float & ))( &::C_BaseFlex::RunFlexDelay )
@@ -747,14 +719,6 @@ void register_C_BaseFlex_class(){
             "StandardBlendingRules"
             , (void ( ::C_BaseFlex::* )( ::CStudioHdr *,::Vector *,::Quaternion *,float,int ) )( &::C_BaseFlex::StandardBlendingRules )
             , ( bp::arg("hdr"), bp::arg("pos"), bp::arg("q"), bp::arg("currentTime"), bp::arg("boneMask") ) )    
-        .def( 
-            "StartChoreoScene"
-            , (void ( ::C_BaseFlex::* )( ::CChoreoScene * ) )( &::C_BaseFlex::StartChoreoScene )
-            , ( bp::arg("scene") ) )    
-        .def( 
-            "StartSceneEvent"
-            , (bool ( ::C_BaseFlex::* )( ::CSceneEventInfo *,::CChoreoScene *,::CChoreoEvent *,::CChoreoActor *,::C_BaseEntity * ) )( &::C_BaseFlex::StartSceneEvent )
-            , ( bp::arg("info"), bp::arg("scene"), bp::arg("event"), bp::arg("actor"), bp::arg("pTarget") ) )    
         .def( 
             "UsesFlexDelayedWeights"
             , (bool ( ::C_BaseFlex::* )(  ) )( &::C_BaseFlex::UsesFlexDelayedWeights ) )    

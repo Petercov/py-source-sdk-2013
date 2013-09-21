@@ -11,7 +11,11 @@
 #include "takedamageinfo.h"
 #include "c_ai_basenpc.h"
 #include "soundinfo.h"
-#include "isaverestore.h"
+#include "saverestore.h"
+#include "vcollide_parse.h"
+#include "iclientvehicle.h"
+#include "steam/steamclientpublic.h"
+#include "view_shared.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -789,16 +793,6 @@ void register_C_BaseEntity_class(){
                 "ApplyLocalVelocityImpulse"
                 , ApplyLocalVelocityImpulse_function_type( &::C_BaseEntity::ApplyLocalVelocityImpulse )
                 , ( bp::arg("vecImpulse") ) );
-        
-        }
-        { //::C_BaseEntity::AttemptToPowerup
-        
-            typedef bool ( ::C_BaseEntity::*AttemptToPowerup_function_type )( int,float,float,::C_BaseEntity *,::CDamageModifier * ) ;
-            
-            C_BaseEntity_exposer.def( 
-                "AttemptToPowerup"
-                , AttemptToPowerup_function_type( &::C_BaseEntity::AttemptToPowerup )
-                , ( bp::arg("iPowerup"), bp::arg("flTime"), bp::arg("flAmount")=0, bp::arg("pAttacker")=bp::object(), bp::arg("pDamageModifier")=bp::object() ) );
         
         }
         { //::C_BaseEntity::BecameDormantThisPacket
@@ -3591,16 +3585,6 @@ void register_C_BaseEntity_class(){
                 , OnThreadedDrawSetup_function_type( &::C_BaseEntity::OnThreadedDrawSetup ) );
         
         }
-        { //::C_BaseEntity::ParseMapData
-        
-            typedef void ( ::C_BaseEntity::*ParseMapData_function_type )( ::CEntityMapData * ) ;
-            
-            C_BaseEntity_exposer.def( 
-                "ParseMapData"
-                , ParseMapData_function_type( &::C_BaseEntity::ParseMapData )
-                , ( bp::arg("mapData") ) );
-        
-        }
         { //::C_BaseEntity::ParticleProp
         
             typedef ::CParticleProperty * ( ::C_BaseEntity::*ParticleProp_function_type )(  ) ;
@@ -4594,16 +4578,6 @@ void register_C_BaseEntity_class(){
                 , ( bp::arg("name") ) );
         
         }
-        { //::C_BaseEntity::SetModelPointer
-        
-            typedef void ( ::C_BaseEntity::*SetModelPointer_function_type )( ::model_t const * ) ;
-            
-            C_BaseEntity_exposer.def( 
-                "SetModelPointer"
-                , SetModelPointer_function_type( &::C_BaseEntity::SetModelPointer )
-                , ( bp::arg("pModel") ) );
-        
-        }
         { //::C_BaseEntity::SetMoveCollide
         
             typedef void ( ::C_BaseEntity::*SetMoveCollide_function_type )( ::MoveCollide_t ) ;
@@ -4922,16 +4896,6 @@ void register_C_BaseEntity_class(){
                 "SetTextureFrameIndex"
                 , SetTextureFrameIndex_function_type( &::C_BaseEntity::SetTextureFrameIndex )
                 , ( bp::arg("iIndex") ) );
-        
-        }
-        { //::C_BaseEntity::SetThinkHandle
-        
-            typedef void ( ::C_BaseEntity::*SetThinkHandle_function_type )( ::ClientThinkHandle_t ) ;
-            
-            C_BaseEntity_exposer.def( 
-                "SetThinkHandle"
-                , SetThinkHandle_function_type( &::C_BaseEntity::SetThinkHandle )
-                , ( bp::arg("hThink") ) );
         
         }
         { //::C_BaseEntity::SetToolHandle

@@ -15,7 +15,9 @@
 #include "triggers.h"
 #include "nav_area.h"
 #include "AI_Criteria.h"
-#include "isaverestore.h"
+#include "saverestore.h"
+#include "vcollide_parse.h"
+#include "iservervehicle.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -811,28 +813,12 @@ void register_CBaseFlex_class(){
     bp::class_< CBaseFlex_wrapper, bp::bases< CBaseAnimatingOverlay >, boost::noncopyable >( "CBaseFlex", bp::no_init )    
         .def( bp::init< >() )    
         .def( 
-            "AddSceneEvent"
-            , (void ( ::CBaseFlex::* )( ::CChoreoScene *,::CChoreoEvent *,::CBaseEntity * ) )( &::CBaseFlex::AddSceneEvent )
-            , ( bp::arg("scene"), bp::arg("event"), bp::arg("pTarget")=bp::object() ) )    
-        .def( 
             "Blink"
             , (void ( ::CBaseFlex::* )(  ) )( &::CBaseFlex::Blink ) )    
-        .def( 
-            "CheckSceneEvent"
-            , (bool ( ::CBaseFlex::* )( float,::CChoreoScene *,::CChoreoEvent * ) )( &::CBaseFlex::CheckSceneEvent )
-            , ( bp::arg("currenttime"), bp::arg("scene"), bp::arg("event") ) )    
-        .def( 
-            "CheckSceneEventCompletion"
-            , (bool ( ::CBaseFlex::* )( ::CSceneEventInfo *,float,::CChoreoScene *,::CChoreoEvent * ) )( &::CBaseFlex::CheckSceneEventCompletion )
-            , ( bp::arg("info"), bp::arg("currenttime"), bp::arg("scene"), bp::arg("event") ) )    
         .def( 
             "ClearSceneEvent"
             , (bool ( ::CBaseFlex::* )( ::CSceneEventInfo *,bool,bool ) )( &::CBaseFlex::ClearSceneEvent )
             , ( bp::arg("info"), bp::arg("fastKill"), bp::arg("canceled") ) )    
-        .def( 
-            "ClearSceneEvents"
-            , (void ( ::CBaseFlex::* )( ::CChoreoScene *,bool ) )( &::CBaseFlex::ClearSceneEvents )
-            , ( bp::arg("scene"), bp::arg("canceled") ) )    
         .def( 
             "DoBodyLean"
             , (void ( ::CBaseFlex::* )(  ) )( &::CBaseFlex::DoBodyLean ) )    
@@ -840,10 +826,6 @@ void register_CBaseFlex_class(){
             "EnsureTranslations"
             , (void ( ::CBaseFlex::* )( ::flexsettinghdr_t const * ) )( &::CBaseFlex::EnsureTranslations )
             , ( bp::arg("pSettinghdr") ) )    
-        .def( 
-            "EnterSceneSequence"
-            , (bool ( ::CBaseFlex::* )( ::CChoreoScene *,::CChoreoEvent *,bool ) )( &::CBaseFlex::EnterSceneSequence )
-            , ( bp::arg("scene"), bp::arg("event"), bp::arg("bRestart")=(bool)(false) ) )    
         .def( 
             "FindFlexController"
             , (::LocalFlexController_t ( ::CBaseFlex::* )( char const * ) )( &::CBaseFlex::FindFlexController )
@@ -859,10 +841,6 @@ void register_CBaseFlex_class(){
         .def( 
             "GetPyNetworkType"
             , (int (*)(  ))( &::CBaseFlex::GetPyNetworkType ) )    
-        .def( 
-            "GetScenePriority"
-            , (int ( ::CBaseFlex::* )( ::CChoreoScene * ) )( &::CBaseFlex::GetScenePriority )
-            , ( bp::arg("scene") ) )    
         .def( 
             "GetSpecialDSP"
             , (int ( ::CBaseFlex::* )(  ) )( &::CBaseFlex::GetSpecialDSP ) )    
@@ -887,20 +865,8 @@ void register_CBaseFlex_class(){
             , (float ( ::CBaseFlex::* )( char const *,float,::AI_Response *,::IRecipientFilter * ) )( &::CBaseFlex::PlayScene )
             , ( bp::arg("pszScene"), bp::arg("flDelay")=0.0f, bp::arg("response")=bp::object(), bp::arg("filter")=bp::object() ) )    
         .def( 
-            "ProcessSceneEvent"
-            , (bool ( ::CBaseFlex::* )( ::CSceneEventInfo *,::CChoreoScene *,::CChoreoEvent * ) )( &::CBaseFlex::ProcessSceneEvent )
-            , ( bp::arg("info"), bp::arg("scene"), bp::arg("event") ) )    
-        .def( 
             "ProcessSceneEvents"
             , (void ( ::CBaseFlex::* )(  ) )( &::CBaseFlex::ProcessSceneEvents ) )    
-        .def( 
-            "RemoveChoreoScene"
-            , (void ( ::CBaseFlex::* )( ::CChoreoScene *,bool ) )( &::CBaseFlex::RemoveChoreoScene )
-            , ( bp::arg("scene"), bp::arg("canceled")=(bool)(false) ) )    
-        .def( 
-            "RemoveSceneEvent"
-            , (void ( ::CBaseFlex::* )( ::CChoreoScene *,::CChoreoEvent *,bool ) )( &::CBaseFlex::RemoveSceneEvent )
-            , ( bp::arg("scene"), bp::arg("event"), bp::arg("fastKill") ) )    
         .def( 
             "SentenceStop"
             , (void ( ::CBaseFlex::* )(  ) )( &::CBaseFlex::SentenceStop ) )    
@@ -924,14 +890,6 @@ void register_CBaseFlex_class(){
             "SetViewtarget"
             , (void ( ::CBaseFlex::* )( ::Vector const & ) )( &::CBaseFlex::SetViewtarget )
             , ( bp::arg("viewtarget") ) )    
-        .def( 
-            "StartChoreoScene"
-            , (void ( ::CBaseFlex::* )( ::CChoreoScene * ) )( &::CBaseFlex::StartChoreoScene )
-            , ( bp::arg("scene") ) )    
-        .def( 
-            "StartSceneEvent"
-            , (bool ( ::CBaseFlex::* )( ::CSceneEventInfo *,::CChoreoScene *,::CChoreoEvent *,::CChoreoActor *,::CBaseEntity * ) )( &::CBaseFlex::StartSceneEvent )
-            , ( bp::arg("info"), bp::arg("scene"), bp::arg("event"), bp::arg("actor"), bp::arg("pTarget") ) )    
         .def( 
             "Teleport"
             , (void ( ::CBaseFlex::* )( ::Vector const *,::QAngle const *,::Vector const * ) )( &::CBaseFlex::Teleport )

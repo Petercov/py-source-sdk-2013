@@ -15,7 +15,9 @@
 #include "triggers.h"
 #include "nav_area.h"
 #include "AI_Criteria.h"
-#include "isaverestore.h"
+#include "saverestore.h"
+#include "vcollide_parse.h"
+#include "iservervehicle.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -2102,10 +2104,6 @@ void register_CBasePlayer_class(){
             "SetWaterJumpTime"
             , (void ( ::CBasePlayer::* )( float ) )( &::CBasePlayer::SetWaterJumpTime )
             , ( bp::arg("flWaterJumpTime") ) )    
-        .def( 
-            "SetupVPhysicsShadow"
-            , (void ( ::CBasePlayer::* )( ::Vector const &,::Vector const &,::CPhysCollide *,char const *,::CPhysCollide *,char const * ) )( &::CBasePlayer::SetupVPhysicsShadow )
-            , ( bp::arg("vecAbsOrigin"), bp::arg("vecAbsVelocity"), bp::arg("pStandModel"), bp::arg("pStandHullName"), bp::arg("pCrouchModel"), bp::arg("pCrouchHullName") ) )    
         .def( 
             "SetupVisibility"
             , (void ( ::CBasePlayer::* )( ::CBaseEntity *,unsigned char *,int ) )( &::CBasePlayer::SetupVisibility )

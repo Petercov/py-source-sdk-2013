@@ -15,7 +15,9 @@
 #include "triggers.h"
 #include "nav_area.h"
 #include "AI_Criteria.h"
-#include "isaverestore.h"
+#include "saverestore.h"
+#include "vcollide_parse.h"
+#include "iservervehicle.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -3286,16 +3288,6 @@ void register_CBaseEntity_class(){
                 , IsInAnyTeam_function_type( &::CBaseEntity::IsInAnyTeam ) );
         
         }
-        { //::CBaseEntity::IsInTeam
-        
-            typedef bool ( ::CBaseEntity::*IsInTeam_function_type )( ::CTeam * ) const;
-            
-            CBaseEntity_exposer.def( 
-                "IsInTeam"
-                , IsInTeam_function_type( &::CBaseEntity::IsInTeam )
-                , ( bp::arg("pTeam") ) );
-        
-        }
         { //::CBaseEntity::IsInWorld
         
             typedef bool ( ::CBaseEntity::*IsInWorld_function_type )(  ) const;
@@ -3864,16 +3856,6 @@ void register_CBaseEntity_class(){
                 , OnTakeDamage_function_type(&::CBaseEntity::OnTakeDamage)
                 , default_OnTakeDamage_function_type(&CBaseEntity_wrapper::default_OnTakeDamage)
                 , ( bp::arg("info") ) );
-        
-        }
-        { //::CBaseEntity::ParseMapData
-        
-            typedef void ( ::CBaseEntity::*ParseMapData_function_type )( ::CEntityMapData * ) ;
-            
-            CBaseEntity_exposer.def( 
-                "ParseMapData"
-                , ParseMapData_function_type( &::CBaseEntity::ParseMapData )
-                , ( bp::arg("mapData") ) );
         
         }
         { //::CBaseEntity::PassesDamageFilter

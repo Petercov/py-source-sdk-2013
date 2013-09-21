@@ -31,7 +31,11 @@
 
 #include "AI_Criteria.h"
 
-#include "isaverestore.h"
+#include "saverestore.h"
+
+#include "vcollide_parse.h"
+
+#include "iservervehicle.h"
 
 #include "tier0/valve_minmax_off.h"
 

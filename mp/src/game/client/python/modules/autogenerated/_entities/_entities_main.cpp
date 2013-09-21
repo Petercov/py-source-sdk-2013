@@ -23,7 +23,15 @@
 
 #include "soundinfo.h"
 
-#include "isaverestore.h"
+#include "saverestore.h"
+
+#include "vcollide_parse.h"
+
+#include "iclientvehicle.h"
+
+#include "steam/steamclientpublic.h"
+
+#include "view_shared.h"
 
 #include "tier0/valve_minmax_off.h"
 

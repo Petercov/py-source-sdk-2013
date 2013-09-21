@@ -26,6 +26,8 @@
 
 #include "cdll_int.h"
 
+#include "c_team.h"
+
 #include "srcpy_gameinterface_converters.h"
 
 #include "tier0/valve_minmax_off.h"
@@ -1791,6 +1793,10 @@ struct py_player_info_s_wrapper : py_player_info_s, bp::wrapper< py_player_info_
 
 };
 
+#ifdef POSIX
+typedef struct model_t {};
+#endif // POSIX
+
 BOOST_PYTHON_MODULE(_gameinterface){
     bp::docstring_options doc_options( true, true, false );
 
@@ -2373,10 +2379,6 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , (void ( ::C_RecipientFilter::* )( ::Vector const & ) )( &::C_RecipientFilter::AddRecipientsByPVS )
             , ( bp::arg("origin") ) )    
         .def( 
-            "AddRecipientsByTeam"
-            , (void ( ::C_RecipientFilter::* )( ::C_Team * ) )( &::C_RecipientFilter::AddRecipientsByTeam )
-            , ( bp::arg("team") ) )    
-        .def( 
             "CopyFrom"
             , (void ( ::C_RecipientFilter::* )( ::C_RecipientFilter const & ) )( &::C_RecipientFilter::CopyFrom )
             , ( bp::arg("src") ) )    
@@ -2406,10 +2408,6 @@ BOOST_PYTHON_MODULE(_gameinterface){
             "RemoveRecipient"
             , (void ( ::C_RecipientFilter::* )( ::C_BasePlayer * ) )( &::C_RecipientFilter::RemoveRecipient )
             , ( bp::arg("player") ) )    
-        .def( 
-            "RemoveRecipientsByTeam"
-            , (void ( ::C_RecipientFilter::* )( ::C_Team * ) )( &::C_RecipientFilter::RemoveRecipientsByTeam )
-            , ( bp::arg("team") ) )    
         .def( 
             "Reset"
             , (void ( ::C_RecipientFilter::* )(  ) )( &::C_RecipientFilter::Reset ) )    
@@ -5211,6 +5209,10 @@ struct py_player_info_s_wrapper : py_player_info_s, bp::wrapper< py_player_info_
 
 };
 
+#ifdef POSIX
+typedef struct model_t {};
+#endif // POSIX
+
 BOOST_PYTHON_MODULE(_gameinterface){
     bp::docstring_options doc_options( true, true, false );
 
@@ -5800,10 +5802,6 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , (void ( ::CRecipientFilter::* )( ::Vector const & ) )( &::CRecipientFilter::AddRecipientsByPVS )
             , ( bp::arg("origin") ) )    
         .def( 
-            "AddRecipientsByTeam"
-            , (void ( ::CRecipientFilter::* )( ::CTeam * ) )( &::CRecipientFilter::AddRecipientsByTeam )
-            , ( bp::arg("team") ) )    
-        .def( 
             "CopyFrom"
             , (void ( ::CRecipientFilter::* )( ::CRecipientFilter const & ) )( &::CRecipientFilter::CopyFrom )
             , ( bp::arg("src") ) )    
@@ -5851,14 +5849,6 @@ BOOST_PYTHON_MODULE(_gameinterface){
             "RemoveRecipientsByPVS"
             , (void ( ::CRecipientFilter::* )( ::Vector const & ) )( &::CRecipientFilter::RemoveRecipientsByPVS )
             , ( bp::arg("origin") ) )    
-        .def( 
-            "RemoveRecipientsByTeam"
-            , (void ( ::CRecipientFilter::* )( ::CTeam * ) )( &::CRecipientFilter::RemoveRecipientsByTeam )
-            , ( bp::arg("team") ) )    
-        .def( 
-            "RemoveRecipientsNotOnTeam"
-            , (void ( ::CRecipientFilter::* )( ::CTeam * ) )( &::CRecipientFilter::RemoveRecipientsNotOnTeam )
-            , ( bp::arg("team") ) )    
         .def( 
             "Reset"
             , (void ( ::CRecipientFilter::* )(  ) )( &::CRecipientFilter::Reset ) )    
