@@ -169,6 +169,9 @@ PyPhysicsObject::PyPhysicsObject() :
 {
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
 PyPhysicsObject::PyPhysicsObject( IPhysicsObject *pPhysObj ) : m_hEnt(NULL), m_bOwnsPhysObject(false)
 {
 	if( !pPhysObj )
@@ -181,6 +184,9 @@ PyPhysicsObject::PyPhysicsObject( IPhysicsObject *pPhysObj ) : m_hEnt(NULL), m_b
 	InitFromPhysicsObject( pPhysObj );
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
 PyPhysicsObject::PyPhysicsObject( CBaseEntity *pEnt ) : m_hEnt(NULL), m_bOwnsPhysObject(false)
 {
 	if( !pEnt || !pEnt->VPhysicsGetObject() )
@@ -195,11 +201,17 @@ PyPhysicsObject::PyPhysicsObject( CBaseEntity *pEnt ) : m_hEnt(NULL), m_bOwnsPhy
 	m_pPhysObj = pEnt->VPhysicsGetObject();
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
 PyPhysicsObject::~PyPhysicsObject()
 {
 	Destroy();
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
 void PyPhysicsObject::InitFromPhysicsObject( IPhysicsObject *pPhysObj )
 {
 	m_pPhysObj = pPhysObj;
@@ -207,21 +219,32 @@ void PyPhysicsObject::InitFromPhysicsObject( IPhysicsObject *pPhysObj )
 	m_hEnt = reinterpret_cast<CBaseEntity *>( pPhysObj->GetGameData() );
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
 void PyPhysicsObject::CheckValid() 
 {
-	if( !m_hEnt || m_hEnt->VPhysicsGetObject() != m_pPhysObj )
+	// Fast check: physic object is owned by entity
+	if( m_hEnt )
 	{
-		PyErr_SetString(PyExc_ValueError, "PhysicsObject invalid" );
-		throw boost::python::error_already_set();
+		if( m_hEnt->VPhysicsGetObject() == m_pPhysObj )
+			return; // Valid
 	}
+
+	// None of the above checks worked, so invalid object
+	PyErr_SetString(PyExc_ValueError, "PhysicsObject invalid" );
+	throw boost::python::error_already_set();
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
 void PyPhysicsObject::Destroy()
 {
-	CheckValid();
-
 	if( !m_bOwnsPhysObject )
 		return;
+
+	CheckValid();
 
 	if( !g_EntityCollisionHash )
 		return;
@@ -230,7 +253,7 @@ void PyPhysicsObject::Destroy()
 }
 
 //-----------------------------------------------------------------------------
-// Purpose: IPhysicsObject base wrapper for python.
+// Purpose: Compares a physics object
 //-----------------------------------------------------------------------------
 bool PyPhysicsObject::Cmp( boost::python::object other )
 {

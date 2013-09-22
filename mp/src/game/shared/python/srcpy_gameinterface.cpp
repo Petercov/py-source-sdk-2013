@@ -29,7 +29,7 @@ void PyRemoveFile( char const* pRelativePath, const char *pathID )
 	if( !SrcPyPathIsInGameFolder(pRelativePath) )
 	{
 		char buf[512];
-		Q_snprintf(buf, 512, "File must be in the mod folder! (%s)", pRelativePath);
+		V_snprintf(buf, 512, "File must be in the mod folder! (%s)", pRelativePath);
 		PyErr_SetString(PyExc_ValueError, buf);
 		throw boost::python::error_already_set(); 
 		return;
@@ -49,15 +49,13 @@ void PyRemoveDirectory( char const* pPath, const char *pathID )
 #ifdef WIN32
 	if( !SrcPyPathIsInGameFolder(pPath) )
 	{
-		Q_snprintf(buf, 512, "File must be in the mod folder! (%s)", pPath);
+		V_snprintf(buf, sizeof(buf), "File must be in the mod folder! (%s)", pPath);
 		PyErr_SetString(PyExc_ValueError, buf);
 		throw boost::python::error_already_set(); 
 		return;
 	}
 
-	// TODO: Rewrite this. Does need to be fast, since we need to remove a big temporary folder
-	Q_snprintf(buf, 512, "rmdir /S /Q \"%s\"\n", pPath);
-	//system(buf);
+	V_snprintf(buf, sizeof(buf), "rmdir /S /Q \"%s\"\n", pPath);
 	_popen(buf, "r");
 #else
 	PyErr_SetString(PyExc_ValueError, "RemoveDir is not support.");
@@ -550,7 +548,7 @@ bool PyVEngineServer::GetPlayerInfo( int ent_num, py_player_info_t *ppyinfo )
 #ifdef CLIENT_DLL
 model_t *PyVEngineClient::LoadModel( const char *pName, bool bProp )
 {
-	if( pName == NULL || Q_strlen(pName) == 0 )
+	if( pName == NULL || V_strlen(pName) == 0 )
 	{
 		PyErr_SetString(PyExc_Exception, "Name cannot be None" );
 		throw boost::python::error_already_set(); 
@@ -596,7 +594,7 @@ boost::python::object PyVEngineServer::GetClientSteamID( CBasePlayer *player )
 	const CSteamID *temp = engine->GetClientSteamID(player->edict());
 	if( !temp )
 		return boost::python::object();
-	return boost::python::import("_gameinterface").attr("CSteamID")(temp->ConvertToUint64());
+	return steam.attr("CSteamID")(temp->ConvertToUint64());
 }
 
 #endif // CLIENT_DLL
@@ -628,7 +626,7 @@ boost::python::object PyVModelInfo::GetModelName( model_t *model )
 
 model_t *PyVModelInfo::FindOrLoadModel( const char *name )
 {
-	if( name == NULL || Q_strlen(name) == 0 )
+	if( name == NULL || V_strlen(name) == 0 )
 	{
 		PyErr_SetString(PyExc_Exception, "Name cannot be None" );
 		throw boost::python::error_already_set(); 

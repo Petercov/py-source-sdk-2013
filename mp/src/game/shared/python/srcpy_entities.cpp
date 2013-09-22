@@ -223,7 +223,7 @@ PyEntityFactory::PyEntityFactory( const char *pMapName, boost::python::object py
 		return;
 	}
 
-	Q_strncpy( m_ClassName, pClassName, sizeof( m_ClassName ) );
+	V_strncpy( m_ClassName, pClassName, sizeof( m_ClassName ) );
 	m_PyClass = pyClass;
 
 	// Remove any linked factory to this classname
@@ -284,7 +284,7 @@ PyEntityFactory::PyEntityFactory( const char *pClassName, boost::python::object 
 	if( !pClassName )
 		return;
 
-	Q_strncpy( m_ClassName, pClassName, sizeof( m_ClassName ) );
+	V_strncpy( m_ClassName, pClassName, sizeof( m_ClassName ) );
 	m_PyClass = PyClass;
 
 	// Remove old factory if any
@@ -425,7 +425,7 @@ boost::python::object PyGetClassByClassname( const char *class_name )
 	PyEntityFactory *p = g_pPyEntityFactoryHead;
 	while( p )
 	{
-		if( !Q_strcmp( p->GetClassname(), class_name ) )
+		if( !V_strcmp( p->GetClassname(), class_name ) )
 		{
 			return p->GetClass();
 		}
@@ -641,7 +641,7 @@ void PyBoneFollowerManager::InitBoneFollowers( CBaseAnimating *pParentEntity, bo
 
 		const char *pFollowerBoneName = bp::extract<const char *>(followerbonenames[i]);
 		if( pFollowerBoneName )
-			Q_strncpy(pFollowerBoneNames[i], pFollowerBoneName, _MAX_PATH);
+			V_strncpy(pFollowerBoneNames[i], pFollowerBoneName, _MAX_PATH);
 		else
 			pFollowerBoneNames[i][0] = '\0';
 	}

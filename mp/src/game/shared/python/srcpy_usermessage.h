@@ -4,8 +4,8 @@
 //
 //=============================================================================//
 
-#ifndef SRC_PYTHON_USERMESSAGE_H
-#define SRC_PYTHON_USERMESSAGE_H
+#ifndef SRCPY_USERMESSAGE_H
+#define SRCPY_USERMESSAGE_H
 #ifdef _WIN32
 #pragma once
 #endif
@@ -43,4 +43,4 @@
 	void HookPyMessage();
 #endif // CLIENT_DLL
 
-#endif // SRC_PYTHON_USERMESSAGE_H
+#endif // SRCPY_USERMESSAGE_H

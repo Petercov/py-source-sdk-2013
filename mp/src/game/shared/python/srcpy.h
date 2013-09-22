@@ -381,6 +381,7 @@ private:
 	} py_tick_methods;
 	CUtlVector< py_tick_methods > m_methodTickList;
 	CUtlVector< boost::python::object > m_methodPerFrameList;
+	boost::python::object m_activeMethod;
 };
 
 CSrcPython *SrcPySystem();
