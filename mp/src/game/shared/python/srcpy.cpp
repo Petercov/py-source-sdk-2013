@@ -41,16 +41,18 @@ namespace bp = boost::python;
 #endif // CLIENT_DLL
 
 // Stubs for Python
-const char *Py_GetBuildInfo(void) { return ""; }
-const char *_Py_hgversion(void) { return ""; }
-const char *_Py_hgidentifier(void) { return ""; }
+const char *Py_GetBuildInfo(void) { return "SourcePy"; }
+const char *_Py_hgversion(void) { return "1"; }
+const char *_Py_hgidentifier(void) { return "srcpy"; }
 
+#ifdef WIN32
 extern "C" 
 {
 	char dllVersionBuffer[16] = ""; // a private buffer
 	HMODULE PyWin_DLLhModule = NULL;
 	const char *PyWin_DLLVersionString = dllVersionBuffer;
 }
+#endif // WIN32
 
 // For debugging
 ConVar g_debug_python( "g_debug_python", "0", FCVAR_REPLICATED );

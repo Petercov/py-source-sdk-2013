@@ -48,7 +48,7 @@
     <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
@@ -159,6 +159,7 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='PGUpdate|x64'">$(PyDllName)</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(PyDllName)</TargetName>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)\..\..\..\lib\public\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\..\..\..\lib\public\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -223,7 +224,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <AdditionalIncludeDirectories>..\Python;..\Modules\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_USRDLL;Py_BUILD_CORE;Py_ENABLE_SHARED;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -614,7 +615,6 @@
     <ClCompile Include="..\Parser\parser.c" />
     <ClCompile Include="..\Parser\parsetok.c" />
     <ClCompile Include="..\Parser\tokenizer.c" />
-    <ClCompile Include="..\PC\dl_nt.c" />
     <ClCompile Include="..\PC\winreg.c" />
     <ClCompile Include="..\PC\config.c" />
     <ClCompile Include="..\PC\getpathp.c" />
