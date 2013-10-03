@@ -211,4 +211,10 @@ $Project "Client (PySource)"
 		$DynamicFile	"$SRCDIR\lib\public\boost_python.lib"
 		$DynamicFile	"$SRCDIR\lib\public\python33.lib"
 	}
+	
+	$Folder	"Link Libraries" [$OSXALL]
+	{
+		$Lib "$LIBPUBLIC\boost_python"
+		$Lib "$LIBPUBLIC\libpython3.3m"
+	}
 }
