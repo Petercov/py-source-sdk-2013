@@ -176,6 +176,7 @@ class Entities(SemiSharedModuleGenerator):
         '%choreoactor.h',
         '$steam/steamclientpublic.h', # CSteamID
         '$view_shared.h', # CViewSetup
+        #'#nav_area.h',
         #'#%damagemodifier.h'
     ]
     
@@ -578,6 +579,9 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_fun('RemoveWeapon').exclude() # No definition
             cls.mem_fun('CauseDeath').exclude() # No definition
             cls.mem_fun('OnPursuedBy').exclude() # No INextBot definition
+            cls.mem_fun('IsAreaTraversable').exclude()
+            cls.mem_fun('OnNavAreaRemoved').exclude()
+            cls.mem_fun('OnNavAreaChanged').exclude()
         else:
             # When GLOWS_ENABLE define is added:
             if 'GLOWS_ENABLE' in mb.definedsymbols:
