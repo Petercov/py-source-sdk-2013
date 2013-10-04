@@ -1737,16 +1737,6 @@ void register_CBaseCombatCharacter_class(){
                 , IsAllowedToPickupWeapons_function_type( &::CBaseCombatCharacter::IsAllowedToPickupWeapons ) );
         
         }
-        { //::CBaseCombatCharacter::IsAreaTraversable
-        
-            typedef bool ( ::CBaseCombatCharacter::*IsAreaTraversable_function_type )( ::CNavArea const * ) const;
-            
-            CBaseCombatCharacter_exposer.def( 
-                "IsAreaTraversable"
-                , IsAreaTraversable_function_type( &::CBaseCombatCharacter::IsAreaTraversable )
-                , ( bp::arg("area") ) );
-        
-        }
         { //::CBaseCombatCharacter::IsGlowEffectActive
         
             typedef bool ( ::CBaseCombatCharacter::*IsGlowEffectActive_function_type )(  ) ;
@@ -1922,26 +1912,6 @@ void register_CBaseCombatCharacter_class(){
                 "OnKilledNPC"
                 , OnKilledNPC_function_type( &::CBaseCombatCharacter::OnKilledNPC )
                 , ( bp::arg("pKilled") ) );
-        
-        }
-        { //::CBaseCombatCharacter::OnNavAreaChanged
-        
-            typedef void ( ::CBaseCombatCharacter::*OnNavAreaChanged_function_type )( ::CNavArea *,::CNavArea * ) ;
-            
-            CBaseCombatCharacter_exposer.def( 
-                "OnNavAreaChanged"
-                , OnNavAreaChanged_function_type( &::CBaseCombatCharacter::OnNavAreaChanged )
-                , ( bp::arg("enteredArea"), bp::arg("leftArea") ) );
-        
-        }
-        { //::CBaseCombatCharacter::OnNavAreaRemoved
-        
-            typedef void ( ::CBaseCombatCharacter::*OnNavAreaRemoved_function_type )( ::CNavArea * ) ;
-            
-            CBaseCombatCharacter_exposer.def( 
-                "OnNavAreaRemoved"
-                , OnNavAreaRemoved_function_type( &::CBaseCombatCharacter::OnNavAreaRemoved )
-                , ( bp::arg("removedArea") ) );
         
         }
         { //::CBaseCombatCharacter::OnPlayerKilledOther
