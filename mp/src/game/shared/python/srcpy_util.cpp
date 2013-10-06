@@ -194,21 +194,6 @@ boost::python::object UTIL_PyEntitiesAlongRay( int listMax, const PyRay_t &ray, 
 	return pylist;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-boost::python::object ConvertIHandleEntity( IHandleEntity *pHandleEntity )
-{
-	boost::python::object ret;
-
-	CBaseEntity *pEntity = EntityFromEntityHandle( pHandleEntity );
-	if( pEntity )
-	{
-		ret = pEntity->GetPyHandle();
-	}
-
-	return ret;
-}
 
 // Prediction
 CBaseEntity const *GetSuppressHost()

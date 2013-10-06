@@ -272,9 +272,16 @@ bool CSrcPython::InitInterpreter( void )
 	V_FixupPathName(buf, MAX_PATH, buf);
 	V_strcat( pythonpath, buf, MAX_PATH );
 	V_strcat( pythonpath, ";", MAX_PATH );
+
+#ifdef CLIENT_DLL
+	filesystem->RelativePathToFullPath("python/Lib/ClientDLLs", "MOD", buf, _MAX_PATH);
+	V_FixupPathName(buf, MAX_PATH, buf);
+	V_strcat( pythonpath, buf, MAX_PATH );
+#else
 	filesystem->RelativePathToFullPath("python/Lib/DLLs", "MOD", buf, _MAX_PATH);
 	V_FixupPathName(buf, MAX_PATH, buf);
 	V_strcat( pythonpath, buf, MAX_PATH );
+#endif // CLIENT_DLL
 
 #ifdef WIN32
 	::SetEnvironmentVariable( "PYTHONPATH", pythonpath );
@@ -321,7 +328,12 @@ bool CSrcPython::InitInterpreter( void )
 	sys.attr("stderr") = srcbuiltins.attr("SrcPyStdErr")();
 
 	weakref = Import("weakref");
+
+#if PY_VERSION_HEX < 0x03000000
+	builtins = Import("__builtin__");
+#else
 	builtins = Import("builtins");
+#endif 
 
 	// Set isclient and isserver globals to the right values
 	try 

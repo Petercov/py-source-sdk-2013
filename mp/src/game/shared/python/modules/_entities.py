@@ -111,7 +111,7 @@ tmpl_enthandle = '''{ //::%(handlename)s
     }
 '''
 
-tmpl_ent_converters = '''
+tmpl_ent_converters_to = '''
 struct %(ptr_convert_to_py_name)s : bp::to_python_converter<%(clsname)s *, ptr_%(clsname)s_to_handle>
 {
     static PyObject* convert(%(clsname)s *s)
@@ -127,7 +127,9 @@ struct %(convert_to_py_name)s : bp::to_python_converter<%(clsname)s, %(clsname)s
         return bp::incref(s.GetPyHandle().ptr());
     }
 };
+'''
 
+tmpl_ent_converters_from = '''
 struct %(convert_from_py_name)s
 {
     handle_to_%(clsname)s()
@@ -176,8 +178,6 @@ class Entities(SemiSharedModuleGenerator):
         '%choreoactor.h',
         '$steam/steamclientpublic.h', # CSteamID
         '$view_shared.h', # CViewSetup
-        #'#nav_area.h',
-        #'#%damagemodifier.h'
     ]
     
     # List of entity classes want to have exposed
@@ -191,7 +191,7 @@ class Entities(SemiSharedModuleGenerator):
         'C_BasePlayer',
         'C_BaseCombatWeapon',
     ]
-
+    
     serverentities = [ 
         'CBaseEntity', 
         'CBaseAnimating',
@@ -209,9 +209,9 @@ class Entities(SemiSharedModuleGenerator):
         'CBaseToggle',
         'CBaseTrigger',
     ]
-
-    # Handle expose code
-    def AddEntityConverter(self, mb, clsname):
+    
+    def AddEntityConverter(self, mb, clsname, pyhandletoptronly=False):
+        ''' Creates entities converters/handles for Python. '''
         cls = mb.class_(clsname)
         
         handlename = '%sHANDLE' % (clsname)
@@ -220,14 +220,21 @@ class Entities(SemiSharedModuleGenerator):
         convert_to_py_name = '%s_to_handle' % (clsname)
         convert_from_py_name = 'handle_to_%s' % (clsname)
         
-        # Add handle typedef
-        mb.add_declaration_code( 'typedef CEPyHandle< %s > %s;\r\n'% (clsname, handlename) )
-        
-        # Expose handle code
-        mb.add_registration_code( tmpl_enthandle % {'clsname' : clsname, 'handlename' : handlename}, True )
+        if not pyhandletoptronly:
+            # Add handle
+            mb.add_declaration_code( 'typedef CEPyHandle< %s > %s;\r\n'% (clsname, handlename) )
+            mb.add_registration_code( tmpl_enthandle % {'clsname' : clsname, 'handlename' : handlename}, True )
         
         # Add declaration code for converters
-        mb.add_declaration_code( tmpl_ent_converters % {
+        if not pyhandletoptronly:
+            mb.add_declaration_code( tmpl_ent_converters_to % {
+                'clsname' : clsname,
+                'ptr_convert_to_py_name' : ptr_convert_to_py_name,
+                'convert_to_py_name' : convert_to_py_name,
+                'convert_from_py_name' : convert_from_py_name,
+            })
+        
+        mb.add_declaration_code( tmpl_ent_converters_from % {
             'clsname' : clsname,
             'ptr_convert_to_py_name' : ptr_convert_to_py_name,
             'convert_to_py_name' : convert_to_py_name,
@@ -235,8 +242,9 @@ class Entities(SemiSharedModuleGenerator):
         })
         
         # Add registration code
-        mb.add_registration_code( "%s();" % (ptr_convert_to_py_name) )
-        mb.add_registration_code( "%s();" % (convert_to_py_name) )
+        if not pyhandletoptronly:
+            mb.add_registration_code( "%s();" % (ptr_convert_to_py_name) )
+            mb.add_registration_code( "%s();" % (convert_to_py_name) )
         mb.add_registration_code( "%s();" % (convert_from_py_name) )
         
     # Parse methods
@@ -246,9 +254,9 @@ class Entities(SemiSharedModuleGenerator):
         cls = mb.class_(clsname)
         
         cls.include()
-        cls.calldefs(matchers.access_type_matcher_t( 'protected' ), allow_empty=True).exclude()
+        cls.calldefs(matchers.access_type_matcher_t('protected'), allow_empty=True).exclude()
         
-        # Be selective about we need to override
+        # Be selective about what we need to override
         # DO NOT REMOVE. Some functions are not thread safe, which will cause runtime errors because we did not setup python threadsafe (slower)
         cls.mem_funs(allow_empty=True).virtuality = 'not virtual' 
 
@@ -263,26 +271,24 @@ class Entities(SemiSharedModuleGenerator):
         # Test if the Entity class is setup right
         try:
             cls.mem_funs('CreatePyHandle').exclude() # Use GetHandle instead.
-        except matcher.declaration_not_found_t:
-            raise Exception('Class %s has no CreatePyHandle function. Did you forgot to declare the entity as a Python class?')
+        except (matcher.declaration_not_found_t, RuntimeError):
+            raise Exception('Class %s has no CreatePyHandle function. Did you forgot to declare the entity as a Python class?' % (clsname))
         
         # Apply common rules to the entity class
         # Don't care about the following:
-        cls.vars(lambda decl: 'NetworkVar' in decl.name, allow_empty=True).exclude()        # Don't care or needs a better look
-        cls.classes(lambda decl: 'NetworkVar' in decl.name, allow_empty=True).exclude()        # Don't care or needs a better look
-        cls.mem_funs(lambda decl: 'YouForgotToImplement' in decl.name, allow_empty=True).exclude()   # Don't care
-        #cls.mem_funs('ClearPyInstance').exclude()        # Not needed, used for cleaning up python entities
+        cls.vars(lambda decl: 'NetworkVar' in decl.name, allow_empty=True).exclude()
+        cls.classes(lambda decl: 'NetworkVar' in decl.name, allow_empty=True).exclude()
+        cls.mem_funs(lambda decl: 'YouForgotToImplement' in decl.name, allow_empty=True).exclude()
+        cls.mem_funs(function=lambda decl: 'NetworkStateChanged_' in decl.name, allow_empty=True).exclude()
+        cls.mem_funs('ClearPyInstance', allow_empty=True).exclude()        # Not needed, used for cleaning up python entities
         cls.mem_funs('GetBaseMap', allow_empty=True).exclude()             # Not needed
         cls.mem_funs('GetDataDescMap', allow_empty=True).exclude()         # Not needed
         cls.mem_funs('GetDataDescMap', allow_empty=True).exclude()         # Not needed
 
-        
-        # 
-        #cls.mem_funs(matchers.calldef_matcher_t(return_type='::%s *' % (clsname))).exclude()
-        #cls.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(cls)))).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-
+        # matrix3x4_t is always returned by value
         matrix3x4 = mb.class_('matrix3x4_t')
         cls.calldefs(matchers.calldef_matcher_t(return_type=reference_t(declarated_t(matrix3x4))), allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        cls.calldefs(matchers.calldef_matcher_t(return_type=reference_t(const_t(declarated_t(matrix3x4)))), allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         
         cls.vars(allow_empty=True).exclude()
         
@@ -362,7 +368,6 @@ class Entities(SemiSharedModuleGenerator):
         cls.mem_fun('Cmp').rename('__cmp__')
         cls.mem_fun('NonZero').rename('__nonzero__')
         cls.mem_fun('Str').rename('__str__')
-        cls.mem_funs('GetPySelf').exclude()
         
         cls.add_wrapper_code(
             'virtual PyObject *GetPySelf() { return boost::python::detail::wrapper_base_::get_owner(*this); }'
@@ -404,6 +409,7 @@ class Entities(SemiSharedModuleGenerator):
         mb.mem_funs('RemoveDataObjectType').exclude() # Don't care
         mb.mem_funs('HasDataObjectType').exclude() # Don't care
         cls.mem_funs('GetPyInstance').exclude()          # Not needed, used when converting entities to python
+        cls.mem_funs('SetPyInstance').exclude()          # Not needed, used when converting entities to python
         mb.mem_funs('DestroyPyInstance').exclude()        # Not needed, used for cleaning up python entities
         cls.mem_funs('PyAllocate').exclude()             # Python Intern only
         cls.mem_funs('PyDeallocate').exclude()             # Python Intern only
@@ -626,6 +632,8 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_fun('SetupVPhysicsShadow').exclude() # Requires CPhysCollide, would need manually wrapping
             
     def ParseTriggers(self, mb):
+        if not self.isserver:
+            return
         # CBaseTrigger
         cls_name = 'C_BaseTrigger' if self.isclient else 'CBaseTrigger'
         cls = mb.class_(cls_name)
@@ -635,12 +643,13 @@ class Entities(SemiSharedModuleGenerator):
         self.ParseBaseEntityHandles(mb)
         
         self.IncludeEmptyClass(mb, 'IHandleEntity')
+        self.AddEntityConverter(mb, 'IHandleEntity', True)
         
         if self.isclient:
             self.ParseClientEntities(mb)
         else:
             self.ParseServerEntities(mb)
-            
+        
         self.ParseBaseEntity(mb)
         self.ParseBaseAnimating(mb)
         self.ParseBaseAnimatingOverlay(mb)
@@ -648,9 +657,7 @@ class Entities(SemiSharedModuleGenerator):
         self.ParseBaseCombatWeapon(mb)
         self.ParseBaseCombatCharacter(mb)
         self.ParseBasePlayer(mb)
-        
-        if self.isserver:
-            self.ParseTriggers(mb)
+        self.ParseTriggers(mb)
         
     def Parse(self, mb):
         # Exclude everything by default
@@ -658,6 +665,7 @@ class Entities(SemiSharedModuleGenerator):
         
         self.ParseEntities(mb)
         
-        # Finally apply common rules to all includes functions and classes, etc
+        
+        # Finally apply common rules to all includes functions and classes, etc.
         self.ApplyCommonRules(mb)
         

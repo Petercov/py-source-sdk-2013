@@ -871,20 +871,6 @@ void register_CBaseGrenade_class(){
             , (::CBaseCombatCharacter * ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::GetThrower )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
-            "NetworkStateChanged_m_fFlags"
-            , (void ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::NetworkStateChanged_m_fFlags ) )    
-        .def( 
-            "NetworkStateChanged_m_fFlags"
-            , (void ( ::CBaseGrenade::* )( void * ) )( &::CBaseGrenade::NetworkStateChanged_m_fFlags )
-            , ( bp::arg("pVar") ) )    
-        .def( 
-            "NetworkStateChanged_m_vecVelocity"
-            , (void ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::NetworkStateChanged_m_vecVelocity ) )    
-        .def( 
-            "NetworkStateChanged_m_vecVelocity"
-            , (void ( ::CBaseGrenade::* )( void * ) )( &::CBaseGrenade::NetworkStateChanged_m_vecVelocity )
-            , ( bp::arg("pVar") ) )    
-        .def( 
             "ObjectCaps"
             , (int ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::ObjectCaps ) )    
         .def( 

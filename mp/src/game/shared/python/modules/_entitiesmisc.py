@@ -190,11 +190,12 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         cls.mem_funs('FindEntityByNetname').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
         cls.mem_funs('FindEntityProcedural').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
 
-        #cls.mem_funs('FindEntityByClassnameFast').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
-        #cls.mem_funs('FindEntityByClassnameNearest2D').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
-        #cls.mem_funs('FindEntityByClassnameNearestFast').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
-        #cls.mem_funs('FindEntityByNameFast').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
-        #cls.mem_funs('FindEntityByOutputTarget').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
+        if self.settings.branch == 'swarm':
+            cls.mem_funs('FindEntityByClassnameFast').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
+            cls.mem_funs('FindEntityByClassnameNearest2D').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
+            cls.mem_funs('FindEntityByClassnameNearestFast').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
+            cls.mem_funs('FindEntityByNameFast').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
+            cls.mem_funs('FindEntityByOutputTarget').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
 
         mb.vars('gEntList').include()
         mb.vars('gEntList').rename('entlist')
@@ -214,8 +215,9 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         cls.mem_funs('Save').exclude()
         cls.mem_funs('Restore').exclude()
         
-        #cls.mem_funs('GetActionForTarget').exclude()
-        #cls.mem_funs('GetFirstAction').exclude()
+        if self.settings.branch == 'swarm':
+            cls.mem_funs('GetActionForTarget').exclude()
+            cls.mem_funs('GetFirstAction').exclude()
             
         cls = mb.class_('PyOutputEvent')
         cls.include()
@@ -232,9 +234,10 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         # Inputdata_t and variant_t
         cls = mb.class_('inputdata_t')
         cls.include()
-        cls.var('nOutputID').rename('outputid')
-        cls.var('pActivator').rename('activator')
-        cls.var('pCaller').rename('caller')
+        if self.settings.branch == 'source2013':
+            cls.var('nOutputID').rename('outputid')
+            cls.var('pActivator').rename('activator')
+            cls.var('pCaller').rename('caller')
         
         mb.class_('variant_t').include()
         mb.class_('variant_t').vars( lambda decl: 'm_Save' in decl.name ).exclude()
@@ -474,7 +477,3 @@ class EntitiesMisc(SemiSharedModuleGenerator):
             self.ParseServerEntityRelated(mb)
         self.ParseMisc(mb)
         
-    #def AddAdditionalCode(self, mb):
-    #    header = code_creators.include_t( 'src_python_converters_ents.h' )
-    #    mb.code_creator.adopt_include(header)
-    #    super(EntitiesMisc, self).AddAdditionalCode(mb)

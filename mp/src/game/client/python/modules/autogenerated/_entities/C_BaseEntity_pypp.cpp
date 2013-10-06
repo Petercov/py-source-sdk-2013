@@ -1367,7 +1367,7 @@ void register_C_BaseEntity_class(){
             C_BaseEntity_exposer.def( 
                 "EntityToWorldTransform"
                 , EntityToWorldTransform_function_type( &::C_BaseEntity::EntityToWorldTransform )
-                , bp::return_value_policy< bp::copy_const_reference >() );
+                , bp::return_value_policy< bp::return_by_value >() );
         
         }
         { //::C_BaseEntity::EstimateAbsVelocity
@@ -4108,7 +4108,7 @@ void register_C_BaseEntity_class(){
             C_BaseEntity_exposer.def( 
                 "RenderableToWorldTransform"
                 , RenderableToWorldTransform_function_type( &::C_BaseEntity::RenderableToWorldTransform )
-                , bp::return_value_policy< bp::copy_const_reference >() );
+                , bp::return_value_policy< bp::return_by_value >() );
         
         }
         { //::C_BaseEntity::ResetLatched
@@ -4706,16 +4706,6 @@ void register_C_BaseEntity_class(){
                 "SetPredictionRandomSeed"
                 , SetPredictionRandomSeed_function_type( &::C_BaseEntity::SetPredictionRandomSeed )
                 , ( bp::arg("cmd") ) );
-        
-        }
-        { //::C_BaseEntity::SetPyInstance
-        
-            typedef void ( ::C_BaseEntity::*SetPyInstance_function_type )( ::boost::python::object ) ;
-            
-            C_BaseEntity_exposer.def( 
-                "SetPyInstance"
-                , SetPyInstance_function_type( &::C_BaseEntity::SetPyInstance )
-                , ( bp::arg("inst") ) );
         
         }
         { //::C_BaseEntity::SetPyThink

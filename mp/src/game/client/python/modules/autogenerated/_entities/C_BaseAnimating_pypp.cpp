@@ -1182,7 +1182,7 @@ void register_C_BaseAnimating_class(){
                 "GetBone"
                 , GetBone_function_type( &::C_BaseAnimating::GetBone )
                 , ( bp::arg("iBone") )
-                , bp::return_value_policy< bp::copy_const_reference >() );
+                , bp::return_value_policy< bp::return_by_value >() );
         
         }
         { //::C_BaseAnimating::GetBoneAttachment

@@ -8,12 +8,12 @@ class Sound(SemiSharedModuleGenerator):
     module_name = '_sound'
     
     files = [
-        'wchar.h'
-        , 'string_t.h'
-        , 'cbase.h'
-        , 'shareddefs.h'
-        , 'srcpy_sound.h'
-        , 'soundflags.h'
+        'wchar.h',
+        'string_t.h',
+        'cbase.h',
+        'shareddefs.h',
+        'srcpy_sound.h',
+        'soundflags.h',
     ]
 
     def Parse(self, mb):

@@ -2271,15 +2271,15 @@ inline boost::python::object C_BaseEntity::GetPyInstance() const
 	return m_pyInstance; 
 }
 
-inline boost::python::object CBaseEntity::GetPyHandle() const 
-{ 
-	return m_pyHandle; 
-}
-
 inline void C_BaseEntity::SetPyInstance( boost::python::object inst )
 {
 	Assert( GetRefEHandle() == NULL );
 	m_pyInstance = inst;
+}
+
+inline boost::python::object CBaseEntity::GetPyHandle() const 
+{ 
+	return m_pyHandle; 
 }
 
 inline boost::python::object CBaseEntity::GetPyThink()

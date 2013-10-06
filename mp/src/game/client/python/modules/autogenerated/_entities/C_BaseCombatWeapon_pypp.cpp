@@ -1098,13 +1098,6 @@ void register_C_BaseCombatWeapon_class(){
             , (::C_BaseCombatWeapon * ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::MyCombatWeaponPointer )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
-            "NetworkStateChanged_m_nNextThinkTick"
-            , (void ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::NetworkStateChanged_m_nNextThinkTick ) )    
-        .def( 
-            "NetworkStateChanged_m_nNextThinkTick"
-            , (void ( ::C_BaseCombatWeapon::* )( void * ) )( &::C_BaseCombatWeapon::NetworkStateChanged_m_nNextThinkTick )
-            , ( bp::arg("pVar") ) )    
-        .def( 
             "NotifyShouldTransmit"
             , (void ( ::C_BaseCombatWeapon::* )( ::ShouldTransmitState_t ) )( &::C_BaseCombatWeapon::NotifyShouldTransmit )
             , ( bp::arg("state") ) )    

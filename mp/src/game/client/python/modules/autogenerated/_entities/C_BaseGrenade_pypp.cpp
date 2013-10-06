@@ -680,20 +680,6 @@ void register_C_BaseGrenade_class(){
             , (::C_BaseCombatCharacter * ( ::C_BaseGrenade::* )(  ) )( &::C_BaseGrenade::GetThrower )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
-            "NetworkStateChanged_m_fFlags"
-            , (void ( ::C_BaseGrenade::* )(  ) )( &::C_BaseGrenade::NetworkStateChanged_m_fFlags ) )    
-        .def( 
-            "NetworkStateChanged_m_fFlags"
-            , (void ( ::C_BaseGrenade::* )( void * ) )( &::C_BaseGrenade::NetworkStateChanged_m_fFlags )
-            , ( bp::arg("pVar") ) )    
-        .def( 
-            "NetworkStateChanged_m_vecVelocity"
-            , (void ( ::C_BaseGrenade::* )(  ) )( &::C_BaseGrenade::NetworkStateChanged_m_vecVelocity ) )    
-        .def( 
-            "NetworkStateChanged_m_vecVelocity"
-            , (void ( ::C_BaseGrenade::* )( void * ) )( &::C_BaseGrenade::NetworkStateChanged_m_vecVelocity )
-            , ( bp::arg("pVar") ) )    
-        .def( 
             "PreDetonate"
             , (void ( ::C_BaseGrenade::* )(  ) )( &::C_BaseGrenade::PreDetonate ) )    
         .def( 

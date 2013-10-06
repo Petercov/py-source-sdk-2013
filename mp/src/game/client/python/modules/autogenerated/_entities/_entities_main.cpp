@@ -71,6 +71,24 @@
 
 namespace bp = boost::python;
 
+struct handle_to_IHandleEntity
+{
+    handle_to_IHandleEntity()
+    {
+        bp::converter::registry::insert(
+            &extract_IHandleEntity, 
+            bp::type_id<IHandleEntity>()
+            );
+    }
+
+    static void* extract_IHandleEntity(PyObject* op){
+       CBaseHandle h = bp::extract<CBaseHandle>(op);
+       if( h.Get() == NULL )
+           return Py_None;
+       return h.Get();
+    }
+};
+
 typedef CEPyHandle< C_BaseEntity > C_BaseEntityHANDLE;
 
 struct ptr_C_BaseEntity_to_handle : bp::to_python_converter<C_BaseEntity *, ptr_C_BaseEntity_to_handle>
@@ -387,6 +405,8 @@ BOOST_PYTHON_MODULE(_entities){
     register_C_BasePlayer_class();
 
     register_DeadEntity_class();
+
+    handle_to_IHandleEntity();
 
     { //::C_BaseEntityHANDLE
         typedef bp::class_< C_BaseEntityHANDLE, bp::bases< CBaseHandle > > C_BaseEntityHANDLE_exposer_t;

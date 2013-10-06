@@ -1669,7 +1669,7 @@ void register_CBaseEntity_class(){
             CBaseEntity_exposer.def( 
                 "EntityToWorldTransform"
                 , EntityToWorldTransform_function_type( &::CBaseEntity::EntityToWorldTransform )
-                , bp::return_value_policy< bp::copy_const_reference >() );
+                , bp::return_value_policy< bp::return_by_value >() );
         
         }
         { //::CBaseEntity::Event_Killed
@@ -3702,82 +3702,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("pVar") ) );
         
         }
-        { //::CBaseEntity::NetworkStateChanged_m_iHealth
-        
-            typedef void ( ::CBaseEntity::*NetworkStateChanged_m_iHealth_function_type )(  ) ;
-            
-            CBaseEntity_exposer.def( 
-                "NetworkStateChanged_m_iHealth"
-                , NetworkStateChanged_m_iHealth_function_type( &::CBaseEntity::NetworkStateChanged_m_iHealth ) );
-        
-        }
-        { //::CBaseEntity::NetworkStateChanged_m_iHealth
-        
-            typedef void ( ::CBaseEntity::*NetworkStateChanged_m_iHealth_function_type )( void * ) ;
-            
-            CBaseEntity_exposer.def( 
-                "NetworkStateChanged_m_iHealth"
-                , NetworkStateChanged_m_iHealth_function_type( &::CBaseEntity::NetworkStateChanged_m_iHealth )
-                , ( bp::arg("pVar") ) );
-        
-        }
-        { //::CBaseEntity::NetworkStateChanged_m_iMaxHealth
-        
-            typedef void ( ::CBaseEntity::*NetworkStateChanged_m_iMaxHealth_function_type )(  ) ;
-            
-            CBaseEntity_exposer.def( 
-                "NetworkStateChanged_m_iMaxHealth"
-                , NetworkStateChanged_m_iMaxHealth_function_type( &::CBaseEntity::NetworkStateChanged_m_iMaxHealth ) );
-        
-        }
-        { //::CBaseEntity::NetworkStateChanged_m_iMaxHealth
-        
-            typedef void ( ::CBaseEntity::*NetworkStateChanged_m_iMaxHealth_function_type )( void * ) ;
-            
-            CBaseEntity_exposer.def( 
-                "NetworkStateChanged_m_iMaxHealth"
-                , NetworkStateChanged_m_iMaxHealth_function_type( &::CBaseEntity::NetworkStateChanged_m_iMaxHealth )
-                , ( bp::arg("pVar") ) );
-        
-        }
-        { //::CBaseEntity::NetworkStateChanged_m_lifeState
-        
-            typedef void ( ::CBaseEntity::*NetworkStateChanged_m_lifeState_function_type )(  ) ;
-            
-            CBaseEntity_exposer.def( 
-                "NetworkStateChanged_m_lifeState"
-                , NetworkStateChanged_m_lifeState_function_type( &::CBaseEntity::NetworkStateChanged_m_lifeState ) );
-        
-        }
-        { //::CBaseEntity::NetworkStateChanged_m_lifeState
-        
-            typedef void ( ::CBaseEntity::*NetworkStateChanged_m_lifeState_function_type )( void * ) ;
-            
-            CBaseEntity_exposer.def( 
-                "NetworkStateChanged_m_lifeState"
-                , NetworkStateChanged_m_lifeState_function_type( &::CBaseEntity::NetworkStateChanged_m_lifeState )
-                , ( bp::arg("pVar") ) );
-        
-        }
-        { //::CBaseEntity::NetworkStateChanged_m_takedamage
-        
-            typedef void ( ::CBaseEntity::*NetworkStateChanged_m_takedamage_function_type )(  ) ;
-            
-            CBaseEntity_exposer.def( 
-                "NetworkStateChanged_m_takedamage"
-                , NetworkStateChanged_m_takedamage_function_type( &::CBaseEntity::NetworkStateChanged_m_takedamage ) );
-        
-        }
-        { //::CBaseEntity::NetworkStateChanged_m_takedamage
-        
-            typedef void ( ::CBaseEntity::*NetworkStateChanged_m_takedamage_function_type )( void * ) ;
-            
-            CBaseEntity_exposer.def( 
-                "NetworkStateChanged_m_takedamage"
-                , NetworkStateChanged_m_takedamage_function_type( &::CBaseEntity::NetworkStateChanged_m_takedamage )
-                , ( bp::arg("pVar") ) );
-        
-        }
         { //::CBaseEntity::NextMovePeer
         
             typedef ::CBaseEntity * ( ::CBaseEntity::*NextMovePeer_function_type )(  ) ;
@@ -4911,16 +4835,6 @@ void register_CBaseEntity_class(){
                 "SetPredictionRandomSeed"
                 , SetPredictionRandomSeed_function_type( &::CBaseEntity::SetPredictionRandomSeed )
                 , ( bp::arg("cmd") ) );
-        
-        }
-        { //::CBaseEntity::SetPyInstance
-        
-            typedef void ( ::CBaseEntity::*SetPyInstance_function_type )( ::boost::python::object ) ;
-            
-            CBaseEntity_exposer.def( 
-                "SetPyInstance"
-                , SetPyInstance_function_type( &::CBaseEntity::SetPyInstance )
-                , ( bp::arg("inst") ) );
         
         }
         { //::CBaseEntity::SetPyThink

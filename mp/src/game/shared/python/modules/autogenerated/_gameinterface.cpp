@@ -26,8 +26,6 @@
 
 #include "cdll_int.h"
 
-#include "c_team.h"
-
 #include "srcpy_gameinterface_converters.h"
 
 #include "tier0/valve_minmax_off.h"

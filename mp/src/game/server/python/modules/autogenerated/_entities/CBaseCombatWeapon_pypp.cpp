@@ -1265,13 +1265,6 @@ void register_CBaseCombatWeapon_class(){
             , (::CBaseCombatWeapon * ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::MyCombatWeaponPointer )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
-            "NetworkStateChanged_m_nNextThinkTick"
-            , (void ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::NetworkStateChanged_m_nNextThinkTick ) )    
-        .def( 
-            "NetworkStateChanged_m_nNextThinkTick"
-            , (void ( ::CBaseCombatWeapon::* )( void * ) )( &::CBaseCombatWeapon::NetworkStateChanged_m_nNextThinkTick )
-            , ( bp::arg("pVar") ) )    
-        .def( 
             "ObjectCaps"
             , (int ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::ObjectCaps ) )    
         .def( 

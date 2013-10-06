@@ -15,7 +15,7 @@
 #include "ehandle.h"
 #ifndef CLIENT_DLL
 	#include "physics_bone_follower.h"
-	//#include "srcpy_physics.h"
+	#include "srcpy_physics.h"
 
 	class CBaseAnimating;
 	class CRagdollProp;
@@ -269,7 +269,7 @@ public:
 
 Vector GetAttachmentPositionInSpaceOfBone( CStudioHdr *pStudioHdr, const char *pAttachmentName, int outputBoneIndex );
 
-//CRagdollProp *PyCreateServerRagdollAttached( CBaseAnimating *pAnimating, const Vector &vecForce, int forceBone, int collisionGroup, PyPhysicsObject &pyAttached, CBaseAnimating *pParentEntity, int boneAttach, const Vector &originAttached, int parentBoneAttach, const Vector &boneOrigin );
+CRagdollProp *PyCreateServerRagdollAttached( CBaseAnimating *pAnimating, const Vector &vecForce, int forceBone, int collisionGroup, PyPhysicsObject &pyAttached, CBaseAnimating *pParentEntity, int boneAttach, const Vector &originAttached, int parentBoneAttach, const Vector &boneOrigin );
 
 #endif // CLIENT_DLL
 

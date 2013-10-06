@@ -38,7 +38,8 @@ class Utils(SemiSharedModuleGenerator):
         mb.free_functions('UTIL_VarArgs').exclude()
         mb.free_functions('UTIL_LogPrintf').exclude()
         mb.free_functions('UTIL_FunctionToName').exclude()
-        #mb.free_functions('UTIL_FunctionFromName').exclude()
+        if self.settings.branch == 'swarm':
+            mb.free_functions('UTIL_FunctionFromName').exclude()
         
         # Exclude for now
         mb.free_functions('UTIL_GetDebugColorForRelationship').exclude()
@@ -63,8 +64,9 @@ class Utils(SemiSharedModuleGenerator):
         mb.free_functions('UTIL_EntitiesInPVS').call_policies = call_policies.return_value_policy( call_policies.return_by_value ) 
         mb.free_functions('UTIL_FindClientInPVS').call_policies = call_policies.return_value_policy( call_policies.return_by_value )   
         
-        #mb.free_functions('UTIL_FindClientInPVSGuts').call_policies = call_policies.return_value_policy( call_policies.return_by_value ) 
-        #mb.free_functions('UTIL_GetLocalPlayerOrListenServerHost').call_policies = call_policies.return_value_policy( call_policies.return_by_value )   
+        if self.settings.branch == 'swarm':
+            mb.free_functions('UTIL_FindClientInPVSGuts').call_policies = call_policies.return_value_policy( call_policies.return_by_value ) 
+            mb.free_functions('UTIL_GetLocalPlayerOrListenServerHost').call_policies = call_policies.return_value_policy( call_policies.return_by_value )   
         
         # Helper for message stuff
         cls = mb.class_('hudtextparms_s')
@@ -120,9 +122,10 @@ class Utils(SemiSharedModuleGenerator):
         mb.free_function('MainWorldToViewMatrix').include()
         
         # Call policies and excludes
-        #mb.free_function('UTIL_GetLocalizedKeyString').exclude()
-        #mb.free_function('UTIL_MessageText').exclude()
-        #mb.free_functions('UTIL_EntityFromUserMessageEHandle').call_policies = call_policies.return_value_policy( call_policies.return_by_value )   
+        if self.settings.branch == 'swarm':
+            mb.free_function('UTIL_GetLocalizedKeyString').exclude()
+            mb.free_function('UTIL_MessageText').exclude()
+            mb.free_functions('UTIL_EntityFromUserMessageEHandle').call_policies = call_policies.return_value_policy( call_policies.return_by_value )   
         mb.free_functions('UTIL_PlayerByUserId').call_policies = call_policies.return_value_policy( call_policies.return_by_value )   
             
         # Transformations
@@ -134,7 +137,6 @@ class Utils(SemiSharedModuleGenerator):
             return cls.mem_fun('ShouldHitEntity')
         except pygccxml.declarations.matcher.declaration_not_found_t:
             for b in cls.bases:
-                print(b.__dict__)
                 ret = self.RecursiveFindDecl(b.related_class, fnname)
                 if ret:
                     return ret
@@ -257,7 +259,8 @@ class Utils(SemiSharedModuleGenerator):
         mb.free_functions('IntersectRayWithBox').include()
         mb.free_functions('IntersectRayWithOBB').include()
         mb.free_functions('IsSphereIntersectingSphere').include()
-        mb.free_functions('IsBoxIntersectingSphere').include()
+        if self.settings.branch != 'swarm': # IsBoxIntersectingSphere gives a problem
+            mb.free_functions('IsBoxIntersectingSphere').include()
         mb.free_functions('IsBoxIntersectingSphereExtents').include()
         mb.free_functions('IsRayIntersectingSphere').include()
         mb.free_functions('IsCircleIntersectingRectangle').include()

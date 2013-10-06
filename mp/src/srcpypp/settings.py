@@ -18,6 +18,8 @@ client_path = os.path.normpath('game/client/python/modules/%s/' % (autogenfolder
 server_path = os.path.normpath('game/server/python/modules/%s/' % (autogenfoldername))
 shared_path = os.path.normpath('game/shared/python/modules/%s/' % (autogenfoldername))
 
+# Branch (currently either "swarm" or "source2013")
+branch = "source2013"
 # Output paths for generated VPC file, to be included in the game VPC files
 vpcserverpath = os.path.join(srcpath, 'game/server/server_pysource_autogen.vpc')
 vpcclientpath = os.path.join(srcpath, 'game/client/client_pysource_autogen.vpc')
@@ -43,48 +45,5 @@ modules = [
     ('steam', 'Steam'),
     ('_ndebugoverlay', 'NDebugOverlay'),
     ('vprof', 'VProf'),
-]
-
-'''
-('materials', 'Materials'),
-
-# # Client
-('_input', 'Input'),
-('_vgui', 'VGUI'),
-('_vguicontrols', 'VGUIControls'),
-
-# # Game
-('_gamerules', 'GameRules'),
-
-# # Misc
-('_navmesh', 'NavMesh'),
-
-('_srctests', '_SrcTests'),
-('matchmaking', 'MatchMaking'),'''
-
-# Base files (in case you want to make use automatically updating the vcxproj)
-pythonfiles_shared = [
-    '../shared/python/srcpy.cpp',
-    '../shared/python/srcpy.h',
-    '../shared/python/srcpy_srcbuiltins.cpp',
-    '../shared/python/srcpy_srcbuiltins.h',
-    '../shared/python/srcpy_class_shared.cpp',
-    '../shared/python/srcpy_class_shared.h',
-    '../shared/python/srcpy_entities.cpp',
-    '../shared/python/srcpy_entities.h',
-    '../shared/python/srcpy_networkvar.cpp',
-    '../shared/python/srcpy_networkvar.h',
-    '../shared/python/srcpy_usermessage.cpp',
-    '../shared/python/srcpy_usermessage.h',
-]
-
-pythonfiles_client = [
-    'python/srcpy_client_class.cpp',
-    'python/srcpy_client_class.h',
-]
-
-pythonfiles_server = [
-    'python/srcpy_server_class.cpp',
-    'python/srcpy_server_class.h',
 ]
 

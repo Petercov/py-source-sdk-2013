@@ -165,21 +165,29 @@ class SemiSharedModuleGenerator(SourceModuleGenerator):
     
     # Main method
     def Run(self):
+        # Parse client side of module
         self.isclient = True
         self.isserver = False
-        mb_client = self.CreateBuilder(self.GetFiles())
+        mb_client = self.CreateBuilder(*self.GetFiles())
         self.Parse(mb_client)
+        
+        # Parse server side of module
         self.isclient = False
         self.isserver = True
-        mb_server = self.CreateBuilder(self.GetFiles())
+        mb_server = self.CreateBuilder(*self.GetFiles())
         self.Parse(mb_server)
+        
+        # Output files
         self.FinalOutput(mb_client, mb_server)
         
     # Create builder
-    def CreateBuilder(self, files):
+    def CreateBuilder(self, files, parseonlyfiles):
         if self.isclient:
-            return src_module_builder_t(files, is_client=True)   
-        return src_module_builder_t(files, is_client=False)   
+            mb = src_module_builder_t(files, is_client=True)
+        else:
+            mb = src_module_builder_t(files, is_client=False)
+        mb.parseonlyfiles = parseonlyfiles
+        return mb
         
     def GenerateContent(self, mb):
         return mb.get_module()
@@ -187,11 +195,13 @@ class SemiSharedModuleGenerator(SourceModuleGenerator):
     # Default includes
     def AddAdditionalCode(self, mb):
         mb.code_creator.user_defined_directories.append( os.path.abspath('.') )
-        header = code_creators.include_t( 'tier0/valve_minmax_off.h' )
-        mb.code_creator.adopt_include( header )
+        if self.settings.branch == 'source2013':
+            header = code_creators.include_t( 'tier0/valve_minmax_off.h' )
+            mb.code_creator.adopt_include( header )
         header = code_creators.include_t( 'srcpy.h' )
-        mb.code_creator.adopt_include( header )
-        header = code_creators.include_t( 'tier0/valve_minmax_on.h' )
+        if self.settings.branch == 'source2013':
+            mb.code_creator.adopt_include( header )
+            header = code_creators.include_t( 'tier0/valve_minmax_on.h' )
         mb.code_creator.adopt_include( header )
         header = code_creators.include_t( 'tier0/memdbgon.h' )
         mb.code_creator.adopt_include(header)

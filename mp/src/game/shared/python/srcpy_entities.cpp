@@ -340,6 +340,7 @@ PyEntityFactory::~PyEntityFactory()
 extern bool g_SetupNetworkTablesOnHold;
 IServerNetworkable *PyEntityFactory::Create( const char *pClassName )
 {
+	MEM_ALLOC_CREDIT_("Entities");
 	CBaseEntity *pEnt = NULL;
 	try
 	{
@@ -715,7 +716,6 @@ Vector GetAttachmentPositionInSpaceOfBone( CStudioHdr *pStudioHdr, const char *p
 	return out;
 }
 
-#if 0 // TODO
 CRagdollProp *PyCreateServerRagdollAttached( CBaseAnimating *pAnimating, const Vector &vecForce, 
 											int forceBone, int collisionGroup, PyPhysicsObject &pyAttached, 
 											CBaseAnimating *pParentEntity, int boneAttach, const Vector &originAttached, 
@@ -727,6 +727,5 @@ CRagdollProp *PyCreateServerRagdollAttached( CBaseAnimating *pAnimating, const V
 		pyAttached.GetVPhysicsObject(), pParentEntity, 
 		boneAttach, originAttached, parentBoneAttach, boneOrigin );
 }
-#endif // 0
 
 #endif // CLIENT_DLL

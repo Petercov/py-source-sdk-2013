@@ -4,7 +4,7 @@ from . basegenerator import ModuleGenerator
 from .. src_module_builder import src_module_builder_t
 from pyplusplus import code_creators
 from pyplusplus.module_builder import call_policies
-from pygccxml.declarations import matchers, pointer_t, reference_t, declarated_t, void_t
+from pygccxml.declarations import matchers, pointer_t, reference_t, declarated_t, void_t, compound_t
 
 class SourceModuleGenerator(ModuleGenerator):
     # Choices: client, server, semi_shared and pure_shared
@@ -18,9 +18,15 @@ class SourceModuleGenerator(ModuleGenerator):
     isserver = False
     
     def GetFiles(self):
-        self.parseonlyfiles = []
+        parsefiles = list(self.files)
+        
+        # Only for parsing, seems required for some reason (or some error somewhere in the gccxml setup?)
+        if self.settings.branch == 'swarm':
+            parsefiles.insert(0, '$%videocfg/videocfg.h')
+    
+        parseonlyfiles = []
         files = []
-        for filename in self.files:
+        for filename in parsefiles:
             if not filename:
                 continue
                 
@@ -28,11 +34,12 @@ class SourceModuleGenerator(ModuleGenerator):
             addtoclient = False
             parseonly = False
             while filename[0] in ['#', '$', '%']:
-                if filename.startswith('#'):
+                c = filename[0]
+                if c == '#':
                     addtoserver = True 
-                elif filename.startswith('$'):
+                elif c == '$':
                     addtoclient = True
-                elif filename.startswith('%'):
+                elif c == '%':
                     parseonly = True
                 filename = filename[1:]
                 
@@ -42,38 +49,28 @@ class SourceModuleGenerator(ModuleGenerator):
                 files.append(filename)
             if self.isclient and addtoclient:
                 files.append(filename)
-            if parseonly and filename in files:
-                self.parseonlyfiles.append(filename)
                 
-        return files
+            if parseonly and filename in files:
+                parseonlyfiles.append(filename)
+                
+        return files, parseonlyfiles
         
     def PostCodeCreation(self, mb):
         ''' Allows modifying mb.code_creator just after the code creation. '''
+        parseonlyfiles = list(mb.parseonlyfiles)
+        
         # Remove boost\python.hpp header. This is already included by srcpy.h
         # and directly including can break debug mode (because it redefines _DEBUG)
-        # TODO: Maybe do this in a nicer way, but it's not too important.
-        header = code_creators.include_t(os.path.normpath(r'boost/python.hpp'))
-        originaltestpath = os.path.normpath(header.header)
-        found = False
-        for creator in mb.code_creator.creators:
-            try:
-                testpath = os.path.normpath(creator.header)
-                if originaltestpath == testpath:
-                    found = True
-                    mb.code_creator.remove_creator(creator)
-                    break
-            except:
-                pass
-        
-        if not found:
-            raise Exception('Could not find boost/python.hpp header''')
-            
+        parseonlyfiles.append(r'boost/python.hpp')
+
         # Remove files which where added for parsing only
-        for filename in self.parseonlyfiles:
+        for filename in parseonlyfiles:
+            found = False
+            testfilenamepath = os.path.normpath(filename)
             for creator in mb.code_creator.creators:
                 try:
                     testpath = os.path.normpath(creator.header)
-                    if filename == testpath:
+                    if testfilenamepath == testpath:
                         found = True
                         mb.code_creator.remove_creator(creator)
                         break
@@ -81,25 +78,46 @@ class SourceModuleGenerator(ModuleGenerator):
                     pass
             if not found:
                 raise Exception('Could not find %s header''' % (filename))
+    
+    def TestInheritIHandleEntity(self, decl):
+        ihandlecls = self.ihandlecls
+        
+        # Only consider declarated and compound types
+        return_type = decl.return_type
+        if type(return_type) != declarated_t and not isinstance(return_type, compound_t):
+            return False
+            
+        # Traverse bases of return type
+        declaration = None
+        while return_type:
+            if type(return_type) == declarated_t:
+                declaration = return_type.declaration
+                break
+            if not isinstance(return_type, compound_t):
+                break
+            return_type = return_type.base
+            
+        if not declaration or not hasattr(declaration, 'recursive_bases'):
+            return False
+            
+        # Look through all bases of the class we are testing
+        recursive_bases = declaration.recursive_bases
+        for testcls in recursive_bases:
+            if ihandlecls == testcls.related_class:
+                return True
+            
+        return False
             
     # Applies common rules to code
     def ApplyCommonRules(self, mb):
         # Common function added for getting the "PyObject" of an entity
         mb.mem_funs('GetPySelf').exclude()
         
-        # All return values derived from IHandleEntity entity will be returned by value, 
-        # so the converter is called
-        ihandlecls = mb.class_('IHandleEntity')
-        def testInherits(memfun):
-            try:
-                othercls = memfun.return_type.base.declaration
-                for testcls in othercls.recursive_bases:
-                    if ihandlecls == testcls.related_class:
-                        return True
-            except AttributeError:
-                pass
-            return False
-        mb.calldefs(matchers.custom_matcher_t(testInherits)).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        # All return values derived from IHandleEntity entity will be returned by value.
+        # This ensures the converter is called
+        self.ihandlecls = mb.class_('IHandleEntity')
+        decls = mb.calldefs(matchers.custom_matcher_t(self.TestInheritIHandleEntity))
+        decls.call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
         # Anything returning KeyValues should be returned by value so it calls the converter
         keyvalues = mb.class_('KeyValues')
