@@ -74,6 +74,7 @@
 #include "srcpy.h"
 #include "srcpy_networkvar.h"
 #include "srcpy_usermessage.h"
+#include "srcpy_entities.h"
 #endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
@@ -7586,6 +7587,14 @@ void CBaseEntity::PySendMessage( bp::list msg, bool reliable )
 			PyWriteElement(writelist.Element(i));
 		}
 	MessageEnd();
+}
+
+//------------------------------------------------------------------------------
+// Purpose: Sends an event
+//------------------------------------------------------------------------------
+void CBaseEntity::PySendEvent( IRecipientFilter &filter, int event, int data )
+{
+	::PySendEvent( filter, this, event, data );
 }
 #endif // ENABLE_PYTHON
 // =======================================

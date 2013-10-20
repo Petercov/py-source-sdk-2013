@@ -1861,6 +1861,9 @@ public:
 	// Allows sending messages in Python on this entity
 	void							PySendMessage( boost::python::list msg, bool reliable = false );
 
+	// Allows sending an event on this Python entity
+	void							PySendEvent( IRecipientFilter &filter, int event, int data = 0 );
+
 private:
 	bool m_bPyDestroyed;
 	boost::python::object m_pyInstance;

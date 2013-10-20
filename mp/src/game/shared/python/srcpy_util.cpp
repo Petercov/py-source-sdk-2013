@@ -85,10 +85,6 @@ void UTIL_PySetModel( CBaseEntity *pEntity, const char *pModelName )
 		pAnimating->m_nForceBone = 0;
 	}
 }
-
-#else
-
-
 #endif // CLIENT_DLL
 
 #if 0 // TODO

@@ -3988,6 +3988,16 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("name") ) );
         
         }
+        { //::CBaseEntity::PySendEvent
+        
+            typedef void ( ::CBaseEntity::*PySendEvent_function_type )( ::IRecipientFilter &,int,int ) ;
+            
+            CBaseEntity_exposer.def( 
+                "PySendEvent"
+                , PySendEvent_function_type( &::CBaseEntity::PySendEvent )
+                , ( bp::arg("filter"), bp::arg("event"), bp::arg("data")=(int)(0) ) );
+        
+        }
         { //::CBaseEntity::PySendMessage
         
             typedef void ( ::CBaseEntity::*SendMessage_function_type )( ::boost::python::list,bool ) ;
