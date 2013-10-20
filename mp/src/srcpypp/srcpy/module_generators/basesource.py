@@ -4,7 +4,7 @@ from . basegenerator import ModuleGenerator
 from .. src_module_builder import src_module_builder_t
 from pyplusplus import code_creators
 from pyplusplus.module_builder import call_policies
-from pygccxml.declarations import matchers, pointer_t, reference_t, declarated_t, void_t, compound_t
+from pygccxml.declarations import matchers, pointer_t, reference_t, const_t, declarated_t, void_t, compound_t
 
 class SourceModuleGenerator(ModuleGenerator):
     # Choices: client, server, semi_shared and pure_shared
@@ -107,6 +107,22 @@ class SourceModuleGenerator(ModuleGenerator):
                 return True
             
         return False
+        
+    def AddNetworkVarProperty(self, exposename, varname, ctype, clsname):
+        cls = self.mb.class_(clsname) if (type(clsname) == str) else clsname
+        args = {
+            'varname' : varname,
+            'type' : ctype,
+            'exposename' : exposename,
+            'clsname' : cls.name,
+        }
+        if not self.isclient:
+            cls.add_wrapper_code('%(type)s %(varname)s_Get() { return %(varname)s.Get(); }' % args)
+            cls.add_wrapper_code('void %(varname)s_Set( %(type)s val ) { %(varname)s.Set( val ); }' % args)
+        else:
+            cls.add_wrapper_code('%(type)s %(varname)s_Get() { return %(varname)s; }' % args)
+            cls.add_wrapper_code('void %(varname)s_Set( %(type)s val ) { %(varname)s = val; }' % args)
+        cls.add_registration_code('add_property( "%(exposename)s", &%(clsname)s_wrapper::%(varname)s_Get, &%(clsname)s_wrapper::%(varname)s_Set )' % (args))
             
     # Applies common rules to code
     def ApplyCommonRules(self, mb):
@@ -125,4 +141,5 @@ class SourceModuleGenerator(ModuleGenerator):
         
         # Anything returning a void pointer is excluded by default
         mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(void_t()))), allow_empty=True).exclude()
+        mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(const_t(declarated_t(void_t())))), allow_empty=True).exclude()
         
