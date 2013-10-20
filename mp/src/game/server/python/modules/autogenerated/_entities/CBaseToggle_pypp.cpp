@@ -788,6 +788,10 @@ struct CBaseToggle_wrapper : CBaseToggle, bp::wrapper< CBaseToggle > {
         CBaseEntity::StopLoopingSounds( );
     }
 
+    void TraceAttack( ::CTakeDamageInfo const & info, ::Vector const & vecDir, ::trace_t * ptr, ::CDmgAccumulator * pAccumulator=0 ){
+        CBaseEntity::TraceAttack( boost::ref(info), boost::ref(vecDir), boost::python::ptr(ptr), boost::python::ptr(pAccumulator) );
+    }
+
     virtual void UpdateOnRemove(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -1042,6 +1046,10 @@ void register_CBaseToggle_class(){
             "StopLoopingSounds"
             , (void ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::StopLoopingSounds)
             , (void ( CBaseToggle_wrapper::* )(  ) )(&CBaseToggle_wrapper::default_StopLoopingSounds) )    
+        .def( 
+            "TraceAttack"
+            , (void ( CBaseToggle_wrapper::* )( ::CTakeDamageInfo const &,::Vector const &,::trace_t *,::CDmgAccumulator * ) )(&CBaseToggle_wrapper::TraceAttack)
+            , ( bp::arg("info"), bp::arg("vecDir"), bp::arg("ptr"), bp::arg("pAccumulator")=bp::object() ) )    
         .def( 
             "UpdateOnRemove"
             , (void ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::UpdateOnRemove)

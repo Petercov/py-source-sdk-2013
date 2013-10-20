@@ -544,6 +544,36 @@ struct C_BasePlayer_wrapper : C_BasePlayer, bp::wrapper< C_BasePlayer > {
         return C_BaseEntity::KeyValue( szKeyName, boost::ref(vecValue) );
     }
 
+    virtual void NotifyShouldTransmit( ::ShouldTransmitState_t state ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "NotifyShouldTransmit: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling NotifyShouldTransmit( state ) of Class: C_BaseAnimating\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_NotifyShouldTransmit = this->get_override( "NotifyShouldTransmit" );
+        if( func_NotifyShouldTransmit.ptr() != Py_None )
+            try {
+                func_NotifyShouldTransmit( state );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseAnimating::NotifyShouldTransmit( state );
+            }
+        else
+            this->C_BaseAnimating::NotifyShouldTransmit( state );
+    }
+    
+    void default_NotifyShouldTransmit( ::ShouldTransmitState_t state ) {
+        C_BaseAnimating::NotifyShouldTransmit( state );
+    }
+
     virtual void Precache(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -1300,6 +1330,10 @@ void register_C_BasePlayer_class(){
             "Weapon_Switch"
             , (bool ( ::C_BasePlayer::* )( ::C_BaseCombatWeapon *,int ) )( &::C_BasePlayer::Weapon_Switch )
             , ( bp::arg("pWeapon"), bp::arg("viewmodelindex")=(int)(0) ) )    
+        .def_readwrite( "buttonslast", &C_BasePlayer::m_afButtonLast )    
+        .def_readwrite( "buttonspressed", &C_BasePlayer::m_afButtonPressed )    
+        .def_readwrite( "buttonsreleased", &C_BasePlayer::m_afButtonReleased )    
+        .def_readwrite( "buttons", &C_BasePlayer::m_nButtons )    
         .def( 
             "Activate"
             , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::Activate)
@@ -1346,6 +1380,11 @@ void register_C_BasePlayer_class(){
             , (bool ( ::C_BaseEntity::* )( char const *,::Vector const & ) )(&::C_BaseEntity::KeyValue)
             , (bool ( C_BasePlayer_wrapper::* )( char const *,::Vector const & ) )(&C_BasePlayer_wrapper::default_KeyValue)
             , ( bp::arg("szKeyName"), bp::arg("vecValue") ) )    
+        .def( 
+            "NotifyShouldTransmit"
+            , (void ( ::C_BaseAnimating::* )( ::ShouldTransmitState_t ) )(&::C_BaseAnimating::NotifyShouldTransmit)
+            , (void ( C_BasePlayer_wrapper::* )( ::ShouldTransmitState_t ) )(&C_BasePlayer_wrapper::default_NotifyShouldTransmit)
+            , ( bp::arg("state") ) )    
         .def( 
             "Precache"
             , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::Precache)

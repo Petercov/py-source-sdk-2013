@@ -94,6 +94,36 @@ struct C_BaseCombatWeapon_wrapper : C_BaseCombatWeapon, bp::wrapper< C_BaseComba
         C_BaseCombatWeapon::MakeTracer( boost::ref(vecTracerSrc), boost::ref(tr), iTracerType );
     }
 
+    virtual void NotifyShouldTransmit( ::ShouldTransmitState_t state ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "NotifyShouldTransmit: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling NotifyShouldTransmit( state ) of Class: C_BaseCombatWeapon\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_NotifyShouldTransmit = this->get_override( "NotifyShouldTransmit" );
+        if( func_NotifyShouldTransmit.ptr() != Py_None )
+            try {
+                func_NotifyShouldTransmit( state );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseCombatWeapon::NotifyShouldTransmit( state );
+            }
+        else
+            this->C_BaseCombatWeapon::NotifyShouldTransmit( state );
+    }
+    
+    void default_NotifyShouldTransmit( ::ShouldTransmitState_t state ) {
+        C_BaseCombatWeapon::NotifyShouldTransmit( state );
+    }
+
     virtual void OnDataChanged( ::DataUpdateType_t updateType ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -1184,7 +1214,8 @@ void register_C_BaseCombatWeapon_class(){
             , ( bp::arg("vecTracerSrc"), bp::arg("tr"), bp::arg("iTracerType") ) )    
         .def( 
             "NotifyShouldTransmit"
-            , (void ( ::C_BaseCombatWeapon::* )( ::ShouldTransmitState_t ) )( &::C_BaseCombatWeapon::NotifyShouldTransmit )
+            , (void ( ::C_BaseCombatWeapon::* )( ::ShouldTransmitState_t ) )(&::C_BaseCombatWeapon::NotifyShouldTransmit)
+            , (void ( C_BaseCombatWeapon_wrapper::* )( ::ShouldTransmitState_t ) )(&C_BaseCombatWeapon_wrapper::default_NotifyShouldTransmit)
             , ( bp::arg("state") ) )    
         .def( 
             "OnActiveStateChanged"

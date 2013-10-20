@@ -758,6 +758,10 @@ struct CFuncBrush_wrapper : CFuncBrush, bp::wrapper< CFuncBrush > {
         CBaseEntity::StopLoopingSounds( );
     }
 
+    void TraceAttack( ::CTakeDamageInfo const & info, ::Vector const & vecDir, ::trace_t * ptr, ::CDmgAccumulator * pAccumulator=0 ){
+        CBaseEntity::TraceAttack( boost::ref(info), boost::ref(vecDir), boost::python::ptr(ptr), boost::python::ptr(pAccumulator) );
+    }
+
     virtual void UpdateOnRemove(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -1234,6 +1238,16 @@ void register_CFuncBrush_class(){
                 "StopLoopingSounds"
                 , StopLoopingSounds_function_type(&::CBaseEntity::StopLoopingSounds)
                 , default_StopLoopingSounds_function_type(&CFuncBrush_wrapper::default_StopLoopingSounds) );
+        
+        }
+        { //::CBaseEntity::TraceAttack
+        
+            typedef void ( CFuncBrush_wrapper::*TraceAttack_function_type )( ::CTakeDamageInfo const &,::Vector const &,::trace_t *,::CDmgAccumulator * ) ;
+            
+            CFuncBrush_exposer.def( 
+                "TraceAttack"
+                , TraceAttack_function_type( &CFuncBrush_wrapper::TraceAttack )
+                , ( bp::arg("info"), bp::arg("vecDir"), bp::arg("ptr"), bp::arg("pAccumulator")=bp::object() ) );
         
         }
         { //::CBaseEntity::UpdateOnRemove

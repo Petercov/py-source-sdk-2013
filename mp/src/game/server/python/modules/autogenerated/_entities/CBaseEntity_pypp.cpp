@@ -758,6 +758,10 @@ struct CBaseEntity_wrapper : CBaseEntity, bp::wrapper< CBaseEntity > {
         CBaseEntity::StopLoopingSounds( );
     }
 
+    void TraceAttack( ::CTakeDamageInfo const & info, ::Vector const & vecDir, ::trace_t * ptr, ::CDmgAccumulator * pAccumulator=0 ){
+        CBaseEntity::TraceAttack( boost::ref(info), boost::ref(vecDir), boost::python::ptr(ptr), boost::python::ptr(pAccumulator) );
+    }
+
     virtual void UpdateOnRemove(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -1549,16 +1553,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("szInputName"), bp::arg("pCaller"), bp::arg("Value") ) );
         
         }
-        { //::CBaseEntity::DrawOutputOverlay
-        
-            typedef void ( ::CBaseEntity::*DrawOutputOverlay_function_type )( ::CEventAction * ) ;
-            
-            CBaseEntity_exposer.def( 
-                "DrawOutputOverlay"
-                , DrawOutputOverlay_function_type( &::CBaseEntity::DrawOutputOverlay )
-                , ( bp::arg("ev") ) );
-        
-        }
         { //::CBaseEntity::DrawRBoxOverlay
         
             typedef void ( ::CBaseEntity::*DrawRBoxOverlay_function_type )(  ) ;
@@ -1855,16 +1849,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("info") ) );
         
         }
-        { //::CBaseEntity::FireBullets
-        
-            typedef void ( ::CBaseEntity::*FireBullets_function_type )( int,::Vector const &,::Vector const &,::Vector const &,float,int,int,int,int,int,::CBaseEntity *,bool,bool ) ;
-            
-            CBaseEntity_exposer.def( 
-                "FireBullets"
-                , FireBullets_function_type( &::CBaseEntity::FireBullets )
-                , ( bp::arg("cShots"), bp::arg("vecSrc"), bp::arg("vecDirShooting"), bp::arg("vecSpread"), bp::arg("flDistance"), bp::arg("iAmmoType"), bp::arg("iTracerFreq")=(int)(4), bp::arg("firingEntID")=(int)(-0x000000001), bp::arg("attachmentID")=(int)(-0x000000001), bp::arg("iDamage")=(int)(0), bp::arg("pAttacker")=bp::object(), bp::arg("bFirstShotAccurate")=(bool)(false), bp::arg("bPrimaryAttack")=(bool)(true) ) );
-        
-        }
         { //::CBaseEntity::FireNamedOutput
         
             typedef void ( ::CBaseEntity::*FireNamedOutput_function_type )( char const *,::variant_t,::CBaseEntity *,::CBaseEntity *,float ) ;
@@ -1893,16 +1877,6 @@ void register_CBaseEntity_class(){
                 "FollowEntity"
                 , FollowEntity_function_type( &::CBaseEntity::FollowEntity )
                 , ( bp::arg("pBaseEntity"), bp::arg("bBoneMerge")=(bool)(true) ) );
-        
-        }
-        { //::CBaseEntity::ForceVPhysicsCollide
-        
-            typedef bool ( ::CBaseEntity::*ForceVPhysicsCollide_function_type )( ::CBaseEntity * ) ;
-            
-            CBaseEntity_exposer.def( 
-                "ForceVPhysicsCollide"
-                , ForceVPhysicsCollide_function_type( &::CBaseEntity::ForceVPhysicsCollide )
-                , ( bp::arg("pEntity") ) );
         
         }
         { //::CBaseEntity::GenderExpandString
@@ -2205,16 +2179,6 @@ void register_CBaseEntity_class(){
                 "GetGroundEntity"
                 , GetGroundEntity_function_type( &::CBaseEntity::GetGroundEntity )
                 , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
-        { //::CBaseEntity::GetGroundVelocityToApply
-        
-            typedef void ( ::CBaseEntity::*GetGroundVelocityToApply_function_type )( ::Vector & ) ;
-            
-            CBaseEntity_exposer.def( 
-                "GetGroundVelocityToApply"
-                , GetGroundVelocityToApply_function_type( &::CBaseEntity::GetGroundVelocityToApply )
-                , ( bp::arg("vecGroundVel") ) );
         
         }
         { //::CBaseEntity::GetInputDispatchEffectPosition
@@ -3633,16 +3597,6 @@ void register_CBaseEntity_class(){
                 , MoveDone_function_type( &::CBaseEntity::MoveDone ) );
         
         }
-        { //::CBaseEntity::MyNPCPointer
-        
-            typedef ::CAI_BaseNPC * ( ::CBaseEntity::*MyNPCPointer_function_type )(  ) ;
-            
-            CBaseEntity_exposer.def( 
-                "MyNPCPointer"
-                , MyNPCPointer_function_type( &::CBaseEntity::MyNPCPointer )
-                , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
         { //::CBaseEntity::NameMatches
         
             typedef bool ( ::CBaseEntity::*NameMatches_function_type )( char const * ) ;
@@ -3690,16 +3644,6 @@ void register_CBaseEntity_class(){
                 "NextMovePeer"
                 , NextMovePeer_function_type( &::CBaseEntity::NextMovePeer )
                 , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
-        { //::CBaseEntity::NotifySystemEvent
-        
-            typedef void ( ::CBaseEntity::*NotifySystemEvent_function_type )( ::CBaseEntity *,::notify_system_event_t,::notify_system_event_params_t const & ) ;
-            
-            CBaseEntity_exposer.def( 
-                "NotifySystemEvent"
-                , NotifySystemEvent_function_type( &::CBaseEntity::NotifySystemEvent )
-                , ( bp::arg("pNotify"), bp::arg("eventType"), bp::arg("params") ) );
         
         }
         { //::CBaseEntity::ObjectCaps
@@ -3948,16 +3892,6 @@ void register_CBaseEntity_class(){
             CBaseEntity_exposer.def( 
                 "PhysicsStepRecheckGround"
                 , PhysicsStepRecheckGround_function_type( &::CBaseEntity::PhysicsStepRecheckGround ) );
-        
-        }
-        { //::CBaseEntity::PhysicsTestEntityPosition
-        
-            typedef bool ( ::CBaseEntity::*PhysicsTestEntityPosition_function_type )( ::CBaseEntity * * ) ;
-            
-            CBaseEntity_exposer.def( 
-                "PhysicsTestEntityPosition"
-                , PhysicsTestEntityPosition_function_type( &::CBaseEntity::PhysicsTestEntityPosition )
-                , ( bp::arg("ppEntity")=bp::object() ) );
         
         }
         { //::CBaseEntity::PhysicsTouchTriggers
@@ -4609,16 +4543,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("szModelName") ) );
         
         }
-        { //::CBaseEntity::SetModelIndex
-        
-            typedef void ( ::CBaseEntity::*SetModelIndex_function_type )( int ) ;
-            
-            CBaseEntity_exposer.def( 
-                "SetModelIndex"
-                , SetModelIndex_function_type( &::CBaseEntity::SetModelIndex )
-                , ( bp::arg("index") ) );
-        
-        }
         { //::CBaseEntity::SetModelIndexOverride
         
             typedef void ( ::CBaseEntity::*SetModelIndexOverride_function_type )( int,int ) ;
@@ -5028,16 +4952,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("useType"), bp::arg("currentState") ) );
         
         }
-        { //::CBaseEntity::ShouldTransmit
-        
-            typedef int ( ::CBaseEntity::*ShouldTransmit_function_type )( ::CCheckTransmitInfo const * ) ;
-            
-            CBaseEntity_exposer.def( 
-                "ShouldTransmit"
-                , ShouldTransmit_function_type( &::CBaseEntity::ShouldTransmit )
-                , ( bp::arg("pInfo") ) );
-        
-        }
         { //::CBaseEntity::Spawn
         
             typedef void ( ::CBaseEntity::*Spawn_function_type )(  ) ;
@@ -5216,6 +5130,16 @@ void register_CBaseEntity_class(){
                 "Touch"
                 , Touch_function_type( &::CBaseEntity::Touch )
                 , ( bp::arg("pOther") ) );
+        
+        }
+        { //::CBaseEntity::TraceAttack
+        
+            typedef void ( CBaseEntity_wrapper::*TraceAttack_function_type )( ::CTakeDamageInfo const &,::Vector const &,::trace_t *,::CDmgAccumulator * ) ;
+            
+            CBaseEntity_exposer.def( 
+                "TraceAttack"
+                , TraceAttack_function_type( &CBaseEntity_wrapper::TraceAttack )
+                , ( bp::arg("info"), bp::arg("vecDir"), bp::arg("ptr"), bp::arg("pAccumulator")=bp::object() ) );
         
         }
         { //::CBaseEntity::TraceAttackToTriggers

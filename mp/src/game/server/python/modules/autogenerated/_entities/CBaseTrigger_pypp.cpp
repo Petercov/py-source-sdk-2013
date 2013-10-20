@@ -818,6 +818,10 @@ struct CBaseTrigger_wrapper : CBaseTrigger, bp::wrapper< CBaseTrigger > {
         CBaseEntity::StopLoopingSounds( );
     }
 
+    void TraceAttack( ::CTakeDamageInfo const & info, ::Vector const & vecDir, ::trace_t * ptr, ::CDmgAccumulator * pAccumulator=0 ){
+        CBaseEntity::TraceAttack( boost::ref(info), boost::ref(vecDir), boost::python::ptr(ptr), boost::python::ptr(pAccumulator) );
+    }
+
     virtual int UpdateTransmitState(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -1072,6 +1076,10 @@ void register_CBaseTrigger_class(){
             "StopLoopingSounds"
             , (void ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::StopLoopingSounds)
             , (void ( CBaseTrigger_wrapper::* )(  ) )(&CBaseTrigger_wrapper::default_StopLoopingSounds) )    
+        .def( 
+            "TraceAttack"
+            , (void ( CBaseTrigger_wrapper::* )( ::CTakeDamageInfo const &,::Vector const &,::trace_t *,::CDmgAccumulator * ) )(&CBaseTrigger_wrapper::TraceAttack)
+            , ( bp::arg("info"), bp::arg("vecDir"), bp::arg("ptr"), bp::arg("pAccumulator")=bp::object() ) )    
         .def( 
             "UpdateTransmitState"
             , (int ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::UpdateTransmitState)

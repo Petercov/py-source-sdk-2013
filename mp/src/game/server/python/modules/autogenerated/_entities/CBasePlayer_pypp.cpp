@@ -2130,10 +2130,6 @@ void register_CBasePlayer_class(){
             , (bool ( ::CBasePlayer::* )( ::CTakeDamageInfo const & ) )( &::CBasePlayer::ShouldTakeDamageInCommentaryMode )
             , ( bp::arg("inputInfo") ) )    
         .def( 
-            "ShouldTransmit"
-            , (int ( ::CBasePlayer::* )( ::CCheckTransmitInfo const * ) )( &::CBasePlayer::ShouldTransmit )
-            , ( bp::arg("pInfo") ) )    
-        .def( 
             "ShowCrosshair"
             , (void ( ::CBasePlayer::* )( bool ) )( &::CBasePlayer::ShowCrosshair )
             , ( bp::arg("bShow") ) )    
@@ -2318,6 +2314,10 @@ void register_CBasePlayer_class(){
             "Weapon_Switch"
             , (bool ( ::CBasePlayer::* )( ::CBaseCombatWeapon *,int ) )( &::CBasePlayer::Weapon_Switch )
             , ( bp::arg("pWeapon"), bp::arg("viewmodelindex")=(int)(0) ) )    
+        .def_readwrite( "buttonslast", &CBasePlayer::m_afButtonLast )    
+        .def_readwrite( "buttonspressed", &CBasePlayer::m_afButtonPressed )    
+        .def_readwrite( "buttonsreleased", &CBasePlayer::m_afButtonReleased )    
+        .def_readwrite( "buttons", &CBasePlayer::m_nButtons )    
         .def( 
             "BecomeRagdoll"
             , (bool ( ::CBaseCombatCharacter::* )( ::CTakeDamageInfo const &,::Vector const & ) )(&::CBaseCombatCharacter::BecomeRagdoll)
