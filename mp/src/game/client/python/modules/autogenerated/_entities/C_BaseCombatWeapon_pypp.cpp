@@ -16,6 +16,7 @@
 #include "iclientvehicle.h"
 #include "steam/steamclientpublic.h"
 #include "view_shared.h"
+#include "c_playerresource.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -121,6 +122,36 @@ struct C_BaseCombatWeapon_wrapper : C_BaseCombatWeapon, bp::wrapper< C_BaseComba
     
     void default_OnDataChanged( ::DataUpdateType_t updateType ) {
         C_BaseCombatWeapon::OnDataChanged( updateType );
+    }
+
+    virtual void OnRestore(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnRestore(  ) of Class: C_BaseCombatWeapon\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnRestore = this->get_override( "OnRestore" );
+        if( func_OnRestore.ptr() != Py_None )
+            try {
+                func_OnRestore(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseCombatWeapon::OnRestore(  );
+            }
+        else
+            this->C_BaseCombatWeapon::OnRestore(  );
+    }
+    
+    void default_OnRestore(  ) {
+        C_BaseCombatWeapon::OnRestore( );
     }
 
     virtual void Precache(  ) {
@@ -573,6 +604,36 @@ struct C_BaseCombatWeapon_wrapper : C_BaseCombatWeapon, bp::wrapper< C_BaseComba
         return C_BaseEntity::KeyValue( szKeyName, boost::ref(vecValue) );
     }
 
+    virtual void PyReceiveMessage( ::boost::python::list msg ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ReceiveMessage: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling PyReceiveMessage( msg ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ReceiveMessage = this->get_override( "ReceiveMessage" );
+        if( func_ReceiveMessage.ptr() != Py_None )
+            try {
+                func_ReceiveMessage( msg );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::PyReceiveMessage( msg );
+            }
+        else
+            this->C_BaseEntity::PyReceiveMessage( msg );
+    }
+    
+    void default_ReceiveMessage( ::boost::python::list msg ) {
+        C_BaseEntity::PyReceiveMessage( msg );
+    }
+
     virtual void Simulate(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -676,6 +737,46 @@ struct C_BaseCombatWeapon_wrapper : C_BaseCombatWeapon, bp::wrapper< C_BaseComba
         return C_BaseCombatWeapon::GetClientClass();
     }
 
+    int m_lifeState_Get() { return m_lifeState; }
+
+    void m_lifeState_Set( int val ) { m_lifeState = val; }
+
+    int m_takedamage_Get() { return m_takedamage; }
+
+    void m_takedamage_Set( int val ) { m_takedamage = val; }
+
+    float m_flNextPrimaryAttack_Get() { return m_flNextPrimaryAttack; }
+
+    void m_flNextPrimaryAttack_Set( float val ) { m_flNextPrimaryAttack = val; }
+
+    float m_flNextSecondaryAttack_Get() { return m_flNextSecondaryAttack; }
+
+    void m_flNextSecondaryAttack_Set( float val ) { m_flNextSecondaryAttack = val; }
+
+    float m_flTimeWeaponIdle_Get() { return m_flTimeWeaponIdle; }
+
+    void m_flTimeWeaponIdle_Set( float val ) { m_flTimeWeaponIdle = val; }
+
+    int m_iState_Get() { return m_iState; }
+
+    void m_iState_Set( int val ) { m_iState = val; }
+
+    int m_iPrimaryAmmoType_Get() { return m_iPrimaryAmmoType; }
+
+    void m_iPrimaryAmmoType_Set( int val ) { m_iPrimaryAmmoType = val; }
+
+    int m_iSecondaryAmmoType_Get() { return m_iSecondaryAmmoType; }
+
+    void m_iSecondaryAmmoType_Set( int val ) { m_iSecondaryAmmoType = val; }
+
+    int m_iClip1_Get() { return m_iClip1; }
+
+    void m_iClip1_Set( int val ) { m_iClip1 = val; }
+
+    int m_iClip2_Get() { return m_iClip2; }
+
+    void m_iClip2_Set( int val ) { m_iClip2 = val; }
+
 };
 
 void register_C_BaseCombatWeapon_class(){
@@ -755,10 +856,6 @@ void register_C_BaseCombatWeapon_class(){
             "Clip2"
             , (int ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::Clip2 ) )    
         .def( 
-            "CreateMove"
-            , (void ( ::C_BaseCombatWeapon::* )( float,::CUserCmd *,::QAngle const & ) )( &::C_BaseCombatWeapon::CreateMove )
-            , ( bp::arg("flInputSampleTime"), bp::arg("pCmd"), bp::arg("vecOldViewAngles") ) )    
-        .def( 
             "DefaultDeploy"
             , (bool ( ::C_BaseCombatWeapon::* )( char *,char *,int,char * ) )( &::C_BaseCombatWeapon::DefaultDeploy )
             , ( bp::arg("szViewModel"), bp::arg("szWeaponModel"), bp::arg("iActivity"), bp::arg("szAnimExt") ) )    
@@ -821,14 +918,6 @@ void register_C_BaseCombatWeapon_class(){
         .def( 
             "GetBulletType"
             , (int ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::GetBulletType ) )    
-        .def( 
-            "GetControlPanelClassName"
-            , (void ( ::C_BaseCombatWeapon::* )( int,char const * & ) )( &::C_BaseCombatWeapon::GetControlPanelClassName )
-            , ( bp::arg("nPanelIndex"), bp::arg("pPanelName") ) )    
-        .def( 
-            "GetControlPanelInfo"
-            , (void ( ::C_BaseCombatWeapon::* )( int,char const * & ) )( &::C_BaseCombatWeapon::GetControlPanelInfo )
-            , ( bp::arg("nPanelIndex"), bp::arg("pPanelName") ) )    
         .def( 
             "GetDamage"
             , (float ( ::C_BaseCombatWeapon::* )( float,int ) )( &::C_BaseCombatWeapon::GetDamage )
@@ -1094,10 +1183,6 @@ void register_C_BaseCombatWeapon_class(){
             , (void ( C_BaseCombatWeapon_wrapper::* )( ::Vector const &,::trace_t const &,int ) )(&C_BaseCombatWeapon_wrapper::default_MakeTracer)
             , ( bp::arg("vecTracerSrc"), bp::arg("tr"), bp::arg("iTracerType") ) )    
         .def( 
-            "MyCombatWeaponPointer"
-            , (::C_BaseCombatWeapon * ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::MyCombatWeaponPointer )
-            , bp::return_value_policy< bp::return_by_value >() )    
-        .def( 
             "NotifyShouldTransmit"
             , (void ( ::C_BaseCombatWeapon::* )( ::ShouldTransmitState_t ) )( &::C_BaseCombatWeapon::NotifyShouldTransmit )
             , ( bp::arg("state") ) )    
@@ -1120,7 +1205,8 @@ void register_C_BaseCombatWeapon_class(){
             , ( bp::arg("pNewOwner") ) )    
         .def( 
             "OnRestore"
-            , (void ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::OnRestore ) )    
+            , (void ( ::C_BaseCombatWeapon::* )(  ) )(&::C_BaseCombatWeapon::OnRestore)
+            , (void ( C_BaseCombatWeapon_wrapper::* )(  ) )(&C_BaseCombatWeapon_wrapper::default_OnRestore) )    
         .def( 
             "OverrideMouseInput"
             , (void ( ::C_BaseCombatWeapon::* )( float *,float * ) )( &::C_BaseCombatWeapon::OverrideMouseInput )
@@ -1312,6 +1398,24 @@ void register_C_BaseCombatWeapon_class(){
         .def( 
             "WeaponState"
             , (int ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::WeaponState ) )    
+        .def_readwrite( "altfiresunderwater", &C_BaseCombatWeapon::m_bAltFiresUnderwater )    
+        .def_readwrite( "fireonempty", &C_BaseCombatWeapon::m_bFireOnEmpty )    
+        .def_readwrite( "firesunderwater", &C_BaseCombatWeapon::m_bFiresUnderwater )    
+        .def_readwrite( "inreload", &C_BaseCombatWeapon::m_bInReload )    
+        .def_readwrite( "reloadssingly", &C_BaseCombatWeapon::m_bReloadsSingly )    
+        .def_readwrite( "fireduration", &C_BaseCombatWeapon::m_fFireDuration )    
+        .def_readwrite( "maxrange1", &C_BaseCombatWeapon::m_fMaxRange1 )    
+        .def_readwrite( "maxrange2", &C_BaseCombatWeapon::m_fMaxRange2 )    
+        .def_readwrite( "minrange1", &C_BaseCombatWeapon::m_fMinRange1 )    
+        .def_readwrite( "minrange2", &C_BaseCombatWeapon::m_fMinRange2 )    
+        .def_readwrite( "nextemptysoundtime", &C_BaseCombatWeapon::m_flNextEmptySoundTime )    
+        .def_readwrite( "unlocktime", &C_BaseCombatWeapon::m_flUnlockTime )    
+        .def_readwrite( "locker", &C_BaseCombatWeapon::m_hLocker )    
+        .def_readwrite( "subtype", &C_BaseCombatWeapon::m_iSubType )    
+        .def_readwrite( "viewmodelindex", &C_BaseCombatWeapon::m_iViewModelIndex )    
+        .def_readwrite( "worldmodelindex", &C_BaseCombatWeapon::m_iWorldModelIndex )    
+        .def_readwrite( "name", &C_BaseCombatWeapon::m_iszName )    
+        .def_readwrite( "viewmodelindex", &C_BaseCombatWeapon::m_nViewModelIndex )    
         .def( 
             "ClientThink"
             , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::ClientThink)
@@ -1359,6 +1463,11 @@ void register_C_BaseCombatWeapon_class(){
             , (bool ( C_BaseCombatWeapon_wrapper::* )( char const *,::Vector const & ) )(&C_BaseCombatWeapon_wrapper::default_KeyValue)
             , ( bp::arg("szKeyName"), bp::arg("vecValue") ) )    
         .def( 
+            "ReceiveMessage"
+            , (void ( ::C_BaseEntity::* )( ::boost::python::list ) )(&::C_BaseEntity::PyReceiveMessage)
+            , (void ( C_BaseCombatWeapon_wrapper::* )( ::boost::python::list ) )(&C_BaseCombatWeapon_wrapper::default_ReceiveMessage)
+            , ( bp::arg("msg") ) )    
+        .def( 
             "Simulate"
             , (void ( ::C_BaseAnimating::* )(  ) )(&::C_BaseAnimating::Simulate)
             , (void ( C_BaseCombatWeapon_wrapper::* )(  ) )(&C_BaseCombatWeapon_wrapper::default_Simulate) )    
@@ -1371,7 +1480,17 @@ void register_C_BaseCombatWeapon_class(){
             "UpdateOnRemove"
             , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::UpdateOnRemove)
             , (void ( C_BaseCombatWeapon_wrapper::* )(  ) )(&C_BaseCombatWeapon_wrapper::default_UpdateOnRemove) )    
-        .staticmethod( "GetPyNetworkType" );
+        .staticmethod( "GetPyNetworkType" )    
+        .add_property( "lifestate", &C_BaseCombatWeapon_wrapper::m_lifeState_Get, &C_BaseCombatWeapon_wrapper::m_lifeState_Set )    
+        .add_property( "takedamage", &C_BaseCombatWeapon_wrapper::m_takedamage_Get, &C_BaseCombatWeapon_wrapper::m_takedamage_Set )    
+        .add_property( "nextprimaryattack", &C_BaseCombatWeapon_wrapper::m_flNextPrimaryAttack_Get, &C_BaseCombatWeapon_wrapper::m_flNextPrimaryAttack_Set )    
+        .add_property( "nextsecondaryattack", &C_BaseCombatWeapon_wrapper::m_flNextSecondaryAttack_Get, &C_BaseCombatWeapon_wrapper::m_flNextSecondaryAttack_Set )    
+        .add_property( "timeweaponidle", &C_BaseCombatWeapon_wrapper::m_flTimeWeaponIdle_Get, &C_BaseCombatWeapon_wrapper::m_flTimeWeaponIdle_Set )    
+        .add_property( "state", &C_BaseCombatWeapon_wrapper::m_iState_Get, &C_BaseCombatWeapon_wrapper::m_iState_Set )    
+        .add_property( "primaryammotype", &C_BaseCombatWeapon_wrapper::m_iPrimaryAmmoType_Get, &C_BaseCombatWeapon_wrapper::m_iPrimaryAmmoType_Set )    
+        .add_property( "secondaryammotype", &C_BaseCombatWeapon_wrapper::m_iSecondaryAmmoType_Get, &C_BaseCombatWeapon_wrapper::m_iSecondaryAmmoType_Set )    
+        .add_property( "clip1", &C_BaseCombatWeapon_wrapper::m_iClip1_Get, &C_BaseCombatWeapon_wrapper::m_iClip1_Set )    
+        .add_property( "clip2", &C_BaseCombatWeapon_wrapper::m_iClip2_Get, &C_BaseCombatWeapon_wrapper::m_iClip2_Set );
 
 }
 

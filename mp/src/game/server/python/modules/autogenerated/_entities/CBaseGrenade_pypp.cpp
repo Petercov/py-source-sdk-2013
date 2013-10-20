@@ -18,6 +18,9 @@
 #include "saverestore.h"
 #include "vcollide_parse.h"
 #include "iservervehicle.h"
+#include "gib.h"
+#include "filters.h"
+#include "player_resource.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -213,6 +216,36 @@ struct CBaseGrenade_wrapper : CBaseGrenade, bp::wrapper< CBaseGrenade > {
     
     bool default_CreateVPhysics(  ) {
         return CBaseEntity::CreateVPhysics( );
+    }
+
+    virtual void DeathNotice( ::CBaseEntity * pVictim ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "DeathNotice: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling DeathNotice( boost::python::ptr(pVictim) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_DeathNotice = this->get_override( "DeathNotice" );
+        if( func_DeathNotice.ptr() != Py_None )
+            try {
+                func_DeathNotice( boost::python::ptr(pVictim) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+            }
+        else
+            this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+    }
+    
+    void default_DeathNotice( ::CBaseEntity * pVictim ) {
+        CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
     }
 
     virtual void DoImpactEffect( ::trace_t & tr, int nDamageType ) {
@@ -483,6 +516,66 @@ struct CBaseGrenade_wrapper : CBaseGrenade, bp::wrapper< CBaseGrenade > {
     
     void default_MakeTracer( ::Vector const & vecTracerSrc, ::trace_t const & tr, int iTracerType ) {
         CBaseEntity::MakeTracer( boost::ref(vecTracerSrc), boost::ref(tr), iTracerType );
+    }
+
+    virtual void ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ModifyOrAppendCriteria: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ModifyOrAppendCriteria( boost::ref(set) ) of Class: CBaseAnimating\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ModifyOrAppendCriteria = this->get_override( "ModifyOrAppendCriteria" );
+        if( func_ModifyOrAppendCriteria.ptr() != Py_None )
+            try {
+                func_ModifyOrAppendCriteria( boost::ref(set) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+            }
+        else
+            this->CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+    
+    void default_ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+
+    virtual void OnRestore(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnRestore(  ) of Class: CBaseAnimating\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnRestore = this->get_override( "OnRestore" );
+        if( func_OnRestore.ptr() != Py_None )
+            try {
+                func_OnRestore(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseAnimating::OnRestore(  );
+            }
+        else
+            this->CBaseAnimating::OnRestore(  );
+    }
+    
+    void default_OnRestore(  ) {
+        CBaseAnimating::OnRestore( );
     }
 
     virtual int OnTakeDamage( ::CTakeDamageInfo const & info ) {
@@ -806,6 +899,14 @@ struct CBaseGrenade_wrapper : CBaseGrenade, bp::wrapper< CBaseGrenade > {
         return CBaseGrenade::GetServerClass();
     }
 
+    int m_lifeState_Get() { return m_lifeState.Get(); }
+
+    void m_lifeState_Set( int val ) { m_lifeState.Set( val ); }
+
+    int m_takedamage_Get() { return m_takedamage.Get(); }
+
+    void m_takedamage_Set( int val ) { m_takedamage.Set( val ); }
+
 };
 
 void register_CBaseGrenade_class(){
@@ -928,6 +1029,11 @@ void register_CBaseGrenade_class(){
             , (bool ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::CreateVPhysics)
             , (bool ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_CreateVPhysics) )    
         .def( 
+            "DeathNotice"
+            , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::DeathNotice)
+            , (void ( CBaseGrenade_wrapper::* )( ::CBaseEntity * ) )(&CBaseGrenade_wrapper::default_DeathNotice)
+            , ( bp::arg("pVictim") ) )    
+        .def( 
             "DoImpactEffect"
             , (void ( ::CBaseEntity::* )( ::trace_t &,int ) )(&::CBaseEntity::DoImpactEffect)
             , (void ( CBaseGrenade_wrapper::* )( ::trace_t &,int ) )(&CBaseGrenade_wrapper::default_DoImpactEffect)
@@ -969,6 +1075,15 @@ void register_CBaseGrenade_class(){
             , (void ( ::CBaseEntity::* )( ::Vector const &,::trace_t const &,int ) )(&::CBaseEntity::MakeTracer)
             , (void ( CBaseGrenade_wrapper::* )( ::Vector const &,::trace_t const &,int ) )(&CBaseGrenade_wrapper::default_MakeTracer)
             , ( bp::arg("vecTracerSrc"), bp::arg("tr"), bp::arg("iTracerType") ) )    
+        .def( 
+            "ModifyOrAppendCriteria"
+            , (void ( ::CBaseAnimating::* )( ::AI_CriteriaSet & ) )(&::CBaseAnimating::ModifyOrAppendCriteria)
+            , (void ( CBaseGrenade_wrapper::* )( ::AI_CriteriaSet & ) )(&CBaseGrenade_wrapper::default_ModifyOrAppendCriteria)
+            , ( bp::arg("set") ) )    
+        .def( 
+            "OnRestore"
+            , (void ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::OnRestore)
+            , (void ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_OnRestore) )    
         .def( 
             "OnTakeDamage"
             , (int ( ::CBaseEntity::* )( ::CTakeDamageInfo const & ) )(&::CBaseEntity::OnTakeDamage)
@@ -1014,7 +1129,9 @@ void register_CBaseGrenade_class(){
             , (void ( ::CBaseEntity::* )( int,::gamevcollisionevent_t * ) )(&::CBaseEntity::VPhysicsCollision)
             , (void ( CBaseGrenade_wrapper::* )( int,::gamevcollisionevent_t * ) )(&CBaseGrenade_wrapper::default_VPhysicsCollision)
             , ( bp::arg("index"), bp::arg("pEvent") ) )    
-        .staticmethod( "GetPyNetworkType" );
+        .staticmethod( "GetPyNetworkType" )    
+        .add_property( "lifestate", &CBaseGrenade_wrapper::m_lifeState_Get, &CBaseGrenade_wrapper::m_lifeState_Set )    
+        .add_property( "takedamage", &CBaseGrenade_wrapper::m_takedamage_Get, &CBaseGrenade_wrapper::m_takedamage_Set );
 
 }
 

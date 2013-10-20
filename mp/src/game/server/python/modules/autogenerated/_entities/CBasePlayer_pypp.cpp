@@ -18,6 +18,9 @@
 #include "saverestore.h"
 #include "vcollide_parse.h"
 #include "iservervehicle.h"
+#include "gib.h"
+#include "filters.h"
+#include "player_resource.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -213,6 +216,36 @@ struct CBasePlayer_wrapper : CBasePlayer, bp::wrapper< CBasePlayer > {
     
     void default_MakeTracer( ::Vector const & vecTracerSrc, ::trace_t const & tr, int iTracerType ) {
         CBasePlayer::MakeTracer( boost::ref(vecTracerSrc), boost::ref(tr), iTracerType );
+    }
+
+    virtual void OnRestore(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnRestore(  ) of Class: CBasePlayer\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnRestore = this->get_override( "OnRestore" );
+        if( func_OnRestore.ptr() != Py_None )
+            try {
+                func_OnRestore(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBasePlayer::OnRestore(  );
+            }
+        else
+            this->CBasePlayer::OnRestore(  );
+    }
+    
+    void default_OnRestore(  ) {
+        CBasePlayer::OnRestore( );
     }
 
     virtual int OnTakeDamage( ::CTakeDamageInfo const & info ) {
@@ -575,6 +608,36 @@ struct CBasePlayer_wrapper : CBasePlayer, bp::wrapper< CBasePlayer > {
         return CBaseEntity::CreateVPhysics( );
     }
 
+    virtual void DeathNotice( ::CBaseEntity * pVictim ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "DeathNotice: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling DeathNotice( boost::python::ptr(pVictim) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_DeathNotice = this->get_override( "DeathNotice" );
+        if( func_DeathNotice.ptr() != Py_None )
+            try {
+                func_DeathNotice( boost::python::ptr(pVictim) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+            }
+        else
+            this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+    }
+    
+    void default_DeathNotice( ::CBaseEntity * pVictim ) {
+        CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+    }
+
     virtual int DrawDebugTextOverlays(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -753,6 +816,36 @@ struct CBasePlayer_wrapper : CBasePlayer, bp::wrapper< CBasePlayer > {
     
     bool default_KeyValue( char const * szKeyName, ::Vector const & vecValue ) {
         return CBaseEntity::KeyValue( szKeyName, boost::ref(vecValue) );
+    }
+
+    virtual void ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ModifyOrAppendCriteria: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ModifyOrAppendCriteria( boost::ref(set) ) of Class: CBaseAnimating\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ModifyOrAppendCriteria = this->get_override( "ModifyOrAppendCriteria" );
+        if( func_ModifyOrAppendCriteria.ptr() != Py_None )
+            try {
+                func_ModifyOrAppendCriteria( boost::ref(set) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+            }
+        else
+            this->CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+    
+    void default_ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
     }
 
     virtual bool PassesDamageFilter( ::CTakeDamageInfo const & info ) {
@@ -956,6 +1049,14 @@ struct CBasePlayer_wrapper : CBasePlayer, bp::wrapper< CBasePlayer > {
         return CBasePlayer::GetServerClass();
     }
 
+    int m_lifeState_Get() { return m_lifeState.Get(); }
+
+    void m_lifeState_Set( int val ) { m_lifeState.Set( val ); }
+
+    int m_takedamage_Get() { return m_takedamage.Get(); }
+
+    void m_takedamage_Set( int val ) { m_takedamage.Set( val ); }
+
 };
 
 void register_CBasePlayer_class(){
@@ -1006,10 +1107,6 @@ void register_CBasePlayer_class(){
             , (::QAngle ( ::CBasePlayer::* )( ::Vector &,::autoaim_params_t & ) )( &::CBasePlayer::AutoaimDeflection )
             , ( bp::arg("vecSrc"), bp::arg("params") ) )    
         .def( 
-            "AvoidPhysicsProps"
-            , (void ( ::CBasePlayer::* )( ::CUserCmd * ) )( &::CBasePlayer::AvoidPhysicsProps )
-            , ( bp::arg("pCmd") ) )    
-        .def( 
             "BodyAngles"
             , (::QAngle ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::BodyAngles ) )    
         .def( 
@@ -1038,10 +1135,6 @@ void register_CBasePlayer_class(){
         .def( 
             "CanBreatheUnderwater"
             , (bool ( ::CBasePlayer::* )(  ) const)( &::CBasePlayer::CanBreatheUnderwater ) )    
-        .def( 
-            "CanEnterVehicle"
-            , (bool ( ::CBasePlayer::* )( ::IServerVehicle *,int ) )( &::CBasePlayer::CanEnterVehicle )
-            , ( bp::arg("pVehicle"), bp::arg("nRole") ) )    
         .def( 
             "CanHearAndReadChatFrom"
             , (bool ( ::CBasePlayer::* )( ::CBasePlayer * ) )( &::CBasePlayer::CanHearAndReadChatFrom )
@@ -1112,11 +1205,6 @@ void register_CBasePlayer_class(){
         .def( 
             "CreateCorpse"
             , (void ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::CreateCorpse ) )    
-        .def( 
-            "CreatePlayer"
-            , (::CBasePlayer * (*)( char const *,::edict_t * ))( &::CBasePlayer::CreatePlayer )
-            , ( bp::arg("className"), bp::arg("ed") )
-            , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "CreateRagdollEntity"
             , (void ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::CreateRagdollEntity ) )    
@@ -1339,10 +1427,6 @@ void register_CBasePlayer_class(){
         .def( 
             "GetImpulse"
             , (int ( ::CBasePlayer::* )(  ) const)( &::CBasePlayer::GetImpulse ) )    
-        .def( 
-            "GetInVehicle"
-            , (bool ( ::CBasePlayer::* )( ::IServerVehicle *,int ) )( &::CBasePlayer::GetInVehicle )
-            , ( bp::arg("pVehicle"), bp::arg("nRole") ) )    
         .def( 
             "GetLaggedMovementValue"
             , (float ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::GetLaggedMovementValue ) )    
@@ -1650,10 +1734,6 @@ void register_CBasePlayer_class(){
             , (bool ( ::CBasePlayer::* )( ::CBaseEntity *,unsigned int ) )( &::CBasePlayer::IsUseableEntity )
             , ( bp::arg("pEntity"), bp::arg("requiredCaps") ) )    
         .def( 
-            "IsUserCmdDataValid"
-            , (bool ( ::CBasePlayer::* )( ::CUserCmd * ) )( &::CBasePlayer::IsUserCmdDataValid )
-            , ( bp::arg("pCmd") ) )    
-        .def( 
             "IsValidObserverTarget"
             , (bool ( ::CBasePlayer::* )( ::CBaseEntity * ) )( &::CBasePlayer::IsValidObserverTarget )
             , ( bp::arg("target") ) )    
@@ -1734,7 +1814,8 @@ void register_CBasePlayer_class(){
             , ( bp::arg("weapon") ) )    
         .def( 
             "OnRestore"
-            , (void ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::OnRestore ) )    
+            , (void ( ::CBasePlayer::* )(  ) )(&::CBasePlayer::OnRestore)
+            , (void ( CBasePlayer_wrapper::* )(  ) )(&CBasePlayer_wrapper::default_OnRestore) )    
         .def( 
             "OnTakeDamage"
             , (int ( ::CBasePlayer::* )( ::CTakeDamageInfo const & ) )(&::CBasePlayer::OnTakeDamage)
@@ -1783,10 +1864,6 @@ void register_CBasePlayer_class(){
             "PlayerDrownTime"
             , (float ( ::CBasePlayer::* )(  ) const)( &::CBasePlayer::PlayerDrownTime ) )    
         .def( 
-            "PlayerRunCommand"
-            , (void ( ::CBasePlayer::* )( ::CUserCmd *,::IMoveHelper * ) )( &::CBasePlayer::PlayerRunCommand )
-            , ( bp::arg("ucmd"), bp::arg("moveHelper") ) )    
-        .def( 
             "PlayerSolidMask"
             , (unsigned int ( ::CBasePlayer::* )( bool ) const)( &::CBasePlayer::PlayerSolidMask )
             , ( bp::arg("brushOnly")=(bool)(false) ) )    
@@ -1806,10 +1883,6 @@ void register_CBasePlayer_class(){
             "Precache"
             , (void ( ::CBasePlayer::* )(  ) )(&::CBasePlayer::Precache)
             , (void ( CBasePlayer_wrapper::* )(  ) )(&CBasePlayer_wrapper::default_Precache) )    
-        .def( 
-            "ProcessUsercmds"
-            , (void ( ::CBasePlayer::* )( ::CUserCmd *,int,int,int,bool ) )( &::CBasePlayer::ProcessUsercmds )
-            , ( bp::arg("cmds"), bp::arg("numcmds"), bp::arg("totalcmds"), bp::arg("dropped_packets"), bp::arg("paused") ) )    
         .def( 
             "RefreshCollisionBounds"
             , (void ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::RefreshCollisionBounds ) )    
@@ -2204,10 +2277,6 @@ void register_CBasePlayer_class(){
             , (void ( ::CBasePlayer::* )( float ) )( &::CBasePlayer::ViewPunchReset )
             , ( bp::arg("tolerance")=0 ) )    
         .def( 
-            "WantsLagCompensationOnEntity"
-            , (bool ( ::CBasePlayer::* )( ::CBasePlayer const *,::CUserCmd const *,::CBitVec< 2048 > const * ) const)( &::CBasePlayer::WantsLagCompensationOnEntity )
-            , ( bp::arg("pPlayer"), bp::arg("pCmd"), bp::arg("pEntityTransmitBits") ) )    
-        .def( 
             "WaterMove"
             , (void ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::WaterMove ) )    
         .def( 
@@ -2273,6 +2342,11 @@ void register_CBasePlayer_class(){
             , (bool ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::CreateVPhysics)
             , (bool ( CBasePlayer_wrapper::* )(  ) )(&CBasePlayer_wrapper::default_CreateVPhysics) )    
         .def( 
+            "DeathNotice"
+            , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::DeathNotice)
+            , (void ( CBasePlayer_wrapper::* )( ::CBaseEntity * ) )(&CBasePlayer_wrapper::default_DeathNotice)
+            , ( bp::arg("pVictim") ) )    
+        .def( 
             "DrawDebugTextOverlays"
             , (int ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::DrawDebugTextOverlays)
             , (int ( CBasePlayer_wrapper::* )(  ) )(&CBasePlayer_wrapper::default_DrawDebugTextOverlays) )    
@@ -2302,6 +2376,11 @@ void register_CBasePlayer_class(){
             , (bool ( CBasePlayer_wrapper::* )( char const *,::Vector const & ) )(&CBasePlayer_wrapper::default_KeyValue)
             , ( bp::arg("szKeyName"), bp::arg("vecValue") ) )    
         .def( 
+            "ModifyOrAppendCriteria"
+            , (void ( ::CBaseAnimating::* )( ::AI_CriteriaSet & ) )(&::CBaseAnimating::ModifyOrAppendCriteria)
+            , (void ( CBasePlayer_wrapper::* )( ::AI_CriteriaSet & ) )(&CBasePlayer_wrapper::default_ModifyOrAppendCriteria)
+            , ( bp::arg("set") ) )    
+        .def( 
             "PassesDamageFilter"
             , (bool ( ::CBaseEntity::* )( ::CTakeDamageInfo const & ) )(&::CBaseEntity::PassesDamageFilter)
             , (bool ( CBasePlayer_wrapper::* )( ::CTakeDamageInfo const & ) )(&CBasePlayer_wrapper::default_PassesDamageFilter)
@@ -2330,10 +2409,11 @@ void register_CBasePlayer_class(){
             , (void ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::StopLoopingSounds)
             , (void ( CBasePlayer_wrapper::* )(  ) )(&CBasePlayer_wrapper::default_StopLoopingSounds) )    
         .staticmethod( "CanPickupObject" )    
-        .staticmethod( "CreatePlayer" )    
         .staticmethod( "GetOffset_m_Local" )    
         .staticmethod( "GetOffset_pl" )    
-        .staticmethod( "GetPyNetworkType" );
+        .staticmethod( "GetPyNetworkType" )    
+        .add_property( "lifestate", &CBasePlayer_wrapper::m_lifeState_Get, &CBasePlayer_wrapper::m_lifeState_Set )    
+        .add_property( "takedamage", &CBasePlayer_wrapper::m_takedamage_Get, &CBasePlayer_wrapper::m_takedamage_Set );
 
 }
 

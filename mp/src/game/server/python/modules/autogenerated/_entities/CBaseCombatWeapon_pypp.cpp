@@ -18,6 +18,9 @@
 #include "saverestore.h"
 #include "vcollide_parse.h"
 #include "iservervehicle.h"
+#include "gib.h"
+#include "filters.h"
+#include "player_resource.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -335,6 +338,36 @@ struct CBaseCombatWeapon_wrapper : CBaseCombatWeapon, bp::wrapper< CBaseCombatWe
         return CBaseEntity::CreateVPhysics( );
     }
 
+    virtual void DeathNotice( ::CBaseEntity * pVictim ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "DeathNotice: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling DeathNotice( boost::python::ptr(pVictim) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_DeathNotice = this->get_override( "DeathNotice" );
+        if( func_DeathNotice.ptr() != Py_None )
+            try {
+                func_DeathNotice( boost::python::ptr(pVictim) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+            }
+        else
+            this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+    }
+    
+    void default_DeathNotice( ::CBaseEntity * pVictim ) {
+        CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+    }
+
     virtual void DoImpactEffect( ::trace_t & tr, int nDamageType ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -605,6 +638,66 @@ struct CBaseCombatWeapon_wrapper : CBaseCombatWeapon, bp::wrapper< CBaseCombatWe
         return CBaseEntity::KeyValue( szKeyName, boost::ref(vecValue) );
     }
 
+    virtual void ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ModifyOrAppendCriteria: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ModifyOrAppendCriteria( boost::ref(set) ) of Class: CBaseAnimating\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ModifyOrAppendCriteria = this->get_override( "ModifyOrAppendCriteria" );
+        if( func_ModifyOrAppendCriteria.ptr() != Py_None )
+            try {
+                func_ModifyOrAppendCriteria( boost::ref(set) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+            }
+        else
+            this->CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+    
+    void default_ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+
+    virtual void OnRestore(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnRestore(  ) of Class: CBaseAnimating\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnRestore = this->get_override( "OnRestore" );
+        if( func_OnRestore.ptr() != Py_None )
+            try {
+                func_OnRestore(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseAnimating::OnRestore(  );
+            }
+        else
+            this->CBaseAnimating::OnRestore(  );
+    }
+    
+    void default_OnRestore(  ) {
+        CBaseAnimating::OnRestore( );
+    }
+
     virtual int OnTakeDamage( ::CTakeDamageInfo const & info ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -866,6 +959,46 @@ struct CBaseCombatWeapon_wrapper : CBaseCombatWeapon, bp::wrapper< CBaseCombatWe
         return CBaseCombatWeapon::GetServerClass();
     }
 
+    int m_lifeState_Get() { return m_lifeState.Get(); }
+
+    void m_lifeState_Set( int val ) { m_lifeState.Set( val ); }
+
+    int m_takedamage_Get() { return m_takedamage.Get(); }
+
+    void m_takedamage_Set( int val ) { m_takedamage.Set( val ); }
+
+    float m_flNextPrimaryAttack_Get() { return m_flNextPrimaryAttack.Get(); }
+
+    void m_flNextPrimaryAttack_Set( float val ) { m_flNextPrimaryAttack.Set( val ); }
+
+    float m_flNextSecondaryAttack_Get() { return m_flNextSecondaryAttack.Get(); }
+
+    void m_flNextSecondaryAttack_Set( float val ) { m_flNextSecondaryAttack.Set( val ); }
+
+    float m_flTimeWeaponIdle_Get() { return m_flTimeWeaponIdle.Get(); }
+
+    void m_flTimeWeaponIdle_Set( float val ) { m_flTimeWeaponIdle.Set( val ); }
+
+    int m_iState_Get() { return m_iState.Get(); }
+
+    void m_iState_Set( int val ) { m_iState.Set( val ); }
+
+    int m_iPrimaryAmmoType_Get() { return m_iPrimaryAmmoType.Get(); }
+
+    void m_iPrimaryAmmoType_Set( int val ) { m_iPrimaryAmmoType.Set( val ); }
+
+    int m_iSecondaryAmmoType_Get() { return m_iSecondaryAmmoType.Get(); }
+
+    void m_iSecondaryAmmoType_Set( int val ) { m_iSecondaryAmmoType.Set( val ); }
+
+    int m_iClip1_Get() { return m_iClip1.Get(); }
+
+    void m_iClip1_Set( int val ) { m_iClip1.Set( val ); }
+
+    int m_iClip2_Get() { return m_iClip2.Get(); }
+
+    void m_iClip2_Set( int val ) { m_iClip2.Set( val ); }
+
 };
 
 void register_CBaseCombatWeapon_class(){
@@ -1012,14 +1145,6 @@ void register_CBaseCombatWeapon_class(){
         .def( 
             "GetBulletType"
             , (int ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::GetBulletType ) )    
-        .def( 
-            "GetControlPanelClassName"
-            , (void ( ::CBaseCombatWeapon::* )( int,char const * & ) )( &::CBaseCombatWeapon::GetControlPanelClassName )
-            , ( bp::arg("nPanelIndex"), bp::arg("pPanelName") ) )    
-        .def( 
-            "GetControlPanelInfo"
-            , (void ( ::CBaseCombatWeapon::* )( int,char const * & ) )( &::CBaseCombatWeapon::GetControlPanelInfo )
-            , ( bp::arg("nPanelIndex"), bp::arg("pPanelName") ) )    
         .def( 
             "GetDamage"
             , (float ( ::CBaseCombatWeapon::* )( float,int ) )( &::CBaseCombatWeapon::GetDamage )
@@ -1261,10 +1386,6 @@ void register_CBaseCombatWeapon_class(){
             "Materialize"
             , (void ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::Materialize ) )    
         .def( 
-            "MyCombatWeaponPointer"
-            , (::CBaseCombatWeapon * ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::MyCombatWeaponPointer )
-            , bp::return_value_policy< bp::return_by_value >() )    
-        .def( 
             "ObjectCaps"
             , (int ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::ObjectCaps ) )    
         .def( 
@@ -1471,6 +1592,24 @@ void register_CBaseCombatWeapon_class(){
         .def( 
             "WeaponState"
             , (int ( ::CBaseCombatWeapon::* )(  ) const)( &::CBaseCombatWeapon::WeaponState ) )    
+        .def_readwrite( "altfiresunderwater", &CBaseCombatWeapon::m_bAltFiresUnderwater )    
+        .def_readwrite( "fireonempty", &CBaseCombatWeapon::m_bFireOnEmpty )    
+        .def_readwrite( "firesunderwater", &CBaseCombatWeapon::m_bFiresUnderwater )    
+        .def_readwrite( "inreload", &CBaseCombatWeapon::m_bInReload )    
+        .def_readwrite( "reloadssingly", &CBaseCombatWeapon::m_bReloadsSingly )    
+        .def_readwrite( "fireduration", &CBaseCombatWeapon::m_fFireDuration )    
+        .def_readwrite( "maxrange1", &CBaseCombatWeapon::m_fMaxRange1 )    
+        .def_readwrite( "maxrange2", &CBaseCombatWeapon::m_fMaxRange2 )    
+        .def_readwrite( "minrange1", &CBaseCombatWeapon::m_fMinRange1 )    
+        .def_readwrite( "minrange2", &CBaseCombatWeapon::m_fMinRange2 )    
+        .def_readwrite( "nextemptysoundtime", &CBaseCombatWeapon::m_flNextEmptySoundTime )    
+        .def_readwrite( "unlocktime", &CBaseCombatWeapon::m_flUnlockTime )    
+        .def_readwrite( "locker", &CBaseCombatWeapon::m_hLocker )    
+        .def_readwrite( "subtype", &CBaseCombatWeapon::m_iSubType )    
+        .def_readwrite( "viewmodelindex", &CBaseCombatWeapon::m_iViewModelIndex )    
+        .def_readwrite( "worldmodelindex", &CBaseCombatWeapon::m_iWorldModelIndex )    
+        .def_readwrite( "name", &CBaseCombatWeapon::m_iszName )    
+        .def_readwrite( "viewmodelindex", &CBaseCombatWeapon::m_nViewModelIndex )    
         .def( 
             "CanBecomeRagdoll"
             , (bool ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::CanBecomeRagdoll)
@@ -1484,6 +1623,11 @@ void register_CBaseCombatWeapon_class(){
             "CreateVPhysics"
             , (bool ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::CreateVPhysics)
             , (bool ( CBaseCombatWeapon_wrapper::* )(  ) )(&CBaseCombatWeapon_wrapper::default_CreateVPhysics) )    
+        .def( 
+            "DeathNotice"
+            , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::DeathNotice)
+            , (void ( CBaseCombatWeapon_wrapper::* )( ::CBaseEntity * ) )(&CBaseCombatWeapon_wrapper::default_DeathNotice)
+            , ( bp::arg("pVictim") ) )    
         .def( 
             "DoImpactEffect"
             , (void ( ::CBaseEntity::* )( ::trace_t &,int ) )(&::CBaseEntity::DoImpactEffect)
@@ -1527,6 +1671,15 @@ void register_CBaseCombatWeapon_class(){
             , (bool ( CBaseCombatWeapon_wrapper::* )( char const *,::Vector const & ) )(&CBaseCombatWeapon_wrapper::default_KeyValue)
             , ( bp::arg("szKeyName"), bp::arg("vecValue") ) )    
         .def( 
+            "ModifyOrAppendCriteria"
+            , (void ( ::CBaseAnimating::* )( ::AI_CriteriaSet & ) )(&::CBaseAnimating::ModifyOrAppendCriteria)
+            , (void ( CBaseCombatWeapon_wrapper::* )( ::AI_CriteriaSet & ) )(&CBaseCombatWeapon_wrapper::default_ModifyOrAppendCriteria)
+            , ( bp::arg("set") ) )    
+        .def( 
+            "OnRestore"
+            , (void ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::OnRestore)
+            , (void ( CBaseCombatWeapon_wrapper::* )(  ) )(&CBaseCombatWeapon_wrapper::default_OnRestore) )    
+        .def( 
             "OnTakeDamage"
             , (int ( ::CBaseEntity::* )( ::CTakeDamageInfo const & ) )(&::CBaseEntity::OnTakeDamage)
             , (int ( CBaseCombatWeapon_wrapper::* )( ::CTakeDamageInfo const & ) )(&CBaseCombatWeapon_wrapper::default_OnTakeDamage)
@@ -1564,7 +1717,17 @@ void register_CBaseCombatWeapon_class(){
             , (void ( CBaseCombatWeapon_wrapper::* )( int,::gamevcollisionevent_t * ) )(&CBaseCombatWeapon_wrapper::default_VPhysicsCollision)
             , ( bp::arg("index"), bp::arg("pEvent") ) )    
         .staticmethod( "GetAvailableWeaponsInBox" )    
-        .staticmethod( "GetPyNetworkType" );
+        .staticmethod( "GetPyNetworkType" )    
+        .add_property( "lifestate", &CBaseCombatWeapon_wrapper::m_lifeState_Get, &CBaseCombatWeapon_wrapper::m_lifeState_Set )    
+        .add_property( "takedamage", &CBaseCombatWeapon_wrapper::m_takedamage_Get, &CBaseCombatWeapon_wrapper::m_takedamage_Set )    
+        .add_property( "nextprimaryattack", &CBaseCombatWeapon_wrapper::m_flNextPrimaryAttack_Get, &CBaseCombatWeapon_wrapper::m_flNextPrimaryAttack_Set )    
+        .add_property( "nextsecondaryattack", &CBaseCombatWeapon_wrapper::m_flNextSecondaryAttack_Get, &CBaseCombatWeapon_wrapper::m_flNextSecondaryAttack_Set )    
+        .add_property( "timeweaponidle", &CBaseCombatWeapon_wrapper::m_flTimeWeaponIdle_Get, &CBaseCombatWeapon_wrapper::m_flTimeWeaponIdle_Set )    
+        .add_property( "state", &CBaseCombatWeapon_wrapper::m_iState_Get, &CBaseCombatWeapon_wrapper::m_iState_Set )    
+        .add_property( "primaryammotype", &CBaseCombatWeapon_wrapper::m_iPrimaryAmmoType_Get, &CBaseCombatWeapon_wrapper::m_iPrimaryAmmoType_Set )    
+        .add_property( "secondaryammotype", &CBaseCombatWeapon_wrapper::m_iSecondaryAmmoType_Get, &CBaseCombatWeapon_wrapper::m_iSecondaryAmmoType_Set )    
+        .add_property( "clip1", &CBaseCombatWeapon_wrapper::m_iClip1_Get, &CBaseCombatWeapon_wrapper::m_iClip1_Set )    
+        .add_property( "clip2", &CBaseCombatWeapon_wrapper::m_iClip2_Get, &CBaseCombatWeapon_wrapper::m_iClip2_Set );
 
 }
 

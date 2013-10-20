@@ -16,6 +16,7 @@
 #include "iclientvehicle.h"
 #include "steam/steamclientpublic.h"
 #include "view_shared.h"
+#include "c_playerresource.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -453,6 +454,66 @@ struct C_BaseGrenade_wrapper : C_BaseGrenade, bp::wrapper< C_BaseGrenade > {
         C_BaseAnimating::OnDataChanged( updateType );
     }
 
+    virtual void OnRestore(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnRestore(  ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnRestore = this->get_override( "OnRestore" );
+        if( func_OnRestore.ptr() != Py_None )
+            try {
+                func_OnRestore(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::OnRestore(  );
+            }
+        else
+            this->C_BaseEntity::OnRestore(  );
+    }
+    
+    void default_OnRestore(  ) {
+        C_BaseEntity::OnRestore( );
+    }
+
+    virtual void PyReceiveMessage( ::boost::python::list msg ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ReceiveMessage: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling PyReceiveMessage( msg ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ReceiveMessage = this->get_override( "ReceiveMessage" );
+        if( func_ReceiveMessage.ptr() != Py_None )
+            try {
+                func_ReceiveMessage( msg );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::PyReceiveMessage( msg );
+            }
+        else
+            this->C_BaseEntity::PyReceiveMessage( msg );
+    }
+    
+    void default_ReceiveMessage( ::boost::python::list msg ) {
+        C_BaseEntity::PyReceiveMessage( msg );
+    }
+
     virtual bool ShouldDraw(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -616,6 +677,14 @@ struct C_BaseGrenade_wrapper : C_BaseGrenade, bp::wrapper< C_BaseGrenade > {
         return C_BaseGrenade::GetClientClass();
     }
 
+    int m_lifeState_Get() { return m_lifeState; }
+
+    void m_lifeState_Set( int val ) { m_lifeState = val; }
+
+    int m_takedamage_Get() { return m_takedamage; }
+
+    void m_takedamage_Set( int val ) { m_takedamage = val; }
+
 };
 
 void register_C_BaseGrenade_class(){
@@ -773,6 +842,15 @@ void register_C_BaseGrenade_class(){
             , (void ( C_BaseGrenade_wrapper::* )( ::DataUpdateType_t ) )(&C_BaseGrenade_wrapper::default_OnDataChanged)
             , ( bp::arg("updateType") ) )    
         .def( 
+            "OnRestore"
+            , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::OnRestore)
+            , (void ( C_BaseGrenade_wrapper::* )(  ) )(&C_BaseGrenade_wrapper::default_OnRestore) )    
+        .def( 
+            "ReceiveMessage"
+            , (void ( ::C_BaseEntity::* )( ::boost::python::list ) )(&::C_BaseEntity::PyReceiveMessage)
+            , (void ( C_BaseGrenade_wrapper::* )( ::boost::python::list ) )(&C_BaseGrenade_wrapper::default_ReceiveMessage)
+            , ( bp::arg("msg") ) )    
+        .def( 
             "ShouldDraw"
             , (bool ( ::C_BaseAnimating::* )(  ) )(&::C_BaseAnimating::ShouldDraw)
             , (bool ( C_BaseGrenade_wrapper::* )(  ) )(&C_BaseGrenade_wrapper::default_ShouldDraw) )    
@@ -793,7 +871,9 @@ void register_C_BaseGrenade_class(){
             "UpdateOnRemove"
             , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::UpdateOnRemove)
             , (void ( C_BaseGrenade_wrapper::* )(  ) )(&C_BaseGrenade_wrapper::default_UpdateOnRemove) )    
-        .staticmethod( "GetPyNetworkType" );
+        .staticmethod( "GetPyNetworkType" )    
+        .add_property( "lifestate", &C_BaseGrenade_wrapper::m_lifeState_Get, &C_BaseGrenade_wrapper::m_lifeState_Set )    
+        .add_property( "takedamage", &C_BaseGrenade_wrapper::m_takedamage_Get, &C_BaseGrenade_wrapper::m_takedamage_Set );
 
 }
 

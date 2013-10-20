@@ -26,6 +26,14 @@ public:
 	DECLARE_CLIENTCLASS();
 	DECLARE_PREDICTABLE();
 
+// =======================================
+// PySource Additions
+// =======================================
+	DECLARE_PYCLIENTCLASS( C_PlayerResource, PN_PLAYERRESOURCE );
+// =======================================
+// END PySource Additions
+// =======================================
+
 					C_PlayerResource();
 	virtual			~C_PlayerResource();
 

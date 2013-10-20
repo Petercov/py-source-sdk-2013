@@ -1858,6 +1858,9 @@ public:
 	void							SetPyTouch( boost::python::object touch_method );
 	void							PyTouch( ::CBaseEntity *pOther );
 
+	// Allows sending messages in Python on this entity
+	void							PySendMessage( boost::python::list msg, bool reliable = false );
+
 private:
 	bool m_bPyDestroyed;
 	boost::python::object m_pyInstance;

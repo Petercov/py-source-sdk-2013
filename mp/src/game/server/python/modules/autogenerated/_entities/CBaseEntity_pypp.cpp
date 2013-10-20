@@ -18,6 +18,9 @@
 #include "saverestore.h"
 #include "vcollide_parse.h"
 #include "iservervehicle.h"
+#include "gib.h"
+#include "filters.h"
+#include "player_resource.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -123,6 +126,36 @@ struct CBaseEntity_wrapper : CBaseEntity, bp::wrapper< CBaseEntity > {
     
     bool default_CreateVPhysics(  ) {
         return CBaseEntity::CreateVPhysics( );
+    }
+
+    virtual void DeathNotice( ::CBaseEntity * pVictim ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "DeathNotice: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling DeathNotice( boost::python::ptr(pVictim) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_DeathNotice = this->get_override( "DeathNotice" );
+        if( func_DeathNotice.ptr() != Py_None )
+            try {
+                func_DeathNotice( boost::python::ptr(pVictim) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+            }
+        else
+            this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+    }
+    
+    void default_DeathNotice( ::CBaseEntity * pVictim ) {
+        CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
     }
 
     virtual void DoImpactEffect( ::trace_t & tr, int nDamageType ) {
@@ -423,6 +456,66 @@ struct CBaseEntity_wrapper : CBaseEntity, bp::wrapper< CBaseEntity > {
     
     void default_MakeTracer( ::Vector const & vecTracerSrc, ::trace_t const & tr, int iTracerType ) {
         CBaseEntity::MakeTracer( boost::ref(vecTracerSrc), boost::ref(tr), iTracerType );
+    }
+
+    virtual void ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ModifyOrAppendCriteria: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ModifyOrAppendCriteria( boost::ref(set) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ModifyOrAppendCriteria = this->get_override( "ModifyOrAppendCriteria" );
+        if( func_ModifyOrAppendCriteria.ptr() != Py_None )
+            try {
+                func_ModifyOrAppendCriteria( boost::ref(set) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::ModifyOrAppendCriteria( boost::ref(set) );
+            }
+        else
+            this->CBaseEntity::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+    
+    void default_ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        CBaseEntity::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+
+    virtual void OnRestore(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnRestore(  ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnRestore = this->get_override( "OnRestore" );
+        if( func_OnRestore.ptr() != Py_None )
+            try {
+                func_OnRestore(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::OnRestore(  );
+            }
+        else
+            this->CBaseEntity::OnRestore(  );
+    }
+    
+    void default_OnRestore(  ) {
+        CBaseEntity::OnRestore( );
     }
 
     virtual int OnTakeDamage( ::CTakeDamageInfo const & info ) {
@@ -776,6 +869,14 @@ struct CBaseEntity_wrapper : CBaseEntity, bp::wrapper< CBaseEntity > {
         return CBaseEntity::GetServerClass();
     }
 
+    int m_lifeState_Get() { return m_lifeState.Get(); }
+
+    void m_lifeState_Set( int val ) { m_lifeState.Set( val ); }
+
+    int m_takedamage_Get() { return m_takedamage.Get(); }
+
+    void m_takedamage_Set( int val ) { m_takedamage.Set( val ); }
+
 };
 
 void register_CBaseEntity_class(){
@@ -1042,16 +1143,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("pSurface") ) );
         
         }
-        { //::CBaseEntity::CanStandOn
-        
-            typedef bool ( ::CBaseEntity::*CanStandOn_function_type )( ::edict_t * ) const;
-            
-            CBaseEntity_exposer.def( 
-                "CanStandOn"
-                , CanStandOn_function_type( &::CBaseEntity::CanStandOn )
-                , ( bp::arg("ent") ) );
-        
-        }
         { //::CBaseEntity::ChangeTeam
         
             typedef void ( ::CBaseEntity::*ChangeTeam_function_type )( int ) ;
@@ -1263,10 +1354,12 @@ void register_CBaseEntity_class(){
         { //::CBaseEntity::DeathNotice
         
             typedef void ( ::CBaseEntity::*DeathNotice_function_type )( ::CBaseEntity * ) ;
+            typedef void ( CBaseEntity_wrapper::*default_DeathNotice_function_type )( ::CBaseEntity * ) ;
             
             CBaseEntity_exposer.def( 
                 "DeathNotice"
-                , DeathNotice_function_type( &::CBaseEntity::DeathNotice )
+                , DeathNotice_function_type(&::CBaseEntity::DeathNotice)
+                , default_DeathNotice_function_type(&CBaseEntity_wrapper::default_DeathNotice)
                 , ( bp::arg("pVictim") ) );
         
         }
@@ -1852,15 +1945,6 @@ void register_CBaseEntity_class(){
                 , bp::return_value_policy< bp::copy_const_reference >() );
         
         }
-        { //::CBaseEntity::GetAnimTime
-        
-            typedef float ( ::CBaseEntity::*GetAnimTime_function_type )(  ) const;
-            
-            CBaseEntity_exposer.def( 
-                "GetAnimTime"
-                , GetAnimTime_function_type( &::CBaseEntity::GetAnimTime ) );
-        
-        }
         { //::CBaseEntity::GetAttackDamageScale
         
             typedef float ( ::CBaseEntity::*GetAttackDamageScale_function_type )( ::CBaseEntity * ) ;
@@ -1889,26 +1973,6 @@ void register_CBaseEntity_class(){
                 , GetAutoAimRadius_function_type( &::CBaseEntity::GetAutoAimRadius ) );
         
         }
-        { //::CBaseEntity::GetBaseAnimating
-        
-            typedef ::CBaseAnimating * ( ::CBaseEntity::*GetBaseAnimating_function_type )(  ) ;
-            
-            CBaseEntity_exposer.def( 
-                "GetBaseAnimating"
-                , GetBaseAnimating_function_type( &::CBaseEntity::GetBaseAnimating )
-                , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
-        { //::CBaseEntity::GetBaseEntity
-        
-            typedef ::CBaseEntity * ( ::CBaseEntity::*GetBaseEntity_function_type )(  ) ;
-            
-            CBaseEntity_exposer.def( 
-                "GetBaseEntity"
-                , GetBaseEntity_function_type( &::CBaseEntity::GetBaseEntity )
-                , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
         { //::CBaseEntity::GetBaseVelocity
         
             typedef ::Vector const & ( ::CBaseEntity::*GetBaseVelocity_function_type )(  ) const;
@@ -1917,6 +1981,16 @@ void register_CBaseEntity_class(){
                 "GetBaseVelocity"
                 , GetBaseVelocity_function_type( &::CBaseEntity::GetBaseVelocity )
                 , bp::return_value_policy< bp::copy_const_reference >() );
+        
+        }
+        { //::CBaseEntity::GetBeamTraceFilter
+        
+            typedef ::ITraceFilter * ( ::CBaseEntity::*GetBeamTraceFilter_function_type )(  ) ;
+            
+            CBaseEntity_exposer.def( 
+                "GetBeamTraceFilter"
+                , GetBeamTraceFilter_function_type( &::CBaseEntity::GetBeamTraceFilter )
+                , bp::return_value_policy< bp::return_by_value >() );
         
         }
         { //::CBaseEntity::GetCheckUntouch
@@ -1944,15 +2018,6 @@ void register_CBaseEntity_class(){
             CBaseEntity_exposer.def( 
                 "GetCollisionGroup"
                 , GetCollisionGroup_function_type( &::CBaseEntity::GetCollisionGroup ) );
-        
-        }
-        { //::CBaseEntity::GetDLLType
-        
-            typedef char const * ( *GetDLLType_function_type )(  );
-            
-            CBaseEntity_exposer.def( 
-                "GetDLLType"
-                , GetDLLType_function_type( &::CBaseEntity::GetDLLType ) );
         
         }
         { //::CBaseEntity::GetDamage
@@ -2152,15 +2217,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("vecGroundVel") ) );
         
         }
-        { //::CBaseEntity::GetHealth
-        
-            typedef int ( ::CBaseEntity::*GetHealth_function_type )(  ) const;
-            
-            CBaseEntity_exposer.def( 
-                "GetHealth"
-                , GetHealth_function_type( &::CBaseEntity::GetHealth ) );
-        
-        }
         { //::CBaseEntity::GetInputDispatchEffectPosition
         
             typedef void ( ::CBaseEntity::*GetInputDispatchEffectPosition_function_type )( char const *,::Vector &,::QAngle & ) ;
@@ -2248,15 +2304,6 @@ void register_CBaseEntity_class(){
                 "GetLocalVelocity"
                 , GetLocalVelocity_function_type( &::CBaseEntity::GetLocalVelocity )
                 , bp::return_value_policy< bp::copy_const_reference >() );
-        
-        }
-        { //::CBaseEntity::GetMaxHealth
-        
-            typedef int ( ::CBaseEntity::*GetMaxHealth_function_type )(  ) const;
-            
-            CBaseEntity_exposer.def( 
-                "GetMaxHealth"
-                , GetMaxHealth_function_type( &::CBaseEntity::GetMaxHealth ) );
         
         }
         { //::CBaseEntity::GetModelIndex
@@ -2425,11 +2472,11 @@ void register_CBaseEntity_class(){
         }
         { //::CBaseEntity::GetPyHandle
         
-            typedef ::boost::python::object ( ::CBaseEntity::*GetPyHandle_function_type )(  ) const;
+            typedef ::boost::python::object ( ::CBaseEntity::*GetHandle_function_type )(  ) const;
             
             CBaseEntity_exposer.def( 
-                "GetPyHandle"
-                , GetPyHandle_function_type( &::CBaseEntity::GetPyHandle ) );
+                "GetHandle"
+                , GetHandle_function_type( &::CBaseEntity::GetPyHandle ) );
         
         }
         { //::CBaseEntity::GetPyNetworkType
@@ -2505,15 +2552,6 @@ void register_CBaseEntity_class(){
                 "GetSimulatingPlayer"
                 , GetSimulatingPlayer_function_type( &::CBaseEntity::GetSimulatingPlayer )
                 , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
-        { //::CBaseEntity::GetSimulationTime
-        
-            typedef float ( ::CBaseEntity::*GetSimulationTime_function_type )(  ) const;
-            
-            CBaseEntity_exposer.def( 
-                "GetSimulationTime"
-                , GetSimulationTime_function_type( &::CBaseEntity::GetSimulationTime ) );
         
         }
         { //::CBaseEntity::GetSmoothedVelocity
@@ -3056,28 +3094,6 @@ void register_CBaseEntity_class(){
         }
         { //::CBaseEntity::Instance
         
-            typedef ::CBaseEntity * ( *Instance_function_type )( ::edict_t const * );
-            
-            CBaseEntity_exposer.def( 
-                "Instance"
-                , Instance_function_type( &::CBaseEntity::Instance )
-                , ( bp::arg("pent") )
-                , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
-        { //::CBaseEntity::Instance
-        
-            typedef ::CBaseEntity * ( *Instance_function_type )( ::edict_t * );
-            
-            CBaseEntity_exposer.def( 
-                "Instance"
-                , Instance_function_type( &::CBaseEntity::Instance )
-                , ( bp::arg("pent") )
-                , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
-        { //::CBaseEntity::Instance
-        
             typedef ::CBaseEntity * ( *Instance_function_type )( int );
             
             CBaseEntity_exposer.def( 
@@ -3167,15 +3183,6 @@ void register_CBaseEntity_class(){
             CBaseEntity_exposer.def( 
                 "IsBaseTrain"
                 , IsBaseTrain_function_type( &::CBaseEntity::IsBaseTrain ) );
-        
-        }
-        { //::CBaseEntity::IsClient
-        
-            typedef bool ( *IsClient_function_type )(  );
-            
-            CBaseEntity_exposer.def( 
-                "IsClient"
-                , IsClient_function_type( &::CBaseEntity::IsClient ) );
         
         }
         { //::CBaseEntity::IsCombatCharacter
@@ -3385,15 +3392,6 @@ void register_CBaseEntity_class(){
             CBaseEntity_exposer.def( 
                 "IsPrecacheAllowed"
                 , IsPrecacheAllowed_function_type( &::CBaseEntity::IsPrecacheAllowed ) );
-        
-        }
-        { //::CBaseEntity::IsServer
-        
-            typedef bool ( *IsServer_function_type )(  );
-            
-            CBaseEntity_exposer.def( 
-                "IsServer"
-                , IsServer_function_type( &::CBaseEntity::IsServer ) );
         
         }
         { //::CBaseEntity::IsSimulatedEveryTick
@@ -3617,10 +3615,12 @@ void register_CBaseEntity_class(){
         { //::CBaseEntity::ModifyOrAppendCriteria
         
             typedef void ( ::CBaseEntity::*ModifyOrAppendCriteria_function_type )( ::AI_CriteriaSet & ) ;
+            typedef void ( CBaseEntity_wrapper::*default_ModifyOrAppendCriteria_function_type )( ::AI_CriteriaSet & ) ;
             
             CBaseEntity_exposer.def( 
                 "ModifyOrAppendCriteria"
-                , ModifyOrAppendCriteria_function_type( &::CBaseEntity::ModifyOrAppendCriteria )
+                , ModifyOrAppendCriteria_function_type(&::CBaseEntity::ModifyOrAppendCriteria)
+                , default_ModifyOrAppendCriteria_function_type(&CBaseEntity_wrapper::default_ModifyOrAppendCriteria)
                 , ( bp::arg("set") ) );
         
         }
@@ -3631,26 +3631,6 @@ void register_CBaseEntity_class(){
             CBaseEntity_exposer.def( 
                 "MoveDone"
                 , MoveDone_function_type( &::CBaseEntity::MoveDone ) );
-        
-        }
-        { //::CBaseEntity::MyCombatCharacterPointer
-        
-            typedef ::CBaseCombatCharacter * ( ::CBaseEntity::*MyCombatCharacterPointer_function_type )(  ) ;
-            
-            CBaseEntity_exposer.def( 
-                "MyCombatCharacterPointer"
-                , MyCombatCharacterPointer_function_type( &::CBaseEntity::MyCombatCharacterPointer )
-                , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
-        { //::CBaseEntity::MyCombatWeaponPointer
-        
-            typedef ::CBaseCombatWeapon * ( ::CBaseEntity::*MyCombatWeaponPointer_function_type )(  ) ;
-            
-            CBaseEntity_exposer.def( 
-                "MyCombatWeaponPointer"
-                , MyCombatWeaponPointer_function_type( &::CBaseEntity::MyCombatWeaponPointer )
-                , bp::return_value_policy< bp::return_by_value >() );
         
         }
         { //::CBaseEntity::MyNPCPointer
@@ -3754,10 +3734,12 @@ void register_CBaseEntity_class(){
         { //::CBaseEntity::OnRestore
         
             typedef void ( ::CBaseEntity::*OnRestore_function_type )(  ) ;
+            typedef void ( CBaseEntity_wrapper::*default_OnRestore_function_type )(  ) ;
             
             CBaseEntity_exposer.def( 
                 "OnRestore"
-                , OnRestore_function_type( &::CBaseEntity::OnRestore ) );
+                , OnRestore_function_type(&::CBaseEntity::OnRestore)
+                , default_OnRestore_function_type(&CBaseEntity_wrapper::default_OnRestore) );
         
         }
         { //::CBaseEntity::OnSave
@@ -3901,16 +3883,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("nContextIndex"), bp::arg("thinkFunc") ) );
         
         }
-        { //::CBaseEntity::PhysicsRemoveGround
-        
-            typedef void ( *PhysicsRemoveGround_function_type )( ::CBaseEntity *,::groundlink_t * );
-            
-            CBaseEntity_exposer.def( 
-                "PhysicsRemoveGround"
-                , PhysicsRemoveGround_function_type( &::CBaseEntity::PhysicsRemoveGround )
-                , ( bp::arg("other"), bp::arg("link") ) );
-        
-        }
         { //::CBaseEntity::PhysicsRemoveGroundList
         
             typedef void ( *PhysicsRemoveGroundList_function_type )( ::CBaseEntity * );
@@ -3929,16 +3901,6 @@ void register_CBaseEntity_class(){
                 "PhysicsRemoveTouchedList"
                 , PhysicsRemoveTouchedList_function_type( &::CBaseEntity::PhysicsRemoveTouchedList )
                 , ( bp::arg("ent") ) );
-        
-        }
-        { //::CBaseEntity::PhysicsRemoveToucher
-        
-            typedef void ( *PhysicsRemoveToucher_function_type )( ::CBaseEntity *,::touchlink_t * );
-            
-            CBaseEntity_exposer.def( 
-                "PhysicsRemoveToucher"
-                , PhysicsRemoveToucher_function_type( &::CBaseEntity::PhysicsRemoveToucher )
-                , ( bp::arg("other"), bp::arg("link") ) );
         
         }
         { //::CBaseEntity::PhysicsSimulate
@@ -4090,6 +4052,16 @@ void register_CBaseEntity_class(){
                 "PrefetchSound"
                 , PrefetchSound_function_type( &::CBaseEntity::PrefetchSound )
                 , ( bp::arg("name") ) );
+        
+        }
+        { //::CBaseEntity::PySendMessage
+        
+            typedef void ( ::CBaseEntity::*SendMessage_function_type )( ::boost::python::list,bool ) ;
+            
+            CBaseEntity_exposer.def( 
+                "SendMessage"
+                , SendMessage_function_type( &::CBaseEntity::PySendMessage )
+                , ( bp::arg("msg"), bp::arg("reliable")=(bool)(false) ) );
         
         }
         { //::CBaseEntity::ReadKeyField
@@ -4408,16 +4380,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("allow") ) );
         
         }
-        { //::CBaseEntity::SetAnimTime
-        
-            typedef void ( ::CBaseEntity::*SetAnimTime_function_type )( float ) ;
-            
-            CBaseEntity_exposer.def( 
-                "SetAnimTime"
-                , SetAnimTime_function_type( &::CBaseEntity::SetAnimTime )
-                , ( bp::arg("at") ) );
-        
-        }
         { //::CBaseEntity::SetAnimatedEveryTick
         
             typedef void ( ::CBaseEntity::*SetAnimatedEveryTick_function_type )( bool ) ;
@@ -4587,16 +4549,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("ground") ) );
         
         }
-        { //::CBaseEntity::SetHealth
-        
-            typedef void ( ::CBaseEntity::*SetHealth_function_type )( int ) ;
-            
-            CBaseEntity_exposer.def( 
-                "SetHealth"
-                , SetHealth_function_type( &::CBaseEntity::SetHealth )
-                , ( bp::arg("amt") ) );
-        
-        }
         { //::CBaseEntity::SetLocalAngles
         
             typedef void ( ::CBaseEntity::*SetLocalAngles_function_type )( ::QAngle const & ) ;
@@ -4645,16 +4597,6 @@ void register_CBaseEntity_class(){
                 "SetLocalVelocity"
                 , SetLocalVelocity_function_type( &::CBaseEntity::SetLocalVelocity )
                 , ( bp::arg("vecVelocity") ) );
-        
-        }
-        { //::CBaseEntity::SetMaxHealth
-        
-            typedef void ( ::CBaseEntity::*SetMaxHealth_function_type )( int ) ;
-            
-            CBaseEntity_exposer.def( 
-                "SetMaxHealth"
-                , SetMaxHealth_function_type( &::CBaseEntity::SetMaxHealth )
-                , ( bp::arg("amt") ) );
         
         }
         { //::CBaseEntity::SetModel
@@ -4827,16 +4769,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("player") ) );
         
         }
-        { //::CBaseEntity::SetPredictionRandomSeed
-        
-            typedef void ( *SetPredictionRandomSeed_function_type )( ::CUserCmd const * );
-            
-            CBaseEntity_exposer.def( 
-                "SetPredictionRandomSeed"
-                , SetPredictionRandomSeed_function_type( &::CBaseEntity::SetPredictionRandomSeed )
-                , ( bp::arg("cmd") ) );
-        
-        }
         { //::CBaseEntity::SetPyThink
         
             typedef void ( ::CBaseEntity::*SetThink_function_type )( ::boost::python::object,float,char const * ) ;
@@ -4855,16 +4787,6 @@ void register_CBaseEntity_class(){
                 "SetTouch"
                 , SetTouch_function_type( &::CBaseEntity::SetPyTouch )
                 , ( bp::arg("touch_method") ) );
-        
-        }
-        { //::CBaseEntity::SetRefEHandle
-        
-            typedef void ( ::CBaseEntity::*SetRefEHandle_function_type )( ::CBaseHandle const & ) ;
-            
-            CBaseEntity_exposer.def( 
-                "SetRefEHandle"
-                , SetRefEHandle_function_type( &::CBaseEntity::SetRefEHandle )
-                , ( bp::arg("handle") ) );
         
         }
         { //::CBaseEntity::SetRenderColor
@@ -4975,16 +4897,6 @@ void register_CBaseEntity_class(){
                 "SetSimulatedEveryTick"
                 , SetSimulatedEveryTick_function_type( &::CBaseEntity::SetSimulatedEveryTick )
                 , ( bp::arg("sim") ) );
-        
-        }
-        { //::CBaseEntity::SetSimulationTime
-        
-            typedef void ( ::CBaseEntity::*SetSimulationTime_function_type )( float ) ;
-            
-            CBaseEntity_exposer.def( 
-                "SetSimulationTime"
-                , SetSimulationTime_function_type( &::CBaseEntity::SetSimulationTime )
-                , ( bp::arg("st") ) );
         
         }
         { //::CBaseEntity::SetSize
@@ -5277,26 +5189,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("newPosition"), bp::arg("newAngles"), bp::arg("newVelocity") ) );
         
         }
-        { //::CBaseEntity::TestCollision
-        
-            typedef bool ( ::CBaseEntity::*TestCollision_function_type )( ::Ray_t const &,unsigned int,::trace_t & ) ;
-            
-            CBaseEntity_exposer.def( 
-                "TestCollision"
-                , TestCollision_function_type( &::CBaseEntity::TestCollision )
-                , ( bp::arg("ray"), bp::arg("mask"), bp::arg("trace") ) );
-        
-        }
-        { //::CBaseEntity::TestHitboxes
-        
-            typedef bool ( ::CBaseEntity::*TestHitboxes_function_type )( ::Ray_t const &,unsigned int,::trace_t & ) ;
-            
-            CBaseEntity_exposer.def( 
-                "TestHitboxes"
-                , TestHitboxes_function_type( &::CBaseEntity::TestHitboxes )
-                , ( bp::arg("ray"), bp::arg("fContentsMask"), bp::arg("tr") ) );
-        
-        }
         { //::CBaseEntity::Think
         
             typedef void ( ::CBaseEntity::*Think_function_type )(  ) ;
@@ -5465,16 +5357,6 @@ void register_CBaseEntity_class(){
                 "VPhysicsGetObject"
                 , VPhysicsGetObject_function_type( &::CBaseEntity::VPhysicsGetObject )
                 , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
-        { //::CBaseEntity::VPhysicsGetObjectList
-        
-            typedef int ( ::CBaseEntity::*VPhysicsGetObjectList_function_type )( ::IPhysicsObject * *,int ) ;
-            
-            CBaseEntity_exposer.def( 
-                "VPhysicsGetObjectList"
-                , VPhysicsGetObjectList_function_type( &::CBaseEntity::VPhysicsGetObjectList )
-                , ( bp::arg("pList"), bp::arg("listMax") ) );
         
         }
         { //::CBaseEntity::VPhysicsInitNormal
@@ -5685,6 +5567,19 @@ void register_CBaseEntity_class(){
                 , entindex_function_type( &::CBaseEntity::entindex ) );
         
         }
+        CBaseEntity_exposer.def_readwrite( "allowprecache", CBaseEntity::m_bAllowPrecache );
+        CBaseEntity_exposer.def_readwrite( "indebugselect", CBaseEntity::m_bInDebugSelect );
+        CBaseEntity_exposer.def_readwrite( "debugoverlays", &CBaseEntity::m_debugOverlays );
+        CBaseEntity_exposer.def_readwrite( "prevanimtime", &CBaseEntity::m_flPrevAnimTime );
+        CBaseEntity_exposer.def_readwrite( "speed", &CBaseEntity::m_flSpeed );
+        CBaseEntity_exposer.def_readwrite( "classname", &CBaseEntity::m_iClassname );
+        CBaseEntity_exposer.def_readwrite( "globalname", &CBaseEntity::m_iGlobalname );
+        CBaseEntity_exposer.def_readwrite( "hammerid", &CBaseEntity::m_iHammerID );
+        CBaseEntity_exposer.def_readwrite( "parent", &CBaseEntity::m_iParent );
+        CBaseEntity_exposer.def_readwrite( "damagefiltername", &CBaseEntity::m_iszDamageFilterName );
+        CBaseEntity_exposer.def_readwrite( "debugplayer", CBaseEntity::m_nDebugPlayer );
+        CBaseEntity_exposer.def_readwrite( "lastthinktick", &CBaseEntity::m_nLastThinkTick );
+        CBaseEntity_exposer.def_readwrite( "target", &CBaseEntity::m_target );
         CBaseEntity_exposer.staticmethod( "Create" );
         CBaseEntity_exposer.staticmethod( "CreateNoSpawn" );
         CBaseEntity_exposer.staticmethod( "CreatePredictedEntityByName" );
@@ -5697,7 +5592,6 @@ void register_CBaseEntity_class(){
         CBaseEntity_exposer.staticmethod( "EmitCloseCaption" );
         CBaseEntity_exposer.staticmethod( "EmitSentenceByIndex" );
         CBaseEntity_exposer.staticmethod( "EmitSound" );
-        CBaseEntity_exposer.staticmethod( "GetDLLType" );
         CBaseEntity_exposer.staticmethod( "GetParametersForSound" );
         CBaseEntity_exposer.staticmethod( "GetPredictionPlayer" );
         CBaseEntity_exposer.staticmethod( "GetPredictionRandomSeed" );
@@ -5706,17 +5600,13 @@ void register_CBaseEntity_class(){
         CBaseEntity_exposer.staticmethod( "GetTouchTrace" );
         CBaseEntity_exposer.staticmethod( "Instance" );
         CBaseEntity_exposer.staticmethod( "IsAbsQueriesValid" );
-        CBaseEntity_exposer.staticmethod( "IsClient" );
         CBaseEntity_exposer.staticmethod( "IsPrecacheAllowed" );
-        CBaseEntity_exposer.staticmethod( "IsServer" );
         CBaseEntity_exposer.staticmethod( "IsSimulatingOnAlternateTicks" );
         CBaseEntity_exposer.staticmethod( "LookupSoundLevel" );
         CBaseEntity_exposer.staticmethod( "PhysicsNotifyOtherOfGroundRemoval" );
         CBaseEntity_exposer.staticmethod( "PhysicsNotifyOtherOfUntouch" );
-        CBaseEntity_exposer.staticmethod( "PhysicsRemoveGround" );
         CBaseEntity_exposer.staticmethod( "PhysicsRemoveGroundList" );
         CBaseEntity_exposer.staticmethod( "PhysicsRemoveTouchedList" );
-        CBaseEntity_exposer.staticmethod( "PhysicsRemoveToucher" );
         CBaseEntity_exposer.staticmethod( "PrecacheModel" );
         CBaseEntity_exposer.staticmethod( "PrecacheScriptSound" );
         CBaseEntity_exposer.staticmethod( "PrecacheSound" );
@@ -5726,8 +5616,64 @@ void register_CBaseEntity_class(){
         CBaseEntity_exposer.staticmethod( "SetAbsQueriesValid" );
         CBaseEntity_exposer.staticmethod( "SetAllowPrecache" );
         CBaseEntity_exposer.staticmethod( "SetPredictionPlayer" );
-        CBaseEntity_exposer.staticmethod( "SetPredictionRandomSeed" );
         CBaseEntity_exposer.staticmethod( "StopSound" );
+        { //property "health"[fget=::CBaseEntity::GetHealth, fset=::CBaseEntity::SetHealth]
+        
+            typedef int ( ::CBaseEntity::*fget )(  ) const;
+            typedef void ( ::CBaseEntity::*fset )( int ) ;
+            
+            CBaseEntity_exposer.add_property( 
+                "health"
+                , fget( &::CBaseEntity::GetHealth )
+                , fset( &::CBaseEntity::SetHealth ) );
+        
+        }
+        { //property "maxhealth"[fget=::CBaseEntity::GetMaxHealth, fset=::CBaseEntity::SetMaxHealth]
+        
+            typedef int ( ::CBaseEntity::*fget )(  ) const;
+            typedef void ( ::CBaseEntity::*fset )( int ) ;
+            
+            CBaseEntity_exposer.add_property( 
+                "maxhealth"
+                , fget( &::CBaseEntity::GetMaxHealth )
+                , fset( &::CBaseEntity::SetMaxHealth ) );
+        
+        }
+        { //property "animtime"[fget=::CBaseEntity::GetAnimTime, fset=::CBaseEntity::SetAnimTime]
+        
+            typedef float ( ::CBaseEntity::*fget )(  ) const;
+            typedef void ( ::CBaseEntity::*fset )( float ) ;
+            
+            CBaseEntity_exposer.add_property( 
+                "animtime"
+                , fget( &::CBaseEntity::GetAnimTime )
+                , fset( &::CBaseEntity::SetAnimTime ) );
+        
+        }
+        { //property "simulationtime"[fget=::CBaseEntity::GetSimulationTime, fset=::CBaseEntity::SetSimulationTime]
+        
+            typedef float ( ::CBaseEntity::*fget )(  ) const;
+            typedef void ( ::CBaseEntity::*fset )( float ) ;
+            
+            CBaseEntity_exposer.add_property( 
+                "simulationtime"
+                , fget( &::CBaseEntity::GetSimulationTime )
+                , fset( &::CBaseEntity::SetSimulationTime ) );
+        
+        }
+        { //property "rendermode"[fget=::CBaseEntity::GetRenderMode, fset=::CBaseEntity::SetRenderMode]
+        
+            typedef ::RenderMode_t ( ::CBaseEntity::*fget )(  ) const;
+            typedef void ( ::CBaseEntity::*fset )( ::RenderMode_t ) ;
+            
+            CBaseEntity_exposer.add_property( 
+                "rendermode"
+                , fget( &::CBaseEntity::GetRenderMode )
+                , fset( &::CBaseEntity::SetRenderMode ) );
+        
+        }
+        CBaseEntity_exposer.add_property( "lifestate", &CBaseEntity_wrapper::m_lifeState_Get, &CBaseEntity_wrapper::m_lifeState_Set );
+        CBaseEntity_exposer.add_property( "takedamage", &CBaseEntity_wrapper::m_takedamage_Get, &CBaseEntity_wrapper::m_takedamage_Set );
     }
 
 }

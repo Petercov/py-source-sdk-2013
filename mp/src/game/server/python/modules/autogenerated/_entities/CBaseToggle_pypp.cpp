@@ -18,6 +18,9 @@
 #include "saverestore.h"
 #include "vcollide_parse.h"
 #include "iservervehicle.h"
+#include "gib.h"
+#include "filters.h"
+#include "player_resource.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -213,6 +216,36 @@ struct CBaseToggle_wrapper : CBaseToggle, bp::wrapper< CBaseToggle > {
     
     bool default_CreateVPhysics(  ) {
         return CBaseEntity::CreateVPhysics( );
+    }
+
+    virtual void DeathNotice( ::CBaseEntity * pVictim ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "DeathNotice: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling DeathNotice( boost::python::ptr(pVictim) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_DeathNotice = this->get_override( "DeathNotice" );
+        if( func_DeathNotice.ptr() != Py_None )
+            try {
+                func_DeathNotice( boost::python::ptr(pVictim) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+            }
+        else
+            this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+    }
+    
+    void default_DeathNotice( ::CBaseEntity * pVictim ) {
+        CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
     }
 
     virtual void DoImpactEffect( ::trace_t & tr, int nDamageType ) {
@@ -453,6 +486,66 @@ struct CBaseToggle_wrapper : CBaseToggle, bp::wrapper< CBaseToggle > {
     
     void default_MakeTracer( ::Vector const & vecTracerSrc, ::trace_t const & tr, int iTracerType ) {
         CBaseEntity::MakeTracer( boost::ref(vecTracerSrc), boost::ref(tr), iTracerType );
+    }
+
+    virtual void ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ModifyOrAppendCriteria: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ModifyOrAppendCriteria( boost::ref(set) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ModifyOrAppendCriteria = this->get_override( "ModifyOrAppendCriteria" );
+        if( func_ModifyOrAppendCriteria.ptr() != Py_None )
+            try {
+                func_ModifyOrAppendCriteria( boost::ref(set) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::ModifyOrAppendCriteria( boost::ref(set) );
+            }
+        else
+            this->CBaseEntity::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+    
+    void default_ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        CBaseEntity::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+
+    virtual void OnRestore(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnRestore(  ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnRestore = this->get_override( "OnRestore" );
+        if( func_OnRestore.ptr() != Py_None )
+            try {
+                func_OnRestore(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::OnRestore(  );
+            }
+        else
+            this->CBaseEntity::OnRestore(  );
+    }
+    
+    void default_OnRestore(  ) {
+        CBaseEntity::OnRestore( );
     }
 
     virtual int OnTakeDamage( ::CTakeDamageInfo const & info ) {
@@ -787,6 +880,14 @@ struct CBaseToggle_wrapper : CBaseToggle, bp::wrapper< CBaseToggle > {
 
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
+    int m_lifeState_Get() { return m_lifeState.Get(); }
+
+    void m_lifeState_Set( int val ) { m_lifeState.Set( val ); }
+
+    int m_takedamage_Get() { return m_takedamage.Get(); }
+
+    void m_takedamage_Set( int val ) { m_takedamage.Set( val ); }
+
 };
 
 void register_CBaseToggle_class(){
@@ -855,6 +956,11 @@ void register_CBaseToggle_class(){
             , (bool ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::CreateVPhysics)
             , (bool ( CBaseToggle_wrapper::* )(  ) )(&CBaseToggle_wrapper::default_CreateVPhysics) )    
         .def( 
+            "DeathNotice"
+            , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::DeathNotice)
+            , (void ( CBaseToggle_wrapper::* )( ::CBaseEntity * ) )(&CBaseToggle_wrapper::default_DeathNotice)
+            , ( bp::arg("pVictim") ) )    
+        .def( 
             "DoImpactEffect"
             , (void ( ::CBaseEntity::* )( ::trace_t &,int ) )(&::CBaseEntity::DoImpactEffect)
             , (void ( CBaseToggle_wrapper::* )( ::trace_t &,int ) )(&CBaseToggle_wrapper::default_DoImpactEffect)
@@ -891,6 +997,15 @@ void register_CBaseToggle_class(){
             , (void ( ::CBaseEntity::* )( ::Vector const &,::trace_t const &,int ) )(&::CBaseEntity::MakeTracer)
             , (void ( CBaseToggle_wrapper::* )( ::Vector const &,::trace_t const &,int ) )(&CBaseToggle_wrapper::default_MakeTracer)
             , ( bp::arg("vecTracerSrc"), bp::arg("tr"), bp::arg("iTracerType") ) )    
+        .def( 
+            "ModifyOrAppendCriteria"
+            , (void ( ::CBaseEntity::* )( ::AI_CriteriaSet & ) )(&::CBaseEntity::ModifyOrAppendCriteria)
+            , (void ( CBaseToggle_wrapper::* )( ::AI_CriteriaSet & ) )(&CBaseToggle_wrapper::default_ModifyOrAppendCriteria)
+            , ( bp::arg("set") ) )    
+        .def( 
+            "OnRestore"
+            , (void ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::OnRestore)
+            , (void ( CBaseToggle_wrapper::* )(  ) )(&CBaseToggle_wrapper::default_OnRestore) )    
         .def( 
             "OnTakeDamage"
             , (int ( ::CBaseEntity::* )( ::CTakeDamageInfo const & ) )(&::CBaseEntity::OnTakeDamage)
@@ -941,7 +1056,9 @@ void register_CBaseToggle_class(){
             , (void ( CBaseToggle_wrapper::* )( int,::gamevcollisionevent_t * ) )(&CBaseToggle_wrapper::default_VPhysicsCollision)
             , ( bp::arg("index"), bp::arg("pEvent") ) )    
         .staticmethod( "AxisDelta" )    
-        .staticmethod( "AxisValue" );
+        .staticmethod( "AxisValue" )    
+        .add_property( "lifestate", &CBaseToggle_wrapper::m_lifeState_Get, &CBaseToggle_wrapper::m_lifeState_Set )    
+        .add_property( "takedamage", &CBaseToggle_wrapper::m_takedamage_Get, &CBaseToggle_wrapper::m_takedamage_Set );
 
 }
 

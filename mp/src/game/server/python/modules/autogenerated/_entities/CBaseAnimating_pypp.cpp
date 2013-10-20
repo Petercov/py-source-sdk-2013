@@ -20,6 +20,9 @@
 #include "saverestore.h"
 #include "vcollide_parse.h"
 #include "iservervehicle.h"
+#include "gib.h"
+#include "filters.h"
+#include "player_resource.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -132,6 +135,66 @@ struct CBaseAnimating_wrapper : CBaseAnimating, bp::wrapper< CBaseAnimating > {
         float maxValue2;
         bool result = inst.GetPoseParameterRange(index, minValue2, maxValue2);
         return bp::make_tuple( result, minValue2, maxValue2 );
+    }
+
+    virtual void ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ModifyOrAppendCriteria: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ModifyOrAppendCriteria( boost::ref(set) ) of Class: CBaseAnimating\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ModifyOrAppendCriteria = this->get_override( "ModifyOrAppendCriteria" );
+        if( func_ModifyOrAppendCriteria.ptr() != Py_None )
+            try {
+                func_ModifyOrAppendCriteria( boost::ref(set) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+            }
+        else
+            this->CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+    
+    void default_ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+
+    virtual void OnRestore(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnRestore(  ) of Class: CBaseAnimating\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnRestore = this->get_override( "OnRestore" );
+        if( func_OnRestore.ptr() != Py_None )
+            try {
+                func_OnRestore(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseAnimating::OnRestore(  );
+            }
+        else
+            this->CBaseAnimating::OnRestore(  );
+    }
+    
+    void default_OnRestore(  ) {
+        CBaseAnimating::OnRestore( );
     }
 
     virtual void Precache(  ) {
@@ -252,6 +315,36 @@ struct CBaseAnimating_wrapper : CBaseAnimating, bp::wrapper< CBaseAnimating > {
     
     bool default_CreateVPhysics(  ) {
         return CBaseEntity::CreateVPhysics( );
+    }
+
+    virtual void DeathNotice( ::CBaseEntity * pVictim ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "DeathNotice: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling DeathNotice( boost::python::ptr(pVictim) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_DeathNotice = this->get_override( "DeathNotice" );
+        if( func_DeathNotice.ptr() != Py_None )
+            try {
+                func_DeathNotice( boost::python::ptr(pVictim) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+            }
+        else
+            this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+    }
+    
+    void default_DeathNotice( ::CBaseEntity * pVictim ) {
+        CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
     }
 
     virtual void DoImpactEffect( ::trace_t & tr, int nDamageType ) {
@@ -815,6 +908,14 @@ struct CBaseAnimating_wrapper : CBaseAnimating, bp::wrapper< CBaseAnimating > {
         return CBaseAnimating::GetServerClass();
     }
 
+    int m_lifeState_Get() { return m_lifeState.Get(); }
+
+    void m_lifeState_Set( int val ) { m_lifeState.Set( val ); }
+
+    int m_takedamage_Get() { return m_takedamage.Get(); }
+
+    void m_takedamage_Set( int val ) { m_takedamage.Set( val ); }
+
 };
 
 void register_CBaseAnimating_class(){
@@ -1152,16 +1253,6 @@ void register_CBaseAnimating_class(){
                 "GetAttachmentLocal"
                 , GetAttachmentLocal_function_type( &::CBaseAnimating::GetAttachmentLocal )
                 , ( bp::arg("iAttachment"), bp::arg("attachmentToLocal") ) );
-        
-        }
-        { //::CBaseAnimating::GetBaseAnimating
-        
-            typedef ::CBaseAnimating * ( ::CBaseAnimating::*GetBaseAnimating_function_type )(  ) ;
-            
-            CBaseAnimating_exposer.def( 
-                "GetBaseAnimating"
-                , GetBaseAnimating_function_type( &::CBaseAnimating::GetBaseAnimating )
-                , bp::return_value_policy< bp::return_by_value >() );
         
         }
         { //::CBaseAnimating::GetBodygroup
@@ -2101,10 +2192,12 @@ void register_CBaseAnimating_class(){
         { //::CBaseAnimating::ModifyOrAppendCriteria
         
             typedef void ( ::CBaseAnimating::*ModifyOrAppendCriteria_function_type )( ::AI_CriteriaSet & ) ;
+            typedef void ( CBaseAnimating_wrapper::*default_ModifyOrAppendCriteria_function_type )( ::AI_CriteriaSet & ) ;
             
             CBaseAnimating_exposer.def( 
                 "ModifyOrAppendCriteria"
-                , ModifyOrAppendCriteria_function_type( &::CBaseAnimating::ModifyOrAppendCriteria )
+                , ModifyOrAppendCriteria_function_type(&::CBaseAnimating::ModifyOrAppendCriteria)
+                , default_ModifyOrAppendCriteria_function_type(&CBaseAnimating_wrapper::default_ModifyOrAppendCriteria)
                 , ( bp::arg("set") ) );
         
         }
@@ -2121,10 +2214,12 @@ void register_CBaseAnimating_class(){
         { //::CBaseAnimating::OnRestore
         
             typedef void ( ::CBaseAnimating::*OnRestore_function_type )(  ) ;
+            typedef void ( CBaseAnimating_wrapper::*default_OnRestore_function_type )(  ) ;
             
             CBaseAnimating_exposer.def( 
                 "OnRestore"
-                , OnRestore_function_type( &::CBaseAnimating::OnRestore ) );
+                , OnRestore_function_type(&::CBaseAnimating::OnRestore)
+                , default_OnRestore_function_type(&CBaseAnimating_wrapper::default_OnRestore) );
         
         }
         { //::CBaseAnimating::Precache
@@ -2589,26 +2684,6 @@ void register_CBaseAnimating_class(){
                 , ( bp::arg("newPosition"), bp::arg("newAngles"), bp::arg("newVelocity") ) );
         
         }
-        { //::CBaseAnimating::TestCollision
-        
-            typedef bool ( ::CBaseAnimating::*TestCollision_function_type )( ::Ray_t const &,unsigned int,::trace_t & ) ;
-            
-            CBaseAnimating_exposer.def( 
-                "TestCollision"
-                , TestCollision_function_type( &::CBaseAnimating::TestCollision )
-                , ( bp::arg("ray"), bp::arg("fContentsMask"), bp::arg("tr") ) );
-        
-        }
-        { //::CBaseAnimating::TestHitboxes
-        
-            typedef bool ( ::CBaseAnimating::*TestHitboxes_function_type )( ::Ray_t const &,unsigned int,::trace_t & ) ;
-            
-            CBaseAnimating_exposer.def( 
-                "TestHitboxes"
-                , TestHitboxes_function_type( &::CBaseAnimating::TestHitboxes )
-                , ( bp::arg("ray"), bp::arg("fContentsMask"), bp::arg("tr") ) );
-        
-        }
         { //::CBaseAnimating::TransferDissolveFrom
         
             typedef void ( ::CBaseAnimating::*TransferDissolveFrom_function_type )( ::CBaseAnimating * ) ;
@@ -2667,6 +2742,18 @@ void register_CBaseAnimating_class(){
                 "CreateVPhysics"
                 , CreateVPhysics_function_type(&::CBaseEntity::CreateVPhysics)
                 , default_CreateVPhysics_function_type(&CBaseAnimating_wrapper::default_CreateVPhysics) );
+        
+        }
+        { //::CBaseEntity::DeathNotice
+        
+            typedef void ( ::CBaseEntity::*DeathNotice_function_type )( ::CBaseEntity * ) ;
+            typedef void ( CBaseAnimating_wrapper::*default_DeathNotice_function_type )( ::CBaseEntity * ) ;
+            
+            CBaseAnimating_exposer.def( 
+                "DeathNotice"
+                , DeathNotice_function_type(&::CBaseEntity::DeathNotice)
+                , default_DeathNotice_function_type(&CBaseAnimating_wrapper::default_DeathNotice)
+                , ( bp::arg("pVictim") ) );
         
         }
         { //::CBaseEntity::DoImpactEffect
@@ -2880,6 +2967,8 @@ void register_CBaseAnimating_class(){
         
         }
         CBaseAnimating_exposer.staticmethod( "GetPyNetworkType" );
+        CBaseAnimating_exposer.add_property( "lifestate", &CBaseAnimating_wrapper::m_lifeState_Get, &CBaseAnimating_wrapper::m_lifeState_Set );
+        CBaseAnimating_exposer.add_property( "takedamage", &CBaseAnimating_wrapper::m_takedamage_Get, &CBaseAnimating_wrapper::m_takedamage_Set );
     }
 
 }

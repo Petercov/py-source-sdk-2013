@@ -18,6 +18,7 @@
 #include "iclientvehicle.h"
 #include "steam/steamclientpublic.h"
 #include "view_shared.h"
+#include "c_playerresource.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -433,6 +434,36 @@ struct C_BaseCombatCharacter_wrapper : C_BaseCombatCharacter, bp::wrapper< C_Bas
         C_BaseEntity::MakeTracer( boost::ref(vecTracerSrc), boost::ref(tr), iTracerType );
     }
 
+    virtual void OnRestore(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnRestore(  ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnRestore = this->get_override( "OnRestore" );
+        if( func_OnRestore.ptr() != Py_None )
+            try {
+                func_OnRestore(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::OnRestore(  );
+            }
+        else
+            this->C_BaseEntity::OnRestore(  );
+    }
+    
+    void default_OnRestore(  ) {
+        C_BaseEntity::OnRestore( );
+    }
+
     virtual void Precache(  ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -461,6 +492,36 @@ struct C_BaseCombatCharacter_wrapper : C_BaseCombatCharacter, bp::wrapper< C_Bas
     
     void default_Precache(  ) {
         C_BaseEntity::Precache( );
+    }
+
+    virtual void PyReceiveMessage( ::boost::python::list msg ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ReceiveMessage: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling PyReceiveMessage( msg ) of Class: C_BaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ReceiveMessage = this->get_override( "ReceiveMessage" );
+        if( func_ReceiveMessage.ptr() != Py_None )
+            try {
+                func_ReceiveMessage( msg );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseEntity::PyReceiveMessage( msg );
+            }
+        else
+            this->C_BaseEntity::PyReceiveMessage( msg );
+    }
+    
+    void default_ReceiveMessage( ::boost::python::list msg ) {
+        C_BaseEntity::PyReceiveMessage( msg );
     }
 
     virtual bool ShouldDraw(  ) {
@@ -625,6 +686,14 @@ struct C_BaseCombatCharacter_wrapper : C_BaseCombatCharacter, bp::wrapper< C_Bas
             return pClientClass;
         return C_BaseCombatCharacter::GetClientClass();
     }
+
+    int m_lifeState_Get() { return m_lifeState; }
+
+    void m_lifeState_Set( int val ) { m_lifeState = val; }
+
+    int m_takedamage_Get() { return m_takedamage; }
+
+    void m_takedamage_Set( int val ) { m_takedamage = val; }
 
 };
 
@@ -818,16 +887,6 @@ void register_C_BaseCombatCharacter_class(){
                 "IsLookingTowards"
                 , IsLookingTowards_function_type( &::C_BaseCombatCharacter::IsLookingTowards )
                 , ( bp::arg("target"), bp::arg("cosTolerance")=8.9999997615814208984375e-1f ) );
-        
-        }
-        { //::C_BaseCombatCharacter::MyCombatCharacterPointer
-        
-            typedef ::C_BaseCombatCharacter * ( ::C_BaseCombatCharacter::*MyCombatCharacterPointer_function_type )(  ) ;
-            
-            C_BaseCombatCharacter_exposer.def( 
-                "MyCombatCharacterPointer"
-                , MyCombatCharacterPointer_function_type( &::C_BaseCombatCharacter::MyCombatCharacterPointer )
-                , bp::return_value_policy< bp::return_by_value >() );
         
         }
         { //::C_BaseCombatCharacter::OnDataChanged
@@ -1100,6 +1159,17 @@ void register_C_BaseCombatCharacter_class(){
                 , ( bp::arg("vecTracerSrc"), bp::arg("tr"), bp::arg("iTracerType") ) );
         
         }
+        { //::C_BaseEntity::OnRestore
+        
+            typedef void ( ::C_BaseEntity::*OnRestore_function_type )(  ) ;
+            typedef void ( C_BaseCombatCharacter_wrapper::*default_OnRestore_function_type )(  ) ;
+            
+            C_BaseCombatCharacter_exposer.def( 
+                "OnRestore"
+                , OnRestore_function_type(&::C_BaseEntity::OnRestore)
+                , default_OnRestore_function_type(&C_BaseCombatCharacter_wrapper::default_OnRestore) );
+        
+        }
         { //::C_BaseEntity::Precache
         
             typedef void ( ::C_BaseEntity::*Precache_function_type )(  ) ;
@@ -1109,6 +1179,18 @@ void register_C_BaseCombatCharacter_class(){
                 "Precache"
                 , Precache_function_type(&::C_BaseEntity::Precache)
                 , default_Precache_function_type(&C_BaseCombatCharacter_wrapper::default_Precache) );
+        
+        }
+        { //::C_BaseEntity::PyReceiveMessage
+        
+            typedef void ( ::C_BaseEntity::*ReceiveMessage_function_type )( ::boost::python::list ) ;
+            typedef void ( C_BaseCombatCharacter_wrapper::*default_ReceiveMessage_function_type )( ::boost::python::list ) ;
+            
+            C_BaseCombatCharacter_exposer.def( 
+                "ReceiveMessage"
+                , ReceiveMessage_function_type(&::C_BaseEntity::PyReceiveMessage)
+                , default_ReceiveMessage_function_type(&C_BaseCombatCharacter_wrapper::default_ReceiveMessage)
+                , ( bp::arg("msg") ) );
         
         }
         { //::C_BaseAnimating::ShouldDraw
@@ -1168,6 +1250,8 @@ void register_C_BaseCombatCharacter_class(){
         
         }
         C_BaseCombatCharacter_exposer.staticmethod( "GetPyNetworkType" );
+        C_BaseCombatCharacter_exposer.add_property( "lifestate", &C_BaseCombatCharacter_wrapper::m_lifeState_Get, &C_BaseCombatCharacter_wrapper::m_lifeState_Set );
+        C_BaseCombatCharacter_exposer.add_property( "takedamage", &C_BaseCombatCharacter_wrapper::m_takedamage_Get, &C_BaseCombatCharacter_wrapper::m_takedamage_Set );
     }
 
 }

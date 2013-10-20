@@ -250,6 +250,14 @@ inline bool CBaseEntity::IsEffectActive( int nEffects ) const
 // Shared EntityMessage between game and client .dlls
 #define BASEENTITY_MSG_REMOVE_DECALS	1
 
+// =======================================
+// PySource Additions
+// =======================================
+#define BASEENTITY_MSG_PYTHON			2
+// =======================================
+// END PySource Additions
+// =======================================
+
 extern float k_flMaxEntityPosCoord;
 extern float k_flMaxEntityEulerAngle;
 extern float k_flMaxEntitySpeed;

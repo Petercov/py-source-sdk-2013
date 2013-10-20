@@ -32,12 +32,14 @@ enum PyNetworkTypes
 	PN_BASECOMBATCHARACTER,
 	PN_BASEPLAYER,
 	PN_BASEGRENADE,
+	PN_BASECOMBATWEAPON,
+	PN_PLAYERRESOURCE,
+	// ? PN_BASETOGGLE,
+	// ? PN_BASETRIGGER,
+
 	PN_SPRITE,
 	PN_SMOKETRAIL,
 	PN_BEAM,
-	PN_BASECOMBATWEAPON,
-	// ? PN_BASETOGGLE,
-	// ? PN_BASETRIGGER,
 };
 
 boost::python::object CreatePyHandleHelper( const CBaseEntity *pEnt, const char *handlename );

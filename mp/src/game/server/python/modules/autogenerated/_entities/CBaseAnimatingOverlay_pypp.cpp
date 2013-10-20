@@ -18,6 +18,9 @@
 #include "saverestore.h"
 #include "vcollide_parse.h"
 #include "iservervehicle.h"
+#include "gib.h"
+#include "filters.h"
+#include "player_resource.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -27,6 +30,36 @@
 namespace bp = boost::python;
 
 struct CBaseAnimatingOverlay_wrapper : CBaseAnimatingOverlay, bp::wrapper< CBaseAnimatingOverlay > {
+
+    virtual void OnRestore(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnRestore(  ) of Class: CBaseAnimatingOverlay\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnRestore = this->get_override( "OnRestore" );
+        if( func_OnRestore.ptr() != Py_None )
+            try {
+                func_OnRestore(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseAnimatingOverlay::OnRestore(  );
+            }
+        else
+            this->CBaseAnimatingOverlay::OnRestore(  );
+    }
+    
+    void default_OnRestore(  ) {
+        CBaseAnimatingOverlay::OnRestore( );
+    }
 
     virtual void Activate(  ) {
         #if defined(_WIN32)
@@ -146,6 +179,36 @@ struct CBaseAnimatingOverlay_wrapper : CBaseAnimatingOverlay, bp::wrapper< CBase
     
     bool default_CreateVPhysics(  ) {
         return CBaseEntity::CreateVPhysics( );
+    }
+
+    virtual void DeathNotice( ::CBaseEntity * pVictim ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "DeathNotice: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling DeathNotice( boost::python::ptr(pVictim) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_DeathNotice = this->get_override( "DeathNotice" );
+        if( func_DeathNotice.ptr() != Py_None )
+            try {
+                func_DeathNotice( boost::python::ptr(pVictim) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+            }
+        else
+            this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+    }
+    
+    void default_DeathNotice( ::CBaseEntity * pVictim ) {
+        CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
     }
 
     virtual void DoImpactEffect( ::trace_t & tr, int nDamageType ) {
@@ -446,6 +509,36 @@ struct CBaseAnimatingOverlay_wrapper : CBaseAnimatingOverlay, bp::wrapper< CBase
     
     void default_MakeTracer( ::Vector const & vecTracerSrc, ::trace_t const & tr, int iTracerType ) {
         CBaseEntity::MakeTracer( boost::ref(vecTracerSrc), boost::ref(tr), iTracerType );
+    }
+
+    virtual void ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ModifyOrAppendCriteria: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ModifyOrAppendCriteria( boost::ref(set) ) of Class: CBaseAnimating\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ModifyOrAppendCriteria = this->get_override( "ModifyOrAppendCriteria" );
+        if( func_ModifyOrAppendCriteria.ptr() != Py_None )
+            try {
+                func_ModifyOrAppendCriteria( boost::ref(set) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+            }
+        else
+            this->CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+    
+    void default_ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        CBaseAnimating::ModifyOrAppendCriteria( boost::ref(set) );
     }
 
     virtual int OnTakeDamage( ::CTakeDamageInfo const & info ) {
@@ -799,6 +892,14 @@ struct CBaseAnimatingOverlay_wrapper : CBaseAnimatingOverlay, bp::wrapper< CBase
         return CBaseAnimatingOverlay::GetServerClass();
     }
 
+    int m_lifeState_Get() { return m_lifeState.Get(); }
+
+    void m_lifeState_Set( int val ) { m_lifeState.Set( val ); }
+
+    int m_takedamage_Get() { return m_takedamage.Get(); }
+
+    void m_takedamage_Set( int val ) { m_takedamage.Set( val ); }
+
 };
 
 void register_CBaseAnimatingOverlay_class(){
@@ -998,10 +1099,12 @@ void register_CBaseAnimatingOverlay_class(){
         { //::CBaseAnimatingOverlay::OnRestore
         
             typedef void ( ::CBaseAnimatingOverlay::*OnRestore_function_type )(  ) ;
+            typedef void ( CBaseAnimatingOverlay_wrapper::*default_OnRestore_function_type )(  ) ;
             
             CBaseAnimatingOverlay_exposer.def( 
                 "OnRestore"
-                , OnRestore_function_type( &::CBaseAnimatingOverlay::OnRestore ) );
+                , OnRestore_function_type(&::CBaseAnimatingOverlay::OnRestore)
+                , default_OnRestore_function_type(&CBaseAnimatingOverlay_wrapper::default_OnRestore) );
         
         }
         { //::CBaseAnimatingOverlay::RemoveAllGestures
@@ -1226,6 +1329,18 @@ void register_CBaseAnimatingOverlay_class(){
                 , default_CreateVPhysics_function_type(&CBaseAnimatingOverlay_wrapper::default_CreateVPhysics) );
         
         }
+        { //::CBaseEntity::DeathNotice
+        
+            typedef void ( ::CBaseEntity::*DeathNotice_function_type )( ::CBaseEntity * ) ;
+            typedef void ( CBaseAnimatingOverlay_wrapper::*default_DeathNotice_function_type )( ::CBaseEntity * ) ;
+            
+            CBaseAnimatingOverlay_exposer.def( 
+                "DeathNotice"
+                , DeathNotice_function_type(&::CBaseEntity::DeathNotice)
+                , default_DeathNotice_function_type(&CBaseAnimatingOverlay_wrapper::default_DeathNotice)
+                , ( bp::arg("pVictim") ) );
+        
+        }
         { //::CBaseEntity::DoImpactEffect
         
             typedef void ( ::CBaseEntity::*DoImpactEffect_function_type )( ::trace_t &,int ) ;
@@ -1341,6 +1456,18 @@ void register_CBaseAnimatingOverlay_class(){
                 , MakeTracer_function_type(&::CBaseEntity::MakeTracer)
                 , default_MakeTracer_function_type(&CBaseAnimatingOverlay_wrapper::default_MakeTracer)
                 , ( bp::arg("vecTracerSrc"), bp::arg("tr"), bp::arg("iTracerType") ) );
+        
+        }
+        { //::CBaseAnimating::ModifyOrAppendCriteria
+        
+            typedef void ( ::CBaseAnimating::*ModifyOrAppendCriteria_function_type )( ::AI_CriteriaSet & ) ;
+            typedef void ( CBaseAnimatingOverlay_wrapper::*default_ModifyOrAppendCriteria_function_type )( ::AI_CriteriaSet & ) ;
+            
+            CBaseAnimatingOverlay_exposer.def( 
+                "ModifyOrAppendCriteria"
+                , ModifyOrAppendCriteria_function_type(&::CBaseAnimating::ModifyOrAppendCriteria)
+                , default_ModifyOrAppendCriteria_function_type(&CBaseAnimatingOverlay_wrapper::default_ModifyOrAppendCriteria)
+                , ( bp::arg("set") ) );
         
         }
         { //::CBaseEntity::OnTakeDamage
@@ -1470,6 +1597,8 @@ void register_CBaseAnimatingOverlay_class(){
         
         }
         CBaseAnimatingOverlay_exposer.staticmethod( "GetPyNetworkType" );
+        CBaseAnimatingOverlay_exposer.add_property( "lifestate", &CBaseAnimatingOverlay_wrapper::m_lifeState_Get, &CBaseAnimatingOverlay_wrapper::m_lifeState_Set );
+        CBaseAnimatingOverlay_exposer.add_property( "takedamage", &CBaseAnimatingOverlay_wrapper::m_takedamage_Get, &CBaseAnimatingOverlay_wrapper::m_takedamage_Set );
     }
 
 }

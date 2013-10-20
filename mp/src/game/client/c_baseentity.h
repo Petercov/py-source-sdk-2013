@@ -1729,6 +1729,10 @@ public:
 	// This functions destroys the entity
 	virtual void					DestroyPyInstance();
 
+	// For receiving messages on this entity
+	void							PyReceiveMessageInternal( int classID, bf_read &msg );
+	virtual void					PyReceiveMessage( boost::python::list msg ) {}
+
 	// Updates a Python network var after receiving
 	void							PyUpdateNetworkVar( const char *pName, boost::python::object data, bool callchanged = false );
 

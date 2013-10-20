@@ -73,6 +73,7 @@
 #ifdef ENABLE_PYTHON
 #include "srcpy.h"
 #include "srcpy_networkvar.h"
+#include "srcpy_usermessage.h"
 #endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
@@ -7538,6 +7539,53 @@ void CBaseEntity::DestroyPyInstance()
 	// This will result into heap corruption.
 	SrcPySystem()->AddToDeleteList( m_pyInstance );
 	m_pyInstance = boost::python::object();
+}
+
+
+//------------------------------------------------------------------------------
+// Purpose: Send Python Entity Message
+//------------------------------------------------------------------------------
+void CBaseEntity::PySendMessage( bp::list msg, bool reliable )
+{
+	// Skip parsing if none
+	if( msg.ptr() == Py_None )
+	{
+		// Shortcut
+		EntityMessageBegin( this, true );
+			WRITE_BYTE(BASEENTITY_MSG_PYTHON);
+			WRITE_BYTE(0);	// len(msg) == 0
+		MessageEnd();
+		return;
+	}
+
+	// Parse list
+	int length = 0;
+	CUtlVector<pywrite> writelist;
+	try 
+	{
+		length = boost::python::len(msg);
+		for( int i = 0; i < length; i++ )
+		{
+			pywrite write;
+			PyFillWriteElement( write, boost::python::object(msg[i]) );
+			writelist.AddToTail( write );
+		}
+	} 
+	catch( boost::python::error_already_set & ) 
+	{
+		PyErr_Print();
+		PyErr_Clear();
+		return;
+	}
+
+	EntityMessageBegin( this, reliable );
+		WRITE_BYTE(BASEENTITY_MSG_PYTHON);
+		WRITE_BYTE(length);
+		for(int i=0; i<writelist.Count(); i++)
+		{
+			PyWriteElement(writelist.Element(i));
+		}
+	MessageEnd();
 }
 #endif // ENABLE_PYTHON
 // =======================================

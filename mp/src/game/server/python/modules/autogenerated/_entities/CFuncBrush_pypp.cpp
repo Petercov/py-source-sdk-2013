@@ -18,6 +18,9 @@
 #include "saverestore.h"
 #include "vcollide_parse.h"
 #include "iservervehicle.h"
+#include "gib.h"
+#include "filters.h"
+#include "player_resource.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
@@ -183,6 +186,36 @@ struct CFuncBrush_wrapper : CFuncBrush, bp::wrapper< CFuncBrush > {
     
     void default_ComputeWorldSpaceSurroundingBox( ::Vector * pWorldMins, ::Vector * pWorldMaxs ) {
         CBaseEntity::ComputeWorldSpaceSurroundingBox( boost::python::ptr(pWorldMins), boost::python::ptr(pWorldMaxs) );
+    }
+
+    virtual void DeathNotice( ::CBaseEntity * pVictim ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "DeathNotice: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling DeathNotice( boost::python::ptr(pVictim) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_DeathNotice = this->get_override( "DeathNotice" );
+        if( func_DeathNotice.ptr() != Py_None )
+            try {
+                func_DeathNotice( boost::python::ptr(pVictim) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+            }
+        else
+            this->CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
+    }
+    
+    void default_DeathNotice( ::CBaseEntity * pVictim ) {
+        CBaseEntity::DeathNotice( boost::python::ptr(pVictim) );
     }
 
     virtual void DoImpactEffect( ::trace_t & tr, int nDamageType ) {
@@ -453,6 +486,66 @@ struct CFuncBrush_wrapper : CFuncBrush, bp::wrapper< CFuncBrush > {
     
     void default_MakeTracer( ::Vector const & vecTracerSrc, ::trace_t const & tr, int iTracerType ) {
         CBaseEntity::MakeTracer( boost::ref(vecTracerSrc), boost::ref(tr), iTracerType );
+    }
+
+    virtual void ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ModifyOrAppendCriteria: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ModifyOrAppendCriteria( boost::ref(set) ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ModifyOrAppendCriteria = this->get_override( "ModifyOrAppendCriteria" );
+        if( func_ModifyOrAppendCriteria.ptr() != Py_None )
+            try {
+                func_ModifyOrAppendCriteria( boost::ref(set) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::ModifyOrAppendCriteria( boost::ref(set) );
+            }
+        else
+            this->CBaseEntity::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+    
+    void default_ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
+        CBaseEntity::ModifyOrAppendCriteria( boost::ref(set) );
+    }
+
+    virtual void OnRestore(  ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling OnRestore(  ) of Class: CBaseEntity\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_OnRestore = this->get_override( "OnRestore" );
+        if( func_OnRestore.ptr() != Py_None )
+            try {
+                func_OnRestore(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::OnRestore(  );
+            }
+        else
+            this->CBaseEntity::OnRestore(  );
+    }
+    
+    void default_OnRestore(  ) {
+        CBaseEntity::OnRestore( );
     }
 
     virtual int OnTakeDamage( ::CTakeDamageInfo const & info ) {
@@ -757,6 +850,14 @@ struct CFuncBrush_wrapper : CFuncBrush, bp::wrapper< CFuncBrush > {
 
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
+    int m_lifeState_Get() { return m_lifeState.Get(); }
+
+    void m_lifeState_Set( int val ) { m_lifeState.Set( val ); }
+
+    int m_takedamage_Get() { return m_takedamage.Get(); }
+
+    void m_takedamage_Set( int val ) { m_takedamage.Set( val ); }
+
 };
 
 void register_CFuncBrush_class(){
@@ -913,6 +1014,18 @@ void register_CFuncBrush_class(){
                 , ( bp::arg("pWorldMins"), bp::arg("pWorldMaxs") ) );
         
         }
+        { //::CBaseEntity::DeathNotice
+        
+            typedef void ( ::CBaseEntity::*DeathNotice_function_type )( ::CBaseEntity * ) ;
+            typedef void ( CFuncBrush_wrapper::*default_DeathNotice_function_type )( ::CBaseEntity * ) ;
+            
+            CFuncBrush_exposer.def( 
+                "DeathNotice"
+                , DeathNotice_function_type(&::CBaseEntity::DeathNotice)
+                , default_DeathNotice_function_type(&CFuncBrush_wrapper::default_DeathNotice)
+                , ( bp::arg("pVictim") ) );
+        
+        }
         { //::CBaseEntity::DoImpactEffect
         
             typedef void ( ::CBaseEntity::*DoImpactEffect_function_type )( ::trace_t &,int ) ;
@@ -1017,6 +1130,29 @@ void register_CFuncBrush_class(){
                 , MakeTracer_function_type(&::CBaseEntity::MakeTracer)
                 , default_MakeTracer_function_type(&CFuncBrush_wrapper::default_MakeTracer)
                 , ( bp::arg("vecTracerSrc"), bp::arg("tr"), bp::arg("iTracerType") ) );
+        
+        }
+        { //::CBaseEntity::ModifyOrAppendCriteria
+        
+            typedef void ( ::CBaseEntity::*ModifyOrAppendCriteria_function_type )( ::AI_CriteriaSet & ) ;
+            typedef void ( CFuncBrush_wrapper::*default_ModifyOrAppendCriteria_function_type )( ::AI_CriteriaSet & ) ;
+            
+            CFuncBrush_exposer.def( 
+                "ModifyOrAppendCriteria"
+                , ModifyOrAppendCriteria_function_type(&::CBaseEntity::ModifyOrAppendCriteria)
+                , default_ModifyOrAppendCriteria_function_type(&CFuncBrush_wrapper::default_ModifyOrAppendCriteria)
+                , ( bp::arg("set") ) );
+        
+        }
+        { //::CBaseEntity::OnRestore
+        
+            typedef void ( ::CBaseEntity::*OnRestore_function_type )(  ) ;
+            typedef void ( CFuncBrush_wrapper::*default_OnRestore_function_type )(  ) ;
+            
+            CFuncBrush_exposer.def( 
+                "OnRestore"
+                , OnRestore_function_type(&::CBaseEntity::OnRestore)
+                , default_OnRestore_function_type(&CFuncBrush_wrapper::default_OnRestore) );
         
         }
         { //::CBaseEntity::OnTakeDamage
@@ -1134,6 +1270,8 @@ void register_CFuncBrush_class(){
                 , ( bp::arg("index"), bp::arg("pEvent") ) );
         
         }
+        CFuncBrush_exposer.add_property( "lifestate", &CFuncBrush_wrapper::m_lifeState_Get, &CFuncBrush_wrapper::m_lifeState_Set );
+        CFuncBrush_exposer.add_property( "takedamage", &CFuncBrush_wrapper::m_takedamage_Get, &CFuncBrush_wrapper::m_takedamage_Set );
     }
 
 }

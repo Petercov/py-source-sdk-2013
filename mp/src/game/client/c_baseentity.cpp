@@ -47,8 +47,10 @@
 // =======================================
 // PySource Additions
 // =======================================
+#ifdef ENABLE_PYTHON
 #include "srcpy.h"
-
+#include "srcpy_usermessage.h"
+#endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
 // =======================================
@@ -1533,6 +1535,17 @@ void C_BaseEntity::ReceiveMessage( int classID, bf_read &msg )
 	{
 		case BASEENTITY_MSG_REMOVE_DECALS:	RemoveAllDecals();
 											break;
+
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+		case BASEENTITY_MSG_PYTHON: PyReceiveMessageInternal(classID, msg); 
+											break;
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 	}
 }
 
@@ -6555,6 +6568,33 @@ void C_BaseEntity::DestroyPyInstance()
 	// This will result into heap corruption.
 	SrcPySystem()->AddToDeleteList( m_pyInstance );
 	m_pyInstance = boost::python::object();
+}
+
+//------------------------------------------------------------------------------
+// Purpose: 
+//------------------------------------------------------------------------------
+void C_BaseEntity::PyReceiveMessageInternal( int classID, bf_read &msg )
+{
+	// Read message and add to a list
+	int i, length;
+	boost::python::list recvlist;
+	i = 0;
+	length = msg.ReadByte();
+	for( i=0; i<length; i++)
+	{
+		try 
+		{
+			recvlist.append( PyReadElement(msg) );
+		} 
+		catch(boost::python::error_already_set &) 
+		{
+			PyErr_Print();
+			PyErr_Clear();
+			return;
+		}
+	}
+
+	PyReceiveMessage( recvlist );
 }
 
 //------------------------------------------------------------------------------
