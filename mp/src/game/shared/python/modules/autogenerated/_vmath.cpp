@@ -1866,17 +1866,6 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::DotProduct
     
-        typedef ::vec_t ( *DotProduct_function_type )( ::vec_t const *,::vec_t const * );
-        
-        bp::def( 
-            "DotProduct"
-            , DotProduct_function_type( &::DotProduct )
-            , ( bp::arg("v1"), bp::arg("v2") ) );
-    
-    }
-
-    { //::DotProduct
-    
         typedef ::vec_t ( *DotProduct_function_type )( ::Vector const &,::Vector const & );
         
         bp::def( 
@@ -3593,17 +3582,6 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::VectorAdd
     
-        typedef void ( *VectorAdd_function_type )( ::vec_t const *,::vec_t const *,::vec_t * );
-        
-        bp::def( 
-            "VectorAdd"
-            , VectorAdd_function_type( &::VectorAdd )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
-    
-    }
-
-    { //::VectorAdd
-    
         typedef void ( *VectorAdd_function_type )( ::QAngle const &,::QAngle const &,::QAngle & );
         
         bp::def( 
@@ -3659,17 +3637,6 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::VectorClear
     
-        typedef void ( *VectorClear_function_type )( ::vec_t * );
-        
-        bp::def( 
-            "VectorClear"
-            , VectorClear_function_type( &::VectorClear )
-            , ( bp::arg("a") ) );
-    
-    }
-
-    { //::VectorClear
-    
         typedef void ( *VectorClear_function_type )( ::Vector & );
         
         bp::def( 
@@ -3687,17 +3654,6 @@ BOOST_PYTHON_MODULE(_vmath){
             "VectorCompare"
             , VectorCompare_function_type( &::VectorCompare )
             , ( bp::arg("v1"), bp::arg("v2") ) );
-    
-    }
-
-    { //::VectorCopy
-    
-        typedef void ( *VectorCopy_function_type )( ::vec_t const *,::vec_t * );
-        
-        bp::def( 
-            "VectorCopy"
-            , VectorCopy_function_type( &::VectorCopy )
-            , ( bp::arg("a"), bp::arg("b") ) );
     
     }
 
@@ -3759,17 +3715,6 @@ BOOST_PYTHON_MODULE(_vmath){
     { //::VectorFill
     
         typedef void ( *VectorFill_function_type )( ::Vector &,float );
-        
-        bp::def( 
-            "VectorFill"
-            , VectorFill_function_type( &::VectorFill )
-            , ( bp::arg("a"), bp::arg("b") ) );
-    
-    }
-
-    { //::VectorFill
-    
-        typedef void ( *VectorFill_function_type )( ::vec_t *,float );
         
         bp::def( 
             "VectorFill"
@@ -3899,17 +3844,6 @@ BOOST_PYTHON_MODULE(_vmath){
     
     }
 
-    { //::VectorMaximum
-    
-        typedef float ( *VectorMaximum_function_type )( ::vec_t const * );
-        
-        bp::def( 
-            "VectorMaximum"
-            , VectorMaximum_function_type( &::VectorMaximum )
-            , ( bp::arg("v") ) );
-    
-    }
-
     { //::VectorMin
     
         typedef void ( *VectorMin_function_type )( ::Vector const &,::Vector const &,::Vector & );
@@ -3946,17 +3880,6 @@ BOOST_PYTHON_MODULE(_vmath){
     { //::VectorNegate
     
         typedef void ( *VectorNegate_function_type )( ::Vector & );
-        
-        bp::def( 
-            "VectorNegate"
-            , VectorNegate_function_type( &::VectorNegate )
-            , ( bp::arg("a") ) );
-    
-    }
-
-    { //::VectorNegate
-    
-        typedef void ( *VectorNegate_function_type )( ::vec_t * );
         
         bp::def( 
             "VectorNegate"
@@ -4039,17 +3962,6 @@ BOOST_PYTHON_MODULE(_vmath){
             "VectorScale"
             , VectorScale_function_type( &::VectorScale )
             , ( bp::arg("in"), bp::arg("scale"), bp::arg("result") ) );
-    
-    }
-
-    { //::VectorSubtract
-    
-        typedef void ( *VectorSubtract_function_type )( ::vec_t const *,::vec_t const *,::vec_t * );
-        
-        bp::def( 
-            "VectorSubtract"
-            , VectorSubtract_function_type( &::VectorSubtract )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
     
     }
 

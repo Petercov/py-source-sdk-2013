@@ -42,18 +42,7 @@ class VMath(SharedModuleGenerator):
         setitem_reg = '%(cls_name)s_exposer.def( "__setitem__", &::%(cls_name)s_wrapper::SetItem );\r\n'
         
         
-        # String
-        str_3d_wrapper = 'static boost::python::object Str( %(cls_name)s const & inst ) {\r\n' + \
-                                '   char buf[256];\r\n' + \
-                                '   Q_snprintf(buf, 256, "(%%f, %%f, %%f)", inst.x, inst.y, inst.z);\r\n' + \
-                                '   return boost::python::object(buf);\r\n' + \
-                                '}\r\n'
-        str_2d_wrapper = 'static boost::python::object Str( Vector2D const & inst ) {\r\n' + \
-                                '   char buf[256];\r\n' + \
-                                '   Q_snprintf(buf, 256, "(%f, %f)", inst.x, inst.y);\r\n' + \
-                                '   return boost::python::object(buf);\r\n' + \
-                                '}\r\n'
-                                
+        # String         
         str_vmatrix_wrapper = 'static boost::python::object Str( VMatrix const & inst ) {\r\n' + \
                                 '   return boost::python::object(VMatToString(inst));\r\n' + \
                                 '}\r\n'
@@ -141,7 +130,8 @@ class VMath(SharedModuleGenerator):
         mb.free_functions('SinCos').include()
         mb.free_functions('TableCos').include()
         mb.free_functions('TableSin').include()
-        #mb.free_functions('IsPowerOfTwo').include()
+        if self.settings.branch == 'swarm':
+            mb.free_functions('IsPowerOfTwo').include()
         mb.free_functions('SmallestPowerOfTwoGreaterOrEqual').include()
         mb.free_functions('LargestPowerOfTwoLessThanOrEqual').include()
         mb.free_functions('FloorDivMod').include()
@@ -423,16 +413,17 @@ class VMath(SharedModuleGenerator):
         mb.free_functions('MatrixToAngles').include()
 
         # Exclude
-        #mb.vars('pfVectorNormalizeFast').exclude()
-        #mb.vars('pfVectorNormalize').exclude()
-        #mb.vars('pfInvRSquared').exclude()
+        if self.settings.branch not in ['swarm', 'source2013']:
+            mb.vars('pfVectorNormalizeFast').exclude()
+            mb.vars('pfVectorNormalize').exclude()
+            mb.vars('pfInvRSquared').exclude()
         mb.vars('m_flMatVal').exclude()
         mb.vars('quat_identity').exclude() # <- Does not even exist except for a declaration?
         
         # Exclude some functions
         mb.mem_funs('Base').exclude()           # Base gives a pointer to the address of the data. Not very python like.
         mb.free_functions( 'AllocTempVector' ).exclude()
-        mb.class_('Vector2D').mem_funs('Cross').exclude()   # Declaration only?
+        mb.class_('Vector2D').mem_funs('Cross').exclude() # Declaration only?
         mb.free_function('ConcatRotations').exclude() # Declaration only?  
         
         # Remove any protected function 
@@ -440,9 +431,12 @@ class VMath(SharedModuleGenerator):
         
         # Remove any function with "float *" values
         # A lot of functions have two versions (or more), of which one takes "float *" arguments
+        vec_t = mb.typedef('vec_t')
         excludetypes = [
             pointer_t(float_t()),
             pointer_t(const_t(float_t())),
+            pointer_t(declarated_t(vec_t)),
+            pointer_t(const_t(declarated_t(vec_t))),
         ]
         mb.calldefs( calldef_withtypes( excludetypes ) ).exclude()
         
