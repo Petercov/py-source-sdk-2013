@@ -3315,6 +3315,11 @@ struct variant_t_wrapper : variant_t, bp::wrapper< variant_t > {
         return variant_t::ToString(  );
     }
 
+    static bp::object PyEntity( variant_t &inst )
+    {
+       return inst.Entity() ? inst.Entity()->GetPyHandle() : bp::object();
+    }
+
 };
 
 BOOST_PYTHON_MODULE(_entitiesmisc){
@@ -5984,10 +5989,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
     bp::class_< inputdata_t_wrapper >( "inputdata_t" )    
         .def_readwrite( "outputid", &inputdata_t::nOutputID )    
         .add_property( "activator"
-                    , bp::make_function( (::CBaseEntity * (*)( ::inputdata_t const & ))(&inputdata_t_wrapper::get_pActivator), bp::return_internal_reference< >() )
+                    , bp::make_function( (::CBaseEntity * (*)( ::inputdata_t const & ))(&inputdata_t_wrapper::get_pActivator), bp::return_value_policy< bp::return_by_value >() )
                     , bp::make_function( (void (*)( ::inputdata_t &,::CBaseEntity * ))(&inputdata_t_wrapper::set_pActivator), bp::with_custodian_and_ward_postcall< 1, 2 >() ) )    
         .add_property( "caller"
-                    , bp::make_function( (::CBaseEntity * (*)( ::inputdata_t const & ))(&inputdata_t_wrapper::get_pCaller), bp::return_internal_reference< >() )
+                    , bp::make_function( (::CBaseEntity * (*)( ::inputdata_t const & ))(&inputdata_t_wrapper::get_pCaller), bp::return_value_policy< bp::return_by_value >() )
                     , bp::make_function( (void (*)( ::inputdata_t &,::CBaseEntity * ))(&inputdata_t_wrapper::set_pCaller), bp::with_custodian_and_ward_postcall< 1, 2 >() ) )    
         .def_readwrite( "value", &inputdata_t::value );
 
@@ -6006,10 +6011,6 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             "Convert"
             , (bool ( ::variant_t::* )( ::fieldtype_t ) )( &::variant_t::Convert )
             , ( bp::arg("newType") ) )    
-        .def( 
-            "Entity"
-            , (::CHandle< CBaseEntity > const & ( ::variant_t::* )(  ) const)( &::variant_t::Entity )
-            , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "FieldType"
             , (::fieldtype_t ( ::variant_t::* )(  ) )( &::variant_t::FieldType ) )    
@@ -6075,7 +6076,8 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .def( 
             "Vector3D"
             , (void ( ::variant_t::* )( ::Vector & ) const)( &::variant_t::Vector3D )
-            , ( bp::arg("vec") ) );
+            , ( bp::arg("vec") ) )    
+        .def("Entity", &::variant_t_wrapper::PyEntity);
 
     { //::AddMultiDamage
     

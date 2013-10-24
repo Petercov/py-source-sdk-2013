@@ -73,6 +73,143 @@ struct CTraceFilter_wrapper : CTraceFilter, bp::wrapper< CTraceFilter > {
 
 };
 
+struct CTraceFilterSimple_wrapper : CTraceFilterSimple, bp::wrapper< CTraceFilterSimple > {
+
+    CTraceFilterSimple_wrapper(CTraceFilterSimple const & arg )
+    : CTraceFilterSimple( arg )
+      , bp::wrapper< CTraceFilterSimple >(){
+        // copy constructor
+        
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSimple\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSimple::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSimple::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSimple::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CPyTraceFilterSimple_wrapper : CPyTraceFilterSimple, bp::wrapper< CPyTraceFilterSimple > {
+
+    CPyTraceFilterSimple_wrapper(CPyTraceFilterSimple const & arg )
+    : CPyTraceFilterSimple( arg )
+      , bp::wrapper< CPyTraceFilterSimple >(){
+        // copy constructor
+        
+    }
+
+    CPyTraceFilterSimple_wrapper(::IHandleEntity const * passentity, int collisionGroup )
+    : CPyTraceFilterSimple( boost::python::ptr(passentity), collisionGroup )
+      , bp::wrapper< CPyTraceFilterSimple >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSimple\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSimple::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSimple::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSimple::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterChain_wrapper : CTraceFilterChain, bp::wrapper< CTraceFilterChain > {
+
+    CTraceFilterChain_wrapper(CTraceFilterChain const & arg )
+    : CTraceFilterChain( arg )
+      , bp::wrapper< CTraceFilterChain >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterChain_wrapper(::ITraceFilter * pTraceFilter1, ::ITraceFilter * pTraceFilter2 )
+    : CTraceFilterChain( boost::python::ptr(pTraceFilter1), boost::python::ptr(pTraceFilter2) )
+      , bp::wrapper< CTraceFilterChain >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterChain\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterChain::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterChain::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterChain::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
 struct CTraceFilterEntitiesOnly_wrapper : CTraceFilterEntitiesOnly, bp::wrapper< CTraceFilterEntitiesOnly > {
 
     CTraceFilterEntitiesOnly_wrapper()
@@ -89,6 +226,520 @@ struct CTraceFilterEntitiesOnly_wrapper : CTraceFilterEntitiesOnly, bp::wrapper<
         } catch(bp::error_already_set &) {
             throw boost::python::error_already_set();
         }
+    }
+
+};
+
+struct CTraceFilterHitAll_wrapper : CTraceFilterHitAll, bp::wrapper< CTraceFilterHitAll > {
+
+    CTraceFilterHitAll_wrapper(CTraceFilterHitAll const & arg )
+    : CTraceFilterHitAll( arg )
+      , bp::wrapper< CTraceFilterHitAll >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterHitAll_wrapper()
+    : CTraceFilterHitAll()
+      , bp::wrapper< CTraceFilterHitAll >(){
+        // null constructor
+        
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pServerEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask ) of Class: CTraceFilterHitAll\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterHitAll::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterHitAll::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pServerEntity, int contentsMask ) {
+        return CTraceFilterHitAll::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterSkipTwoEntities_wrapper : CTraceFilterSkipTwoEntities, bp::wrapper< CTraceFilterSkipTwoEntities > {
+
+    CTraceFilterSkipTwoEntities_wrapper(CTraceFilterSkipTwoEntities const & arg )
+    : CTraceFilterSkipTwoEntities( arg )
+      , bp::wrapper< CTraceFilterSkipTwoEntities >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterSkipTwoEntities_wrapper(::IHandleEntity const * passentity, ::IHandleEntity const * passentity2, int collisionGroup )
+    : CTraceFilterSkipTwoEntities( boost::python::ptr(passentity), boost::python::ptr(passentity2), collisionGroup )
+      , bp::wrapper< CTraceFilterSkipTwoEntities >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSkipTwoEntities\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSkipTwoEntities::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSkipTwoEntities::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSkipTwoEntities::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterLOS_wrapper : CTraceFilterLOS, bp::wrapper< CTraceFilterLOS > {
+
+    CTraceFilterLOS_wrapper(CTraceFilterLOS const & arg )
+    : CTraceFilterLOS( arg )
+      , bp::wrapper< CTraceFilterLOS >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterLOS_wrapper(::IHandleEntity * pHandleEntity, int collisionGroup, ::IHandleEntity * pHandleEntity2=0 )
+    : CTraceFilterLOS( boost::python::ptr(pHandleEntity), collisionGroup, boost::python::ptr(pHandleEntity2) )
+      , bp::wrapper< CTraceFilterLOS >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterLOS\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterLOS::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterLOS::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterLOS::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterNoNPCsOrPlayer_wrapper : CTraceFilterNoNPCsOrPlayer, bp::wrapper< CTraceFilterNoNPCsOrPlayer > {
+
+    CTraceFilterNoNPCsOrPlayer_wrapper(CTraceFilterNoNPCsOrPlayer const & arg )
+    : CTraceFilterNoNPCsOrPlayer( arg )
+      , bp::wrapper< CTraceFilterNoNPCsOrPlayer >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterNoNPCsOrPlayer_wrapper(::IHandleEntity const * passentity, int collisionGroup )
+    : CTraceFilterNoNPCsOrPlayer( boost::python::ptr(passentity), collisionGroup )
+      , bp::wrapper< CTraceFilterNoNPCsOrPlayer >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterNoNPCsOrPlayer\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterNoNPCsOrPlayer::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterNoNPCsOrPlayer::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterNoNPCsOrPlayer::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterOnlyNPCsAndPlayer_wrapper : CTraceFilterOnlyNPCsAndPlayer, bp::wrapper< CTraceFilterOnlyNPCsAndPlayer > {
+
+    CTraceFilterOnlyNPCsAndPlayer_wrapper(CTraceFilterOnlyNPCsAndPlayer const & arg )
+    : CTraceFilterOnlyNPCsAndPlayer( arg )
+      , bp::wrapper< CTraceFilterOnlyNPCsAndPlayer >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterOnlyNPCsAndPlayer_wrapper(::IHandleEntity const * passentity, int collisionGroup )
+    : CTraceFilterOnlyNPCsAndPlayer( boost::python::ptr(passentity), collisionGroup )
+      , bp::wrapper< CTraceFilterOnlyNPCsAndPlayer >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterOnlyNPCsAndPlayer\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterSimpleClassnameList_wrapper : CTraceFilterSimpleClassnameList, bp::wrapper< CTraceFilterSimpleClassnameList > {
+
+    CTraceFilterSimpleClassnameList_wrapper(::IHandleEntity const * passentity, int collisionGroup )
+    : CTraceFilterSimpleClassnameList( boost::python::ptr(passentity), collisionGroup )
+      , bp::wrapper< CTraceFilterSimpleClassnameList >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSimpleClassnameList\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSimpleClassnameList::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSimpleClassnameList::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSimpleClassnameList::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterSimpleList_wrapper : CTraceFilterSimpleList, bp::wrapper< CTraceFilterSimpleList > {
+
+    CTraceFilterSimpleList_wrapper(int collisionGroup )
+    : CTraceFilterSimpleList( collisionGroup )
+      , bp::wrapper< CTraceFilterSimpleList >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSimpleList\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSimpleList::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSimpleList::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSimpleList::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterSkipClassname_wrapper : CTraceFilterSkipClassname, bp::wrapper< CTraceFilterSkipClassname > {
+
+    CTraceFilterSkipClassname_wrapper(CTraceFilterSkipClassname const & arg )
+    : CTraceFilterSkipClassname( arg )
+      , bp::wrapper< CTraceFilterSkipClassname >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterSkipClassname_wrapper(::IHandleEntity const * passentity, char const * pchClassname, int collisionGroup )
+    : CTraceFilterSkipClassname( boost::python::ptr(passentity), pchClassname, collisionGroup )
+      , bp::wrapper< CTraceFilterSkipClassname >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSkipClassname\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSkipClassname::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSkipClassname::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSkipClassname::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterSkipTwoClassnames_wrapper : CTraceFilterSkipTwoClassnames, bp::wrapper< CTraceFilterSkipTwoClassnames > {
+
+    CTraceFilterSkipTwoClassnames_wrapper(CTraceFilterSkipTwoClassnames const & arg )
+    : CTraceFilterSkipTwoClassnames( arg )
+      , bp::wrapper< CTraceFilterSkipTwoClassnames >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterSkipTwoClassnames_wrapper(::IHandleEntity const * passentity, char const * pchClassname, char const * pchClassname2, int collisionGroup )
+    : CTraceFilterSkipTwoClassnames( boost::python::ptr(passentity), pchClassname, pchClassname2, collisionGroup )
+      , bp::wrapper< CTraceFilterSkipTwoClassnames >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSkipTwoClassnames\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSkipTwoClassnames::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSkipTwoClassnames::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSkipTwoClassnames::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterWorldAndPropsOnly_wrapper : CTraceFilterWorldAndPropsOnly, bp::wrapper< CTraceFilterWorldAndPropsOnly > {
+
+    CTraceFilterWorldAndPropsOnly_wrapper(CTraceFilterWorldAndPropsOnly const & arg )
+    : CTraceFilterWorldAndPropsOnly( arg )
+      , bp::wrapper< CTraceFilterWorldAndPropsOnly >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterWorldAndPropsOnly_wrapper()
+    : CTraceFilterWorldAndPropsOnly()
+      , bp::wrapper< CTraceFilterWorldAndPropsOnly >(){
+        // null constructor
+        
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pServerEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask ) of Class: CTraceFilterWorldAndPropsOnly\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterWorldAndPropsOnly::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterWorldAndPropsOnly::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pServerEntity, int contentsMask ) {
+        return CTraceFilterWorldAndPropsOnly::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterWorldOnly_wrapper : CTraceFilterWorldOnly, bp::wrapper< CTraceFilterWorldOnly > {
+
+    CTraceFilterWorldOnly_wrapper(CTraceFilterWorldOnly const & arg )
+    : CTraceFilterWorldOnly( arg )
+      , bp::wrapper< CTraceFilterWorldOnly >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterWorldOnly_wrapper()
+    : CTraceFilterWorldOnly()
+      , bp::wrapper< CTraceFilterWorldOnly >(){
+        // null constructor
+        
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pServerEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask ) of Class: CTraceFilterWorldOnly\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterWorldOnly::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterWorldOnly::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pServerEntity, int contentsMask ) {
+        return CTraceFilterWorldOnly::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
     }
 
 };
@@ -175,7 +826,7 @@ BOOST_PYTHON_MODULE(_utils){
         .def_readwrite( "hitbox", &CGameTrace::hitbox )    
         .def_readwrite( "hitgroup", &CGameTrace::hitgroup )    
         .add_property( "ent"
-                    , bp::make_function( (::C_BaseEntity * (*)( ::CGameTrace const & ))(&CGameTrace_wrapper::get_m_pEnt), bp::return_internal_reference< >() )
+                    , bp::make_function( (::C_BaseEntity * (*)( ::CGameTrace const & ))(&CGameTrace_wrapper::get_m_pEnt), bp::return_value_policy< bp::return_by_value >() )
                     , bp::make_function( (void (*)( ::CGameTrace &,::C_BaseEntity * ))(&CGameTrace_wrapper::set_m_pEnt), bp::with_custodian_and_ward_postcall< 1, 2 >() ) )    
         .def_readwrite( "physicsbone", &CGameTrace::physicsbone )    
         .def_readwrite( "surface", &CGameTrace::surface );
@@ -191,7 +842,7 @@ BOOST_PYTHON_MODULE(_utils){
             , bp::pure_virtual( (bool ( ::ITraceFilter::* )( ::IHandleEntity *,int ) )(&::ITraceFilter::ShouldHitEntity) )
             , ( bp::arg("pEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterSimple, bp::bases< CTraceFilter > >( "CTraceFilterSimpleInternal", bp::no_init )    
+    bp::class_< CTraceFilterSimple_wrapper, bp::bases< CTraceFilter > >( "CTraceFilterSimpleInternal", bp::no_init )    
         .def( 
             "GetPassEntity"
             , (::IHandleEntity const * ( ::CTraceFilterSimple::* )(  ) )( &::CTraceFilterSimple::GetPassEntity )
@@ -203,11 +854,26 @@ BOOST_PYTHON_MODULE(_utils){
         .def( 
             "SetPassEntity"
             , (void ( ::CTraceFilterSimple::* )( ::IHandleEntity const * ) )( &::CTraceFilterSimple::SetPassEntity )
-            , ( bp::arg("pPassEntity") ) );
+            , ( bp::arg("pPassEntity") ) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterSimple::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSimple::ShouldHitEntity)
+            , (bool ( CTraceFilterSimple_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSimple_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CPyTraceFilterSimple, bp::bases< CTraceFilterSimple > >( "CTraceFilterSimple", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) );
+    bp::class_< CPyTraceFilterSimple_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterSimple", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterSimple::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSimple::ShouldHitEntity)
+            , (bool ( CPyTraceFilterSimple_wrapper::* )( ::IHandleEntity *,int ) )(&CPyTraceFilterSimple_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterChain, bp::bases< CTraceFilter > >( "CTraceFilterChain", bp::init< ITraceFilter *, ITraceFilter * >(( bp::arg("pTraceFilter1"), bp::arg("pTraceFilter2") )) );
+    bp::class_< CTraceFilterChain_wrapper, bp::bases< CTraceFilter > >( "CTraceFilterChain", bp::init< ITraceFilter *, ITraceFilter * >(( bp::arg("pTraceFilter1"), bp::arg("pTraceFilter2") )) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterChain::* )( ::IHandleEntity *,int ) )(&::CTraceFilterChain::ShouldHitEntity)
+            , (bool ( CTraceFilterChain_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterChain_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterEntitiesOnly_wrapper, bp::bases< ITraceFilter >, boost::noncopyable >( "CTraceFilterEntitiesOnly" )    
         .def( 
@@ -218,31 +884,61 @@ BOOST_PYTHON_MODULE(_utils){
             , bp::pure_virtual( (bool ( ::ITraceFilter::* )( ::IHandleEntity *,int ) )(&::ITraceFilter::ShouldHitEntity) )
             , ( bp::arg("pEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterHitAll, bp::bases< CTraceFilter > >( "CTraceFilterHitAll" );
+    bp::class_< CTraceFilterHitAll_wrapper, bp::bases< CTraceFilter > >( "CTraceFilterHitAll" )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterHitAll::* )( ::IHandleEntity *,int ) )(&::CTraceFilterHitAll::ShouldHitEntity)
+            , (bool ( CTraceFilterHitAll_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterHitAll_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pServerEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterSkipTwoEntities, bp::bases< CTraceFilterSimple > >( "CTraceFilterSkipTwoEntities", bp::init< IHandleEntity const *, IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("passentity2"), bp::arg("collisionGroup") )) )    
+    bp::class_< CTraceFilterSkipTwoEntities_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterSkipTwoEntities", bp::init< IHandleEntity const *, IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("passentity2"), bp::arg("collisionGroup") )) )    
         .def( 
             "SetPassEntity2"
             , (void ( ::CTraceFilterSkipTwoEntities::* )( ::IHandleEntity const * ) )( &::CTraceFilterSkipTwoEntities::SetPassEntity2 )
-            , ( bp::arg("pPassEntity2") ) );
+            , ( bp::arg("pPassEntity2") ) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterSkipTwoEntities::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSkipTwoEntities::ShouldHitEntity)
+            , (bool ( CTraceFilterSkipTwoEntities_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSkipTwoEntities_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterLOS, bp::bases< CTraceFilterSkipTwoEntities > >( "CTraceFilterLOS", bp::init< IHandleEntity *, int, bp::optional< IHandleEntity * > >(( bp::arg("pHandleEntity"), bp::arg("collisionGroup"), bp::arg("pHandleEntity2")=bp::object() )) );
+    bp::class_< CTraceFilterLOS_wrapper, bp::bases< CTraceFilterSkipTwoEntities > >( "CTraceFilterLOS", bp::init< IHandleEntity *, int, bp::optional< IHandleEntity * > >(( bp::arg("pHandleEntity"), bp::arg("collisionGroup"), bp::arg("pHandleEntity2")=bp::object() )) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterLOS::* )( ::IHandleEntity *,int ) )(&::CTraceFilterLOS::ShouldHitEntity)
+            , (bool ( CTraceFilterLOS_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterLOS_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterNoNPCsOrPlayer, bp::bases< CTraceFilterSimple > >( "CTraceFilterNoNPCsOrPlayer", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) );
+    bp::class_< CTraceFilterNoNPCsOrPlayer_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterNoNPCsOrPlayer", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterNoNPCsOrPlayer::* )( ::IHandleEntity *,int ) )(&::CTraceFilterNoNPCsOrPlayer::ShouldHitEntity)
+            , (bool ( CTraceFilterNoNPCsOrPlayer_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterNoNPCsOrPlayer_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterOnlyNPCsAndPlayer, bp::bases< CTraceFilterSimple > >( "CTraceFilterOnlyNPCsAndPlayer", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
+    bp::class_< CTraceFilterOnlyNPCsAndPlayer_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterOnlyNPCsAndPlayer", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterOnlyNPCsAndPlayer::* )(  ) const)( &::CTraceFilterOnlyNPCsAndPlayer::GetTraceType ) );
+            , (::TraceType_t ( ::CTraceFilterOnlyNPCsAndPlayer::* )(  ) const)( &::CTraceFilterOnlyNPCsAndPlayer::GetTraceType ) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterOnlyNPCsAndPlayer::* )( ::IHandleEntity *,int ) )(&::CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity)
+            , (bool ( CTraceFilterOnlyNPCsAndPlayer_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterOnlyNPCsAndPlayer_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterSimpleClassnameList, bp::bases< CTraceFilterSimple >, boost::noncopyable >( "CTraceFilterSimpleClassnameList", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
+    bp::class_< CTraceFilterSimpleClassnameList_wrapper, bp::bases< CTraceFilterSimple >, boost::noncopyable >( "CTraceFilterSimpleClassnameList", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
         .def( 
             "AddClassnameToIgnore"
             , (void ( ::CTraceFilterSimpleClassnameList::* )( char const * ) )( &::CTraceFilterSimpleClassnameList::AddClassnameToIgnore )
-            , ( bp::arg("pchClassname") ) );
+            , ( bp::arg("pchClassname") ) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterSimpleClassnameList::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSimpleClassnameList::ShouldHitEntity)
+            , (bool ( CTraceFilterSimpleClassnameList_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSimpleClassnameList_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     { //::CTraceFilterSimpleList
-        typedef bp::class_< CTraceFilterSimpleList, bp::bases< CTraceFilterSimple >, boost::noncopyable > CTraceFilterSimpleList_exposer_t;
+        typedef bp::class_< CTraceFilterSimpleList_wrapper, bp::bases< CTraceFilterSimple >, boost::noncopyable > CTraceFilterSimpleList_exposer_t;
         CTraceFilterSimpleList_exposer_t CTraceFilterSimpleList_exposer = CTraceFilterSimpleList_exposer_t( "CTraceFilterSimpleList", bp::init< int >(( bp::arg("collisionGroup") )) );
         bp::scope CTraceFilterSimpleList_scope( CTraceFilterSimpleList_exposer );
         bp::implicitly_convertible< int, CTraceFilterSimpleList >();
@@ -256,21 +952,53 @@ BOOST_PYTHON_MODULE(_utils){
                 , ( bp::arg("pEntity") ) );
         
         }
+        { //::CTraceFilterSimpleList::ShouldHitEntity
+        
+            typedef bool ( ::CTraceFilterSimpleList::*ShouldHitEntity_function_type )( ::IHandleEntity *,int ) ;
+            typedef bool ( CTraceFilterSimpleList_wrapper::*default_ShouldHitEntity_function_type )( ::IHandleEntity *,int ) ;
+            
+            CTraceFilterSimpleList_exposer.def( 
+                "ShouldHitEntity"
+                , ShouldHitEntity_function_type(&::CTraceFilterSimpleList::ShouldHitEntity)
+                , default_ShouldHitEntity_function_type(&CTraceFilterSimpleList_wrapper::default_ShouldHitEntity)
+                , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
+        
+        }
     }
 
-    bp::class_< CTraceFilterSkipClassname, bp::bases< CTraceFilterSimple > >( "CTraceFilterSkipClassname", bp::init< IHandleEntity const *, char const *, int >(( bp::arg("passentity"), bp::arg("pchClassname"), bp::arg("collisionGroup") )) );
+    bp::class_< CTraceFilterSkipClassname_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterSkipClassname", bp::init< IHandleEntity const *, char const *, int >(( bp::arg("passentity"), bp::arg("pchClassname"), bp::arg("collisionGroup") )) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterSkipClassname::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSkipClassname::ShouldHitEntity)
+            , (bool ( CTraceFilterSkipClassname_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSkipClassname_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterSkipTwoClassnames, bp::bases< CTraceFilterSkipClassname > >( "CTraceFilterSkipTwoClassnames", bp::init< IHandleEntity const *, char const *, char const *, int >(( bp::arg("passentity"), bp::arg("pchClassname"), bp::arg("pchClassname2"), bp::arg("collisionGroup") )) );
+    bp::class_< CTraceFilterSkipTwoClassnames_wrapper, bp::bases< CTraceFilterSkipClassname > >( "CTraceFilterSkipTwoClassnames", bp::init< IHandleEntity const *, char const *, char const *, int >(( bp::arg("passentity"), bp::arg("pchClassname"), bp::arg("pchClassname2"), bp::arg("collisionGroup") )) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterSkipTwoClassnames::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSkipTwoClassnames::ShouldHitEntity)
+            , (bool ( CTraceFilterSkipTwoClassnames_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSkipTwoClassnames_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterWorldAndPropsOnly, bp::bases< ITraceFilter > >( "CTraceFilterWorldAndPropsOnly" )    
+    bp::class_< CTraceFilterWorldAndPropsOnly_wrapper, bp::bases< ITraceFilter > >( "CTraceFilterWorldAndPropsOnly" )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterWorldAndPropsOnly::* )(  ) const)( &::CTraceFilterWorldAndPropsOnly::GetTraceType ) );
+            , (::TraceType_t ( ::CTraceFilterWorldAndPropsOnly::* )(  ) const)( &::CTraceFilterWorldAndPropsOnly::GetTraceType ) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterWorldAndPropsOnly::* )( ::IHandleEntity *,int ) )(&::CTraceFilterWorldAndPropsOnly::ShouldHitEntity)
+            , (bool ( CTraceFilterWorldAndPropsOnly_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterWorldAndPropsOnly_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pServerEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterWorldOnly, bp::bases< ITraceFilter > >( "CTraceFilterWorldOnly" )    
+    bp::class_< CTraceFilterWorldOnly_wrapper, bp::bases< ITraceFilter > >( "CTraceFilterWorldOnly" )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterWorldOnly::* )(  ) const)( &::CTraceFilterWorldOnly::GetTraceType ) );
+            , (::TraceType_t ( ::CTraceFilterWorldOnly::* )(  ) const)( &::CTraceFilterWorldOnly::GetTraceType ) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterWorldOnly::* )( ::IHandleEntity *,int ) )(&::CTraceFilterWorldOnly::ShouldHitEntity)
+            , (bool ( CTraceFilterWorldOnly_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterWorldOnly_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pServerEntity"), bp::arg("contentsMask") ) );
 
     { //::PyRay_t
         typedef bp::class_< PyRay_t > Ray_t_exposer_t;
@@ -1693,6 +2421,143 @@ struct CTraceFilter_wrapper : CTraceFilter, bp::wrapper< CTraceFilter > {
 
 };
 
+struct CTraceFilterSimple_wrapper : CTraceFilterSimple, bp::wrapper< CTraceFilterSimple > {
+
+    CTraceFilterSimple_wrapper(CTraceFilterSimple const & arg )
+    : CTraceFilterSimple( arg )
+      , bp::wrapper< CTraceFilterSimple >(){
+        // copy constructor
+        
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSimple\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSimple::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSimple::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSimple::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CPyTraceFilterSimple_wrapper : CPyTraceFilterSimple, bp::wrapper< CPyTraceFilterSimple > {
+
+    CPyTraceFilterSimple_wrapper(CPyTraceFilterSimple const & arg )
+    : CPyTraceFilterSimple( arg )
+      , bp::wrapper< CPyTraceFilterSimple >(){
+        // copy constructor
+        
+    }
+
+    CPyTraceFilterSimple_wrapper(::IHandleEntity const * passentity, int collisionGroup )
+    : CPyTraceFilterSimple( boost::python::ptr(passentity), collisionGroup )
+      , bp::wrapper< CPyTraceFilterSimple >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSimple\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSimple::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSimple::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSimple::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterChain_wrapper : CTraceFilterChain, bp::wrapper< CTraceFilterChain > {
+
+    CTraceFilterChain_wrapper(CTraceFilterChain const & arg )
+    : CTraceFilterChain( arg )
+      , bp::wrapper< CTraceFilterChain >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterChain_wrapper(::ITraceFilter * pTraceFilter1, ::ITraceFilter * pTraceFilter2 )
+    : CTraceFilterChain( boost::python::ptr(pTraceFilter1), boost::python::ptr(pTraceFilter2) )
+      , bp::wrapper< CTraceFilterChain >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterChain\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterChain::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterChain::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterChain::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
 struct CTraceFilterEntitiesOnly_wrapper : CTraceFilterEntitiesOnly, bp::wrapper< CTraceFilterEntitiesOnly > {
 
     CTraceFilterEntitiesOnly_wrapper()
@@ -1709,6 +2574,150 @@ struct CTraceFilterEntitiesOnly_wrapper : CTraceFilterEntitiesOnly, bp::wrapper<
         } catch(bp::error_already_set &) {
             throw boost::python::error_already_set();
         }
+    }
+
+};
+
+struct CTraceFilterHitAll_wrapper : CTraceFilterHitAll, bp::wrapper< CTraceFilterHitAll > {
+
+    CTraceFilterHitAll_wrapper(CTraceFilterHitAll const & arg )
+    : CTraceFilterHitAll( arg )
+      , bp::wrapper< CTraceFilterHitAll >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterHitAll_wrapper()
+    : CTraceFilterHitAll()
+      , bp::wrapper< CTraceFilterHitAll >(){
+        // null constructor
+        
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pServerEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask ) of Class: CTraceFilterHitAll\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterHitAll::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterHitAll::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pServerEntity, int contentsMask ) {
+        return CTraceFilterHitAll::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterSkipTwoEntities_wrapper : CTraceFilterSkipTwoEntities, bp::wrapper< CTraceFilterSkipTwoEntities > {
+
+    CTraceFilterSkipTwoEntities_wrapper(CTraceFilterSkipTwoEntities const & arg )
+    : CTraceFilterSkipTwoEntities( arg )
+      , bp::wrapper< CTraceFilterSkipTwoEntities >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterSkipTwoEntities_wrapper(::IHandleEntity const * passentity, ::IHandleEntity const * passentity2, int collisionGroup )
+    : CTraceFilterSkipTwoEntities( boost::python::ptr(passentity), boost::python::ptr(passentity2), collisionGroup )
+      , bp::wrapper< CTraceFilterSkipTwoEntities >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSkipTwoEntities\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSkipTwoEntities::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSkipTwoEntities::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSkipTwoEntities::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterLOS_wrapper : CTraceFilterLOS, bp::wrapper< CTraceFilterLOS > {
+
+    CTraceFilterLOS_wrapper(CTraceFilterLOS const & arg )
+    : CTraceFilterLOS( arg )
+      , bp::wrapper< CTraceFilterLOS >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterLOS_wrapper(::IHandleEntity * pHandleEntity, int collisionGroup, ::IHandleEntity * pHandleEntity2=0 )
+    : CTraceFilterLOS( boost::python::ptr(pHandleEntity), collisionGroup, boost::python::ptr(pHandleEntity2) )
+      , bp::wrapper< CTraceFilterLOS >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterLOS\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterLOS::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterLOS::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterLOS::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
     }
 
 };
@@ -1784,6 +2793,376 @@ struct CTraceFilterMelee_wrapper : CTraceFilterMelee, bp::wrapper< CTraceFilterM
 
 };
 
+struct CTraceFilterNoNPCsOrPlayer_wrapper : CTraceFilterNoNPCsOrPlayer, bp::wrapper< CTraceFilterNoNPCsOrPlayer > {
+
+    CTraceFilterNoNPCsOrPlayer_wrapper(CTraceFilterNoNPCsOrPlayer const & arg )
+    : CTraceFilterNoNPCsOrPlayer( arg )
+      , bp::wrapper< CTraceFilterNoNPCsOrPlayer >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterNoNPCsOrPlayer_wrapper(::IHandleEntity const * passentity, int collisionGroup )
+    : CTraceFilterNoNPCsOrPlayer( boost::python::ptr(passentity), collisionGroup )
+      , bp::wrapper< CTraceFilterNoNPCsOrPlayer >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterNoNPCsOrPlayer\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterNoNPCsOrPlayer::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterNoNPCsOrPlayer::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterNoNPCsOrPlayer::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterOnlyNPCsAndPlayer_wrapper : CTraceFilterOnlyNPCsAndPlayer, bp::wrapper< CTraceFilterOnlyNPCsAndPlayer > {
+
+    CTraceFilterOnlyNPCsAndPlayer_wrapper(CTraceFilterOnlyNPCsAndPlayer const & arg )
+    : CTraceFilterOnlyNPCsAndPlayer( arg )
+      , bp::wrapper< CTraceFilterOnlyNPCsAndPlayer >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterOnlyNPCsAndPlayer_wrapper(::IHandleEntity const * passentity, int collisionGroup )
+    : CTraceFilterOnlyNPCsAndPlayer( boost::python::ptr(passentity), collisionGroup )
+      , bp::wrapper< CTraceFilterOnlyNPCsAndPlayer >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterOnlyNPCsAndPlayer\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterSimpleClassnameList_wrapper : CTraceFilterSimpleClassnameList, bp::wrapper< CTraceFilterSimpleClassnameList > {
+
+    CTraceFilterSimpleClassnameList_wrapper(::IHandleEntity const * passentity, int collisionGroup )
+    : CTraceFilterSimpleClassnameList( boost::python::ptr(passentity), collisionGroup )
+      , bp::wrapper< CTraceFilterSimpleClassnameList >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSimpleClassnameList\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSimpleClassnameList::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSimpleClassnameList::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSimpleClassnameList::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterSimpleList_wrapper : CTraceFilterSimpleList, bp::wrapper< CTraceFilterSimpleList > {
+
+    CTraceFilterSimpleList_wrapper(int collisionGroup )
+    : CTraceFilterSimpleList( collisionGroup )
+      , bp::wrapper< CTraceFilterSimpleList >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSimpleList\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSimpleList::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSimpleList::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSimpleList::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterSkipClassname_wrapper : CTraceFilterSkipClassname, bp::wrapper< CTraceFilterSkipClassname > {
+
+    CTraceFilterSkipClassname_wrapper(CTraceFilterSkipClassname const & arg )
+    : CTraceFilterSkipClassname( arg )
+      , bp::wrapper< CTraceFilterSkipClassname >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterSkipClassname_wrapper(::IHandleEntity const * passentity, char const * pchClassname, int collisionGroup )
+    : CTraceFilterSkipClassname( boost::python::ptr(passentity), pchClassname, collisionGroup )
+      , bp::wrapper< CTraceFilterSkipClassname >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSkipClassname\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSkipClassname::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSkipClassname::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSkipClassname::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterSkipTwoClassnames_wrapper : CTraceFilterSkipTwoClassnames, bp::wrapper< CTraceFilterSkipTwoClassnames > {
+
+    CTraceFilterSkipTwoClassnames_wrapper(CTraceFilterSkipTwoClassnames const & arg )
+    : CTraceFilterSkipTwoClassnames( arg )
+      , bp::wrapper< CTraceFilterSkipTwoClassnames >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterSkipTwoClassnames_wrapper(::IHandleEntity const * passentity, char const * pchClassname, char const * pchClassname2, int collisionGroup )
+    : CTraceFilterSkipTwoClassnames( boost::python::ptr(passentity), pchClassname, pchClassname2, collisionGroup )
+      , bp::wrapper< CTraceFilterSkipTwoClassnames >(){
+        // constructor
+    
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask ) of Class: CTraceFilterSkipTwoClassnames\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterSkipTwoClassnames::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterSkipTwoClassnames::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pHandleEntity, int contentsMask ) {
+        return CTraceFilterSkipTwoClassnames::ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterWorldAndPropsOnly_wrapper : CTraceFilterWorldAndPropsOnly, bp::wrapper< CTraceFilterWorldAndPropsOnly > {
+
+    CTraceFilterWorldAndPropsOnly_wrapper(CTraceFilterWorldAndPropsOnly const & arg )
+    : CTraceFilterWorldAndPropsOnly( arg )
+      , bp::wrapper< CTraceFilterWorldAndPropsOnly >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterWorldAndPropsOnly_wrapper()
+    : CTraceFilterWorldAndPropsOnly()
+      , bp::wrapper< CTraceFilterWorldAndPropsOnly >(){
+        // null constructor
+        
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pServerEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask ) of Class: CTraceFilterWorldAndPropsOnly\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterWorldAndPropsOnly::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterWorldAndPropsOnly::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pServerEntity, int contentsMask ) {
+        return CTraceFilterWorldAndPropsOnly::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+    }
+
+};
+
+struct CTraceFilterWorldOnly_wrapper : CTraceFilterWorldOnly, bp::wrapper< CTraceFilterWorldOnly > {
+
+    CTraceFilterWorldOnly_wrapper(CTraceFilterWorldOnly const & arg )
+    : CTraceFilterWorldOnly( arg )
+      , bp::wrapper< CTraceFilterWorldOnly >(){
+        // copy constructor
+        
+    }
+
+    CTraceFilterWorldOnly_wrapper()
+    : CTraceFilterWorldOnly()
+      , bp::wrapper< CTraceFilterWorldOnly >(){
+        // null constructor
+        
+    }
+
+    virtual bool ShouldHitEntity( ::IHandleEntity * pServerEntity, int contentsMask ) {
+        #if defined(_WIN32)
+        #if defined(_DEBUG)
+        Assert( SrcPySystem()->IsPythonRunning() );
+        Assert( GetCurrentThreadId() == g_hPythonThreadID );
+        #elif defined(PY_CHECKTHREADID)
+        if( GetCurrentThreadId() != g_hPythonThreadID )
+            Error( "ShouldHitEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
+        #endif // _DEBUG/PY_CHECKTHREADID
+        #endif // _WIN32
+        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
+        if( py_log_overrides.GetBool() )
+            Msg("Calling ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask ) of Class: CTraceFilterWorldOnly\n");
+        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
+        if( func_ShouldHitEntity.ptr() != Py_None )
+            try {
+                return func_ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CTraceFilterWorldOnly::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+            }
+        else
+            return this->CTraceFilterWorldOnly::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+    }
+    
+    bool default_ShouldHitEntity( ::IHandleEntity * pServerEntity, int contentsMask ) {
+        return CTraceFilterWorldOnly::ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+    }
+
+};
+
 BOOST_PYTHON_MODULE(_utils){
     bp::docstring_options doc_options( true, true, false );
 
@@ -1852,7 +3231,7 @@ BOOST_PYTHON_MODULE(_utils){
         .def_readwrite( "hitbox", &CGameTrace::hitbox )    
         .def_readwrite( "hitgroup", &CGameTrace::hitgroup )    
         .add_property( "ent"
-                    , bp::make_function( (::CBaseEntity * (*)( ::CGameTrace const & ))(&CGameTrace_wrapper::get_m_pEnt), bp::return_internal_reference< >() )
+                    , bp::make_function( (::CBaseEntity * (*)( ::CGameTrace const & ))(&CGameTrace_wrapper::get_m_pEnt), bp::return_value_policy< bp::return_by_value >() )
                     , bp::make_function( (void (*)( ::CGameTrace &,::CBaseEntity * ))(&CGameTrace_wrapper::set_m_pEnt), bp::with_custodian_and_ward_postcall< 1, 2 >() ) )    
         .def_readwrite( "physicsbone", &CGameTrace::physicsbone )    
         .def_readwrite( "surface", &CGameTrace::surface );
@@ -1868,7 +3247,7 @@ BOOST_PYTHON_MODULE(_utils){
             , bp::pure_virtual( (bool ( ::ITraceFilter::* )( ::IHandleEntity *,int ) )(&::ITraceFilter::ShouldHitEntity) )
             , ( bp::arg("pEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterSimple, bp::bases< CTraceFilter > >( "CTraceFilterSimpleInternal", bp::no_init )    
+    bp::class_< CTraceFilterSimple_wrapper, bp::bases< CTraceFilter > >( "CTraceFilterSimpleInternal", bp::no_init )    
         .def( 
             "GetPassEntity"
             , (::IHandleEntity const * ( ::CTraceFilterSimple::* )(  ) )( &::CTraceFilterSimple::GetPassEntity )
@@ -1880,11 +3259,26 @@ BOOST_PYTHON_MODULE(_utils){
         .def( 
             "SetPassEntity"
             , (void ( ::CTraceFilterSimple::* )( ::IHandleEntity const * ) )( &::CTraceFilterSimple::SetPassEntity )
-            , ( bp::arg("pPassEntity") ) );
+            , ( bp::arg("pPassEntity") ) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterSimple::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSimple::ShouldHitEntity)
+            , (bool ( CTraceFilterSimple_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSimple_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CPyTraceFilterSimple, bp::bases< CTraceFilterSimple > >( "CTraceFilterSimple", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) );
+    bp::class_< CPyTraceFilterSimple_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterSimple", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterSimple::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSimple::ShouldHitEntity)
+            , (bool ( CPyTraceFilterSimple_wrapper::* )( ::IHandleEntity *,int ) )(&CPyTraceFilterSimple_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterChain, bp::bases< CTraceFilter > >( "CTraceFilterChain", bp::init< ITraceFilter *, ITraceFilter * >(( bp::arg("pTraceFilter1"), bp::arg("pTraceFilter2") )) );
+    bp::class_< CTraceFilterChain_wrapper, bp::bases< CTraceFilter > >( "CTraceFilterChain", bp::init< ITraceFilter *, ITraceFilter * >(( bp::arg("pTraceFilter1"), bp::arg("pTraceFilter2") )) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterChain::* )( ::IHandleEntity *,int ) )(&::CTraceFilterChain::ShouldHitEntity)
+            , (bool ( CTraceFilterChain_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterChain_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterEntitiesOnly_wrapper, bp::bases< ITraceFilter >, boost::noncopyable >( "CTraceFilterEntitiesOnly" )    
         .def( 
@@ -1895,15 +3289,30 @@ BOOST_PYTHON_MODULE(_utils){
             , bp::pure_virtual( (bool ( ::ITraceFilter::* )( ::IHandleEntity *,int ) )(&::ITraceFilter::ShouldHitEntity) )
             , ( bp::arg("pEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterHitAll, bp::bases< CTraceFilter > >( "CTraceFilterHitAll" );
+    bp::class_< CTraceFilterHitAll_wrapper, bp::bases< CTraceFilter > >( "CTraceFilterHitAll" )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterHitAll::* )( ::IHandleEntity *,int ) )(&::CTraceFilterHitAll::ShouldHitEntity)
+            , (bool ( CTraceFilterHitAll_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterHitAll_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pServerEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterSkipTwoEntities, bp::bases< CTraceFilterSimple > >( "CTraceFilterSkipTwoEntities", bp::init< IHandleEntity const *, IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("passentity2"), bp::arg("collisionGroup") )) )    
+    bp::class_< CTraceFilterSkipTwoEntities_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterSkipTwoEntities", bp::init< IHandleEntity const *, IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("passentity2"), bp::arg("collisionGroup") )) )    
         .def( 
             "SetPassEntity2"
             , (void ( ::CTraceFilterSkipTwoEntities::* )( ::IHandleEntity const * ) )( &::CTraceFilterSkipTwoEntities::SetPassEntity2 )
-            , ( bp::arg("pPassEntity2") ) );
+            , ( bp::arg("pPassEntity2") ) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterSkipTwoEntities::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSkipTwoEntities::ShouldHitEntity)
+            , (bool ( CTraceFilterSkipTwoEntities_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSkipTwoEntities_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterLOS, bp::bases< CTraceFilterSkipTwoEntities > >( "CTraceFilterLOS", bp::init< IHandleEntity *, int, bp::optional< IHandleEntity * > >(( bp::arg("pHandleEntity"), bp::arg("collisionGroup"), bp::arg("pHandleEntity2")=bp::object() )) );
+    bp::class_< CTraceFilterLOS_wrapper, bp::bases< CTraceFilterSkipTwoEntities > >( "CTraceFilterLOS", bp::init< IHandleEntity *, int, bp::optional< IHandleEntity * > >(( bp::arg("pHandleEntity"), bp::arg("collisionGroup"), bp::arg("pHandleEntity2")=bp::object() )) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterLOS::* )( ::IHandleEntity *,int ) )(&::CTraceFilterLOS::ShouldHitEntity)
+            , (bool ( CTraceFilterLOS_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterLOS_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterMelee_wrapper, bp::bases< CTraceFilterEntitiesOnly > >( "CTraceFilterMelee", bp::no_init )    
         .def( 
@@ -1925,21 +3334,36 @@ BOOST_PYTHON_MODULE(_utils){
                     , bp::make_function( (void (*)( ::CTraceFilterMelee &,::IHandleEntity const * ))(&CTraceFilterMelee_wrapper::set_m_pPassEnt), bp::with_custodian_and_ward_postcall< 1, 2 >() ) )    
         .def( bp::init< CBaseEntity const *, int, CTakeDamageInfo *, float, bool >(( bp::arg("passentity"), bp::arg("collisionGroup"), bp::arg("dmgInfo"), bp::arg("flForceScale"), bp::arg("bDamageAnyNPC") )) );
 
-    bp::class_< CTraceFilterNoNPCsOrPlayer, bp::bases< CTraceFilterSimple > >( "CTraceFilterNoNPCsOrPlayer", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) );
+    bp::class_< CTraceFilterNoNPCsOrPlayer_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterNoNPCsOrPlayer", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterNoNPCsOrPlayer::* )( ::IHandleEntity *,int ) )(&::CTraceFilterNoNPCsOrPlayer::ShouldHitEntity)
+            , (bool ( CTraceFilterNoNPCsOrPlayer_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterNoNPCsOrPlayer_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterOnlyNPCsAndPlayer, bp::bases< CTraceFilterSimple > >( "CTraceFilterOnlyNPCsAndPlayer", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
+    bp::class_< CTraceFilterOnlyNPCsAndPlayer_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterOnlyNPCsAndPlayer", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterOnlyNPCsAndPlayer::* )(  ) const)( &::CTraceFilterOnlyNPCsAndPlayer::GetTraceType ) );
+            , (::TraceType_t ( ::CTraceFilterOnlyNPCsAndPlayer::* )(  ) const)( &::CTraceFilterOnlyNPCsAndPlayer::GetTraceType ) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterOnlyNPCsAndPlayer::* )( ::IHandleEntity *,int ) )(&::CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity)
+            , (bool ( CTraceFilterOnlyNPCsAndPlayer_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterOnlyNPCsAndPlayer_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterSimpleClassnameList, bp::bases< CTraceFilterSimple >, boost::noncopyable >( "CTraceFilterSimpleClassnameList", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
+    bp::class_< CTraceFilterSimpleClassnameList_wrapper, bp::bases< CTraceFilterSimple >, boost::noncopyable >( "CTraceFilterSimpleClassnameList", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
         .def( 
             "AddClassnameToIgnore"
             , (void ( ::CTraceFilterSimpleClassnameList::* )( char const * ) )( &::CTraceFilterSimpleClassnameList::AddClassnameToIgnore )
-            , ( bp::arg("pchClassname") ) );
+            , ( bp::arg("pchClassname") ) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterSimpleClassnameList::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSimpleClassnameList::ShouldHitEntity)
+            , (bool ( CTraceFilterSimpleClassnameList_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSimpleClassnameList_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     { //::CTraceFilterSimpleList
-        typedef bp::class_< CTraceFilterSimpleList, bp::bases< CTraceFilterSimple >, boost::noncopyable > CTraceFilterSimpleList_exposer_t;
+        typedef bp::class_< CTraceFilterSimpleList_wrapper, bp::bases< CTraceFilterSimple >, boost::noncopyable > CTraceFilterSimpleList_exposer_t;
         CTraceFilterSimpleList_exposer_t CTraceFilterSimpleList_exposer = CTraceFilterSimpleList_exposer_t( "CTraceFilterSimpleList", bp::init< int >(( bp::arg("collisionGroup") )) );
         bp::scope CTraceFilterSimpleList_scope( CTraceFilterSimpleList_exposer );
         bp::implicitly_convertible< int, CTraceFilterSimpleList >();
@@ -1953,21 +3377,53 @@ BOOST_PYTHON_MODULE(_utils){
                 , ( bp::arg("pEntity") ) );
         
         }
+        { //::CTraceFilterSimpleList::ShouldHitEntity
+        
+            typedef bool ( ::CTraceFilterSimpleList::*ShouldHitEntity_function_type )( ::IHandleEntity *,int ) ;
+            typedef bool ( CTraceFilterSimpleList_wrapper::*default_ShouldHitEntity_function_type )( ::IHandleEntity *,int ) ;
+            
+            CTraceFilterSimpleList_exposer.def( 
+                "ShouldHitEntity"
+                , ShouldHitEntity_function_type(&::CTraceFilterSimpleList::ShouldHitEntity)
+                , default_ShouldHitEntity_function_type(&CTraceFilterSimpleList_wrapper::default_ShouldHitEntity)
+                , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
+        
+        }
     }
 
-    bp::class_< CTraceFilterSkipClassname, bp::bases< CTraceFilterSimple > >( "CTraceFilterSkipClassname", bp::init< IHandleEntity const *, char const *, int >(( bp::arg("passentity"), bp::arg("pchClassname"), bp::arg("collisionGroup") )) );
+    bp::class_< CTraceFilterSkipClassname_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterSkipClassname", bp::init< IHandleEntity const *, char const *, int >(( bp::arg("passentity"), bp::arg("pchClassname"), bp::arg("collisionGroup") )) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterSkipClassname::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSkipClassname::ShouldHitEntity)
+            , (bool ( CTraceFilterSkipClassname_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSkipClassname_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterSkipTwoClassnames, bp::bases< CTraceFilterSkipClassname > >( "CTraceFilterSkipTwoClassnames", bp::init< IHandleEntity const *, char const *, char const *, int >(( bp::arg("passentity"), bp::arg("pchClassname"), bp::arg("pchClassname2"), bp::arg("collisionGroup") )) );
+    bp::class_< CTraceFilterSkipTwoClassnames_wrapper, bp::bases< CTraceFilterSkipClassname > >( "CTraceFilterSkipTwoClassnames", bp::init< IHandleEntity const *, char const *, char const *, int >(( bp::arg("passentity"), bp::arg("pchClassname"), bp::arg("pchClassname2"), bp::arg("collisionGroup") )) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterSkipTwoClassnames::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSkipTwoClassnames::ShouldHitEntity)
+            , (bool ( CTraceFilterSkipTwoClassnames_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSkipTwoClassnames_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterWorldAndPropsOnly, bp::bases< ITraceFilter > >( "CTraceFilterWorldAndPropsOnly" )    
+    bp::class_< CTraceFilterWorldAndPropsOnly_wrapper, bp::bases< ITraceFilter > >( "CTraceFilterWorldAndPropsOnly" )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterWorldAndPropsOnly::* )(  ) const)( &::CTraceFilterWorldAndPropsOnly::GetTraceType ) );
+            , (::TraceType_t ( ::CTraceFilterWorldAndPropsOnly::* )(  ) const)( &::CTraceFilterWorldAndPropsOnly::GetTraceType ) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterWorldAndPropsOnly::* )( ::IHandleEntity *,int ) )(&::CTraceFilterWorldAndPropsOnly::ShouldHitEntity)
+            , (bool ( CTraceFilterWorldAndPropsOnly_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterWorldAndPropsOnly_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pServerEntity"), bp::arg("contentsMask") ) );
 
-    bp::class_< CTraceFilterWorldOnly, bp::bases< ITraceFilter > >( "CTraceFilterWorldOnly" )    
+    bp::class_< CTraceFilterWorldOnly_wrapper, bp::bases< ITraceFilter > >( "CTraceFilterWorldOnly" )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterWorldOnly::* )(  ) const)( &::CTraceFilterWorldOnly::GetTraceType ) );
+            , (::TraceType_t ( ::CTraceFilterWorldOnly::* )(  ) const)( &::CTraceFilterWorldOnly::GetTraceType ) )    
+        .def( 
+            "ShouldHitEntity"
+            , (bool ( ::CTraceFilterWorldOnly::* )( ::IHandleEntity *,int ) )(&::CTraceFilterWorldOnly::ShouldHitEntity)
+            , (bool ( CTraceFilterWorldOnly_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterWorldOnly_wrapper::default_ShouldHitEntity)
+            , ( bp::arg("pServerEntity"), bp::arg("contentsMask") ) );
 
     { //::PyRay_t
         typedef bp::class_< PyRay_t > Ray_t_exposer_t;

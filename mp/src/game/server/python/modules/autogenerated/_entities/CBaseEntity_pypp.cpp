@@ -873,13 +873,13 @@ struct CBaseEntity_wrapper : CBaseEntity, bp::wrapper< CBaseEntity > {
         return CBaseEntity::GetServerClass();
     }
 
-    int m_lifeState_Get() { return m_lifeState.Get(); }
+    static int m_lifeState_Get( CBaseEntity const & inst ) { return inst.m_lifeState.Get(); }
 
-    void m_lifeState_Set( int val ) { m_lifeState.Set( val ); }
+    static void m_lifeState_Set( CBaseEntity & inst, int val ) { inst.m_lifeState.Set( val ); }
 
-    int m_takedamage_Get() { return m_takedamage.Get(); }
+    static int m_takedamage_Get( CBaseEntity const & inst ) { return inst.m_takedamage.Get(); }
 
-    void m_takedamage_Set( int val ) { m_takedamage.Set( val ); }
+    static void m_takedamage_Set( CBaseEntity & inst, int val ) { inst.m_takedamage.Set( val ); }
 
 };
 
@@ -3990,11 +3990,11 @@ void register_CBaseEntity_class(){
         }
         { //::CBaseEntity::PySendEvent
         
-            typedef void ( ::CBaseEntity::*PySendEvent_function_type )( ::IRecipientFilter &,int,int ) ;
+            typedef void ( ::CBaseEntity::*SendEvent_function_type )( ::IRecipientFilter &,int,int ) ;
             
             CBaseEntity_exposer.def( 
-                "PySendEvent"
-                , PySendEvent_function_type( &::CBaseEntity::PySendEvent )
+                "SendEvent"
+                , SendEvent_function_type( &::CBaseEntity::PySendEvent )
                 , ( bp::arg("filter"), bp::arg("event"), bp::arg("data")=(int)(0) ) );
         
         }
