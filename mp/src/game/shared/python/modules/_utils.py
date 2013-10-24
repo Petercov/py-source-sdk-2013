@@ -188,11 +188,13 @@ class Utils(SemiSharedModuleGenerator):
         
         # //--------------------------------------------------------------------------------------------------------------------------------
         # Tracing
-        mb.class_('CBaseTrace').include()
-        mb.class_('CGameTrace').include()
-        mb.class_('CGameTrace').rename('trace_t')
-        mb.vars('m_pEnt').rename('ent')
-        #mb.global_ns.typedefs('trace_t').include()
+        cls = mb.class_('CBaseTrace')
+        cls.include()
+        cls = mb.class_('CGameTrace')
+        cls.include()
+        cls.rename('trace_t')
+        cls.var('m_pEnt').rename('ent')
+        cls.var('m_pEnt').getter_call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
         cls = mb.class_('PyRay_t')
         cls.include()
@@ -231,9 +233,7 @@ class Utils(SemiSharedModuleGenerator):
         ]
         for clsname in tracefilters:
             self.SetupTraceFilter(mb, clsname)
-            
-        mb.mem_funs('ShouldHitEntity').exclude()
-
+        
         mb.class_('CTraceFilterSimple').rename('CTraceFilterSimpleInternal')
         mb.class_('CPyTraceFilterSimple').rename('CTraceFilterSimple')
         
