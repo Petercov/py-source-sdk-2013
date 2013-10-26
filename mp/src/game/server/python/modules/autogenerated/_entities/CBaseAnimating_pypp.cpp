@@ -920,6 +920,10 @@ struct CBaseAnimating_wrapper : CBaseAnimating, bp::wrapper< CBaseAnimating > {
 
     static void m_takedamage_Set( CBaseAnimating & inst, int val ) { inst.m_takedamage.Set( val ); }
 
+    static int m_nSkin_Get( CBaseAnimating const & inst ) { return inst.m_nSkin.Get(); }
+
+    static void m_nSkin_Set( CBaseAnimating & inst, int val ) { inst.m_nSkin.Set( val ); }
+
 };
 
 void register_CBaseAnimating_class(){
@@ -2492,16 +2496,6 @@ void register_CBaseAnimating_class(){
         }
         { //::CBaseAnimating::SetLightingOrigin
         
-            typedef void ( ::CBaseAnimating::*SetLightingOrigin_function_type )( ::CBaseEntity * ) ;
-            
-            CBaseAnimating_exposer.def( 
-                "SetLightingOrigin"
-                , SetLightingOrigin_function_type( &::CBaseAnimating::SetLightingOrigin )
-                , ( bp::arg("pLightingOrigin") ) );
-        
-        }
-        { //::CBaseAnimating::SetLightingOrigin
-        
             typedef void ( ::CBaseAnimating::*SetLightingOrigin_function_type )( ::string_t ) ;
             
             CBaseAnimating_exposer.def( 
@@ -2510,14 +2504,14 @@ void register_CBaseAnimating_class(){
                 , ( bp::arg("strLightingOrigin") ) );
         
         }
-        { //::CBaseAnimating::SetLightingOriginRelative
+        { //::CBaseAnimating::SetLightingOrigin
         
-            typedef void ( ::CBaseAnimating::*SetLightingOriginRelative_function_type )( ::CBaseEntity * ) ;
+            typedef void ( ::CBaseAnimating::*SetLightingOrigin_function_type )( ::CBaseEntity * ) ;
             
             CBaseAnimating_exposer.def( 
-                "SetLightingOriginRelative"
-                , SetLightingOriginRelative_function_type( &::CBaseAnimating::SetLightingOriginRelative )
-                , ( bp::arg("pLightingOriginRelative") ) );
+                "SetLightingOrigin"
+                , SetLightingOrigin_function_type( &::CBaseAnimating::SetLightingOrigin )
+                , ( bp::arg("pLightingOrigin") ) );
         
         }
         { //::CBaseAnimating::SetLightingOriginRelative
@@ -2528,6 +2522,16 @@ void register_CBaseAnimating_class(){
                 "SetLightingOriginRelative"
                 , SetLightingOriginRelative_function_type( &::CBaseAnimating::SetLightingOriginRelative )
                 , ( bp::arg("strLightingOriginRelative") ) );
+        
+        }
+        { //::CBaseAnimating::SetLightingOriginRelative
+        
+            typedef void ( ::CBaseAnimating::*SetLightingOriginRelative_function_type )( ::CBaseEntity * ) ;
+            
+            CBaseAnimating_exposer.def( 
+                "SetLightingOriginRelative"
+                , SetLightingOriginRelative_function_type( &::CBaseAnimating::SetLightingOriginRelative )
+                , ( bp::arg("pLightingOriginRelative") ) );
         
         }
         { //::CBaseAnimating::SetModel
@@ -2617,16 +2621,6 @@ void register_CBaseAnimating_class(){
             CBaseAnimating_exposer.def( 
                 "SetSequenceBox"
                 , SetSequenceBox_function_type( &::CBaseAnimating::SetSequenceBox ) );
-        
-        }
-        { //::CBaseAnimating::SetTransmit
-        
-            typedef void ( ::CBaseAnimating::*SetTransmit_function_type )( ::CCheckTransmitInfo *,bool ) ;
-            
-            CBaseAnimating_exposer.def( 
-                "SetTransmit"
-                , SetTransmit_function_type( &::CBaseAnimating::SetTransmit )
-                , ( bp::arg("pInfo"), bp::arg("bAlways") ) );
         
         }
         { //::CBaseAnimating::SetupBones
@@ -2983,6 +2977,7 @@ void register_CBaseAnimating_class(){
         CBaseAnimating_exposer.staticmethod( "GetPyNetworkType" );
         CBaseAnimating_exposer.add_property( "lifestate", &CBaseAnimating_wrapper::m_lifeState_Get, &CBaseAnimating_wrapper::m_lifeState_Set );
         CBaseAnimating_exposer.add_property( "takedamage", &CBaseAnimating_wrapper::m_takedamage_Get, &CBaseAnimating_wrapper::m_takedamage_Set );
+        CBaseAnimating_exposer.add_property( "skin", &CBaseAnimating_wrapper::m_nSkin_Get, &CBaseAnimating_wrapper::m_nSkin_Set );
     }
 
 }

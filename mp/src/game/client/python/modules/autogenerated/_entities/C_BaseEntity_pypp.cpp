@@ -186,6 +186,30 @@ struct C_BaseEntity_wrapper : C_BaseEntity, bp::wrapper< C_BaseEntity > {
         C_BaseEntity::DoImpactEffect( boost::ref(tr), nDamageType );
     }
 
+    static boost::python::object EmitSound_e4b4762fb9358ec88c05ad458fc7366a( ::C_BaseEntity & inst, char const * soundname, float soundtime=0.0f ){
+        float duration2;
+        inst.EmitSound(soundname, soundtime, &duration2);
+        return bp::object( duration2 );
+    }
+
+    static boost::python::object EmitSound_1c0070052e1719f9897ee4d384fcdef1( ::C_BaseEntity & inst, char const * soundname, ::HSOUNDSCRIPTHANDLE & handle, float soundtime=0.0f ){
+        float duration2;
+        inst.EmitSound(soundname, handle, soundtime, &duration2);
+        return bp::object( duration2 );
+    }
+
+    static boost::python::object EmitSound_1c0216bc9705244e7b64bf26248f7984( ::IRecipientFilter & filter, int iEntIndex, char const * soundname, ::Vector const * pOrigin=0, float soundtime=0.0f ){
+        float duration2;
+        ::C_BaseEntity::EmitSound(filter, iEntIndex, soundname, pOrigin, soundtime, &duration2);
+        return bp::object( duration2 );
+    }
+
+    static boost::python::object EmitSound_271ec8a657e8e0cf447432d88c77c306( ::IRecipientFilter & filter, int iEntIndex, char const * soundname, ::HSOUNDSCRIPTHANDLE & handle, ::Vector const * pOrigin=0, float soundtime=0.0f ){
+        float duration2;
+        ::C_BaseEntity::EmitSound(filter, iEntIndex, soundname, handle, pOrigin, soundtime, &duration2);
+        return bp::object( duration2 );
+    }
+
     virtual void EndTouch( ::C_BaseEntity * pOther ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
@@ -1319,61 +1343,61 @@ void register_C_BaseEntity_class(){
         }
         { //::C_BaseEntity::EmitSound
         
-            typedef void ( ::C_BaseEntity::*EmitSound_function_type )( char const *,float,float * ) ;
+            typedef boost::python::object ( *EmitSound_function_type )( ::C_BaseEntity &,char const *,float );
             
             C_BaseEntity_exposer.def( 
                 "EmitSound"
-                , EmitSound_function_type( &::C_BaseEntity::EmitSound )
-                , ( bp::arg("soundname"), bp::arg("soundtime")=0.0f, bp::arg("duration")=bp::object() ) );
+                , EmitSound_function_type( &C_BaseEntity_wrapper::EmitSound_e4b4762fb9358ec88c05ad458fc7366a )
+                , ( bp::arg("inst"), bp::arg("soundname"), bp::arg("soundtime")=0.0f ) );
         
         }
         { //::C_BaseEntity::EmitSound
         
-            typedef void ( ::C_BaseEntity::*EmitSound_function_type )( char const *,::HSOUNDSCRIPTHANDLE &,float,float * ) ;
+            typedef boost::python::object ( *EmitSound_function_type )( ::C_BaseEntity &,char const *,::HSOUNDSCRIPTHANDLE &,float );
             
             C_BaseEntity_exposer.def( 
                 "EmitSound"
-                , EmitSound_function_type( &::C_BaseEntity::EmitSound )
-                , ( bp::arg("soundname"), bp::arg("handle"), bp::arg("soundtime")=0.0f, bp::arg("duration")=bp::object() ) );
+                , EmitSound_function_type( &C_BaseEntity_wrapper::EmitSound_1c0070052e1719f9897ee4d384fcdef1 )
+                , ( bp::arg("inst"), bp::arg("soundname"), bp::arg("handle"), bp::arg("soundtime")=0.0f ) );
         
         }
         { //::C_BaseEntity::EmitSound
         
-            typedef void ( *EmitSound_function_type )( ::IRecipientFilter &,int,char const *,::Vector const *,float,float * );
+            typedef boost::python::object ( *EmitSoundFilter_function_type )( ::IRecipientFilter &,int,char const *,::Vector const *,float );
             
             C_BaseEntity_exposer.def( 
-                "EmitSound"
-                , EmitSound_function_type( &::C_BaseEntity::EmitSound )
-                , ( bp::arg("filter"), bp::arg("iEntIndex"), bp::arg("soundname"), bp::arg("pOrigin")=bp::object(), bp::arg("soundtime")=0.0f, bp::arg("duration")=bp::object() ) );
+                "EmitSoundFilter"
+                , EmitSoundFilter_function_type( &C_BaseEntity_wrapper::EmitSound_1c0216bc9705244e7b64bf26248f7984 )
+                , ( bp::arg("filter"), bp::arg("iEntIndex"), bp::arg("soundname"), bp::arg("pOrigin")=bp::object(), bp::arg("soundtime")=0.0f ) );
         
         }
         { //::C_BaseEntity::EmitSound
         
-            typedef void ( *EmitSound_function_type )( ::IRecipientFilter &,int,char const *,::HSOUNDSCRIPTHANDLE &,::Vector const *,float,float * );
+            typedef boost::python::object ( *EmitSoundFilter_function_type )( ::IRecipientFilter &,int,char const *,::HSOUNDSCRIPTHANDLE &,::Vector const *,float );
             
             C_BaseEntity_exposer.def( 
-                "EmitSound"
-                , EmitSound_function_type( &::C_BaseEntity::EmitSound )
-                , ( bp::arg("filter"), bp::arg("iEntIndex"), bp::arg("soundname"), bp::arg("handle"), bp::arg("pOrigin")=bp::object(), bp::arg("soundtime")=0.0f, bp::arg("duration")=bp::object() ) );
+                "EmitSoundFilter"
+                , EmitSoundFilter_function_type( &C_BaseEntity_wrapper::EmitSound_271ec8a657e8e0cf447432d88c77c306 )
+                , ( bp::arg("filter"), bp::arg("iEntIndex"), bp::arg("soundname"), bp::arg("handle"), bp::arg("pOrigin")=bp::object(), bp::arg("soundtime")=0.0f ) );
         
         }
         { //::C_BaseEntity::EmitSound
         
-            typedef void ( *EmitSound_function_type )( ::IRecipientFilter &,int,::EmitSound_t const & );
+            typedef void ( *EmitSoundFilter_function_type )( ::IRecipientFilter &,int,::EmitSound_t const & );
             
             C_BaseEntity_exposer.def( 
-                "EmitSound"
-                , EmitSound_function_type( &::C_BaseEntity::EmitSound )
+                "EmitSoundFilter"
+                , EmitSoundFilter_function_type( &::C_BaseEntity::EmitSound )
                 , ( bp::arg("filter"), bp::arg("iEntIndex"), bp::arg("params") ) );
         
         }
         { //::C_BaseEntity::EmitSound
         
-            typedef void ( *EmitSound_function_type )( ::IRecipientFilter &,int,::EmitSound_t const &,::HSOUNDSCRIPTHANDLE & );
+            typedef void ( *EmitSoundFilter_function_type )( ::IRecipientFilter &,int,::EmitSound_t const &,::HSOUNDSCRIPTHANDLE & );
             
             C_BaseEntity_exposer.def( 
-                "EmitSound"
-                , EmitSound_function_type( &::C_BaseEntity::EmitSound )
+                "EmitSoundFilter"
+                , EmitSoundFilter_function_type( &::C_BaseEntity::EmitSound )
                 , ( bp::arg("filter"), bp::arg("iEntIndex"), bp::arg("params"), bp::arg("handle") ) );
         
         }
@@ -5017,21 +5041,21 @@ void register_C_BaseEntity_class(){
         }
         { //::C_BaseEntity::StopSound
         
-            typedef void ( *StopSound_function_type )( int,char const * );
+            typedef void ( *StopSoundStatic_function_type )( int,char const * );
             
             C_BaseEntity_exposer.def( 
-                "StopSound"
-                , StopSound_function_type( &::C_BaseEntity::StopSound )
+                "StopSoundStatic"
+                , StopSoundStatic_function_type( &::C_BaseEntity::StopSound )
                 , ( bp::arg("iEntIndex"), bp::arg("soundname") ) );
         
         }
         { //::C_BaseEntity::StopSound
         
-            typedef void ( *StopSound_function_type )( int,int,char const * );
+            typedef void ( *StopSoundStatic_function_type )( int,int,char const * );
             
             C_BaseEntity_exposer.def( 
-                "StopSound"
-                , StopSound_function_type( &::C_BaseEntity::StopSound )
+                "StopSoundStatic"
+                , StopSoundStatic_function_type( &::C_BaseEntity::StopSound )
                 , ( bp::arg("iEntIndex"), bp::arg("iChannel"), bp::arg("pSample") ) );
         
         }
@@ -5378,7 +5402,7 @@ void register_C_BaseEntity_class(){
         C_BaseEntity_exposer.staticmethod( "CreatePredictedEntityByName" );
         C_BaseEntity_exposer.staticmethod( "EmitAmbientSound" );
         C_BaseEntity_exposer.staticmethod( "EmitCloseCaption" );
-        C_BaseEntity_exposer.staticmethod( "EmitSound" );
+        C_BaseEntity_exposer.staticmethod( "EmitSoundFilter" );
         C_BaseEntity_exposer.staticmethod( "EnableAbsRecomputations" );
         C_BaseEntity_exposer.staticmethod( "GetParametersForSound" );
         C_BaseEntity_exposer.staticmethod( "GetPredictionPlayer" );
@@ -5409,7 +5433,7 @@ void register_C_BaseEntity_class(){
         C_BaseEntity_exposer.staticmethod( "SetAbsQueriesValid" );
         C_BaseEntity_exposer.staticmethod( "SetAllowPrecache" );
         C_BaseEntity_exposer.staticmethod( "SetPredictionPlayer" );
-        C_BaseEntity_exposer.staticmethod( "StopSound" );
+        C_BaseEntity_exposer.staticmethod( "StopSoundStatic" );
         C_BaseEntity_exposer.add_property( "lifestate", &C_BaseEntity_wrapper::m_lifeState_Get, &C_BaseEntity_wrapper::m_lifeState_Set );
         C_BaseEntity_exposer.add_property( "takedamage", &C_BaseEntity_wrapper::m_takedamage_Get, &C_BaseEntity_wrapper::m_takedamage_Set );
     }

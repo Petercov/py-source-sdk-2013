@@ -16,52 +16,16 @@ PyServerClass *g_pPyServerClassHead = NULL;
 
 bool g_SetupNetworkTablesOnHold = false;
 
-namespace DT_BaseEntity
-{
-	extern SendTable g_SendTable;
-}
-namespace DT_BaseAnimating
-{
-	extern SendTable g_SendTable;
-}
-namespace DT_BaseAnimatingOverlay
-{
-	extern SendTable g_SendTable;
-}
-namespace DT_BaseFlex
-{
-	extern SendTable g_SendTable;
-}
-namespace DT_BaseCombatCharacter
-{
-	extern SendTable g_SendTable;
-}
-namespace DT_BasePlayer
-{
-	extern SendTable g_SendTable;
-}
+EXTERN_SEND_TABLE( DT_BaseEntity );
+EXTERN_SEND_TABLE( DT_BaseAnimating );
+EXTERN_SEND_TABLE( DT_BaseAnimatingOverlay );
+EXTERN_SEND_TABLE( DT_BaseFlex );
+EXTERN_SEND_TABLE( DT_BaseCombatCharacter );
+EXTERN_SEND_TABLE( DT_BasePlayer );
+EXTERN_SEND_TABLE( DT_BaseGrenade );
+EXTERN_SEND_TABLE( DT_BaseCombatWeapon );
+EXTERN_SEND_TABLE( DT_PlayerResource );
 
-namespace DT_BaseGrenade
-{
-	extern SendTable g_SendTable;
-}
-
-namespace DT_BaseCombatWeapon
-{
-	extern SendTable g_SendTable;
-}
-
-#if 0 // TODO
-namespace DT_BaseToggle
-{
-	extern SendTable g_SendTable;
-}
-
-namespace DT_BaseTrigger
-{
-	extern SendTable g_SendTable;
-}
-#endif // 0
 
 namespace bp = boost::python;
 
@@ -107,6 +71,9 @@ void PyServerClass::SetupServerClass( int iType )
 		break;
 	case PN_BASECOMBATWEAPON:
 		m_pTable = &(DT_BaseCombatWeapon::g_SendTable);
+		break;
+	case PN_PLAYERRESOURCE:
+		m_pTable = &(DT_PlayerResource::g_SendTable);
 		break;
 #if 0 // TODO
 	case PN_BASETOGGLE:

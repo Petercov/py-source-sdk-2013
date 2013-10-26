@@ -724,6 +724,10 @@ struct C_BaseAnimating_wrapper : C_BaseAnimating, bp::wrapper< C_BaseAnimating >
 
     static void m_takedamage_Set( C_BaseAnimating & inst, int val ) { inst.m_takedamage = val; }
 
+    static int m_nSkin_Get( C_BaseAnimating const & inst ) { return inst.m_nSkin; }
+
+    static void m_nSkin_Set( C_BaseAnimating & inst, int val ) { inst.m_nSkin = val; }
+
 };
 
 void register_C_BaseAnimating_class(){
@@ -1685,15 +1689,6 @@ void register_C_BaseAnimating_class(){
                 , GetServerIntendedCycle_function_type( &::C_BaseAnimating::GetServerIntendedCycle ) );
         
         }
-        { //::C_BaseAnimating::GetSkin
-        
-            typedef int ( ::C_BaseAnimating::*GetSkin_function_type )(  ) ;
-            
-            C_BaseAnimating_exposer.def( 
-                "GetSkin"
-                , GetSkin_function_type( &::C_BaseAnimating::GetSkin ) );
-        
-        }
         { //::C_BaseAnimating::GetSoundSpatialization
         
             typedef bool ( ::C_BaseAnimating::*GetSoundSpatialization_function_type )( ::SpatializationInfo_t & ) ;
@@ -2257,15 +2252,6 @@ void register_C_BaseAnimating_class(){
         }
         { //::C_BaseAnimating::SequenceDuration
         
-            typedef float ( ::C_BaseAnimating::*SequenceDuration_function_type )(  ) ;
-            
-            C_BaseAnimating_exposer.def( 
-                "SequenceDuration"
-                , SequenceDuration_function_type( &::C_BaseAnimating::SequenceDuration ) );
-        
-        }
-        { //::C_BaseAnimating::SequenceDuration
-        
             typedef float ( ::C_BaseAnimating::*SequenceDuration_function_type )( ::CStudioHdr *,int ) ;
             
             C_BaseAnimating_exposer.def( 
@@ -2282,6 +2268,15 @@ void register_C_BaseAnimating_class(){
                 "SequenceDuration"
                 , SequenceDuration_function_type( &::C_BaseAnimating::SequenceDuration )
                 , ( bp::arg("iSequence") ) );
+        
+        }
+        { //::C_BaseAnimating::SequenceDuration
+        
+            typedef float ( ::C_BaseAnimating::*SequenceDuration_function_type )(  ) ;
+            
+            C_BaseAnimating_exposer.def( 
+                "SequenceDuration"
+                , SequenceDuration_function_type( &::C_BaseAnimating::SequenceDuration ) );
         
         }
         { //::C_BaseAnimating::SequenceLoops
@@ -2857,6 +2852,7 @@ void register_C_BaseAnimating_class(){
         C_BaseAnimating_exposer.staticmethod( "UpdateClientSideAnimations" );
         C_BaseAnimating_exposer.add_property( "lifestate", &C_BaseAnimating_wrapper::m_lifeState_Get, &C_BaseAnimating_wrapper::m_lifeState_Set );
         C_BaseAnimating_exposer.add_property( "takedamage", &C_BaseAnimating_wrapper::m_takedamage_Get, &C_BaseAnimating_wrapper::m_takedamage_Set );
+        C_BaseAnimating_exposer.add_property( "skin", &C_BaseAnimating_wrapper::m_nSkin_Get, &C_BaseAnimating_wrapper::m_nSkin_Set );
     }
 
 }

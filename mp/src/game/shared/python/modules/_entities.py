@@ -190,7 +190,7 @@ class Entities(SemiSharedModuleGenerator):
         '%mapentities_shared.h',
         '#%ai_responsesystem.h',
     ]
-    
+        
     # List of entity classes want to have exposed
     cliententities = [ 
         'C_BaseEntity', 
@@ -414,6 +414,7 @@ class Entities(SemiSharedModuleGenerator):
                 pointer_t(const_t(declarated_t(mb.class_('IServerVehicle')))),
                 pointer_t(declarated_t(mb.class_('IServerNetworkable'))),
                 pointer_t(declarated_t(mb.class_('CEventAction'))),
+                pointer_t(declarated_t(mb.class_('CCheckTransmitInfo'))),
                 pointer_t(const_t(declarated_t(mb.class_('CCheckTransmitInfo')))),
             ]
             if self.settings.branch == 'source2013':
@@ -525,6 +526,20 @@ class Entities(SemiSharedModuleGenerator):
         mb.mem_funs('IsClient').exclude() 
         mb.mem_funs('GetDLLType').exclude() 
         
+        # Transform EmitSound
+        # There seems to be a problem with static and member functions with the same name
+        # Rename EmitSound with filter into "EmitSoundFilter"
+        # Rename static StopSound to StopSoundStatic
+        decls = mb.mem_funs('EmitSound')
+        
+        mb.mem_funs('EmitSound', calldef_withtypes(reference_t(declarated_t(mb.class_('IRecipientFilter'))))).rename('EmitSoundFilter')
+        mb.mem_funs('StopSound', lambda decl: decl.has_static).rename('StopSoundStatic')
+        
+        for decl in decls:
+            for arg in decl.arguments:
+                if arg.name == 'duration':
+                    decl.add_transformation(FT.output('duration'))
+        mb.typedef('HSOUNDSCRIPTHANDLE').include()
         
         # Create properties for the following variables, since they are networked
         for entcls in self.entclasses:
@@ -707,7 +722,14 @@ class Entities(SemiSharedModuleGenerator):
         # Give back a direct reference to CStudioHdr (not fully safe, but should be OK)
         studiohdr = mb.class_('CStudioHdr')
         mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(studiohdr))), allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)  
-            
+        
+        # Create properties for the following variables, since they are networked
+        if self.isclient or self.settings.branch != 'source2013':
+            cls.mem_fun('GetSkin').exclude()
+        for entcls in self.entclasses:
+            if entcls == cls or next((x for x in entcls.recursive_bases if x.related_class == cls), None):
+                self.AddNetworkVarProperty('skin', 'm_nSkin', 'int', entcls)    
+
         # Exclude anything return CBoneCache
         bonecache = mb.class_('CBoneCache')
         mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(bonecache))), allow_empty=True).exclude()
@@ -842,15 +864,29 @@ class Entities(SemiSharedModuleGenerator):
  
         cls.mem_fun('GetLadderSurface').exclude()
         cls.mem_fun('Hints').exclude()
-        cls.mem_fun('GetSurfaceData').exclude()
+        if self.settings.branch == 'source2013' or self.isserver:
+            cls.mem_fun('GetSurfaceData').exclude()
         
         if self.isclient:
             # Client excludes
             cls.mem_fun('GetFogParams').exclude()
+            cls.mem_fun('OverrideView').exclude()
             cls.mem_fun('GetFootstepSurface').exclude()
             cls.mem_fun('GetHeadLabelMaterial').exclude()
             cls.mem_fun('GetRepresentativeRagdoll').exclude()
             cls.mem_fun('ShouldGoSouth').exclude() # No definition
+            
+            if self.settings.branch == 'swarm':
+                mb.mem_funs('ActivePlayerCombatCharacter').exclude()
+                mb.mem_funs('GetActiveColorCorrection').exclude()
+                mb.mem_funs('GetActivePostProcessController').exclude()
+                mb.mem_funs('GetPotentialUseEntity').exclude()
+                mb.mem_funs('GetSoundscapeListener').exclude()
+                mb.mem_funs('GetSplitScreenPlayers').exclude()
+                mb.mem_funs('GetViewEntity').exclude()
+                mb.mem_funs('IsReplay').exclude()
+
+            mb.mem_funs('CalcView').add_transformation(FT.output('zNear'), FT.output('zFar'), FT.output('fov'))
         else:
             # Server excludes
             cls.mem_fun('GetExpresser').exclude()
@@ -865,9 +901,20 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_fun('DeathMessage').exclude() # No definition
             cls.mem_fun('SetupVPhysicsShadow').exclude() # Requires CPhysCollide, would need manually wrapping
             
+            if self.settings.branch == 'swarm':
+                mb.mem_funs('ActivePlayerCombatCharacter').exclude()
+                mb.mem_funs('FindPickerAILink').exclude()
+                mb.mem_funs('GetPlayerProxy').exclude()
+                mb.mem_funs('GetSoundscapeListener').exclude()
+                mb.mem_funs('GetSplitScreenPlayerOwner').exclude()
+                mb.mem_funs('GetSplitScreenPlayers').exclude()
+                mb.mem_funs('GetTonemapController').exclude()
+                mb.mem_funs('FindPickerAINode').exclude()
+
     def ParseTriggers(self, mb):
-        if not self.isserver:
+        if self.isclient and self.settings.branch == 'source2013':
             return
+            
         # CBaseTrigger
         cls_name = 'C_BaseTrigger' if self.isclient else 'CBaseTrigger'
         cls = mb.class_(cls_name)

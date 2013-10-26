@@ -911,6 +911,10 @@ struct CBaseFlex_wrapper : CBaseFlex, bp::wrapper< CBaseFlex > {
 
     static void m_takedamage_Set( CBaseFlex & inst, int val ) { inst.m_takedamage.Set( val ); }
 
+    static int m_nSkin_Get( CBaseFlex const & inst ) { return inst.m_nSkin.Get(); }
+
+    static void m_nSkin_Set( CBaseFlex & inst, int val ) { inst.m_nSkin.Set( val ); }
+
 };
 
 void register_CBaseFlex_class(){
@@ -1132,7 +1136,8 @@ void register_CBaseFlex_class(){
             , ( bp::arg("index"), bp::arg("pEvent") ) )    
         .staticmethod( "GetPyNetworkType" )    
         .add_property( "lifestate", &CBaseFlex_wrapper::m_lifeState_Get, &CBaseFlex_wrapper::m_lifeState_Set )    
-        .add_property( "takedamage", &CBaseFlex_wrapper::m_takedamage_Get, &CBaseFlex_wrapper::m_takedamage_Set );
+        .add_property( "takedamage", &CBaseFlex_wrapper::m_takedamage_Get, &CBaseFlex_wrapper::m_takedamage_Set )    
+        .add_property( "skin", &CBaseFlex_wrapper::m_nSkin_Get, &CBaseFlex_wrapper::m_nSkin_Set );
 
 }
 

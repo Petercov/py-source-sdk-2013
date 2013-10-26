@@ -911,6 +911,10 @@ struct CBaseGrenade_wrapper : CBaseGrenade, bp::wrapper< CBaseGrenade > {
 
     static void m_takedamage_Set( CBaseGrenade & inst, int val ) { inst.m_takedamage.Set( val ); }
 
+    static int m_nSkin_Get( CBaseGrenade const & inst ) { return inst.m_nSkin.Get(); }
+
+    static void m_nSkin_Set( CBaseGrenade & inst, int val ) { inst.m_nSkin.Set( val ); }
+
 };
 
 void register_CBaseGrenade_class(){
@@ -1139,7 +1143,8 @@ void register_CBaseGrenade_class(){
             , ( bp::arg("index"), bp::arg("pEvent") ) )    
         .staticmethod( "GetPyNetworkType" )    
         .add_property( "lifestate", &CBaseGrenade_wrapper::m_lifeState_Get, &CBaseGrenade_wrapper::m_lifeState_Set )    
-        .add_property( "takedamage", &CBaseGrenade_wrapper::m_takedamage_Get, &CBaseGrenade_wrapper::m_takedamage_Set );
+        .add_property( "takedamage", &CBaseGrenade_wrapper::m_takedamage_Get, &CBaseGrenade_wrapper::m_takedamage_Set )    
+        .add_property( "skin", &CBaseGrenade_wrapper::m_nSkin_Get, &CBaseGrenade_wrapper::m_nSkin_Set );
 
 }
 

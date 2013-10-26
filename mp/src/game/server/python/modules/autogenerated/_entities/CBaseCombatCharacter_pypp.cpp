@@ -1061,6 +1061,10 @@ struct CBaseCombatCharacter_wrapper : CBaseCombatCharacter, bp::wrapper< CBaseCo
 
     static void m_takedamage_Set( CBaseCombatCharacter & inst, int val ) { inst.m_takedamage.Set( val ); }
 
+    static int m_nSkin_Get( CBaseCombatCharacter const & inst ) { return inst.m_nSkin.Get(); }
+
+    static void m_nSkin_Set( CBaseCombatCharacter & inst, int val ) { inst.m_nSkin.Set( val ); }
+
 };
 
 void register_CBaseCombatCharacter_class(){
@@ -2281,16 +2285,6 @@ void register_CBaseCombatCharacter_class(){
                 , ( bp::arg("theString") ) );
         
         }
-        { //::CBaseCombatCharacter::SetTransmit
-        
-            typedef void ( ::CBaseCombatCharacter::*SetTransmit_function_type )( ::CCheckTransmitInfo *,bool ) ;
-            
-            CBaseCombatCharacter_exposer.def( 
-                "SetTransmit"
-                , SetTransmit_function_type( &::CBaseCombatCharacter::SetTransmit )
-                , ( bp::arg("pInfo"), bp::arg("bAlways") ) );
-        
-        }
         { //::CBaseCombatCharacter::ShouldGib
         
             typedef bool ( ::CBaseCombatCharacter::*ShouldGib_function_type )( ::CTakeDamageInfo const & ) ;
@@ -2880,6 +2874,7 @@ void register_CBaseCombatCharacter_class(){
         CBaseCombatCharacter_exposer.staticmethod( "SetDefaultRelationship" );
         CBaseCombatCharacter_exposer.add_property( "lifestate", &CBaseCombatCharacter_wrapper::m_lifeState_Get, &CBaseCombatCharacter_wrapper::m_lifeState_Set );
         CBaseCombatCharacter_exposer.add_property( "takedamage", &CBaseCombatCharacter_wrapper::m_takedamage_Get, &CBaseCombatCharacter_wrapper::m_takedamage_Set );
+        CBaseCombatCharacter_exposer.add_property( "skin", &CBaseCombatCharacter_wrapper::m_nSkin_Get, &CBaseCombatCharacter_wrapper::m_nSkin_Set );
     }
 
 }

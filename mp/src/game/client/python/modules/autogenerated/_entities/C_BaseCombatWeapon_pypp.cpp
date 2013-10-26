@@ -775,6 +775,10 @@ struct C_BaseCombatWeapon_wrapper : C_BaseCombatWeapon, bp::wrapper< C_BaseComba
 
     static void m_takedamage_Set( C_BaseCombatWeapon & inst, int val ) { inst.m_takedamage = val; }
 
+    static int m_nSkin_Get( C_BaseCombatWeapon const & inst ) { return inst.m_nSkin; }
+
+    static void m_nSkin_Set( C_BaseCombatWeapon & inst, int val ) { inst.m_nSkin = val; }
+
     static float m_flNextPrimaryAttack_Get( C_BaseCombatWeapon const & inst ) { return inst.m_flNextPrimaryAttack; }
 
     static void m_flNextPrimaryAttack_Set( C_BaseCombatWeapon & inst, float val ) { inst.m_flNextPrimaryAttack = val; }
@@ -1514,6 +1518,7 @@ void register_C_BaseCombatWeapon_class(){
         .staticmethod( "GetPyNetworkType" )    
         .add_property( "lifestate", &C_BaseCombatWeapon_wrapper::m_lifeState_Get, &C_BaseCombatWeapon_wrapper::m_lifeState_Set )    
         .add_property( "takedamage", &C_BaseCombatWeapon_wrapper::m_takedamage_Get, &C_BaseCombatWeapon_wrapper::m_takedamage_Set )    
+        .add_property( "skin", &C_BaseCombatWeapon_wrapper::m_nSkin_Get, &C_BaseCombatWeapon_wrapper::m_nSkin_Set )    
         .add_property( "nextprimaryattack", &C_BaseCombatWeapon_wrapper::m_flNextPrimaryAttack_Get, &C_BaseCombatWeapon_wrapper::m_flNextPrimaryAttack_Set )    
         .add_property( "nextsecondaryattack", &C_BaseCombatWeapon_wrapper::m_flNextSecondaryAttack_Get, &C_BaseCombatWeapon_wrapper::m_flNextSecondaryAttack_Set )    
         .add_property( "timeweaponidle", &C_BaseCombatWeapon_wrapper::m_flTimeWeaponIdle_Get, &C_BaseCombatWeapon_wrapper::m_flTimeWeaponIdle_Set )    

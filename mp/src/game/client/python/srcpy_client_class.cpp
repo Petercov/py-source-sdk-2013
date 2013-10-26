@@ -22,6 +22,7 @@
 #include "c_smoke_trail.h"
 #include "beam_shared.h"
 #include "basecombatweapon_shared.h"
+#include "c_playerresource.h"
 //#include "c_basetoggle.h"
 //#include "c_triggers.h"
 
@@ -33,45 +34,15 @@ PyClientClassBase *g_pPyClientClassHead = NULL;
 namespace bp = boost::python;
 
 // Recv tables
-namespace DT_BaseAnimating
-{
-	extern RecvTable g_RecvTable;
-}
-namespace DT_BaseAnimatingOverlay
-{
-	extern RecvTable g_RecvTable;
-}
-namespace DT_BaseFlex
-{
-	extern RecvTable g_RecvTable;
-}
-namespace DT_BaseCombatCharacter
-{
-	extern RecvTable g_RecvTable;
-}
-namespace DT_BasePlayer
-{
-	extern RecvTable g_RecvTable;
-}
-namespace DT_BaseGrenade
-{
-	extern RecvTable g_RecvTable;
-}
+EXTERN_RECV_TABLE( DT_BaseAnimating );
+EXTERN_RECV_TABLE( DT_BaseAnimatingOverlay );
+EXTERN_RECV_TABLE( DT_BaseFlex );
+EXTERN_RECV_TABLE( DT_BaseCombatCharacter );
+EXTERN_RECV_TABLE( DT_BasePlayer );
+EXTERN_RECV_TABLE( DT_BaseGrenade );
+EXTERN_RECV_TABLE( DT_BaseCombatWeapon );
+EXTERN_RECV_TABLE( DT_PlayerResource );
 
-namespace DT_BaseCombatWeapon
-{
-	extern RecvTable g_RecvTable;
-}
-
-namespace DT_BaseToggle 
-{
-	extern RecvTable g_RecvTable;
-}
-
-namespace DT_BaseTrigger 
-{
-	extern RecvTable g_RecvTable;
-}
 
 // A lot of factories
 #define IMPLEMENT_FALLBACK_FACTORY( clientClassName ) \
@@ -98,6 +69,7 @@ IMPLEMENT_FALLBACK_FACTORY(C_Sprite)
 IMPLEMENT_FALLBACK_FACTORY(C_SmokeTrail)
 IMPLEMENT_FALLBACK_FACTORY(C_Beam)
 IMPLEMENT_FALLBACK_FACTORY(C_BaseCombatWeapon)
+IMPLEMENT_FALLBACK_FACTORY(C_PlayerResource)
 
 #if 0 // TODO
 IMPLEMENT_FALLBACK_FACTORY(C_BaseToggle)
@@ -132,6 +104,9 @@ void SetupClientClassRecv( PyClientClassBase *p, int iType  )
 		break;
 	case PN_BASECOMBATWEAPON:
 		p->m_pRecvTable = &(DT_BaseCombatWeapon::g_RecvTable);
+		break;
+	case PN_PLAYERRESOURCE:
+		p->m_pRecvTable = &(DT_PlayerResource::g_RecvTable);
 		break;
 #if 0 // TODO
 	case PN_BASETOGGLE:

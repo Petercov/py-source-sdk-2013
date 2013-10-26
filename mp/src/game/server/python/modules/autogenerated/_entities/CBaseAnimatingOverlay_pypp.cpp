@@ -904,6 +904,10 @@ struct CBaseAnimatingOverlay_wrapper : CBaseAnimatingOverlay, bp::wrapper< CBase
 
     static void m_takedamage_Set( CBaseAnimatingOverlay & inst, int val ) { inst.m_takedamage.Set( val ); }
 
+    static int m_nSkin_Get( CBaseAnimatingOverlay const & inst ) { return inst.m_nSkin.Get(); }
+
+    static void m_nSkin_Set( CBaseAnimatingOverlay & inst, int val ) { inst.m_nSkin.Set( val ); }
+
 };
 
 void register_CBaseAnimatingOverlay_class(){
@@ -1613,6 +1617,7 @@ void register_CBaseAnimatingOverlay_class(){
         CBaseAnimatingOverlay_exposer.staticmethod( "GetPyNetworkType" );
         CBaseAnimatingOverlay_exposer.add_property( "lifestate", &CBaseAnimatingOverlay_wrapper::m_lifeState_Get, &CBaseAnimatingOverlay_wrapper::m_lifeState_Set );
         CBaseAnimatingOverlay_exposer.add_property( "takedamage", &CBaseAnimatingOverlay_wrapper::m_takedamage_Get, &CBaseAnimatingOverlay_wrapper::m_takedamage_Set );
+        CBaseAnimatingOverlay_exposer.add_property( "skin", &CBaseAnimatingOverlay_wrapper::m_nSkin_Get, &CBaseAnimatingOverlay_wrapper::m_nSkin_Set );
     }
 
 }

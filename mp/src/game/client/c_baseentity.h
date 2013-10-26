@@ -1723,6 +1723,9 @@ public:
 	boost::python::object			GetPyInstance() const;
 	void							SetPyInstance( boost::python::object inst );
 
+	// This directly returns the PyObject (if any)
+	virtual PyObject *GetPySelf() const { return NULL; }
+
 	// This returns the entity handle for usage in Python
 	boost::python::object			GetPyHandle() const;
 
