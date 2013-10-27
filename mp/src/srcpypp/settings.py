@@ -40,6 +40,7 @@ modules = [
     ('_physics', 'Physics'),
     ('_sound', 'Sound'),
     ('_particles', 'Particles'),
+    ('materials', 'Materials'),
 
     # Misc
     ('steam', 'Steam'),

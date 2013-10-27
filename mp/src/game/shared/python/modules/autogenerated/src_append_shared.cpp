@@ -21,6 +21,7 @@ extern "C" __declspec(dllexport) PyObject* PyInit__utils();
 extern "C" __declspec(dllexport) PyObject* PyInit__physics();
 extern "C" __declspec(dllexport) PyObject* PyInit__sound();
 extern "C" __declspec(dllexport) PyObject* PyInit__particles();
+extern "C" __declspec(dllexport) PyObject* PyInit_materials();
 extern "C" __declspec(dllexport) PyObject* PyInit_steam();
 extern "C" __declspec(dllexport) PyObject* PyInit__ndebugoverlay();
 extern "C" __declspec(dllexport) PyObject* PyInit_vprof();
@@ -35,6 +36,7 @@ extern "C"  PyObject* PyInit__utils();
 extern "C"  PyObject* PyInit__physics();
 extern "C"  PyObject* PyInit__sound();
 extern "C"  PyObject* PyInit__particles();
+extern "C"  PyObject* PyInit_materials();
 extern "C"  PyObject* PyInit_steam();
 extern "C"  PyObject* PyInit__ndebugoverlay();
 extern "C"  PyObject* PyInit_vprof();
@@ -53,6 +55,7 @@ void AppendSharedModules()
 	APPEND_MODULE(_physics)
 	APPEND_MODULE(_sound)
 	APPEND_MODULE(_particles)
+	APPEND_MODULE(materials)
 	APPEND_MODULE(steam)
 	APPEND_MODULE(_ndebugoverlay)
 	APPEND_MODULE(vprof)

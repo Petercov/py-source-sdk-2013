@@ -17,7 +17,7 @@
 
 #ifdef CLIENT_DLL
 	#include "networkstringtable_clientdll.h"
-	// TODO #include "src_python_materials.h"
+	#include "srcpy_materials.h"
 #else
 	#include "networkstringtable_gamedll.h"
 #endif // CLIENT_DLL
@@ -176,7 +176,7 @@ void CSrcPython::Shutdown( void )
 		return;
 
 #ifdef CLIENT_DLL
-	// TODO: PyShutdownProceduralMaterials();
+	PyShutdownProceduralMaterials();
 #endif // CLIENT_DLL
 
 	PyErr_Clear(); // Make sure it does not hold any references...
@@ -846,7 +846,7 @@ void CSrcPython::FrameUpdatePostEntityThink( void )
 	m_activeMethod = bp::object();
 
 #ifdef CLIENT_DLL
-	// TODO: PyUpdateProceduralMaterials();
+	PyUpdateProceduralMaterials();
 
 	CleanupDelayedUpdateList();
 #endif // CLIENT_DLL
