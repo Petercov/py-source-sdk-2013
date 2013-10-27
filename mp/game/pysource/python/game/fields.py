@@ -20,6 +20,10 @@ import weakref
 from types import MethodType
 from collections import defaultdict
 
+# A small helper for fgd help string generation
+def _escape_helpstring(helpstring):
+    return helpstring.replace('"', '\'')
+
 # List of weak refs to all fields
 # Used for resetting all fields to the defaults
 fields = []
@@ -102,7 +106,7 @@ class BaseField(object):
                 'default' : self.GenerateFGDDefaultValue(),
                 'readonly' : ' readonly' if self.fgdreadonly else '',
                 'displayname' : self.displayname if self.displayname else self.keyname,
-                'helpstring' : self.helpstring,
+                'helpstring' : _escape_helpstring(self.helpstring),
             }
                 
     def OnChangeOwnerNumber(self, inst, oldownernumber):
@@ -126,7 +130,7 @@ class BaseField(object):
         try:
             self.ToValue(value)
         except:
-            raise Exception('Value %s is not a %s' % (value, self.__class__.__name__))
+            raise Exception('Value %s is not a %s:\n%s' % (value, self.__class__.__name__, traceback.format_exc()))
         
     def ToValue(self, rawvalue):
         """ Convert string to value.
@@ -206,7 +210,7 @@ class BooleanField(BaseField):
             'default' : str(int(self.default)),
             'readonly' : ' readonly' if self.fgdreadonly else '',
             'displayname' : self.displayname if self.displayname else self.keyname,
-            'helpstring' : self.helpstring,
+            'helpstring' : _escape_helpstring(self.helpstring),
         }
         
     fgdtype = 'choices'
@@ -245,6 +249,15 @@ class StringField(BaseField):
         return str(value)
         
     fgdtype = 'string'
+    
+class TargetSrcField(StringField):
+    fgdtype = 'target_source'
+    
+class TargetDestField(StringField):
+    fgdtype = 'target_destination'
+    
+class FilterField(StringField):
+    fgdtype = 'filterclass'
     
 class ModelField(StringField):
     fgdtype = 'studio'
@@ -410,6 +423,7 @@ if isserver:
             fieldtypes.FIELD_BOOLEAN : variant_t.SetBool,
             fieldtypes.FIELD_VECTOR : variant_t.SetVector3D,
             fieldtypes.FIELD_POSITION_VECTOR : variant_t.SetPositionVector3D,
+            fieldtypes.FIELD_EHANDLE : variant_t.SetEntity,
         }
             
         def Set(self, value, activator=None, caller=None):
@@ -428,7 +442,8 @@ output_fgdtypes = {
     fieldtypes.FIELD_STRING : 'string',
     fieldtypes.FIELD_BOOLEAN : 'bool',
     fieldtypes.FIELD_VECTOR : 'vector',
-    #fieldtypes.FIELD_POSITION_VECTOR : 'void', ?
+    fieldtypes.FIELD_POSITION_VECTOR : 'void', # not used anywhere ?
+    fieldtypes.FIELD_EHANDLE : 'string',
 }
             
 class OutputField(BaseField):
@@ -451,7 +466,7 @@ class OutputField(BaseField):
         return 'output %(keyname)s(%(outputtype)s) : "%(helpstring)s"' % {
             'keyname' : self.keyname,
             'outputtype' : output_fgdtypes[self.fieldtype],
-            'helpstring' : self.helpstring,
+            'helpstring' : _escape_helpstring(self.helpstring),
         }
             
     hidden = True
@@ -462,7 +477,11 @@ class OutputField(BaseField):
 def ResetFields(sender, **kwargs):
     global fields
     fields = filter(lambda f: bool(f()), fields) # Remove None fields
-    map(lambda f: f().Reset(), fields)
+    for f in fields:
+        try:
+            f().Reset()
+        except ValueError:
+            traceback.print_exc()
 
 # Setup methods for fields
 def GetField(obj, name):
@@ -612,7 +631,7 @@ def input(inputname, helpstring='', fieldtype=fieldtypes.FIELD_VOID):
         fn.fgdinputentry = 'input %(keyname)s(%(outputtype)s) : "%(helpstring)s"' % {
                 'keyname' : fn.inputname,
                 'outputtype' : output_fgdtypes[fn.fieldtype],
-                'helpstring' : fn.helpstring,}
+                'helpstring' : _escape_helpstring(fn.helpstring)}
         return fn
     return fnwrapper
     

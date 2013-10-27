@@ -16,7 +16,7 @@
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <CommandLineArguments />
     <InterpreterPath>C:\Steam\SteamApps\common\Source SDK Base 2013 Multiplayer\hl2.exe</InterpreterPath>
-    <InterpreterArguments>-sv -noborder -dev -game "C:\development\source-sdk-2013-sandern\mp\game\pysource"</InterpreterArguments>
+    <InterpreterArguments>-sv -noborder -dev -game "C:\development\source-sdk-2013-sandern\mp\game\pysource" -vsptdebug</InterpreterArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <IsWindowsApplication>True</IsWindowsApplication>
   </PropertyGroup>
@@ -28,10 +28,16 @@
     </Compile>
     <Compile Include="consolespace.py" />
     <Compile Include="entities.py" />
+    <Compile Include="examples\commands.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="examples\entity.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="examples\networkedentity.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="examples\usermessages.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="examples\__init__.py">
@@ -40,6 +46,9 @@
     <Compile Include="gamerules.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="game\dispatch\dispatcher.py" />
+    <Compile Include="game\dispatch\saferef.py" />
+    <Compile Include="game\dispatch\__init__.py" />
     <Compile Include="game\fields.py">
       <SubType>Code</SubType>
     </Compile>
@@ -52,6 +61,8 @@
     <Compile Include="game\profiler.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="game\signals.py" />
+    <Compile Include="game\usermessages.py" />
     <Compile Include="game\__init__.py" />
     <Compile Include="input.py">
       <SubType>Code</SubType>
@@ -74,13 +85,18 @@
     <Compile Include="vmath.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="vsptdebug.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="examples\" />
     <Folder Include="game" />
+    <Folder Include="game\dispatch\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{82dc33c3-82f9-4c60-babe-18fb9ce8f3f1}\3.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="game\dispatch\license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>

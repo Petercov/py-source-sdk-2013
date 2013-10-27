@@ -1,4 +1,6 @@
 :: Get game dir by going into the directory with the gameinfo.txt and capturing %CD%
+:: This is based on the assumption the "vspt" script is placed in the python sub folder of the game/mod
+cd "%~dp0"
 cd ..
 Set GAMEDIR="%CD%"
 
