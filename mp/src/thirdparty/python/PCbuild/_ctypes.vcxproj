@@ -176,6 +176,8 @@
       <AdditionalOptions>/EXPORT:DllGetClassObject,PRIVATE /EXPORT:DllCanUnloadNow,PRIVATE %(AdditionalOptions)</AdditionalOptions>
       <SubSystem>NotSet</SubSystem>
       <BaseAddress>0x1D1A0000</BaseAddress>
+      <AdditionalLibraryDirectories>$(OutDir);$(ProjectDir)\..\..\..\game\server\Release_pysource;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>server.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
