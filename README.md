@@ -38,10 +38,12 @@ These examples cover the [Your First Entity](https://developer.valvesoftware.com
 To allow easier debugging, Visual Studio Python Tools is supported. 
 This includes Intellisense and setting breakpoints in Python code.
 
-You can get it from:
-http://pytools.codeplex.com/
+You can download VSPT from:
+
+        http://pytools.codeplex.com/
 
 To use VSPT, you must first add a new Python Environment:
+
 1. Open [Python.sln](mp/game/pysource/python/python.sln)
 2. Go to "Tools -> Options"
 3. Go to "Python Tools -> Environment Options" and click "Add Environment"
@@ -56,6 +58,7 @@ This will update the Intellisense database. It launches the game in text mode to
 ''Interactive Window'' (type something like "import entities", followed by "entities." to see intellisense working).
 
 Follow these steps to start a debugging session using VSPT:
+
 1. Open [Python.sln](mp/game/pysource/python/python.sln)
 2. Remove the "Unknown Python 3.3" entry from "Python Environments" in the project
 3. Add "Python 3.3 Source Engine" to the project
