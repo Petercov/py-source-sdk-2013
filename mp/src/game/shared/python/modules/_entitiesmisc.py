@@ -49,9 +49,11 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         cls =  mb.class_('NetworkedClass')
         cls.include()
         cls.vars('m_pClientClass').exclude()
-        self.IncludeEmptyClass(mb, 'ClientClass')
-        mb.class_('ClientClass').no_init = True
-        mb.class_('ClientClass').calldefs('ClientClass').exclude()
+        
+        cls = self.IncludeEmptyClass(mb, 'ClientClass')
+        cls.no_init = True
+        cls.calldefs('ClientClass').exclude()
+        cls.mem_fun('GetName').include() # For debugging purposes
         
         # Client Entity List
         cls = mb.class_('CClientEntityList')
@@ -106,9 +108,11 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         cls = mb.class_('NetworkedClass')
         cls.include()
         cls.vars('m_pServerClass').exclude()
-        self.IncludeEmptyClass(mb, 'ServerClass')
-        mb.class_('ServerClass').no_init = True
-        mb.class_('ServerClass').calldefs('ServerClass').exclude()
+        
+        cls = self.IncludeEmptyClass(mb, 'ServerClass')
+        cls.no_init = True
+        cls.calldefs('ServerClass').exclude()
+        cls.mem_fun('GetName').include() # For debugging purposes
 
         # Creating a networked variable
         cls = mb.class_('CPythonNetworkVar')
