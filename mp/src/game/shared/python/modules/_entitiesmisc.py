@@ -152,7 +152,7 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         # Global entity list
         cls = mb.class_('IEntityFindFilter')
         cls.include()
-        cls.mem_funs('GetFilterResult').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
+        cls.mem_funs('GetFilterResult').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
         cls = mb.class_('CGlobalEntityList')
         cls.include()
@@ -219,17 +219,11 @@ class EntitiesMisc(SemiSharedModuleGenerator):
             cls.mem_funs('GetActionForTarget').exclude()
             cls.mem_funs('GetFirstAction').exclude()
             
+        # Note: PyOutputEvent covers all the other types
+        # There is no need for COutputInt, COutputFloat, etc.
         cls = mb.class_('PyOutputEvent')
         cls.include()
-        cls.rename('COutputEvent')
-        #mb.class_('COutputVariant').include()
-        #mb.class_('COutputInt').include()
-        #mb.class_('COutputFloat').include()
-        #mb.class_('COutputString').include()
-        #mb.class_('COutputEHANDLE').include()
-        #mb.class_('COutputVector').include()
-        #mb.class_('COutputPositionVector').include()
-        #mb.class_('COutputColor32').include()        
+        cls.rename('COutputEvent') 
         
         # Inputdata_t and variant_t
         cls = mb.class_('inputdata_t')
@@ -288,6 +282,17 @@ class EntitiesMisc(SemiSharedModuleGenerator):
                                 '   return inst.pEntities[index] ? inst.pEntities[index]->GetPyHandle() : bp::object();\r\n' + \
                                 '}\r\n' )
         cls.add_registration_code( 'def("GetEnt", &::gamevcollisionevent_t_wrapper::GetEnt)')
+
+        # Speech
+        if self.settings.branch != 'swarm':
+            cls = mb.class_('CAI_Expresser')
+            cls.include()
+            cls.calldefs().virtuality = 'not virtual'  
+            cls.mem_funs('GetOuter').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+            cls.mem_funs('GetMySpeechSemaphore').exclude()
+            cls.mem_funs('GetSink').exclude()
+            cls.mem_funs('SpeakFindResponse').exclude() # Allocates new response, but does not guarantee it gets cleaned up.
+        
             
     def ParseMisc(self, mb):
         if self.isserver:

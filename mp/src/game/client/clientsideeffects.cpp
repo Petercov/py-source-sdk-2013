@@ -85,6 +85,22 @@ void CClientSideEffect::Destroy( void )
 	m_bActive = false;
 }
 
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+//-----------------------------------------------------------------------------
+// Purpose: If we can delete this effect
+//-----------------------------------------------------------------------------
+boost::python::object CClientSideEffect::GetPyInstance()
+{
+	return m_pyRef;
+}
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+
 #define MAX_EFFECTS 256
 
 //-----------------------------------------------------------------------------
@@ -180,7 +196,24 @@ void CEffectsList::RemoveEffect( int effectIndex )
 
 	pEffect->Destroy();
 
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	if( pEffect->GetPyInstance().ptr() == Py_None ) // Python allocated entities should not be deleted 
+	{
+		delete pEffect;	//FIXME: Yes, no?
+	}
+	else
+	{
+		pEffect->m_pyRef = boost::python::object();
+	}
+#else
 	delete pEffect;	//FIXME: Yes, no?
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 }
 
 //-----------------------------------------------------------------------------

@@ -32,7 +32,24 @@ public:
 	virtual bool		IsActive( void );
 	// Sets the effect to inactive so it can be destroed
 	virtual void		Destroy( void );
-	
+
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	friend class CEffectsList;
+
+	// Get python instance
+	boost::python::object	GetPyInstance();
+
+protected:
+	// Python allocated?
+	boost::python::object	m_pyRef;
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+
 private:
 	// Name of effect ( static data )
 	const char			*m_pszName;
