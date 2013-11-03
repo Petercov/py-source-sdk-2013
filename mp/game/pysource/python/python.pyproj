@@ -93,10 +93,10 @@
     <Folder Include="game\dispatch\" />
   </ItemGroup>
   <ItemGroup>
-    <InterpreterReference Include="{82dc33c3-82f9-4c60-babe-18fb9ce8f3f1}\3.3" />
+    <Content Include="game\dispatch\license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="game\dispatch\license.txt" />
+    <InterpreterReference Include="{82dc33c3-82f9-4c60-babe-18fb9ce8f3f1}\3.3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
