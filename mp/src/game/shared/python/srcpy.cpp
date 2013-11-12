@@ -385,11 +385,13 @@ bool CSrcPython::InitInterpreter( void )
 #endif // CLIENT_DLL
 	DevMsg( "Initialized Python default modules... (%f seconds)\n", Plat_FloatTime() - fStartTime );
 
+#ifdef WIN32
 	if( !CheckVSPTInterpreter() )
 		return false;
 
 	if( !CheckVSPTDebugger() )
 		return false;
+#endif // WIN32
 
 	return true;
 }
@@ -488,6 +490,7 @@ void CSrcPython::PostInit()
 	ExecuteAllScriptsInPath("python/autorun_once/");
 }
 
+#ifdef WIN32
 //-----------------------------------------------------------------------------
 // Purpose: Support for Visual Studio Python Tools Interpreter
 //-----------------------------------------------------------------------------
@@ -668,6 +671,7 @@ bool CSrcPython::CheckVSPTDebugger()
 
 	return true;
 }
+#endif // WIN32
 
 //-----------------------------------------------------------------------------
 // Purpose: 
