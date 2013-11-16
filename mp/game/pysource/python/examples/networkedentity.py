@@ -1,5 +1,5 @@
 from entities import CBaseEntity, entity
-from game.fields import IntegerField
+from game.fields import IntegerField, DictField
 
 if isserver:
     from entities import FL_EDICT_ALWAYS
@@ -9,6 +9,7 @@ else:
 @entity('netent_example', networked=True)
 class NetEntExample(CBaseEntity):
     netvalue = IntegerField(value=0, networked=True, clientchangecallback='OnNetValueChanged')
+    netdict = DictField(networked=True, clientchangecallback='OnNetDictChanged')
 
     def UpdateTransmitState(self):
         ''' This entity is always transmitted to all clients. '''
@@ -28,3 +29,5 @@ class NetEntExample(CBaseEntity):
     def OnNetValueChanged(self):
         print('#%d: netvalue changed to %d' % (self.entindex(), self.netvalue))
 
+    def OnNetDictChanged(self):
+        print('#%d: netdict changed to %s' % (self.entindex(), self.netdict))

@@ -111,20 +111,21 @@ def PyExampleNetworkedEntity(args):
     entexample.Activate()
     
     # Change a networked variable
-    # Internally, this uses uesrmessages
+    # Internally this uses user messages
     entexample.netvalue = 5
+    entexample.netdict = {'a' : 42, 'b' : [set([1,2,3]), 'test']}
     
 @concommand('py_example_usermessage')
 def PyExampleUserMessage(args):
     player = UTIL_GetCommandClient()
     
     # Send a usermessage to all clients
-    usermessages.PyExampleUserMessage(42, ['hi', 'source', [5], 42.0], {'data' : 666, None : (2, 3, 4)})
+    usermessages.PyExampleUserMessage(42, ['hi', 'source', [5], 42.0], {'data' : 666, None : (2, 3, 4)}, set([5, 6, 7]))
     
     # Send an usermessage to all clients and the server (where on the server it is just a direct call to the method)
     usermessages.PyExampleUserMessageShared(666, ['engine', 'source', [5], 2325.0], {'data' : 42, 3 : (7, 32, 49)})
     
     # You can also filter the target player by passing a filter keyword argument
     filter = CReliableSingleUserRecipientFilter(player)
-    usermessages.PyExampleUserMessage('not an int', ['message'], {'hap' : 666}, filter=filter)
+    usermessages.PyExampleUserMessage('not an int', ['message'], {'hap' : 666}, set([5, 6, 7]), filter=filter)
     

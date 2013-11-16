@@ -17,6 +17,7 @@ if isserver:
 import inspect
 import copy
 import weakref
+import ast
 from types import MethodType
 from collections import defaultdict
 
@@ -130,7 +131,7 @@ class BaseField(object):
         try:
             self.ToValue(value)
         except:
-            raise Exception('Value %s is not a %s:\n%s' % (value, self.__class__.__name__, traceback.format_exc()))
+            raise ValueError('Value %s is not a %s:\n%s' % (value, self.__class__.__name__, traceback.format_exc()))
         
     def ToValue(self, rawvalue):
         """ Convert string to value.
@@ -142,8 +143,10 @@ class BaseField(object):
         return str(value)
 
     # Getters/setters for user input
-    def Get(self, inst):
-        return inst.__getattr__(self.name)
+    def Get(self, clsorinst, allowdefault=False):
+        if allowdefault:
+            return getattr(clsorinst, self.name, self.default)
+        return getattr(clsorinst, self.name)
         
     def Set(self, clsorinst, value):
         self.Verify(value)
@@ -335,7 +338,7 @@ class ListField(BaseField):
         NOTE: networked list fields do not implement all list methods!
     """
     def __init__(self, value=list(), **kwargs):
-        super(ListField, self).__init__(value=value, **kwargs)
+        super(ListField, self).__init__(value=list(value), **kwargs)
         
     def InitField(self, inst):
         if self.networked:
@@ -345,8 +348,14 @@ class ListField(BaseField):
         else:
             setattr(inst, self.name, list(self.default))
             
+    def ToValue(self, rawvalue):
+        """ Convert string to value.
+            Will return the same value if already correct. """
+        if type(rawvalue) == str:
+            return ast.literal_eval(rawvalue)
+        return rawvalue
+            
     requiresinit = True
-    hidden = True # TODO: Needs a nice way for defining a list in the editor.
     
 class DictField(BaseField):
     """ Dictionary field.
@@ -369,8 +378,14 @@ class DictField(BaseField):
         else:
             setattr(inst, self.name, dict(self.default))
 
+    def ToValue(self, rawvalue):
+        """ Convert string to value.
+            Will return the same value if already correct. """
+        if type(rawvalue) == str:
+            return ast.literal_eval(rawvalue)
+        return rawvalue
+            
     requiresinit = True
-    hidden = True # TODO: Needs a nice way for defining a dict in the editor.
     
 class FlagsField(BaseField):
     def __init__(self, value=0, flags=[], *args, **kwargs):

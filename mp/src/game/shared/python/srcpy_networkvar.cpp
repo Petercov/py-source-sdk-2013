@@ -19,6 +19,12 @@ ConVar g_debug_pynetworkvar("g_debug_pynetworkvar", "0", FCVAR_CHEAT|FCVAR_REPLI
 
 namespace bp = boost::python;
 
+#if PY_VERSION_HEX >= 0x03000000
+#define PY_NEXT_METHODNAME "__next__"
+#else
+#define PY_NEXT_METHODNAME "next"
+#endif
+
 #ifndef CLIENT_DLL
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -352,28 +358,26 @@ void CPythonNetworkDict::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient
 		if( m_changedKeys.size() > 0 )
 		{
 			// Send changed keys
-
-
 			m_changedKeys.clear();
 		}
 		else
 #endif // 0
 		{
-			bp::object objectKey, objectValue;
-			const bp::object objectKeys = m_dataInternal.iterkeys();
-			const bp::object objectValues = m_dataInternal.itervalues();
-			length = bp::len(m_dataInternal); 
+			bp::dict dictdata( bp::detail::borrowed_reference(m_dataInternal.ptr()) );
+
+			bp::object items = dictdata.attr("items")();
+			bp::object iterator = items.attr("__iter__")();
+			length = bp::len(items); 
 			for( unsigned long u = 0; u < length; u++ )
 			{
-				objectKey = objectKeys.attr( "__next__" )();
-				objectValue = objectValues.attr( "__next__" )();
+				bp::object item = iterator.attr( PY_NEXT_METHODNAME )();
 
 				pywrite write;
-				PyFillWriteElement( write, objectKey );
+				PyFillWriteElement( write, item[0] );
 				writelist.AddToTail(write);
 
 				pywrite write2;
-				PyFillWriteElement( write2, objectValue );
+				PyFillWriteElement( write2, item[1] );
 				writelist.AddToTail(write2);
 			}
 		}
