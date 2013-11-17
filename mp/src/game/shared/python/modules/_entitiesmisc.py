@@ -287,8 +287,8 @@ class EntitiesMisc(SemiSharedModuleGenerator):
                                 '}\r\n' )
         cls.add_registration_code( 'def("GetEnt", &::gamevcollisionevent_t_wrapper::GetEnt)')
 
-        # Speech
-        if self.settings.branch != 'swarm':
+        # TODO: Speech
+        '''if self.settings.branch != 'swarm':
             cls = mb.class_('CAI_Expresser')
             cls.include()
             cls.calldefs().virtuality = 'not virtual'  
@@ -296,7 +296,7 @@ class EntitiesMisc(SemiSharedModuleGenerator):
             cls.mem_funs('GetMySpeechSemaphore').exclude()
             cls.mem_funs('GetSink').exclude()
             cls.mem_funs('SpeakFindResponse').exclude() # Allocates new response, but does not guarantee it gets cleaned up.
-        
+        '''
             
     def ParseMisc(self, mb):
         if self.isserver:
