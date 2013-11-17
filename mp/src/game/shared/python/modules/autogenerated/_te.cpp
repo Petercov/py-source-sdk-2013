@@ -388,16 +388,6 @@ BOOST_PYTHON_MODULE(_te){
                 , ( bp::arg("modelindex"), bp::arg("skin"), bp::arg("pos"), bp::arg("angles"), bp::arg("vel"), bp::arg("flags"), bp::arg("effects")=(int)(0) ) );
         
         }
-        { //::CTempEnts::RicochetSprite
-        
-            typedef void ( ::CTempEnts::*RicochetSprite_function_type )( ::Vector const &,::model_t *,float,float ) ;
-            
-            CTempEnts_exposer.def( 
-                "RicochetSprite"
-                , RicochetSprite_function_type( &::CTempEnts::RicochetSprite )
-                , ( bp::arg("pos"), bp::arg("pmodel"), bp::arg("duration"), bp::arg("scale") ) );
-        
-        }
         { //::CTempEnts::RocketFlare
         
             typedef void ( ::CTempEnts::*RocketFlare_function_type )( ::Vector const & ) ;

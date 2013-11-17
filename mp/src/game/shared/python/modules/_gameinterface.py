@@ -18,7 +18,6 @@ class GameInterface(SemiSharedModuleGenerator):
         '#shareddefs.h',
         '#util.h',
         '#iservernetworkable.h',
-        #'#enginecallback.h',
         '#recipientfilter.h',
         '#srcpy_usermessage.h',
         '#mapentities.h',
@@ -26,7 +25,6 @@ class GameInterface(SemiSharedModuleGenerator):
         '$gamerules.h',
         '$multiplay_gamerules.h',
         '$teamplay_gamerules.h',
-        # TODO: '$srcpy_gamerules.h',
         '$c_recipientfilter.h',
         
         'tier0/icommandline.h',
@@ -217,11 +215,12 @@ class GameInterface(SemiSharedModuleGenerator):
         # Get map header
         mb.free_function('PyGetMapHeader').include()
         mb.free_function('PyGetMapHeader').rename('GetMapHeader')
-        mb.class_('dheader_t').include()
+        if self.settings.branch == 'swarm':
+            mb.class_('BSPHeader_t').include()
+        else:
+            mb.class_('dheader_t').include()
         mb.class_('lump_t').include()
         mb.mem_funs('GetBaseMap').exclude()
-        #mb.mem_funs('DataMapAccess').include()
-        #mb.mem_funs('DataMapInit').include()
         mb.vars('m_DataMap').exclude()
         
         # Content mounting
@@ -248,8 +247,6 @@ class GameInterface(SemiSharedModuleGenerator):
         cls = mb.class_('IGameSystem')
         cls.include()
         cls.mem_funs().virtuality = 'not virtual' 
-        #cls.mem_funs('IsPerFrame').virtuality = 'virtual' 
-        #cls.mem_funs('SafeRemoveIfDesired').virtuality = 'virtual' 
         if self.isserver:
             cls.mem_funs('RunCommandPlayer').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
             cls.mem_funs('RunCommandUserCmd').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
@@ -270,11 +267,15 @@ class GameInterface(SemiSharedModuleGenerator):
         cls = mb.class_('ICommandLine')
         cls.include()
         cls.mem_funs().virtuality = 'not virtual'
-		
-        mb.free_function('CommandLine_Tier0').include()
-        mb.free_function('CommandLine_Tier0').rename('CommandLine')
-        mb.free_function('CommandLine_Tier0').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
         
+        if self.settings.branch == 'swarm':
+            mb.free_function('CommandLine').include()
+            mb.free_function('CommandLine').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+        else:
+            mb.free_function('CommandLine_Tier0').include()
+            mb.free_function('CommandLine_Tier0').rename('CommandLine')
+            mb.free_function('CommandLine_Tier0').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+            
         # Accessing model info
         cls = mb.class_('PyVModelInfo')
         cls.rename('VModelInfo')
@@ -303,6 +304,9 @@ class GameInterface(SemiSharedModuleGenerator):
             cls = mb.class_('edict_t')
             cls.include()
             cls.mem_fun('GetCollideable').exclude()
+            
+            # Event queue
+            mb.free_function('ServiceEventQueue').include()
             
         # model_t
         cls = mb.class_('wrap_model_t')
