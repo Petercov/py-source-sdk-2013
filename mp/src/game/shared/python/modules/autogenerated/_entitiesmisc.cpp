@@ -2589,7 +2589,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .def_readwrite( "vecspread", &FireBulletsInfo_t::m_vecSpread )    
         .def_readwrite( "vecsrc", &FireBulletsInfo_t::m_vecSrc );
 
-    bp::class_< NetworkedClass >( "NetworkedClass", bp::init< char const *, bp::object, bp::optional< char const * > >(( bp::arg("pNetworkName"), bp::arg("cls_type"), bp::arg("pClientModuleName")=bp::object() )) )    
+    bp::class_< NetworkedClass >( "NetworkedClass", bp::init< char const *, bp::api::object, bp::optional< char const * > >(( bp::arg("pNetworkName"), bp::arg("cls_type"), bp::arg("pClientModuleName")=bp::object() )) )    
         .def( 
             "AttachClientClass"
             , (void ( ::NetworkedClass::* )( ::PyClientClassBase * ) )( &::NetworkedClass::AttachClientClass )
@@ -2597,7 +2597,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .def_readwrite( "m_pyClass", &NetworkedClass::m_pyClass );
 
     bp::class_< PyEntityFactory >( "EntityFactory", bp::no_init )    
-        .def( bp::init< char const *, bp::object >(( bp::arg("pClassName"), bp::arg("PyClass") )) );
+        .def( bp::init< char const *, bp::api::object >(( bp::arg("pClassName"), bp::arg("PyClass") )) );
 
     { //::SpatializationInfo_t
         typedef bp::class_< SpatializationInfo_t > SpatializationInfo_t_exposer_t;
@@ -2842,7 +2842,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
 
     { //::PyGetClassByClassname
     
-        typedef ::boost::python::object ( *GetClassByClassname_function_type )( char const * );
+        typedef ::boost::python::api::object ( *GetClassByClassname_function_type )( char const * );
         
         bp::def( 
             "GetClassByClassname"
@@ -5673,14 +5673,14 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             , (void ( ::CMultiDamage::* )( ::CBaseEntity * ) )( &::CMultiDamage::SetTarget )
             , ( bp::arg("pTarget") ) );
 
-    bp::class_< CPythonNetworkArray >( "NetworkArrayInternal", bp::init< bp::object, char const *, bp::optional< bp::list, bool, bool, bp::object > >(( bp::arg("self"), bp::arg("name"), bp::arg("data")=boost::python::list(), bp::arg("initstatechanged")=(bool)(false), bp::arg("changedcallback")=(bool)(false), bp::arg("sendproxy")=boost::python::object() )) )    
+    bp::class_< CPythonNetworkArray >( "NetworkArrayInternal", bp::init< bp::api::object, char const *, bp::optional< bp::list, bool, bool, bp::api::object > >(( bp::arg("self"), bp::arg("name"), bp::arg("data")=boost::python::list(), bp::arg("initstatechanged")=(bool)(false), bp::arg("changedcallback")=(bool)(false), bp::arg("sendproxy")=boost::python::api::object() )) )    
         .def( 
             "__delitem__"
-            , (void ( ::CPythonNetworkArray::* )( ::boost::python::object ) )( &::CPythonNetworkArray::DelItem )
+            , (void ( ::CPythonNetworkArray::* )( ::boost::python::api::object ) )( &::CPythonNetworkArray::DelItem )
             , ( bp::arg("key") ) )    
         .def( 
             "__getitem__"
-            , (::boost::python::object ( ::CPythonNetworkArray::* )( ::boost::python::object ) )( &::CPythonNetworkArray::GetItem )
+            , (::boost::python::api::object ( ::CPythonNetworkArray::* )( ::boost::python::api::object ) )( &::CPythonNetworkArray::GetItem )
             , ( bp::arg("key") ) )    
         .def( 
             "Set"
@@ -5688,13 +5688,13 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             , ( bp::arg("data") ) )    
         .def( 
             "__setitem__"
-            , (void ( ::CPythonNetworkArray::* )( ::boost::python::object,::boost::python::object ) )( &::CPythonNetworkArray::SetItem )
+            , (void ( ::CPythonNetworkArray::* )( ::boost::python::api::object,::boost::python::api::object ) )( &::CPythonNetworkArray::SetItem )
             , ( bp::arg("key"), bp::arg("data") ) );
 
-    bp::class_< CPythonNetworkDict >( "NetworkDictInternal", bp::init< bp::object, char const *, bp::optional< bp::dict, bool, bool, bp::object > >(( bp::arg("self"), bp::arg("name"), bp::arg("data")=boost::python::dict(), bp::arg("initstatechanged")=(bool)(false), bp::arg("changedcallback")=(bool)(false), bp::arg("sendproxy")=boost::python::object() )) )    
+    bp::class_< CPythonNetworkDict >( "NetworkDictInternal", bp::init< bp::api::object, char const *, bp::optional< bp::dict, bool, bool, bp::api::object > >(( bp::arg("self"), bp::arg("name"), bp::arg("data")=boost::python::dict(), bp::arg("initstatechanged")=(bool)(false), bp::arg("changedcallback")=(bool)(false), bp::arg("sendproxy")=boost::python::api::object() )) )    
         .def( 
             "__getitem__"
-            , (::boost::python::object ( ::CPythonNetworkDict::* )( ::boost::python::object ) )( &::CPythonNetworkDict::GetItem )
+            , (::boost::python::api::object ( ::CPythonNetworkDict::* )( ::boost::python::api::object ) )( &::CPythonNetworkDict::GetItem )
             , ( bp::arg("key") ) )    
         .def( 
             "Set"
@@ -5702,16 +5702,16 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             , ( bp::arg("data") ) )    
         .def( 
             "__setitem__"
-            , (void ( ::CPythonNetworkDict::* )( ::boost::python::object,::boost::python::object ) )( &::CPythonNetworkDict::SetItem )
+            , (void ( ::CPythonNetworkDict::* )( ::boost::python::api::object,::boost::python::api::object ) )( &::CPythonNetworkDict::SetItem )
             , ( bp::arg("key"), bp::arg("data") ) );
 
-    bp::class_< CPythonNetworkVar >( "NetworkVarInternal", bp::init< bp::object, char const *, bp::optional< bp::object, bool, bool, bp::object > >(( bp::arg("self"), bp::arg("name"), bp::arg("data")=boost::python::object(), bp::arg("initstatechanged")=(bool)(false), bp::arg("changedcallback")=(bool)(false), bp::arg("sendproxy")=boost::python::object() )) )    
+    bp::class_< CPythonNetworkVar >( "NetworkVarInternal", bp::init< bp::api::object, char const *, bp::optional< bp::api::object, bool, bool, bp::api::object > >(( bp::arg("self"), bp::arg("name"), bp::arg("data")=boost::python::api::object(), bp::arg("initstatechanged")=(bool)(false), bp::arg("changedcallback")=(bool)(false), bp::arg("sendproxy")=boost::python::api::object() )) )    
         .def( 
             "Get"
-            , (::boost::python::object ( ::CPythonNetworkVar::* )(  ) )( &::CPythonNetworkVar::Get ) )    
+            , (::boost::python::api::object ( ::CPythonNetworkVar::* )(  ) )( &::CPythonNetworkVar::Get ) )    
         .def( 
             "Set"
-            , (void ( ::CPythonNetworkVar::* )( ::boost::python::object ) )( &::CPythonNetworkVar::Set )
+            , (void ( ::CPythonNetworkVar::* )( ::boost::python::api::object ) )( &::CPythonNetworkVar::Set )
             , ( bp::arg("data") ) );
 
     bp::class_< CPythonSendProxyBase_wrapper >( "SendProxyBase" )    
@@ -5815,7 +5815,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .def_readwrite( "vecspread", &FireBulletsInfo_t::m_vecSpread )    
         .def_readwrite( "vecsrc", &FireBulletsInfo_t::m_vecSrc );
 
-    bp::class_< NetworkedClass >( "NetworkedClass", bp::init< char const *, bp::object >(( bp::arg("pNetworkName"), bp::arg("cls_type") )) )    
+    bp::class_< NetworkedClass >( "NetworkedClass", bp::init< char const *, bp::api::object >(( bp::arg("pNetworkName"), bp::arg("cls_type") )) )    
         .def( 
             "SetupServerClass"
             , (void ( ::NetworkedClass::* )(  ) )( &::NetworkedClass::SetupServerClass ) )    
@@ -5884,7 +5884,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             , ( bp::arg("pParentEntity") ) );
 
     bp::class_< PyEntityFactory >( "EntityFactory", bp::no_init )    
-        .def( bp::init< char const *, bp::object >(( bp::arg("pClassName"), bp::arg("PyClass") )) );
+        .def( bp::init< char const *, bp::api::object >(( bp::arg("pClassName"), bp::arg("PyClass") )) );
 
     bp::class_< PyOutputEvent, bp::bases< CBaseEntityOutput >, boost::noncopyable >( "COutputEvent", bp::init< >() )    
         .def( 
@@ -6294,7 +6294,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
 
     { //::PyGetClassByClassname
     
-        typedef ::boost::python::object ( *GetClassByClassname_function_type )( char const * );
+        typedef ::boost::python::api::object ( *GetClassByClassname_function_type )( char const * );
         
         bp::def( 
             "GetClassByClassname"
@@ -6305,7 +6305,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
 
     { //::PyGetWorldEntity
     
-        typedef ::boost::python::object ( *GetWorldEntity_function_type )(  );
+        typedef ::boost::python::api::object ( *GetWorldEntity_function_type )(  );
         
         bp::def( 
             "GetWorldEntity"
@@ -6315,7 +6315,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
 
     { //::PyRespawnPlayer
     
-        typedef ::boost::python::object ( *RespawnPlayer_function_type )( ::CBasePlayer *,char const * );
+        typedef ::boost::python::api::object ( *RespawnPlayer_function_type )( ::CBasePlayer *,char const * );
         
         bp::def( 
             "RespawnPlayer"

@@ -2462,7 +2462,7 @@ void register_CBaseEntity_class(){
         }
         { //::CBaseEntity::GetPyHandle
         
-            typedef ::boost::python::object ( ::CBaseEntity::*GetHandle_function_type )(  ) const;
+            typedef ::boost::python::api::object ( ::CBaseEntity::*GetHandle_function_type )(  ) const;
             
             CBaseEntity_exposer.def( 
                 "GetHandle"
@@ -2480,7 +2480,7 @@ void register_CBaseEntity_class(){
         }
         { //::CBaseEntity::GetPyThink
         
-            typedef ::boost::python::object ( ::CBaseEntity::*GetThink_function_type )(  ) ;
+            typedef ::boost::python::api::object ( ::CBaseEntity::*GetThink_function_type )(  ) ;
             
             CBaseEntity_exposer.def( 
                 "GetThink"
@@ -3835,7 +3835,7 @@ void register_CBaseEntity_class(){
         }
         { //::CBaseEntity::PhysicsPyDispatchThink
         
-            typedef void ( ::CBaseEntity::*PhysicsPyDispatchThink_function_type )( ::boost::python::object ) ;
+            typedef void ( ::CBaseEntity::*PhysicsPyDispatchThink_function_type )( ::boost::python::api::object ) ;
             
             CBaseEntity_exposer.def( 
                 "PhysicsPyDispatchThink"
@@ -3845,7 +3845,7 @@ void register_CBaseEntity_class(){
         }
         { //::CBaseEntity::PhysicsPyRunSpecificThink
         
-            typedef bool ( ::CBaseEntity::*PhysicsPyRunSpecificThink_function_type )( int,::boost::python::object ) ;
+            typedef bool ( ::CBaseEntity::*PhysicsPyRunSpecificThink_function_type )( int,::boost::python::api::object ) ;
             
             CBaseEntity_exposer.def( 
                 "PhysicsPyRunSpecificThink"
@@ -4731,7 +4731,7 @@ void register_CBaseEntity_class(){
         }
         { //::CBaseEntity::SetPyThink
         
-            typedef void ( ::CBaseEntity::*SetThink_function_type )( ::boost::python::object,float,char const * ) ;
+            typedef void ( ::CBaseEntity::*SetThink_function_type )( ::boost::python::api::object,float,char const * ) ;
             
             CBaseEntity_exposer.def( 
                 "SetThink"
@@ -4741,7 +4741,7 @@ void register_CBaseEntity_class(){
         }
         { //::CBaseEntity::SetPyTouch
         
-            typedef void ( ::CBaseEntity::*SetTouch_function_type )( ::boost::python::object ) ;
+            typedef void ( ::CBaseEntity::*SetTouch_function_type )( ::boost::python::api::object ) ;
             
             CBaseEntity_exposer.def( 
                 "SetTouch"

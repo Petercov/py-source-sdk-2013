@@ -1449,7 +1449,6 @@ void register_C_BaseCombatWeapon_class(){
         .def_readwrite( "subtype", &C_BaseCombatWeapon::m_iSubType )    
         .def_readwrite( "viewmodelindex", &C_BaseCombatWeapon::m_iViewModelIndex )    
         .def_readwrite( "worldmodelindex", &C_BaseCombatWeapon::m_iWorldModelIndex )    
-        .def_readwrite( "name", &C_BaseCombatWeapon::m_iszName )    
         .def_readwrite( "viewmodelindex", &C_BaseCombatWeapon::m_nViewModelIndex )    
         .def( 
             "ClientThink"

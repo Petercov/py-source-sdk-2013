@@ -1,64 +1,61 @@
 #! /usr/bin/python
-# src_module_builder provides a builder set up for building modules for source sdk code
+''' src_module_builder provides a builder set up for building modules for source sdk code.
+'''
 
 from pyplusplus import module_builder
 from pygccxml import parser
-import settings
 
 import platform
+import os
 
 # Include directories
 incl_paths = [
     # GCCXML Support files
-    'Support/GCC/4.6',
+    '../../srcpypp/Support/GCC/4.6',
     
     # System Headers/Default include paths by GCC (basically a copy of the usr folder of Ubuntu 10.04 32 bit)
-    'Support/GCC/4.6/usr/lib/gcc/i686-linux-gnu/4.6/include',
-    'Support/GCC/4.6/usr/lib/gcc/i686-linux-gnu/4.6/include-fixed',
-    'Support/GCC/4.6/usr/include/c++/4.6',
-    'Support/GCC/4.6/usr/include/c++/4.6/i686-linux-gnu',
-    'Support/GCC/4.6/usr/include/i386-linux-gnu',
-    'Support/GCC/4.6/usr/include',
-    
-    #'Support/GCC/4.3',
-    
-    # System headers
-    #'Support/GCC/4.3/usr/include/c++/4.3',
-    #'Support/GCC/4.3/usr/include/c++/4.3/i486-linux-gnu',
-    #'Support/GCC/4.3/usr/include/c++/4.3/backward',
-    #'Support/GCC/4.3/usr/local/include',
-    #'Support/GCC/4.3/usr/lib/gcc/i486-linux-gnu/4.3/include',
-    #'Support/GCC/4.3/usr/lib/gcc/i486-linux-gnu/4.3/include-fixed',
-    #'Support/GCC/4.3/usr/include',
+    '../../srcpypp/Support/GCC/4.6/usr/lib/gcc/i686-linux-gnu/4.6/include',
+    '../../srcpypp/Support/GCC/4.6/usr/lib/gcc/i686-linux-gnu/4.6/include-fixed',
+    '../../srcpypp/Support/GCC/4.6/usr/include/c++/4.6',
+    '../../srcpypp/Support/GCC/4.6/usr/include/c++/4.6/i686-linux-gnu',
+    '../../srcpypp/Support/GCC/4.6/usr/include/i386-linux-gnu',
+    '../../srcpypp/Support/GCC/4.6/usr/include',
     
     # Game
-    '../common',
-    '../public',
-    '../public/tier0',
-    '../public/tier1',
-    '../game/shared',
-    '../game/shared/python',
+    #'../../common',
+    #'../../public',
+    #'../../public/tier0',
+    #'../../public/tier1',
+    #'../../game/shared',
+    #'../../game/shared/python',
     
     # Python/Boost folders
-    '../thirdparty/python/Include',
-    '../thirdparty/python',
+    #'../../thirdparty/python/Include',
+    #'../../thirdparty/python',
     
-    # Too much work to fix things to let boost python be parsed correctly
-    # We only need to know the object class one anyway
+    # Boost stub headers
     #'../thirdparty/boost',
-    '../srcpypp/boost_stubs',
+    #'../srcpypp/boost_stubs',
 ]
-
+'''
 incl_paths_client = [
-    '../game/client', 
-    '../game/client/python',
+    '../../game/client', 
+    '../../game/client/python',
 ]
 incl_paths_server = [
-    '../game/server', 
-    '../game/server/python',
+    '../../game/server', 
+    '../../game/server/python',
 ]
-
+'''
 # Defined symbols
+basesymbols = [
+    '__SSE__',
+    '__MMX__',
+    
+    # Generation
+    'PYPP_GENERATION',
+]
+'''
 dsymbols = [
     'NDEBUG',
     'POSIX',
@@ -112,7 +109,7 @@ dsymbols_client = [
 ]
 dsymbols_server = [
     'GAME_DLL' 
-]
+]'''
 
 # Undefined symbols
 usymbols = [
@@ -132,11 +129,11 @@ SHLIBLDFLAGS = '-shared -Wl,-Map,$@_map.txt -Wl '
 default_cflags = ARCH_CFLAGS+BASE_CFLAGS+SHLIBCFLAGS#+'-fpermissive '
 
 if platform.system() == 'Windows':
-    gccbinpath = 'gccxml_bin/win32'
+    gccbinpath = '../../srcpypp/gccxml_bin/win32'
 elif platform.system() == 'Linux':
-    gccbinpath = 'gccxml_bin/linux'
+    gccbinpath = '../../srcpypp/gccxml_bin/linux'
 else:
-    gccbinpath = 'gccxml_bin/mac'
+    gccbinpath = '../../srcpypp/gccxml_bin/mac'
 
 # NOTE: module_builder_t == builder_t
 class src_module_builder_t(module_builder.module_builder_t):
@@ -146,24 +143,28 @@ class src_module_builder_t(module_builder.module_builder_t):
 
     def __init__(   self
                     , files
+                    , includes
+                    , symbols
                     , is_client = False
-                ):
-        if is_client:
-            ds = dsymbols+dsymbols_client
-            incl = incl_paths_client+incl_paths
-        else:
-            ds = dsymbols+dsymbols_server
-            incl = incl_paths_server+incl_paths  
+                ): 
+        symbols = list(basesymbols + symbols)
+        
+        includepaths = incl_paths + includes
+        includepaths.append('../../srcpypp/boost_stubs')
+
+        includepaths = list(map(lambda p: p.replace('\\', '/'), includepaths))
+        includepaths = list(filter(os.path.normpath, includepaths))
             
-        self.definedsymbols = ds
+        self.definedsymbols = symbols
+        self.includes = includepaths
         
         module_builder.module_builder_t.__init__(
                     self
                     , files
                     , gccxml_path=gccbinpath
                     , working_directory='.'
-                    , include_paths=incl
-                    , define_symbols=ds
+                    , include_paths=includepaths
+                    , define_symbols=symbols
                     , undefine_symbols=usymbols
                     , start_with_declarations=None
                     , compilation_mode=parser.COMPILATION_MODE.ALL_AT_ONCE
@@ -171,7 +172,7 @@ class src_module_builder_t(module_builder.module_builder_t):
                     , optimize_queries=True
                     , ignore_gccxml_output=False
                     , indexing_suite_version=1
-                    , cflags=default_cflags+' --gccxml-config gccxml_config --gccxml-gcc-options gccxml_gcc_options'
+                    , cflags=default_cflags+' --gccxml-config "../../srcpypp/gccxml_config" --gccxml-gcc-options "../../srcpypp/gccxml_gcc_options"'
                     , encoding='ascii'
                     #, compiler=None
                     #, gccxml_config=None

@@ -20,9 +20,14 @@ shared_path = os.path.normpath('game/shared/python/modules/%s/' % (autogenfolder
 
 # Branch (currently either "swarm" or "source2013")
 branch = "source2013"
+# VPC Project name
+vpcgamename = 'pysource'
+# VPC Project file paths
+vpcserverpath = os.path.join(srcpath, 'game/server/server_pysource.vpc')
+vpcclientpath = os.path.join(srcpath, 'game/client/client_pysource.vpc')
 # Output paths for generated VPC file, to be included in the game VPC files
-vpcserverpath = os.path.join(srcpath, 'game/server/server_pysource_autogen.vpc')
-vpcclientpath = os.path.join(srcpath, 'game/client/client_pysource_autogen.vpc')
+vpcserverautopath = os.path.join(os.path.dirname(vpcserverpath), '%s_autogen.vpc' % (os.path.splitext(os.path.basename(vpcserverpath))[0]))
+vpcclientautopath = os.path.join(os.path.dirname(vpcclientpath), '%s_autogen.vpc' % (os.path.splitext(os.path.basename(vpcclientpath))[0]))
 
 # The list of modules
 # The parse code looks in the above paths
@@ -36,6 +41,7 @@ modules = [
     ('_entities', 'Entities'),
     ('_entitiesmisc', 'EntitiesMisc'),
     ('_gameinterface', 'GameInterface'),
+    #('_gamerules', 'GameRules'),
     ('_utils', 'Utils'),
     ('_physics', 'Physics'),
     ('_sound', 'Sound'),

@@ -2,7 +2,6 @@ import os
 
 from . basegenerator import ModuleGenerator
 from .. src_module_builder import src_module_builder_t
-from pyplusplus import code_creators
 from pyplusplus.module_builder import call_policies
 from pygccxml.declarations import matchers, pointer_t, reference_t, const_t, declarated_t, void_t, compound_t
 
@@ -16,6 +15,54 @@ class SourceModuleGenerator(ModuleGenerator):
     # Set by generation code
     isclient = False
     isserver = False
+    
+    @property
+    def srcdir(self):
+        return self.clientsrcdir if self.isclient else self.serversrcdir
+        
+    @property
+    def vpcdir(self):
+        return self.clientvpcdir if self.isclient else self.servervpcdir
+    
+    @property
+    def includes(self):
+        return self.clientincludes if self.isclient else self.serverincludes
+            
+    @property
+    def symbols(self):
+        return self.clientsymbols if self.isclient else self.serversymbols
+        
+    @property
+    def path(self):
+        
+        return os.path.join('../../', self.settings.client_path)
+    
+    # Create builder
+    def CreateBuilder(self, files, parseonlyfiles):
+        os.chdir(self.vpcdir)
+        mb = src_module_builder_t(files, self.includes, self.symbols, is_client=self.isclient)
+        mb.parseonlyfiles = parseonlyfiles
+        return mb
+    '''def CreateBuilder(self, files, parseonlyfiles):
+        mb = src_module_builder_t(files, self.serverincludes, [], is_client=True)
+        if self.isclient:
+            os.chdir(self.clientvpcdir)
+            mb = src_module_builder_t(files, self.serverincludes, [], is_client=True)
+        else:
+            os.chdir(self.servervpcdir)
+            mb = src_module_builder_t(files, self.clientincludes, [], is_client=False)
+        mb.parseonlyfiles = parseonlyfiles
+        return mb'''
+        
+    def GetFilenames(self):
+        path = rm.path
+        if not rm.split:
+            outfilename = '%s.cpp' % (rm.module_name)
+            return [os.path.relpath(os.path.join(path, outfilename), os.path.join(rm.servervpcdir, rm.serversrcpath))]
+        else:
+            files = os.listdir(os.path.join(rm.path, rm.module_name))
+            files = filter(lambda f: f.endswith('.cpp') or f.endswith('.hpp'), files)
+            return map(lambda f: os.path.join(path, rm.module_name, f), files)
     
     def GetFiles(self):
         parsefiles = list(self.files)

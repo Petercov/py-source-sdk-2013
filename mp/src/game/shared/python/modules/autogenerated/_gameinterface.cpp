@@ -1642,7 +1642,7 @@ struct PyGameEventListener_wrapper : PyGameEventListener, bp::wrapper< PyGameEve
         
     }
 
-    virtual void PyFireGameEvent( ::boost::python::object event ) {
+    virtual void PyFireGameEvent( ::boost::python::api::object event ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
         Assert( SrcPySystem()->IsPythonRunning() );
@@ -1668,7 +1668,7 @@ struct PyGameEventListener_wrapper : PyGameEventListener, bp::wrapper< PyGameEve
             this->PyGameEventListener::PyFireGameEvent( event );
     }
     
-    void default_FireGameEvent( ::boost::python::object event ) {
+    void default_FireGameEvent( ::boost::python::api::object event ) {
         PyGameEventListener::PyFireGameEvent( event );
     }
 
@@ -2685,7 +2685,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , (void ( ::ICommandLine::* )( int,char const * ) )( &::ICommandLine::SetParm )
             , ( bp::arg("nIndex"), bp::arg("pNewParm") ) );
 
-    bp::class_< PyConCommand >( "ConCommand", bp::init< char const *, bp::object, bp::optional< char const *, int, bp::object, bool > >(( bp::arg("pName"), bp::arg("method"), bp::arg("helpstring")=bp::object(), bp::arg("flags")=(int)(0), bp::arg("completionfunc")=boost::python::object(), bp::arg("useweakref")=(bool)(false) )) )    
+    bp::class_< PyConCommand >( "ConCommand", bp::init< char const *, bp::api::object, bp::optional< char const *, int, bp::api::object, bool > >(( bp::arg("pName"), bp::arg("method"), bp::arg("helpstring")=bp::object(), bp::arg("flags")=(int)(0), bp::arg("completionfunc")=boost::python::api::object(), bp::arg("useweakref")=(bool)(false) )) )    
         .def( 
             "CanAutoComplete"
             , (bool ( ::PyConCommand::* )(  ) )( &::PyConCommand::CanAutoComplete ) )    
@@ -2696,8 +2696,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< PyConVar >( "ConVar", bp::init< char const *, char const *, bp::optional< int > >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags")=(int)(0) )) )    
         .def( bp::init< char const *, char const *, int, char const * >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring") )) )    
         .def( bp::init< char const *, char const *, int, char const *, bool, float, bool, float >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("bMin"), bp::arg("fMin"), bp::arg("bMax"), bp::arg("fMax") )) )    
-        .def( bp::init< char const *, char const *, int, char const *, bp::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("callback") )) )    
-        .def( bp::init< char const *, char const *, int, char const *, bool, float, bool, float, bp::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("bMin"), bp::arg("fMin"), bp::arg("bMax"), bp::arg("fMax"), bp::arg("callback") )) )    
+        .def( bp::init< char const *, char const *, int, char const *, bp::api::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("callback") )) )    
+        .def( bp::init< char const *, char const *, int, char const *, bool, float, bool, float, bp::api::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("bMin"), bp::arg("fMin"), bp::arg("bMax"), bp::arg("fMax"), bp::arg("callback") )) )    
         .def( 
             "AddFlags"
             , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
@@ -2873,8 +2873,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< PyGameEventListener_wrapper >( "GameEventListener" )    
         .def( 
             "FireGameEvent"
-            , (void ( ::PyGameEventListener::* )( ::boost::python::object ) )(&::PyGameEventListener::PyFireGameEvent)
-            , (void ( PyGameEventListener_wrapper::* )( ::boost::python::object ) )(&PyGameEventListener_wrapper::default_FireGameEvent)
+            , (void ( ::PyGameEventListener::* )( ::boost::python::api::object ) )(&::PyGameEventListener::PyFireGameEvent)
+            , (void ( PyGameEventListener_wrapper::* )( ::boost::python::api::object ) )(&PyGameEventListener_wrapper::default_FireGameEvent)
             , ( bp::arg("event") ) )    
         .def( "ListenForGameEvent", (void ( ::PyGameEventListener::* )( char const * ) )( &::PyGameEventListener::ListenForGameEvent ), bp::arg("name") )    
         .def( "StopListeningForAllEvents", (void ( ::PyGameEventListener::* )() )( &::PyGameEventListener::StopListeningForAllEvents ) );
@@ -2951,7 +2951,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , (int ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetAppID ) )    
         .def( 
             "GetChapterName"
-            , (::boost::python::object ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetChapterName ) )    
+            , (::boost::python::api::object ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetChapterName ) )    
         .def( 
             "GetDXSupportLevel"
             , (int ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetDXSupportLevel ) )    
@@ -2981,7 +2981,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , (int ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetLocalPlayer ) )    
         .def( 
             "GetMainMenuBackgroundName"
-            , (::boost::python::object ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetMainMenuBackgroundName ) )    
+            , (::boost::python::api::object ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetMainMenuBackgroundName ) )    
         .def( 
             "GetMapEntitiesString"
             , (char const * ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetMapEntitiesString ) )    
@@ -3011,7 +3011,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , ( bp::arg("width"), bp::arg("height") ) )    
         .def( 
             "GetUILanguage"
-            , (::boost::python::object ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetUILanguage ) )    
+            , (::boost::python::api::object ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetUILanguage ) )    
         .def( 
             "GetViewAngles"
             , (void ( ::PyVEngineClient::* )( ::QAngle & ) )( &::PyVEngineClient::GetViewAngles )
@@ -3157,7 +3157,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , ( bp::arg("name") ) )    
         .def( 
             "GetModelName"
-            , (::boost::python::object ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetModelName )
+            , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetModelName )
             , ( bp::arg("model") ) );
 
     { //::dheader_t
@@ -3318,7 +3318,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
 
     { //::PyGetModPath
     
-        typedef ::boost::python::object ( *GetModPath_function_type )(  );
+        typedef ::boost::python::api::object ( *GetModPath_function_type )(  );
         
         bp::def( 
             "GetModPath"
@@ -3328,7 +3328,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
 
     { //::PyGetSearchPath
     
-        typedef ::boost::python::object ( *GetSearchPath_function_type )( char const *,bool );
+        typedef ::boost::python::api::object ( *GetSearchPath_function_type )( char const *,bool );
         
         bp::def( 
             "GetSearchPath"
@@ -5106,7 +5106,7 @@ struct PyGameEventListener_wrapper : PyGameEventListener, bp::wrapper< PyGameEve
         
     }
 
-    virtual void PyFireGameEvent( ::boost::python::object event ) {
+    virtual void PyFireGameEvent( ::boost::python::api::object event ) {
         #if defined(_WIN32)
         #if defined(_DEBUG)
         Assert( SrcPySystem()->IsPythonRunning() );
@@ -5132,7 +5132,7 @@ struct PyGameEventListener_wrapper : PyGameEventListener, bp::wrapper< PyGameEve
             this->PyGameEventListener::PyFireGameEvent( event );
     }
     
-    void default_FireGameEvent( ::boost::python::object event ) {
+    void default_FireGameEvent( ::boost::python::api::object event ) {
         PyGameEventListener::PyFireGameEvent( event );
     }
 
@@ -6148,7 +6148,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , bp::pure_virtual( (bool ( ::IMapEntityFilter::* )( char const * ) )(&::IMapEntityFilter::ShouldCreateEntity) )
             , ( bp::arg("pClassname") ) );
 
-    bp::class_< PyConCommand >( "ConCommand", bp::init< char const *, bp::object, bp::optional< char const *, int, bp::object, bool > >(( bp::arg("pName"), bp::arg("method"), bp::arg("helpstring")=bp::object(), bp::arg("flags")=(int)(0), bp::arg("completionfunc")=boost::python::object(), bp::arg("useweakref")=(bool)(false) )) )    
+    bp::class_< PyConCommand >( "ConCommand", bp::init< char const *, bp::api::object, bp::optional< char const *, int, bp::api::object, bool > >(( bp::arg("pName"), bp::arg("method"), bp::arg("helpstring")=bp::object(), bp::arg("flags")=(int)(0), bp::arg("completionfunc")=boost::python::api::object(), bp::arg("useweakref")=(bool)(false) )) )    
         .def( 
             "CanAutoComplete"
             , (bool ( ::PyConCommand::* )(  ) )( &::PyConCommand::CanAutoComplete ) )    
@@ -6159,8 +6159,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< PyConVar >( "ConVar", bp::init< char const *, char const *, bp::optional< int > >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags")=(int)(0) )) )    
         .def( bp::init< char const *, char const *, int, char const * >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring") )) )    
         .def( bp::init< char const *, char const *, int, char const *, bool, float, bool, float >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("bMin"), bp::arg("fMin"), bp::arg("bMax"), bp::arg("fMax") )) )    
-        .def( bp::init< char const *, char const *, int, char const *, bp::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("callback") )) )    
-        .def( bp::init< char const *, char const *, int, char const *, bool, float, bool, float, bp::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("bMin"), bp::arg("fMin"), bp::arg("bMax"), bp::arg("fMax"), bp::arg("callback") )) )    
+        .def( bp::init< char const *, char const *, int, char const *, bp::api::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("callback") )) )    
+        .def( bp::init< char const *, char const *, int, char const *, bool, float, bool, float, bp::api::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("bMin"), bp::arg("fMin"), bp::arg("bMax"), bp::arg("fMax"), bp::arg("callback") )) )    
         .def( 
             "AddFlags"
             , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
@@ -6336,8 +6336,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< PyGameEventListener_wrapper >( "GameEventListener" )    
         .def( 
             "FireGameEvent"
-            , (void ( ::PyGameEventListener::* )( ::boost::python::object ) )(&::PyGameEventListener::PyFireGameEvent)
-            , (void ( PyGameEventListener_wrapper::* )( ::boost::python::object ) )(&PyGameEventListener_wrapper::default_FireGameEvent)
+            , (void ( ::PyGameEventListener::* )( ::boost::python::api::object ) )(&::PyGameEventListener::PyFireGameEvent)
+            , (void ( PyGameEventListener_wrapper::* )( ::boost::python::api::object ) )(&PyGameEventListener_wrapper::default_FireGameEvent)
             , ( bp::arg("event") ) )    
         .def( "ListenForGameEvent", (void ( ::PyGameEventListener::* )( char const * ) )( &::PyGameEventListener::ListenForGameEvent ), bp::arg("name") )    
         .def( "StopListeningForAllEvents", (void ( ::PyGameEventListener::* )() )( &::PyGameEventListener::StopListeningForAllEvents ) );
@@ -6394,14 +6394,14 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , ( bp::arg("clientIndex"), bp::arg("name") ) )    
         .def( 
             "GetClientSteamID"
-            , (::boost::python::object ( ::PyVEngineServer::* )( ::CBasePlayer * ) )( &::PyVEngineServer::GetClientSteamID )
+            , (::boost::python::api::object ( ::PyVEngineServer::* )( ::CBasePlayer * ) )( &::PyVEngineServer::GetClientSteamID )
             , ( bp::arg("player") ) )    
         .def( 
             "GetEntityCount"
             , (int ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::GetEntityCount ) )    
         .def( 
             "GetGameDir"
-            , (::boost::python::object ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::GetGameDir ) )    
+            , (::boost::python::api::object ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::GetGameDir ) )    
         .def( 
             "GetMapEntitiesString"
             , (char const * ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::GetMapEntitiesString ) )    
@@ -6530,7 +6530,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , ( bp::arg("name") ) )    
         .def( 
             "GetModelName"
-            , (::boost::python::object ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetModelName )
+            , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetModelName )
             , ( bp::arg("model") ) );
 
     { //::dheader_t
@@ -6726,7 +6726,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
 
     { //::PyGetModPath
     
-        typedef ::boost::python::object ( *GetModPath_function_type )(  );
+        typedef ::boost::python::api::object ( *GetModPath_function_type )(  );
         
         bp::def( 
             "GetModPath"
@@ -6736,7 +6736,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
 
     { //::PyGetSearchPath
     
-        typedef ::boost::python::object ( *GetSearchPath_function_type )( char const *,bool );
+        typedef ::boost::python::api::object ( *GetSearchPath_function_type )( char const *,bool );
         
         bp::def( 
             "GetSearchPath"
