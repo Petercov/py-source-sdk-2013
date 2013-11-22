@@ -10,6 +10,7 @@ import traceback
 from . import entity
 from . import networkedentity
 from . import usermessages
+from . import gamerules
 
 print('Registering examples package commands. Use "py_example_*" commands to run the examples!')
 
@@ -128,4 +129,16 @@ def PyExampleUserMessage(args):
     # You can also filter the target player by passing a filter keyword argument
     filter = CReliableSingleUserRecipientFilter(player)
     usermessages.PyExampleUserMessage('not an int', ['message'], {'hap' : 666}, set([5, 6, 7]), filter=filter)
+    
+@concommand('py_example_gamerules_install')
+def PyExampleGameRulesInstall(args):
+    player = UTIL_GetCommandClient()
+    
+    gamerules.InstallCustomGameRules()
+    
+@concommand('py_example_gamerules_clear')
+def PyExampleGameRulesClear(args):
+    player = UTIL_GetCommandClient()
+    
+    gamerules.ClearCustomGameRules()
     

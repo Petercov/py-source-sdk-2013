@@ -10,7 +10,7 @@
 #include <filesystem.h>
 #include "icommandline.h"
 #include "srcpy_usermessage.h"
-// TODO: #include "srcpy_gamerules.h"
+#include "srcpy_gamerules.h"
 #include "srcpy_entities.h"
 #include "srcpy_networkvar.h"
 #include "gamestringpool.h"
@@ -419,10 +419,9 @@ bool CSrcPython::ShutdownInterpreter( void )
 	// TODO: DestroyPyPanels();
 #endif // CLIENT_DLL
 
-#if 0 // TODO
 	// Clear Python gamerules
-	ClearPyGameRules();
-#endif // 0
+	if( PyGameRules().ptr() != Py_None )
+		ClearPyGameRules();
 
 	// Make sure these lists don't hold references
 	m_deleteList.Purge();

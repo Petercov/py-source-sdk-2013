@@ -36,7 +36,7 @@
 // =======================================
 #ifdef ENABLE_PYTHON
 	#include "srcpy.h"
-	// TODO: #include "srcpy_gamerules.h"
+	#include "srcpy_gamerules.h"
 	#include "srcpy_entities.h"
 #endif // ENABLE_PYTHON
 // =======================================
@@ -487,10 +487,31 @@ CWorld::~CWorld( )
 	if ( g_pGameRules )
 	{
 		g_pGameRules->LevelShutdown();
-		delete g_pGameRules;
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+		if( PyGameRules().ptr() != Py_None )
+			ClearPyGameRules();	
+		else
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+			delete g_pGameRules;
 		g_pGameRules = NULL;
 	}
 	g_WorldEntity = NULL;
+	
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	g_bDoNotInitPythonClasses = true;
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 }
 
 
@@ -601,7 +622,28 @@ void CWorld::Precache( void )
 	Assert( !g_pGameRules );
 	if (g_pGameRules)
 	{
-		delete g_pGameRules;
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+		if( PyGameRules().ptr() != Py_None )
+			ClearPyGameRules();	
+		else
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+			delete g_pGameRules;
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+		// Set to NULL to avoid "accidents"
+		g_pGameRules = NULL;
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 	}
 
 	InstallGameRules();

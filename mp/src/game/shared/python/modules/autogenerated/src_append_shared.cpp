@@ -17,6 +17,7 @@ extern "C" __declspec(dllexport) PyObject* PyInit__animation();
 extern "C" __declspec(dllexport) PyObject* PyInit__entities();
 extern "C" __declspec(dllexport) PyObject* PyInit__entitiesmisc();
 extern "C" __declspec(dllexport) PyObject* PyInit__gameinterface();
+extern "C" __declspec(dllexport) PyObject* PyInit__gamerules();
 extern "C" __declspec(dllexport) PyObject* PyInit__utils();
 extern "C" __declspec(dllexport) PyObject* PyInit__physics();
 extern "C" __declspec(dllexport) PyObject* PyInit__sound();
@@ -33,6 +34,7 @@ extern "C"  PyObject* PyInit__animation();
 extern "C"  PyObject* PyInit__entities();
 extern "C"  PyObject* PyInit__entitiesmisc();
 extern "C"  PyObject* PyInit__gameinterface();
+extern "C"  PyObject* PyInit__gamerules();
 extern "C"  PyObject* PyInit__utils();
 extern "C"  PyObject* PyInit__physics();
 extern "C"  PyObject* PyInit__sound();
@@ -53,6 +55,7 @@ void AppendSharedModules()
 	APPEND_MODULE(_entities)
 	APPEND_MODULE(_entitiesmisc)
 	APPEND_MODULE(_gameinterface)
+	APPEND_MODULE(_gamerules)
 	APPEND_MODULE(_utils)
 	APPEND_MODULE(_physics)
 	APPEND_MODULE(_sound)
