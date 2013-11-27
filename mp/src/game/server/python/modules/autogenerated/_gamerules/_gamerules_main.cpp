@@ -15,13 +15,13 @@
 
 #include "srcpy_gamerules.h"
 
-#include "hl2mp/hl2mp_player.h"
-
-#include "hl2mp/hl2mp_gamerules.h"
-
 #include "ammodef.h"
 
 #include "items.h"
+
+#include "hl2mp/hl2mp_player.h"
+
+#include "hl2mp/hl2mp_gamerules.h"
 
 #include "tier0/valve_minmax_off.h"
 

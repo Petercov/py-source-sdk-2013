@@ -8,19 +8,25 @@ class GameRules(SemiSharedModuleGenerator):
     module_name = '_gamerules'
     split = True
     
-    files = [
-        'cbase.h',
-        'gamerules.h',
-        'multiplay_gamerules.h',
-        'singleplay_gamerules.h',
-        'teamplay_gamerules.h',
-        'srcpy_gamerules.h',
-        '#hl2mp/hl2mp_player.h',
-        'hl2mp/hl2mp_gamerules.h',
-        'ammodef.h',
-        '#items.h',
-        '$takedamageinfo.h',
-    ]
+    @property
+    def files(self):
+        files = [
+            'cbase.h',
+            'gamerules.h',
+            'multiplay_gamerules.h',
+            'singleplay_gamerules.h',
+            'teamplay_gamerules.h',
+            'srcpy_gamerules.h',
+            'ammodef.h',
+            '#items.h',
+            '$takedamageinfo.h',
+        ]
+        if 'HL2MP' in self.symbols:
+            files.extend([
+                '#hl2mp/hl2mp_player.h',
+                'hl2mp/hl2mp_gamerules.h',
+            ])
+        return files
     
     gamerules = [
         ('CGameRules', 'C_GameRules'),
@@ -69,16 +75,17 @@ class GameRules(SemiSharedModuleGenerator):
             mb.mem_funs('CheckRestartGame').exclude()
             mb.mem_funs('CleanUpMap').exclude()
 
-        mb.mem_funs('GetHL2MPViewVectors').exclude()
+        if 'HL2MP' in self.symbols:
+            mb.mem_funs('GetHL2MPViewVectors').exclude()
             
         # Temp excludes
         mb.mem_funs('GetEncryptionKey').exclude()
         mb.mem_funs('GetViewVectors').exclude()
 
         # Call policies
-        mb.mem_funs('GetNextBestWeapon').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+        mb.mem_funs('GetNextBestWeapon').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
-        # Hide instance
+        # Rename PyGameRules to just GameRules
         mb.free_function('PyGameRules').include()
         mb.free_function('PyGameRules').rename('GameRules')
         

@@ -4,7 +4,6 @@ import codecs
 
 from . basesource import SourceModuleGenerator
 
-#from .. src_module_builder import src_module_builder_t
 from pyplusplus import code_creators, file_writers
 
 class single_files_nowrite_t(file_writers.single_file_t):
@@ -183,14 +182,7 @@ class SemiSharedModuleGenerator(SourceModuleGenerator):
         # Output files
         self.FinalOutput(mb_client, mb_server)
         
-    # Create builder
-    '''def CreateBuilder(self, files, parseonlyfiles):
-        if self.isclient:
-            mb = src_module_builder_t(files, is_client=True)
-        else:
-            mb = src_module_builder_t(files, is_client=False)
-        mb.parseonlyfiles = parseonlyfiles
-        return mb'''
+        self.mb = None
         
     def GenerateContent(self, mb):
         return mb.get_module()

@@ -861,7 +861,7 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_fun('OnNavAreaChanged').exclude()
         else:
             # When GLOWS_ENABLE define is added:
-            if 'GLOWS_ENABLE' in mb.definedsymbols:
+            if 'GLOWS_ENABLE' in self.symbols:
                 mb.mem_funs('GetGlowObject', allow_empty=True).exclude()
                 mb.mem_funs('GetGlowEffectColor', allow_empty=True).add_transformation( FT.output('r'), FT.output('g'), FT.output('b') )
             

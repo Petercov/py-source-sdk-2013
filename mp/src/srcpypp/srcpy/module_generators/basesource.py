@@ -43,16 +43,6 @@ class SourceModuleGenerator(ModuleGenerator):
         mb = src_module_builder_t(files, self.includes, self.symbols, is_client=self.isclient)
         mb.parseonlyfiles = parseonlyfiles
         return mb
-    '''def CreateBuilder(self, files, parseonlyfiles):
-        mb = src_module_builder_t(files, self.serverincludes, [], is_client=True)
-        if self.isclient:
-            os.chdir(self.clientvpcdir)
-            mb = src_module_builder_t(files, self.serverincludes, [], is_client=True)
-        else:
-            os.chdir(self.servervpcdir)
-            mb = src_module_builder_t(files, self.clientincludes, [], is_client=False)
-        mb.parseonlyfiles = parseonlyfiles
-        return mb'''
         
     def GetFilenames(self):
         path = rm.path

@@ -33,6 +33,7 @@ class ModuleGenerator(object):
         self.mb = mb
         self.Parse(mb)
         self.FinalOutput(mb)
+        self.mb = None
         
     # Parse method. Implement this.
     def Parse(self, mb):

@@ -20,22 +20,6 @@ incl_paths = [
     '../../srcpypp/Support/GCC/4.6/usr/include/c++/4.6/i686-linux-gnu',
     '../../srcpypp/Support/GCC/4.6/usr/include/i386-linux-gnu',
     '../../srcpypp/Support/GCC/4.6/usr/include',
-    
-    # Game
-    #'../../common',
-    #'../../public',
-    #'../../public/tier0',
-    #'../../public/tier1',
-    #'../../game/shared',
-    #'../../game/shared/python',
-    
-    # Python/Boost folders
-    #'../../thirdparty/python/Include',
-    #'../../thirdparty/python',
-    
-    # Boost stub headers
-    #'../thirdparty/boost',
-    #'../srcpypp/boost_stubs',
 ]
 '''
 incl_paths_client = [
@@ -150,7 +134,6 @@ class src_module_builder_t(module_builder.module_builder_t):
         symbols = list(basesymbols + symbols)
         
         includepaths = incl_paths + includes
-        includepaths.append('../../srcpypp/boost_stubs')
 
         includepaths = list(map(lambda p: p.replace('\\', '/'), includepaths))
         includepaths = list(filter(os.path.normpath, includepaths))
@@ -174,6 +157,4 @@ class src_module_builder_t(module_builder.module_builder_t):
                     , indexing_suite_version=1
                     , cflags=default_cflags+' --gccxml-config "../../srcpypp/gccxml_config" --gccxml-gcc-options "../../srcpypp/gccxml_gcc_options"'
                     , encoding='ascii'
-                    #, compiler=None
-                    #, gccxml_config=None
                     )

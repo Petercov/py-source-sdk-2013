@@ -100,7 +100,7 @@ void PyInstallGameRulesInternal( boost::python::object gamerules )
 #ifndef CLIENT_DLL
 	// Make sure the client gets a notification to make a new game rules object.
 	Assert( g_StringTableGameRules );
-	g_StringTableGameRules->AddString( true, "classname", strlen( "CHL2MPRules" ) + 1, "CHL2MPRules" );
+	g_StringTableGameRules->AddString( true, "classname", strlen( PYGAMERULES ) + 1, PYGAMERULES );
 
 	if ( g_pGameRules )
 	{
