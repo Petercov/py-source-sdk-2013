@@ -145,6 +145,14 @@ class SourceModuleGenerator(ModuleGenerator):
             
         return False
         
+    def TestCBaseEntity(self, cls):
+        baseentcls = self.baseentcls
+        recursive_bases = cls.recursive_bases
+        for testcls in recursive_bases:
+            if baseentcls == testcls.related_class:
+                return True
+        return cls == baseentcls
+        
     def AddNetworkVarProperty(self, exposename, varname, ctype, clsname):
         cls = self.mb.class_(clsname) if (type(clsname) == str) else clsname
         args = {
@@ -171,6 +179,14 @@ class SourceModuleGenerator(ModuleGenerator):
         self.ihandlecls = mb.class_('IHandleEntity')
         decls = mb.calldefs(matchers.custom_matcher_t(self.TestInheritIHandleEntity))
         decls.call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        
+        # All CBaseEntity related classes should have a custom call trait
+        self.baseentcls = mb.class_('CBaseEntity' if self.isserver else 'C_BaseEntity')
+        def ent_call_trait(type_):
+            return '%(arg)s ? %(arg)s->GetPyHandle() : boost::python::object()'
+        entclasses = mb.classes(self.TestCBaseEntity)
+        for entcls in entclasses:
+            entcls.custom_call_trait = ent_call_trait
         
         # Anything returning KeyValues should be returned by value so it calls the converter
         keyvalues = mb.class_('KeyValues')
