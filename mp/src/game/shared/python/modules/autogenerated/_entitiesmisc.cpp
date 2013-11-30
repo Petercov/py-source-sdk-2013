@@ -2972,37 +2972,41 @@ struct CGlobalEntityList_wrapper : CGlobalEntityList, bp::wrapper< CGlobalEntity
     }
 
     virtual void OnAddEntity( ::IHandleEntity * pEnt, ::CBaseHandle handle ){
+        PY_OVERRIDE_CHECK( CGlobalEntityList, OnAddEntity )
+        PY_OVERRIDE_LOG( _entitiesmisc, CGlobalEntityList, OnAddEntity )
         bp::override func_OnAddEntity = this->get_override( "OnAddEntity" );
         if( func_OnAddEntity.ptr() != Py_None )
             try {
                 func_OnAddEntity( boost::python::ptr(pEnt), handle );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                this->CGlobalEntityList::OnAddEntity( boost::python::ptr(pEnt), handle );
+                this->CGlobalEntityList::OnAddEntity( pEnt, handle );
             }
         else
-            this->CGlobalEntityList::OnAddEntity( boost::python::ptr(pEnt), handle );
+            this->CGlobalEntityList::OnAddEntity( pEnt, handle );
     }
     
     virtual void default_OnAddEntity( ::IHandleEntity * pEnt, ::CBaseHandle handle ){
-        CGlobalEntityList::OnAddEntity( boost::python::ptr(pEnt), handle );
+        CGlobalEntityList::OnAddEntity( pEnt, handle );
     }
 
     virtual void OnRemoveEntity( ::IHandleEntity * pEnt, ::CBaseHandle handle ){
+        PY_OVERRIDE_CHECK( CGlobalEntityList, OnRemoveEntity )
+        PY_OVERRIDE_LOG( _entitiesmisc, CGlobalEntityList, OnRemoveEntity )
         bp::override func_OnRemoveEntity = this->get_override( "OnRemoveEntity" );
         if( func_OnRemoveEntity.ptr() != Py_None )
             try {
                 func_OnRemoveEntity( boost::python::ptr(pEnt), handle );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                this->CGlobalEntityList::OnRemoveEntity( boost::python::ptr(pEnt), handle );
+                this->CGlobalEntityList::OnRemoveEntity( pEnt, handle );
             }
         else
-            this->CGlobalEntityList::OnRemoveEntity( boost::python::ptr(pEnt), handle );
+            this->CGlobalEntityList::OnRemoveEntity( pEnt, handle );
     }
     
     virtual void default_OnRemoveEntity( ::IHandleEntity * pEnt, ::CBaseHandle handle ){
-        CGlobalEntityList::OnRemoveEntity( boost::python::ptr(pEnt), handle );
+        CGlobalEntityList::OnRemoveEntity( pEnt, handle );
     }
 
 };
@@ -3024,33 +3028,22 @@ struct CPythonSendProxyBase_wrapper : CPythonSendProxyBase, bp::wrapper< CPython
     }
 
     virtual bool ShouldSend( ::CBaseEntity * pEnt, int iClient ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "ShouldSend: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling ShouldSend( boost::python::ptr(pEnt), iClient ) of Class: CPythonSendProxyBase\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CPythonSendProxyBase, ShouldSend )
+        PY_OVERRIDE_LOG( _entitiesmisc, CPythonSendProxyBase, ShouldSend )
         bp::override func_ShouldSend = this->get_override( "ShouldSend" );
         if( func_ShouldSend.ptr() != Py_None )
             try {
                 return func_ShouldSend( boost::python::ptr(pEnt), iClient );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                return this->CPythonSendProxyBase::ShouldSend( boost::python::ptr(pEnt), iClient );
+                return this->CPythonSendProxyBase::ShouldSend( pEnt, iClient );
             }
         else
-            return this->CPythonSendProxyBase::ShouldSend( boost::python::ptr(pEnt), iClient );
+            return this->CPythonSendProxyBase::ShouldSend( pEnt, iClient );
     }
     
     bool default_ShouldSend( ::CBaseEntity * pEnt, int iClient ) {
-        return CPythonSendProxyBase::ShouldSend( boost::python::ptr(pEnt), iClient );
+        return CPythonSendProxyBase::ShouldSend( pEnt, iClient );
     }
 
 };

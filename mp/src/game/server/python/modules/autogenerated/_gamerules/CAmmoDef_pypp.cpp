@@ -72,7 +72,7 @@ void register_CAmmoDef_class(){
             "TracerType"
             , (int ( ::CAmmoDef::* )( int ) )( &::CAmmoDef::TracerType )
             , ( bp::arg("nAmmoIndex") ) )    
-        .def_readwrite( "m_nAmmoIndex", &CAmmoDef::m_nAmmoIndex );
+        .def_readwrite( "ammoindex", &CAmmoDef::m_nAmmoIndex );
 
 }
 

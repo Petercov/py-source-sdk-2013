@@ -55,19 +55,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual bool Init(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Init: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Init(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, Init )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, Init )
         bp::override func_Init = this->get_override( "Init" );
         if( func_Init.ptr() != Py_None )
             try {
@@ -85,19 +74,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void LevelInitPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPostEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelInitPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelInitPostEntity )
         bp::override func_LevelInitPostEntity = this->get_override( "LevelInitPostEntity" );
         if( func_LevelInitPostEntity.ptr() != Py_None )
             try {
@@ -115,19 +93,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void LevelInitPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPreEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelInitPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelInitPreEntity )
         bp::override func_LevelInitPreEntity = this->get_override( "LevelInitPreEntity" );
         if( func_LevelInitPreEntity.ptr() != Py_None )
             try {
@@ -145,19 +112,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void LevelShutdownPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPostEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelShutdownPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelShutdownPostEntity )
         bp::override func_LevelShutdownPostEntity = this->get_override( "LevelShutdownPostEntity" );
         if( func_LevelShutdownPostEntity.ptr() != Py_None )
             try {
@@ -175,19 +131,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void LevelShutdownPreClearSteamAPIContext(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreClearSteamAPIContext: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreClearSteamAPIContext(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelShutdownPreClearSteamAPIContext )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelShutdownPreClearSteamAPIContext )
         bp::override func_LevelShutdownPreClearSteamAPIContext = this->get_override( "LevelShutdownPreClearSteamAPIContext" );
         if( func_LevelShutdownPreClearSteamAPIContext.ptr() != Py_None )
             try {
@@ -205,19 +150,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void LevelShutdownPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelShutdownPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelShutdownPreEntity )
         bp::override func_LevelShutdownPreEntity = this->get_override( "LevelShutdownPreEntity" );
         if( func_LevelShutdownPreEntity.ptr() != Py_None )
             try {
@@ -235,19 +169,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual char const * Name(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Name: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Name(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, Name )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, Name )
         bp::override func_Name = this->get_override( "Name" );
         if( func_Name.ptr() != Py_None )
             try {
@@ -265,19 +188,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void OnRestore(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnRestore(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, OnRestore )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, OnRestore )
         bp::override func_OnRestore = this->get_override( "OnRestore" );
         if( func_OnRestore.ptr() != Py_None )
             try {
@@ -295,19 +207,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void OnSave(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnSave: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnSave(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, OnSave )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, OnSave )
         bp::override func_OnSave = this->get_override( "OnSave" );
         if( func_OnSave.ptr() != Py_None )
             try {
@@ -325,19 +226,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void PostInit(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PostInit: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PostInit(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, PostInit )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, PostInit )
         bp::override func_PostInit = this->get_override( "PostInit" );
         if( func_PostInit.ptr() != Py_None )
             try {
@@ -355,19 +245,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void Shutdown(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Shutdown: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Shutdown(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, Shutdown )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, Shutdown )
         bp::override func_Shutdown = this->get_override( "Shutdown" );
         if( func_Shutdown.ptr() != Py_None )
             try {
@@ -403,19 +282,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual char const * Name(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Name: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Name(  ) of Class: CAutoGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CAutoGameSystem, Name )
+        PY_OVERRIDE_LOG( _gameinterface, CAutoGameSystem, Name )
         bp::override func_Name = this->get_override( "Name" );
         if( func_Name.ptr() != Py_None )
             try {
@@ -441,19 +309,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual bool Init(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Init: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Init(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, Init )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, Init )
         bp::override func_Init = this->get_override( "Init" );
         if( func_Init.ptr() != Py_None )
             try {
@@ -471,19 +328,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void LevelInitPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPostEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelInitPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelInitPostEntity )
         bp::override func_LevelInitPostEntity = this->get_override( "LevelInitPostEntity" );
         if( func_LevelInitPostEntity.ptr() != Py_None )
             try {
@@ -501,19 +347,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void LevelInitPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPreEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelInitPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelInitPreEntity )
         bp::override func_LevelInitPreEntity = this->get_override( "LevelInitPreEntity" );
         if( func_LevelInitPreEntity.ptr() != Py_None )
             try {
@@ -531,19 +366,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void LevelShutdownPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPostEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelShutdownPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelShutdownPostEntity )
         bp::override func_LevelShutdownPostEntity = this->get_override( "LevelShutdownPostEntity" );
         if( func_LevelShutdownPostEntity.ptr() != Py_None )
             try {
@@ -561,19 +385,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void LevelShutdownPreClearSteamAPIContext(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreClearSteamAPIContext: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreClearSteamAPIContext(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelShutdownPreClearSteamAPIContext )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelShutdownPreClearSteamAPIContext )
         bp::override func_LevelShutdownPreClearSteamAPIContext = this->get_override( "LevelShutdownPreClearSteamAPIContext" );
         if( func_LevelShutdownPreClearSteamAPIContext.ptr() != Py_None )
             try {
@@ -591,19 +404,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void LevelShutdownPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelShutdownPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelShutdownPreEntity )
         bp::override func_LevelShutdownPreEntity = this->get_override( "LevelShutdownPreEntity" );
         if( func_LevelShutdownPreEntity.ptr() != Py_None )
             try {
@@ -621,19 +423,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void OnRestore(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnRestore(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, OnRestore )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, OnRestore )
         bp::override func_OnRestore = this->get_override( "OnRestore" );
         if( func_OnRestore.ptr() != Py_None )
             try {
@@ -651,19 +442,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void OnSave(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnSave: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnSave(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, OnSave )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, OnSave )
         bp::override func_OnSave = this->get_override( "OnSave" );
         if( func_OnSave.ptr() != Py_None )
             try {
@@ -681,19 +461,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void PostInit(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PostInit: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PostInit(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, PostInit )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, PostInit )
         bp::override func_PostInit = this->get_override( "PostInit" );
         if( func_PostInit.ptr() != Py_None )
             try {
@@ -711,19 +480,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void Shutdown(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Shutdown: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Shutdown(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, Shutdown )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, Shutdown )
         bp::override func_Shutdown = this->get_override( "Shutdown" );
         if( func_Shutdown.ptr() != Py_None )
             try {
@@ -759,19 +517,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual bool Init(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Init: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Init(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, Init )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, Init )
         bp::override func_Init = this->get_override( "Init" );
         if( func_Init.ptr() != Py_None )
             try {
@@ -789,19 +536,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelInitPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPostEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelInitPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelInitPostEntity )
         bp::override func_LevelInitPostEntity = this->get_override( "LevelInitPostEntity" );
         if( func_LevelInitPostEntity.ptr() != Py_None )
             try {
@@ -819,19 +555,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelInitPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPreEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelInitPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelInitPreEntity )
         bp::override func_LevelInitPreEntity = this->get_override( "LevelInitPreEntity" );
         if( func_LevelInitPreEntity.ptr() != Py_None )
             try {
@@ -849,19 +574,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelShutdownPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPostEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelShutdownPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelShutdownPostEntity )
         bp::override func_LevelShutdownPostEntity = this->get_override( "LevelShutdownPostEntity" );
         if( func_LevelShutdownPostEntity.ptr() != Py_None )
             try {
@@ -879,19 +593,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelShutdownPreClearSteamAPIContext(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreClearSteamAPIContext: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreClearSteamAPIContext(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelShutdownPreClearSteamAPIContext )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelShutdownPreClearSteamAPIContext )
         bp::override func_LevelShutdownPreClearSteamAPIContext = this->get_override( "LevelShutdownPreClearSteamAPIContext" );
         if( func_LevelShutdownPreClearSteamAPIContext.ptr() != Py_None )
             try {
@@ -909,19 +612,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelShutdownPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelShutdownPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelShutdownPreEntity )
         bp::override func_LevelShutdownPreEntity = this->get_override( "LevelShutdownPreEntity" );
         if( func_LevelShutdownPreEntity.ptr() != Py_None )
             try {
@@ -939,19 +631,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual char const * Name(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Name: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Name(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, Name )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, Name )
         bp::override func_Name = this->get_override( "Name" );
         if( func_Name.ptr() != Py_None )
             try {
@@ -969,19 +650,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void OnRestore(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnRestore(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, OnRestore )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, OnRestore )
         bp::override func_OnRestore = this->get_override( "OnRestore" );
         if( func_OnRestore.ptr() != Py_None )
             try {
@@ -999,19 +669,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void OnSave(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnSave: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnSave(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, OnSave )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, OnSave )
         bp::override func_OnSave = this->get_override( "OnSave" );
         if( func_OnSave.ptr() != Py_None )
             try {
@@ -1029,19 +688,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void PostInit(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PostInit: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PostInit(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, PostInit )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, PostInit )
         bp::override func_PostInit = this->get_override( "PostInit" );
         if( func_PostInit.ptr() != Py_None )
             try {
@@ -1059,19 +707,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void PostRender(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PostRender: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PostRender(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, PostRender )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, PostRender )
         bp::override func_PostRender = this->get_override( "PostRender" );
         if( func_PostRender.ptr() != Py_None )
             try {
@@ -1089,19 +726,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void PreRender(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PreRender: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PreRender(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, PreRender )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, PreRender )
         bp::override func_PreRender = this->get_override( "PreRender" );
         if( func_PreRender.ptr() != Py_None )
             try {
@@ -1119,19 +745,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void Shutdown(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Shutdown: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Shutdown(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, Shutdown )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, Shutdown )
         bp::override func_Shutdown = this->get_override( "Shutdown" );
         if( func_Shutdown.ptr() != Py_None )
             try {
@@ -1149,19 +764,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void Update( float frametime ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Update: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Update( frametime ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, Update )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, Update )
         bp::override func_Update = this->get_override( "Update" );
         if( func_Update.ptr() != Py_None )
             try {
@@ -1197,19 +801,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual char const * Name(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Name: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Name(  ) of Class: CAutoGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CAutoGameSystemPerFrame, Name )
+        PY_OVERRIDE_LOG( _gameinterface, CAutoGameSystemPerFrame, Name )
         bp::override func_Name = this->get_override( "Name" );
         if( func_Name.ptr() != Py_None )
             try {
@@ -1235,19 +828,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual bool Init(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Init: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Init(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, Init )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, Init )
         bp::override func_Init = this->get_override( "Init" );
         if( func_Init.ptr() != Py_None )
             try {
@@ -1265,19 +847,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelInitPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPostEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelInitPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelInitPostEntity )
         bp::override func_LevelInitPostEntity = this->get_override( "LevelInitPostEntity" );
         if( func_LevelInitPostEntity.ptr() != Py_None )
             try {
@@ -1295,19 +866,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelInitPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPreEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelInitPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelInitPreEntity )
         bp::override func_LevelInitPreEntity = this->get_override( "LevelInitPreEntity" );
         if( func_LevelInitPreEntity.ptr() != Py_None )
             try {
@@ -1325,19 +885,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelShutdownPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPostEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelShutdownPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelShutdownPostEntity )
         bp::override func_LevelShutdownPostEntity = this->get_override( "LevelShutdownPostEntity" );
         if( func_LevelShutdownPostEntity.ptr() != Py_None )
             try {
@@ -1355,19 +904,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelShutdownPreClearSteamAPIContext(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreClearSteamAPIContext: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreClearSteamAPIContext(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelShutdownPreClearSteamAPIContext )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelShutdownPreClearSteamAPIContext )
         bp::override func_LevelShutdownPreClearSteamAPIContext = this->get_override( "LevelShutdownPreClearSteamAPIContext" );
         if( func_LevelShutdownPreClearSteamAPIContext.ptr() != Py_None )
             try {
@@ -1385,19 +923,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelShutdownPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelShutdownPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelShutdownPreEntity )
         bp::override func_LevelShutdownPreEntity = this->get_override( "LevelShutdownPreEntity" );
         if( func_LevelShutdownPreEntity.ptr() != Py_None )
             try {
@@ -1415,19 +942,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void OnRestore(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnRestore(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, OnRestore )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, OnRestore )
         bp::override func_OnRestore = this->get_override( "OnRestore" );
         if( func_OnRestore.ptr() != Py_None )
             try {
@@ -1445,19 +961,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void OnSave(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnSave: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnSave(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, OnSave )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, OnSave )
         bp::override func_OnSave = this->get_override( "OnSave" );
         if( func_OnSave.ptr() != Py_None )
             try {
@@ -1475,19 +980,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void PostInit(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PostInit: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PostInit(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, PostInit )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, PostInit )
         bp::override func_PostInit = this->get_override( "PostInit" );
         if( func_PostInit.ptr() != Py_None )
             try {
@@ -1505,19 +999,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void PostRender(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PostRender: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PostRender(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, PostRender )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, PostRender )
         bp::override func_PostRender = this->get_override( "PostRender" );
         if( func_PostRender.ptr() != Py_None )
             try {
@@ -1535,19 +1018,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void PreRender(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PreRender: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PreRender(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, PreRender )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, PreRender )
         bp::override func_PreRender = this->get_override( "PreRender" );
         if( func_PreRender.ptr() != Py_None )
             try {
@@ -1565,19 +1037,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void Shutdown(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Shutdown: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Shutdown(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, Shutdown )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, Shutdown )
         bp::override func_Shutdown = this->get_override( "Shutdown" );
         if( func_Shutdown.ptr() != Py_None )
             try {
@@ -1595,19 +1056,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void Update( float frametime ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Update: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Update( frametime ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, Update )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, Update )
         bp::override func_Update = this->get_override( "Update" );
         if( func_Update.ptr() != Py_None )
             try {
@@ -1643,19 +1093,8 @@ struct PyGameEventListener_wrapper : PyGameEventListener, bp::wrapper< PyGameEve
     }
 
     virtual void PyFireGameEvent( ::boost::python::api::object event ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "FireGameEvent: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PyFireGameEvent( event ) of Class: PyGameEventListener\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( PyGameEventListener, PyFireGameEvent )
+        PY_OVERRIDE_LOG( _gameinterface, PyGameEventListener, PyFireGameEvent )
         bp::override func_FireGameEvent = this->get_override( "FireGameEvent" );
         if( func_FireGameEvent.ptr() != Py_None )
             try {
@@ -1691,33 +1130,22 @@ struct PyVEngineClient_wrapper : PyVEngineClient, bp::wrapper< PyVEngineClient >
     }
 
     virtual ::Vector GetLightForPoint( ::Vector const & pos, bool clamp ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "GetLightForPoint: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling GetLightForPoint( boost::ref(pos), clamp ) of Class: PyVEngineClient\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( PyVEngineClient, GetLightForPoint )
+        PY_OVERRIDE_LOG( _gameinterface, PyVEngineClient, GetLightForPoint )
         bp::override func_GetLightForPoint = this->get_override( "GetLightForPoint" );
         if( func_GetLightForPoint.ptr() != Py_None )
             try {
                 return func_GetLightForPoint( boost::ref(pos), clamp );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                return this->PyVEngineClient::GetLightForPoint( boost::ref(pos), clamp );
+                return this->PyVEngineClient::GetLightForPoint( pos, clamp );
             }
         else
-            return this->PyVEngineClient::GetLightForPoint( boost::ref(pos), clamp );
+            return this->PyVEngineClient::GetLightForPoint( pos, clamp );
     }
     
     ::Vector default_GetLightForPoint( ::Vector const & pos, bool clamp ) {
-        return PyVEngineClient::GetLightForPoint( boost::ref(pos), clamp );
+        return PyVEngineClient::GetLightForPoint( pos, clamp );
     }
 
 };
@@ -3490,19 +2918,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual bool Init(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Init: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Init(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, Init )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, Init )
         bp::override func_Init = this->get_override( "Init" );
         if( func_Init.ptr() != Py_None )
             try {
@@ -3520,19 +2937,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void LevelInitPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPostEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelInitPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelInitPostEntity )
         bp::override func_LevelInitPostEntity = this->get_override( "LevelInitPostEntity" );
         if( func_LevelInitPostEntity.ptr() != Py_None )
             try {
@@ -3550,19 +2956,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void LevelInitPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPreEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelInitPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelInitPreEntity )
         bp::override func_LevelInitPreEntity = this->get_override( "LevelInitPreEntity" );
         if( func_LevelInitPreEntity.ptr() != Py_None )
             try {
@@ -3580,19 +2975,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void LevelShutdownPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPostEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelShutdownPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelShutdownPostEntity )
         bp::override func_LevelShutdownPostEntity = this->get_override( "LevelShutdownPostEntity" );
         if( func_LevelShutdownPostEntity.ptr() != Py_None )
             try {
@@ -3610,19 +2994,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void LevelShutdownPreClearSteamAPIContext(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreClearSteamAPIContext: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreClearSteamAPIContext(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelShutdownPreClearSteamAPIContext )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelShutdownPreClearSteamAPIContext )
         bp::override func_LevelShutdownPreClearSteamAPIContext = this->get_override( "LevelShutdownPreClearSteamAPIContext" );
         if( func_LevelShutdownPreClearSteamAPIContext.ptr() != Py_None )
             try {
@@ -3640,19 +3013,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void LevelShutdownPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelShutdownPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelShutdownPreEntity )
         bp::override func_LevelShutdownPreEntity = this->get_override( "LevelShutdownPreEntity" );
         if( func_LevelShutdownPreEntity.ptr() != Py_None )
             try {
@@ -3670,19 +3032,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual char const * Name(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Name: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Name(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, Name )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, Name )
         bp::override func_Name = this->get_override( "Name" );
         if( func_Name.ptr() != Py_None )
             try {
@@ -3700,19 +3051,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void OnRestore(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnRestore(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, OnRestore )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, OnRestore )
         bp::override func_OnRestore = this->get_override( "OnRestore" );
         if( func_OnRestore.ptr() != Py_None )
             try {
@@ -3730,19 +3070,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void OnSave(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnSave: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnSave(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, OnSave )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, OnSave )
         bp::override func_OnSave = this->get_override( "OnSave" );
         if( func_OnSave.ptr() != Py_None )
             try {
@@ -3760,19 +3089,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void PostInit(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PostInit: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PostInit(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, PostInit )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, PostInit )
         bp::override func_PostInit = this->get_override( "PostInit" );
         if( func_PostInit.ptr() != Py_None )
             try {
@@ -3790,19 +3108,8 @@ struct CBaseGameSystem_wrapper : CBaseGameSystem, bp::wrapper< CBaseGameSystem >
     }
 
     virtual void Shutdown(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Shutdown: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Shutdown(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, Shutdown )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, Shutdown )
         bp::override func_Shutdown = this->get_override( "Shutdown" );
         if( func_Shutdown.ptr() != Py_None )
             try {
@@ -3838,19 +3145,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual char const * Name(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Name: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Name(  ) of Class: CAutoGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CAutoGameSystem, Name )
+        PY_OVERRIDE_LOG( _gameinterface, CAutoGameSystem, Name )
         bp::override func_Name = this->get_override( "Name" );
         if( func_Name.ptr() != Py_None )
             try {
@@ -3876,19 +3172,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual bool Init(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Init: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Init(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, Init )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, Init )
         bp::override func_Init = this->get_override( "Init" );
         if( func_Init.ptr() != Py_None )
             try {
@@ -3906,19 +3191,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void LevelInitPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPostEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelInitPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelInitPostEntity )
         bp::override func_LevelInitPostEntity = this->get_override( "LevelInitPostEntity" );
         if( func_LevelInitPostEntity.ptr() != Py_None )
             try {
@@ -3936,19 +3210,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void LevelInitPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPreEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelInitPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelInitPreEntity )
         bp::override func_LevelInitPreEntity = this->get_override( "LevelInitPreEntity" );
         if( func_LevelInitPreEntity.ptr() != Py_None )
             try {
@@ -3966,19 +3229,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void LevelShutdownPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPostEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelShutdownPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelShutdownPostEntity )
         bp::override func_LevelShutdownPostEntity = this->get_override( "LevelShutdownPostEntity" );
         if( func_LevelShutdownPostEntity.ptr() != Py_None )
             try {
@@ -3996,19 +3248,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void LevelShutdownPreClearSteamAPIContext(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreClearSteamAPIContext: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreClearSteamAPIContext(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelShutdownPreClearSteamAPIContext )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelShutdownPreClearSteamAPIContext )
         bp::override func_LevelShutdownPreClearSteamAPIContext = this->get_override( "LevelShutdownPreClearSteamAPIContext" );
         if( func_LevelShutdownPreClearSteamAPIContext.ptr() != Py_None )
             try {
@@ -4026,19 +3267,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void LevelShutdownPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreEntity(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, LevelShutdownPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, LevelShutdownPreEntity )
         bp::override func_LevelShutdownPreEntity = this->get_override( "LevelShutdownPreEntity" );
         if( func_LevelShutdownPreEntity.ptr() != Py_None )
             try {
@@ -4056,19 +3286,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void OnRestore(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnRestore(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, OnRestore )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, OnRestore )
         bp::override func_OnRestore = this->get_override( "OnRestore" );
         if( func_OnRestore.ptr() != Py_None )
             try {
@@ -4086,19 +3305,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void OnSave(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnSave: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnSave(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, OnSave )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, OnSave )
         bp::override func_OnSave = this->get_override( "OnSave" );
         if( func_OnSave.ptr() != Py_None )
             try {
@@ -4116,19 +3324,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void PostInit(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PostInit: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PostInit(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, PostInit )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, PostInit )
         bp::override func_PostInit = this->get_override( "PostInit" );
         if( func_PostInit.ptr() != Py_None )
             try {
@@ -4146,19 +3343,8 @@ struct CAutoGameSystem_wrapper : CAutoGameSystem, bp::wrapper< CAutoGameSystem >
     }
 
     virtual void Shutdown(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Shutdown: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Shutdown(  ) of Class: CBaseGameSystem\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystem, Shutdown )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystem, Shutdown )
         bp::override func_Shutdown = this->get_override( "Shutdown" );
         if( func_Shutdown.ptr() != Py_None )
             try {
@@ -4194,19 +3380,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void FrameUpdatePostEntityThink(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "FrameUpdatePostEntityThink: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling FrameUpdatePostEntityThink(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, FrameUpdatePostEntityThink )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, FrameUpdatePostEntityThink )
         bp::override func_FrameUpdatePostEntityThink = this->get_override( "FrameUpdatePostEntityThink" );
         if( func_FrameUpdatePostEntityThink.ptr() != Py_None )
             try {
@@ -4224,19 +3399,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void FrameUpdatePreEntityThink(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "FrameUpdatePreEntityThink: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling FrameUpdatePreEntityThink(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, FrameUpdatePreEntityThink )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, FrameUpdatePreEntityThink )
         bp::override func_FrameUpdatePreEntityThink = this->get_override( "FrameUpdatePreEntityThink" );
         if( func_FrameUpdatePreEntityThink.ptr() != Py_None )
             try {
@@ -4254,19 +3418,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual bool Init(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Init: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Init(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, Init )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, Init )
         bp::override func_Init = this->get_override( "Init" );
         if( func_Init.ptr() != Py_None )
             try {
@@ -4284,19 +3437,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelInitPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPostEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelInitPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelInitPostEntity )
         bp::override func_LevelInitPostEntity = this->get_override( "LevelInitPostEntity" );
         if( func_LevelInitPostEntity.ptr() != Py_None )
             try {
@@ -4314,19 +3456,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelInitPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPreEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelInitPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelInitPreEntity )
         bp::override func_LevelInitPreEntity = this->get_override( "LevelInitPreEntity" );
         if( func_LevelInitPreEntity.ptr() != Py_None )
             try {
@@ -4344,19 +3475,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelShutdownPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPostEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelShutdownPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelShutdownPostEntity )
         bp::override func_LevelShutdownPostEntity = this->get_override( "LevelShutdownPostEntity" );
         if( func_LevelShutdownPostEntity.ptr() != Py_None )
             try {
@@ -4374,19 +3494,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelShutdownPreClearSteamAPIContext(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreClearSteamAPIContext: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreClearSteamAPIContext(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelShutdownPreClearSteamAPIContext )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelShutdownPreClearSteamAPIContext )
         bp::override func_LevelShutdownPreClearSteamAPIContext = this->get_override( "LevelShutdownPreClearSteamAPIContext" );
         if( func_LevelShutdownPreClearSteamAPIContext.ptr() != Py_None )
             try {
@@ -4404,19 +3513,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelShutdownPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelShutdownPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelShutdownPreEntity )
         bp::override func_LevelShutdownPreEntity = this->get_override( "LevelShutdownPreEntity" );
         if( func_LevelShutdownPreEntity.ptr() != Py_None )
             try {
@@ -4434,19 +3532,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual char const * Name(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Name: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Name(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, Name )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, Name )
         bp::override func_Name = this->get_override( "Name" );
         if( func_Name.ptr() != Py_None )
             try {
@@ -4464,19 +3551,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void OnRestore(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnRestore(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, OnRestore )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, OnRestore )
         bp::override func_OnRestore = this->get_override( "OnRestore" );
         if( func_OnRestore.ptr() != Py_None )
             try {
@@ -4494,19 +3570,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void OnSave(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnSave: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnSave(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, OnSave )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, OnSave )
         bp::override func_OnSave = this->get_override( "OnSave" );
         if( func_OnSave.ptr() != Py_None )
             try {
@@ -4524,19 +3589,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void PostInit(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PostInit: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PostInit(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, PostInit )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, PostInit )
         bp::override func_PostInit = this->get_override( "PostInit" );
         if( func_PostInit.ptr() != Py_None )
             try {
@@ -4554,19 +3608,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void PreClientUpdate(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PreClientUpdate: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PreClientUpdate(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, PreClientUpdate )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, PreClientUpdate )
         bp::override func_PreClientUpdate = this->get_override( "PreClientUpdate" );
         if( func_PreClientUpdate.ptr() != Py_None )
             try {
@@ -4584,19 +3627,8 @@ struct CBaseGameSystemPerFrame_wrapper : CBaseGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void Shutdown(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Shutdown: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Shutdown(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, Shutdown )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, Shutdown )
         bp::override func_Shutdown = this->get_override( "Shutdown" );
         if( func_Shutdown.ptr() != Py_None )
             try {
@@ -4632,19 +3664,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual char const * Name(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Name: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Name(  ) of Class: CAutoGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CAutoGameSystemPerFrame, Name )
+        PY_OVERRIDE_LOG( _gameinterface, CAutoGameSystemPerFrame, Name )
         bp::override func_Name = this->get_override( "Name" );
         if( func_Name.ptr() != Py_None )
             try {
@@ -4670,19 +3691,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void FrameUpdatePostEntityThink(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "FrameUpdatePostEntityThink: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling FrameUpdatePostEntityThink(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, FrameUpdatePostEntityThink )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, FrameUpdatePostEntityThink )
         bp::override func_FrameUpdatePostEntityThink = this->get_override( "FrameUpdatePostEntityThink" );
         if( func_FrameUpdatePostEntityThink.ptr() != Py_None )
             try {
@@ -4700,19 +3710,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void FrameUpdatePreEntityThink(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "FrameUpdatePreEntityThink: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling FrameUpdatePreEntityThink(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, FrameUpdatePreEntityThink )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, FrameUpdatePreEntityThink )
         bp::override func_FrameUpdatePreEntityThink = this->get_override( "FrameUpdatePreEntityThink" );
         if( func_FrameUpdatePreEntityThink.ptr() != Py_None )
             try {
@@ -4730,19 +3729,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual bool Init(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Init: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Init(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, Init )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, Init )
         bp::override func_Init = this->get_override( "Init" );
         if( func_Init.ptr() != Py_None )
             try {
@@ -4760,19 +3748,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelInitPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPostEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelInitPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelInitPostEntity )
         bp::override func_LevelInitPostEntity = this->get_override( "LevelInitPostEntity" );
         if( func_LevelInitPostEntity.ptr() != Py_None )
             try {
@@ -4790,19 +3767,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelInitPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelInitPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelInitPreEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelInitPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelInitPreEntity )
         bp::override func_LevelInitPreEntity = this->get_override( "LevelInitPreEntity" );
         if( func_LevelInitPreEntity.ptr() != Py_None )
             try {
@@ -4820,19 +3786,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelShutdownPostEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPostEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPostEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelShutdownPostEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelShutdownPostEntity )
         bp::override func_LevelShutdownPostEntity = this->get_override( "LevelShutdownPostEntity" );
         if( func_LevelShutdownPostEntity.ptr() != Py_None )
             try {
@@ -4850,19 +3805,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelShutdownPreClearSteamAPIContext(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreClearSteamAPIContext: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreClearSteamAPIContext(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelShutdownPreClearSteamAPIContext )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelShutdownPreClearSteamAPIContext )
         bp::override func_LevelShutdownPreClearSteamAPIContext = this->get_override( "LevelShutdownPreClearSteamAPIContext" );
         if( func_LevelShutdownPreClearSteamAPIContext.ptr() != Py_None )
             try {
@@ -4880,19 +3824,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void LevelShutdownPreEntity(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "LevelShutdownPreEntity: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling LevelShutdownPreEntity(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, LevelShutdownPreEntity )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, LevelShutdownPreEntity )
         bp::override func_LevelShutdownPreEntity = this->get_override( "LevelShutdownPreEntity" );
         if( func_LevelShutdownPreEntity.ptr() != Py_None )
             try {
@@ -4910,19 +3843,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void OnRestore(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnRestore: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnRestore(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, OnRestore )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, OnRestore )
         bp::override func_OnRestore = this->get_override( "OnRestore" );
         if( func_OnRestore.ptr() != Py_None )
             try {
@@ -4940,19 +3862,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void OnSave(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "OnSave: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling OnSave(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, OnSave )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, OnSave )
         bp::override func_OnSave = this->get_override( "OnSave" );
         if( func_OnSave.ptr() != Py_None )
             try {
@@ -4970,19 +3881,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void PostInit(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PostInit: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PostInit(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, PostInit )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, PostInit )
         bp::override func_PostInit = this->get_override( "PostInit" );
         if( func_PostInit.ptr() != Py_None )
             try {
@@ -5000,19 +3900,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void PreClientUpdate(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "PreClientUpdate: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PreClientUpdate(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, PreClientUpdate )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, PreClientUpdate )
         bp::override func_PreClientUpdate = this->get_override( "PreClientUpdate" );
         if( func_PreClientUpdate.ptr() != Py_None )
             try {
@@ -5030,19 +3919,8 @@ struct CAutoGameSystemPerFrame_wrapper : CAutoGameSystemPerFrame, bp::wrapper< C
     }
 
     virtual void Shutdown(  ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "Shutdown: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling Shutdown(  ) of Class: CBaseGameSystemPerFrame\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( CBaseGameSystemPerFrame, Shutdown )
+        PY_OVERRIDE_LOG( _gameinterface, CBaseGameSystemPerFrame, Shutdown )
         bp::override func_Shutdown = this->get_override( "Shutdown" );
         if( func_Shutdown.ptr() != Py_None )
             try {
@@ -5107,19 +3985,8 @@ struct PyGameEventListener_wrapper : PyGameEventListener, bp::wrapper< PyGameEve
     }
 
     virtual void PyFireGameEvent( ::boost::python::api::object event ) {
-        #if defined(_WIN32)
-        #if defined(_DEBUG)
-        Assert( SrcPySystem()->IsPythonRunning() );
-        Assert( GetCurrentThreadId() == g_hPythonThreadID );
-        #elif defined(PY_CHECKTHREADID)
-        if( GetCurrentThreadId() != g_hPythonThreadID )
-            Error( "FireGameEvent: Client? %d. Thread ID is not the same as in which the python interpreter is initialized! %d != %d. Tell a developer.\n", CBaseEntity::IsClient(), g_hPythonThreadID, GetCurrentThreadId() );
-        #endif // _DEBUG/PY_CHECKTHREADID
-        #endif // _WIN32
-        #if defined(_DEBUG) || defined(PY_CHECK_LOG_OVERRIDES)
-        if( py_log_overrides.GetBool() )
-            Msg("Calling PyFireGameEvent( event ) of Class: PyGameEventListener\n");
-        #endif // _DEBUG/PY_CHECK_LOG_OVERRIDES
+        PY_OVERRIDE_CHECK( PyGameEventListener, PyFireGameEvent )
+        PY_OVERRIDE_LOG( _gameinterface, PyGameEventListener, PyFireGameEvent )
         bp::override func_FireGameEvent = this->get_override( "FireGameEvent" );
         if( func_FireGameEvent.ptr() != Py_None )
             try {

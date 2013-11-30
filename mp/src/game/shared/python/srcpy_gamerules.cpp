@@ -77,7 +77,7 @@ void PyInstallGameRulesInternal( boost::python::object gamerules )
 	{
 		inst = gamerules();
 		g_pyGameRules = inst;		// This keeps the python gamerules instance alive
-		pRules = bp::extract<CGameRules *>(g_pyGameRules);
+		pRules = bp::extract<CGameRules *>( g_pyGameRules );
 		if( !pRules ) 
 		{
 			Warning("Gamerules not valid\n");
