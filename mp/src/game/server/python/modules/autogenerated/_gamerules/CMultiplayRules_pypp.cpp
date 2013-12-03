@@ -524,23 +524,23 @@ struct CMultiplayRules_wrapper : CMultiplayRules, bp::wrapper< CMultiplayRules >
         return CMultiplayRules::FPlayerCanRespawn( pPlayer );
     }
 
-    virtual bool FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker ) {
+    virtual bool FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker, ::CTakeDamageInfo const & info ) {
         PY_OVERRIDE_CHECK( CMultiplayRules, FPlayerCanTakeDamage )
         PY_OVERRIDE_LOG( _gamerules, CMultiplayRules, FPlayerCanTakeDamage )
         bp::override func_FPlayerCanTakeDamage = this->get_override( "FPlayerCanTakeDamage" );
         if( func_FPlayerCanTakeDamage.ptr() != Py_None )
             try {
-                return func_FPlayerCanTakeDamage( pPlayer ? pPlayer->GetPyHandle() : boost::python::object(), pAttacker ? pAttacker->GetPyHandle() : boost::python::object() );
+                return func_FPlayerCanTakeDamage( pPlayer ? pPlayer->GetPyHandle() : boost::python::object(), pAttacker ? pAttacker->GetPyHandle() : boost::python::object(), boost::ref(info) );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                return this->CMultiplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+                return this->CMultiplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
             }
         else
-            return this->CMultiplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+            return this->CMultiplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
     }
     
-    bool default_FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker ) {
-        return CMultiplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+    bool default_FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker, ::CTakeDamageInfo const & info ) {
+        return CMultiplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
     }
 
     virtual bool FShouldSwitchWeapon( ::CBasePlayer * pPlayer, ::CBaseCombatWeapon * pWeapon ) {
@@ -2740,14 +2740,14 @@ void register_CMultiplayRules_class(){
         }
         { //::CMultiplayRules::FPlayerCanTakeDamage
         
-            typedef bool ( ::CMultiplayRules::*FPlayerCanTakeDamage_function_type )( ::CBasePlayer *,::CBaseEntity * ) ;
-            typedef bool ( CMultiplayRules_wrapper::*default_FPlayerCanTakeDamage_function_type )( ::CBasePlayer *,::CBaseEntity * ) ;
+            typedef bool ( ::CMultiplayRules::*FPlayerCanTakeDamage_function_type )( ::CBasePlayer *,::CBaseEntity *,::CTakeDamageInfo const & ) ;
+            typedef bool ( CMultiplayRules_wrapper::*default_FPlayerCanTakeDamage_function_type )( ::CBasePlayer *,::CBaseEntity *,::CTakeDamageInfo const & ) ;
             
             CMultiplayRules_exposer.def( 
                 "FPlayerCanTakeDamage"
                 , FPlayerCanTakeDamage_function_type(&::CMultiplayRules::FPlayerCanTakeDamage)
                 , default_FPlayerCanTakeDamage_function_type(&CMultiplayRules_wrapper::default_FPlayerCanTakeDamage)
-                , ( bp::arg("pPlayer"), bp::arg("pAttacker") ) );
+                , ( bp::arg("pPlayer"), bp::arg("pAttacker"), bp::arg("info") ) );
         
         }
         { //::CMultiplayRules::FShouldSwitchWeapon
@@ -3225,6 +3225,16 @@ void register_CMultiplayRules_class(){
                 , PlayerThink_function_type(&::CMultiplayRules::PlayerThink)
                 , default_PlayerThink_function_type(&CMultiplayRules_wrapper::default_PlayerThink)
                 , ( bp::arg("pPlayer") ) );
+        
+        }
+        { //::CMultiplayRules::RandomPlayersSpeakConceptIfAllowed
+        
+            typedef void ( ::CMultiplayRules::*RandomPlayersSpeakConceptIfAllowed_function_type )( int,int,int,char const * ) ;
+            
+            CMultiplayRules_exposer.def( 
+                "RandomPlayersSpeakConceptIfAllowed"
+                , RandomPlayersSpeakConceptIfAllowed_function_type( &::CMultiplayRules::RandomPlayersSpeakConceptIfAllowed )
+                , ( bp::arg("iConcept"), bp::arg("iNumRandomPlayer")=(int)(1), bp::arg("iTeam")=(int)(0), bp::arg("modifiers")=bp::object() ) );
         
         }
         { //::CMultiplayRules::RefreshSkillData

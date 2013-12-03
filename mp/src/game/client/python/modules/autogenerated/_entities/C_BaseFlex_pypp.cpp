@@ -7,6 +7,7 @@
 #include "npcevent.h"
 #include "srcpy_entities.h"
 #include "bone_setup.h"
+#include "baseprojectile.h"
 #include "basegrenade_shared.h"
 #include "takedamageinfo.h"
 #include "c_ai_basenpc.h"
@@ -491,6 +492,10 @@ void register_C_BaseFlex_class(){
             "AddGlobalFlexController"
             , (int (*)( char const * ))( &::C_BaseFlex::AddGlobalFlexController )
             , ( bp::arg("szName") ) )    
+        .def( 
+            "BuildTransformations"
+            , (void ( ::C_BaseFlex::* )( ::CStudioHdr *,::Vector *,::Quaternion *,::matrix3x4_t const &,int,::CBoneBitList & ) )( &::C_BaseFlex::BuildTransformations )
+            , ( bp::arg("pStudioHdr"), bp::arg("pos"), bp::arg("q"), bp::arg("cameraTransform"), bp::arg("boneMask"), bp::arg("boneComputed") ) )    
         .def( 
             "ClearSceneEvent"
             , (bool ( ::C_BaseFlex::* )( ::CSceneEventInfo *,bool,bool ) )( &::C_BaseFlex::ClearSceneEvent )

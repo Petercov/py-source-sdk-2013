@@ -125,23 +125,23 @@ struct CTeamplayRules_wrapper : CTeamplayRules, bp::wrapper< CTeamplayRules > {
         CTeamplayRules::DeathNotice( pVictim, info );
     }
 
-    virtual bool FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker ) {
+    virtual bool FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker, ::CTakeDamageInfo const & info ) {
         PY_OVERRIDE_CHECK( CTeamplayRules, FPlayerCanTakeDamage )
         PY_OVERRIDE_LOG( _gamerules, CTeamplayRules, FPlayerCanTakeDamage )
         bp::override func_FPlayerCanTakeDamage = this->get_override( "FPlayerCanTakeDamage" );
         if( func_FPlayerCanTakeDamage.ptr() != Py_None )
             try {
-                return func_FPlayerCanTakeDamage( pPlayer ? pPlayer->GetPyHandle() : boost::python::object(), pAttacker ? pAttacker->GetPyHandle() : boost::python::object() );
+                return func_FPlayerCanTakeDamage( pPlayer ? pPlayer->GetPyHandle() : boost::python::object(), pAttacker ? pAttacker->GetPyHandle() : boost::python::object(), boost::ref(info) );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                return this->CTeamplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+                return this->CTeamplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
             }
         else
-            return this->CTeamplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+            return this->CTeamplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
     }
     
-    bool default_FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker ) {
-        return CTeamplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+    bool default_FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker, ::CTakeDamageInfo const & info ) {
+        return CTeamplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
     }
 
     virtual int GetCaptureValueForPlayer( ::CBasePlayer * pPlayer ) {
@@ -2743,9 +2743,9 @@ void register_CTeamplayRules_class(){
             , ( bp::arg("pVictim"), bp::arg("info") ) )    
         .def( 
             "FPlayerCanTakeDamage"
-            , (bool ( ::CTeamplayRules::* )( ::CBasePlayer *,::CBaseEntity * ) )(&::CTeamplayRules::FPlayerCanTakeDamage)
-            , (bool ( CTeamplayRules_wrapper::* )( ::CBasePlayer *,::CBaseEntity * ) )(&CTeamplayRules_wrapper::default_FPlayerCanTakeDamage)
-            , ( bp::arg("pPlayer"), bp::arg("pAttacker") ) )    
+            , (bool ( ::CTeamplayRules::* )( ::CBasePlayer *,::CBaseEntity *,::CTakeDamageInfo const & ) )(&::CTeamplayRules::FPlayerCanTakeDamage)
+            , (bool ( CTeamplayRules_wrapper::* )( ::CBasePlayer *,::CBaseEntity *,::CTakeDamageInfo const & ) )(&CTeamplayRules_wrapper::default_FPlayerCanTakeDamage)
+            , ( bp::arg("pPlayer"), bp::arg("pAttacker"), bp::arg("info") ) )    
         .def( 
             "GetCaptureValueForPlayer"
             , (int ( ::CTeamplayRules::* )( ::CBasePlayer * ) )(&::CTeamplayRules::GetCaptureValueForPlayer)

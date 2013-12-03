@@ -7,6 +7,7 @@
 #include "npcevent.h"
 #include "srcpy_entities.h"
 #include "bone_setup.h"
+#include "baseprojectile.h"
 #include "basegrenade_shared.h"
 #include "SkyCamera.h"
 #include "ai_basenpc.h"
@@ -611,7 +612,7 @@ struct CBaseGrenade_wrapper : CBaseGrenade, bp::wrapper< CBaseGrenade > {
 
 void register_CBaseGrenade_class(){
 
-    bp::class_< CBaseGrenade_wrapper, bp::bases< CBaseAnimating >, boost::noncopyable >( "CBaseGrenade", bp::init< >() )    
+    bp::class_< CBaseGrenade_wrapper, bp::bases< CBaseProjectile >, boost::noncopyable >( "CBaseGrenade", bp::init< >() )    
         .def( 
             "BloodColor"
             , (int ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::BloodColor ) )    

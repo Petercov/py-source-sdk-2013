@@ -43,14 +43,14 @@ struct PyPhysicsObject_wrapper : PyPhysicsObject, bp::wrapper< PyPhysicsObject >
     }
 
     PyPhysicsObject_wrapper(::C_BaseEntity * pEnt )
-    : PyPhysicsObject( boost::python::ptr(pEnt) )
+    : PyPhysicsObject( pEnt )
       , bp::wrapper< PyPhysicsObject >(){
         // constructor
     
     }
 
     PyPhysicsObject_wrapper(::IPhysicsObject * pPhysObj )
-    : PyPhysicsObject( boost::python::ptr(pPhysObj) )
+    : PyPhysicsObject( pPhysObj )
       , bp::wrapper< PyPhysicsObject >(){
         // constructor
     
@@ -1415,14 +1415,14 @@ struct PyPhysicsObject_wrapper : PyPhysicsObject, bp::wrapper< PyPhysicsObject >
     }
 
     PyPhysicsObject_wrapper(::CBaseEntity * pEnt )
-    : PyPhysicsObject( boost::python::ptr(pEnt) )
+    : PyPhysicsObject( pEnt )
       , bp::wrapper< PyPhysicsObject >(){
         // constructor
     
     }
 
     PyPhysicsObject_wrapper(::IPhysicsObject * pPhysObj )
-    : PyPhysicsObject( boost::python::ptr(pPhysObj) )
+    : PyPhysicsObject( pPhysObj )
       , bp::wrapper< PyPhysicsObject >(){
         // constructor
     

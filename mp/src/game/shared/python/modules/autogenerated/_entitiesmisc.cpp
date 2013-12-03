@@ -106,7 +106,7 @@ struct FireBulletsInfo_t_wrapper : FireBulletsInfo_t, bp::wrapper< FireBulletsIn
     }
 
     FireBulletsInfo_t_wrapper(int nShots, ::Vector const & vecSrc, ::Vector const & vecDir, ::Vector const & vecSpread, float flDistance, int nAmmoType, bool bPrimaryAttack=true )
-    : FireBulletsInfo_t( nShots, boost::ref(vecSrc), boost::ref(vecDir), boost::ref(vecSpread), flDistance, nAmmoType, bPrimaryAttack )
+    : FireBulletsInfo_t( nShots, vecSrc, vecDir, vecSpread, flDistance, nAmmoType, bPrimaryAttack )
       , bp::wrapper< FireBulletsInfo_t >(){
         // constructor
     
@@ -163,7 +163,7 @@ struct animevent_t_wrapper : animevent_t, bp::wrapper< animevent_t > {
 struct breakablepropparams_t_wrapper : breakablepropparams_t, bp::wrapper< breakablepropparams_t > {
 
     breakablepropparams_t_wrapper(::Vector const & _origin, ::QAngle const & _angles, ::Vector const & _velocity, ::AngularImpulse const & _angularVelocity )
-    : breakablepropparams_t( boost::ref(_origin), boost::ref(_angles), boost::ref(_velocity), boost::ref(_angularVelocity) )
+    : breakablepropparams_t( _origin, _angles, _velocity, _angularVelocity )
       , bp::wrapper< breakablepropparams_t >(){
         // constructor
     
@@ -1968,6 +1968,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .value("ACT_THROWABLE_VM_DRAW", ACT_THROWABLE_VM_DRAW)
         .value("ACT_THROWABLE_VM_IDLE", ACT_THROWABLE_VM_IDLE)
         .value("ACT_THROWABLE_VM_FIRE", ACT_THROWABLE_VM_FIRE)
+        .value("ACT_SPELL_VM_DRAW", ACT_SPELL_VM_DRAW)
+        .value("ACT_SPELL_VM_IDLE", ACT_SPELL_VM_IDLE)
+        .value("ACT_SPELL_VM_ARM", ACT_SPELL_VM_ARM)
+        .value("ACT_SPELL_VM_FIRE", ACT_SPELL_VM_FIRE)
         .value("LAST_SHARED_ACTIVITY", LAST_SHARED_ACTIVITY)
         .export_values()
         ;
@@ -2384,6 +2388,9 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             , (::C_BaseEntity * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetWeapon )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
+            "IsForceFriendlyFire"
+            , (bool ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::IsForceFriendlyFire ) )    
+        .def( 
             "ScaleDamage"
             , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::ScaleDamage )
             , ( bp::arg("flScaleAmount") ) )    
@@ -2447,6 +2454,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             "SetDamagedOtherPlayers"
             , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamagedOtherPlayers )
             , ( bp::arg("iVal") ) )    
+        .def( 
+            "SetForceFriendlyFire"
+            , (void ( ::CTakeDamageInfo::* )( bool ) )( &::CTakeDamageInfo::SetForceFriendlyFire )
+            , ( bp::arg("bValue") ) )    
         .def( 
             "SetInflictor"
             , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity * ) )( &::CTakeDamageInfo::SetInflictor )
@@ -2636,6 +2647,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         breakablepropparams_t_exposer.def_readwrite( "defBurstScale", &breakablepropparams_t::defBurstScale );
         breakablepropparams_t_exposer.def_readwrite( "defCollisionGroup", &breakablepropparams_t::defCollisionGroup );
         breakablepropparams_t_exposer.def_readwrite( "impactEnergyScale", &breakablepropparams_t::impactEnergyScale );
+        breakablepropparams_t_exposer.def_readwrite( "nDefaultSkin", &breakablepropparams_t::nDefaultSkin );
         breakablepropparams_t_exposer.def( "get_origin"
                 , (::Vector const & (*)( ::breakablepropparams_t & ))(&breakablepropparams_t_wrapper::get_origin)
                 , bp::return_value_policy< bp::copy_const_reference >() );
@@ -3065,7 +3077,7 @@ struct FireBulletsInfo_t_wrapper : FireBulletsInfo_t, bp::wrapper< FireBulletsIn
     }
 
     FireBulletsInfo_t_wrapper(int nShots, ::Vector const & vecSrc, ::Vector const & vecDir, ::Vector const & vecSpread, float flDistance, int nAmmoType, bool bPrimaryAttack=true )
-    : FireBulletsInfo_t( nShots, boost::ref(vecSrc), boost::ref(vecDir), boost::ref(vecSpread), flDistance, nAmmoType, bPrimaryAttack )
+    : FireBulletsInfo_t( nShots, vecSrc, vecDir, vecSpread, flDistance, nAmmoType, bPrimaryAttack )
       , bp::wrapper< FireBulletsInfo_t >(){
         // constructor
     
@@ -3155,7 +3167,7 @@ struct animevent_t_wrapper : animevent_t, bp::wrapper< animevent_t > {
 struct breakablepropparams_t_wrapper : breakablepropparams_t, bp::wrapper< breakablepropparams_t > {
 
     breakablepropparams_t_wrapper(::Vector const & _origin, ::QAngle const & _angles, ::Vector const & _velocity, ::AngularImpulse const & _angularVelocity )
-    : breakablepropparams_t( boost::ref(_origin), boost::ref(_angles), boost::ref(_velocity), boost::ref(_angularVelocity) )
+    : breakablepropparams_t( _origin, _angles, _velocity, _angularVelocity )
       , bp::wrapper< breakablepropparams_t >(){
         // constructor
     
@@ -5066,6 +5078,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .value("ACT_THROWABLE_VM_DRAW", ACT_THROWABLE_VM_DRAW)
         .value("ACT_THROWABLE_VM_IDLE", ACT_THROWABLE_VM_IDLE)
         .value("ACT_THROWABLE_VM_FIRE", ACT_THROWABLE_VM_FIRE)
+        .value("ACT_SPELL_VM_DRAW", ACT_SPELL_VM_DRAW)
+        .value("ACT_SPELL_VM_IDLE", ACT_SPELL_VM_IDLE)
+        .value("ACT_SPELL_VM_ARM", ACT_SPELL_VM_ARM)
+        .value("ACT_SPELL_VM_FIRE", ACT_SPELL_VM_FIRE)
         .value("LAST_SHARED_ACTIVITY", LAST_SHARED_ACTIVITY)
         .export_values()
         ;
@@ -5560,6 +5576,9 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             , (::CBaseEntity * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetWeapon )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
+            "IsForceFriendlyFire"
+            , (bool ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::IsForceFriendlyFire ) )    
+        .def( 
             "ScaleDamage"
             , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::ScaleDamage )
             , ( bp::arg("flScaleAmount") ) )    
@@ -5623,6 +5642,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             "SetDamagedOtherPlayers"
             , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamagedOtherPlayers )
             , ( bp::arg("iVal") ) )    
+        .def( 
+            "SetForceFriendlyFire"
+            , (void ( ::CTakeDamageInfo::* )( bool ) )( &::CTakeDamageInfo::SetForceFriendlyFire )
+            , ( bp::arg("bValue") ) )    
         .def( 
             "SetInflictor"
             , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity * ) )( &::CTakeDamageInfo::SetInflictor )
@@ -5922,6 +5945,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         breakablepropparams_t_exposer.def_readwrite( "defBurstScale", &breakablepropparams_t::defBurstScale );
         breakablepropparams_t_exposer.def_readwrite( "defCollisionGroup", &breakablepropparams_t::defCollisionGroup );
         breakablepropparams_t_exposer.def_readwrite( "impactEnergyScale", &breakablepropparams_t::impactEnergyScale );
+        breakablepropparams_t_exposer.def_readwrite( "nDefaultSkin", &breakablepropparams_t::nDefaultSkin );
         breakablepropparams_t_exposer.def( "get_origin"
                 , (::Vector const & (*)( ::breakablepropparams_t & ))(&breakablepropparams_t_wrapper::get_origin)
                 , bp::return_value_policy< bp::copy_const_reference >() );

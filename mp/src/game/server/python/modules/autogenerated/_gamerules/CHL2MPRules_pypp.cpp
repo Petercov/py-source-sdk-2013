@@ -1113,23 +1113,23 @@ struct CHL2MPRules_wrapper : CHL2MPRules, bp::wrapper< CHL2MPRules > {
         return CMultiplayRules::FPlayerCanRespawn( pPlayer );
     }
 
-    virtual bool FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker ) {
+    virtual bool FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker, ::CTakeDamageInfo const & info ) {
         PY_OVERRIDE_CHECK( CTeamplayRules, FPlayerCanTakeDamage )
         PY_OVERRIDE_LOG( _gamerules, CTeamplayRules, FPlayerCanTakeDamage )
         bp::override func_FPlayerCanTakeDamage = this->get_override( "FPlayerCanTakeDamage" );
         if( func_FPlayerCanTakeDamage.ptr() != Py_None )
             try {
-                return func_FPlayerCanTakeDamage( pPlayer ? pPlayer->GetPyHandle() : boost::python::object(), pAttacker ? pAttacker->GetPyHandle() : boost::python::object() );
+                return func_FPlayerCanTakeDamage( pPlayer ? pPlayer->GetPyHandle() : boost::python::object(), pAttacker ? pAttacker->GetPyHandle() : boost::python::object(), boost::ref(info) );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                return this->CTeamplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+                return this->CTeamplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
             }
         else
-            return this->CTeamplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+            return this->CTeamplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
     }
     
-    bool default_FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker ) {
-        return CTeamplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+    bool default_FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker, ::CTakeDamageInfo const & info ) {
+        return CTeamplayRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
     }
 
     virtual float FlHEVChargerRechargeTime(  ) {
@@ -3045,9 +3045,9 @@ void register_CHL2MPRules_class(){
             , ( bp::arg("pPlayer") ) )    
         .def( 
             "FPlayerCanTakeDamage"
-            , (bool ( ::CTeamplayRules::* )( ::CBasePlayer *,::CBaseEntity * ) )(&::CTeamplayRules::FPlayerCanTakeDamage)
-            , (bool ( CHL2MPRules_wrapper::* )( ::CBasePlayer *,::CBaseEntity * ) )(&CHL2MPRules_wrapper::default_FPlayerCanTakeDamage)
-            , ( bp::arg("pPlayer"), bp::arg("pAttacker") ) )    
+            , (bool ( ::CTeamplayRules::* )( ::CBasePlayer *,::CBaseEntity *,::CTakeDamageInfo const & ) )(&::CTeamplayRules::FPlayerCanTakeDamage)
+            , (bool ( CHL2MPRules_wrapper::* )( ::CBasePlayer *,::CBaseEntity *,::CTakeDamageInfo const & ) )(&CHL2MPRules_wrapper::default_FPlayerCanTakeDamage)
+            , ( bp::arg("pPlayer"), bp::arg("pAttacker"), bp::arg("info") ) )    
         .def( 
             "FlHEVChargerRechargeTime"
             , (float ( ::CMultiplayRules::* )(  ) )(&::CMultiplayRules::FlHEVChargerRechargeTime)

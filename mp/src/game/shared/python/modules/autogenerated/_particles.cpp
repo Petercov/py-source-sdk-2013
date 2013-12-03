@@ -37,14 +37,14 @@ namespace bp = boost::python;
 struct CNewParticleEffect_wrapper : CNewParticleEffect, bp::wrapper< CNewParticleEffect > {
 
     CNewParticleEffect_wrapper(::C_BaseEntity * pOwner, char const * pEffectName )
-    : CNewParticleEffect( boost::python::ptr(pOwner), pEffectName )
+    : CNewParticleEffect( pOwner, pEffectName )
       , bp::wrapper< CNewParticleEffect >(){
         // constructor
     
     }
 
     CNewParticleEffect_wrapper(::C_BaseEntity * pOwner, ::CParticleSystemDefinition * pEffect )
-    : CNewParticleEffect( boost::python::ptr(pOwner), boost::python::ptr(pEffect) )
+    : CNewParticleEffect( pOwner, pEffect )
       , bp::wrapper< CNewParticleEffect >(){
         // constructor
     

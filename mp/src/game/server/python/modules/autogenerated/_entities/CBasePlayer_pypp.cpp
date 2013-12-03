@@ -7,6 +7,7 @@
 #include "npcevent.h"
 #include "srcpy_entities.h"
 #include "bone_setup.h"
+#include "baseprojectile.h"
 #include "basegrenade_shared.h"
 #include "SkyCamera.h"
 #include "ai_basenpc.h"
@@ -1277,6 +1278,10 @@ void register_CBasePlayer_class(){
         .def( 
             "InitialSpawn"
             , (void ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::InitialSpawn ) )    
+        .def( 
+            "InputHandleMapEvent"
+            , (void ( ::CBasePlayer::* )( ::inputdata_t & ) )( &::CBasePlayer::InputHandleMapEvent )
+            , ( bp::arg("inputdata") ) )    
         .def( 
             "InputSetFogController"
             , (void ( ::CBasePlayer::* )( ::inputdata_t & ) )( &::CBasePlayer::InputSetFogController )

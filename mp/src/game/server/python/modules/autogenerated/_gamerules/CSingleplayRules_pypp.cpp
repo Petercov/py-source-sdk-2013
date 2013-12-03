@@ -1322,23 +1322,23 @@ struct CSingleplayRules_wrapper : CSingleplayRules, bp::wrapper< CSingleplayRule
         CGameRules::EndMultiplayerGame( );
     }
 
-    virtual bool FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker ) {
+    virtual bool FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker, ::CTakeDamageInfo const & info ) {
         PY_OVERRIDE_CHECK( CGameRules, FPlayerCanTakeDamage )
         PY_OVERRIDE_LOG( _gamerules, CGameRules, FPlayerCanTakeDamage )
         bp::override func_FPlayerCanTakeDamage = this->get_override( "FPlayerCanTakeDamage" );
         if( func_FPlayerCanTakeDamage.ptr() != Py_None )
             try {
-                return func_FPlayerCanTakeDamage( pPlayer ? pPlayer->GetPyHandle() : boost::python::object(), pAttacker ? pAttacker->GetPyHandle() : boost::python::object() );
+                return func_FPlayerCanTakeDamage( pPlayer ? pPlayer->GetPyHandle() : boost::python::object(), pAttacker ? pAttacker->GetPyHandle() : boost::python::object(), boost::ref(info) );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                return this->CGameRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+                return this->CGameRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
             }
         else
-            return this->CGameRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+            return this->CGameRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
     }
     
-    bool default_FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker ) {
-        return CGameRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+    bool default_FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker, ::CTakeDamageInfo const & info ) {
+        return CGameRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
     }
 
     virtual float FlHEVChargerRechargeTime(  ) {
@@ -2596,9 +2596,9 @@ void register_CSingleplayRules_class(){
             , (void ( CSingleplayRules_wrapper::* )(  ) )(&CSingleplayRules_wrapper::default_EndMultiplayerGame) )    
         .def( 
             "FPlayerCanTakeDamage"
-            , (bool ( ::CGameRules::* )( ::CBasePlayer *,::CBaseEntity * ) )(&::CGameRules::FPlayerCanTakeDamage)
-            , (bool ( CSingleplayRules_wrapper::* )( ::CBasePlayer *,::CBaseEntity * ) )(&CSingleplayRules_wrapper::default_FPlayerCanTakeDamage)
-            , ( bp::arg("pPlayer"), bp::arg("pAttacker") ) )    
+            , (bool ( ::CGameRules::* )( ::CBasePlayer *,::CBaseEntity *,::CTakeDamageInfo const & ) )(&::CGameRules::FPlayerCanTakeDamage)
+            , (bool ( CSingleplayRules_wrapper::* )( ::CBasePlayer *,::CBaseEntity *,::CTakeDamageInfo const & ) )(&CSingleplayRules_wrapper::default_FPlayerCanTakeDamage)
+            , ( bp::arg("pPlayer"), bp::arg("pAttacker"), bp::arg("info") ) )    
         .def( 
             "FlHEVChargerRechargeTime"
             , (float ( ::CGameRules::* )(  ) )(&::CGameRules::FlHEVChargerRechargeTime)

@@ -89,21 +89,21 @@ struct VMatrix_wrapper : VMatrix, bp::wrapper< VMatrix > {
     }
 
     VMatrix_wrapper(::matrix3x4_t const & matrix3x4 )
-    : VMatrix( boost::ref(matrix3x4) )
+    : VMatrix( matrix3x4 )
       , bp::wrapper< VMatrix >(){
         // constructor
     
     }
 
     VMatrix_wrapper(::Vector const & xAxis, ::Vector const & yAxis, ::Vector const & zAxis )
-    : VMatrix( boost::ref(xAxis), boost::ref(yAxis), boost::ref(zAxis) )
+    : VMatrix( xAxis, yAxis, zAxis )
       , bp::wrapper< VMatrix >(){
         // constructor
     
     }
 
     VMatrix_wrapper(::Vector const & xAxis, ::Vector const & yAxis, ::Vector const & zAxis, ::Vector const & translation )
-    : VMatrix( boost::ref(xAxis), boost::ref(yAxis), boost::ref(zAxis), boost::ref(translation) )
+    : VMatrix( xAxis, yAxis, zAxis, translation )
       , bp::wrapper< VMatrix >(){
         // constructor
     
@@ -180,7 +180,7 @@ struct Vector2D_wrapper : Vector2D, bp::wrapper< Vector2D > {
     }
 
     Vector2D_wrapper(::Vector2D const & vOther )
-    : Vector2D( boost::ref(vOther) )
+    : Vector2D( vOther )
       , bp::wrapper< Vector2D >(){
         // copy constructor
     
@@ -652,6 +652,16 @@ BOOST_PYTHON_MODULE(_vmath){
                 "SetUp"
                 , SetUp_function_type( &::VMatrix::SetUp )
                 , ( bp::arg("vUp") ) );
+        
+        }
+        { //::VMatrix::SetupMatrixAngles
+        
+            typedef void ( ::VMatrix::*SetupMatrixAngles_function_type )( ::QAngle const & ) ;
+            
+            VMatrix_exposer.def( 
+                "SetupMatrixAngles"
+                , SetupMatrixAngles_function_type( &::VMatrix::SetupMatrixAngles )
+                , ( bp::arg("vAngles") ) );
         
         }
         { //::VMatrix::SetupMatrixOrgAngles

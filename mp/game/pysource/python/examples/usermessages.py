@@ -14,5 +14,5 @@ def PyExampleUserMessage(intdata, listdata, dictdata, setdata, *args, **kwargs):
 # usermessage_shared is the same as above, but also calls the method on the server
 @usermessage_shared()
 def PyExampleUserMessageShared(intdata, listdata, dictdata, *args, **kwargs):
-    print('%s: PyExampleUserMessageShared received intdata %s, listdata %s and dictdata %s!' % (
-            'Client' if isclient else 'Server', intdata, listdata, dictdata))
+    print('%s: PyExampleUserMessageShared received intdata %s, listdata %s, dictdata %s and %s!' % (
+            'Client' if isclient else 'Server', intdata, listdata, dictdata, None))

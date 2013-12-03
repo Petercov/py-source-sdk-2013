@@ -590,23 +590,23 @@ struct CGameRules_wrapper : CGameRules, bp::wrapper< CGameRules > {
         }
     }
 
-    virtual bool FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker ) {
+    virtual bool FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker, ::CTakeDamageInfo const & info ) {
         PY_OVERRIDE_CHECK( CGameRules, FPlayerCanTakeDamage )
         PY_OVERRIDE_LOG( _gamerules, CGameRules, FPlayerCanTakeDamage )
         bp::override func_FPlayerCanTakeDamage = this->get_override( "FPlayerCanTakeDamage" );
         if( func_FPlayerCanTakeDamage.ptr() != Py_None )
             try {
-                return func_FPlayerCanTakeDamage( pPlayer ? pPlayer->GetPyHandle() : boost::python::object(), pAttacker ? pAttacker->GetPyHandle() : boost::python::object() );
+                return func_FPlayerCanTakeDamage( pPlayer ? pPlayer->GetPyHandle() : boost::python::object(), pAttacker ? pAttacker->GetPyHandle() : boost::python::object(), boost::ref(info) );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                return this->CGameRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+                return this->CGameRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
             }
         else
-            return this->CGameRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+            return this->CGameRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
     }
     
-    bool default_FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker ) {
-        return CGameRules::FPlayerCanTakeDamage( pPlayer, pAttacker );
+    bool default_FPlayerCanTakeDamage( ::CBasePlayer * pPlayer, ::CBaseEntity * pAttacker, ::CTakeDamageInfo const & info ) {
+        return CGameRules::FPlayerCanTakeDamage( pPlayer, pAttacker, info );
     }
 
     virtual bool FShouldSwitchWeapon( ::CBasePlayer * pPlayer, ::CBaseCombatWeapon * pWeapon ){
@@ -1999,9 +1999,9 @@ void register_CGameRules_class(){
             , ( bp::arg("pPlayer") ) )    
         .def( 
             "FPlayerCanTakeDamage"
-            , (bool ( ::CGameRules::* )( ::CBasePlayer *,::CBaseEntity * ) )(&::CGameRules::FPlayerCanTakeDamage)
-            , (bool ( CGameRules_wrapper::* )( ::CBasePlayer *,::CBaseEntity * ) )(&CGameRules_wrapper::default_FPlayerCanTakeDamage)
-            , ( bp::arg("pPlayer"), bp::arg("pAttacker") ) )    
+            , (bool ( ::CGameRules::* )( ::CBasePlayer *,::CBaseEntity *,::CTakeDamageInfo const & ) )(&::CGameRules::FPlayerCanTakeDamage)
+            , (bool ( CGameRules_wrapper::* )( ::CBasePlayer *,::CBaseEntity *,::CTakeDamageInfo const & ) )(&CGameRules_wrapper::default_FPlayerCanTakeDamage)
+            , ( bp::arg("pPlayer"), bp::arg("pAttacker"), bp::arg("info") ) )    
         .def( 
             "FShouldSwitchWeapon"
             , bp::pure_virtual( (bool ( ::CGameRules::* )( ::CBasePlayer *,::CBaseCombatWeapon * ) )(&::CGameRules::FShouldSwitchWeapon) )
