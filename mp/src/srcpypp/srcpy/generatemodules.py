@@ -134,7 +134,7 @@ def ParseModules(settings, specificmodule=None, appendfileonly=False):
     os.chdir(servervpcdir)
     servervpc = vpcutil.ParseVPC(vpcserverpath, macros=dict(macros))
     vpcutil.ApplyMacrosToNodes(servervpc, servervpc.macros)
-    serverincludes = servervpc['$Configuration']['$Compiler']['$AdditionalIncludeDirectories'].nodevalue
+    serverincludes = vpcutil.NormIncludeDirectories(servervpc['$Configuration']['$Compiler']['$AdditionalIncludeDirectories'].nodevalue)
     serverincludes = list(filter(os.path.exists, re.findall('[^;,]+', serverincludes)))
     serversymbols = servervpc['$Configuration']['$Compiler']['$PreprocessorDefinitions'].nodevalue
     serversymbols = list(filter(bool, serversymbols.split(';')))
@@ -142,7 +142,7 @@ def ParseModules(settings, specificmodule=None, appendfileonly=False):
     os.chdir(clientvpcdir)
     clientvpc = vpcutil.ParseVPC(vpcclientpath, macros=dict(macros))
     vpcutil.ApplyMacrosToNodes(clientvpc, clientvpc.macros)
-    clientincludes = servervpc['$Configuration']['$Compiler']['$AdditionalIncludeDirectories'].nodevalue
+    clientincludes = vpcutil.NormIncludeDirectories(servervpc['$Configuration']['$Compiler']['$AdditionalIncludeDirectories'].nodevalue)
     clientincludes = list(filter(os.path.exists, re.findall('[^;,]*', clientincludes)))
     clientsymbols = clientvpc['$Configuration']['$Compiler']['$PreprocessorDefinitions'].nodevalue
     clientsymbols = list(filter(bool, clientsymbols.split(';')))

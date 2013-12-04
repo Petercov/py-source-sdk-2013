@@ -7,10 +7,11 @@
 from collections import defaultdict
 import re
 import os
+import platform
 
 valuepattern = re.compile('^(?P<key>-?\$?(\w|/|#|\+)+)(\s+(?P<condition>\[.*\])|\s+(?P<value>[^\[].*[^\]]))*$')
 
-verbose = 0
+verbose = 1
 
 class VPCNode(defaultdict):
     ''' Helper class for storing the parsed key/values. '''
@@ -123,8 +124,19 @@ def ApplyMacrosToNodes(node, macros):
     node.nodevalues = ApplyMacros(node.nodevalues, macros)
     for keyname, childnode in node.items():
         ApplyMacrosToNodes(childnode, macros)
+
+def NormIncludeDirectories(includedirectories):
+    ''' On Mac/Linux, replace forward slash by back slashes. 
+
+        VPC seem to contain Windows path notation, which is not accepted on Python Linux/OSX.
+    '''
+    if platform.system() != 'Windows':
+        includedirectories = includedirectories.replace('\\', '/')
+    return includedirectories
         
 def ParseVPC(vpcpath, macros, curnode=None):
+    vpcpath = NormIncludeDirectories(vpcpath)
+
     if verbose > 0:
         print('PARSING %s' % (vpcpath))
         
