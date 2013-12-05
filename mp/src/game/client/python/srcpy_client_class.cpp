@@ -18,7 +18,7 @@
 #include "usermessages.h"
 
 #include "basegrenade_shared.h"
-#include "sprite.h"
+#include "Sprite.h"
 #include "c_smoke_trail.h"
 #include "beam_shared.h"
 #include "basecombatweapon_shared.h"
