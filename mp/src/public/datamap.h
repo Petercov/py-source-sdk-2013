@@ -128,12 +128,12 @@ DECLARE_FIELD_SIZE( FIELD_MATERIALINDEX,	sizeof(int) )
 #define ARRAYSIZE2D(p)		(sizeof(p)/sizeof(p[0][0]))
 #define SIZE_OF_ARRAY(p)	_ARRAYSIZE(p)
 
-#ifdef OSX
-// Changed offsetof to builtin on OSX, but results in an error here. Just use the old "offsetof" for this one case.
+#ifdef POSIX
+// Changed offsetof to builtin on POSIX, but results in an error here. Just use the old "offsetof" for this one case.
 #define offsetofdatamap(s,m)	(size_t)&(((s *)0)->m)
 #else
 #define offsetofdatamap offsetof
-#endif // OSX
+#endif // POSIX
 
 #define _FIELD(name,fieldtype,count,flags,mapname,tolerance)		{ fieldtype, #name, { offsetofdatamap(classNameTypedef, name), 0 }, count, flags, mapname, NULL, NULL, NULL, sizeof( ((classNameTypedef *)0)->name ), NULL, 0, tolerance }
 #define DEFINE_FIELD_NULL	{ FIELD_VOID,0, {0,0},0,0,0,0,0,0}
