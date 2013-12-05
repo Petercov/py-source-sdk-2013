@@ -576,12 +576,12 @@ inline void SendTable::SetHasPropsEncodedAgainstTickcount( bool bState )
 		return 1; \
 	} 
 
-#ifdef OSX
-// Changed offsetof to builtin on OSX, but results in an error here. Just use the old "offsetof" for this one case.
+#ifdef POSIX
+// Changed offsetof to builtin on POSIX, but results in an error here. Just use the old "offsetof" for this one case.
 #define offsetofsendinfo(s,m)	(size_t)&(((s *)0)->m)
 #else
 #define offsetofsendinfo offsetof
-#endif // OSX
+#endif // POSIX
 
 // These can simplify creating the variables.
 // Note: currentSendDTClass::MakeANetworkVar_##varName equates to currentSendDTClass. It's
