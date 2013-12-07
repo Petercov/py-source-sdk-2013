@@ -68,8 +68,10 @@ unsigned int g_hPythonThreadID;
 #endif
 
 // Global main space
-boost::python::object mainmodule;
-boost::python::object mainnamespace;
+bp::object mainmodule;
+bp::object mainnamespace;
+
+bp::object consolespace; // Used by spy/cpy commands
 
 // Global module references.
 bp::object builtins;
@@ -263,33 +265,70 @@ bool CSrcPython::InitInterpreter( void )
 	m_bPythonRunning = true;
 
 	double fStartTime = Plat_FloatTime();
+	
+#define PY_MAX_PATH 2048
 
-	char buf[MAX_PATH];
-	char pythonpath[MAX_PATH];
+	char buf[PY_MAX_PATH];
+	char pythonpath[PY_MAX_PATH];
 	pythonpath[0] = '\0';
-
-	filesystem->RelativePathToFullPath("python/Lib", "MOD", buf, _MAX_PATH);
-	V_FixupPathName(buf, MAX_PATH, buf);
-	V_strcat( pythonpath, buf, MAX_PATH );
-	V_strcat( pythonpath, ";", MAX_PATH );
-
-#ifdef CLIENT_DLL
-	filesystem->RelativePathToFullPath("python/Lib/ClientDLLs", "MOD", buf, _MAX_PATH);
-	V_FixupPathName(buf, MAX_PATH, buf);
-	V_strcat( pythonpath, buf, MAX_PATH );
+	char pythonhome[PY_MAX_PATH];
+	pythonhome[0] = '\0';
+	
+#ifdef WIN32
+#define PYPATH_SEP ";" // Semicolon on Windows
 #else
-	filesystem->RelativePathToFullPath("python/Lib/DLLs", "MOD", buf, _MAX_PATH);
-	V_FixupPathName(buf, MAX_PATH, buf);
-	V_strcat( pythonpath, buf, MAX_PATH );
-#endif // CLIENT_DLL
+#define PYPATH_SEP ":" // Colon on Unix
+#endif // WIN32
+
+	// Set PYTHONHOME
+	filesystem->RelativePathToFullPath("python", "MOD", buf, sizeof(buf));
+	V_FixupPathName(buf, sizeof(buf), buf);
+	V_strcat( pythonhome, buf, sizeof(pythonhome) );
+	
+	// Set PYTHONPATH
+	filesystem->RelativePathToFullPath("python/Lib", "MOD", buf, sizeof(buf));
+	V_FixupPathName(buf, sizeof(buf), buf);
+	V_strcat( pythonpath, buf, sizeof(pythonpath) );
 
 #ifdef WIN32
+	V_strcat( pythonpath, PYPATH_SEP, sizeof(pythonpath) );
+#ifdef CLIENT_DLL
+	filesystem->RelativePathToFullPath("python/Lib/ClientDLLs", "MOD", buf, sizeof(pythonpath));
+	V_FixupPathName(buf, sizeof(pythonpath), buf);
+	V_strcat( pythonpath, buf, sizeof(pythonpath) );
+#else
+	filesystem->RelativePathToFullPath("python/Lib/DLLs", "MOD", buf, sizeof(pythonpath));
+	V_FixupPathName(buf, sizeof(pythonpath), buf);
+	V_strcat( pythonpath, buf, sizeof(pythonpath) );
+#endif // CLIENT_DLL
+#endif // WIN32
+	
+#ifdef OSX
+	V_strcat( pythonpath, PYPATH_SEP, sizeof(pythonpath) );
+	filesystem->RelativePathToFullPath("python/Lib/plat-darwin", "MOD", buf, sizeof(pythonpath));
+	V_FixupPathName(buf, sizeof(pythonpath), buf);
+	V_strcat( pythonpath, buf, sizeof(pythonpath) );
+	
+	V_strcat( pythonpath, PYPATH_SEP, sizeof(pythonpath) );
+	filesystem->RelativePathToFullPath("python", "MOD", buf, sizeof(pythonpath));
+	V_FixupPathName(buf, sizeof(pythonpath), buf);
+	V_strcat( pythonpath, buf, sizeof(pythonpath) );
+#endif // OSX
+	
+#ifdef WIN32
+	::SetEnvironmentVariable( "PYTHONHOME", pythonhome );
 	::SetEnvironmentVariable( "PYTHONPATH", pythonpath );
 #else
+	::setenv( "PYTHONHOME", pythonhome, 1 );
     ::setenv( "PYTHONPATH", pythonpath, 1 );
 #endif // WIN32
+
+	DevMsg( "PYTHONHOME: %s\nPYTHONPATH: %s\n", pythonhome, pythonpath );
     
 	// Initialize an interpreter
+#ifdef OSX
+	Py_NoSiteFlag = 1;
+#endif // OSX
 	Py_InitializeEx( 0 );
 #ifdef CLIENT_DLL
 	ConColorMsg( g_PythonColor, "CLIENT: " );
@@ -326,7 +365,7 @@ bool CSrcPython::InitInterpreter( void )
 	srcbuiltins = Import("srcbuiltins");
 	sys.attr("stdout") = srcbuiltins.attr("SrcPyStdOut")();
 	sys.attr("stderr") = srcbuiltins.attr("SrcPyStdErr")();
-
+	
 	weakref = Import("weakref");
 
 #if PY_VERSION_HEX < 0x03000000
@@ -384,7 +423,7 @@ bool CSrcPython::InitInterpreter( void )
 	game = Import("game");
 
 	// For spy/cpy commands
-	Run( "import consolespace" );
+	consolespace = Import("consolespace");
 
 #ifdef CLIENT_DLL
 	DevMsg( "CLIENT: " );
@@ -436,6 +475,7 @@ bool CSrcPython::ShutdownInterpreter( void )
 	// Clear modules
 	mainmodule = bp::object();
 	mainnamespace = bp::object();
+	consolespace = bp::object();
 
 	builtins = bp::object();
 	srcbuiltins = bp::object();
@@ -1400,7 +1440,7 @@ CON_COMMAND_F( cpy, "Run a string on the python interpreter", FCVAR_CHEAT)
 	if( !UTIL_IsCommandIssuedByServerAdmin() )
 		return;
 #endif // CLIENT_DLL
-	g_SrcPythonSystem.Run( args.ArgS(), "consolespace" );
+	g_SrcPythonSystem.Run( args.ArgS() );//, "consolespace" );
 }
 
 #ifndef CLIENT_DLL
@@ -1610,4 +1650,11 @@ CON_COMMAND_F( test_client_converters, "Test client converters", FCVAR_CHEAT)
 		Msg("No data from python :(\n");
 }
 
+#endif // CLIENT_DLL
+
+#ifndef CLIENT_DLL
+CON_COMMAND_F( test_cmdline, "", 0)
+{
+	Msg("cmd: %s", CommandLine()->GetCmdLine());
+}
 #endif // CLIENT_DLL
