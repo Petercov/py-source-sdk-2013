@@ -13,10 +13,10 @@ might still be missing or are incomplete and will be added in time.
 Please let me know if you have any issues. Pull requests are welcome too!
 
 ## Quickstart
-Currently Windows only:
+Currently tested on Windows and OSX only:
 
-1. Run [mp/src/createpysourceprojects.bat](mp/src/createpysourceprojects.bat) 
-2. Open games.sln and compile
+1. Run [mp/src/createpysourceprojects](mp/src/createpysourceprojects) 
+2. Open games.sln or games.xproj and compile
 3. Start mp/game/PySource and load a map
 4. Test Python by entering one of the following commands:
 
@@ -78,6 +78,7 @@ You can find instructions in [mp/src/srcpypp](mp/src/srcpypp).
 - [_animation](mp/src/game/shared/python/modules/_animation.py): Exposed functions from - [animation.h](mp/src/game/shared/animation.h)
 - [_entities](mp/src/game/shared/python/modules/_entities.py): Exposes most base entity classes (CBaseEntity, CBaseAnimating, etc)
 - [_entitiesmisc](mp/src/game/shared/python/modules/_entitiesmisc.py): Exposes miscellaneous bindings related to entities, like the entity list
+- [_gamerules](mp/src/game/shared/python/modules/_gamerules.py): Exposes Gamerules classes. Allows creating and installing custom Gamerules on the fly.
 - [_physics](mp/src/game/shared/python/modules/_physics.py): Exposed IPhysicsObject and related.
 - [_gameinterface](mp/src/game/shared/python/modules/_gameinterface.py): Exposes game engine interface, user messages, ConCommands and ConVars among others.
 - [_ndebugoverlay](mp/src/game/shared/python/modules/_ndebugoverlay.py): Exposes [NDebugOverlay](mp/src/game/shared/debugoverlay_shared.h) functions.
