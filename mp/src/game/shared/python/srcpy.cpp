@@ -323,7 +323,7 @@ bool CSrcPython::InitInterpreter( void )
     ::setenv( "PYTHONPATH", pythonpath, 1 );
 #endif // WIN32
 
-	DevMsg( "PYTHONHOME: %s\nPYTHONPATH: %s\n", pythonhome, pythonpath );
+	//DevMsg( "PYTHONHOME: %s\nPYTHONPATH: %s\n", pythonhome, pythonpath );
     
 	// Initialize an interpreter
 #ifdef OSX
@@ -400,7 +400,7 @@ bool CSrcPython::InitInterpreter( void )
 
 	fntype = builtins.attr("type");
 
-	// Add the maps directory to the modulse path
+	// Add the maps directory to the modules path
 	SysAppendPath("maps");
 
 	// Default imports
@@ -1440,7 +1440,7 @@ CON_COMMAND_F( cpy, "Run a string on the python interpreter", FCVAR_CHEAT)
 	if( !UTIL_IsCommandIssuedByServerAdmin() )
 		return;
 #endif // CLIENT_DLL
-	g_SrcPythonSystem.Run( args.ArgS() );//, "consolespace" );
+	g_SrcPythonSystem.Run( args.ArgS(), "consolespace" );
 }
 
 #ifndef CLIENT_DLL
@@ -1645,16 +1645,9 @@ CON_COMMAND_F( test_client_converters, "Test client converters", FCVAR_CHEAT)
 		( SrcPySystem()->Get("test_panel", "test_converters", true), NULL, pToPython );
 
 	if( pFromPython )
-		Msg("Got Panel from python\n", pFromPython->GetName() );
+		Msg("Got Panel from python: %s\n", pFromPython->GetName() );
 	else
 		Msg("No data from python :(\n");
 }
 
-#endif // CLIENT_DLL
-
-#ifndef CLIENT_DLL
-CON_COMMAND_F( test_cmdline, "", 0)
-{
-	Msg("cmd: %s", CommandLine()->GetCmdLine());
-}
 #endif // CLIENT_DLL
