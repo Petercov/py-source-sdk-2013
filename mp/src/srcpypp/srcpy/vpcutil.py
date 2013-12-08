@@ -11,7 +11,7 @@ import platform
 
 valuepattern = re.compile('^(?P<key>-?\$?(\w|/|#|\+)+)(\s+(?P<condition>\[.*\])|\s+(?P<value>[^\[].*[^\]]))*$')
 
-verbose = 1
+verbose = 0
 
 class VPCNode(defaultdict):
     ''' Helper class for storing the parsed key/values. '''
