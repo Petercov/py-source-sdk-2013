@@ -27,6 +27,7 @@ extern "C" __declspec(dllexport) PyObject* PyInit__te();
 extern "C" __declspec(dllexport) PyObject* PyInit_steam();
 extern "C" __declspec(dllexport) PyObject* PyInit__ndebugoverlay();
 extern "C" __declspec(dllexport) PyObject* PyInit_vprof();
+extern "C" __declspec(dllexport) PyObject* PyInit__srctests();
 #else
 extern "C"  PyObject* PyInit_srcbuiltins();
 extern "C"  PyObject* PyInit__vmath();
@@ -44,6 +45,7 @@ extern "C"  PyObject* PyInit__te();
 extern "C"  PyObject* PyInit_steam();
 extern "C"  PyObject* PyInit__ndebugoverlay();
 extern "C"  PyObject* PyInit_vprof();
+extern "C"  PyObject* PyInit__srctests();
 #endif // _WIN32
 
 // The append function
@@ -65,4 +67,5 @@ void AppendSharedModules()
 	APPEND_MODULE(steam)
 	APPEND_MODULE(_ndebugoverlay)
 	APPEND_MODULE(vprof)
+	APPEND_MODULE(_srctests)
 }

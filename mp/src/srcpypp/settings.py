@@ -48,10 +48,12 @@ modules = [
     ('_particles', 'Particles'),
     ('materials', 'Materials'),
     ('_te', 'TE'),
+    ('_input', 'Input'),
 
     # Misc
     ('steam', 'Steam'),
     ('_ndebugoverlay', 'NDebugOverlay'),
     ('vprof', 'VProf'),
+    ('_srctests', '_SrcTests'),
 ]
 

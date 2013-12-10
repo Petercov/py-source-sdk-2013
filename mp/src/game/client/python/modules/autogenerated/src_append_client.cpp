@@ -11,13 +11,13 @@ using namespace boost::python;
 
 // The init method is in one of the generated files declared
 #ifdef _WIN32
-
+extern "C" __declspec(dllexport) PyObject* PyInit__input();
 #else
-
+extern "C"  PyObject* PyInit__input();
 #endif // _WIN32
 
 // The append function
 void AppendClientModules()
 {
-
+	APPEND_MODULE(_input)
 }
