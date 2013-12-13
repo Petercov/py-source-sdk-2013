@@ -34,7 +34,7 @@
 // PySource Additions
 // =======================================
 #ifdef ENABLE_PYTHON
-#include <boost/python.hpp>
+#include "vgui_boost_python.h"
 #endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions

@@ -1,4 +1,4 @@
-//====== Copyright © Sandern Corporation, All rights reserved. ===========//
+//====== Copyright ï¿½ Sandern Corporation, All rights reserved. ===========//
 //
 // Purpose: Hax for asw vgui python and buffered paint calls
 //
@@ -20,7 +20,10 @@
 
 #include "srcpy_boostpython.h"
 
-extern const char *vgui::GetControlsModuleName();
+namespace vgui
+{
+	extern const char *GetControlsModuleName();
+}
 
 using namespace vgui;
 
