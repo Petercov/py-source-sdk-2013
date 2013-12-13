@@ -97,6 +97,25 @@ struct AnimationController_wrapper : vgui::AnimationController, bp::wrapper< vgu
         return vgui::Panel::GetNavUpPanel(  );
     }
 
+    virtual void InvalidateLayout( bool layoutNow=false, bool reloadScheme=false ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, InvalidateLayout )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, InvalidateLayout )
+        bp::override func_InvalidateLayout = this->get_override( "InvalidateLayout" );
+        if( func_InvalidateLayout.ptr() != Py_None )
+            try {
+                func_InvalidateLayout( layoutNow, reloadScheme );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+            }
+        else
+            this->vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+    }
+    
+    void default_InvalidateLayout( bool layoutNow=false, bool reloadScheme=false ) {
+        vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+    }
+
     virtual void OnChildAdded( ::vgui::VPANEL child ) {
         PY_OVERRIDE_CHECK( vgui::Panel, OnChildAdded )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, OnChildAdded )
@@ -544,6 +563,44 @@ struct AnimationController_wrapper : vgui::AnimationController, bp::wrapper< vgu
     
     void default_OnTick(  ) {
         vgui::Panel::OnTick( );
+    }
+
+    virtual void Paint(  ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, Paint )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, Paint )
+        bp::override func_Paint = this->get_override( "Paint" );
+        if( func_Paint.ptr() != Py_None )
+            try {
+                func_Paint(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::Paint(  );
+            }
+        else
+            this->vgui::Panel::Paint(  );
+    }
+    
+    void default_Paint(  ) {
+        vgui::Panel::Paint( );
+    }
+
+    virtual void PaintBackground(  ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, PaintBackground )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, PaintBackground )
+        bp::override func_PaintBackground = this->get_override( "PaintBackground" );
+        if( func_PaintBackground.ptr() != Py_None )
+            try {
+                func_PaintBackground(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::PaintBackground(  );
+            }
+        else
+            this->vgui::Panel::PaintBackground(  );
+    }
+    
+    void default_PaintBackground(  ) {
+        vgui::Panel::PaintBackground( );
     }
 
     virtual void PaintBuildOverlay(  ) {
@@ -1212,6 +1269,18 @@ void register_AnimationController_class(){
                 , bp::return_value_policy< bp::return_by_value >() );
         
         }
+        { //::vgui::Panel::InvalidateLayout
+        
+            typedef void ( ::vgui::Panel::*InvalidateLayout_function_type )( bool,bool ) ;
+            typedef void ( AnimationController_wrapper::*default_InvalidateLayout_function_type )( bool,bool ) ;
+            
+            AnimationController_exposer.def( 
+                "InvalidateLayout"
+                , InvalidateLayout_function_type(&::vgui::Panel::InvalidateLayout)
+                , default_InvalidateLayout_function_type(&AnimationController_wrapper::default_InvalidateLayout)
+                , ( bp::arg("layoutNow")=(bool)(false), bp::arg("reloadScheme")=(bool)(false) ) );
+        
+        }
         { //::vgui::Panel::OnChildAdded
         
             typedef void ( ::vgui::Panel::*OnChildAdded_function_type )( ::vgui::VPANEL ) ;
@@ -1501,6 +1570,28 @@ void register_AnimationController_class(){
                 "OnTick"
                 , OnTick_function_type(&::vgui::Panel::OnTick)
                 , default_OnTick_function_type(&AnimationController_wrapper::default_OnTick) );
+        
+        }
+        { //::vgui::Panel::Paint
+        
+            typedef void ( ::vgui::Panel::*Paint_function_type )(  ) ;
+            typedef void ( AnimationController_wrapper::*default_Paint_function_type )(  ) ;
+            
+            AnimationController_exposer.def( 
+                "Paint"
+                , Paint_function_type(&::vgui::Panel::Paint)
+                , default_Paint_function_type(&AnimationController_wrapper::default_Paint) );
+        
+        }
+        { //::vgui::Panel::PaintBackground
+        
+            typedef void ( ::vgui::Panel::*PaintBackground_function_type )(  ) ;
+            typedef void ( AnimationController_wrapper::*default_PaintBackground_function_type )(  ) ;
+            
+            AnimationController_exposer.def( 
+                "PaintBackground"
+                , PaintBackground_function_type(&::vgui::Panel::PaintBackground)
+                , default_PaintBackground_function_type(&AnimationController_wrapper::default_PaintBackground) );
         
         }
         { //::vgui::Panel::PaintBuildOverlay

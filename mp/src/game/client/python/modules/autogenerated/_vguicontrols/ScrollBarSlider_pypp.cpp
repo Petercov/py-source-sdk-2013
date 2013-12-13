@@ -145,6 +145,44 @@ struct ScrollBarSlider_wrapper : vgui::ScrollBarSlider, bp::wrapper< vgui::Scrol
         vgui::ScrollBarSlider::OnMouseReleased( code );
     }
 
+    virtual void Paint(  ){
+        PY_OVERRIDE_CHECK( vgui::ScrollBarSlider, Paint )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::ScrollBarSlider, Paint )
+        bp::override func_Paint = this->get_override( "Paint" );
+        if( func_Paint.ptr() != Py_None )
+            try {
+                func_Paint(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::ScrollBarSlider::Paint(  );
+            }
+        else
+            this->vgui::ScrollBarSlider::Paint(  );
+    }
+    
+    virtual void default_Paint(  ){
+        vgui::ScrollBarSlider::Paint( );
+    }
+
+    virtual void PaintBackground(  ){
+        PY_OVERRIDE_CHECK( vgui::ScrollBarSlider, PaintBackground )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::ScrollBarSlider, PaintBackground )
+        bp::override func_PaintBackground = this->get_override( "PaintBackground" );
+        if( func_PaintBackground.ptr() != Py_None )
+            try {
+                func_PaintBackground(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::ScrollBarSlider::PaintBackground(  );
+            }
+        else
+            this->vgui::ScrollBarSlider::PaintBackground(  );
+    }
+    
+    virtual void default_PaintBackground(  ){
+        vgui::ScrollBarSlider::PaintBackground( );
+    }
+
     virtual void PerformLayout(  ){
         PY_OVERRIDE_CHECK( vgui::ScrollBarSlider, PerformLayout )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::ScrollBarSlider, PerformLayout )
@@ -206,6 +244,25 @@ struct ScrollBarSlider_wrapper : vgui::ScrollBarSlider, bp::wrapper< vgui::Scrol
 
     ::vgui::Panel * GetNavUpPanel(  ){
         return vgui::Panel::GetNavUpPanel(  );
+    }
+
+    virtual void InvalidateLayout( bool layoutNow=false, bool reloadScheme=false ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, InvalidateLayout )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, InvalidateLayout )
+        bp::override func_InvalidateLayout = this->get_override( "InvalidateLayout" );
+        if( func_InvalidateLayout.ptr() != Py_None )
+            try {
+                func_InvalidateLayout( layoutNow, reloadScheme );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+            }
+        else
+            this->vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+    }
+    
+    void default_InvalidateLayout( bool layoutNow=false, bool reloadScheme=false ) {
+        vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
     }
 
     virtual void OnChildAdded( ::vgui::VPANEL child ) {
@@ -1019,6 +1076,12 @@ void register_ScrollBarSlider_class(){
             , (void ( ScrollBarSlider_wrapper::* )( ::vgui::MouseCode ) )(&ScrollBarSlider_wrapper::default_OnMouseReleased)
             , ( bp::arg("code") ) )    
         .def( 
+            "Paint"
+            , (void ( ScrollBarSlider_wrapper::* )(  ) )(&ScrollBarSlider_wrapper::default_Paint) )    
+        .def( 
+            "PaintBackground"
+            , (void ( ScrollBarSlider_wrapper::* )(  ) )(&ScrollBarSlider_wrapper::default_PaintBackground) )    
+        .def( 
             "PerformLayout"
             , (void ( ScrollBarSlider_wrapper::* )(  ) )(&ScrollBarSlider_wrapper::default_PerformLayout) )    
         .def( 
@@ -1082,6 +1145,11 @@ void register_ScrollBarSlider_class(){
             "GetNavUpPanel"
             , (::vgui::Panel * ( ScrollBarSlider_wrapper::* )(  ) )(&ScrollBarSlider_wrapper::GetNavUpPanel)
             , bp::return_value_policy< bp::return_by_value >() )    
+        .def( 
+            "InvalidateLayout"
+            , (void ( ::vgui::Panel::* )( bool,bool ) )(&::vgui::Panel::InvalidateLayout)
+            , (void ( ScrollBarSlider_wrapper::* )( bool,bool ) )(&ScrollBarSlider_wrapper::default_InvalidateLayout)
+            , ( bp::arg("layoutNow")=(bool)(false), bp::arg("reloadScheme")=(bool)(false) ) )    
         .def( 
             "OnChildAdded"
             , (void ( ::vgui::Panel::* )( ::vgui::VPANEL ) )(&::vgui::Panel::OnChildAdded)

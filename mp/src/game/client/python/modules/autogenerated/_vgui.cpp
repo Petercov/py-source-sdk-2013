@@ -1835,11 +1835,6 @@ BOOST_PYTHON_MODULE(_vgui){
             , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::PerformApplySchemeSettings )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
-            "Plat"
-            , (::vgui::SurfacePlat * ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::Plat )
-            , ( bp::arg("vguiPanel") )
-            , bp::return_value_policy< bp::return_by_value >() )    
-        .def( 
             "Repaint"
             , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::Repaint )
             , ( bp::arg("vguiPanel") ) )    
@@ -1887,10 +1882,6 @@ BOOST_PYTHON_MODULE(_vgui){
             "SetParent"
             , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,::vgui::VPANEL ) )( &::CWrapIPanel::SetParent )
             , ( bp::arg("vguiPanel"), bp::arg("newParent") ) )    
-        .def( 
-            "SetPlat"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,::vgui::SurfacePlat * ) )( &::CWrapIPanel::SetPlat )
-            , ( bp::arg("vguiPanel"), bp::arg("Plat") ) )    
         .def( 
             "SetPopup"
             , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ) )( &::CWrapIPanel::SetPopup )

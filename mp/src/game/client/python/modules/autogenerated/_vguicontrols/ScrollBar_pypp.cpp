@@ -244,6 +244,25 @@ struct ScrollBar_wrapper : vgui::ScrollBar, bp::wrapper< vgui::ScrollBar > {
         return vgui::Panel::GetNavUpPanel(  );
     }
 
+    virtual void InvalidateLayout( bool layoutNow=false, bool reloadScheme=false ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, InvalidateLayout )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, InvalidateLayout )
+        bp::override func_InvalidateLayout = this->get_override( "InvalidateLayout" );
+        if( func_InvalidateLayout.ptr() != Py_None )
+            try {
+                func_InvalidateLayout( layoutNow, reloadScheme );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+            }
+        else
+            this->vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+    }
+    
+    void default_InvalidateLayout( bool layoutNow=false, bool reloadScheme=false ) {
+        vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+    }
+
     virtual void OnChildAdded( ::vgui::VPANEL child ) {
         PY_OVERRIDE_CHECK( vgui::Panel, OnChildAdded )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, OnChildAdded )
@@ -653,6 +672,44 @@ struct ScrollBar_wrapper : vgui::ScrollBar, bp::wrapper< vgui::ScrollBar > {
     
     void default_OnTick(  ) {
         vgui::Panel::OnTick( );
+    }
+
+    virtual void Paint(  ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, Paint )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, Paint )
+        bp::override func_Paint = this->get_override( "Paint" );
+        if( func_Paint.ptr() != Py_None )
+            try {
+                func_Paint(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::Paint(  );
+            }
+        else
+            this->vgui::Panel::Paint(  );
+    }
+    
+    void default_Paint(  ) {
+        vgui::Panel::Paint( );
+    }
+
+    virtual void PaintBackground(  ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, PaintBackground )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, PaintBackground )
+        bp::override func_PaintBackground = this->get_override( "PaintBackground" );
+        if( func_PaintBackground.ptr() != Py_None )
+            try {
+                func_PaintBackground(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::PaintBackground(  );
+            }
+        else
+            this->vgui::Panel::PaintBackground(  );
+    }
+    
+    void default_PaintBackground(  ) {
+        vgui::Panel::PaintBackground( );
     }
 
     virtual void PaintBuildOverlay(  ) {
@@ -1151,6 +1208,11 @@ void register_ScrollBar_class(){
             , (::vgui::Panel * ( ScrollBar_wrapper::* )(  ) )(&ScrollBar_wrapper::GetNavUpPanel)
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
+            "InvalidateLayout"
+            , (void ( ::vgui::Panel::* )( bool,bool ) )(&::vgui::Panel::InvalidateLayout)
+            , (void ( ScrollBar_wrapper::* )( bool,bool ) )(&ScrollBar_wrapper::default_InvalidateLayout)
+            , ( bp::arg("layoutNow")=(bool)(false), bp::arg("reloadScheme")=(bool)(false) ) )    
+        .def( 
             "OnChildAdded"
             , (void ( ::vgui::Panel::* )( ::vgui::VPANEL ) )(&::vgui::Panel::OnChildAdded)
             , (void ( ScrollBar_wrapper::* )( ::vgui::VPANEL ) )(&ScrollBar_wrapper::default_OnChildAdded)
@@ -1255,6 +1317,14 @@ void register_ScrollBar_class(){
             "OnTick"
             , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::OnTick)
             , (void ( ScrollBar_wrapper::* )(  ) )(&ScrollBar_wrapper::default_OnTick) )    
+        .def( 
+            "Paint"
+            , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::Paint)
+            , (void ( ScrollBar_wrapper::* )(  ) )(&ScrollBar_wrapper::default_Paint) )    
+        .def( 
+            "PaintBackground"
+            , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::PaintBackground)
+            , (void ( ScrollBar_wrapper::* )(  ) )(&ScrollBar_wrapper::default_PaintBackground) )    
         .def( 
             "PaintBuildOverlay"
             , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::PaintBuildOverlay)

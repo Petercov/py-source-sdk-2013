@@ -77,7 +77,7 @@ class VGUI(ClientModuleGenerator):
         cls.mem_funs( 'GetPos' ).add_transformation( FT.output('x'), FT.output('y') )
         cls.mem_funs( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
         cls.mem_funs( 'GetAbsPos' ).add_transformation( FT.output('x'), FT.output('y') )
-        cls.mem_funs( 'Plat' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        #cls.mem_funs( 'Plat' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         cls.mem_funs( 'GetPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         
         mb.free_function('wrapipanel').include()

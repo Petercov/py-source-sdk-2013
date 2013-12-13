@@ -446,6 +446,25 @@ struct TextEntry_wrapper : vgui::TextEntry, bp::wrapper< vgui::TextEntry > {
         vgui::TextEntry::OnSliderMoved(  );
     }
 
+    virtual void PaintBackground(  ){
+        PY_OVERRIDE_CHECK( vgui::TextEntry, PaintBackground )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::TextEntry, PaintBackground )
+        bp::override func_PaintBackground = this->get_override( "PaintBackground" );
+        if( func_PaintBackground.ptr() != Py_None )
+            try {
+                func_PaintBackground(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::TextEntry::PaintBackground(  );
+            }
+        else
+            this->vgui::TextEntry::PaintBackground(  );
+    }
+    
+    virtual void default_PaintBackground(  ){
+        vgui::TextEntry::PaintBackground( );
+    }
+
     virtual void PerformLayout(  ){
         PY_OVERRIDE_CHECK( vgui::TextEntry, PerformLayout )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::TextEntry, PerformLayout )
@@ -651,6 +670,25 @@ struct TextEntry_wrapper : vgui::TextEntry, bp::wrapper< vgui::TextEntry > {
         return vgui::Panel::GetNavUpPanel(  );
     }
 
+    virtual void InvalidateLayout( bool layoutNow=false, bool reloadScheme=false ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, InvalidateLayout )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, InvalidateLayout )
+        bp::override func_InvalidateLayout = this->get_override( "InvalidateLayout" );
+        if( func_InvalidateLayout.ptr() != Py_None )
+            try {
+                func_InvalidateLayout( layoutNow, reloadScheme );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+            }
+        else
+            this->vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+    }
+    
+    void default_InvalidateLayout( bool layoutNow=false, bool reloadScheme=false ) {
+        vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+    }
+
     virtual void OnChildAdded( ::vgui::VPANEL child ) {
         PY_OVERRIDE_CHECK( vgui::Panel, OnChildAdded )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, OnChildAdded )
@@ -794,6 +832,25 @@ struct TextEntry_wrapper : vgui::TextEntry, bp::wrapper< vgui::TextEntry > {
     
     void default_OnTick(  ) {
         vgui::Panel::OnTick( );
+    }
+
+    virtual void Paint(  ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, Paint )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, Paint )
+        bp::override func_Paint = this->get_override( "Paint" );
+        if( func_Paint.ptr() != Py_None )
+            try {
+                func_Paint(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::Paint(  );
+            }
+        else
+            this->vgui::Panel::Paint(  );
+    }
+    
+    void default_Paint(  ) {
+        vgui::Panel::Paint( );
     }
 
     virtual void PaintBuildOverlay(  ) {
@@ -1423,6 +1480,9 @@ void register_TextEntry_class(){
             "OpenEditMenu"
             , (void ( ::vgui::TextEntry::* )(  ) )( &::vgui::TextEntry::OpenEditMenu ) )    
         .def( 
+            "PaintBackground"
+            , (void ( TextEntry_wrapper::* )(  ) )(&TextEntry_wrapper::default_PaintBackground) )    
+        .def( 
             "Paste"
             , (void ( ::vgui::TextEntry::* )(  ) )( &::vgui::TextEntry::Paste ) )    
         .def( 
@@ -1639,6 +1699,11 @@ void register_TextEntry_class(){
             , (::vgui::Panel * ( TextEntry_wrapper::* )(  ) )(&TextEntry_wrapper::GetNavUpPanel)
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
+            "InvalidateLayout"
+            , (void ( ::vgui::Panel::* )( bool,bool ) )(&::vgui::Panel::InvalidateLayout)
+            , (void ( TextEntry_wrapper::* )( bool,bool ) )(&TextEntry_wrapper::default_InvalidateLayout)
+            , ( bp::arg("layoutNow")=(bool)(false), bp::arg("reloadScheme")=(bool)(false) ) )    
+        .def( 
             "OnChildAdded"
             , (void ( ::vgui::Panel::* )( ::vgui::VPANEL ) )(&::vgui::Panel::OnChildAdded)
             , (void ( TextEntry_wrapper::* )( ::vgui::VPANEL ) )(&TextEntry_wrapper::default_OnChildAdded)
@@ -1679,6 +1744,10 @@ void register_TextEntry_class(){
             "OnTick"
             , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::OnTick)
             , (void ( TextEntry_wrapper::* )(  ) )(&TextEntry_wrapper::default_OnTick) )    
+        .def( 
+            "Paint"
+            , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::Paint)
+            , (void ( TextEntry_wrapper::* )(  ) )(&TextEntry_wrapper::default_Paint) )    
         .def( 
             "PaintBuildOverlay"
             , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::PaintBuildOverlay)

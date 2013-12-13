@@ -104,6 +104,25 @@ struct EditablePanel_wrapper : vgui::EditablePanel, bp::wrapper< vgui::EditableP
         return vgui::Panel::GetNavUpPanel(  );
     }
 
+    virtual void InvalidateLayout( bool layoutNow=false, bool reloadScheme=false ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, InvalidateLayout )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, InvalidateLayout )
+        bp::override func_InvalidateLayout = this->get_override( "InvalidateLayout" );
+        if( func_InvalidateLayout.ptr() != Py_None )
+            try {
+                func_InvalidateLayout( layoutNow, reloadScheme );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+            }
+        else
+            this->vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+    }
+    
+    void default_InvalidateLayout( bool layoutNow=false, bool reloadScheme=false ) {
+        vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+    }
+
     virtual void OnCommand( char const * command ) {
         PY_OVERRIDE_CHECK( vgui::Panel, OnCommand )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, OnCommand )
@@ -456,6 +475,25 @@ struct EditablePanel_wrapper : vgui::EditablePanel, bp::wrapper< vgui::EditableP
     
     void default_OnTick(  ) {
         vgui::Panel::OnTick( );
+    }
+
+    virtual void Paint(  ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, Paint )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, Paint )
+        bp::override func_Paint = this->get_override( "Paint" );
+        if( func_Paint.ptr() != Py_None )
+            try {
+                func_Paint(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::Paint(  );
+            }
+        else
+            this->vgui::Panel::Paint(  );
+    }
+    
+    void default_Paint(  ) {
+        vgui::Panel::Paint( );
     }
 
     virtual void PaintBuildOverlay(  ) {
@@ -917,6 +955,11 @@ void register_EditablePanel_class(){
             , (::vgui::Panel * ( EditablePanel_wrapper::* )(  ) )(&EditablePanel_wrapper::GetNavUpPanel)
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
+            "InvalidateLayout"
+            , (void ( ::vgui::Panel::* )( bool,bool ) )(&::vgui::Panel::InvalidateLayout)
+            , (void ( EditablePanel_wrapper::* )( bool,bool ) )(&EditablePanel_wrapper::default_InvalidateLayout)
+            , ( bp::arg("layoutNow")=(bool)(false), bp::arg("reloadScheme")=(bool)(false) ) )    
+        .def( 
             "OnCommand"
             , (void ( ::vgui::Panel::* )( char const * ) )(&::vgui::Panel::OnCommand)
             , (void ( EditablePanel_wrapper::* )( char const * ) )(&EditablePanel_wrapper::default_OnCommand)
@@ -1007,6 +1050,10 @@ void register_EditablePanel_class(){
             "OnTick"
             , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::OnTick)
             , (void ( EditablePanel_wrapper::* )(  ) )(&EditablePanel_wrapper::default_OnTick) )    
+        .def( 
+            "Paint"
+            , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::Paint)
+            , (void ( EditablePanel_wrapper::* )(  ) )(&EditablePanel_wrapper::default_Paint) )    
         .def( 
             "PaintBuildOverlay"
             , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::PaintBuildOverlay)

@@ -482,6 +482,25 @@ struct Frame_wrapper : vgui::Frame, bp::wrapper< vgui::Frame > {
         vgui::Frame::OnThink( );
     }
 
+    virtual void PaintBackground(  ){
+        PY_OVERRIDE_CHECK( vgui::Frame, PaintBackground )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Frame, PaintBackground )
+        bp::override func_PaintBackground = this->get_override( "PaintBackground" );
+        if( func_PaintBackground.ptr() != Py_None )
+            try {
+                func_PaintBackground(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Frame::PaintBackground(  );
+            }
+        else
+            this->vgui::Frame::PaintBackground(  );
+    }
+    
+    virtual void default_PaintBackground(  ){
+        vgui::Frame::PaintBackground( );
+    }
+
     virtual void PerformLayout(  ){
         PY_OVERRIDE_CHECK( vgui::Frame, PerformLayout )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::Frame, PerformLayout )
@@ -771,6 +790,25 @@ struct Frame_wrapper : vgui::Frame, bp::wrapper< vgui::Frame > {
 
     ::vgui::Panel * GetNavUpPanel(  ){
         return vgui::Panel::GetNavUpPanel(  );
+    }
+
+    virtual void InvalidateLayout( bool layoutNow=false, bool reloadScheme=false ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, InvalidateLayout )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, InvalidateLayout )
+        bp::override func_InvalidateLayout = this->get_override( "InvalidateLayout" );
+        if( func_InvalidateLayout.ptr() != Py_None )
+            try {
+                func_InvalidateLayout( layoutNow, reloadScheme );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+            }
+        else
+            this->vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
+    }
+    
+    void default_InvalidateLayout( bool layoutNow=false, bool reloadScheme=false ) {
+        vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
     }
 
     void OnContinueDragging(  ){
@@ -1068,6 +1106,25 @@ struct Frame_wrapper : vgui::Frame, bp::wrapper< vgui::Frame > {
     
     void default_OnTick(  ) {
         vgui::Panel::OnTick( );
+    }
+
+    virtual void Paint(  ) {
+        PY_OVERRIDE_CHECK( vgui::Panel, Paint )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, Paint )
+        bp::override func_Paint = this->get_override( "Paint" );
+        if( func_Paint.ptr() != Py_None )
+            try {
+                func_Paint(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->vgui::Panel::Paint(  );
+            }
+        else
+            this->vgui::Panel::Paint(  );
+    }
+    
+    void default_Paint(  ) {
+        vgui::Panel::Paint( );
     }
 
     virtual void PaintBuildOverlay(  ) {
@@ -1605,6 +1662,9 @@ void register_Frame_class(){
             "OnThink"
             , (void ( Frame_wrapper::* )(  ) )(&Frame_wrapper::default_OnThink) )    
         .def( 
+            "PaintBackground"
+            , (void ( Frame_wrapper::* )(  ) )(&Frame_wrapper::default_PaintBackground) )    
+        .def( 
             "PerformLayout"
             , (void ( Frame_wrapper::* )(  ) )(&Frame_wrapper::default_PerformLayout) )    
         .def( 
@@ -1728,6 +1788,11 @@ void register_Frame_class(){
             , (::vgui::Panel * ( Frame_wrapper::* )(  ) )(&Frame_wrapper::GetNavUpPanel)
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
+            "InvalidateLayout"
+            , (void ( ::vgui::Panel::* )( bool,bool ) )(&::vgui::Panel::InvalidateLayout)
+            , (void ( Frame_wrapper::* )( bool,bool ) )(&Frame_wrapper::default_InvalidateLayout)
+            , ( bp::arg("layoutNow")=(bool)(false), bp::arg("reloadScheme")=(bool)(false) ) )    
+        .def( 
             "OnContinueDragging"
             , (void ( Frame_wrapper::* )(  ) )(&Frame_wrapper::OnContinueDragging) )    
         .def( 
@@ -1804,6 +1869,10 @@ void register_Frame_class(){
             "OnTick"
             , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::OnTick)
             , (void ( Frame_wrapper::* )(  ) )(&Frame_wrapper::default_OnTick) )    
+        .def( 
+            "Paint"
+            , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::Paint)
+            , (void ( Frame_wrapper::* )(  ) )(&Frame_wrapper::default_Paint) )    
         .def( 
             "PaintBuildOverlay"
             , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::PaintBuildOverlay)

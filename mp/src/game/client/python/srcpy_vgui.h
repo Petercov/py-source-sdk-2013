@@ -18,8 +18,6 @@
 #include <ienginevgui.h>
 #include "vgui_controls/Panel.h"
 
-#include "SurfaceBuffer.h"
-
 #include "srcpy_boostpython.h"
 
 extern const char *vgui::GetControlsModuleName();
@@ -491,8 +489,8 @@ public:
 	inline int GetTabPosition(VPANEL vguiPanel) { return ipanel()->GetTabPosition(vguiPanel); }
 
 	// used by ISurface to store platform-specific data
-	inline SurfacePlat *Plat(VPANEL vguiPanel) { return ipanel()->Plat(vguiPanel); }
-	inline void SetPlat(VPANEL vguiPanel, SurfacePlat *Plat) { ipanel()->SetPlat(vguiPanel, Plat); }
+	//inline SurfacePlat *Plat(VPANEL vguiPanel) { return ipanel()->Plat(vguiPanel); }
+	//inline void SetPlat(VPANEL vguiPanel, SurfacePlat *Plat) { ipanel()->SetPlat(vguiPanel, Plat); }
 
 	// returns a pointer to the vgui controls baseclass Panel *
 	// destinationModule needs to be passed in to verify that the returned Panel * is from the same module
