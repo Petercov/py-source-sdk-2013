@@ -10,6 +10,7 @@ $macro PROTOBUF_LITE 0
 
 $include "$SRCDIR\vpc_scripts\source_lib_base.vpc"
 $include "$SRCDIR\vpc_scripts\protobuf_builder.vpc"
+$include "$SRCDIR\vpc_scripts\pysource_base.vpc" [$PYSOURCE]
 
 $Configuration
 {

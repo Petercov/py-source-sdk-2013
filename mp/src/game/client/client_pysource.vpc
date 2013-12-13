@@ -211,6 +211,10 @@ $Project "Client (PySource)"
 			
 			$File	"python\srcpy_client_class.cpp"
 			$File	"python\srcpy_client_class.h"
+			$File	"python\srcpy_hud.cpp"
+			$File	"python\srcpy_hud.h"
+			$File	"python\srcpy_vgui.cpp"
+			$File	"python\srcpy_vgui.h"
 		}
 	}
 

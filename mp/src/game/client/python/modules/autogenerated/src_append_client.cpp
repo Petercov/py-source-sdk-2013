@@ -12,12 +12,18 @@ using namespace boost::python;
 // The init method is in one of the generated files declared
 #ifdef _WIN32
 extern "C" __declspec(dllexport) PyObject* PyInit__input();
+extern "C" __declspec(dllexport) PyObject* PyInit__vgui();
+extern "C" __declspec(dllexport) PyObject* PyInit__vguicontrols();
 #else
 extern "C"  PyObject* PyInit__input();
+extern "C"  PyObject* PyInit__vgui();
+extern "C"  PyObject* PyInit__vguicontrols();
 #endif // _WIN32
 
 // The append function
 void AppendClientModules()
 {
 	APPEND_MODULE(_input)
+	APPEND_MODULE(_vgui)
+	APPEND_MODULE(_vguicontrols)
 }

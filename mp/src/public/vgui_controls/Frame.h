@@ -253,6 +253,17 @@ private:
 										 
 	CPanelAnimationVarAliasType( int, m_iTitleTextInsetXOverride, "titletextinsetX", "0", "proportional_int" );
 	CPanelAnimationVar( int, m_iTitleTextInsetYOverride, "titletextinsetY", "0" );
+
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+public:
+	virtual void PyDestroyPanel();
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 };
 
 } // namespace vgui

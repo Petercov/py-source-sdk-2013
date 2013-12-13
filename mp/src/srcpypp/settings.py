@@ -48,8 +48,12 @@ modules = [
     ('_particles', 'Particles'),
     ('materials', 'Materials'),
     ('_te', 'TE'),
+    
+    # Client
     ('_input', 'Input'),
-
+    ('_vgui', 'VGUI'),
+    ('_vguicontrols', 'VGUIControls'),
+    
     # Misc
     ('steam', 'Steam'),
     ('_ndebugoverlay', 'NDebugOverlay'),

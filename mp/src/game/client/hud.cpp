@@ -503,6 +503,17 @@ void CHud::Shutdown( void )
 	//	So go through and kill the last item until the array is empty.
 	while ( m_HudList.Size() > 0 )
 	{
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+		if( m_HudList.Tail()->m_pyInstance.ptr() != Py_None ) {
+			continue; // Do not delete python panels!
+		}
+#endif // ENABLE_PYTHON
+// =======================================
+// PySource Additions
+// =======================================
 		delete m_HudList.Tail();
 	}
 

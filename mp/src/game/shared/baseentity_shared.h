@@ -253,7 +253,9 @@ inline bool CBaseEntity::IsEffectActive( int nEffects ) const
 // =======================================
 // PySource Additions
 // =======================================
+#ifdef ENABLE_PYTHON
 #define BASEENTITY_MSG_PYTHON			2
+#endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
 // =======================================

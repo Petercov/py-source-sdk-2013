@@ -856,6 +856,17 @@ Frame::Frame(Panel *parent, const char *panelName, bool showTaskbarIcon /*=true*
 //-----------------------------------------------------------------------------
 Frame::~Frame()
 {
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	if( m_bPyDeleted )
+		return; // Cleanup already done in PyDestroyPanel!
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+
 	if ( input()->GetAppModalSurface() == GetVPanel() )
 	{
 		vgui::input()->ReleaseAppModalSurface();
@@ -884,6 +895,51 @@ Frame::~Frame()
 #endif
 	delete _title;
 }
+
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+void Frame::PyDestroyPanel()
+{
+	// PyDestroyPanel is needed in Frame to delete the Grip panels
+	if( m_bPyDeleted )
+		return;
+
+	if ( input()->GetAppModalSurface() == GetVPanel() )
+	{
+		vgui::input()->ReleaseAppModalSurface();
+		if ( m_hPreviousModal != 0 )
+		{
+			vgui::input()->SetAppModalSurface( m_hPreviousModal );
+			m_hPreviousModal = 0;
+		}
+	}
+
+#if !defined( _X360 )
+	delete _topGrip;
+	delete _bottomGrip;
+	delete _leftGrip;
+	delete _rightGrip;
+	delete _topLeftGrip;
+	delete _topRightGrip;
+	delete _bottomLeftGrip;
+	delete _bottomRightGrip;
+	delete _captionGrip;
+	delete _minimizeButton;
+	delete _maximizeButton;
+	delete _closeButton;
+	delete _menuButton;
+	delete _minimizeToSysTrayButton;
+#endif
+	delete _title;
+
+	BaseClass::PyDestroyPanel();
+}
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 
 //-----------------------------------------------------------------------------
 // Purpose: Setup the grips on the edges of the panel to resize it.
