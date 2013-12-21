@@ -17,6 +17,7 @@
 #include <vgui/ILocalize.h>
 #include <ienginevgui.h>
 #include "vgui_controls/Panel.h"
+#include "materialsystem/itexture.h"
 
 #include "srcpy_boostpython.h"
 
