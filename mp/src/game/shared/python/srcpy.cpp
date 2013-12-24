@@ -416,8 +416,8 @@ bool CSrcPython::InitInterpreter( void )
 	
 	// TODO: matchmaking = Import("matchmaking");
 #ifdef CLIENT_DLL
-	// TODO: Run( "import input" );		// Registers buttons
-	// TODO: _vguicontrols = Import("_vguicontrols");
+	Run( "import input" );		// Registers buttons
+	_vguicontrols = Import("_vguicontrols");
 #endif	// CLIENT_DLL
 
 	game = Import("game");
