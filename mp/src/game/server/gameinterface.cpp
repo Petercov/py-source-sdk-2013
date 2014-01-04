@@ -1377,6 +1377,10 @@ void CServerGameDLL::Think( bool finalTick )
 		m_fAutoSaveDangerousTime = 0.0f;
 		m_fAutoSaveDangerousMinHealthToCommit = 0.0f;
 	}
+
+#ifdef ENABLE_PYTHON
+	SrcPySystem()->UpdateRealtimeTickMethods();
+#endif // ENABLE_PYTHON
 }
 
 void CServerGameDLL::OnQueryCvarValueFinished( QueryCvarCookie_t iCookie, edict_t *pPlayerEntity, EQueryCvarValueStatus eStatus, const char *pCvarName, const char *pCvarValue )

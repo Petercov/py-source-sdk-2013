@@ -325,10 +325,18 @@ bool CSrcPython::InitInterpreter( void )
 
 	//DevMsg( "PYTHONHOME: %s\nPYTHONPATH: %s\n", pythonhome, pythonpath );
     
-	// Initialize an interpreter
 #ifdef OSX
 	Py_NoSiteFlag = 1;
 #endif // OSX
+
+	// Enable optimizations when not running in developer mode
+	// This removes asserts and statements with "if __debug__"
+#ifndef _DEBUG
+	if( !developer.GetBool() )
+		Py_OptimizeFlag = 1;
+#endif // _DEBUG
+
+	// Initialize an interpreter
 	Py_InitializeEx( 0 );
 #ifdef CLIENT_DLL
 	ConColorMsg( g_PythonColor, "CLIENT: " );
@@ -807,6 +815,11 @@ void CSrcPython::LevelShutdownPostEntity()
 	if( !IsPythonRunning() )
 		return;
 
+	// Clears references from the delete list, causing instances to cleanup if possible
+	// Note: should not contain references to AutoGameSystems, because this is called from a gamesystem function
+	//		 In this case crashes will occur.
+	CleanupDeleteList();
+
 	// Send postlevelshutdown signal
 	try 
 	{
@@ -846,6 +859,9 @@ void CSrcPython::FrameUpdatePostEntityThink( void )
 	int i;
 	for( i = m_methodTickList.Count() - 1; i >= 0 ; i-- )
 	{
+		if( m_methodTickList[i].m_bUseRealTime )
+			continue;
+
 		if( m_methodTickList[i].m_fNextTickTime < gpGlobals->curtime )
 		{
 			try 
@@ -872,9 +888,15 @@ void CSrcPython::FrameUpdatePostEntityThink( void )
 				m_methodTickList.Remove( i );
 				continue;
 			}
+
 			m_methodTickList[i].m_fNextTickTime = gpGlobals->curtime + m_methodTickList[i].m_fTickSignal;
 		}	
 	}
+
+	// On the server this is called from CServerGameDLL::Think
+#ifdef CLIENT_DLL
+	UpdateRealtimeTickMethods();
+#endif // CLIENT_DLL
 
 	// Update frame methods
 	for( i = m_methodPerFrameList.Count() - 1; i >= 0; i-- )
@@ -901,6 +923,58 @@ void CSrcPython::FrameUpdatePostEntityThink( void )
 
 	CleanupDelayedUpdateList();
 #endif // CLIENT_DLL
+
+	// Clears references from the delete list, causing instances to cleanup if possible
+	// Note: should not contain references to AutoGameSystems, because this is called from a gamesystem function
+	//		 In this case crashes will occur.
+	CleanupDeleteList();
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CSrcPython::UpdateRealtimeTickMethods()
+{
+	if( !IsPythonRunning() )
+		return;
+
+	// Update tick methods
+	int i;
+	for( i = m_methodTickList.Count() - 1; i >= 0 ; i-- )
+	{
+		if( !m_methodTickList[i].m_bUseRealTime )
+			continue;
+
+		if( m_methodTickList[i].m_fNextTickTime < Plat_FloatTime() )
+		{
+			try 
+			{
+				m_activeMethod = m_methodTickList[i].method;
+
+				m_activeMethod();
+
+				// Method might have removed the entry already
+				if( !m_methodTickList.IsValidIndex(i) )
+					continue;
+
+				// Remove tick methods that are not looped (used to call back a function after a set time)
+				if( !m_methodTickList[i].m_bLooped )
+				{
+					m_methodTickList.Remove( i );
+					continue;
+				}
+			} 
+			catch( bp::error_already_set & ) 
+			{
+				Warning("Unregistering tick method due the following exception (catch exception if you don't want this): \n");
+				PyErr_Print();
+				m_methodTickList.Remove( i );
+				continue;
+			}
+
+			m_methodTickList[i].m_fNextTickTime = Plat_FloatTime() + m_methodTickList[i].m_fTickSignal;
+		}	
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -1279,7 +1353,7 @@ void CSrcPython::CleanupDelayedUpdateList()
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CSrcPython::RegisterTickMethod( bp::object method, float ticksignal, bool looped )
+void CSrcPython::RegisterTickMethod( bp::object method, float ticksignal, bool looped, bool userealtime )
 {
 	if( IsTickMethodRegistered( method ) )
 	{
@@ -1290,8 +1364,9 @@ void CSrcPython::RegisterTickMethod( bp::object method, float ticksignal, bool l
 	py_tick_methods tickmethod;
 	tickmethod.method = method;
 	tickmethod.m_fTickSignal = ticksignal;
-	tickmethod.m_fNextTickTime = gpGlobals->curtime + ticksignal;
+	tickmethod.m_fNextTickTime = (userealtime ? Plat_FloatTime() : gpGlobals->curtime) + ticksignal;
 	tickmethod.m_bLooped = looped;
+	tickmethod.m_bUseRealTime = userealtime;
 	m_methodTickList.AddToTail(tickmethod);
 }
 

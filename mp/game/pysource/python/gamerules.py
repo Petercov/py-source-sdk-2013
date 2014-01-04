@@ -36,34 +36,27 @@ class SafeAttr(object):
 
 class GameRulesProxy(object):
     def __getattr__(self, name):
-        if name == 'gamerules': return self()
         try:
-            return getattr(object.__getattribute__(self, 'gamerules'), name)
+            return getattr(GameRules(), name)
         except AttributeError:
             traceback.print_exc()
             return SafeAttr()
             
     def __getattribute__(self, name):
-        if name == 'gamerules': return self()
         try:
-            return getattr(object.__getattribute__(self, 'gamerules'), name)
+            return getattr(GameRules(), name)
         except AttributeError:
             PrintWarning('Exception occured in calling a gamerules method: \n')
             traceback.print_exc()
             return SafeAttr()
             
     def __setattr__(self, name, value):
-        if name == 'gamerules': 
-            object.__setattr__(self, 'gamerules', value)
-            return
-        setattr(self.gamerules, name, value)
+        setattr(GameRules(), name, value)
         
     def __call__(self):
-        return object.__getattribute__(self, 'gamerules')
+        return GameRules()
         
     def __nonzero__(self):
-        return bool(self.gamerules)
-        
-    gamerules = None
+        return bool(GameRules())
     
 gamerules = GameRulesProxy()
