@@ -43,6 +43,9 @@ public:
 	void NetworkStateChanged( void );
 	virtual void NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient ) {}
 
+	// For optimization purposes. Returns if the data is in the unmodified state at construction.
+	bool IsInInitialState() { return m_bInitialState; }
+
 public:
 	// This bit vector contains the players who don't have the most up to date data
 	CBitVec<ABSOLUTE_PLAYER_LIMIT> m_PlayerUpdateBits;
@@ -50,6 +53,7 @@ public:
 protected:
 	char m_Name[PYNETVAR_MAX_NAME];
 	bool m_bChangedCallback;
+	bool m_bInitialState;
 
 	bp::object m_wrefEnt;
 
@@ -111,7 +115,10 @@ private:
 #endif // 0
 };
 
-void PyNetworkVarsUpdateClient( CBaseEntity *pEnt, int iEdict );
+// Reset all network variables transmit bits for the specified client (0 based)
+void PyNetworkVarsResetClientTransmitBits( int iClient );
+// Updates network variables for specified client index (0 based)
+void PyNetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient );
 
 #else
 	void HookPyNetworkVar();

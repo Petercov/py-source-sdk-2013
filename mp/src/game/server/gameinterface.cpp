@@ -2480,8 +2480,9 @@ void CServerGameEnts::CheckTransmit( CCheckTransmitInfo *pInfo, const unsigned s
 // =======================================
 #ifdef ENABLE_PYTHON
 				// Python networkvars: mark player as transmit
-				pEnt->GetBaseEntity()->m_PyNetworkVarsPlayerTransmitBits.Set( ENTINDEX(pInfo->m_pClientEnt) );
-				PyNetworkVarsUpdateClient(pEnt->GetBaseEntity(), ENTINDEX(pInfo->m_pClientEnt) );
+				int iClientIdx = ENTINDEX( pInfo->m_pClientEnt ) - 1; // Client index is 0 based
+				pEnt->GetBaseEntity()->m_PyNetworkVarsPlayerTransmitBits.Set( iClientIdx );
+				PyNetworkVarsUpdateClient(pEnt->GetBaseEntity(), iClientIdx );
 #endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
@@ -2645,9 +2646,11 @@ bool CServerGameClients::ClientConnect( edict_t *pEdict, const char *pszName, co
 	// NOTE2: Dedicated servers send the message in the client active. They seem to check against CBaseEntity recv table.
 	if( (!engine->IsDedicatedServer() && ENTINDEX(pEdict) == 1) )
 	{
-		//Msg("CServerGameClients::ClientConnect FullClientUpdatePyNetworkClsByEdict\n");
 		FullClientUpdatePyNetworkClsByEdict(pEdict);
 	}
+
+	// Make sure Python network variables are marked correctly for the new player
+	PyNetworkVarsResetClientTransmitBits( ENTINDEX(pEdict) - 1 );
 #endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
