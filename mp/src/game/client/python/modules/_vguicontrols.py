@@ -688,11 +688,6 @@ class VGUIControls(ClientModuleGenerator):
     def Parse(self, mb):
         self.novguilib = (self.settings.branch == 'swarm')
         
-        # Anything that returns a Panel should be returned by Value to call the right converter
-        testinherit = MatcherTestInheritClass(mb.class_('Panel'))
-        decls = mb.calldefs(matchers.custom_matcher_t(testinherit))
-        decls.call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        
         # Exclude everything by default
         mb.decls().exclude()  
 
@@ -709,6 +704,11 @@ class VGUIControls(ClientModuleGenerator):
         
         # Should already be included, but is for some reason not...
         mb.mem_funs('SetControlEnabled').include()
+        
+        # Anything that returns a Panel should be returned by Value to call the right converter
+        testinherit = MatcherTestInheritClass(mb.class_('Panel'))
+        decls = mb.calldefs(matchers.custom_matcher_t(testinherit))
+        decls.call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
         # Remove any protected function
         #mb.calldefs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
