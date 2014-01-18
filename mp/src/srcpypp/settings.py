@@ -55,7 +55,7 @@ modules = [
     ('_vguicontrols', 'VGUIControls'),
     
     # Misc
-    ('steam', 'Steam'),
+    ('_steam', 'Steam'),
     ('_ndebugoverlay', 'NDebugOverlay'),
     ('vprof', 'VProf'),
     ('_srctests', '_SrcTests'),
