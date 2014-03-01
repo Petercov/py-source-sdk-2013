@@ -29,6 +29,7 @@ class Animation(SemiSharedModuleGenerator):
         cls.mem_fun('pSeqdesc').rename('Seqdesc')
         
         # Excludes
+        cls.mem_fun('Init').exclude()
         if self.settings.branch == 'swarm':
             cls.mem_fun('FindMapping').exclude()
         cls.mem_fun('GetSequences').exclude()
