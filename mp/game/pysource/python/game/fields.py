@@ -21,6 +21,10 @@ import ast
 from types import MethodType
 from collections import defaultdict
 
+    
+if isclient:
+    from vgui import localize
+    
 # A small helper for fgd help string generation
 def _escape_helpstring(helpstring):
     return helpstring.replace('"', '\'')
@@ -46,6 +50,22 @@ class BaseField(object):
                        nofgd=False,
                        cppimplemented=False,
                        choices=None):
+        ''' Initializes the field.
+        
+            Kwargs:
+               value (object): the default value
+               keyname (string): the key name used to refer to this entity in Hammer (entities only), used by fgd generation.
+               noreset (bool): prevents field from being reset on map change.
+               networked (bool): if this field is networked for an entity (i.e. synced to the clients).
+               clientchangecallback (methodname): callback on client if networked and the value changed.
+               sendproxy (object): send proxy used if networked.
+               propname (string): 
+               displayname (string): Display name used in Hammer.
+               helpstring (string): Help string used in Hammer.
+               nofgd (bool): prevents fgd entry from being generated for this field.
+               cppimplemented (bool): if implemented in c++. In this case it won't set the attribute on the instances of the object.
+               choices (list): List of choices to be displayed in Hammer or attribute editor. Each choice is a tuple of the value and display name.
+        '''
         super(BaseField, self).__init__()
 
         self.default = value
@@ -62,22 +82,27 @@ class BaseField(object):
         self.cppimplemented = cppimplemented
         self.choices = choices
         
-        assert(not self.propname or not self.clientchangecallback)
+        assert not self.propname or not self.clientchangecallback, 'Cannot mix propname and clientchangecallback'
         
     def Parse(self, cls, name):
-        """ Field parser method. To be used in the metaclass to setup the fields. """
+        """ Field parser method. To be used in the Meta Class or similar place to setup the fields on a class."""
         global fields
+        self.name = name
         fields.append(weakref.ref(self))
-        # Only set the field 
+        
         if not self.cppimplemented:
-            setattr(cls, name, self.default)
+            # Set the default value to the class object
+            self.Set(cls, self.default)
         else:
+            # Implemented in c++, so just delete the field reference from the class
+            # This way it should pick up the c++ implemented variable
             try:
                 delattr(cls, name)
             except AttributeError:
                 PrintWarning('Failed to delete attribute %s from cls %s\n' % (name, str(cls)))
+                
+        # Store the field instance and a weak class reference
         setattr(cls, '__%s_fieldinfo' % (name), self)
-        self.name = name
         self.clswref = weakref.ref(cls)
         
     def InitField(self, inst):
@@ -90,9 +115,13 @@ class BaseField(object):
                 NetworkVarProp(inst, self.name, self.propname)
                 
     def GenerateFGDDefaultValue(self):
+        ''' Generates the default value for the fgd entry. 
+            The default is the value double quoted.
+        '''
         return '"%s"' % (self.default)
             
     def GenerateFGDProperty(self):
+        ''' Generates the fgd entry for this field.'''
         if self.choices:
             entry = '%s(choices) : "%s" : %s : "%s" =\n\t[\n' % (self.keyname, self.displayname, self.GenerateFGDDefaultValue(), self.helpstring)
             for value, choicename in self.choices:
@@ -122,8 +151,10 @@ class BaseField(object):
             self.Set(self.clswref(), self.default)
         
     def Copy(self):
+        ''' Makes a copy of this field. This is used for creating fields in subclasses. '''
         cpy = copy.copy(self)
-        if type(cpy.choices) == list: cpy.choices = list(cpy.choices)
+        if type(cpy.choices) == list: 
+            cpy.choices = list(cpy.choices)
         return cpy
         
     def Verify(self, value):
@@ -134,8 +165,10 @@ class BaseField(object):
             raise ValueError('Value %s is not a %s:\n%s' % (value, self.__class__.__name__, traceback.format_exc()))
         
     def ToValue(self, rawvalue):
-        """ Convert string to value.
-            Will return the same value if already correct. """
+        """ Convert value to right type.
+            Will return the same value if already correct.
+            This method can also be used to convert the value to something else.
+        """
         return rawvalue
         
     def ToString(self, value):
@@ -151,7 +184,7 @@ class BaseField(object):
     def Set(self, clsorinst, value):
         self.Verify(value)
         setattr(clsorinst, self.name, self.ToValue(value))
-        
+            
     def WriteDefaultToSourceFile(self, cls):
         # TODO: Needs finishing
         return
@@ -174,7 +207,9 @@ class BaseField(object):
         fout.writelines(content)
         fout.close()
     
+    #: The name of this field. This is also the attribute name on the class/instance of this field.
     name = None
+    #: A weak reference to the class object on which this field is defined
     clswref = None
     requiresinit = False
     #: Do not show up in the attribute editor if True
@@ -253,6 +288,35 @@ class StringField(BaseField):
         
     fgdtype = 'string'
     
+class LocalizedStringField(StringField):
+    ''' Localizes the string value. 
+        Note: localized value is unicode by default!
+              Use the encoding argument to change it if needed (i.e. encoding='ascii')
+    '''
+    def __init__(self, value='', encoding=None, **kwargs):
+        super(StringField, self).__init__(value=value, **kwargs)
+        
+        self.encoding = encoding
+        
+    def ToValue(self, rawvalue):
+        """ Convert string to value.
+            Will return the same value if already correct. """
+        # Localize value on client
+        # On server return the unmodified string value
+        try:
+            localizedvalue = str(rawvalue)
+        except UnicodeEncodeError:
+            localizedvalue = unicode(rawvalue)
+            
+        if isclient and rawvalue and rawvalue[0] == '#':
+            localizedvalue = localize.Find(rawvalue)
+            if localizedvalue != None:
+                if self.encoding:
+                    localizedvalue = localizedvalue.encode(self.encoding)
+            else:
+                localizedvalue = ''
+        return localizedvalue if localizedvalue != None else ''
+    
 class TargetSrcField(StringField):
     fgdtype = 'target_source'
     
@@ -272,6 +336,15 @@ class VectorField(BaseField):
                       on initialization, so you can safely modify the attributes of
                       the Vector.
     """
+    def __init__(self, value=None, invalidate=False, **kwargs):
+        if not value:
+            value = Vector()
+            invalidate = True
+        if invalidate:
+            value.Invalidate()
+    
+        super(VectorField, self).__init__(value=value, **kwargs)
+    
     def ToValue(self, value):
         if type(value) is Vector:
             return Vector(value)
@@ -301,6 +374,15 @@ class QAngleField(BaseField):
                       on initialization, so you can safely modify the attributes of
                       the QAngle.
     """
+    def __init__(self, value=None, invalidate=False, **kwargs):
+        if not value:
+            value = Vector()
+            invalidate = True
+        if invalidate:
+            value.Invalidate()
+    
+        super(QAngleField, self).__init__(value=value, **kwargs)
+    
     def ToValue(self, value):
         if type(value) is QAngle:
             return QAngle(value)
@@ -353,7 +435,7 @@ class ListField(BaseField):
             Will return the same value if already correct. """
         if type(rawvalue) == str:
             return ast.literal_eval(rawvalue)
-        return rawvalue
+        return list(rawvalue) # Create a copy of the list
             
     requiresinit = True
     
@@ -383,7 +465,7 @@ class DictField(BaseField):
             Will return the same value if already correct. """
         if type(rawvalue) == str:
             return ast.literal_eval(rawvalue)
-        return rawvalue
+        return dict(rawvalue) # Create a copy of the dictionary
             
     requiresinit = True
     
@@ -473,9 +555,19 @@ class OutputField(BaseField):
             setattr(inst, self.name, oe)
             
         def Set(self, clsorinst, value):
+            if inspect.isclass(clsorinst):
+                # Doing this is only valid on entity instances
+                # On the class itself, just clear the field reference (still available as "__field_%name%")
+                setattr(clsorinst, self.name, None)
+                return 
             oe = getattr(clsorinst, self.name)
             eventdata = '%s,%s' % (value, self.keyname)
             oe.ParseEventAction(eventdata)
+    else:
+        def Set(self, clsorinst, value):
+            # Noop on the client
+            # On the class itself, just clear the field reference (still available as "__field_%name%")
+            setattr(clsorinst, self.name, None)
 
     def GenerateFGDProperty(self):
         return 'output %(keyname)s(%(outputtype)s) : "%(helpstring)s"' % {
@@ -506,11 +598,7 @@ def SetField(obj, name, field):
     setattr(obj, '__%s_fieldinfo' % (name), field)
     
 def HasField(obj, name):
-    try:
-        GetField(obj, name)
-        return True
-    except AttributeError:
-        return False
+    return hasattr(obj, '__%s_fieldinfo' % (name))
         
 def BuildFieldsMap(obj, fieldmap):
     for name, field in obj.__dict__.iteritems():
@@ -581,7 +669,13 @@ def SetupClassFields(cls, done=None):
             field.default = f
             
         if field:
-            field.Parse(cls, name)
+            try:
+                field.Parse(cls, name)
+            except:
+                PrintWarning('Failed to parse field %s of class %s:\n' % (name, str(cls)))
+                traceback.print_exc()
+                continue
+                
             fields[name] = field
             if field.keyname:
                 keyfields[field.keyname.lower()] = field
