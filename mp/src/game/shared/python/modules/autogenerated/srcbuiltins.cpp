@@ -215,6 +215,81 @@ BOOST_PYTHON_MODULE(srcbuiltins){
             , (void ( ::SrcPyStdOut::* )( char const * ) )( &::SrcPyStdOut::write )
             , ( bp::arg("msg") ) );
 
+    { //::GetRegisteredPerFrameMethods
+    
+        typedef ::boost::python::list ( *GetRegisteredPerFrameMethods_function_type )(  );
+        
+        bp::def( 
+            "GetRegisteredPerFrameMethods"
+            , GetRegisteredPerFrameMethods_function_type( &::GetRegisteredPerFrameMethods ) );
+    
+    }
+
+    { //::GetRegisteredTickMethods
+    
+        typedef ::boost::python::list ( *GetRegisteredTickMethods_function_type )(  );
+        
+        bp::def( 
+            "GetRegisteredTickMethods"
+            , GetRegisteredTickMethods_function_type( &::GetRegisteredTickMethods ) );
+    
+    }
+
+    { //::IsPerFrameMethodRegistered
+    
+        typedef bool ( *IsPerFrameMethodRegistered_function_type )( ::boost::python::api::object );
+        
+        bp::def( 
+            "IsPerFrameMethodRegistered"
+            , IsPerFrameMethodRegistered_function_type( &::IsPerFrameMethodRegistered )
+            , ( bp::arg("method") ) );
+    
+    }
+
+    { //::IsTickMethodRegistered
+    
+        typedef bool ( *IsTickMethodRegistered_function_type )( ::boost::python::api::object );
+        
+        bp::def( 
+            "IsTickMethodRegistered"
+            , IsTickMethodRegistered_function_type( &::IsTickMethodRegistered )
+            , ( bp::arg("method") ) );
+    
+    }
+
+    { //::PyCOM_TimestampedLog
+    
+        typedef void ( *COM_TimestampedLog_function_type )( char const * );
+        
+        bp::def( 
+            "COM_TimestampedLog"
+            , COM_TimestampedLog_function_type( &::PyCOM_TimestampedLog )
+            , ( bp::arg("msg") ) );
+    
+    }
+
+    { //::RegisterPerFrameMethod
+    
+        typedef void ( *RegisterPerFrameMethod_function_type )( ::boost::python::api::object );
+        
+        bp::def( 
+            "RegisterPerFrameMethod"
+            , RegisterPerFrameMethod_function_type( &::RegisterPerFrameMethod )
+            , ( bp::arg("method") ) );
+    
+    }
+
+    { //::RegisterTickMethod
+    
+        typedef void ( *RegisterTickMethod_function_type )( ::boost::python::api::object,float,bool,bool );
+        
+        bp::def( 
+            "RegisterTickMethod"
+            , RegisterTickMethod_function_type( &::RegisterTickMethod )
+            , ( bp::arg("method"), bp::arg("ticksignal"), bp::arg("looped")=(bool)(true), bp::arg("userealtime")=(bool)(false) ) );
+    
+    }
+
     { //::SrcPyDevMsg
     
         typedef void ( *DevMsg_function_type )( int,char const * );
@@ -237,6 +312,28 @@ BOOST_PYTHON_MODULE(srcbuiltins){
     
     }
 
+    { //::SrcPyWarning
+    
+        typedef void ( *PrintWarning_function_type )( char const * );
+        
+        bp::def( 
+            "PrintWarning"
+            , PrintWarning_function_type( &::SrcPyWarning )
+            , ( bp::arg("msg") ) );
+    
+    }
+
+    { //::UnregisterPerFrameMethod
+    
+        typedef void ( *UnregisterPerFrameMethod_function_type )( ::boost::python::api::object );
+        
+        bp::def( 
+            "UnregisterPerFrameMethod"
+            , UnregisterPerFrameMethod_function_type( &::UnregisterPerFrameMethod )
+            , ( bp::arg("method") ) );
+    
+    }
+
     bp::to_python_converter<
 	string_t,
 	string_t_to_python_str>();
@@ -249,14 +346,14 @@ BOOST_PYTHON_MODULE(srcbuiltins){
 
     python_str_to_wchar_t();
 
-    { //::SrcPyWarning
+    { //::UnregisterTickMethod
     
-        typedef void ( *PrintWarning_function_type )( char const * );
+        typedef void ( *UnregisterTickMethod_function_type )( ::boost::python::api::object );
         
         bp::def( 
-            "PrintWarning"
-            , PrintWarning_function_type( &::SrcPyWarning )
-            , ( bp::arg("msg") ) );
+            "UnregisterTickMethod"
+            , UnregisterTickMethod_function_type( &::UnregisterTickMethod )
+            , ( bp::arg("method") ) );
     
     }
 }

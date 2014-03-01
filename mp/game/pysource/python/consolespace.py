@@ -5,12 +5,18 @@ Import anything here you want to be available by default in these commands.
 '''
 import os
 import sys
+from vmath import *
+from gameinterface import engine, ConVarRef
 from imp import reload
 
 from game.dispatch import receiver
 import entities
 from entities import entlist, CBasePlayer
 from utils import *
+if isclient:
+    from entities import ClientEntityList
+from gamerules import GameRules, gamerules
+from steam import steamapicontext
 
 # Set variables
 if isserver:

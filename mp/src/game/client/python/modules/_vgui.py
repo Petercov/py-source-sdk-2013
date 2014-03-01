@@ -52,7 +52,8 @@ class VGUI(ClientModuleGenerator):
         cls.include()
         cls.mem_funs().virtuality = 'not virtual' 
         cls.mem_funs('GetBorder').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
-        cls.mem_funs('GetBorderAtIndex').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+        if self.settings.branch == 'source2013':
+            cls.mem_funs('GetBorderAtIndex').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
 
         if self.settings.branch == 'swarm':
             cls.class_('fontalias_t').exclude()
@@ -77,7 +78,8 @@ class VGUI(ClientModuleGenerator):
         cls.mem_funs( 'GetPos' ).add_transformation( FT.output('x'), FT.output('y') )
         cls.mem_funs( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
         cls.mem_funs( 'GetAbsPos' ).add_transformation( FT.output('x'), FT.output('y') )
-        #cls.mem_funs( 'Plat' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        if self.settings.branch == 'swarm':
+            cls.mem_funs( 'Plat' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         cls.mem_funs( 'GetPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         
         mb.free_function('wrapipanel').include()

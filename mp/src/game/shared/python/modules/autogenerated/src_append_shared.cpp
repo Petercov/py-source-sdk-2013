@@ -13,6 +13,7 @@ using namespace boost::python;
 #ifdef _WIN32
 extern "C" __declspec(dllexport) PyObject* PyInit_srcbuiltins();
 extern "C" __declspec(dllexport) PyObject* PyInit__vmath();
+extern "C" __declspec(dllexport) PyObject* PyInit__filesystem();
 extern "C" __declspec(dllexport) PyObject* PyInit__animation();
 extern "C" __declspec(dllexport) PyObject* PyInit__entities();
 extern "C" __declspec(dllexport) PyObject* PyInit__entitiesmisc();
@@ -31,6 +32,7 @@ extern "C" __declspec(dllexport) PyObject* PyInit__srctests();
 #else
 extern "C"  PyObject* PyInit_srcbuiltins();
 extern "C"  PyObject* PyInit__vmath();
+extern "C"  PyObject* PyInit__filesystem();
 extern "C"  PyObject* PyInit__animation();
 extern "C"  PyObject* PyInit__entities();
 extern "C"  PyObject* PyInit__entitiesmisc();
@@ -53,6 +55,7 @@ void AppendSharedModules()
 {
 	APPEND_MODULE(srcbuiltins)
 	APPEND_MODULE(_vmath)
+	APPEND_MODULE(_filesystem)
 	APPEND_MODULE(_animation)
 	APPEND_MODULE(_entities)
 	APPEND_MODULE(_entitiesmisc)
