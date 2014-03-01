@@ -35,6 +35,7 @@ modules = [
     # Base
     ('srcbuiltins', 'SrcBuiltins'),
     ('_vmath', 'VMath'),
+    ('_filesystem', 'SrcFilesystem'),
     
     # Game
     ('_animation', 'Animation'),
