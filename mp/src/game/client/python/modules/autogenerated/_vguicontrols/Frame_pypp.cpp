@@ -815,6 +815,10 @@ struct Frame_wrapper : vgui::Frame, bp::wrapper< vgui::Frame > {
         vgui::Panel::OnContinueDragging(  );
     }
 
+    void OnCurrentDefaultButtonSet( ::vgui::VPANEL button ){
+        vgui::EditablePanel::OnCurrentDefaultButtonSet( button );
+    }
+
     virtual void OnCursorEntered(  ) {
         PY_OVERRIDE_CHECK( vgui::Panel, OnCursorEntered )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, OnCursorEntered )
@@ -872,27 +876,35 @@ struct Frame_wrapper : vgui::Frame, bp::wrapper< vgui::Frame > {
         vgui::Panel::OnCursorMoved( x, y );
     }
 
+    void OnDefaultButtonSet( ::vgui::VPANEL button ){
+        vgui::EditablePanel::OnDefaultButtonSet( button );
+    }
+
+    void OnFindDefaultButton(  ){
+        vgui::EditablePanel::OnFindDefaultButton(  );
+    }
+
     void OnFinishDragging( bool mousereleased, ::vgui::MouseCode code, bool aborted=false ){
         vgui::Panel::OnFinishDragging( mousereleased, code, aborted );
     }
 
     virtual void OnKeyCodePressed( ::vgui::KeyCode code ) {
-        PY_OVERRIDE_CHECK( vgui::Panel, OnKeyCodePressed )
-        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, OnKeyCodePressed )
+        PY_OVERRIDE_CHECK( vgui::EditablePanel, OnKeyCodePressed )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::EditablePanel, OnKeyCodePressed )
         bp::override func_OnKeyCodePressed = this->get_override( "OnKeyCodePressed" );
         if( func_OnKeyCodePressed.ptr() != Py_None )
             try {
                 func_OnKeyCodePressed( code );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                this->vgui::Panel::OnKeyCodePressed( code );
+                this->vgui::EditablePanel::OnKeyCodePressed( code );
             }
         else
-            this->vgui::Panel::OnKeyCodePressed( code );
+            this->vgui::EditablePanel::OnKeyCodePressed( code );
     }
     
     void default_OnKeyCodePressed( ::vgui::KeyCode code ) {
-        vgui::Panel::OnKeyCodePressed( code );
+        vgui::EditablePanel::OnKeyCodePressed( code );
     }
 
     virtual void OnKillFocus(  ) {
@@ -1028,61 +1040,61 @@ struct Frame_wrapper : vgui::Frame, bp::wrapper< vgui::Frame > {
         vgui::Panel::OnMouseWheeled( delta );
     }
 
-    virtual void OnRequestFocus( ::vgui::VPANEL subFocus, ::vgui::VPANEL defaultPanel ){
-        PY_OVERRIDE_CHECK( vgui::Panel, OnRequestFocus )
-        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, OnRequestFocus )
+    virtual void OnRequestFocus( ::vgui::VPANEL subFocus, ::vgui::VPANEL defaultPanel ) {
+        PY_OVERRIDE_CHECK( vgui::EditablePanel, OnRequestFocus )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::EditablePanel, OnRequestFocus )
         bp::override func_OnRequestFocus = this->get_override( "OnRequestFocus" );
         if( func_OnRequestFocus.ptr() != Py_None )
             try {
                 func_OnRequestFocus( subFocus, defaultPanel );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                this->vgui::Panel::OnRequestFocus( subFocus, defaultPanel );
+                this->vgui::EditablePanel::OnRequestFocus( subFocus, defaultPanel );
             }
         else
-            this->vgui::Panel::OnRequestFocus( subFocus, defaultPanel );
+            this->vgui::EditablePanel::OnRequestFocus( subFocus, defaultPanel );
     }
     
-    virtual void default_OnRequestFocus( ::vgui::VPANEL subFocus, ::vgui::VPANEL defaultPanel ){
-        vgui::Panel::OnRequestFocus( subFocus, defaultPanel );
+    void default_OnRequestFocus( ::vgui::VPANEL subFocus, ::vgui::VPANEL defaultPanel ) {
+        vgui::EditablePanel::OnRequestFocus( subFocus, defaultPanel );
     }
 
     virtual void OnSetFocus(  ) {
-        PY_OVERRIDE_CHECK( vgui::Panel, OnSetFocus )
-        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, OnSetFocus )
+        PY_OVERRIDE_CHECK( vgui::EditablePanel, OnSetFocus )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::EditablePanel, OnSetFocus )
         bp::override func_OnSetFocus = this->get_override( "OnSetFocus" );
         if( func_OnSetFocus.ptr() != Py_None )
             try {
                 func_OnSetFocus(  );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                this->vgui::Panel::OnSetFocus(  );
+                this->vgui::EditablePanel::OnSetFocus(  );
             }
         else
-            this->vgui::Panel::OnSetFocus(  );
+            this->vgui::EditablePanel::OnSetFocus(  );
     }
     
     void default_OnSetFocus(  ) {
-        vgui::Panel::OnSetFocus( );
+        vgui::EditablePanel::OnSetFocus( );
     }
 
-    virtual void OnSizeChanged( int newWide, int newTall ) {
-        PY_OVERRIDE_CHECK( vgui::Panel, OnSizeChanged )
-        PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, OnSizeChanged )
+    virtual void OnSizeChanged( int wide, int tall ){
+        PY_OVERRIDE_CHECK( vgui::EditablePanel, OnSizeChanged )
+        PY_OVERRIDE_LOG( _vguicontrols, vgui::EditablePanel, OnSizeChanged )
         bp::override func_OnSizeChanged = this->get_override( "OnSizeChanged" );
         if( func_OnSizeChanged.ptr() != Py_None )
             try {
-                func_OnSizeChanged( newWide, newTall );
+                func_OnSizeChanged( wide, tall );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                this->vgui::Panel::OnSizeChanged( newWide, newTall );
+                this->vgui::EditablePanel::OnSizeChanged( wide, tall );
             }
         else
-            this->vgui::Panel::OnSizeChanged( newWide, newTall );
+            this->vgui::EditablePanel::OnSizeChanged( wide, tall );
     }
     
-    void default_OnSizeChanged( int newWide, int newTall ) {
-        vgui::Panel::OnSizeChanged( newWide, newTall );
+    virtual void default_OnSizeChanged( int wide, int tall ){
+        vgui::EditablePanel::OnSizeChanged( wide, tall );
     }
 
     void OnStartDragging(  ){
@@ -1796,6 +1808,10 @@ void register_Frame_class(){
             "OnContinueDragging"
             , (void ( Frame_wrapper::* )(  ) )(&Frame_wrapper::OnContinueDragging) )    
         .def( 
+            "OnCurrentDefaultButtonSet"
+            , (void ( Frame_wrapper::* )( ::vgui::VPANEL ) )(&Frame_wrapper::OnCurrentDefaultButtonSet)
+            , ( bp::arg("button") ) )    
+        .def( 
             "OnCursorEntered"
             , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::OnCursorEntered)
             , (void ( Frame_wrapper::* )(  ) )(&Frame_wrapper::default_OnCursorEntered) )    
@@ -1809,12 +1825,19 @@ void register_Frame_class(){
             , (void ( Frame_wrapper::* )( int,int ) )(&Frame_wrapper::default_OnCursorMoved)
             , ( bp::arg("x"), bp::arg("y") ) )    
         .def( 
+            "OnDefaultButtonSet"
+            , (void ( Frame_wrapper::* )( ::vgui::VPANEL ) )(&Frame_wrapper::OnDefaultButtonSet)
+            , ( bp::arg("button") ) )    
+        .def( 
+            "OnFindDefaultButton"
+            , (void ( Frame_wrapper::* )(  ) )(&Frame_wrapper::OnFindDefaultButton) )    
+        .def( 
             "OnFinishDragging"
             , (void ( Frame_wrapper::* )( bool,::vgui::MouseCode,bool ) )(&Frame_wrapper::OnFinishDragging)
             , ( bp::arg("mousereleased"), bp::arg("code"), bp::arg("aborted")=(bool)(false) ) )    
         .def( 
             "OnKeyCodePressed"
-            , (void ( ::vgui::Panel::* )( ::vgui::KeyCode ) )(&::vgui::Panel::OnKeyCodePressed)
+            , (void ( ::vgui::EditablePanel::* )( ::vgui::KeyCode ) )(&::vgui::EditablePanel::OnKeyCodePressed)
             , (void ( Frame_wrapper::* )( ::vgui::KeyCode ) )(&Frame_wrapper::default_OnKeyCodePressed)
             , ( bp::arg("code") ) )    
         .def( 
@@ -1851,17 +1874,17 @@ void register_Frame_class(){
             , ( bp::arg("delta") ) )    
         .def( 
             "OnRequestFocus"
+            , (void ( ::vgui::EditablePanel::* )( ::vgui::VPANEL,::vgui::VPANEL ) )(&::vgui::EditablePanel::OnRequestFocus)
             , (void ( Frame_wrapper::* )( ::vgui::VPANEL,::vgui::VPANEL ) )(&Frame_wrapper::default_OnRequestFocus)
             , ( bp::arg("subFocus"), bp::arg("defaultPanel") ) )    
         .def( 
             "OnSetFocus"
-            , (void ( ::vgui::Panel::* )(  ) )(&::vgui::Panel::OnSetFocus)
+            , (void ( ::vgui::EditablePanel::* )(  ) )(&::vgui::EditablePanel::OnSetFocus)
             , (void ( Frame_wrapper::* )(  ) )(&Frame_wrapper::default_OnSetFocus) )    
         .def( 
             "OnSizeChanged"
-            , (void ( ::vgui::Panel::* )( int,int ) )(&::vgui::Panel::OnSizeChanged)
             , (void ( Frame_wrapper::* )( int,int ) )(&Frame_wrapper::default_OnSizeChanged)
-            , ( bp::arg("newWide"), bp::arg("newTall") ) )    
+            , ( bp::arg("wide"), bp::arg("tall") ) )    
         .def( 
             "OnStartDragging"
             , (void ( Frame_wrapper::* )(  ) )(&Frame_wrapper::OnStartDragging) )    

@@ -2961,7 +2961,7 @@ struct IEntityFindFilter_wrapper : IEntityFindFilter, bp::wrapper< IEntityFindFi
     virtual bool ShouldFindEntity( ::CBaseEntity * pEntity ){
         bp::override func_ShouldFindEntity = this->get_override( "ShouldFindEntity" );
         try {
-            return func_ShouldFindEntity( boost::python::ptr(pEntity) );
+            return func_ShouldFindEntity( pEntity ? pEntity->GetPyHandle() : boost::python::object() );
         } catch(bp::error_already_set &) {
             throw boost::python::error_already_set();
         }
@@ -3040,7 +3040,7 @@ struct CPythonSendProxyBase_wrapper : CPythonSendProxyBase, bp::wrapper< CPython
         bp::override func_ShouldSend = this->get_override( "ShouldSend" );
         if( func_ShouldSend.ptr() != Py_None )
             try {
-                return func_ShouldSend( boost::python::ptr(pEnt), iClient );
+                return func_ShouldSend( pEnt ? pEnt->GetPyHandle() : boost::python::object(), iClient );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CPythonSendProxyBase::ShouldSend( pEnt, iClient );

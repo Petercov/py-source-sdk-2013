@@ -87,18 +87,6 @@ void UTIL_PySetModel( CBaseEntity *pEntity, const char *pModelName )
 }
 #endif // CLIENT_DLL
 
-#if 0 // TODO
-int UTIL_GetModuleIndex( const char *module )
-{
-	return SrcPySystem()->GetModuleIndex(module);
-}
-
-const char *UTIL_GetModuleNameFromIndex( int index )
-{
-	return SrcPySystem()->GetModuleNameFromIndex(index);
-}
-#endif // 0
-
 boost::python::list UTIL_ListDir( const char *pPath, const char *pPathID, const char *pWildCard )
 {
 	if( !pPath || !pWildCard )

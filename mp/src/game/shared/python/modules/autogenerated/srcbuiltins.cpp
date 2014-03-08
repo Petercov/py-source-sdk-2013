@@ -346,6 +346,10 @@ BOOST_PYTHON_MODULE(srcbuiltins){
 
     python_str_to_wchar_t();
 
+    #if PY_VERSION_HEX < 0x03000000
+	python_unicode_to_ptr_const_wchar_t();
+	#endif \ PY_VERSION_HEX
+
     { //::UnregisterTickMethod
     
         typedef void ( *UnregisterTickMethod_function_type )( ::boost::python::api::object );

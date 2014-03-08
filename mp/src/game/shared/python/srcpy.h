@@ -1,4 +1,4 @@
-//====== Copyright � Sandern Corporation, All rights reserved. ===========//
+//====== Copyright © Sandern Corporation, All rights reserved. ===========//
 //
 // Purpose: 
 //
@@ -82,7 +82,6 @@ extern boost::python::object _entitiesmisc;
 extern boost::python::object _entities;
 extern boost::python::object _particles;
 extern boost::python::object _physics;
-//extern boost::python::object matchmaking;
 
 #ifdef CLIENT_DLL
 	extern boost::python::object _vguicontrols;
@@ -257,11 +256,6 @@ public:
 	void					GarbageCollect();
 	void					SysAppendPath( const char* path, bool inclsubdirs = false );
 	boost::python::object	CreateWeakRef( boost::python::object obj_ref );
-
-#if 0 // TODO: Still used?
-	int						GetModuleIndex( const char *pModule );
-	const char *			GetModuleNameFromIndex( int nModuleIndex );
-#endif // 0
 
 	void					CallSignalNoArgs( boost::python::object signal );
 	void					CallSignal( boost::python::object signal, boost::python::dict kwargs );

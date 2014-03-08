@@ -286,23 +286,12 @@ class EntitiesMisc(SemiSharedModuleGenerator):
                                 '   return inst.pEntities[index] ? inst.pEntities[index]->GetPyHandle() : bp::object();\r\n' + \
                                 '}\r\n' )
         cls.add_registration_code( 'def("GetEnt", &::gamevcollisionevent_t_wrapper::GetEnt)')
-
-        # TODO: Speech
-        '''if self.settings.branch != 'swarm':
-            cls = mb.class_('CAI_Expresser')
-            cls.include()
-            cls.calldefs().virtuality = 'not virtual'  
-            cls.mem_funs('GetOuter').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-            cls.mem_funs('GetMySpeechSemaphore').exclude()
-            cls.mem_funs('GetSink').exclude()
-            cls.mem_funs('SpeakFindResponse').exclude() # Allocates new response, but does not guarantee it gets cleaned up.
-        '''
             
     def ParseMisc(self, mb):
         if self.isserver:
             # Sky camera
             mb.free_function('GetCurrentSkyCamera').include()
-            mb.free_function('GetCurrentSkyCamera').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
+            mb.free_function('GetCurrentSkyCamera').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
         # CTakeDamageInfo
         cls = mb.class_('CTakeDamageInfo')
@@ -344,7 +333,7 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         cls.var('m_pAdditionalIgnoreEnt').rename('additionalignoreent')
         cls.var('m_bPrimaryAttack').rename('primaryattack')
         cls.var('m_flDamage').rename('damage')
-        cls.var('m_iPlayerDamage').rename('playerdamage')
+        cls.var('m_iPlayerDamage' if self.settings.branch == 'source2013' else 'm_flPlayerDamage').rename('playerdamage')
         
         # CShotManipulator
         cls = mb.class_('CShotManipulator')
@@ -366,11 +355,12 @@ class EntitiesMisc(SemiSharedModuleGenerator):
             # //--------------------------------------------------------------------------------------------------------------------------------
             # Ragdoll stuff
             mb.free_function('CreateServerRagdoll').include()
-            mb.free_function('CreateServerRagdoll').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
-            # TODO
-            #mb.free_function('PyCreateServerRagdollAttached').include()
-            #mb.free_function('PyCreateServerRagdollAttached').rename('CreateServerRagdollAttached')
-            #mb.free_function('PyCreateServerRagdollAttached').call_policies = call_policies.return_value_policy( call_policies.return_by_value )
+            mb.free_function('CreateServerRagdoll').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+
+            if self.settings.branch == 'swarm':
+                mb.free_function('PyCreateServerRagdollAttached').include()
+                mb.free_function('PyCreateServerRagdollAttached').rename('CreateServerRagdollAttached')
+                mb.free_function('PyCreateServerRagdollAttached').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
             mb.free_function('DetachAttachedRagdoll').include()
             mb.free_function('DetachAttachedRagdollsForEntity').include()
         
@@ -490,4 +480,7 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         else:
             self.ParseServerEntityRelated(mb)
         self.ParseMisc(mb)
+        
+        # Finally apply common rules to all includes functions and classes, etc.
+        self.ApplyCommonRules(mb)
         

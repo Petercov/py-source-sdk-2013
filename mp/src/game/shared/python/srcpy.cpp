@@ -1,4 +1,4 @@
-//====== Copyright @ Sandern Corporation, All rights reserved. ===========//
+//====== Copyright © Sandern Corporation, All rights reserved. ===========//
 //
 // Purpose:
 //
@@ -421,8 +421,6 @@ bool CSrcPython::InitInterpreter( void )
 	_entities = Import("_entities");
 	_particles = Import("_particles");
 	Import("_utils"); // Register after _entitiesmisc
-	
-	// TODO: matchmaking = Import("matchmaking");
 #ifdef CLIENT_DLL
 	Run( "import input" );		// Registers buttons
 	_vguicontrols = Import("_vguicontrols");
@@ -499,7 +497,6 @@ bool CSrcPython::ShutdownInterpreter( void )
 	_entities = bp::object();
 	_particles = bp::object();
 	_physics = bp::object();
-	//matchmaking = bp::object();
 #ifdef CLIENT_DLL
 	_vguicontrols = bp::object();
 #endif // CLIENT_DLL
@@ -1226,36 +1223,6 @@ void CSrcPython::ExecuteAllScriptsInPath( const char *pPath )
 	filesystem->FindClose( findHandle );
 }
 
-#if 0 // TODO: Still used?
-//-----------------------------------------------------------------------------
-// Purpose: Identifier between server and client
-//-----------------------------------------------------------------------------
-int CSrcPython::GetModuleIndex( const char *pModule )
-{
-	if ( pModule )
-	{
-		int nIndex = g_pStringTablePyModules->FindStringIndex( pModule );
-		if (nIndex != INVALID_STRING_INDEX ) 
-			return nIndex;
-
-		return g_pStringTablePyModules->AddString( CBaseEntity::IsServer(), pModule );
-	}
-
-	// This is the invalid string index
-	return INVALID_STRING_INDEX;
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-//-----------------------------------------------------------------------------
-const char * CSrcPython::GetModuleNameFromIndex( int nModuleIndex )
-{
-	if ( nModuleIndex >= 0 && nModuleIndex < g_pStringTablePyModules->GetMaxStrings() )
-		return g_pStringTablePyModules->GetString( nModuleIndex );
-	return "error";
-}
-#endif // 0
-
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -1281,7 +1248,9 @@ void CSrcPython::CallSignal( bp::object signal, bp::dict kwargs )
 {
 	try 
 	{
-		game.attr("signals").attr("_CallSignal")( bp::object(signal.attr("send_robust")), kwargs );
+		game.attr("signals").attr("_CallSignal")( 
+			bp::object(signal.attr("send_robust")), kwargs 
+		);
 	} 
 	catch( bp::error_already_set & ) 
 	{

@@ -8,7 +8,7 @@ from srcpy.matchers import calldef_withtypes
 
 class Utils(SemiSharedModuleGenerator):
     module_name = '_utils'
-    
+
     files = [
         'cbase.h',
         'srcpy_util.h',

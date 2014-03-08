@@ -261,7 +261,7 @@ class VGUIControls(ClientModuleGenerator):
         cls.include()
         cls.calldefs().virtuality = 'not virtual' 
         cls.mem_funs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
-        cls.calldefs('SetText', calldef_withtypes([pointer_t(const_t(declarated_t(wchar_t())))])).exclude()
+        #cls.calldefs('SetText', calldef_withtypes([pointer_t(const_t(declarated_t(wchar_t())))])).exclude()
         cls.mem_funs( 'GetContentSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
         cls.mem_funs( 'GetDrawWidth' ).add_transformation( FT.output('width') )
         cls.mem_funs( 'SizeText' ).exclude()     # DECLARATION ONLY
@@ -284,7 +284,8 @@ class VGUIControls(ClientModuleGenerator):
         cls = mb.class_('BitmapImage')
         cls.include()
         cls.calldefs().virtuality = 'not virtual' 
-        cls.mem_fun('SetBitmap').exclude()
+        if self.settings.branch == 'source2013':
+            cls.mem_fun('SetBitmap').exclude()
         #cls.mem_funs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
         
         cls.calldefs('GetColor', calldef_withtypes([reference_t(declarated_t(int_t()))])).add_transformation(FT.output('r'), FT.output('g'), FT.output('b'), FT.output('a'))
@@ -320,6 +321,7 @@ class VGUIControls(ClientModuleGenerator):
 
             # Include everything by default
             cls.include()
+            cls.no_init = False
             
             # Be selective about we need to override
             cls.mem_funs().virtuality = 'not virtual' 
@@ -536,7 +538,8 @@ class VGUIControls(ClientModuleGenerator):
         mb.vars('m_PanelMap').exclude()
         mb.vars('m_MessageMap').exclude()
         mb.mem_funs('GetPanelMap').exclude()
-        mb.mem_funs('GetChildren').exclude()
+        if self.settings.branch == 'source2013':
+            mb.mem_funs('GetChildren').exclude()
        
         # Must use return_by_value. Then the converter will be used to wrap the vgui element in a safe handle
         mb.mem_funs( 'GetChild' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
@@ -589,9 +592,19 @@ class VGUIControls(ClientModuleGenerator):
             cls.include()
         
     def ParseEditablePanel(self, mb):
-        self.IncludeEmptyClass(mb, 'EditablePanel')
-        mb.mem_funs('LoadControlSettings').include()
-        mb.mem_funs('ActivateBuildMode').include()
+        focusnavgroup = mb.class_('FocusNavGroup')
+        buildgroup = mb.class_('BuildGroup')
+        excludetypes = [
+            pointer_t(const_t(declarated_t(focusnavgroup))),
+            pointer_t(declarated_t(focusnavgroup)),
+            reference_t(declarated_t(focusnavgroup)),
+            pointer_t(const_t(declarated_t(buildgroup))),
+            pointer_t(declarated_t(buildgroup)),
+            reference_t(declarated_t(buildgroup)),
+        ]
+        mb.calldefs(calldef_withtypes(excludetypes), allow_empty=True).exclude()
+        
+        mb.mem_funs( 'GetDialogVariables' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
     def ParseFrame(self, mb):
         # List of overridables
