@@ -467,7 +467,7 @@ void __MsgFunc_PyMessage( bf_read &msg )
 		}
 	}
 
-	SrcPySystem()->Run<const char *, boost::python::object>( SrcPySystem()->Get("_DispatchMessage", "game.usermessages", true ), messagename, recvlist );
+	SrcPySystem()->Run<const char *, boost::python::object>( SrcPySystem()->Get("_DispatchMessage", "core.usermessages", true ), messagename, recvlist );
 }
 
 // register message handler once

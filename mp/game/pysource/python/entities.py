@@ -1,6 +1,6 @@
 from _entitiesmisc import *
 from _entities import *
-from game.fields import SetupClassFields, SetupInputMethods
+from core.fields import SetupClassFields, SetupInputMethods
 
 # Lists of all entity classes
 if isclient:

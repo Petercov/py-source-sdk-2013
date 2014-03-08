@@ -6,8 +6,8 @@ In case of entities we can use them to define keyvalues or add save/restore func
 """
 from srcbuiltins import Color
 from vmath import Vector, QAngle
-from game.dispatch import receiver
-from game.signals import postlevelshutdown
+from core.dispatch import receiver
+from core.signals import postlevelshutdown
 from utils import UTIL_StringToVector, UTIL_StringToAngle, UTIL_StringToColor
 from . networkvar import NetworkVar, NetworkArray, NetworkDict, NetworkDefaultDict, NetworkVarProp
 from _entitiesmisc import _fieldtypes as fieldtypes

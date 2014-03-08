@@ -226,6 +226,7 @@ public:
 
 	bool					InitInterpreter( void );
 	bool					ShutdownInterpreter( void );
+	void					PostInterpreterInit( void );
 
 	bool					IsPythonRunning();
 	bool					IsPythonFinalizing(); // Special case

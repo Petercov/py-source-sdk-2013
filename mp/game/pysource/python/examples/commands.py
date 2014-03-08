@@ -2,7 +2,7 @@ from vmath import Vector, QAngle, AngleVectors
 from gameinterface import concommand, engine
 from entities import CreateEntityByName, DispatchSpawn, eventqueue, variant_t, entlist
 from utils import UTIL_GetCommandClient, UTIL_RemoveImmediate
-from game.usermessages import CReliableSingleUserRecipientFilter
+from core.usermessages import CReliableSingleUserRecipientFilter
 
 import traceback
 

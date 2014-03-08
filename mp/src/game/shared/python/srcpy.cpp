@@ -78,7 +78,7 @@ bp::object builtins;
 bp::object types;
 bp::object sys;
 
-bp::object game;
+bp::object core;
 
 bp::object weakref;
 bp::object srcbuiltins;
@@ -426,7 +426,7 @@ bool CSrcPython::InitInterpreter( void )
 	_vguicontrols = Import("_vguicontrols");
 #endif	// CLIENT_DLL
 
-	game = Import("game");
+	core = Import("core");
 
 	// For spy/cpy commands
 	consolespace = Import("consolespace");
@@ -501,7 +501,7 @@ bool CSrcPython::ShutdownInterpreter( void )
 	_vguicontrols = bp::object();
 #endif // CLIENT_DLL
 
-	game = bp::object();
+	core = bp::object();
 
 	fntype = bp::object();
 
@@ -542,6 +542,14 @@ void CSrcPython::PostInit()
 	HookPyNetworkVar();
 #endif // CLIENT_DLL
 
+	PostInterpreterInit();
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CSrcPython::PostInterpreterInit( void )
+{
 	// Autorun once
 	ExecuteAllScriptsInPath("python/autorun_once/");
 }
@@ -579,6 +587,8 @@ bool CSrcPython::CheckVSPTInterpreter()
 	Msg("\n\n=======================================\n");
 	Msg("Running in PySource Interpreter mode...\n");
 	Msg("=======================================\n");
+
+	Msg( "Pre-modified Command: %s\n", CommandLine()->GetCmdLine() );
 
 	// "-insecure" is added at the back. Remove it, so we can just take the remainder
 	// after "-interpreter" argument.
@@ -756,8 +766,8 @@ void CSrcPython::LevelInitPreEntity()
 	// Send prelevelinit signal
 	try 
 	{
-		CallSignalNoArgs( Get("prelevelinit", "game.signals", true) );
-		CallSignalNoArgs( Get("map_prelevelinit", "game.signals", true)[STRING(m_LevelName)] );
+		CallSignalNoArgs( Get("prelevelinit", "core.signals", true) );
+		CallSignalNoArgs( Get("map_prelevelinit", "core.signals", true)[STRING(m_LevelName)] );
 	} 
 	catch( bp::error_already_set & ) 
 	{
@@ -777,8 +787,8 @@ void CSrcPython::LevelInitPostEntity()
 	// Send postlevelinit signal
 	try 
 	{
-		CallSignalNoArgs( Get("postlevelinit", "game.signals", true) );
-		CallSignalNoArgs( Get("map_postlevelinit", "game.signals", true)[STRING(m_LevelName)] );
+		CallSignalNoArgs( Get("postlevelinit", "core.signals", true) );
+		CallSignalNoArgs( Get("map_postlevelinit", "core.signals", true)[STRING(m_LevelName)] );
 	} 
 	catch( bp::error_already_set & ) 
 	{
@@ -798,8 +808,8 @@ void CSrcPython::LevelShutdownPreEntity()
 	// Send prelevelshutdown signal
 	try 
 	{
-		CallSignalNoArgs( Get("prelevelshutdown", "game.signals", true) );
-		CallSignalNoArgs( Get("map_prelevelshutdown", "game.signals", true)[STRING(m_LevelName)] );
+		CallSignalNoArgs( Get("prelevelshutdown", "core.signals", true) );
+		CallSignalNoArgs( Get("map_prelevelshutdown", "core.signals", true)[STRING(m_LevelName)] );
 	} 
 	catch( bp::error_already_set & ) 
 	{
@@ -824,8 +834,8 @@ void CSrcPython::LevelShutdownPostEntity()
 	// Send postlevelshutdown signal
 	try 
 	{
-		CallSignalNoArgs( Get("postlevelshutdown", "game.signals", true) );
-		CallSignalNoArgs( Get("map_postlevelshutdown", "game.signals", true)[STRING(m_LevelName)] );
+		CallSignalNoArgs( Get("postlevelshutdown", "core.signals", true) );
+		CallSignalNoArgs( Get("map_postlevelshutdown", "core.signals", true)[STRING(m_LevelName)] );
 	} 
 	catch( bp::error_already_set & ) 
 	{
@@ -1230,7 +1240,7 @@ void CSrcPython::CallSignalNoArgs( bp::object signal )
 {
 	try 
 	{
-		game.attr("signals").attr("_CheckReponses")( 
+		core.attr("signals").attr("_CheckReponses")( 
 			signal.attr("send_robust")( bp::object() )
 		);
 	} 
@@ -1248,7 +1258,7 @@ void CSrcPython::CallSignal( bp::object signal, bp::dict kwargs )
 {
 	try 
 	{
-		game.attr("signals").attr("_CallSignal")( 
+		core.attr("signals").attr("_CallSignal")( 
 			bp::object(signal.attr("send_robust")), kwargs 
 		);
 	} 
@@ -1505,6 +1515,7 @@ CON_COMMAND_F( cl_py_restart, "Restarts the Python interpreter on the Client", F
 #endif // CLIENT_DLL
 	g_SrcPythonSystem.ShutdownInterpreter();
 	g_SrcPythonSystem.InitInterpreter();
+	g_SrcPythonSystem.PostInterpreterInit();
 }
 
 //-----------------------------------------------------------------------------

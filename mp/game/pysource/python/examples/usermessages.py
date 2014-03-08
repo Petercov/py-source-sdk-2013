@@ -1,4 +1,4 @@
-from game.usermessages import usermessage, usermessage_shared
+from core.usermessages import usermessage, usermessage_shared
 
 # The decorator usermessage turns a method into a usermessage method
 # Calling this on the server will result in the method being called on client(s)

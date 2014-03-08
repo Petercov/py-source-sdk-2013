@@ -1,5 +1,5 @@
 from entities import CBaseEntity, entity
-from game.fields import IntegerField, DictField
+from core.fields import IntegerField, DictField
 
 if isserver:
     from entities import FL_EDICT_ALWAYS

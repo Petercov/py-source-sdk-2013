@@ -137,10 +137,10 @@ void ClientActive( edict_t *pEdict, bool bLoadGame )
 			boost::python::dict kwargs;
 			kwargs["sender"] = boost::python::object();
 			kwargs["client"] = pPlayer->GetPyHandle();
-			boost::python::object signal = SrcPySystem()->Get( "clientactive", "game.signals", true );
+			boost::python::object signal = SrcPySystem()->Get( "clientactive", "core.signals", true );
 			SrcPySystem()->CallSignal( signal, kwargs );
 
-			signal = SrcPySystem()->Get( "map_clientactive", "game.signals", true )[pLevelName];
+			signal = SrcPySystem()->Get( "map_clientactive", "core.signals", true )[pLevelName];
 			SrcPySystem()->CallSignal( signal, kwargs );
 		} 
 		catch( boost::python::error_already_set & ) 

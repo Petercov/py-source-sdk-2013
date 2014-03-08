@@ -1,7 +1,7 @@
 from vmath import Vector, QAngle, vec3_origin, VectorAngles, RandomVector
 from entities import CBaseEntity, CLogicalEntity, CBaseAnimating, CBaseTrigger, entity, SOLID_BBOX, SOLID_VPHYSICS, MOVETYPE_FLY, MOVETYPE_PUSH, MOVETYPE_NONE
 from utils import UTIL_SetSize
-from game.fields import IntegerField, BooleanField, FloatField, OutputField, input
+from core.fields import IntegerField, BooleanField, FloatField, OutputField, input
 
 import random
 

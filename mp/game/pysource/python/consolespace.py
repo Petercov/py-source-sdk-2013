@@ -9,7 +9,7 @@ from vmath import *
 from gameinterface import engine, ConVarRef
 from imp import reload
 
-from game.dispatch import receiver
+from core.dispatch import receiver
 import entities
 from entities import entlist, CBasePlayer
 from utils import *
@@ -20,7 +20,7 @@ from steam import steamapicontext
 
 # Set variables
 if isserver:
-    from game.signals import clientactive
+    from core.signals import clientactive
     @receiver(clientactive)
     def __ClientActive(sender, client, **kwargs):
         global player
@@ -28,7 +28,7 @@ if isserver:
             player = client
             
 else:
-    from game.signals import postlevelinit
+    from core.signals import postlevelinit
     @receiver(postlevelinit)
     def LevelInit(sender, **kwargs): 
         global player

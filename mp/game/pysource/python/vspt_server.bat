@@ -17,4 +17,4 @@ echo %GAMEDIR%
 SET GAMEEXE="%STEAMDIR%\steamapps\common\Source SDK Base 2013 Multiplayer\hl2.exe"
 
 :: Launch in text mode with the -interpreter option (must be at the back)
-%GAMEEXE% -dev -textmode -game %GAMEDIR% -interpreter %*
+%GAMEEXE% -dev -textmode -sw -noborder -game %GAMEDIR% -interpreter %*
