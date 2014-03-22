@@ -7,7 +7,9 @@ def run_vspt_debug(commandline):
     args = shlex.split(commandline)
     
     launcherfilepath = args[0]
-    sys.path.append(os.path.dirname(launcherfilepath))
+    vsptpath = os.path.dirname(launcherfilepath)
+    if vsptpath not in sys.path:
+        sys.path.append(vsptpath)
     
     port_num = int(args[2])
     debug_id = args[3]
