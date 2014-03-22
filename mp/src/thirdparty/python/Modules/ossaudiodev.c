@@ -115,7 +115,9 @@ newossobject(PyObject *arg)
        one open at a time.  This does *not* affect later I/O; OSS
        provides a special ioctl() for non-blocking read/write, which is
        exposed via oss_nonblock() below. */
-    if ((fd = open(devicename, imode|O_NONBLOCK)) == -1) {
+    fd = _Py_open(devicename, imode|O_NONBLOCK);
+
+    if (fd == -1) {
         PyErr_SetFromErrnoWithFilename(PyExc_IOError, devicename);
         return NULL;
     }
@@ -177,7 +179,8 @@ newossmixerobject(PyObject *arg)
             devicename = "/dev/mixer";
     }
 
-    if ((fd = open(devicename, O_RDWR)) == -1) {
+    fd = _Py_open(devicename, O_RDWR);
+    if (fd == -1) {
         PyErr_SetFromErrnoWithFilename(PyExc_IOError, devicename);
         return NULL;
     }
@@ -245,7 +248,7 @@ _do_ioctl_1(int fd, PyObject *args, char *fname, int cmd)
     int arg;
 
     assert(strlen(fname) <= 30);
-    strcat(argfmt, fname);
+    strncat(argfmt, fname, 30);
     if (!PyArg_ParseTuple(args, argfmt, &arg))
         return NULL;
 
@@ -270,7 +273,7 @@ _do_ioctl_1_internal(int fd, PyObject *args, char *fname, int cmd)
     int arg = 0;
 
     assert(strlen(fname) <= 30);
-    strcat(argfmt, fname);
+    strncat(argfmt, fname, 30);
     if (!PyArg_ParseTuple(args, argfmt, &arg))
         return NULL;
 
@@ -290,7 +293,7 @@ _do_ioctl_0(int fd, PyObject *args, char *fname, int cmd)
     int rv;
 
     assert(strlen(fname) <= 30);
-    strcat(argfmt, fname);
+    strncat(argfmt, fname, 30);
     if (!PyArg_ParseTuple(args, argfmt))
         return NULL;
 
@@ -561,7 +564,6 @@ oss_setparameters(oss_audio_t *self, PyObject *args)
 {
     int wanted_fmt, wanted_channels, wanted_rate, strict=0;
     int fmt, channels, rate;
-    PyObject * rv;                    /* return tuple (fmt, channels, rate) */
 
     if (!_is_fd_valid(self->fd))
         return NULL;
@@ -606,13 +608,7 @@ oss_setparameters(oss_audio_t *self, PyObject *args)
 
     /* Construct the return value: a (fmt, channels, rate) tuple that
        tells what the audio hardware was actually set to. */
-    rv = PyTuple_New(3);
-    if (rv == NULL)
-        return NULL;
-    PyTuple_SET_ITEM(rv, 0, PyLong_FromLong(fmt));
-    PyTuple_SET_ITEM(rv, 1, PyLong_FromLong(channels));
-    PyTuple_SET_ITEM(rv, 2, PyLong_FromLong(rate));
-    return rv;
+    return Py_BuildValue("(iii)", fmt, channels, rate);
 }
 
 static int

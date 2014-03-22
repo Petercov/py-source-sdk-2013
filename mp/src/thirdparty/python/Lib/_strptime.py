@@ -21,7 +21,7 @@ from datetime import (date as datetime_date,
                       timezone as datetime_timezone)
 try:
     from _thread import allocate_lock as _thread_allocate_lock
-except:
+except ImportError:
     from _dummy_thread import allocate_lock as _thread_allocate_lock
 
 __all__ = []
@@ -329,7 +329,7 @@ def _strptime(data_string, format="%a %b %d %H:%M:%S %Y"):
                                     (bad_directive, format)) from None
             # IndexError only occurs when the format string is "%"
             except IndexError:
-                raise ValueError("stray %% in format '%s'" % format)
+                raise ValueError("stray %% in format '%s'" % format) from None
             _regex_cache[format] = format_regex
     found = format_regex.match(data_string)
     if not found:

@@ -342,7 +342,7 @@ $Project "Server (PySource)"
 	$Folder	"Link Libraries"
 	{
 		$Lib	"$LIBPUBLIC\boost_python"
-		$Lib	"$LIBPUBLIC\python33" [$WIN32]
+		$Lib	"$LIBPUBLIC\python34" [$WIN32]
 		$Lib	"$LIBPUBLIC\libpython3.3m" [$POSIX]
 	}
 }

@@ -198,6 +198,10 @@ class TimeTestCase(unittest.TestCase):
         with self.assertRaises(ValueError) as e:
             time.strptime('', '%D')
         self.assertIs(e.exception.__suppress_context__, True)
+        # additional check for IndexError branch (issue #19545)
+        with self.assertRaises(ValueError) as e:
+            time.strptime('19', '%Y %')
+        self.assertIs(e.exception.__suppress_context__, True)
 
     def test_asctime(self):
         time.asctime(time.gmtime(self.t))
@@ -367,13 +371,23 @@ class TimeTestCase(unittest.TestCase):
     @unittest.skipUnless(hasattr(time, 'monotonic'),
                          'need time.monotonic')
     def test_monotonic(self):
+        # monotonic() should not go backward
+        times = [time.monotonic() for n in range(100)]
+        t1 = times[0]
+        for t2 in times[1:]:
+            self.assertGreaterEqual(t2, t1, "times=%s" % times)
+            t1 = t2
+
+        # monotonic() includes time elapsed during a sleep
         t1 = time.monotonic()
         time.sleep(0.5)
         t2 = time.monotonic()
         dt = t2 - t1
         self.assertGreater(t2, t1)
-        self.assertAlmostEqual(dt, 0.5, delta=0.2)
+        # Issue #20101: On some Windows machines, dt may be slightly low
+        self.assertTrue(0.45 <= dt <= 1.0, dt)
 
+        # monotonic() is a monotonic but non adjustable clock
         info = time.get_clock_info('monotonic')
         self.assertTrue(info.monotonic)
         self.assertFalse(info.adjustable)
@@ -459,8 +473,7 @@ class TestLocale(unittest.TestCase):
         try:
             tmp = locale.setlocale(locale.LC_ALL, "fr_FR")
         except locale.Error:
-            # skip this test
-            return
+            self.skipTest('could not set locale.LC_ALL to fr_FR')
         # This should not cause an exception
         time.strftime("%B", (2009,2,1,0,0,0,0,0,0))
 
@@ -569,6 +582,7 @@ class TestPytime(unittest.TestCase):
             -(2.0 ** 100.0), 2.0 ** 100.0,
         )
 
+    @support.cpython_only
     def test_time_t(self):
         from _testcapi import pytime_object_to_time_t
         for obj, time_t in (
@@ -584,6 +598,7 @@ class TestPytime(unittest.TestCase):
         for invalid in self.invalid_values:
             self.assertRaises(OverflowError, pytime_object_to_time_t, invalid)
 
+    @support.cpython_only
     def test_timeval(self):
         from _testcapi import pytime_object_to_timeval
         for obj, timeval in (
@@ -603,6 +618,7 @@ class TestPytime(unittest.TestCase):
         for invalid in self.invalid_values:
             self.assertRaises(OverflowError, pytime_object_to_timeval, invalid)
 
+    @support.cpython_only
     def test_timespec(self):
         from _testcapi import pytime_object_to_timespec
         for obj, timespec in (

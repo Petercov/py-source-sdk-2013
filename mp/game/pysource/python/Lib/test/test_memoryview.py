@@ -57,7 +57,7 @@ class AbstractMemoryTests:
 
     def test_setitem_readonly(self):
         if not self.ro_type:
-            return
+            self.skipTest("no read-only type to test")
         b = self.ro_type(self._source)
         oldrefcount = sys.getrefcount(b)
         m = self._view(b)
@@ -71,7 +71,7 @@ class AbstractMemoryTests:
 
     def test_setitem_writable(self):
         if not self.rw_type:
-            return
+            self.skipTest("no writable type to test")
         tp = self.rw_type
         b = self.rw_type(self._source)
         oldrefcount = sys.getrefcount(b)
@@ -189,13 +189,13 @@ class AbstractMemoryTests:
 
     def test_attributes_readonly(self):
         if not self.ro_type:
-            return
+            self.skipTest("no read-only type to test")
         m = self.check_attributes_with_type(self.ro_type)
         self.assertEqual(m.readonly, True)
 
     def test_attributes_writable(self):
         if not self.rw_type:
-            return
+            self.skipTest("no writable type to test")
         m = self.check_attributes_with_type(self.rw_type)
         self.assertEqual(m.readonly, False)
 
@@ -301,7 +301,7 @@ class AbstractMemoryTests:
         # buffer as writable causing a segfault if using mmap
         tp = self.ro_type
         if tp is None:
-            return
+            self.skipTest("no read-only type to test")
         b = tp(self._source)
         m = self._view(b)
         i = io.BytesIO(b'ZZZZ')
@@ -352,6 +352,15 @@ class AbstractMemoryTests:
             self.assertIs(wr(), None)
             self.assertIs(L[0], b)
 
+    def test_reversed(self):
+        for tp in self._types:
+            b = tp(self._source)
+            m = self._view(b)
+            aslist = list(reversed(m.tolist()))
+            self.assertEqual(list(reversed(m)), aslist)
+            self.assertEqual(list(reversed(m)), list(m[::-1]))
+
+
 # Variations on source objects for the buffer: bytes-like objects, then arrays
 # with itemsize > 1.
 # NOTE: support for multi-dimensional objects is unimplemented.
@@ -370,12 +379,12 @@ class BaseArrayMemoryTests(AbstractMemoryTests):
     itemsize = array.array('i').itemsize
     format = 'i'
 
+    @unittest.skip('XXX test should be adapted for non-byte buffers')
     def test_getbuffer(self):
-        # XXX Test should be adapted for non-byte buffers
         pass
 
+    @unittest.skip('XXX NotImplementedError: tolist() only supports byte views')
     def test_tolist(self):
-        # XXX NotImplementedError: tolist() only supports byte views
         pass
 
 

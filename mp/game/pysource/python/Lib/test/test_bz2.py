@@ -1,13 +1,14 @@
-#!/usr/bin/env python3
 from test import support
-from test.support import TESTFN, bigmemtest, _4G
+from test.support import bigmemtest, _4G
 
 import unittest
 from io import BytesIO
 import os
+import pickle
 import random
 import subprocess
 import sys
+from test.support import unlink
 
 try:
     import threading
@@ -18,10 +19,10 @@ except ImportError:
 bz2 = support.import_module('bz2')
 from bz2 import BZ2File, BZ2Compressor, BZ2Decompressor
 
-has_cmdline_bunzip2 = sys.platform not in ("win32", "os2emx")
 
 class BaseTest(unittest.TestCase):
     "Base for other testcases."
+
     TEXT_LINES = [
         b'root:x:0:0:root:/root:/bin/bash\n',
         b'bin:x:1:1:bin:/bin:\n',
@@ -48,15 +49,20 @@ class BaseTest(unittest.TestCase):
     TEXT = b''.join(TEXT_LINES)
     DATA = b'BZh91AY&SY.\xc8N\x18\x00\x01>_\x80\x00\x10@\x02\xff\xf0\x01\x07n\x00?\xe7\xff\xe00\x01\x99\xaa\x00\xc0\x03F\x86\x8c#&\x83F\x9a\x03\x06\xa6\xd0\xa6\x93M\x0fQ\xa7\xa8\x06\x804hh\x12$\x11\xa4i4\xf14S\xd2<Q\xb5\x0fH\xd3\xd4\xdd\xd5\x87\xbb\xf8\x94\r\x8f\xafI\x12\xe1\xc9\xf8/E\x00pu\x89\x12]\xc9\xbbDL\nQ\x0e\t1\x12\xdf\xa0\xc0\x97\xac2O9\x89\x13\x94\x0e\x1c7\x0ed\x95I\x0c\xaaJ\xa4\x18L\x10\x05#\x9c\xaf\xba\xbc/\x97\x8a#C\xc8\xe1\x8cW\xf9\xe2\xd0\xd6M\xa7\x8bXa<e\x84t\xcbL\xb3\xa7\xd9\xcd\xd1\xcb\x84.\xaf\xb3\xab\xab\xad`n}\xa0lh\tE,\x8eZ\x15\x17VH>\x88\xe5\xcd9gd6\x0b\n\xe9\x9b\xd5\x8a\x99\xf7\x08.K\x8ev\xfb\xf7xw\xbb\xdf\xa1\x92\xf1\xdd|/";\xa2\xba\x9f\xd5\xb1#A\xb6\xf6\xb3o\xc9\xc5y\\\xebO\xe7\x85\x9a\xbc\xb6f8\x952\xd5\xd7"%\x89>V,\xf7\xa6z\xe2\x9f\xa3\xdf\x11\x11"\xd6E)I\xa9\x13^\xca\xf3r\xd0\x03U\x922\xf26\xec\xb6\xed\x8b\xc3U\x13\x9d\xc5\x170\xa4\xfa^\x92\xacDF\x8a\x97\xd6\x19\xfe\xdd\xb8\xbd\x1a\x9a\x19\xa3\x80ankR\x8b\xe5\xd83]\xa9\xc6\x08\x82f\xf6\xb9"6l$\xb8j@\xc0\x8a\xb0l1..\xbak\x83ls\x15\xbc\xf4\xc1\x13\xbe\xf8E\xb8\x9d\r\xa8\x9dk\x84\xd3n\xfa\xacQ\x07\xb1%y\xaav\xb4\x08\xe0z\x1b\x16\xf5\x04\xe9\xcc\xb9\x08z\x1en7.G\xfc]\xc9\x14\xe1B@\xbb!8`'
     EMPTY_DATA = b'BZh9\x17rE8P\x90\x00\x00\x00\x00'
+    BAD_DATA = b'this is not a valid bzip2 file'
 
     def setUp(self):
-        self.filename = TESTFN
+        self.filename = support.TESTFN
 
     def tearDown(self):
         if os.path.isfile(self.filename):
             os.unlink(self.filename)
 
-    if has_cmdline_bunzip2:
+    if sys.platform == "win32":
+        # bunzip2 isn't available to run on Windows.
+        def decompress(self, data):
+            return bz2.decompress(data)
+    else:
         def decompress(self, data):
             pop = subprocess.Popen("bunzip2", shell=True,
                                    stdin=subprocess.PIPE,
@@ -70,37 +76,33 @@ class BaseTest(unittest.TestCase):
                 ret = bz2.decompress(data)
             return ret
 
-    else:
-        # bunzip2 isn't available to run on Windows.
-        def decompress(self, data):
-            return bz2.decompress(data)
 
 class BZ2FileTest(BaseTest):
-    "Test BZ2File type miscellaneous methods."
+    "Test the BZ2File class."
 
-    def createTempFile(self, streams=1):
+    def createTempFile(self, streams=1, suffix=b""):
         with open(self.filename, "wb") as f:
             f.write(self.DATA * streams)
+            f.write(suffix)
 
     def testBadArgs(self):
-        with self.assertRaises(TypeError):
-            BZ2File(123.456)
-        with self.assertRaises(ValueError):
-            BZ2File("/dev/null", "z")
-        with self.assertRaises(ValueError):
-            BZ2File("/dev/null", "rx")
-        with self.assertRaises(ValueError):
-            BZ2File("/dev/null", "rbt")
-        with self.assertRaises(ValueError):
-            BZ2File("/dev/null", compresslevel=0)
-        with self.assertRaises(ValueError):
-            BZ2File("/dev/null", compresslevel=10)
+        self.assertRaises(TypeError, BZ2File, 123.456)
+        self.assertRaises(ValueError, BZ2File, "/dev/null", "z")
+        self.assertRaises(ValueError, BZ2File, "/dev/null", "rx")
+        self.assertRaises(ValueError, BZ2File, "/dev/null", "rbt")
+        self.assertRaises(ValueError, BZ2File, "/dev/null", compresslevel=0)
+        self.assertRaises(ValueError, BZ2File, "/dev/null", compresslevel=10)
 
     def testRead(self):
         self.createTempFile()
         with BZ2File(self.filename) as bz2f:
             self.assertRaises(TypeError, bz2f.read, None)
             self.assertEqual(bz2f.read(), self.TEXT)
+
+    def testReadBadFile(self):
+        self.createTempFile(streams=0, suffix=self.BAD_DATA)
+        with BZ2File(self.filename) as bz2f:
+            self.assertRaises(OSError, bz2f.read)
 
     def testReadMultiStream(self):
         self.createTempFile(streams=5)
@@ -120,6 +122,16 @@ class BZ2FileTest(BaseTest):
                 self.assertEqual(bz2f.read(), self.TEXT * 5)
         finally:
             bz2._BUFFER_SIZE = buffer_size
+
+    def testReadTrailingJunk(self):
+        self.createTempFile(suffix=self.BAD_DATA)
+        with BZ2File(self.filename) as bz2f:
+            self.assertEqual(bz2f.read(), self.TEXT)
+
+    def testReadMultiStreamTrailingJunk(self):
+        self.createTempFile(streams=5, suffix=self.BAD_DATA)
+        with BZ2File(self.filename) as bz2f:
+            self.assertEqual(bz2f.read(), self.TEXT * 5)
 
     def testRead0(self):
         self.createTempFile()
@@ -215,9 +227,8 @@ class BZ2FileTest(BaseTest):
         self.createTempFile()
         bz2f = BZ2File(self.filename)
         bz2f.close()
-        self.assertRaises(ValueError, bz2f.__next__)
-        # This call will deadlock if the above .__next__ call failed to
-        # release the lock.
+        self.assertRaises(ValueError, next, bz2f)
+        # This call will deadlock if the above call failed to release the lock.
         self.assertRaises(ValueError, bz2f.readlines)
 
     def testWrite(self):
@@ -261,8 +272,8 @@ class BZ2FileTest(BaseTest):
             bz2f.write(b"abc")
 
         with BZ2File(self.filename, "r") as bz2f:
-            self.assertRaises(IOError, bz2f.write, b"a")
-            self.assertRaises(IOError, bz2f.writelines, [b"a"])
+            self.assertRaises(OSError, bz2f.write, b"a")
+            self.assertRaises(OSError, bz2f.writelines, [b"a"])
 
     def testAppend(self):
         with BZ2File(self.filename, "w") as bz2f:
@@ -380,7 +391,7 @@ class BZ2FileTest(BaseTest):
             bz2f.close()
         self.assertRaises(ValueError, bz2f.seekable)
 
-        bz2f = BZ2File(BytesIO(), mode="w")
+        bz2f = BZ2File(BytesIO(), "w")
         try:
             self.assertFalse(bz2f.seekable())
         finally:
@@ -406,7 +417,7 @@ class BZ2FileTest(BaseTest):
             bz2f.close()
         self.assertRaises(ValueError, bz2f.readable)
 
-        bz2f = BZ2File(BytesIO(), mode="w")
+        bz2f = BZ2File(BytesIO(), "w")
         try:
             self.assertFalse(bz2f.readable())
         finally:
@@ -423,7 +434,7 @@ class BZ2FileTest(BaseTest):
             bz2f.close()
         self.assertRaises(ValueError, bz2f.writable)
 
-        bz2f = BZ2File(BytesIO(), mode="w")
+        bz2f = BZ2File(BytesIO(), "w")
         try:
             self.assertTrue(bz2f.writable())
         finally:
@@ -437,7 +448,7 @@ class BZ2FileTest(BaseTest):
             del o
 
     def testOpenNonexistent(self):
-        self.assertRaises(IOError, BZ2File, "/non/existent")
+        self.assertRaises(OSError, BZ2File, "/non/existent")
 
     def testReadlinesNoNewline(self):
         # Issue #1191043: readlines() fails on a file containing no newline.
@@ -477,7 +488,7 @@ class BZ2FileTest(BaseTest):
         # Issue #7205: Using a BZ2File from several threads shouldn't deadlock.
         data = b"1" * 2**20
         nthreads = 10
-        with bz2.BZ2File(self.filename, 'wb') as f:
+        with BZ2File(self.filename, 'wb') as f:
             def comp():
                 for i in range(5):
                     f.write(data)
@@ -488,28 +499,27 @@ class BZ2FileTest(BaseTest):
                 t.join()
 
     def testWithoutThreading(self):
-        bz2 = support.import_fresh_module("bz2", blocked=("threading",))
-        with bz2.BZ2File(self.filename, "wb") as f:
+        module = support.import_fresh_module("bz2", blocked=("threading",))
+        with module.BZ2File(self.filename, "wb") as f:
             f.write(b"abc")
-        with bz2.BZ2File(self.filename, "rb") as f:
+        with module.BZ2File(self.filename, "rb") as f:
             self.assertEqual(f.read(), b"abc")
 
     def testMixedIterationAndReads(self):
         self.createTempFile()
         linelen = len(self.TEXT_LINES[0])
         halflen = linelen // 2
-        with bz2.BZ2File(self.filename) as bz2f:
+        with BZ2File(self.filename) as bz2f:
             bz2f.read(halflen)
             self.assertEqual(next(bz2f), self.TEXT_LINES[0][halflen:])
             self.assertEqual(bz2f.read(), self.TEXT[linelen:])
-        with bz2.BZ2File(self.filename) as bz2f:
+        with BZ2File(self.filename) as bz2f:
             bz2f.readline()
             self.assertEqual(next(bz2f), self.TEXT_LINES[1])
             self.assertEqual(bz2f.readline(), self.TEXT_LINES[2])
-        with bz2.BZ2File(self.filename) as bz2f:
+        with BZ2File(self.filename) as bz2f:
             bz2f.readlines()
-            with self.assertRaises(StopIteration):
-                next(bz2f)
+            self.assertRaises(StopIteration, next, bz2f)
             self.assertEqual(bz2f.readlines(), [])
 
     def testMultiStreamOrdering(self):
@@ -577,6 +587,20 @@ class BZ2FileTest(BaseTest):
                 bz2f.seek(-150, 1)
                 self.assertEqual(bz2f.read(), self.TEXT[500-150:])
 
+    def test_read_truncated(self):
+        # Drop the eos_magic field (6 bytes) and CRC (4 bytes).
+        truncated = self.DATA[:-10]
+        with BZ2File(BytesIO(truncated)) as f:
+            self.assertRaises(EOFError, f.read)
+        with BZ2File(BytesIO(truncated)) as f:
+            self.assertEqual(f.read(len(self.TEXT)), self.TEXT)
+            self.assertRaises(EOFError, f.read, 1)
+        # Incomplete 4-byte file header, and block header of at least 146 bits.
+        for i in range(22):
+            with BZ2File(BytesIO(truncated[:i])) as f:
+                self.assertRaises(EOFError, f.read, 1)
+
+
 class BZ2CompressorTest(BaseTest):
     def testCompress(self):
         bz2c = BZ2Compressor()
@@ -621,6 +645,11 @@ class BZ2CompressorTest(BaseTest):
         finally:
             data = None
 
+    def testPickle(self):
+        with self.assertRaises(TypeError):
+            pickle.dumps(BZ2Compressor())
+
+
 class BZ2DecompressorTest(BaseTest):
     def test_Constructor(self):
         self.assertRaises(TypeError, BZ2Decompressor, 42)
@@ -656,7 +685,7 @@ class BZ2DecompressorTest(BaseTest):
         self.assertRaises(EOFError, bz2d.decompress, b"anything")
         self.assertRaises(EOFError, bz2d.decompress, b"")
 
-    @bigmemtest(size=_4G + 100, memuse=3)
+    @bigmemtest(size=_4G + 100, memuse=3.3)
     def testDecompress4G(self, size):
         # "Test BZ2Decompressor.decompress() with >4GiB input"
         blocksize = 10 * 1024 * 1024
@@ -671,6 +700,10 @@ class BZ2DecompressorTest(BaseTest):
             data = None
             compressed = None
             decompressed = None
+
+    def testPickle(self):
+        with self.assertRaises(TypeError):
+            pickle.dumps(BZ2Decompressor())
 
 
 class CompressDecompressTest(BaseTest):
@@ -697,103 +730,139 @@ class CompressDecompressTest(BaseTest):
     def testDecompressIncomplete(self):
         self.assertRaises(ValueError, bz2.decompress, self.DATA[:-10])
 
+    def testDecompressBadData(self):
+        self.assertRaises(OSError, bz2.decompress, self.BAD_DATA)
+
     def testDecompressMultiStream(self):
         text = bz2.decompress(self.DATA * 5)
         self.assertEqual(text, self.TEXT * 5)
 
+    def testDecompressTrailingJunk(self):
+        text = bz2.decompress(self.DATA + self.BAD_DATA)
+        self.assertEqual(text, self.TEXT)
+
+    def testDecompressMultiStreamTrailingJunk(self):
+        text = bz2.decompress(self.DATA * 5 + self.BAD_DATA)
+        self.assertEqual(text, self.TEXT * 5)
+
 
 class OpenTest(BaseTest):
+    "Test the open function."
+
+    def open(self, *args, **kwargs):
+        return bz2.open(*args, **kwargs)
+
     def test_binary_modes(self):
-        with bz2.open(self.filename, "wb") as f:
-            f.write(self.TEXT)
-        with open(self.filename, "rb") as f:
-            file_data = bz2.decompress(f.read())
-            self.assertEqual(file_data, self.TEXT)
-        with bz2.open(self.filename, "rb") as f:
-            self.assertEqual(f.read(), self.TEXT)
-        with bz2.open(self.filename, "ab") as f:
-            f.write(self.TEXT)
-        with open(self.filename, "rb") as f:
-            file_data = bz2.decompress(f.read())
-            self.assertEqual(file_data, self.TEXT * 2)
+        for mode in ("wb", "xb"):
+            if mode == "xb":
+                unlink(self.filename)
+            with self.open(self.filename, mode) as f:
+                f.write(self.TEXT)
+            with open(self.filename, "rb") as f:
+                file_data = self.decompress(f.read())
+                self.assertEqual(file_data, self.TEXT)
+            with self.open(self.filename, "rb") as f:
+                self.assertEqual(f.read(), self.TEXT)
+            with self.open(self.filename, "ab") as f:
+                f.write(self.TEXT)
+            with open(self.filename, "rb") as f:
+                file_data = self.decompress(f.read())
+                self.assertEqual(file_data, self.TEXT * 2)
 
     def test_implicit_binary_modes(self):
         # Test implicit binary modes (no "b" or "t" in mode string).
-        with bz2.open(self.filename, "w") as f:
-            f.write(self.TEXT)
-        with open(self.filename, "rb") as f:
-            file_data = bz2.decompress(f.read())
-            self.assertEqual(file_data, self.TEXT)
-        with bz2.open(self.filename, "r") as f:
-            self.assertEqual(f.read(), self.TEXT)
-        with bz2.open(self.filename, "a") as f:
-            f.write(self.TEXT)
-        with open(self.filename, "rb") as f:
-            file_data = bz2.decompress(f.read())
-            self.assertEqual(file_data, self.TEXT * 2)
+        for mode in ("w", "x"):
+            if mode == "x":
+                unlink(self.filename)
+            with self.open(self.filename, mode) as f:
+                f.write(self.TEXT)
+            with open(self.filename, "rb") as f:
+                file_data = self.decompress(f.read())
+                self.assertEqual(file_data, self.TEXT)
+            with self.open(self.filename, "r") as f:
+                self.assertEqual(f.read(), self.TEXT)
+            with self.open(self.filename, "a") as f:
+                f.write(self.TEXT)
+            with open(self.filename, "rb") as f:
+                file_data = self.decompress(f.read())
+                self.assertEqual(file_data, self.TEXT * 2)
 
     def test_text_modes(self):
         text = self.TEXT.decode("ascii")
         text_native_eol = text.replace("\n", os.linesep)
-        with bz2.open(self.filename, "wt") as f:
-            f.write(text)
-        with open(self.filename, "rb") as f:
-            file_data = bz2.decompress(f.read()).decode("ascii")
-            self.assertEqual(file_data, text_native_eol)
-        with bz2.open(self.filename, "rt") as f:
-            self.assertEqual(f.read(), text)
-        with bz2.open(self.filename, "at") as f:
-            f.write(text)
-        with open(self.filename, "rb") as f:
-            file_data = bz2.decompress(f.read()).decode("ascii")
-            self.assertEqual(file_data, text_native_eol * 2)
+        for mode in ("wt", "xt"):
+            if mode == "xt":
+                unlink(self.filename)
+            with self.open(self.filename, mode) as f:
+                f.write(text)
+            with open(self.filename, "rb") as f:
+                file_data = self.decompress(f.read()).decode("ascii")
+                self.assertEqual(file_data, text_native_eol)
+            with self.open(self.filename, "rt") as f:
+                self.assertEqual(f.read(), text)
+            with self.open(self.filename, "at") as f:
+                f.write(text)
+            with open(self.filename, "rb") as f:
+                file_data = self.decompress(f.read()).decode("ascii")
+                self.assertEqual(file_data, text_native_eol * 2)
+
+    def test_x_mode(self):
+        for mode in ("x", "xb", "xt"):
+            unlink(self.filename)
+            with self.open(self.filename, mode) as f:
+                pass
+            with self.assertRaises(FileExistsError):
+                with self.open(self.filename, mode) as f:
+                    pass
 
     def test_fileobj(self):
-        with bz2.open(BytesIO(self.DATA), "r") as f:
+        with self.open(BytesIO(self.DATA), "r") as f:
             self.assertEqual(f.read(), self.TEXT)
-        with bz2.open(BytesIO(self.DATA), "rb") as f:
+        with self.open(BytesIO(self.DATA), "rb") as f:
             self.assertEqual(f.read(), self.TEXT)
         text = self.TEXT.decode("ascii")
-        with bz2.open(BytesIO(self.DATA), "rt") as f:
+        with self.open(BytesIO(self.DATA), "rt") as f:
             self.assertEqual(f.read(), text)
 
     def test_bad_params(self):
         # Test invalid parameter combinations.
-        with self.assertRaises(ValueError):
-            bz2.open(self.filename, "wbt")
-        with self.assertRaises(ValueError):
-            bz2.open(self.filename, "rb", encoding="utf-8")
-        with self.assertRaises(ValueError):
-            bz2.open(self.filename, "rb", errors="ignore")
-        with self.assertRaises(ValueError):
-            bz2.open(self.filename, "rb", newline="\n")
+        self.assertRaises(ValueError,
+                          self.open, self.filename, "wbt")
+        self.assertRaises(ValueError,
+                          self.open, self.filename, "xbt")
+        self.assertRaises(ValueError,
+                          self.open, self.filename, "rb", encoding="utf-8")
+        self.assertRaises(ValueError,
+                          self.open, self.filename, "rb", errors="ignore")
+        self.assertRaises(ValueError,
+                          self.open, self.filename, "rb", newline="\n")
 
     def test_encoding(self):
         # Test non-default encoding.
         text = self.TEXT.decode("ascii")
         text_native_eol = text.replace("\n", os.linesep)
-        with bz2.open(self.filename, "wt", encoding="utf-16-le") as f:
+        with self.open(self.filename, "wt", encoding="utf-16-le") as f:
             f.write(text)
         with open(self.filename, "rb") as f:
-            file_data = bz2.decompress(f.read()).decode("utf-16-le")
+            file_data = self.decompress(f.read()).decode("utf-16-le")
             self.assertEqual(file_data, text_native_eol)
-        with bz2.open(self.filename, "rt", encoding="utf-16-le") as f:
+        with self.open(self.filename, "rt", encoding="utf-16-le") as f:
             self.assertEqual(f.read(), text)
 
     def test_encoding_error_handler(self):
         # Test with non-default encoding error handler.
-        with bz2.open(self.filename, "wb") as f:
+        with self.open(self.filename, "wb") as f:
             f.write(b"foo\xffbar")
-        with bz2.open(self.filename, "rt", encoding="ascii", errors="ignore") \
+        with self.open(self.filename, "rt", encoding="ascii", errors="ignore") \
                 as f:
             self.assertEqual(f.read(), "foobar")
 
     def test_newline(self):
         # Test with explicit newline (universal newline mode disabled).
         text = self.TEXT.decode("ascii")
-        with bz2.open(self.filename, "wt", newline="\n") as f:
+        with self.open(self.filename, "wt", newline="\n") as f:
             f.write(text)
-        with bz2.open(self.filename, "rt", newline="\r") as f:
+        with self.open(self.filename, "rt", newline="\r") as f:
             self.assertEqual(f.readlines(), [text])
 
 

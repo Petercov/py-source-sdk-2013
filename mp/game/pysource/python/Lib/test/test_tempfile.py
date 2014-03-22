@@ -8,9 +8,10 @@ import sys
 import re
 import warnings
 import contextlib
+import weakref
 
 import unittest
-from test import support
+from test import support, script_helper
 
 
 if hasattr(os, 'stat'):
@@ -36,7 +37,7 @@ else:
 # Common functionality.
 class BaseTestCase(unittest.TestCase):
 
-    str_check = re.compile(r"[a-zA-Z0-9_-]{6}$")
+    str_check = re.compile(r"^[a-z0-9_-]{8}$")
 
     def setUp(self):
         self._warnings_manager = support.check_warnings()
@@ -63,7 +64,7 @@ class BaseTestCase(unittest.TestCase):
 
         nbase = nbase[len(pre):len(nbase)-len(suf)]
         self.assertTrue(self.str_check.match(nbase),
-                     "random string '%s' does not match /^[a-zA-Z0-9_-]{6}$/"
+                     "random string '%s' does not match ^[a-z0-9_-]{8}$"
                      % nbase)
 
 
@@ -152,7 +153,7 @@ class TestRandomNameSequence(BaseTestCase):
                 # via any bugs above
                 try:
                     os.kill(pid, signal.SIGKILL)
-                except EnvironmentError:
+                except OSError:
                     pass
             os.close(read_fd)
             os.close(write_fd)
@@ -191,7 +192,7 @@ class TestCandidateTempdirList(BaseTestCase):
 
             try:
                 dirname = os.getcwd()
-            except (AttributeError, os.error):
+            except (AttributeError, OSError):
                 dirname = os.curdir
 
             self.assertIn(dirname, cand)
@@ -324,25 +325,23 @@ class TestMkstempInner(BaseTestCase):
         finally:
             os.rmdir(dir)
 
+    @unittest.skipUnless(has_stat, 'os.stat not available')
     def test_file_mode(self):
         # _mkstemp_inner creates files with the proper mode
-        if not has_stat:
-            return            # ugh, can't use SkipTest.
 
         file = self.do_create()
         mode = stat.S_IMODE(os.stat(file.name).st_mode)
         expected = 0o600
-        if sys.platform in ('win32', 'os2emx'):
+        if sys.platform == 'win32':
             # There's no distinction among 'user', 'group' and 'world';
             # replicate the 'user' bits.
             user = expected >> 6
             expected = user * (1 + 8 + 64)
         self.assertEqual(mode, expected)
 
+    @unittest.skipUnless(has_spawnl, 'os.spawnl not available')
     def test_noinherit(self):
         # _mkstemp_inner file handles are not inherited by child processes
-        if not has_spawnl:
-            return            # ugh, can't use SkipTest.
 
         if support.verbose:
             v="v"
@@ -350,6 +349,7 @@ class TestMkstempInner(BaseTestCase):
             v="q"
 
         file = self.do_create()
+        self.assertEqual(os.get_inheritable(file.fd), False)
         fd = "%d" % file.fd
 
         try:
@@ -366,7 +366,7 @@ class TestMkstempInner(BaseTestCase):
         # On Windows a spawn* /path/ with embedded spaces shouldn't be quoted,
         # but an arg with embedded spaces should be decorated with double
         # quotes on each end
-        if sys.platform in ('win32',):
+        if sys.platform == 'win32':
             decorated = '"%s"' % sys.executable
             tester = '"%s"' % tester
         else:
@@ -377,10 +377,9 @@ class TestMkstempInner(BaseTestCase):
                     "child process caught fatal signal %d" % -retval)
         self.assertFalse(retval > 0, "child process reports failure %d"%retval)
 
+    @unittest.skipUnless(has_textmode, "text mode not available")
     def test_textmode(self):
         # _mkstemp_inner can create files in text mode
-        if not has_textmode:
-            return            # ugh, can't use SkipTest.
 
         # A text file is truncated at the first Ctrl+Z byte
         f = self.do_create(bin=0)
@@ -477,6 +476,20 @@ class TestGetTempDir(BaseTestCase):
 
         self.assertTrue(a is b)
 
+    def test_case_sensitive(self):
+        # gettempdir should not flatten its case
+        # even on a case-insensitive file system
+        case_sensitive_tempdir = tempfile.mkdtemp("-Temp")
+        _tempdir, tempfile.tempdir = tempfile.tempdir, None
+        try:
+            with support.EnvironmentVarGuard() as env:
+                # Fake the first env var which is checked as a candidate
+                env["TMPDIR"] = case_sensitive_tempdir
+                self.assertEqual(tempfile.gettempdir(), case_sensitive_tempdir)
+        finally:
+            tempfile.tempdir = _tempdir
+            support.rmdir(case_sensitive_tempdir)
+
 
 class TestMkstemp(BaseTestCase):
     """Test mkstemp()."""
@@ -556,17 +569,16 @@ class TestMkdtemp(BaseTestCase):
         finally:
             os.rmdir(dir)
 
+    @unittest.skipUnless(has_stat, 'os.stat not available')
     def test_mode(self):
         # mkdtemp creates directories with the proper mode
-        if not has_stat:
-            return            # ugh, can't use SkipTest.
 
         dir = self.do_create()
         try:
             mode = stat.S_IMODE(os.stat(dir).st_mode)
             mode &= 0o777 # Mask off sticky bits inherited from /tmp
             expected = 0o700
-            if sys.platform in ('win32', 'os2emx'):
+            if sys.platform == 'win32':
                 # There's no distinction among 'user', 'group' and 'world';
                 # replicate the 'user' bits.
                 user = expected >> 6
@@ -677,6 +689,22 @@ class TestNamedTemporaryFile(BaseTestCase):
         self.do_create(suf="b")
         self.do_create(pre="a", suf="b")
         self.do_create(pre="aa", suf=".txt")
+
+    def test_method_lookup(self):
+        # Issue #18879: Looking up a temporary file method should keep it
+        # alive long enough.
+        f = self.do_create()
+        wr = weakref.ref(f)
+        write = f.write
+        write2 = f.write
+        del f
+        write(b'foo')
+        del write
+        write2(b'bar')
+        del write2
+        if support.check_impl_detail(cpython=True):
+            # No reference cycle was created.
+            self.assertIsNone(wr())
 
     def test_creates_named(self):
         # NamedTemporaryFile creates files with names
@@ -1060,7 +1088,8 @@ class TestTemporaryDirectory(BaseTestCase):
         self.nameCheck(tmp.name, dir, pre, suf)
         # Create a subdirectory and some files
         if recurse:
-            self.do_create(tmp.name, pre, suf, recurse-1)
+            d1 = self.do_create(tmp.name, pre, suf, recurse-1)
+            d1.name = None
         with open(os.path.join(tmp.name, "test.txt"), "wb") as f:
             f.write(b"Hello world!")
         return tmp
@@ -1092,7 +1121,7 @@ class TestTemporaryDirectory(BaseTestCase):
     def test_cleanup_with_symlink_to_a_directory(self):
         # cleanup() should not follow symlinks to directories (issue #12464)
         d1 = self.do_create()
-        d2 = self.do_create()
+        d2 = self.do_create(recurse=0)
 
         # Symlink d1/foo -> d2
         os.symlink(d2.name, os.path.join(d1.name, "foo"))
@@ -1122,60 +1151,51 @@ class TestTemporaryDirectory(BaseTestCase):
         finally:
             os.rmdir(dir)
 
-    @unittest.expectedFailure # See issue #10188
     def test_del_on_shutdown(self):
         # A TemporaryDirectory may be cleaned up during shutdown
-        # Make sure it works with the relevant modules nulled out
         with self.do_create() as dir:
-            d = self.do_create(dir=dir)
-            # Mimic the nulling out of modules that
-            # occurs during system shutdown
-            modules = [os, os.path]
-            if has_stat:
-                modules.append(stat)
-            # Currently broken, so suppress the warning
-            # that is otherwise emitted on stdout
-            with support.captured_stderr() as err:
-                with NulledModules(*modules):
-                    d.cleanup()
-            # Currently broken, so stop spurious exception by
-            # indicating the object has already been closed
-            d._closed = True
-            # And this assert will fail, as expected by the
-            # unittest decorator...
-            self.assertFalse(os.path.exists(d.name),
-                        "TemporaryDirectory %s exists after cleanup" % d.name)
+            for mod in ('builtins', 'os', 'shutil', 'sys', 'tempfile', 'warnings'):
+                code = """if True:
+                    import builtins
+                    import os
+                    import shutil
+                    import sys
+                    import tempfile
+                    import warnings
+
+                    tmp = tempfile.TemporaryDirectory(dir={dir!r})
+                    sys.stdout.buffer.write(tmp.name.encode())
+
+                    tmp2 = os.path.join(tmp.name, 'test_dir')
+                    os.mkdir(tmp2)
+                    with open(os.path.join(tmp2, "test.txt"), "w") as f:
+                        f.write("Hello world!")
+
+                    {mod}.tmp = tmp
+
+                    warnings.filterwarnings("always", category=ResourceWarning)
+                    """.format(dir=dir, mod=mod)
+                rc, out, err = script_helper.assert_python_ok("-c", code)
+                tmp_name = out.decode().strip()
+                self.assertFalse(os.path.exists(tmp_name),
+                            "TemporaryDirectory %s exists after cleanup" % tmp_name)
+                err = err.decode('utf-8', 'backslashreplace')
+                self.assertNotIn("Exception ", err)
+                self.assertIn("ResourceWarning: Implicitly cleaning up", err)
 
     def test_warnings_on_cleanup(self):
-        # Two kinds of warning on shutdown
-        #   Issue 10888: may write to stderr if modules are nulled out
-        #   ResourceWarning will be triggered by __del__
+        # ResourceWarning will be triggered by __del__
         with self.do_create() as dir:
-            if os.sep != '\\':
-                # Embed a backslash in order to make sure string escaping
-                # in the displayed error message is dealt with correctly
-                suffix = '\\check_backslash_handling'
-            else:
-                suffix = ''
-            d = self.do_create(dir=dir, suf=suffix)
-
-            #Check for the Issue 10888 message
-            modules = [os, os.path]
-            if has_stat:
-                modules.append(stat)
-            with support.captured_stderr() as err:
-                with NulledModules(*modules):
-                    d.cleanup()
-            message = err.getvalue().replace('\\\\', '\\')
-            self.assertIn("while cleaning up",  message)
-            self.assertIn(d.name,  message)
+            d = self.do_create(dir=dir, recurse=3)
+            name = d.name
 
             # Check for the resource warning
             with support.check_warnings(('Implicitly', ResourceWarning), quiet=False):
                 warnings.filterwarnings("always", category=ResourceWarning)
-                d.__del__()
-            self.assertFalse(os.path.exists(d.name),
-                        "TemporaryDirectory %s exists after __del__" % d.name)
+                del d
+                support.gc_collect()
+            self.assertFalse(os.path.exists(name),
+                        "TemporaryDirectory %s exists after __del__" % name)
 
     def test_multiple_close(self):
         # Can be cleaned-up many times without error

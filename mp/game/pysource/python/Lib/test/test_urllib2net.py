@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import unittest
 from test import support
 from test.test_urllib2 import sanepathname2url
@@ -13,6 +11,8 @@ try:
     import ssl
 except ImportError:
     ssl = None
+
+support.requires("network")
 
 TIMEOUT = 60  # seconds
 
@@ -87,7 +87,7 @@ class CloseSocketTest(unittest.TestCase):
         with support.transient_internet(url):
             response = _urlopen_with_retry(url)
             sock = response.fp
-            self.assertTrue(not sock.closed)
+            self.assertFalse(sock.closed)
             response.close()
             self.assertTrue(sock.closed)
 
@@ -164,6 +164,14 @@ class OtherNetworkTests(unittest.TestCase):
             self.assertEqual(res.geturl(),
                     "http://docs.python.org/2/glossary.html#glossary")
 
+    def test_redirect_url_withfrag(self):
+        redirect_url_with_frag = "http://bitly.com/urllibredirecttest"
+        with support.transient_internet(redirect_url_with_frag):
+            req = urllib.request.Request(redirect_url_with_frag)
+            res = urllib.request.urlopen(req)
+            self.assertEqual(res.geturl(),
+                    "http://docs.python.org/3.4/glossary.html#term-global-interpreter-lock")
+
     def test_custom_headers(self):
         url = "http://www.example.com"
         with support.transient_internet(url):
@@ -216,7 +224,7 @@ class OtherNetworkTests(unittest.TestCase):
                 debug(url)
                 try:
                     f = urlopen(url, req, TIMEOUT)
-                except EnvironmentError as err:
+                except OSError as err:
                     debug(err)
                     if expected_err:
                         msg = ("Didn't get expected error(s) %s for %s %s, got %s: %s" %
@@ -254,15 +262,15 @@ class OtherNetworkTests(unittest.TestCase):
 
 class TimeoutTest(unittest.TestCase):
     def test_http_basic(self):
-        self.assertTrue(socket.getdefaulttimeout() is None)
+        self.assertIsNone(socket.getdefaulttimeout())
         url = "http://www.python.org"
         with support.transient_internet(url, timeout=None):
             u = _urlopen_with_retry(url)
             self.addCleanup(u.close)
-            self.assertTrue(u.fp.raw._sock.gettimeout() is None)
+            self.assertIsNone(u.fp.raw._sock.gettimeout())
 
     def test_http_default_timeout(self):
-        self.assertTrue(socket.getdefaulttimeout() is None)
+        self.assertIsNone(socket.getdefaulttimeout())
         url = "http://www.python.org"
         with support.transient_internet(url):
             socket.setdefaulttimeout(60)
@@ -274,7 +282,7 @@ class TimeoutTest(unittest.TestCase):
             self.assertEqual(u.fp.raw._sock.gettimeout(), 60)
 
     def test_http_no_timeout(self):
-        self.assertTrue(socket.getdefaulttimeout() is None)
+        self.assertIsNone(socket.getdefaulttimeout())
         url = "http://www.python.org"
         with support.transient_internet(url):
             socket.setdefaulttimeout(60)
@@ -283,7 +291,7 @@ class TimeoutTest(unittest.TestCase):
                 self.addCleanup(u.close)
             finally:
                 socket.setdefaulttimeout(None)
-            self.assertTrue(u.fp.raw._sock.gettimeout() is None)
+            self.assertIsNone(u.fp.raw._sock.gettimeout())
 
     def test_http_timeout(self):
         url = "http://www.python.org"
@@ -295,14 +303,14 @@ class TimeoutTest(unittest.TestCase):
     FTP_HOST = "ftp://ftp.mirror.nl/pub/gnu/"
 
     def test_ftp_basic(self):
-        self.assertTrue(socket.getdefaulttimeout() is None)
+        self.assertIsNone(socket.getdefaulttimeout())
         with support.transient_internet(self.FTP_HOST, timeout=None):
             u = _urlopen_with_retry(self.FTP_HOST)
             self.addCleanup(u.close)
-            self.assertTrue(u.fp.fp.raw._sock.gettimeout() is None)
+            self.assertIsNone(u.fp.fp.raw._sock.gettimeout())
 
     def test_ftp_default_timeout(self):
-        self.assertTrue(socket.getdefaulttimeout() is None)
+        self.assertIsNone(socket.getdefaulttimeout())
         with support.transient_internet(self.FTP_HOST):
             socket.setdefaulttimeout(60)
             try:
@@ -313,7 +321,7 @@ class TimeoutTest(unittest.TestCase):
             self.assertEqual(u.fp.fp.raw._sock.gettimeout(), 60)
 
     def test_ftp_no_timeout(self):
-        self.assertTrue(socket.getdefaulttimeout() is None)
+        self.assertIsNone(socket.getdefaulttimeout())
         with support.transient_internet(self.FTP_HOST):
             socket.setdefaulttimeout(60)
             try:
@@ -321,7 +329,7 @@ class TimeoutTest(unittest.TestCase):
                 self.addCleanup(u.close)
             finally:
                 socket.setdefaulttimeout(None)
-            self.assertTrue(u.fp.fp.raw._sock.gettimeout() is None)
+            self.assertIsNone(u.fp.fp.raw._sock.gettimeout())
 
     def test_ftp_timeout(self):
         with support.transient_internet(self.FTP_HOST):
@@ -330,35 +338,5 @@ class TimeoutTest(unittest.TestCase):
             self.assertEqual(u.fp.fp.raw._sock.gettimeout(), 60)
 
 
-@unittest.skipUnless(ssl, "requires SSL support")
-class HTTPSTests(unittest.TestCase):
-
-    def test_sni(self):
-        self.skipTest("test disabled - test server needed")
-        # Checks that Server Name Indication works, if supported by the
-        # OpenSSL linked to.
-        # The ssl module itself doesn't have server-side support for SNI,
-        # so we rely on a third-party test site.
-        expect_sni = ssl.HAS_SNI
-        with support.transient_internet("XXX"):
-            u = urllib.request.urlopen("XXX")
-            contents = u.readall()
-            if expect_sni:
-                self.assertIn(b"Great", contents)
-                self.assertNotIn(b"Unfortunately", contents)
-            else:
-                self.assertNotIn(b"Great", contents)
-                self.assertIn(b"Unfortunately", contents)
-
-
-def test_main():
-    support.requires("network")
-    support.run_unittest(AuthTests,
-                         HTTPSTests,
-                         OtherNetworkTests,
-                         CloseSocketTest,
-                         TimeoutTest,
-                         )
-
 if __name__ == "__main__":
-    test_main()
+    unittest.main()

@@ -361,11 +361,12 @@ def init(files=None):
 def read_mime_types(file):
     try:
         f = open(file)
-    except IOError:
+    except OSError:
         return None
-    db = MimeTypes()
-    db.readfp(f, True)
-    return db.types_map[True]
+    with f:
+        db = MimeTypes()
+        db.readfp(f, True)
+        return db.types_map[True]
 
 
 def _default_mime_types():

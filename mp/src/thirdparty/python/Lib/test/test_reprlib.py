@@ -3,11 +3,11 @@
   Nick Mathewson
 """
 
-import imp
 import sys
 import os
 import shutil
 import importlib
+import importlib.util
 import unittest
 
 from test.support import run_unittest, create_empty_file, verbose
@@ -167,8 +167,15 @@ class ReprTests(unittest.TestCase):
         eq(r([[[[[[[{}]]]]]]]), "[[[[[[[...]]]]]]]")
 
     def test_cell(self):
-        # XXX Hmm? How to get at a cell object?
-        pass
+        def get_cell():
+            x = 42
+            def inner():
+                return x
+            return inner
+        x = get_cell().__closure__[0]
+        self.assertRegex(repr(x), r'<cell at 0x[0-9A-Fa-f]+: '
+                                  r'int object at 0x[0-9A-Fa-f]+>')
+        self.assertRegex(r(x), r'<cell at 0x.*\.\.\..*>')
 
     def test_descriptors(self):
         eq = self.assertEqual
@@ -241,7 +248,8 @@ class LongReprTest(unittest.TestCase):
         source_path_len += 2 * (len(self.longname) + 1)
         # a path separator + `module_name` + ".py"
         source_path_len += len(module_name) + 1 + len(".py")
-        cached_path_len = source_path_len + len(imp.cache_from_source("x.py")) - len("x.py")
+        cached_path_len = (source_path_len +
+            len(importlib.util.cache_from_source("x.py")) - len("x.py"))
         if os.name == 'nt' and cached_path_len >= 258:
             # Under Windows, the max path len is 260 including C's terminating
             # NUL character.
@@ -252,6 +260,7 @@ class LongReprTest(unittest.TestCase):
             print("cached_path_len =", cached_path_len)
 
     def test_module(self):
+        self.maxDiff = None
         self._check_path_limitations(self.pkgname)
         create_empty_file(os.path.join(self.subpkgname, self.pkgname + '.py'))
         importlib.invalidate_caches()
@@ -272,6 +281,7 @@ class foo(object):
         eq(repr(foo.foo),
                "<class '%s.foo'>" % foo.__name__)
 
+    @unittest.skip('need a suitable object')
     def test_object(self):
         # XXX Test the repr of a type with a really long tp_name but with no
         # tp_repr.  WIBNI we had ::Inline? :)
@@ -319,6 +329,7 @@ class aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
             '<bound method aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.amethod of <%s.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa object at 0x' \
             % (qux.__name__,) ), r)
 
+    @unittest.skip('needs a built-in function with a really long name')
     def test_builtin_function(self):
         # XXX test built-in functions and methods with really long names
         pass

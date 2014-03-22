@@ -66,6 +66,32 @@ class TestNtpath(unittest.TestCase):
                ('', '\\\\conky\\\\mountpoint\\foo\\bar'))
         tester('ntpath.splitdrive("//conky//mountpoint/foo/bar")',
                ('', '//conky//mountpoint/foo/bar'))
+        # Issue #19911: UNC part containing U+0130
+        self.assertEqual(ntpath.splitdrive('//conky/MOUNTPOİNT/foo/bar'),
+                         ('//conky/MOUNTPOİNT', '/foo/bar'))
+
+    def test_splitunc(self):
+        with self.assertWarns(DeprecationWarning):
+            ntpath.splitunc('')
+        with support.check_warnings(('', DeprecationWarning)):
+            tester('ntpath.splitunc("c:\\foo\\bar")',
+                   ('', 'c:\\foo\\bar'))
+            tester('ntpath.splitunc("c:/foo/bar")',
+                   ('', 'c:/foo/bar'))
+            tester('ntpath.splitunc("\\\\conky\\mountpoint\\foo\\bar")',
+                   ('\\\\conky\\mountpoint', '\\foo\\bar'))
+            tester('ntpath.splitunc("//conky/mountpoint/foo/bar")',
+                   ('//conky/mountpoint', '/foo/bar'))
+            tester('ntpath.splitunc("\\\\\\conky\\mountpoint\\foo\\bar")',
+                   ('', '\\\\\\conky\\mountpoint\\foo\\bar'))
+            tester('ntpath.splitunc("///conky/mountpoint/foo/bar")',
+                   ('', '///conky/mountpoint/foo/bar'))
+            tester('ntpath.splitunc("\\\\conky\\\\mountpoint\\foo\\bar")',
+                   ('', '\\\\conky\\\\mountpoint\\foo\\bar'))
+            tester('ntpath.splitunc("//conky//mountpoint/foo/bar")',
+                   ('', '//conky//mountpoint/foo/bar'))
+            self.assertEqual(ntpath.splitunc('//conky/MOUNTPOİNT/foo/bar'),
+                             ('//conky/MOUNTPOİNT', '/foo/bar'))
 
     def test_split(self):
         tester('ntpath.split("c:\\foo\\bar")', ('c:\\foo', 'bar'))
@@ -100,10 +126,7 @@ class TestNtpath(unittest.TestCase):
         tester('ntpath.join("/a")', '/a')
         tester('ntpath.join("\\a")', '\\a')
         tester('ntpath.join("a:")', 'a:')
-        tester('ntpath.join("a:", "b")', 'a:b')
-        tester('ntpath.join("a:", "/b")', 'a:/b')
         tester('ntpath.join("a:", "\\b")', 'a:\\b')
-        tester('ntpath.join("a", "/b")', '/b')
         tester('ntpath.join("a", "\\b")', '\\b')
         tester('ntpath.join("a", "b", "c")', 'a\\b\\c')
         tester('ntpath.join("a\\", "b", "c")', 'a\\b\\c')
@@ -111,42 +134,48 @@ class TestNtpath(unittest.TestCase):
         tester('ntpath.join("a", "b", "\\c")', '\\c')
         tester('ntpath.join("d:\\", "\\pleep")', 'd:\\pleep')
         tester('ntpath.join("d:\\", "a", "b")', 'd:\\a\\b')
-        tester("ntpath.join('c:', '/a')", 'c:/a')
-        tester("ntpath.join('c:/', '/a')", 'c:/a')
-        tester("ntpath.join('c:/a', '/b')", '/b')
-        tester("ntpath.join('c:', 'd:/')", 'd:/')
-        tester("ntpath.join('c:/', 'd:/')", 'd:/')
-        tester("ntpath.join('c:/', 'd:/a/b')", 'd:/a/b')
 
-        tester("ntpath.join('')", '')
-        tester("ntpath.join('', '', '', '', '')", '')
-        tester("ntpath.join('a')", 'a')
         tester("ntpath.join('', 'a')", 'a')
         tester("ntpath.join('', '', '', '', 'a')", 'a')
         tester("ntpath.join('a', '')", 'a\\')
         tester("ntpath.join('a', '', '', '', '')", 'a\\')
         tester("ntpath.join('a\\', '')", 'a\\')
         tester("ntpath.join('a\\', '', '', '', '')", 'a\\')
+        tester("ntpath.join('a/', '')", 'a/')
 
-        # from comment in ntpath.join
-        tester("ntpath.join('c:', '/a')", 'c:/a')
-        tester("ntpath.join('//computer/share', '/a')", '//computer/share/a')
-        tester("ntpath.join('c:/', '/a')", 'c:/a')
-        tester("ntpath.join('//computer/share/', '/a')", '//computer/share/a')
-        tester("ntpath.join('c:/a', '/b')", '/b')
-        tester("ntpath.join('//computer/share/a', '/b')", '/b')
-        tester("ntpath.join('c:', 'd:/')", 'd:/')
-        tester("ntpath.join('c:', '//computer/share/')", '//computer/share/')
-        tester("ntpath.join('//computer/share', 'd:/')", 'd:/')
-        tester("ntpath.join('//computer/share', '//computer/share/')", '//computer/share/')
-        tester("ntpath.join('c:/', 'd:/')", 'd:/')
-        tester("ntpath.join('c:/', '//computer/share/')", '//computer/share/')
-        tester("ntpath.join('//computer/share/', 'd:/')", 'd:/')
-        tester("ntpath.join('//computer/share/', '//computer/share/')", '//computer/share/')
+        tester("ntpath.join('a/b', 'x/y')", 'a/b\\x/y')
+        tester("ntpath.join('/a/b', 'x/y')", '/a/b\\x/y')
+        tester("ntpath.join('/a/b/', 'x/y')", '/a/b/x/y')
+        tester("ntpath.join('c:', 'x/y')", 'c:x/y')
+        tester("ntpath.join('c:a/b', 'x/y')", 'c:a/b\\x/y')
+        tester("ntpath.join('c:a/b/', 'x/y')", 'c:a/b/x/y')
+        tester("ntpath.join('c:/', 'x/y')", 'c:/x/y')
+        tester("ntpath.join('c:/a/b', 'x/y')", 'c:/a/b\\x/y')
+        tester("ntpath.join('c:/a/b/', 'x/y')", 'c:/a/b/x/y')
+        tester("ntpath.join('//computer/share', 'x/y')", '//computer/share\\x/y')
+        tester("ntpath.join('//computer/share/', 'x/y')", '//computer/share/x/y')
+        tester("ntpath.join('//computer/share/a/b', 'x/y')", '//computer/share/a/b\\x/y')
 
-        tester("ntpath.join('c:', '//computer/share/')", '//computer/share/')
-        tester("ntpath.join('c:/', '//computer/share/')", '//computer/share/')
-        tester("ntpath.join('c:/', '//computer/share/a/b')", '//computer/share/a/b')
+        tester("ntpath.join('a/b', '/x/y')", '/x/y')
+        tester("ntpath.join('/a/b', '/x/y')", '/x/y')
+        tester("ntpath.join('c:', '/x/y')", 'c:/x/y')
+        tester("ntpath.join('c:a/b', '/x/y')", 'c:/x/y')
+        tester("ntpath.join('c:/', '/x/y')", 'c:/x/y')
+        tester("ntpath.join('c:/a/b', '/x/y')", 'c:/x/y')
+        tester("ntpath.join('//computer/share', '/x/y')", '//computer/share/x/y')
+        tester("ntpath.join('//computer/share/', '/x/y')", '//computer/share/x/y')
+        tester("ntpath.join('//computer/share/a', '/x/y')", '//computer/share/x/y')
+
+        tester("ntpath.join('c:', 'C:x/y')", 'C:x/y')
+        tester("ntpath.join('c:a/b', 'C:x/y')", 'C:a/b\\x/y')
+        tester("ntpath.join('c:/', 'C:x/y')", 'C:/x/y')
+        tester("ntpath.join('c:/a/b', 'C:x/y')", 'C:/a/b\\x/y')
+
+        for x in ('', 'a/b', '/a/b', 'c:', 'c:a/b', 'c:/', 'c:/a/b',
+                  '//computer/share', '//computer/share/', '//computer/share/a/b'):
+            for y in ('d:', 'd:x/y', 'd:/', 'd:/x/y',
+                      '//machine/common', '//machine/common/', '//machine/common/x/y'):
+                tester("ntpath.join(%r, %r)" % (x, y), y)
 
         tester("ntpath.join('\\\\computer\\share\\', 'a', 'b')", '\\\\computer\\share\\a\\b')
         tester("ntpath.join('\\\\computer\\share', 'a', 'b')", '\\\\computer\\share\\a\\b')
@@ -218,7 +247,7 @@ class TestNtpath(unittest.TestCase):
             import nt
             tester('ntpath.abspath("C:\\")', "C:\\")
         except ImportError:
-            pass
+            self.skipTest('nt module not available')
 
     def test_relpath(self):
         currentdir = os.path.split(os.getcwd())[-1]
@@ -256,6 +285,40 @@ class TestNtpath(unittest.TestCase):
                     # dialogs (#4804)
                     ntpath.sameopenfile(-1, -1)
 
+    def test_ismount(self):
+        self.assertTrue(ntpath.ismount("c:\\"))
+        self.assertTrue(ntpath.ismount("C:\\"))
+        self.assertTrue(ntpath.ismount("c:/"))
+        self.assertTrue(ntpath.ismount("C:/"))
+        self.assertTrue(ntpath.ismount("\\\\.\\c:\\"))
+        self.assertTrue(ntpath.ismount("\\\\.\\C:\\"))
+
+        self.assertTrue(ntpath.ismount(b"c:\\"))
+        self.assertTrue(ntpath.ismount(b"C:\\"))
+        self.assertTrue(ntpath.ismount(b"c:/"))
+        self.assertTrue(ntpath.ismount(b"C:/"))
+        self.assertTrue(ntpath.ismount(b"\\\\.\\c:\\"))
+        self.assertTrue(ntpath.ismount(b"\\\\.\\C:\\"))
+
+        with support.temp_dir() as d:
+            self.assertFalse(ntpath.ismount(d))
+
+        if sys.platform == "win32":
+            #
+            # Make sure the current folder isn't the root folder
+            # (or any other volume root). The drive-relative
+            # locations below cannot then refer to mount points
+            #
+            drive, path = ntpath.splitdrive(sys.executable)
+            with support.change_cwd(os.path.dirname(sys.executable)):
+                self.assertFalse(ntpath.ismount(drive.lower()))
+                self.assertFalse(ntpath.ismount(drive.upper()))
+
+            self.assertTrue(ntpath.ismount("\\\\localhost\\c$"))
+            self.assertTrue(ntpath.ismount("\\\\localhost\\c$\\"))
+
+            self.assertTrue(ntpath.ismount(b"\\\\localhost\\c$"))
+            self.assertTrue(ntpath.ismount(b"\\\\localhost\\c$\\"))
 
 class NtCommonTest(test_genericpath.CommonTest, unittest.TestCase):
     pathmodule = ntpath

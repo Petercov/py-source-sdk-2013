@@ -236,7 +236,7 @@ class UtilTestCase(support.EnvironGuard, unittest.TestCase):
         self.assertRaises(DistutilsPlatformError,
                           change_root, 'c:\\root', 'its\\here')
 
-        # XXX platforms to be covered: os2, mac
+        # XXX platforms to be covered: mac
 
     def test_check_environ(self):
         util._environ_checked = 0
@@ -266,7 +266,7 @@ class UtilTestCase(support.EnvironGuard, unittest.TestCase):
             self.assertTrue(strtobool(y))
 
         for n in no:
-            self.assertTrue(not strtobool(n))
+            self.assertFalse(strtobool(n))
 
     def test_rfc822_escape(self):
         header = 'I am a\npoor\nlonesome\nheader\n'

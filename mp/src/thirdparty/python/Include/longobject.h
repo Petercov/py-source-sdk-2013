@@ -52,6 +52,19 @@ PyAPI_FUNC(PyObject *) PyLong_GetInfo(void);
 #error "sizeof(pid_t) is neither sizeof(int), sizeof(long) or sizeof(long long)"
 #endif /* SIZEOF_PID_T */
 
+#if SIZEOF_VOID_P == SIZEOF_INT
+#  define _Py_PARSE_INTPTR "i"
+#  define _Py_PARSE_UINTPTR "I"
+#elif SIZEOF_VOID_P == SIZEOF_LONG
+#  define _Py_PARSE_INTPTR "l"
+#  define _Py_PARSE_UINTPTR "k"
+#elif defined(SIZEOF_LONG_LONG) && SIZEOF_VOID_P == SIZEOF_LONG_LONG
+#  define _Py_PARSE_INTPTR "L"
+#  define _Py_PARSE_UINTPTR "K"
+#else
+#  error "void* different in size from int, long and long long"
+#endif /* SIZEOF_VOID_P */
+
 /* Used by Python/mystrtoul.c. */
 #ifndef Py_LIMITED_API
 PyAPI_DATA(unsigned char) _PyLong_DigitValue[256];
@@ -80,7 +93,7 @@ PyAPI_FUNC(unsigned PY_LONG_LONG) PyLong_AsUnsignedLongLongMask(PyObject *);
 PyAPI_FUNC(PY_LONG_LONG) PyLong_AsLongLongAndOverflow(PyObject *, int *);
 #endif /* HAVE_LONG_LONG */
 
-PyAPI_FUNC(PyObject *) PyLong_FromString(char *, char **, int);
+PyAPI_FUNC(PyObject *) PyLong_FromString(const char *, char **, int);
 #ifndef Py_LIMITED_API
 PyAPI_FUNC(PyObject *) PyLong_FromUnicode(Py_UNICODE*, Py_ssize_t, int);
 PyAPI_FUNC(PyObject *) PyLong_FromUnicodeObject(PyObject *u, int base);
@@ -152,6 +165,12 @@ PyAPI_FUNC(int) _PyLong_AsByteArray(PyLongObject* v,
     unsigned char* bytes, size_t n,
     int little_endian, int is_signed);
 
+/* _PyLong_FromNbInt: Convert the given object to a PyLongObject
+   using the nb_int slot, if available.  Raise TypeError if either the
+   nb_int slot is not available or the result of the call to nb_int
+   returns something not of type int.
+*/
+PyAPI_FUNC(PyLongObject *)_PyLong_FromNbInt(PyObject *);
 
 /* _PyLong_Format: Convert the long to a string object with given base,
    appending a base prefix of 0[box] if base is 2, 8 or 16. */
@@ -176,8 +195,8 @@ PyAPI_FUNC(int) _PyLong_FormatAdvancedWriter(
 /* These aren't really part of the int object, but they're handy. The
    functions are in Python/mystrtoul.c.
  */
-PyAPI_FUNC(unsigned long) PyOS_strtoul(char *, char **, int);
-PyAPI_FUNC(long) PyOS_strtol(char *, char **, int);
+PyAPI_FUNC(unsigned long) PyOS_strtoul(const char *, char **, int);
+PyAPI_FUNC(long) PyOS_strtol(const char *, char **, int);
 
 #ifdef __cplusplus
 }

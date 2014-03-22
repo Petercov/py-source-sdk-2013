@@ -13,6 +13,12 @@
 
 #include "tier0/valve_minmax_off.h"
 
+#if defined(_WIN32)
+// Ignore warnings in pyhash.h about "default constructor could not be generated"
+#pragma warning(disable:4510)
+#pragma warning(disable:4610)
+#endif // _WIN32
+
 #include <boost/python.hpp>
 
 //#include "minmax.h"

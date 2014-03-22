@@ -67,7 +67,7 @@ else: #pragma: no cover
         """Return the frame object for the caller's stack frame."""
         try:
             raise Exception
-        except:
+        except Exception:
             return sys.exc_info()[2].tb_frame.f_back
 
 # _srcfile is only used in conjunction with sys._getframe().
@@ -123,20 +123,22 @@ INFO = 20
 DEBUG = 10
 NOTSET = 0
 
-_levelNames = {
-    CRITICAL : 'CRITICAL',
-    ERROR : 'ERROR',
-    WARNING : 'WARNING',
-    INFO : 'INFO',
-    DEBUG : 'DEBUG',
-    NOTSET : 'NOTSET',
-    'CRITICAL' : CRITICAL,
-    'ERROR' : ERROR,
-    'WARN' : WARNING,
-    'WARNING' : WARNING,
-    'INFO' : INFO,
-    'DEBUG' : DEBUG,
-    'NOTSET' : NOTSET,
+_levelToName = {
+    CRITICAL: 'CRITICAL',
+    ERROR: 'ERROR',
+    WARNING: 'WARNING',
+    INFO: 'INFO',
+    DEBUG: 'DEBUG',
+    NOTSET: 'NOTSET',
+}
+_nameToLevel = {
+    'CRITICAL': CRITICAL,
+    'ERROR': ERROR,
+    'WARN': WARNING,
+    'WARNING': WARNING,
+    'INFO': INFO,
+    'DEBUG': DEBUG,
+    'NOTSET': NOTSET,
 }
 
 def getLevelName(level):
@@ -153,7 +155,7 @@ def getLevelName(level):
 
     Otherwise, the string "Level %s" % level is returned.
     """
-    return _levelNames.get(level, ("Level %s" % level))
+    return _levelToName.get(level, ("Level %s" % level))
 
 def addLevelName(level, levelName):
     """
@@ -163,8 +165,8 @@ def addLevelName(level, levelName):
     """
     _acquireLock()
     try:    #unlikely to cause an exception, but you never know...
-        _levelNames[level] = levelName
-        _levelNames[levelName] = level
+        _levelToName[level] = levelName
+        _nameToLevel[levelName] = level
     finally:
         _releaseLock()
 
@@ -172,9 +174,9 @@ def _checkLevel(level):
     if isinstance(level, int):
         rv = level
     elif str(level) == level:
-        if level not in _levelNames:
+        if level not in _nameToLevel:
             raise ValueError("Unknown level: %r" % level)
-        rv = _levelNames[level]
+        rv = _nameToLevel[level]
     else:
         raise TypeError("Level not an integer or a valid string: %r" % level)
     return rv
@@ -388,10 +390,12 @@ class StringTemplateStyle(PercentStyle):
     def format(self, record):
         return self._tpl.substitute(**record.__dict__)
 
+BASIC_FORMAT = "%(levelname)s:%(name)s:%(message)s"
+
 _STYLES = {
-    '%': PercentStyle,
-    '{': StrFormatStyle,
-    '$': StringTemplateStyle
+    '%': (PercentStyle, BASIC_FORMAT),
+    '{': (StrFormatStyle, '{levelname}:{name}:{message}'),
+    '$': (StringTemplateStyle, '${levelname}:${name}:${message}'),
 }
 
 class Formatter(object):
@@ -456,7 +460,7 @@ class Formatter(object):
         if style not in _STYLES:
             raise ValueError('Style must be one of: %s' % ','.join(
                              _STYLES.keys()))
-        self._style = _STYLES[style](fmt)
+        self._style = _STYLES[style][0](fmt)
         self._fmt = self._style._fmt
         self.datefmt = datefmt
 
@@ -880,16 +884,30 @@ class Handler(Filterer):
         The record which was being processed is passed in to this method.
         """
         if raiseExceptions and sys.stderr:  # see issue 13807
-            ei = sys.exc_info()
+            t, v, tb = sys.exc_info()
             try:
-                traceback.print_exception(ei[0], ei[1], ei[2],
-                                          None, sys.stderr)
-                sys.stderr.write('Logged from file %s, line %s\n' % (
-                                 record.filename, record.lineno))
-            except IOError: #pragma: no cover
+                sys.stderr.write('--- Logging error ---\n')
+                traceback.print_exception(t, v, tb, None, sys.stderr)
+                sys.stderr.write('Call stack:\n')
+                # Walk the stack frame up until we're out of logging,
+                # so as to print the calling context.
+                frame = tb.tb_frame
+                while (frame and os.path.dirname(frame.f_code.co_filename) ==
+                       __path__[0]):
+                    frame = frame.f_back
+                if frame:
+                    traceback.print_stack(frame, file=sys.stderr)
+                else:
+                    # couldn't find the right stack frame, for some reason
+                    sys.stderr.write('Logged from file %s, line %s\n' % (
+                                     record.filename, record.lineno))
+                # Issue 18671: output logging message and arguments
+                sys.stderr.write('Message: %r\n'
+                                 'Arguments: %s\n' % (record.msg, record.args))
+            except OSError: #pragma: no cover
                 pass    # see issue 5971
             finally:
-                del ei
+                del t, v, tb
 
 class StreamHandler(Handler):
     """
@@ -939,9 +957,7 @@ class StreamHandler(Handler):
             stream.write(msg)
             stream.write(self.terminator)
             self.flush()
-        except (KeyboardInterrupt, SystemExit): #pragma: no cover
-            raise
-        except:
+        except Exception:
             self.handleError(record)
 
 class FileHandler(StreamHandler):
@@ -976,8 +992,10 @@ class FileHandler(StreamHandler):
                 self.flush()
                 if hasattr(self.stream, "close"):
                     self.stream.close()
-                StreamHandler.close(self)
                 self.stream = None
+            # Issue #19523: call unconditionally to
+            # prevent a handler leak when delay is set
+            StreamHandler.close(self)
         finally:
             self.release()
 
@@ -1627,8 +1645,6 @@ Logger.manager = Manager(Logger.root)
 # Configuration classes and functions
 #---------------------------------------------------------------------------
 
-BASIC_FORMAT = "%(levelname)s:%(name)s:%(message)s"
-
 def basicConfig(**kwargs):
     """
     Do basic configuration for the logging system.
@@ -1702,9 +1718,12 @@ def basicConfig(**kwargs):
                     stream = kwargs.get("stream")
                     h = StreamHandler(stream)
                 handlers = [h]
-            fs = kwargs.get("format", BASIC_FORMAT)
             dfs = kwargs.get("datefmt", None)
             style = kwargs.get("style", '%')
+            if style not in _STYLES:
+                raise ValueError('Style must be one of: %s' % ','.join(
+                                 _STYLES.keys()))
+            fs = kwargs.get("format", _STYLES[style][1])
             fmt = Formatter(fs, dfs, style)
             for h in handlers:
                 if h.formatter is None:
@@ -1831,7 +1850,7 @@ def shutdown(handlerList=_handlerList):
                     h.acquire()
                     h.flush()
                     h.close()
-                except (IOError, ValueError):
+                except (OSError, ValueError):
                     # Ignore errors which might be caused
                     # because handlers have been closed but
                     # references to them are still around at
@@ -1839,7 +1858,7 @@ def shutdown(handlerList=_handlerList):
                     pass
                 finally:
                     h.release()
-        except:
+        except: # ignore everything, as we're shutting down
             if raiseExceptions:
                 raise
             #else, swallow

@@ -32,10 +32,12 @@ __version__ = "2.6"
 # =======
 
 from io import StringIO, BytesIO, TextIOWrapper
+from collections import Mapping
 import sys
 import os
 import urllib.parse
 from email.parser import FeedParser
+from email.message import Message
 from warnings import warn
 import html
 import locale
@@ -80,7 +82,7 @@ def initlog(*allargs):
     if logfile and not logfp:
         try:
             logfp = open(logfile, "a")
-        except IOError:
+        except OSError:
             pass
     if not logfp:
         log = nolog
@@ -472,18 +474,24 @@ class FieldStorage:
                 self.qs_on_post = environ['QUERY_STRING']
             if 'CONTENT_LENGTH' in environ:
                 headers['content-length'] = environ['CONTENT_LENGTH']
+        else:
+            if not (isinstance(headers, (Mapping, Message))):
+                raise TypeError("headers must be mapping or an instance of "
+                                "email.message.Message")
+        self.headers = headers
         if fp is None:
             self.fp = sys.stdin.buffer
         # self.fp.read() must return bytes
         elif isinstance(fp, TextIOWrapper):
             self.fp = fp.buffer
         else:
+            if not (hasattr(fp, 'read') and hasattr(fp, 'readline')):
+                raise TypeError("fp must be file pointer")
             self.fp = fp
 
         self.encoding = encoding
         self.errors = errors
 
-        self.headers = headers
         if not isinstance(outerboundary, bytes):
             raise TypeError('outerboundary must be bytes, not %s'
                             % type(outerboundary).__name__)
@@ -551,6 +559,12 @@ class FieldStorage:
             self.read_multi(environ, keep_blank_values, strict_parsing)
         else:
             self.read_single()
+
+    def __del__(self):
+        try:
+            self.file.close()
+        except AttributeError:
+            pass
 
     def __repr__(self):
         """Return a printable representation."""
@@ -636,7 +650,9 @@ class FieldStorage:
         """Dictionary style len(x) support."""
         return len(self.keys())
 
-    def __nonzero__(self):
+    def __bool__(self):
+        if self.list is None:
+            raise TypeError("Cannot be converted to bool.")
         return bool(self.list)
 
     def read_urlencoded(self):
@@ -670,7 +686,6 @@ class FieldStorage:
                 encoding=self.encoding, errors=self.errors)
             for key, value in query:
                 self.list.append(MiniFieldStorage(key, value))
-            FieldStorageClass = None
 
         klass = self.FieldStorageClass or self.__class__
         first_line = self.fp.readline() # bytes
@@ -958,8 +973,8 @@ def print_directory():
     print("<H3>Current Working Directory:</H3>")
     try:
         pwd = os.getcwd()
-    except os.error as msg:
-        print("os.error:", html.escape(str(msg)))
+    except OSError as msg:
+        print("OSError:", html.escape(str(msg)))
     else:
         print(html.escape(pwd))
     print()

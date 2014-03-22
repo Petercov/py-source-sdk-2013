@@ -1,13 +1,16 @@
 """Find modules used by a script, using introspection."""
 
 import dis
-import imp
 import importlib.machinery
 import marshal
 import os
 import sys
 import types
 import struct
+import warnings
+with warnings.catch_warnings():
+    warnings.simplefilter('ignore', PendingDeprecationWarning)
+    import imp
 
 # XXX Clean up once str8's cstor matches bytes.
 LOAD_CONST = bytes([dis.opname.index('LOAD_CONST')])
@@ -229,7 +232,7 @@ class ModuleFinder:
         for dir in m.__path__:
             try:
                 names = os.listdir(dir)
-            except os.error:
+            except OSError:
                 self.msg(2, "can't list directory", dir)
                 continue
             for name in names:
@@ -332,30 +335,6 @@ class ModuleFinder:
                         fullname = name + "." + sub
                         self._add_badmodule(fullname, caller)
 
-    def scan_opcodes(self, co,
-                     unpack = struct.unpack):
-        # Scan the code, and yield 'interesting' opcode combinations
-        # Version for Python 2.4 and older
-        code = co.co_code
-        names = co.co_names
-        consts = co.co_consts
-        while code:
-            c = code[0]
-            if c in STORE_OPS:
-                oparg, = unpack('<H', code[1:3])
-                yield "store", (names[oparg],)
-                code = code[3:]
-                continue
-            if c == LOAD_CONST and code[3] == IMPORT_NAME:
-                oparg_1, oparg_2 = unpack('<xHxH', code[:6])
-                yield "import", (consts[oparg_1], names[oparg_2])
-                code = code[6:]
-                continue
-            if c >= HAVE_ARGUMENT:
-                code = code[3:]
-            else:
-                code = code[1:]
-
     def scan_opcodes_25(self, co,
                      unpack = struct.unpack):
         # Scan the code, and yield 'interesting' opcode combinations
@@ -387,10 +366,7 @@ class ModuleFinder:
 
     def scan_code(self, co, m):
         code = co.co_code
-        if sys.version_info >= (2, 5):
-            scanner = self.scan_opcodes_25
-        else:
-            scanner = self.scan_opcodes
+        scanner = self.scan_opcodes_25
         for what, args in scanner(co):
             if what == "store":
                 name, = args

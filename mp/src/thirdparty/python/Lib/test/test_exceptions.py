@@ -8,8 +8,8 @@ import weakref
 import errno
 
 from test.support import (TESTFN, captured_output, check_impl_detail,
-                          cpython_only, gc_collect, run_unittest, no_tracing,
-                          unlink)
+                          check_warnings, cpython_only, gc_collect, run_unittest,
+                          no_tracing, unlink)
 
 class NaiveException(Exception):
     def __init__(self, x):
@@ -148,6 +148,19 @@ class ExceptionTests(unittest.TestCase):
         ckmsg(s, "'continue' not properly in loop")
         ckmsg("continue\n", "'continue' not properly in loop")
 
+    def testSyntaxErrorOffset(self):
+        def check(src, lineno, offset):
+            with self.assertRaises(SyntaxError) as cm:
+                compile(src, '<fragment>', 'exec')
+            self.assertEqual(cm.exception.lineno, lineno)
+            self.assertEqual(cm.exception.offset, offset)
+
+        check('def fact(x):\n\treturn x!\n', 2, 10)
+        check('1 +\n', 1, 4)
+        check('def spam():\n  print(1)\n print(2)', 3, 10)
+        check('Python = "Python" +', 1, 20)
+        check('Python = "\u1e54\xfd\u0163\u0125\xf2\xf1" +', 1, 20)
+
     @cpython_only
     def testSettingException(self):
         # test that setting an exception at the C level works even if the
@@ -244,22 +257,22 @@ class ExceptionTests(unittest.TestCase):
                 {'args' : ('foo', 1)}),
             (SystemExit, ('foo',),
                 {'args' : ('foo',), 'code' : 'foo'}),
-            (IOError, ('foo',),
+            (OSError, ('foo',),
                 {'args' : ('foo',), 'filename' : None,
                  'errno' : None, 'strerror' : None}),
-            (IOError, ('foo', 'bar'),
+            (OSError, ('foo', 'bar'),
                 {'args' : ('foo', 'bar'), 'filename' : None,
                  'errno' : 'foo', 'strerror' : 'bar'}),
-            (IOError, ('foo', 'bar', 'baz'),
+            (OSError, ('foo', 'bar', 'baz'),
                 {'args' : ('foo', 'bar'), 'filename' : 'baz',
                  'errno' : 'foo', 'strerror' : 'bar'}),
-            (IOError, ('foo', 'bar', 'baz', 'quux'),
-                {'args' : ('foo', 'bar', 'baz', 'quux')}),
-            (EnvironmentError, ('errnoStr', 'strErrorStr', 'filenameStr'),
+            (OSError, ('foo', 'bar', 'baz', None, 'quux'),
+                {'args' : ('foo', 'bar'), 'filename' : 'baz', 'filename2': 'quux'}),
+            (OSError, ('errnoStr', 'strErrorStr', 'filenameStr'),
                 {'args' : ('errnoStr', 'strErrorStr'),
                  'strerror' : 'strErrorStr', 'errno' : 'errnoStr',
                  'filename' : 'filenameStr'}),
-            (EnvironmentError, (1, 'strErrorStr', 'filenameStr'),
+            (OSError, (1, 'strErrorStr', 'filenameStr'),
                 {'args' : (1, 'strErrorStr'), 'errno' : 1,
                  'strerror' : 'strErrorStr', 'filename' : 'filenameStr'}),
             (SyntaxError, (), {'msg' : None, 'text' : None,
@@ -409,7 +422,7 @@ class ExceptionTests(unittest.TestCase):
         self.assertIsNone(e.__context__)
         self.assertIsNone(e.__cause__)
 
-        class MyException(EnvironmentError):
+        class MyException(OSError):
             pass
 
         e = MyException()
@@ -819,6 +832,7 @@ class ExceptionTests(unittest.TestCase):
         self.assertIn("maximum recursion depth exceeded", str(v))
 
 
+    @cpython_only
     def test_MemoryError(self):
         # PyErr_NoMemory always raises the same exception instance.
         # Check that the traceback is not doubled.
@@ -877,6 +891,7 @@ class ExceptionTests(unittest.TestCase):
         self.assertEqual(error5.a, 1)
         self.assertEqual(error5.__doc__, "")
 
+    @cpython_only
     def test_memory_error_cleanup(self):
         # Issue #5437: preallocated MemoryError instances should not keep
         # traceback objects alive.
@@ -947,13 +962,11 @@ class ImportErrorTests(unittest.TestCase):
 
     def test_non_str_argument(self):
         # Issue #15778
-        arg = b'abc'
-        exc = ImportError(arg)
-        self.assertEqual(str(arg), str(exc))
+        with check_warnings(('', BytesWarning), quiet=True):
+            arg = b'abc'
+            exc = ImportError(arg)
+            self.assertEqual(str(arg), str(exc))
 
-
-def test_main():
-    run_unittest(ExceptionTests, ImportErrorTests)
 
 if __name__ == '__main__':
     unittest.main()

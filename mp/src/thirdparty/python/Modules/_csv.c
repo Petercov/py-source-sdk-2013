@@ -51,7 +51,7 @@ static struct PyModuleDef _csvmodule;
 typedef enum {
     START_RECORD, START_FIELD, ESCAPED_CHAR, IN_FIELD,
     IN_QUOTED_FIELD, ESCAPE_IN_QUOTED_FIELD, QUOTE_IN_QUOTED_FIELD,
-    EAT_CRNL
+    EAT_CRNL,AFTER_ESCAPED_CRNL
 } ParserState;
 
 typedef enum {
@@ -239,6 +239,12 @@ _set_char(const char *name, Py_UCS4 *target, PyObject *src, Py_UCS4 dflt)
         *target = '\0';
         if (src != Py_None) {
             Py_ssize_t len;
+            if (!PyUnicode_Check(src)) {
+                PyErr_Format(PyExc_TypeError,
+                    "\"%s\" must be string, not %.200s", name,
+                    src->ob_type->tp_name);
+                return -1;
+            }
             len = PyUnicode_GetLength(src);
             if (len > 1) {
                 PyErr_Format(PyExc_TypeError,
@@ -425,7 +431,8 @@ dialect_new(PyTypeObject *type, PyObject *args, PyObject *kwargs)
     if (dialect_check_quoting(self->quoting))
         goto err;
     if (self->delimiter == 0) {
-        PyErr_SetString(PyExc_TypeError, "delimiter must be set");
+        PyErr_SetString(PyExc_TypeError,
+                        "\"delimiter\" must be an 1-character string");
         goto err;
     }
     if (quotechar == Py_None && quoting == NULL)
@@ -546,7 +553,10 @@ parse_save_field(ReaderObj *self)
             return -1;
         field = tmp;
     }
-    PyList_Append(self->fields, field);
+    if (PyList_Append(self->fields, field) < 0) {
+        Py_DECREF(field);
+        return -1;
+    }
     Py_DECREF(field);
     return 0;
 }
@@ -644,12 +654,23 @@ parse_process_char(ReaderObj *self, Py_UCS4 c)
         break;
 
     case ESCAPED_CHAR:
+        if (c == '\n' || c=='\r') {
+            if (parse_add_char(self, c) < 0)
+                return -1;
+            self->state = AFTER_ESCAPED_CRNL;
+            break;
+        }
         if (c == '\0')
             c = '\n';
         if (parse_add_char(self, c) < 0)
             return -1;
         self->state = IN_FIELD;
         break;
+
+    case AFTER_ESCAPED_CRNL:
+        if (c == '\0')
+            break;
+        /*fallthru*/
 
     case IN_FIELD:
         /* in unquoted field */

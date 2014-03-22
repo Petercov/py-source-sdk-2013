@@ -96,7 +96,7 @@ class GeneralTests(unittest.TestCase):
 
     def testTimeoutDefault(self):
         mock_socket.reply_with(b"220 Hola mundo")
-        self.assertTrue(mock_socket.getdefaulttimeout() is None)
+        self.assertIsNone(mock_socket.getdefaulttimeout())
         mock_socket.setdefaulttimeout(30)
         self.assertEqual(mock_socket.getdefaulttimeout(), 30)
         try:
@@ -108,13 +108,13 @@ class GeneralTests(unittest.TestCase):
 
     def testTimeoutNone(self):
         mock_socket.reply_with(b"220 Hola mundo")
-        self.assertTrue(socket.getdefaulttimeout() is None)
+        self.assertIsNone(socket.getdefaulttimeout())
         socket.setdefaulttimeout(30)
         try:
             smtp = smtplib.SMTP(HOST, self.port, timeout=None)
         finally:
             socket.setdefaulttimeout(None)
-        self.assertTrue(smtp.sock.gettimeout() is None)
+        self.assertIsNone(smtp.sock.gettimeout())
         smtp.close()
 
     def testTimeoutValue(self):
@@ -222,7 +222,7 @@ class DebuggingServerTests(unittest.TestCase):
             self.assertEqual(smtp.source_address, ('127.0.0.1', port))
             self.assertEqual(smtp.local_hostname, 'localhost')
             smtp.quit()
-        except IOError as e:
+        except OSError as e:
             if e.errno == errno.EADDRINUSE:
                 self.skipTest("couldn't bind to port %d" % port)
             raise
@@ -524,12 +524,6 @@ class DebuggingServerTests(unittest.TestCase):
 
 class NonConnectingTests(unittest.TestCase):
 
-    def setUp(self):
-        smtplib.socket = mock_socket
-
-    def tearDown(self):
-        smtplib.socket = socket
-
     def testNotConnected(self):
         # Test various operations on an unconnected SMTP object that
         # should raise exceptions (at present the attempt in SMTP.send
@@ -541,10 +535,10 @@ class NonConnectingTests(unittest.TestCase):
                           smtp.send, 'test msg')
 
     def testNonnumericPort(self):
-        # check that non-numeric port raises socket.error
-        self.assertRaises(mock_socket.error, smtplib.SMTP,
+        # check that non-numeric port raises OSError
+        self.assertRaises(OSError, smtplib.SMTP,
                           "localhost", "bogus")
-        self.assertRaises(mock_socket.error, smtplib.SMTP,
+        self.assertRaises(OSError, smtplib.SMTP,
                           "localhost:bogus")
 
 
@@ -567,6 +561,33 @@ class BadHELOServerTests(unittest.TestCase):
     def testFailingHELO(self):
         self.assertRaises(smtplib.SMTPConnectError, smtplib.SMTP,
                             HOST, self.port, 'localhost', 3)
+
+
+@unittest.skipUnless(threading, 'Threading required for this test.')
+class TooLongLineTests(unittest.TestCase):
+    respdata = b'250 OK' + (b'.' * smtplib._MAXLINE * 2) + b'\n'
+
+    def setUp(self):
+        self.old_stdout = sys.stdout
+        self.output = io.StringIO()
+        sys.stdout = self.output
+
+        self.evt = threading.Event()
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.settimeout(15)
+        self.port = support.bind_port(self.sock)
+        servargs = (self.evt, self.respdata, self.sock)
+        threading.Thread(target=server, args=servargs).start()
+        self.evt.wait()
+        self.evt.clear()
+
+    def tearDown(self):
+        self.evt.wait()
+        sys.stdout = self.old_stdout
+
+    def testLineTooLong(self):
+        self.assertRaises(smtplib.SMTPResponseException, smtplib.SMTP,
+                          HOST, self.port, 'localhost', 3)
 
 
 sim_users = {'Mr.A@somewhere.com':'John A',
@@ -825,6 +846,15 @@ class SMTPSimTests(unittest.TestCase):
             self.assertIn(sim_auth_credentials['cram-md5'], str(err))
         smtp.close()
 
+    def testAUTH_multiple(self):
+        # Test that multiple authentication methods are tried.
+        self.serv.add_feature("AUTH BOGUS PLAIN LOGIN CRAM-MD5")
+        smtp = smtplib.SMTP(HOST, self.port, local_hostname='localhost', timeout=15)
+        try: smtp.login(sim_auth[0], sim_auth[1])
+        except smtplib.SMTPAuthenticationError as err:
+            self.assertIn(sim_auth_login_password, str(err))
+        smtp.close()
+
     def test_with_statement(self):
         with smtplib.SMTP(HOST, self.port) as smtp:
             code, message = smtp.noop()
@@ -885,7 +915,8 @@ class SMTPSimTests(unittest.TestCase):
 def test_main(verbose=None):
     support.run_unittest(GeneralTests, DebuggingServerTests,
                               NonConnectingTests,
-                              BadHELOServerTests, SMTPSimTests)
+                              BadHELOServerTests, SMTPSimTests,
+                              TooLongLineTests)
 
 if __name__ == '__main__':
     test_main()
