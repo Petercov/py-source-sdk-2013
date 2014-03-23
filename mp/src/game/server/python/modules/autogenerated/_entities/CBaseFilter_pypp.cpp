@@ -14,7 +14,6 @@
 #include "modelentities.h"
 #include "basetoggle.h"
 #include "triggers.h"
-#include "nav_area.h"
 #include "AI_Criteria.h"
 #include "saverestore.h"
 #include "vcollide_parse.h"
@@ -262,6 +261,25 @@ struct CBaseFilter_wrapper : CBaseFilter, bp::wrapper< CBaseFilter > {
     
     void default_Event_Killed( ::CTakeDamageInfo const & info ) {
         CBaseEntity::Event_Killed( info );
+    }
+
+    virtual void Event_KilledOther( ::CBaseEntity * pVictim, ::CTakeDamageInfo const & info ) {
+        PY_OVERRIDE_CHECK( CBaseEntity, Event_KilledOther )
+        PY_OVERRIDE_LOG( _entities, CBaseEntity, Event_KilledOther )
+        bp::override func_Event_KilledOther = this->get_override( "Event_KilledOther" );
+        if( func_Event_KilledOther.ptr() != Py_None )
+            try {
+                func_Event_KilledOther( pVictim ? pVictim->GetPyHandle() : boost::python::object(), boost::ref(info) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::Event_KilledOther( pVictim, info );
+            }
+        else
+            this->CBaseEntity::Event_KilledOther( pVictim, info );
+    }
+    
+    void default_Event_KilledOther( ::CBaseEntity * pVictim, ::CTakeDamageInfo const & info ) {
+        CBaseEntity::Event_KilledOther( pVictim, info );
     }
 
     virtual char const * GetTracerType(  ) {
@@ -677,6 +695,11 @@ void register_CBaseFilter_class(){
             , (void ( ::CBaseEntity::* )( ::CTakeDamageInfo const & ) )(&::CBaseEntity::Event_Killed)
             , (void ( CBaseFilter_wrapper::* )( ::CTakeDamageInfo const & ) )(&CBaseFilter_wrapper::default_Event_Killed)
             , ( bp::arg("info") ) )    
+        .def( 
+            "Event_KilledOther"
+            , (void ( ::CBaseEntity::* )( ::CBaseEntity *,::CTakeDamageInfo const & ) )(&::CBaseEntity::Event_KilledOther)
+            , (void ( CBaseFilter_wrapper::* )( ::CBaseEntity *,::CTakeDamageInfo const & ) )(&CBaseFilter_wrapper::default_Event_KilledOther)
+            , ( bp::arg("pVictim"), bp::arg("info") ) )    
         .def( 
             "GetTracerType"
             , (char const * ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::GetTracerType)

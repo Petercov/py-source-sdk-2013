@@ -16,7 +16,6 @@
 #include "modelentities.h"
 #include "basetoggle.h"
 #include "triggers.h"
-#include "nav_area.h"
 #include "AI_Criteria.h"
 #include "saverestore.h"
 #include "vcollide_parse.h"
@@ -102,11 +101,32 @@ struct CBaseAnimating_wrapper : CBaseAnimating, bp::wrapper< CBaseAnimating > {
         return CBaseAnimating::DrawDebugTextOverlays( );
     }
 
+    static boost::python::tuple GetIntervalMovement( ::CBaseAnimating & inst, float flIntervalUsed, ::Vector & newPosition, ::QAngle & newAngles ){
+        bool bMoveSeqFinished2;
+        bool result = inst.GetIntervalMovement(flIntervalUsed, bMoveSeqFinished2, newPosition, newAngles);
+        return bp::make_tuple( result, bMoveSeqFinished2 );
+    }
+
     static boost::python::tuple GetPoseParameterRange( ::CBaseAnimating & inst, int index ){
         float minValue2;
         float maxValue2;
         bool result = inst.GetPoseParameterRange(index, minValue2, maxValue2);
         return bp::make_tuple( result, minValue2, maxValue2 );
+    }
+
+    static boost::python::tuple GotoSequence( ::CBaseAnimating & inst, int iCurrentSequence, float flCurrentCycle, float flCurrentRate, int iGoalSequence ){
+        int iNextSequence2;
+        float flCycle2;
+        int iDir2;
+        bool result = inst.GotoSequence(iCurrentSequence, flCurrentCycle, flCurrentRate, iGoalSequence, iNextSequence2, flCycle2, iDir2);
+        return bp::make_tuple( result, iNextSequence2, flCycle2, iDir2 );
+    }
+
+    static boost::python::tuple LookupHitbox( ::CBaseAnimating & inst, char const * szName ){
+        int outSet2;
+        int outBox2;
+        bool result = inst.LookupHitbox(szName, outSet2, outBox2);
+        return bp::make_tuple( result, outSet2, outBox2 );
     }
 
     virtual void ModifyOrAppendCriteria( ::AI_CriteriaSet & set ) {
@@ -316,6 +336,25 @@ struct CBaseAnimating_wrapper : CBaseAnimating, bp::wrapper< CBaseAnimating > {
     
     void default_Event_Killed( ::CTakeDamageInfo const & info ) {
         CBaseEntity::Event_Killed( info );
+    }
+
+    virtual void Event_KilledOther( ::CBaseEntity * pVictim, ::CTakeDamageInfo const & info ) {
+        PY_OVERRIDE_CHECK( CBaseEntity, Event_KilledOther )
+        PY_OVERRIDE_LOG( _entities, CBaseEntity, Event_KilledOther )
+        bp::override func_Event_KilledOther = this->get_override( "Event_KilledOther" );
+        if( func_Event_KilledOther.ptr() != Py_None )
+            try {
+                func_Event_KilledOther( pVictim ? pVictim->GetPyHandle() : boost::python::object(), boost::ref(info) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::Event_KilledOther( pVictim, info );
+            }
+        else
+            this->CBaseEntity::Event_KilledOther( pVictim, info );
+    }
+    
+    void default_Event_KilledOther( ::CBaseEntity * pVictim, ::CTakeDamageInfo const & info ) {
+        CBaseEntity::Event_KilledOther( pVictim, info );
     }
 
     virtual char const * GetTracerType(  ) {
@@ -1204,12 +1243,12 @@ void register_CBaseAnimating_class(){
         }
         { //::CBaseAnimating::GetIntervalMovement
         
-            typedef bool ( ::CBaseAnimating::*GetIntervalMovement_function_type )( float,bool &,::Vector &,::QAngle & ) ;
+            typedef boost::python::tuple ( *GetIntervalMovement_function_type )( ::CBaseAnimating &,float,::Vector &,::QAngle & );
             
             CBaseAnimating_exposer.def( 
                 "GetIntervalMovement"
-                , GetIntervalMovement_function_type( &::CBaseAnimating::GetIntervalMovement )
-                , ( bp::arg("flIntervalUsed"), bp::arg("bMoveSeqFinished"), bp::arg("newPosition"), bp::arg("newAngles") ) );
+                , GetIntervalMovement_function_type( &CBaseAnimating_wrapper::GetIntervalMovement )
+                , ( bp::arg("inst"), bp::arg("flIntervalUsed"), bp::arg("newPosition"), bp::arg("newAngles") ) );
         
         }
         { //::CBaseAnimating::GetLastVisibleCycle
@@ -1536,12 +1575,12 @@ void register_CBaseAnimating_class(){
         }
         { //::CBaseAnimating::GotoSequence
         
-            typedef bool ( ::CBaseAnimating::*GotoSequence_function_type )( int,float,float,int,int &,float &,int & ) ;
+            typedef boost::python::tuple ( *GotoSequence_function_type )( ::CBaseAnimating &,int,float,float,int );
             
             CBaseAnimating_exposer.def( 
                 "GotoSequence"
-                , GotoSequence_function_type( &::CBaseAnimating::GotoSequence )
-                , ( bp::arg("iCurrentSequence"), bp::arg("flCurrentCycle"), bp::arg("flCurrentRate"), bp::arg("iGoalSequence"), bp::arg("iNextSequence"), bp::arg("flCycle"), bp::arg("iDir") ) );
+                , GotoSequence_function_type( &CBaseAnimating_wrapper::GotoSequence )
+                , ( bp::arg("inst"), bp::arg("iCurrentSequence"), bp::arg("flCurrentCycle"), bp::arg("flCurrentRate"), bp::arg("iGoalSequence") ) );
         
         }
         { //::CBaseAnimating::HandleAnimEvent
@@ -1846,12 +1885,12 @@ void register_CBaseAnimating_class(){
         }
         { //::CBaseAnimating::LookupHitbox
         
-            typedef bool ( ::CBaseAnimating::*LookupHitbox_function_type )( char const *,int &,int & ) ;
+            typedef boost::python::tuple ( *LookupHitbox_function_type )( ::CBaseAnimating &,char const * );
             
             CBaseAnimating_exposer.def( 
                 "LookupHitbox"
-                , LookupHitbox_function_type( &::CBaseAnimating::LookupHitbox )
-                , ( bp::arg("szName"), bp::arg("outSet"), bp::arg("outBox") ) );
+                , LookupHitbox_function_type( &CBaseAnimating_wrapper::LookupHitbox )
+                , ( bp::arg("inst"), bp::arg("szName") ) );
         
         }
         { //::CBaseAnimating::LookupPoseParameter
@@ -2406,6 +2445,9 @@ void register_CBaseAnimating_class(){
                 , UseClientSideAnimation_function_type( &::CBaseAnimating::UseClientSideAnimation ) );
         
         }
+        CBaseAnimating_exposer.def_readwrite( "onignite", &CBaseAnimating::m_OnIgnite );
+        CBaseAnimating_exposer.def_readwrite( "groundspeed", &CBaseAnimating::m_flGroundSpeed );
+        CBaseAnimating_exposer.def_readwrite( "lastevencheck", &CBaseAnimating::m_flLastEventCheck );
         { //::CBaseEntity::ComputeWorldSpaceSurroundingBox
         
             typedef void ( ::CBaseEntity::*ComputeWorldSpaceSurroundingBox_function_type )( ::Vector *,::Vector * ) ;
@@ -2486,6 +2528,18 @@ void register_CBaseAnimating_class(){
                 , Event_Killed_function_type(&::CBaseEntity::Event_Killed)
                 , default_Event_Killed_function_type(&CBaseAnimating_wrapper::default_Event_Killed)
                 , ( bp::arg("info") ) );
+        
+        }
+        { //::CBaseEntity::Event_KilledOther
+        
+            typedef void ( ::CBaseEntity::*Event_KilledOther_function_type )( ::CBaseEntity *,::CTakeDamageInfo const & ) ;
+            typedef void ( CBaseAnimating_wrapper::*default_Event_KilledOther_function_type )( ::CBaseEntity *,::CTakeDamageInfo const & ) ;
+            
+            CBaseAnimating_exposer.def( 
+                "Event_KilledOther"
+                , Event_KilledOther_function_type(&::CBaseEntity::Event_KilledOther)
+                , default_Event_KilledOther_function_type(&CBaseAnimating_wrapper::default_Event_KilledOther)
+                , ( bp::arg("pVictim"), bp::arg("info") ) );
         
         }
         { //::CBaseEntity::GetTracerType

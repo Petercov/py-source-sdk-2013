@@ -525,16 +525,6 @@ void register_C_BaseCombatCharacter_class(){
                 , DoMuzzleFlash_function_type( &::C_BaseCombatCharacter::DoMuzzleFlash ) );
         
         }
-        { //::C_BaseCombatCharacter::GetActiveWeapon
-        
-            typedef ::C_BaseCombatWeapon * ( ::C_BaseCombatCharacter::*GetActiveWeapon_function_type )(  ) const;
-            
-            C_BaseCombatCharacter_exposer.def( 
-                "GetActiveWeapon"
-                , GetActiveWeapon_function_type( &::C_BaseCombatCharacter::GetActiveWeapon )
-                , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
         { //::C_BaseCombatCharacter::GetAmmoCount
         
             typedef int ( ::C_BaseCombatCharacter::*GetAmmoCount_function_type )( int ) const;
@@ -1056,6 +1046,17 @@ void register_C_BaseCombatCharacter_class(){
         
         }
         C_BaseCombatCharacter_exposer.staticmethod( "GetPyNetworkType" );
+        { //property "activeweapon"[fget=::C_BaseCombatCharacter::GetActiveWeapon]
+        
+            typedef ::C_BaseCombatWeapon * ( ::C_BaseCombatCharacter::*fget )(  ) const;
+            
+            C_BaseCombatCharacter_exposer.add_property( 
+                "activeweapon"
+                , bp::make_function( 
+                      fget( &::C_BaseCombatCharacter::GetActiveWeapon )
+                    , bp::return_value_policy< bp::return_by_value >() )  );
+        
+        }
         C_BaseCombatCharacter_exposer.add_property( "lifestate", &C_BaseCombatCharacter_wrapper::m_lifeState_Get, &C_BaseCombatCharacter_wrapper::m_lifeState_Set );
         C_BaseCombatCharacter_exposer.add_property( "takedamage", &C_BaseCombatCharacter_wrapper::m_takedamage_Get, &C_BaseCombatCharacter_wrapper::m_takedamage_Set );
         C_BaseCombatCharacter_exposer.add_property( "skin", &C_BaseCombatCharacter_wrapper::m_nSkin_Get, &C_BaseCombatCharacter_wrapper::m_nSkin_Set );

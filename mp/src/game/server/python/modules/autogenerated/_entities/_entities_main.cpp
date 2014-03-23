@@ -29,8 +29,6 @@
 
 #include "triggers.h"
 
-#include "nav_area.h"
-
 #include "AI_Criteria.h"
 
 #include "saverestore.h"

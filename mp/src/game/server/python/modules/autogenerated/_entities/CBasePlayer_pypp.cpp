@@ -14,7 +14,6 @@
 #include "modelentities.h"
 #include "basetoggle.h"
 #include "triggers.h"
-#include "nav_area.h"
 #include "AI_Criteria.h"
 #include "saverestore.h"
 #include "vcollide_parse.h"
@@ -117,6 +116,25 @@ struct CBasePlayer_wrapper : CBasePlayer, bp::wrapper< CBasePlayer > {
     
     void default_Event_Killed( ::CTakeDamageInfo const & info ) {
         CBasePlayer::Event_Killed( info );
+    }
+
+    virtual void Event_KilledOther( ::CBaseEntity * pVictim, ::CTakeDamageInfo const & info ) {
+        PY_OVERRIDE_CHECK( CBasePlayer, Event_KilledOther )
+        PY_OVERRIDE_LOG( _entities, CBasePlayer, Event_KilledOther )
+        bp::override func_Event_KilledOther = this->get_override( "Event_KilledOther" );
+        if( func_Event_KilledOther.ptr() != Py_None )
+            try {
+                func_Event_KilledOther( pVictim ? pVictim->GetPyHandle() : boost::python::object(), boost::ref(info) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBasePlayer::Event_KilledOther( pVictim, info );
+            }
+        else
+            this->CBasePlayer::Event_KilledOther( pVictim, info );
+    }
+    
+    void default_Event_KilledOther( ::CBaseEntity * pVictim, ::CTakeDamageInfo const & info ) {
+        CBasePlayer::Event_KilledOther( pVictim, info );
     }
 
     virtual char const * GetTracerType(  ) {
@@ -307,6 +325,63 @@ struct CBasePlayer_wrapper : CBasePlayer, bp::wrapper< CBasePlayer > {
     
     void default_VPhysicsCollision( int index, ::gamevcollisionevent_t * pEvent ) {
         CBasePlayer::VPhysicsCollision( index, pEvent );
+    }
+
+    virtual void Weapon_Drop( ::CBaseCombatWeapon * pWeapon, ::Vector const * pvecTarget, ::Vector const * pVelocity ) {
+        PY_OVERRIDE_CHECK( CBasePlayer, Weapon_Drop )
+        PY_OVERRIDE_LOG( _entities, CBasePlayer, Weapon_Drop )
+        bp::override func_Weapon_Drop = this->get_override( "Weapon_Drop" );
+        if( func_Weapon_Drop.ptr() != Py_None )
+            try {
+                func_Weapon_Drop( pWeapon ? pWeapon->GetPyHandle() : boost::python::object(), boost::python::ptr(pvecTarget), boost::python::ptr(pVelocity) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBasePlayer::Weapon_Drop( pWeapon, pvecTarget, pVelocity );
+            }
+        else
+            this->CBasePlayer::Weapon_Drop( pWeapon, pvecTarget, pVelocity );
+    }
+    
+    void default_Weapon_Drop( ::CBaseCombatWeapon * pWeapon, ::Vector const * pvecTarget, ::Vector const * pVelocity ) {
+        CBasePlayer::Weapon_Drop( pWeapon, pvecTarget, pVelocity );
+    }
+
+    virtual void Weapon_Equip( ::CBaseCombatWeapon * pWeapon ) {
+        PY_OVERRIDE_CHECK( CBasePlayer, Weapon_Equip )
+        PY_OVERRIDE_LOG( _entities, CBasePlayer, Weapon_Equip )
+        bp::override func_Weapon_Equip = this->get_override( "Weapon_Equip" );
+        if( func_Weapon_Equip.ptr() != Py_None )
+            try {
+                func_Weapon_Equip( pWeapon ? pWeapon->GetPyHandle() : boost::python::object() );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBasePlayer::Weapon_Equip( pWeapon );
+            }
+        else
+            this->CBasePlayer::Weapon_Equip( pWeapon );
+    }
+    
+    void default_Weapon_Equip( ::CBaseCombatWeapon * pWeapon ) {
+        CBasePlayer::Weapon_Equip( pWeapon );
+    }
+
+    virtual bool Weapon_Switch( ::CBaseCombatWeapon * pWeapon, int viewmodelindex=0 ) {
+        PY_OVERRIDE_CHECK( CBasePlayer, Weapon_Switch )
+        PY_OVERRIDE_LOG( _entities, CBasePlayer, Weapon_Switch )
+        bp::override func_Weapon_Switch = this->get_override( "Weapon_Switch" );
+        if( func_Weapon_Switch.ptr() != Py_None )
+            try {
+                return func_Weapon_Switch( pWeapon ? pWeapon->GetPyHandle() : boost::python::object(), viewmodelindex );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CBasePlayer::Weapon_Switch( pWeapon, viewmodelindex );
+            }
+        else
+            return this->CBasePlayer::Weapon_Switch( pWeapon, viewmodelindex );
+    }
+    
+    bool default_Weapon_Switch( ::CBaseCombatWeapon * pWeapon, int viewmodelindex=0 ) {
+        return CBasePlayer::Weapon_Switch( pWeapon, viewmodelindex );
     }
 
     virtual bool BecomeRagdoll( ::CTakeDamageInfo const & info, ::Vector const & forceVector ) {
@@ -927,7 +1002,8 @@ void register_CBasePlayer_class(){
             , ( bp::arg("info") ) )    
         .def( 
             "Event_KilledOther"
-            , (void ( ::CBasePlayer::* )( ::CBaseEntity *,::CTakeDamageInfo const & ) )( &::CBasePlayer::Event_KilledOther )
+            , (void ( ::CBasePlayer::* )( ::CBaseEntity *,::CTakeDamageInfo const & ) )(&::CBasePlayer::Event_KilledOther)
+            , (void ( CBasePlayer_wrapper::* )( ::CBaseEntity *,::CTakeDamageInfo const & ) )(&CBasePlayer_wrapper::default_Event_KilledOther)
             , ( bp::arg("pVictim"), bp::arg("info") ) )    
         .def( 
             "ExitLadder"
@@ -1052,10 +1128,6 @@ void register_CBasePlayer_class(){
         .def( 
             "GetFOVTime"
             , (float ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::GetFOVTime ) )    
-        .def( 
-            "GetGroundVPhysics"
-            , (::IPhysicsObject * ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::GetGroundVPhysics )
-            , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetHeldObjectMass"
             , (float ( ::CBasePlayer::* )( ::IPhysicsObject * ) )( &::CBasePlayer::GetHeldObjectMass )
@@ -1189,11 +1261,6 @@ void register_CBasePlayer_class(){
         .def( 
             "GetViewEntity"
             , (::CBaseEntity * ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::GetViewEntity )
-            , bp::return_value_policy< bp::return_by_value >() )    
-        .def( 
-            "GetViewModel"
-            , (::CBaseViewModel * ( ::CBasePlayer::* )( int,bool ) )( &::CBasePlayer::GetViewModel )
-            , ( bp::arg("viewmodelindex")=(int)(0), bp::arg("bObserverOK")=(bool)(true) )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetWaterJumpTime"
@@ -1921,7 +1988,8 @@ void register_CBasePlayer_class(){
             , ( bp::arg("pWeapon") ) )    
         .def( 
             "Weapon_Drop"
-            , (void ( ::CBasePlayer::* )( ::CBaseCombatWeapon *,::Vector const *,::Vector const * ) )( &::CBasePlayer::Weapon_Drop )
+            , (void ( ::CBasePlayer::* )( ::CBaseCombatWeapon *,::Vector const *,::Vector const * ) )(&::CBasePlayer::Weapon_Drop)
+            , (void ( CBasePlayer_wrapper::* )( ::CBaseCombatWeapon *,::Vector const *,::Vector const * ) )(&CBasePlayer_wrapper::default_Weapon_Drop)
             , ( bp::arg("pWeapon"), bp::arg("pvecTarget"), bp::arg("pVelocity") ) )    
         .def( 
             "Weapon_DropSlot"
@@ -1929,7 +1997,8 @@ void register_CBasePlayer_class(){
             , ( bp::arg("weaponSlot") ) )    
         .def( 
             "Weapon_Equip"
-            , (void ( ::CBasePlayer::* )( ::CBaseCombatWeapon * ) )( &::CBasePlayer::Weapon_Equip )
+            , (void ( ::CBasePlayer::* )( ::CBaseCombatWeapon * ) )(&::CBasePlayer::Weapon_Equip)
+            , (void ( CBasePlayer_wrapper::* )( ::CBaseCombatWeapon * ) )(&CBasePlayer_wrapper::default_Weapon_Equip)
             , ( bp::arg("pWeapon") ) )    
         .def( 
             "Weapon_GetLast"
@@ -1952,7 +2021,8 @@ void register_CBasePlayer_class(){
             , ( bp::arg("pOldWeapon"), bp::arg("pNewWeapon") ) )    
         .def( 
             "Weapon_Switch"
-            , (bool ( ::CBasePlayer::* )( ::CBaseCombatWeapon *,int ) )( &::CBasePlayer::Weapon_Switch )
+            , (bool ( ::CBasePlayer::* )( ::CBaseCombatWeapon *,int ) )(&::CBasePlayer::Weapon_Switch)
+            , (bool ( CBasePlayer_wrapper::* )( ::CBaseCombatWeapon *,int ) )(&CBasePlayer_wrapper::default_Weapon_Switch)
             , ( bp::arg("pWeapon"), bp::arg("viewmodelindex")=(int)(0) ) )    
         .def_readwrite( "buttonslast", &CBasePlayer::m_afButtonLast )    
         .def_readwrite( "buttonspressed", &CBasePlayer::m_afButtonPressed )    

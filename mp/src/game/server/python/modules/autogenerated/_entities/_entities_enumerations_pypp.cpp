@@ -14,7 +14,6 @@
 #include "modelentities.h"
 #include "basetoggle.h"
 #include "triggers.h"
-#include "nav_area.h"
 #include "AI_Criteria.h"
 #include "saverestore.h"
 #include "vcollide_parse.h"
@@ -39,6 +38,11 @@ void _entities_register_enumerations(){
     bp::enum_< GibType_e>("GibType_e")
         .value("GIB_HUMAN", GIB_HUMAN)
         .value("GIB_ALIEN", GIB_ALIEN)
+        .export_values()
+        ;
+
+    bp::enum_< LocalFlexController_t>("LocalFlexController_t")
+        .value("DUMMY_FLEX_CONTROLLER", DUMMY_FLEX_CONTROLLER)
         .export_values()
         ;
 

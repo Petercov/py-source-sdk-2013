@@ -14,7 +14,6 @@
 #include "modelentities.h"
 #include "basetoggle.h"
 #include "triggers.h"
-#include "nav_area.h"
 #include "AI_Criteria.h"
 #include "saverestore.h"
 #include "vcollide_parse.h"
@@ -224,6 +223,25 @@ struct CTriggerMultiple_wrapper : CTriggerMultiple, bp::wrapper< CTriggerMultipl
     
     void default_Event_Killed( ::CTakeDamageInfo const & info ) {
         CBaseEntity::Event_Killed( info );
+    }
+
+    virtual void Event_KilledOther( ::CBaseEntity * pVictim, ::CTakeDamageInfo const & info ) {
+        PY_OVERRIDE_CHECK( CBaseEntity, Event_KilledOther )
+        PY_OVERRIDE_LOG( _entities, CBaseEntity, Event_KilledOther )
+        bp::override func_Event_KilledOther = this->get_override( "Event_KilledOther" );
+        if( func_Event_KilledOther.ptr() != Py_None )
+            try {
+                func_Event_KilledOther( pVictim ? pVictim->GetPyHandle() : boost::python::object(), boost::ref(info) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::Event_KilledOther( pVictim, info );
+            }
+        else
+            this->CBaseEntity::Event_KilledOther( pVictim, info );
+    }
+    
+    void default_Event_KilledOther( ::CBaseEntity * pVictim, ::CTakeDamageInfo const & info ) {
+        CBaseEntity::Event_KilledOther( pVictim, info );
     }
 
     virtual char const * GetTracerType(  ) {
@@ -591,11 +609,15 @@ struct CTriggerMultiple_wrapper : CTriggerMultiple, bp::wrapper< CTriggerMultipl
 
     static void m_takedamage_Set( CTriggerMultiple & inst, int val ) { inst.m_takedamage.Set( val ); }
 
+    virtual boost::python::list GetTouchingEntities( void ) {
+        return UtlVectorToListByValue<EHANDLE>(m_hTouchingEntities);
+    }
+
 };
 
 void register_CTriggerMultiple_class(){
 
-    bp::class_< CTriggerMultiple_wrapper, bp::bases< CBaseTrigger >, boost::noncopyable >( "CTriggerMultiple", bp::no_init )    
+    bp::class_< CTriggerMultiple_wrapper, bp::bases< CBaseTrigger >, boost::noncopyable >( "CTriggerMultiple" )    
         .def( 
             "ActivateMultiTrigger"
             , (void ( ::CTriggerMultiple::* )( ::CBaseEntity * ) )( &::CTriggerMultiple::ActivateMultiTrigger )
@@ -652,6 +674,11 @@ void register_CTriggerMultiple_class(){
             , (void ( ::CBaseEntity::* )( ::CTakeDamageInfo const & ) )(&::CBaseEntity::Event_Killed)
             , (void ( CTriggerMultiple_wrapper::* )( ::CTakeDamageInfo const & ) )(&CTriggerMultiple_wrapper::default_Event_Killed)
             , ( bp::arg("info") ) )    
+        .def( 
+            "Event_KilledOther"
+            , (void ( ::CBaseEntity::* )( ::CBaseEntity *,::CTakeDamageInfo const & ) )(&::CBaseEntity::Event_KilledOther)
+            , (void ( CTriggerMultiple_wrapper::* )( ::CBaseEntity *,::CTakeDamageInfo const & ) )(&CTriggerMultiple_wrapper::default_Event_KilledOther)
+            , ( bp::arg("pVictim"), bp::arg("info") ) )    
         .def( 
             "GetTracerType"
             , (char const * ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::GetTracerType)
@@ -740,7 +767,11 @@ void register_CTriggerMultiple_class(){
             , (void ( CTriggerMultiple_wrapper::* )( int,::gamevcollisionevent_t * ) )(&CTriggerMultiple_wrapper::default_VPhysicsCollision)
             , ( bp::arg("index"), bp::arg("pEvent") ) )    
         .add_property( "lifestate", &CTriggerMultiple_wrapper::m_lifeState_Get, &CTriggerMultiple_wrapper::m_lifeState_Set )    
-        .add_property( "takedamage", &CTriggerMultiple_wrapper::m_takedamage_Get, &CTriggerMultiple_wrapper::m_takedamage_Set );
+        .add_property( "takedamage", &CTriggerMultiple_wrapper::m_takedamage_Get, &CTriggerMultiple_wrapper::m_takedamage_Set )    
+        .def( 
+            "GetTouchingEntities"
+            , (boost::python::list ( ::CTriggerMultiple_wrapper::* )( void ) )(&::CTriggerMultiple_wrapper::GetTouchingEntities)
+        );
 
 }
 

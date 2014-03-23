@@ -14,7 +14,6 @@
 #include "modelentities.h"
 #include "basetoggle.h"
 #include "triggers.h"
-#include "nav_area.h"
 #include "AI_Criteria.h"
 #include "saverestore.h"
 #include "vcollide_parse.h"
@@ -90,6 +89,17 @@ void _entities_register_free_functions(){
             "PropBreakablePrecacheAll"
             , PropBreakablePrecacheAll_function_type( &::PropBreakablePrecacheAll )
             , ( bp::arg("modelName") ) );
+    
+    }
+
+    { //::RadiusDamage
+    
+        typedef void ( *RadiusDamage_function_type )( ::CTakeDamageInfo const &,::Vector const &,float,int,::CBaseEntity * );
+        
+        bp::def( 
+            "RadiusDamage"
+            , RadiusDamage_function_type( &::RadiusDamage )
+            , ( bp::arg("info"), bp::arg("vecSrc"), bp::arg("flRadius"), bp::arg("iClassIgnore"), bp::arg("pEntityIgnore") ) );
     
     }
 

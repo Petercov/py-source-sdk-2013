@@ -14,7 +14,6 @@
 #include "modelentities.h"
 #include "basetoggle.h"
 #include "triggers.h"
-#include "nav_area.h"
 #include "AI_Criteria.h"
 #include "saverestore.h"
 #include "vcollide_parse.h"
@@ -233,6 +232,63 @@ struct CBaseCombatCharacter_wrapper : CBaseCombatCharacter, bp::wrapper< CBaseCo
         CBaseCombatCharacter::UpdateOnRemove( );
     }
 
+    virtual void Weapon_Drop( ::CBaseCombatWeapon * pWeapon, ::Vector const * pvecTarget=0, ::Vector const * pVelocity=0 ) {
+        PY_OVERRIDE_CHECK( CBaseCombatCharacter, Weapon_Drop )
+        PY_OVERRIDE_LOG( _entities, CBaseCombatCharacter, Weapon_Drop )
+        bp::override func_Weapon_Drop = this->get_override( "Weapon_Drop" );
+        if( func_Weapon_Drop.ptr() != Py_None )
+            try {
+                func_Weapon_Drop( pWeapon ? pWeapon->GetPyHandle() : boost::python::object(), boost::python::ptr(pvecTarget), boost::python::ptr(pVelocity) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseCombatCharacter::Weapon_Drop( pWeapon, pvecTarget, pVelocity );
+            }
+        else
+            this->CBaseCombatCharacter::Weapon_Drop( pWeapon, pvecTarget, pVelocity );
+    }
+    
+    void default_Weapon_Drop( ::CBaseCombatWeapon * pWeapon, ::Vector const * pvecTarget=0, ::Vector const * pVelocity=0 ) {
+        CBaseCombatCharacter::Weapon_Drop( pWeapon, pvecTarget, pVelocity );
+    }
+
+    virtual void Weapon_Equip( ::CBaseCombatWeapon * pWeapon ) {
+        PY_OVERRIDE_CHECK( CBaseCombatCharacter, Weapon_Equip )
+        PY_OVERRIDE_LOG( _entities, CBaseCombatCharacter, Weapon_Equip )
+        bp::override func_Weapon_Equip = this->get_override( "Weapon_Equip" );
+        if( func_Weapon_Equip.ptr() != Py_None )
+            try {
+                func_Weapon_Equip( pWeapon ? pWeapon->GetPyHandle() : boost::python::object() );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseCombatCharacter::Weapon_Equip( pWeapon );
+            }
+        else
+            this->CBaseCombatCharacter::Weapon_Equip( pWeapon );
+    }
+    
+    void default_Weapon_Equip( ::CBaseCombatWeapon * pWeapon ) {
+        CBaseCombatCharacter::Weapon_Equip( pWeapon );
+    }
+
+    virtual bool Weapon_Switch( ::CBaseCombatWeapon * pWeapon, int viewmodelindex=0 ) {
+        PY_OVERRIDE_CHECK( CBaseCombatCharacter, Weapon_Switch )
+        PY_OVERRIDE_LOG( _entities, CBaseCombatCharacter, Weapon_Switch )
+        bp::override func_Weapon_Switch = this->get_override( "Weapon_Switch" );
+        if( func_Weapon_Switch.ptr() != Py_None )
+            try {
+                return func_Weapon_Switch( pWeapon ? pWeapon->GetPyHandle() : boost::python::object(), viewmodelindex );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CBaseCombatCharacter::Weapon_Switch( pWeapon, viewmodelindex );
+            }
+        else
+            return this->CBaseCombatCharacter::Weapon_Switch( pWeapon, viewmodelindex );
+    }
+    
+    bool default_Weapon_Switch( ::CBaseCombatWeapon * pWeapon, int viewmodelindex=0 ) {
+        return CBaseCombatCharacter::Weapon_Switch( pWeapon, viewmodelindex );
+    }
+
     virtual void Activate(  ) {
         PY_OVERRIDE_CHECK( CBaseAnimating, Activate )
         PY_OVERRIDE_LOG( _entities, CBaseAnimating, Activate )
@@ -402,6 +458,25 @@ struct CBaseCombatCharacter_wrapper : CBaseCombatCharacter, bp::wrapper< CBaseCo
     
     void default_EndTouch( ::CBaseEntity * pOther ) {
         CBaseEntity::EndTouch( pOther );
+    }
+
+    virtual void Event_KilledOther( ::CBaseEntity * pVictim, ::CTakeDamageInfo const & info ) {
+        PY_OVERRIDE_CHECK( CBaseEntity, Event_KilledOther )
+        PY_OVERRIDE_LOG( _entities, CBaseEntity, Event_KilledOther )
+        bp::override func_Event_KilledOther = this->get_override( "Event_KilledOther" );
+        if( func_Event_KilledOther.ptr() != Py_None )
+            try {
+                func_Event_KilledOther( pVictim ? pVictim->GetPyHandle() : boost::python::object(), boost::ref(info) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::Event_KilledOther( pVictim, info );
+            }
+        else
+            this->CBaseEntity::Event_KilledOther( pVictim, info );
+    }
+    
+    void default_Event_KilledOther( ::CBaseEntity * pVictim, ::CTakeDamageInfo const & info ) {
+        CBaseEntity::Event_KilledOther( pVictim, info );
     }
 
     virtual char const * GetTracerType(  ) {
@@ -1122,16 +1197,6 @@ void register_CBaseCombatCharacter_class(){
                 , ( bp::arg("pRagdoll") ) );
         
         }
-        { //::CBaseCombatCharacter::GetActiveWeapon
-        
-            typedef ::CBaseCombatWeapon * ( ::CBaseCombatCharacter::*GetActiveWeapon_function_type )(  ) const;
-            
-            CBaseCombatCharacter_exposer.def( 
-                "GetActiveWeapon"
-                , GetActiveWeapon_function_type( &::CBaseCombatCharacter::GetActiveWeapon )
-                , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
         { //::CBaseCombatCharacter::GetAliveDuration
         
             typedef float ( ::CBaseCombatCharacter::*GetAliveDuration_function_type )(  ) const;
@@ -1478,6 +1543,16 @@ void register_CBaseCombatCharacter_class(){
                 , IsAllowedToPickupWeapons_function_type( &::CBaseCombatCharacter::IsAllowedToPickupWeapons ) );
         
         }
+        { //::CBaseCombatCharacter::IsAreaTraversable
+        
+            typedef bool ( ::CBaseCombatCharacter::*IsAreaTraversable_function_type )( ::CNavArea const * ) const;
+            
+            CBaseCombatCharacter_exposer.def( 
+                "IsAreaTraversable"
+                , IsAreaTraversable_function_type( &::CBaseCombatCharacter::IsAreaTraversable )
+                , ( bp::arg("area") ) );
+        
+        }
         { //::CBaseCombatCharacter::IsGlowEffectActive
         
             typedef bool ( ::CBaseCombatCharacter::*IsGlowEffectActive_function_type )(  ) ;
@@ -1807,16 +1882,6 @@ void register_CBaseCombatCharacter_class(){
                 , ( bp::arg("restore") ) );
         
         }
-        { //::CBaseCombatCharacter::SetActiveWeapon
-        
-            typedef void ( ::CBaseCombatCharacter::*SetActiveWeapon_function_type )( ::CBaseCombatWeapon * ) ;
-            
-            CBaseCombatCharacter_exposer.def( 
-                "SetActiveWeapon"
-                , SetActiveWeapon_function_type( &::CBaseCombatCharacter::SetActiveWeapon )
-                , ( bp::arg("pNewWeapon") ) );
-        
-        }
         { //::CBaseCombatCharacter::SetAmmoCount
         
             typedef void ( ::CBaseCombatCharacter::*SetAmmoCount_function_type )( int,int ) ;
@@ -2063,10 +2128,12 @@ void register_CBaseCombatCharacter_class(){
         { //::CBaseCombatCharacter::Weapon_Drop
         
             typedef void ( ::CBaseCombatCharacter::*Weapon_Drop_function_type )( ::CBaseCombatWeapon *,::Vector const *,::Vector const * ) ;
+            typedef void ( CBaseCombatCharacter_wrapper::*default_Weapon_Drop_function_type )( ::CBaseCombatWeapon *,::Vector const *,::Vector const * ) ;
             
             CBaseCombatCharacter_exposer.def( 
                 "Weapon_Drop"
-                , Weapon_Drop_function_type( &::CBaseCombatCharacter::Weapon_Drop )
+                , Weapon_Drop_function_type(&::CBaseCombatCharacter::Weapon_Drop)
+                , default_Weapon_Drop_function_type(&CBaseCombatCharacter_wrapper::default_Weapon_Drop)
                 , ( bp::arg("pWeapon"), bp::arg("pvecTarget")=bp::object(), bp::arg("pVelocity")=bp::object() ) );
         
         }
@@ -2083,10 +2150,12 @@ void register_CBaseCombatCharacter_class(){
         { //::CBaseCombatCharacter::Weapon_Equip
         
             typedef void ( ::CBaseCombatCharacter::*Weapon_Equip_function_type )( ::CBaseCombatWeapon * ) ;
+            typedef void ( CBaseCombatCharacter_wrapper::*default_Weapon_Equip_function_type )( ::CBaseCombatWeapon * ) ;
             
             CBaseCombatCharacter_exposer.def( 
                 "Weapon_Equip"
-                , Weapon_Equip_function_type( &::CBaseCombatCharacter::Weapon_Equip )
+                , Weapon_Equip_function_type(&::CBaseCombatCharacter::Weapon_Equip)
+                , default_Weapon_Equip_function_type(&CBaseCombatCharacter_wrapper::default_Weapon_Equip)
                 , ( bp::arg("pWeapon") ) );
         
         }
@@ -2205,10 +2274,12 @@ void register_CBaseCombatCharacter_class(){
         { //::CBaseCombatCharacter::Weapon_Switch
         
             typedef bool ( ::CBaseCombatCharacter::*Weapon_Switch_function_type )( ::CBaseCombatWeapon *,int ) ;
+            typedef bool ( CBaseCombatCharacter_wrapper::*default_Weapon_Switch_function_type )( ::CBaseCombatWeapon *,int ) ;
             
             CBaseCombatCharacter_exposer.def( 
                 "Weapon_Switch"
-                , Weapon_Switch_function_type( &::CBaseCombatCharacter::Weapon_Switch )
+                , Weapon_Switch_function_type(&::CBaseCombatCharacter::Weapon_Switch)
+                , default_Weapon_Switch_function_type(&CBaseCombatCharacter_wrapper::default_Weapon_Switch)
                 , ( bp::arg("pWeapon"), bp::arg("viewmodelindex")=(int)(0) ) );
         
         }
@@ -2222,6 +2293,8 @@ void register_CBaseCombatCharacter_class(){
                 , ( bp::arg("baseAct"), bp::arg("pRequired")=bp::object() ) );
         
         }
+        CBaseCombatCharacter_exposer.def_readwrite( "forceserverragdoll", &CBaseCombatCharacter::m_bForceServerRagdoll );
+        CBaseCombatCharacter_exposer.def_readwrite( "preventweaponpickup", &CBaseCombatCharacter::m_bPreventWeaponPickup );
         { //::CBaseAnimating::Activate
         
             typedef void ( ::CBaseAnimating::*Activate_function_type )(  ) ;
@@ -2323,6 +2396,18 @@ void register_CBaseCombatCharacter_class(){
                 , EndTouch_function_type(&::CBaseEntity::EndTouch)
                 , default_EndTouch_function_type(&CBaseCombatCharacter_wrapper::default_EndTouch)
                 , ( bp::arg("pOther") ) );
+        
+        }
+        { //::CBaseEntity::Event_KilledOther
+        
+            typedef void ( ::CBaseEntity::*Event_KilledOther_function_type )( ::CBaseEntity *,::CTakeDamageInfo const & ) ;
+            typedef void ( CBaseCombatCharacter_wrapper::*default_Event_KilledOther_function_type )( ::CBaseEntity *,::CTakeDamageInfo const & ) ;
+            
+            CBaseCombatCharacter_exposer.def( 
+                "Event_KilledOther"
+                , Event_KilledOther_function_type(&::CBaseEntity::Event_KilledOther)
+                , default_Event_KilledOther_function_type(&CBaseCombatCharacter_wrapper::default_Event_KilledOther)
+                , ( bp::arg("pVictim"), bp::arg("info") ) );
         
         }
         { //::CBaseEntity::GetTracerType
@@ -2504,6 +2589,19 @@ void register_CBaseCombatCharacter_class(){
         CBaseCombatCharacter_exposer.staticmethod( "InitInteractionSystem" );
         CBaseCombatCharacter_exposer.staticmethod( "ResetVisibilityCache" );
         CBaseCombatCharacter_exposer.staticmethod( "SetDefaultRelationship" );
+        { //property "activeweapon"[fget=::CBaseCombatCharacter::GetActiveWeapon, fset=::CBaseCombatCharacter::SetActiveWeapon]
+        
+            typedef ::CBaseCombatWeapon * ( ::CBaseCombatCharacter::*fget )(  ) const;
+            typedef void ( ::CBaseCombatCharacter::*fset )( ::CBaseCombatWeapon * ) ;
+            
+            CBaseCombatCharacter_exposer.add_property( 
+                "activeweapon"
+                , bp::make_function( 
+                      fget( &::CBaseCombatCharacter::GetActiveWeapon )
+                    , bp::return_value_policy< bp::return_by_value >() ) 
+                , fset( &::CBaseCombatCharacter::SetActiveWeapon ) );
+        
+        }
         CBaseCombatCharacter_exposer.add_property( "lifestate", &CBaseCombatCharacter_wrapper::m_lifeState_Get, &CBaseCombatCharacter_wrapper::m_lifeState_Set );
         CBaseCombatCharacter_exposer.add_property( "takedamage", &CBaseCombatCharacter_wrapper::m_takedamage_Get, &CBaseCombatCharacter_wrapper::m_takedamage_Set );
         CBaseCombatCharacter_exposer.add_property( "skin", &CBaseCombatCharacter_wrapper::m_nSkin_Get, &CBaseCombatCharacter_wrapper::m_nSkin_Set );

@@ -144,48 +144,52 @@ class Entities(SemiSharedModuleGenerator):
     module_name = '_entities'
     split = True
     
-    # Includes
-    files = [
-        'cbase.h',
-        'npcevent.h',
-        'srcpy_entities.h',
-        'bone_setup.h',
-        'baseprojectile.h',
-        'basegrenade_shared.h',
-        '$takedamageinfo.h',
-        '$c_ai_basenpc.h',
-        '#SkyCamera.h',
-        '#ai_basenpc.h',
-        '#modelentities.h',
-        '#basetoggle.h',
-        '#triggers.h',
-        '$soundinfo.h',
-        '#nav_area.h',
-        '#AI_Criteria.h',
-        'saverestore.h',
-        'vcollide_parse.h', # solid_t
-        '#iservervehicle.h',
-        '$iclientvehicle.h',
-        '%choreoscene.h',
-        '%choreoactor.h',
-        '$steam/steamclientpublic.h', # CSteamID
-        '$view_shared.h', # CViewSetup
-        '#gib.h',
-        '#spark.h',
-        '#filters.h',
-        '#EntityFlame.h',
-        '$c_playerresource.h',
-        '#player_resource.h',
-        '#props.h',
-        '#physics_prop_ragdoll.h',
-        
-        # For parsing only (used to exclude functions based on return value)
-        '$%baseviewmodel_shared.h',
-        '#%team.h',
-        '$%c_team.h',
-        '%mapentities_shared.h',
-        '#%ai_responsesystem.h',
-    ]
+    @property
+    def files(self):
+        return filter(None, [
+            'cbase.h',
+            'npcevent.h',
+            'srcpy_entities.h',
+            'bone_setup.h',
+            'baseprojectile.h',
+            'basegrenade_shared.h',
+            '$takedamageinfo.h',
+            '$c_ai_basenpc.h',
+            '#SkyCamera.h',
+            '#ai_basenpc.h',
+            '#modelentities.h',
+            '$c_basetoggle.h' if self.settings.branch == 'swarm' else '',
+            '#basetoggle.h',
+            '$c_triggers.h' if self.settings.branch == 'swarm' else '',
+            '#triggers.h',
+            '$soundinfo.h',
+            '#AI_Criteria.h',
+            'saverestore.h',
+            'vcollide_parse.h', # solid_t
+            '#iservervehicle.h',
+            '$iclientvehicle.h',
+            '%choreoscene.h',
+            '%choreoactor.h',
+            '$steam/steamclientpublic.h', # CSteamID
+            '$view_shared.h', # CViewSetup
+            '#gib.h',
+            '#spark.h',
+            '#filters.h',
+            '#EntityFlame.h',
+            '$c_playerresource.h',
+            '#player_resource.h',
+            '#props.h',
+            '#physics_prop_ragdoll.h',
+            
+            # For parsing only (used to exclude functions based on return value)
+            '$%baseviewmodel_shared.h',
+            '#%team.h',
+            '$%c_team.h',
+            '%mapentities_shared.h',
+            '%ai_responsesystem.h' if self.settings.branch == 'swarm' else '%#ai_responsesystem.h',
+            '%#nav_area.h',
+            
+        ])
         
     # List of entity classes want to have exposed
     cliententities = [ 
@@ -430,6 +434,7 @@ class Entities(SemiSharedModuleGenerator):
                 pointer_t(declarated_t(mb.class_('CEventAction'))),
                 pointer_t(declarated_t(mb.class_('CCheckTransmitInfo'))),
                 pointer_t(const_t(declarated_t(mb.class_('CCheckTransmitInfo')))),
+                pointer_t(declarated_t(mb.class_('CNavArea'))),
             ]
             if self.settings.branch == 'source2013':
                 # In swarm, this also exists on the server
@@ -749,15 +754,40 @@ class Entities(SemiSharedModuleGenerator):
         mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(bonecache))), allow_empty=True).exclude()
             
         if self.isclient:
-            # Client excludes
+            # Exclude
+            if self.settings.branch == 'swarm':
+                mb.mem_funs('GetBoneArrayForWrite').exclude()
+                mb.mem_funs('GetBoneForWrite').exclude()
             cls.mem_fun('RemoveBoneAttachments').exclude() # No definition
         else:
+            if self.settings.branch == 'swarm':
+                mb.mem_funs('OnSequenceSet').virtuality = 'virtual'
+            
             # Server excludes
             cls.mem_fun('GetEncodedControllerArray').exclude()
             cls.mem_fun('GetPoseParameterArray').exclude()
+
+            if self.settings.branch == 'swarm':
+                mb.mem_funs('GetBoneCache').exclude()
+                mb.mem_funs('InputIgniteNumHitboxFires').exclude()
+                mb.mem_funs('InputIgniteHitboxFireScale').exclude()
+                
+            excludetypes = [pointer_t(const_t(declarated_t(char_t())))]
+            mb.calldefs(name='GetBonePosition', function=calldef_withtypes(excludetypes)).exclude()
+        
+            # Rename vars
+            self.IncludeVarAndRename('m_OnIgnite', 'onignite')
+            self.IncludeVarAndRename('m_flGroundSpeed', 'groundspeed')
+            self.IncludeVarAndRename('m_flLastEventCheck', 'lastevencheck')
             
-            mb.calldefs('GetBonePosition', matchers.calldef_matcher_t(arg_types=[pointer_t(const_t(declarated_t(char_t()))), None, None])).exclude() # No definition
+            # Transformations
+            mb.mem_funs('GotoSequence').add_transformation(FT.output('iNextSequence'), FT.output('flCycle'), FT.output('iDir'))
+            mb.mem_funs('LookupHitbox').add_transformation(FT.output('outSet'), FT.output('outBox'))
+            mb.mem_funs('GetIntervalMovement').add_transformation(FT.output('bMoveSeqFinished'))
             
+            # Enums
+            mb.enums('LocalFlexController_t').include()
+        
     def ParseBaseAnimatingOverlay(self, mb):
         cls = mb.class_('C_BaseAnimatingOverlay') if self.isclient else mb.class_('CBaseAnimatingOverlay')
     
@@ -771,7 +801,17 @@ class Entities(SemiSharedModuleGenerator):
             pointer_t(declarated_t(mb.class_('CChoreoActor'))),
         ]
         mb.calldefs( calldef_withtypes( excludetypes ) ).exclude()
-
+        
+        if self.isserver:
+            mb.mem_funs('FlexSettingLessFunc').exclude()
+            cls.class_('FS_LocalToGlobal_t').exclude()
+            
+            cls_ai_response = mb.typedef('AI_Response') if self.settings.branch == 'swarm' else mb.class_('AI_Response')
+            excludetypes = [pointer_t(declarated_t(cls_ai_response))]
+            mb.calldefs(function=calldef_withtypes(excludetypes)).exclude()
+            if self.settings.branch == 'swarm':
+                mb.mem_funs('ScriptGetOldestScene').exclude()
+                mb.mem_funs('ScriptGetSceneByIndex').exclude()
             
     def ParseBaseCombatWeapon(self, mb):
         cls_name = 'C_BaseCombatWeapon' if self.isclient else 'CBaseCombatWeapon'
@@ -849,24 +889,39 @@ class Entities(SemiSharedModuleGenerator):
                          
     def ParseBaseCombatCharacter(self, mb):
         cls = mb.class_('C_BaseCombatCharacter' if self.isclient else 'CBaseCombatCharacter')
-        
-        # Shared excludes
-        mb.mem_funs('GetVehicle').exclude()
+
         
         if self.isserver:
+            cls.member_function('SetActiveWeapon').exclude()
+            self.SetupProperty(cls, 'activeweapon', 'GetActiveWeapon', 'SetActiveWeapon')
+        
             # Server excludes
-            cls.mem_fun('GetLastKnownArea').exclude()
             cls.mem_fun('RemoveWeapon').exclude() # No definition
             cls.mem_fun('CauseDeath').exclude() # No definition
             cls.mem_fun('OnPursuedBy').exclude() # No INextBot definition
-            cls.mem_fun('IsAreaTraversable').exclude()
-            cls.mem_fun('OnNavAreaRemoved').exclude()
-            cls.mem_fun('OnNavAreaChanged').exclude()
+            if self.settings.branch == 'swarm':
+                cls.mem_fun('GetEntitiesInFaction').exclude()
+                cls.mem_fun('GetFogTrigger').exclude()
+                cls.mem_fun('PlayFootstepSound').exclude()
+            
+            mb.free_function('RadiusDamage').include()
+
+            self.IncludeVarAndRename('m_bForceServerRagdoll', 'forceserverragdoll')
+            self.IncludeVarAndRename('m_bPreventWeaponPickup', 'preventweaponpickup')
+            
+            # LIST OF SERVER FUNCTIONS TO OVERRIDE
+            mb.mem_funs('Weapon_Equip').virtuality = 'virtual'
+            mb.mem_funs('Weapon_Switch').virtuality = 'virtual'
+            mb.mem_funs('Weapon_Drop').virtuality = 'virtual'
+            mb.mem_funs('Event_KilledOther').virtuality = 'virtual'
         else:
-            # When GLOWS_ENABLE define is added:
-            if 'GLOWS_ENABLE' in self.symbols:
-                mb.mem_funs('GetGlowObject', allow_empty=True).exclude()
-                mb.mem_funs('GetGlowEffectColor', allow_empty=True).add_transformation( FT.output('r'), FT.output('g'), FT.output('b') )
+            if self.settings.branch == 'source2013':
+                # When GLOWS_ENABLE define is added:
+                if 'GLOWS_ENABLE' in self.symbols:
+                    mb.mem_funs('GetGlowObject', allow_empty=True).exclude()
+                    mb.mem_funs('GetGlowEffectColor', allow_empty=True).add_transformation( FT.output('r'), FT.output('g'), FT.output('b'))
+            
+            self.SetupProperty(cls, 'activeweapon', 'GetActiveWeapon')
             
     def ParseBaseGrenade(self, mb):
         cls_name = 'C_BaseGrenade' if self.isclient else 'CBaseGrenade'
@@ -923,6 +978,8 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_fun('SetTargetInfo').exclude() # No definition
             cls.mem_fun('SendAmmoUpdate').exclude() # No definition
             cls.mem_fun('DeathMessage').exclude() # No definition
+            cls.mem_fun('GetViewModel').exclude()
+            cls.mem_fun('GetGroundVPhysics').exclude()
             cls.mem_fun('SetupVPhysicsShadow').exclude() # Requires CPhysCollide, would need manually wrapping
             
             if self.settings.branch == 'swarm':
@@ -943,6 +1000,39 @@ class Entities(SemiSharedModuleGenerator):
         cls_name = 'C_BaseTrigger' if self.isclient else 'CBaseTrigger'
         cls = mb.class_(cls_name)
         cls.no_init = False
+        
+        if self.settings.branch == 'swarm':
+            if self.isserver:
+                cls.mem_funs('GetTouchingEntities').exclude()
+                cls.mem_funs('GetClientSidePredicted').exclude() 
+                cls.mem_funs('SetClientSidePredicted').exclude() 
+                cls.add_property( 'clientsidepredicted'
+                                 , cls.mem_fun('GetClientSidePredicted')
+                                 , cls.mem_fun('SetClientSidePredicted') )
+            else:
+                self.IncludeVarAndRename('m_bClientSidePredicted', 'clientsidepredicted')
+
+        # CTriggerMultiple
+        if self.isserver:
+            cls = mb.class_('CTriggerMultiple')
+            mb.class_('CTriggerMultiple').no_init = False
+            self.IncludeVarAndRename('m_bDisabled', 'disabled')
+            self.IncludeVarAndRename('m_hFilter', 'filter')
+            self.IncludeVarAndRename('m_iFilterName', 'filtername')
+            
+            for clsname in ['CBaseTrigger', 'CTriggerMultiple']:
+                triggers = mb.class_(clsname)
+                triggers.add_wrapper_code(    
+                'virtual boost::python::list GetTouchingEntities( void ) {\r\n' + \
+                '    return UtlVectorToListByValue<EHANDLE>(m_hTouchingEntities);\r\n' + \
+                '}\r\n'        
+                )
+                triggers.add_registration_code(
+                    'def( \r\n'
+                    '    "GetTouchingEntities"\r\n'
+                    '    , (boost::python::list ( ::%s_wrapper::* )( void ) )(&::%s_wrapper::GetTouchingEntities)\r\n'
+                    ') \r\n' % (clsname, clsname)
+                )
                          
     def ParseProps(self, mb):
         if self.isserver:

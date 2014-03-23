@@ -14,7 +14,6 @@
 #include "modelentities.h"
 #include "basetoggle.h"
 #include "triggers.h"
-#include "nav_area.h"
 #include "AI_Criteria.h"
 #include "saverestore.h"
 #include "vcollide_parse.h"
@@ -231,6 +230,25 @@ struct CFuncBrush_wrapper : CFuncBrush, bp::wrapper< CFuncBrush > {
     
     void default_Event_Killed( ::CTakeDamageInfo const & info ) {
         CBaseEntity::Event_Killed( info );
+    }
+
+    virtual void Event_KilledOther( ::CBaseEntity * pVictim, ::CTakeDamageInfo const & info ) {
+        PY_OVERRIDE_CHECK( CBaseEntity, Event_KilledOther )
+        PY_OVERRIDE_LOG( _entities, CBaseEntity, Event_KilledOther )
+        bp::override func_Event_KilledOther = this->get_override( "Event_KilledOther" );
+        if( func_Event_KilledOther.ptr() != Py_None )
+            try {
+                func_Event_KilledOther( pVictim ? pVictim->GetPyHandle() : boost::python::object(), boost::ref(info) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseEntity::Event_KilledOther( pVictim, info );
+            }
+        else
+            this->CBaseEntity::Event_KilledOther( pVictim, info );
+    }
+    
+    void default_Event_KilledOther( ::CBaseEntity * pVictim, ::CTakeDamageInfo const & info ) {
+        CBaseEntity::Event_KilledOther( pVictim, info );
     }
 
     virtual char const * GetTracerType(  ) {
@@ -792,6 +810,18 @@ void register_CFuncBrush_class(){
                 , Event_Killed_function_type(&::CBaseEntity::Event_Killed)
                 , default_Event_Killed_function_type(&CFuncBrush_wrapper::default_Event_Killed)
                 , ( bp::arg("info") ) );
+        
+        }
+        { //::CBaseEntity::Event_KilledOther
+        
+            typedef void ( ::CBaseEntity::*Event_KilledOther_function_type )( ::CBaseEntity *,::CTakeDamageInfo const & ) ;
+            typedef void ( CFuncBrush_wrapper::*default_Event_KilledOther_function_type )( ::CBaseEntity *,::CTakeDamageInfo const & ) ;
+            
+            CFuncBrush_exposer.def( 
+                "Event_KilledOther"
+                , Event_KilledOther_function_type(&::CBaseEntity::Event_KilledOther)
+                , default_Event_KilledOther_function_type(&CFuncBrush_wrapper::default_Event_KilledOther)
+                , ( bp::arg("pVictim"), bp::arg("info") ) );
         
         }
         { //::CBaseEntity::GetTracerType
