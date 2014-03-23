@@ -343,6 +343,6 @@ $Project "Server (PySource)"
 	{
 		$Lib	"$LIBPUBLIC\boost_python"
 		$Lib	"$LIBPUBLIC\python34" [$WIN32]
-		$Lib	"$LIBPUBLIC\libpython3.3m" [$POSIX]
+		$Lib	"$LIBPUBLIC\libpython3.4m" [$POSIX]
 	}
 }
