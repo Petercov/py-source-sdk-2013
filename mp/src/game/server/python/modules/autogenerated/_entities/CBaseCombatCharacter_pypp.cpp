@@ -1544,16 +1544,6 @@ void register_CBaseCombatCharacter_class(){
                 , IsAllowedToPickupWeapons_function_type( &::CBaseCombatCharacter::IsAllowedToPickupWeapons ) );
         
         }
-        { //::CBaseCombatCharacter::IsAreaTraversable
-        
-            typedef bool ( ::CBaseCombatCharacter::*IsAreaTraversable_function_type )( ::CNavArea const * ) const;
-            
-            CBaseCombatCharacter_exposer.def( 
-                "IsAreaTraversable"
-                , IsAreaTraversable_function_type( &::CBaseCombatCharacter::IsAreaTraversable )
-                , ( bp::arg("area") ) );
-        
-        }
         { //::CBaseCombatCharacter::IsGlowEffectActive
         
             typedef bool ( ::CBaseCombatCharacter::*IsGlowEffectActive_function_type )(  ) ;

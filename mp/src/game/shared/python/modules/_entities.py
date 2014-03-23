@@ -434,6 +434,7 @@ class Entities(SemiSharedModuleGenerator):
                 pointer_t(declarated_t(mb.class_('CCheckTransmitInfo'))),
                 pointer_t(const_t(declarated_t(mb.class_('CCheckTransmitInfo')))),
                 pointer_t(declarated_t(mb.class_('CNavArea'))),
+                pointer_t(const_t(declarated_t(mb.class_('CNavArea')))),
             ]
             if self.settings.branch == 'source2013':
                 # In swarm, this also exists on the server
