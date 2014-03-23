@@ -20,7 +20,9 @@
 #include "vcollide_parse.h"
 #include "iservervehicle.h"
 #include "gib.h"
+#include "spark.h"
 #include "filters.h"
+#include "EntityFlame.h"
 #include "player_resource.h"
 #include "props.h"
 #include "physics_prop_ragdoll.h"
@@ -33,6 +35,12 @@
 namespace bp = boost::python;
 
 void _entities_register_enumerations(){
+
+    bp::enum_< GibType_e>("GibType_e")
+        .value("GIB_HUMAN", GIB_HUMAN)
+        .value("GIB_ALIEN", GIB_ALIEN)
+        .export_values()
+        ;
 
     bp::enum_< WeaponSound_t>("WeaponSound")
         .value("EMPTY", EMPTY)

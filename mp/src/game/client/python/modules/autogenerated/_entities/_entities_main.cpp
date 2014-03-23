@@ -461,6 +461,11 @@ struct handle_to_C_PlayerResource
     }
 };
 
+C_PlayerResource *wrap_PlayerResource( void )
+{
+	return g_PR;
+}
+
 BOOST_PYTHON_MODULE(_entities){
     _entities_register_enumerations();
 
@@ -1253,6 +1258,8 @@ BOOST_PYTHON_MODULE(_entities){
     bp::scope().attr( "CLIENT_THINK_ALWAYS" ) = CLIENT_THINK_ALWAYS;
 
     bp::scope().attr( "CLIENT_THINK_NEVER" ) = CLIENT_THINK_NEVER;
+
+    bp::def( "PlayerResource", wrap_PlayerResource, bp::return_value_policy< bp::return_by_value >() );
 
     _entities_register_free_functions();
 }

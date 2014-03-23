@@ -171,7 +171,9 @@ class Entities(SemiSharedModuleGenerator):
         '$steam/steamclientpublic.h', # CSteamID
         '$view_shared.h', # CViewSetup
         '#gib.h',
+        '#spark.h',
         '#filters.h',
+        '#EntityFlame.h',
         '$c_playerresource.h',
         '#player_resource.h',
         '#props.h',
@@ -224,6 +226,8 @@ class Entities(SemiSharedModuleGenerator):
         'CBreakableProp',
         'CPhysicsProp',
         'CRagdollProp',
+        'CEntityFlame',
+        
     ]
     
     def AddEntityConverter(self, mb, clsname, pyhandletoptronly=False):
@@ -864,6 +868,16 @@ class Entities(SemiSharedModuleGenerator):
                 mb.mem_funs('GetGlowObject', allow_empty=True).exclude()
                 mb.mem_funs('GetGlowEffectColor', allow_empty=True).add_transformation( FT.output('r'), FT.output('g'), FT.output('b') )
             
+    def ParseBaseGrenade(self, mb):
+        cls_name = 'C_BaseGrenade' if self.isclient else 'CBaseGrenade'
+        cls = mb.class_(cls_name)
+        
+        self.SetupProperty(cls, 'damage', 'GetDamage', 'SetDamage')
+        self.SetupProperty(cls, 'damageradius', 'GetDamageRadius', 'SetDamageRadius')
+        
+        # Overrides
+        cls.mem_funs('Explode').virtuality = 'virtual'
+            
     def ParseBasePlayer(self, mb):
         cls = mb.class_('C_BasePlayer') if self.isclient else mb.class_('CBasePlayer')
  
@@ -938,8 +952,48 @@ class Entities(SemiSharedModuleGenerator):
             cls = mb.class_('CPhysicsProp')
                 
             cls = mb.class_('CRagdollProp')
-            cls.mem_funs('GetRagdoll').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            cls.mem_funs('GetRagdoll').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+            
+            # Props
+            mb.free_functions('PropBreakablePrecacheAll').include()
+            
+    def ParseFuncBrush(self, mb):
+        if self.isserver:
+            # CFuncBrush  
+            mb.class_('CFuncBrush').vars('m_iSolidity').rename('solidity')
+            mb.class_('CFuncBrush').vars('m_iDisabled').rename('disabled')
+            mb.class_('CFuncBrush').vars('m_bSolidBsp').rename('solidbsp')
+            mb.class_('CFuncBrush').vars('m_iszExcludedClass').rename('excludedclass')
+            mb.class_('CFuncBrush').vars('m_bInvertExclusion').rename('invertexclusion')
+
+            mb.add_registration_code( "bp::scope().attr( \"SF_WALL_START_OFF\" ) = (int)SF_WALL_START_OFF;" )
+            mb.add_registration_code( "bp::scope().attr( \"SF_IGNORE_PLAYERUSE\" ) = (int)SF_IGNORE_PLAYERUSE;" )
+            
+    def ParseFilters(self, mb):
+        if self.isserver:
+            # Base filter
+            cls = mb.class_('CBaseFilter')
+            cls.no_init = False
+            cls.mem_funs('PassesFilterImpl').virtuality = 'virtual' 
+            cls.mem_funs('PassesDamageFilterImpl').virtuality = 'virtual' 
         
+    def ParseRemainingEntities(self, mb):
+        if self.isserver:
+            # Not sure where to put this
+            mb.free_function('DoSpark').include()
+        
+            # CSoundEnt
+            self.IncludeEmptyClass(mb, 'CSoundEnt')
+            mb.mem_funs('InsertSound').include()
+            
+            # CGib
+            mb.free_functions('CreateRagGib').include()
+            mb.enum('GibType_e').include()
+        else:
+            # C_PlayerResource
+            mb.add_declaration_code( "C_PlayerResource *wrap_PlayerResource( void )\r\n{\r\n\treturn g_PR;\r\n}\r\n" )
+            mb.add_registration_code( 'bp::def( "PlayerResource", wrap_PlayerResource, bp::return_value_policy< bp::return_by_value >() );' )   
+            
             
     def ParseEntities(self, mb):
         self.ParseBaseEntityHandles(mb)
@@ -961,9 +1015,13 @@ class Entities(SemiSharedModuleGenerator):
         self.ParseBaseFlex(mb)
         self.ParseBaseCombatWeapon(mb)
         self.ParseBaseCombatCharacter(mb)
+        self.ParseBaseGrenade(mb)
         self.ParseBasePlayer(mb)
         self.ParseTriggers(mb)
         self.ParseProps(mb)
+        self.ParseFuncBrush(mb)
+        self.ParseFilters(mb)
+        self.ParseRemainingEntities(mb)
         
     def Parse(self, mb):
         # Exclude everything by default

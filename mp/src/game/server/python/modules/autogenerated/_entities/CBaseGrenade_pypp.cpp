@@ -20,7 +20,9 @@
 #include "vcollide_parse.h"
 #include "iservervehicle.h"
 #include "gib.h"
+#include "spark.h"
 #include "filters.h"
+#include "EntityFlame.h"
 #include "player_resource.h"
 #include "props.h"
 #include "physics_prop_ragdoll.h"
@@ -58,6 +60,25 @@ struct CBaseGrenade_wrapper : CBaseGrenade, bp::wrapper< CBaseGrenade > {
     
     void default_Event_Killed( ::CTakeDamageInfo const & info ) {
         CBaseGrenade::Event_Killed( info );
+    }
+
+    virtual void Explode( ::trace_t * pTrace, int bitsDamageType ) {
+        PY_OVERRIDE_CHECK( CBaseGrenade, Explode )
+        PY_OVERRIDE_LOG( _entities, CBaseGrenade, Explode )
+        bp::override func_Explode = this->get_override( "Explode" );
+        if( func_Explode.ptr() != Py_None )
+            try {
+                func_Explode( boost::python::ptr(pTrace), bitsDamageType );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseGrenade::Explode( pTrace, bitsDamageType );
+            }
+        else
+            this->CBaseGrenade::Explode( pTrace, bitsDamageType );
+    }
+    
+    void default_Explode( ::trace_t * pTrace, int bitsDamageType ) {
+        CBaseGrenade::Explode( pTrace, bitsDamageType );
     }
 
     virtual void Precache(  ) {
@@ -604,232 +625,580 @@ struct CBaseGrenade_wrapper : CBaseGrenade, bp::wrapper< CBaseGrenade > {
 
 void register_CBaseGrenade_class(){
 
-    bp::class_< CBaseGrenade_wrapper, bp::bases< CBaseProjectile >, boost::noncopyable >( "CBaseGrenade", bp::init< >() )    
-        .def( 
-            "BloodColor"
-            , (int ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::BloodColor ) )    
-        .def( 
-            "BounceSound"
-            , (void ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::BounceSound ) )    
-        .def( 
-            "BounceTouch"
-            , (void ( ::CBaseGrenade::* )( ::CBaseEntity * ) )( &::CBaseGrenade::BounceTouch )
-            , ( bp::arg("pOther") ) )    
-        .def( 
-            "DangerSoundThink"
-            , (void ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::DangerSoundThink ) )    
-        .def( 
-            "Detonate"
-            , (void ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::Detonate ) )    
-        .def( 
-            "DetonateUse"
-            , (void ( ::CBaseGrenade::* )( ::CBaseEntity *,::CBaseEntity *,::USE_TYPE,float ) )( &::CBaseGrenade::DetonateUse )
-            , ( bp::arg("pActivator"), bp::arg("pCaller"), bp::arg("useType"), bp::arg("value") ) )    
-        .def( 
-            "Event_Killed"
-            , (void ( ::CBaseGrenade::* )( ::CTakeDamageInfo const & ) )(&::CBaseGrenade::Event_Killed)
-            , (void ( CBaseGrenade_wrapper::* )( ::CTakeDamageInfo const & ) )(&CBaseGrenade_wrapper::default_Event_Killed)
-            , ( bp::arg("info") ) )    
-        .def( 
-            "Explode"
-            , (void ( ::CBaseGrenade::* )( ::trace_t *,int ) )( &::CBaseGrenade::Explode )
-            , ( bp::arg("pTrace"), bp::arg("bitsDamageType") ) )    
-        .def( 
-            "ExplodeTouch"
-            , (void ( ::CBaseGrenade::* )( ::CBaseEntity * ) )( &::CBaseGrenade::ExplodeTouch )
-            , ( bp::arg("pOther") ) )    
-        .def( 
-            "GetBlastForce"
-            , (::Vector ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::GetBlastForce ) )    
-        .def( 
-            "GetDamage"
-            , (float ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::GetDamage ) )    
-        .def( 
-            "GetDamageRadius"
-            , (float ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::GetDamageRadius ) )    
-        .def( 
-            "GetOriginalThrower"
-            , (::CBaseEntity * ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::GetOriginalThrower )
-            , bp::return_value_policy< bp::return_by_value >() )    
-        .def( 
-            "GetPyNetworkType"
-            , (int (*)(  ))( &::CBaseGrenade::GetPyNetworkType ) )    
-        .def( 
-            "GetShakeAmplitude"
-            , (float ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::GetShakeAmplitude ) )    
-        .def( 
-            "GetShakeRadius"
-            , (float ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::GetShakeRadius ) )    
-        .def( 
-            "GetThrower"
-            , (::CBaseCombatCharacter * ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::GetThrower )
-            , bp::return_value_policy< bp::return_by_value >() )    
-        .def( 
-            "ObjectCaps"
-            , (int ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::ObjectCaps ) )    
-        .def( 
-            "PreDetonate"
-            , (void ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::PreDetonate ) )    
-        .def( 
-            "Precache"
-            , (void ( ::CBaseGrenade::* )(  ) )(&::CBaseGrenade::Precache)
-            , (void ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_Precache) )    
-        .def( 
-            "SetBounceSound"
-            , (void ( ::CBaseGrenade::* )( char const * ) )( &::CBaseGrenade::SetBounceSound )
-            , ( bp::arg("pszBounceSound") ) )    
-        .def( 
-            "SetDamage"
-            , (void ( ::CBaseGrenade::* )( float ) )( &::CBaseGrenade::SetDamage )
-            , ( bp::arg("flDamage") ) )    
-        .def( 
-            "SetDamageRadius"
-            , (void ( ::CBaseGrenade::* )( float ) )( &::CBaseGrenade::SetDamageRadius )
-            , ( bp::arg("flDamageRadius") ) )    
-        .def( 
-            "SetThrower"
-            , (void ( ::CBaseGrenade::* )( ::CBaseCombatCharacter * ) )( &::CBaseGrenade::SetThrower )
-            , ( bp::arg("pThrower") ) )    
-        .def( 
-            "SlideTouch"
-            , (void ( ::CBaseGrenade::* )( ::CBaseEntity * ) )( &::CBaseGrenade::SlideTouch )
-            , ( bp::arg("pOther") ) )    
-        .def( 
-            "Smoke"
-            , (void ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::Smoke ) )    
-        .def( 
-            "TumbleThink"
-            , (void ( ::CBaseGrenade::* )(  ) )( &::CBaseGrenade::TumbleThink ) )    
-        .def( 
-            "Use"
-            , (void ( ::CBaseGrenade::* )( ::CBaseEntity *,::CBaseEntity *,::USE_TYPE,float ) )( &::CBaseGrenade::Use )
-            , ( bp::arg("pActivator"), bp::arg("pCaller"), bp::arg("useType"), bp::arg("value") ) )    
-        .def( 
-            "Activate"
-            , (void ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::Activate)
-            , (void ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_Activate) )    
-        .def( 
-            "CanBecomeRagdoll"
-            , (bool ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::CanBecomeRagdoll)
-            , (bool ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_CanBecomeRagdoll) )    
-        .def( 
-            "ComputeWorldSpaceSurroundingBox"
-            , (void ( ::CBaseEntity::* )( ::Vector *,::Vector * ) )(&::CBaseEntity::ComputeWorldSpaceSurroundingBox)
-            , (void ( CBaseGrenade_wrapper::* )( ::Vector *,::Vector * ) )(&CBaseGrenade_wrapper::default_ComputeWorldSpaceSurroundingBox)
-            , ( bp::arg("pWorldMins"), bp::arg("pWorldMaxs") ) )    
-        .def( 
-            "CreateVPhysics"
-            , (bool ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::CreateVPhysics)
-            , (bool ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_CreateVPhysics) )    
-        .def( 
-            "DeathNotice"
-            , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::DeathNotice)
-            , (void ( CBaseGrenade_wrapper::* )( ::CBaseEntity * ) )(&CBaseGrenade_wrapper::default_DeathNotice)
-            , ( bp::arg("pVictim") ) )    
-        .def( 
-            "DoImpactEffect"
-            , (void ( ::CBaseEntity::* )( ::trace_t &,int ) )(&::CBaseEntity::DoImpactEffect)
-            , (void ( CBaseGrenade_wrapper::* )( ::trace_t &,int ) )(&CBaseGrenade_wrapper::default_DoImpactEffect)
-            , ( bp::arg("tr"), bp::arg("nDamageType") ) )    
-        .def( 
-            "DrawDebugGeometryOverlays"
-            , (void ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::DrawDebugGeometryOverlays)
-            , (void ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_DrawDebugGeometryOverlays) )    
-        .def( 
-            "DrawDebugTextOverlays"
-            , (int ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::DrawDebugTextOverlays)
-            , (int ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_DrawDebugTextOverlays) )    
-        .def( 
-            "EndTouch"
-            , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::EndTouch)
-            , (void ( CBaseGrenade_wrapper::* )( ::CBaseEntity * ) )(&CBaseGrenade_wrapper::default_EndTouch)
-            , ( bp::arg("pOther") ) )    
-        .def( 
-            "GetTracerType"
-            , (char const * ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::GetTracerType)
-            , (char const * ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_GetTracerType) )    
-        .def( 
-            "KeyValue"
-            , (bool ( ::CBaseEntity::* )( char const *,char const * ) )(&::CBaseEntity::KeyValue)
-            , (bool ( CBaseGrenade_wrapper::* )( char const *,char const * ) )(&CBaseGrenade_wrapper::default_KeyValue)
-            , ( bp::arg("szKeyName"), bp::arg("szValue") ) )    
-        .def( 
-            "KeyValue"
-            , (bool ( ::CBaseEntity::* )( char const *,float ) )(&::CBaseEntity::KeyValue)
-            , (bool ( CBaseGrenade_wrapper::* )( char const *,float ) )(&CBaseGrenade_wrapper::default_KeyValue)
-            , ( bp::arg("szKeyName"), bp::arg("flValue") ) )    
-        .def( 
-            "KeyValue"
-            , (bool ( ::CBaseEntity::* )( char const *,::Vector const & ) )(&::CBaseEntity::KeyValue)
-            , (bool ( CBaseGrenade_wrapper::* )( char const *,::Vector const & ) )(&CBaseGrenade_wrapper::default_KeyValue)
-            , ( bp::arg("szKeyName"), bp::arg("vecValue") ) )    
-        .def( 
-            "MakeTracer"
-            , (void ( ::CBaseEntity::* )( ::Vector const &,::trace_t const &,int ) )(&::CBaseEntity::MakeTracer)
-            , (void ( CBaseGrenade_wrapper::* )( ::Vector const &,::trace_t const &,int ) )(&CBaseGrenade_wrapper::default_MakeTracer)
-            , ( bp::arg("vecTracerSrc"), bp::arg("tr"), bp::arg("iTracerType") ) )    
-        .def( 
-            "ModifyOrAppendCriteria"
-            , (void ( ::CBaseAnimating::* )( ::AI_CriteriaSet & ) )(&::CBaseAnimating::ModifyOrAppendCriteria)
-            , (void ( CBaseGrenade_wrapper::* )( ::AI_CriteriaSet & ) )(&CBaseGrenade_wrapper::default_ModifyOrAppendCriteria)
-            , ( bp::arg("set") ) )    
-        .def( 
-            "OnRestore"
-            , (void ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::OnRestore)
-            , (void ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_OnRestore) )    
-        .def( 
-            "OnTakeDamage"
-            , (int ( ::CBaseEntity::* )( ::CTakeDamageInfo const & ) )(&::CBaseEntity::OnTakeDamage)
-            , (int ( CBaseGrenade_wrapper::* )( ::CTakeDamageInfo const & ) )(&CBaseGrenade_wrapper::default_OnTakeDamage)
-            , ( bp::arg("info") ) )    
-        .def( 
-            "PassesDamageFilter"
-            , (bool ( ::CBaseEntity::* )( ::CTakeDamageInfo const & ) )(&::CBaseEntity::PassesDamageFilter)
-            , (bool ( CBaseGrenade_wrapper::* )( ::CTakeDamageInfo const & ) )(&CBaseGrenade_wrapper::default_PassesDamageFilter)
-            , ( bp::arg("info") ) )    
-        .def( 
-            "PostClientActive"
-            , (void ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::PostClientActive)
-            , (void ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_PostClientActive) )    
-        .def( 
-            "PostConstructor"
-            , (void ( ::CBaseEntity::* )( char const * ) )(&::CBaseEntity::PostConstructor)
-            , (void ( CBaseGrenade_wrapper::* )( char const * ) )(&CBaseGrenade_wrapper::default_PostConstructor)
-            , ( bp::arg("szClassname") ) )    
-        .def( 
-            "Spawn"
-            , (void ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::Spawn)
-            , (void ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_Spawn) )    
-        .def( 
-            "StartTouch"
-            , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::StartTouch)
-            , (void ( CBaseGrenade_wrapper::* )( ::CBaseEntity * ) )(&CBaseGrenade_wrapper::default_StartTouch)
-            , ( bp::arg("pOther") ) )    
-        .def( 
-            "StopLoopingSounds"
-            , (void ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::StopLoopingSounds)
-            , (void ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_StopLoopingSounds) )    
-        .def( 
-            "TraceAttack"
-            , (void ( CBaseGrenade_wrapper::* )( ::CTakeDamageInfo const &,::Vector const &,::trace_t *,::CDmgAccumulator * ) )(&CBaseGrenade_wrapper::TraceAttack)
-            , ( bp::arg("info"), bp::arg("vecDir"), bp::arg("ptr"), bp::arg("pAccumulator")=bp::object() ) )    
-        .def( 
-            "UpdateOnRemove"
-            , (void ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::UpdateOnRemove)
-            , (void ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_UpdateOnRemove) )    
-        .def( 
-            "UpdateTransmitState"
-            , (int ( ::CBaseEntity::* )(  ) )(&::CBaseEntity::UpdateTransmitState)
-            , (int ( CBaseGrenade_wrapper::* )(  ) )(&CBaseGrenade_wrapper::default_UpdateTransmitState) )    
-        .def( 
-            "VPhysicsCollision"
-            , (void ( ::CBaseEntity::* )( int,::gamevcollisionevent_t * ) )(&::CBaseEntity::VPhysicsCollision)
-            , (void ( CBaseGrenade_wrapper::* )( int,::gamevcollisionevent_t * ) )(&CBaseGrenade_wrapper::default_VPhysicsCollision)
-            , ( bp::arg("index"), bp::arg("pEvent") ) )    
-        .staticmethod( "GetPyNetworkType" )    
-        .add_property( "lifestate", &CBaseGrenade_wrapper::m_lifeState_Get, &CBaseGrenade_wrapper::m_lifeState_Set )    
-        .add_property( "takedamage", &CBaseGrenade_wrapper::m_takedamage_Get, &CBaseGrenade_wrapper::m_takedamage_Set )    
-        .add_property( "skin", &CBaseGrenade_wrapper::m_nSkin_Get, &CBaseGrenade_wrapper::m_nSkin_Set );
+    { //::CBaseGrenade
+        typedef bp::class_< CBaseGrenade_wrapper, bp::bases< CBaseProjectile >, boost::noncopyable > CBaseGrenade_exposer_t;
+        CBaseGrenade_exposer_t CBaseGrenade_exposer = CBaseGrenade_exposer_t( "CBaseGrenade", bp::init< >() );
+        bp::scope CBaseGrenade_scope( CBaseGrenade_exposer );
+        { //::CBaseGrenade::BloodColor
+        
+            typedef int ( ::CBaseGrenade::*BloodColor_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "BloodColor"
+                , BloodColor_function_type( &::CBaseGrenade::BloodColor ) );
+        
+        }
+        { //::CBaseGrenade::BounceSound
+        
+            typedef void ( ::CBaseGrenade::*BounceSound_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "BounceSound"
+                , BounceSound_function_type( &::CBaseGrenade::BounceSound ) );
+        
+        }
+        { //::CBaseGrenade::BounceTouch
+        
+            typedef void ( ::CBaseGrenade::*BounceTouch_function_type )( ::CBaseEntity * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "BounceTouch"
+                , BounceTouch_function_type( &::CBaseGrenade::BounceTouch )
+                , ( bp::arg("pOther") ) );
+        
+        }
+        { //::CBaseGrenade::DangerSoundThink
+        
+            typedef void ( ::CBaseGrenade::*DangerSoundThink_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "DangerSoundThink"
+                , DangerSoundThink_function_type( &::CBaseGrenade::DangerSoundThink ) );
+        
+        }
+        { //::CBaseGrenade::Detonate
+        
+            typedef void ( ::CBaseGrenade::*Detonate_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "Detonate"
+                , Detonate_function_type( &::CBaseGrenade::Detonate ) );
+        
+        }
+        { //::CBaseGrenade::DetonateUse
+        
+            typedef void ( ::CBaseGrenade::*DetonateUse_function_type )( ::CBaseEntity *,::CBaseEntity *,::USE_TYPE,float ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "DetonateUse"
+                , DetonateUse_function_type( &::CBaseGrenade::DetonateUse )
+                , ( bp::arg("pActivator"), bp::arg("pCaller"), bp::arg("useType"), bp::arg("value") ) );
+        
+        }
+        { //::CBaseGrenade::Event_Killed
+        
+            typedef void ( ::CBaseGrenade::*Event_Killed_function_type )( ::CTakeDamageInfo const & ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_Event_Killed_function_type )( ::CTakeDamageInfo const & ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "Event_Killed"
+                , Event_Killed_function_type(&::CBaseGrenade::Event_Killed)
+                , default_Event_Killed_function_type(&CBaseGrenade_wrapper::default_Event_Killed)
+                , ( bp::arg("info") ) );
+        
+        }
+        { //::CBaseGrenade::Explode
+        
+            typedef void ( ::CBaseGrenade::*Explode_function_type )( ::trace_t *,int ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_Explode_function_type )( ::trace_t *,int ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "Explode"
+                , Explode_function_type(&::CBaseGrenade::Explode)
+                , default_Explode_function_type(&CBaseGrenade_wrapper::default_Explode)
+                , ( bp::arg("pTrace"), bp::arg("bitsDamageType") ) );
+        
+        }
+        { //::CBaseGrenade::ExplodeTouch
+        
+            typedef void ( ::CBaseGrenade::*ExplodeTouch_function_type )( ::CBaseEntity * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "ExplodeTouch"
+                , ExplodeTouch_function_type( &::CBaseGrenade::ExplodeTouch )
+                , ( bp::arg("pOther") ) );
+        
+        }
+        { //::CBaseGrenade::GetBlastForce
+        
+            typedef ::Vector ( ::CBaseGrenade::*GetBlastForce_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "GetBlastForce"
+                , GetBlastForce_function_type( &::CBaseGrenade::GetBlastForce ) );
+        
+        }
+        { //::CBaseGrenade::GetOriginalThrower
+        
+            typedef ::CBaseEntity * ( ::CBaseGrenade::*GetOriginalThrower_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "GetOriginalThrower"
+                , GetOriginalThrower_function_type( &::CBaseGrenade::GetOriginalThrower )
+                , bp::return_value_policy< bp::return_by_value >() );
+        
+        }
+        { //::CBaseGrenade::GetPyNetworkType
+        
+            typedef int ( *GetPyNetworkType_function_type )(  );
+            
+            CBaseGrenade_exposer.def( 
+                "GetPyNetworkType"
+                , GetPyNetworkType_function_type( &::CBaseGrenade::GetPyNetworkType ) );
+        
+        }
+        { //::CBaseGrenade::GetShakeAmplitude
+        
+            typedef float ( ::CBaseGrenade::*GetShakeAmplitude_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "GetShakeAmplitude"
+                , GetShakeAmplitude_function_type( &::CBaseGrenade::GetShakeAmplitude ) );
+        
+        }
+        { //::CBaseGrenade::GetShakeRadius
+        
+            typedef float ( ::CBaseGrenade::*GetShakeRadius_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "GetShakeRadius"
+                , GetShakeRadius_function_type( &::CBaseGrenade::GetShakeRadius ) );
+        
+        }
+        { //::CBaseGrenade::GetThrower
+        
+            typedef ::CBaseCombatCharacter * ( ::CBaseGrenade::*GetThrower_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "GetThrower"
+                , GetThrower_function_type( &::CBaseGrenade::GetThrower )
+                , bp::return_value_policy< bp::return_by_value >() );
+        
+        }
+        { //::CBaseGrenade::ObjectCaps
+        
+            typedef int ( ::CBaseGrenade::*ObjectCaps_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "ObjectCaps"
+                , ObjectCaps_function_type( &::CBaseGrenade::ObjectCaps ) );
+        
+        }
+        { //::CBaseGrenade::PreDetonate
+        
+            typedef void ( ::CBaseGrenade::*PreDetonate_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "PreDetonate"
+                , PreDetonate_function_type( &::CBaseGrenade::PreDetonate ) );
+        
+        }
+        { //::CBaseGrenade::Precache
+        
+            typedef void ( ::CBaseGrenade::*Precache_function_type )(  ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_Precache_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "Precache"
+                , Precache_function_type(&::CBaseGrenade::Precache)
+                , default_Precache_function_type(&CBaseGrenade_wrapper::default_Precache) );
+        
+        }
+        { //::CBaseGrenade::SetBounceSound
+        
+            typedef void ( ::CBaseGrenade::*SetBounceSound_function_type )( char const * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "SetBounceSound"
+                , SetBounceSound_function_type( &::CBaseGrenade::SetBounceSound )
+                , ( bp::arg("pszBounceSound") ) );
+        
+        }
+        { //::CBaseGrenade::SetThrower
+        
+            typedef void ( ::CBaseGrenade::*SetThrower_function_type )( ::CBaseCombatCharacter * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "SetThrower"
+                , SetThrower_function_type( &::CBaseGrenade::SetThrower )
+                , ( bp::arg("pThrower") ) );
+        
+        }
+        { //::CBaseGrenade::SlideTouch
+        
+            typedef void ( ::CBaseGrenade::*SlideTouch_function_type )( ::CBaseEntity * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "SlideTouch"
+                , SlideTouch_function_type( &::CBaseGrenade::SlideTouch )
+                , ( bp::arg("pOther") ) );
+        
+        }
+        { //::CBaseGrenade::Smoke
+        
+            typedef void ( ::CBaseGrenade::*Smoke_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "Smoke"
+                , Smoke_function_type( &::CBaseGrenade::Smoke ) );
+        
+        }
+        { //::CBaseGrenade::TumbleThink
+        
+            typedef void ( ::CBaseGrenade::*TumbleThink_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "TumbleThink"
+                , TumbleThink_function_type( &::CBaseGrenade::TumbleThink ) );
+        
+        }
+        { //::CBaseGrenade::Use
+        
+            typedef void ( ::CBaseGrenade::*Use_function_type )( ::CBaseEntity *,::CBaseEntity *,::USE_TYPE,float ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "Use"
+                , Use_function_type( &::CBaseGrenade::Use )
+                , ( bp::arg("pActivator"), bp::arg("pCaller"), bp::arg("useType"), bp::arg("value") ) );
+        
+        }
+        { //::CBaseAnimating::Activate
+        
+            typedef void ( ::CBaseAnimating::*Activate_function_type )(  ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_Activate_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "Activate"
+                , Activate_function_type(&::CBaseAnimating::Activate)
+                , default_Activate_function_type(&CBaseGrenade_wrapper::default_Activate) );
+        
+        }
+        { //::CBaseAnimating::CanBecomeRagdoll
+        
+            typedef bool ( ::CBaseAnimating::*CanBecomeRagdoll_function_type )(  ) ;
+            typedef bool ( CBaseGrenade_wrapper::*default_CanBecomeRagdoll_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "CanBecomeRagdoll"
+                , CanBecomeRagdoll_function_type(&::CBaseAnimating::CanBecomeRagdoll)
+                , default_CanBecomeRagdoll_function_type(&CBaseGrenade_wrapper::default_CanBecomeRagdoll) );
+        
+        }
+        { //::CBaseEntity::ComputeWorldSpaceSurroundingBox
+        
+            typedef void ( ::CBaseEntity::*ComputeWorldSpaceSurroundingBox_function_type )( ::Vector *,::Vector * ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_ComputeWorldSpaceSurroundingBox_function_type )( ::Vector *,::Vector * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "ComputeWorldSpaceSurroundingBox"
+                , ComputeWorldSpaceSurroundingBox_function_type(&::CBaseEntity::ComputeWorldSpaceSurroundingBox)
+                , default_ComputeWorldSpaceSurroundingBox_function_type(&CBaseGrenade_wrapper::default_ComputeWorldSpaceSurroundingBox)
+                , ( bp::arg("pWorldMins"), bp::arg("pWorldMaxs") ) );
+        
+        }
+        { //::CBaseEntity::CreateVPhysics
+        
+            typedef bool ( ::CBaseEntity::*CreateVPhysics_function_type )(  ) ;
+            typedef bool ( CBaseGrenade_wrapper::*default_CreateVPhysics_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "CreateVPhysics"
+                , CreateVPhysics_function_type(&::CBaseEntity::CreateVPhysics)
+                , default_CreateVPhysics_function_type(&CBaseGrenade_wrapper::default_CreateVPhysics) );
+        
+        }
+        { //::CBaseEntity::DeathNotice
+        
+            typedef void ( ::CBaseEntity::*DeathNotice_function_type )( ::CBaseEntity * ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_DeathNotice_function_type )( ::CBaseEntity * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "DeathNotice"
+                , DeathNotice_function_type(&::CBaseEntity::DeathNotice)
+                , default_DeathNotice_function_type(&CBaseGrenade_wrapper::default_DeathNotice)
+                , ( bp::arg("pVictim") ) );
+        
+        }
+        { //::CBaseEntity::DoImpactEffect
+        
+            typedef void ( ::CBaseEntity::*DoImpactEffect_function_type )( ::trace_t &,int ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_DoImpactEffect_function_type )( ::trace_t &,int ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "DoImpactEffect"
+                , DoImpactEffect_function_type(&::CBaseEntity::DoImpactEffect)
+                , default_DoImpactEffect_function_type(&CBaseGrenade_wrapper::default_DoImpactEffect)
+                , ( bp::arg("tr"), bp::arg("nDamageType") ) );
+        
+        }
+        { //::CBaseEntity::DrawDebugGeometryOverlays
+        
+            typedef void ( ::CBaseEntity::*DrawDebugGeometryOverlays_function_type )(  ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_DrawDebugGeometryOverlays_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "DrawDebugGeometryOverlays"
+                , DrawDebugGeometryOverlays_function_type(&::CBaseEntity::DrawDebugGeometryOverlays)
+                , default_DrawDebugGeometryOverlays_function_type(&CBaseGrenade_wrapper::default_DrawDebugGeometryOverlays) );
+        
+        }
+        { //::CBaseAnimating::DrawDebugTextOverlays
+        
+            typedef int ( ::CBaseAnimating::*DrawDebugTextOverlays_function_type )(  ) ;
+            typedef int ( CBaseGrenade_wrapper::*default_DrawDebugTextOverlays_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "DrawDebugTextOverlays"
+                , DrawDebugTextOverlays_function_type(&::CBaseAnimating::DrawDebugTextOverlays)
+                , default_DrawDebugTextOverlays_function_type(&CBaseGrenade_wrapper::default_DrawDebugTextOverlays) );
+        
+        }
+        { //::CBaseEntity::EndTouch
+        
+            typedef void ( ::CBaseEntity::*EndTouch_function_type )( ::CBaseEntity * ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_EndTouch_function_type )( ::CBaseEntity * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "EndTouch"
+                , EndTouch_function_type(&::CBaseEntity::EndTouch)
+                , default_EndTouch_function_type(&CBaseGrenade_wrapper::default_EndTouch)
+                , ( bp::arg("pOther") ) );
+        
+        }
+        { //::CBaseEntity::GetTracerType
+        
+            typedef char const * ( ::CBaseEntity::*GetTracerType_function_type )(  ) ;
+            typedef char const * ( CBaseGrenade_wrapper::*default_GetTracerType_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "GetTracerType"
+                , GetTracerType_function_type(&::CBaseEntity::GetTracerType)
+                , default_GetTracerType_function_type(&CBaseGrenade_wrapper::default_GetTracerType) );
+        
+        }
+        { //::CBaseEntity::KeyValue
+        
+            typedef bool ( ::CBaseEntity::*KeyValue_function_type )( char const *,char const * ) ;
+            typedef bool ( CBaseGrenade_wrapper::*default_KeyValue_function_type )( char const *,char const * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "KeyValue"
+                , KeyValue_function_type(&::CBaseEntity::KeyValue)
+                , default_KeyValue_function_type(&CBaseGrenade_wrapper::default_KeyValue)
+                , ( bp::arg("szKeyName"), bp::arg("szValue") ) );
+        
+        }
+        { //::CBaseEntity::KeyValue
+        
+            typedef bool ( ::CBaseEntity::*KeyValue_function_type )( char const *,float ) ;
+            typedef bool ( CBaseGrenade_wrapper::*default_KeyValue_function_type )( char const *,float ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "KeyValue"
+                , KeyValue_function_type(&::CBaseEntity::KeyValue)
+                , default_KeyValue_function_type(&CBaseGrenade_wrapper::default_KeyValue)
+                , ( bp::arg("szKeyName"), bp::arg("flValue") ) );
+        
+        }
+        { //::CBaseEntity::KeyValue
+        
+            typedef bool ( ::CBaseEntity::*KeyValue_function_type )( char const *,::Vector const & ) ;
+            typedef bool ( CBaseGrenade_wrapper::*default_KeyValue_function_type )( char const *,::Vector const & ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "KeyValue"
+                , KeyValue_function_type(&::CBaseEntity::KeyValue)
+                , default_KeyValue_function_type(&CBaseGrenade_wrapper::default_KeyValue)
+                , ( bp::arg("szKeyName"), bp::arg("vecValue") ) );
+        
+        }
+        { //::CBaseEntity::MakeTracer
+        
+            typedef void ( ::CBaseEntity::*MakeTracer_function_type )( ::Vector const &,::trace_t const &,int ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_MakeTracer_function_type )( ::Vector const &,::trace_t const &,int ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "MakeTracer"
+                , MakeTracer_function_type(&::CBaseEntity::MakeTracer)
+                , default_MakeTracer_function_type(&CBaseGrenade_wrapper::default_MakeTracer)
+                , ( bp::arg("vecTracerSrc"), bp::arg("tr"), bp::arg("iTracerType") ) );
+        
+        }
+        { //::CBaseAnimating::ModifyOrAppendCriteria
+        
+            typedef void ( ::CBaseAnimating::*ModifyOrAppendCriteria_function_type )( ::AI_CriteriaSet & ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_ModifyOrAppendCriteria_function_type )( ::AI_CriteriaSet & ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "ModifyOrAppendCriteria"
+                , ModifyOrAppendCriteria_function_type(&::CBaseAnimating::ModifyOrAppendCriteria)
+                , default_ModifyOrAppendCriteria_function_type(&CBaseGrenade_wrapper::default_ModifyOrAppendCriteria)
+                , ( bp::arg("set") ) );
+        
+        }
+        { //::CBaseAnimating::OnRestore
+        
+            typedef void ( ::CBaseAnimating::*OnRestore_function_type )(  ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_OnRestore_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "OnRestore"
+                , OnRestore_function_type(&::CBaseAnimating::OnRestore)
+                , default_OnRestore_function_type(&CBaseGrenade_wrapper::default_OnRestore) );
+        
+        }
+        { //::CBaseEntity::OnTakeDamage
+        
+            typedef int ( ::CBaseEntity::*OnTakeDamage_function_type )( ::CTakeDamageInfo const & ) ;
+            typedef int ( CBaseGrenade_wrapper::*default_OnTakeDamage_function_type )( ::CTakeDamageInfo const & ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "OnTakeDamage"
+                , OnTakeDamage_function_type(&::CBaseEntity::OnTakeDamage)
+                , default_OnTakeDamage_function_type(&CBaseGrenade_wrapper::default_OnTakeDamage)
+                , ( bp::arg("info") ) );
+        
+        }
+        { //::CBaseEntity::PassesDamageFilter
+        
+            typedef bool ( ::CBaseEntity::*PassesDamageFilter_function_type )( ::CTakeDamageInfo const & ) ;
+            typedef bool ( CBaseGrenade_wrapper::*default_PassesDamageFilter_function_type )( ::CTakeDamageInfo const & ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "PassesDamageFilter"
+                , PassesDamageFilter_function_type(&::CBaseEntity::PassesDamageFilter)
+                , default_PassesDamageFilter_function_type(&CBaseGrenade_wrapper::default_PassesDamageFilter)
+                , ( bp::arg("info") ) );
+        
+        }
+        { //::CBaseEntity::PostClientActive
+        
+            typedef void ( ::CBaseEntity::*PostClientActive_function_type )(  ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_PostClientActive_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "PostClientActive"
+                , PostClientActive_function_type(&::CBaseEntity::PostClientActive)
+                , default_PostClientActive_function_type(&CBaseGrenade_wrapper::default_PostClientActive) );
+        
+        }
+        { //::CBaseEntity::PostConstructor
+        
+            typedef void ( ::CBaseEntity::*PostConstructor_function_type )( char const * ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_PostConstructor_function_type )( char const * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "PostConstructor"
+                , PostConstructor_function_type(&::CBaseEntity::PostConstructor)
+                , default_PostConstructor_function_type(&CBaseGrenade_wrapper::default_PostConstructor)
+                , ( bp::arg("szClassname") ) );
+        
+        }
+        { //::CBaseAnimating::Spawn
+        
+            typedef void ( ::CBaseAnimating::*Spawn_function_type )(  ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_Spawn_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "Spawn"
+                , Spawn_function_type(&::CBaseAnimating::Spawn)
+                , default_Spawn_function_type(&CBaseGrenade_wrapper::default_Spawn) );
+        
+        }
+        { //::CBaseEntity::StartTouch
+        
+            typedef void ( ::CBaseEntity::*StartTouch_function_type )( ::CBaseEntity * ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_StartTouch_function_type )( ::CBaseEntity * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "StartTouch"
+                , StartTouch_function_type(&::CBaseEntity::StartTouch)
+                , default_StartTouch_function_type(&CBaseGrenade_wrapper::default_StartTouch)
+                , ( bp::arg("pOther") ) );
+        
+        }
+        { //::CBaseEntity::StopLoopingSounds
+        
+            typedef void ( ::CBaseEntity::*StopLoopingSounds_function_type )(  ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_StopLoopingSounds_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "StopLoopingSounds"
+                , StopLoopingSounds_function_type(&::CBaseEntity::StopLoopingSounds)
+                , default_StopLoopingSounds_function_type(&CBaseGrenade_wrapper::default_StopLoopingSounds) );
+        
+        }
+        { //::CBaseEntity::TraceAttack
+        
+            typedef void ( CBaseGrenade_wrapper::*TraceAttack_function_type )( ::CTakeDamageInfo const &,::Vector const &,::trace_t *,::CDmgAccumulator * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "TraceAttack"
+                , TraceAttack_function_type( &CBaseGrenade_wrapper::TraceAttack )
+                , ( bp::arg("info"), bp::arg("vecDir"), bp::arg("ptr"), bp::arg("pAccumulator")=bp::object() ) );
+        
+        }
+        { //::CBaseEntity::UpdateOnRemove
+        
+            typedef void ( ::CBaseEntity::*UpdateOnRemove_function_type )(  ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_UpdateOnRemove_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "UpdateOnRemove"
+                , UpdateOnRemove_function_type(&::CBaseEntity::UpdateOnRemove)
+                , default_UpdateOnRemove_function_type(&CBaseGrenade_wrapper::default_UpdateOnRemove) );
+        
+        }
+        { //::CBaseEntity::UpdateTransmitState
+        
+            typedef int ( ::CBaseEntity::*UpdateTransmitState_function_type )(  ) ;
+            typedef int ( CBaseGrenade_wrapper::*default_UpdateTransmitState_function_type )(  ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "UpdateTransmitState"
+                , UpdateTransmitState_function_type(&::CBaseEntity::UpdateTransmitState)
+                , default_UpdateTransmitState_function_type(&CBaseGrenade_wrapper::default_UpdateTransmitState) );
+        
+        }
+        { //::CBaseEntity::VPhysicsCollision
+        
+            typedef void ( ::CBaseEntity::*VPhysicsCollision_function_type )( int,::gamevcollisionevent_t * ) ;
+            typedef void ( CBaseGrenade_wrapper::*default_VPhysicsCollision_function_type )( int,::gamevcollisionevent_t * ) ;
+            
+            CBaseGrenade_exposer.def( 
+                "VPhysicsCollision"
+                , VPhysicsCollision_function_type(&::CBaseEntity::VPhysicsCollision)
+                , default_VPhysicsCollision_function_type(&CBaseGrenade_wrapper::default_VPhysicsCollision)
+                , ( bp::arg("index"), bp::arg("pEvent") ) );
+        
+        }
+        CBaseGrenade_exposer.staticmethod( "GetPyNetworkType" );
+        { //property "damage"[fget=::CBaseGrenade::GetDamage, fset=::CBaseGrenade::SetDamage]
+        
+            typedef float ( ::CBaseGrenade::*fget )(  ) ;
+            typedef void ( ::CBaseGrenade::*fset )( float ) ;
+            
+            CBaseGrenade_exposer.add_property( 
+                "damage"
+                , fget( &::CBaseGrenade::GetDamage )
+                , fset( &::CBaseGrenade::SetDamage ) );
+        
+        }
+        { //property "damageradius"[fget=::CBaseGrenade::GetDamageRadius, fset=::CBaseGrenade::SetDamageRadius]
+        
+            typedef float ( ::CBaseGrenade::*fget )(  ) ;
+            typedef void ( ::CBaseGrenade::*fset )( float ) ;
+            
+            CBaseGrenade_exposer.add_property( 
+                "damageradius"
+                , fget( &::CBaseGrenade::GetDamageRadius )
+                , fset( &::CBaseGrenade::SetDamageRadius ) );
+        
+        }
+        CBaseGrenade_exposer.add_property( "lifestate", &CBaseGrenade_wrapper::m_lifeState_Get, &CBaseGrenade_wrapper::m_lifeState_Set );
+        CBaseGrenade_exposer.add_property( "takedamage", &CBaseGrenade_wrapper::m_takedamage_Get, &CBaseGrenade_wrapper::m_takedamage_Set );
+        CBaseGrenade_exposer.add_property( "skin", &CBaseGrenade_wrapper::m_nSkin_Get, &CBaseGrenade_wrapper::m_nSkin_Set );
+    }
 
 }
 

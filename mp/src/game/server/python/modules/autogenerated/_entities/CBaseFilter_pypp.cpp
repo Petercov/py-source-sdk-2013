@@ -20,7 +20,9 @@
 #include "vcollide_parse.h"
 #include "iservervehicle.h"
 #include "gib.h"
+#include "spark.h"
 #include "filters.h"
+#include "EntityFlame.h"
 #include "player_resource.h"
 #include "props.h"
 #include "physics_prop_ragdoll.h"
@@ -53,11 +55,41 @@ struct CBaseFilter_wrapper : CBaseFilter, bp::wrapper< CBaseFilter > {
         return CBaseFilter::PassesDamageFilter( info );
     }
 
-    bool PassesDamageFilterImpl( ::CTakeDamageInfo const & info ){
+    virtual bool PassesDamageFilterImpl( ::CTakeDamageInfo const & info ){
+        PY_OVERRIDE_CHECK( CBaseFilter, PassesDamageFilterImpl )
+        PY_OVERRIDE_LOG( _entities, CBaseFilter, PassesDamageFilterImpl )
+        bp::override func_PassesDamageFilterImpl = this->get_override( "PassesDamageFilterImpl" );
+        if( func_PassesDamageFilterImpl.ptr() != Py_None )
+            try {
+                return func_PassesDamageFilterImpl( boost::ref(info) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CBaseFilter::PassesDamageFilterImpl( info );
+            }
+        else
+            return this->CBaseFilter::PassesDamageFilterImpl( info );
+    }
+    
+    virtual bool default_PassesDamageFilterImpl( ::CTakeDamageInfo const & info ){
         return CBaseFilter::PassesDamageFilterImpl( info );
     }
 
-    bool PassesFilterImpl( ::CBaseEntity * pCaller, ::CBaseEntity * pEntity ){
+    virtual bool PassesFilterImpl( ::CBaseEntity * pCaller, ::CBaseEntity * pEntity ){
+        PY_OVERRIDE_CHECK( CBaseFilter, PassesFilterImpl )
+        PY_OVERRIDE_LOG( _entities, CBaseFilter, PassesFilterImpl )
+        bp::override func_PassesFilterImpl = this->get_override( "PassesFilterImpl" );
+        if( func_PassesFilterImpl.ptr() != Py_None )
+            try {
+                return func_PassesFilterImpl( pCaller ? pCaller->GetPyHandle() : boost::python::object(), pEntity ? pEntity->GetPyHandle() : boost::python::object() );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CBaseFilter::PassesFilterImpl( pCaller, pEntity );
+            }
+        else
+            return this->CBaseFilter::PassesFilterImpl( pCaller, pEntity );
+    }
+    
+    virtual bool default_PassesFilterImpl( ::CBaseEntity * pCaller, ::CBaseEntity * pEntity ){
         return CBaseFilter::PassesFilterImpl( pCaller, pEntity );
     }
 
@@ -582,7 +614,7 @@ struct CBaseFilter_wrapper : CBaseFilter, bp::wrapper< CBaseFilter > {
 
 void register_CBaseFilter_class(){
 
-    bp::class_< CBaseFilter_wrapper, bp::bases< CLogicalEntity >, boost::noncopyable >( "CBaseFilter", bp::no_init )    
+    bp::class_< CBaseFilter_wrapper, bp::bases< CLogicalEntity >, boost::noncopyable >( "CBaseFilter" )    
         .def( 
             "InputTestActivator"
             , (void ( ::CBaseFilter::* )( ::inputdata_t & ) )( &::CBaseFilter::InputTestActivator )
@@ -594,7 +626,7 @@ void register_CBaseFilter_class(){
             , ( bp::arg("info") ) )    
         .def( 
             "PassesDamageFilterImpl"
-            , (bool ( CBaseFilter_wrapper::* )( ::CTakeDamageInfo const & ) )(&CBaseFilter_wrapper::PassesDamageFilterImpl)
+            , (bool ( CBaseFilter_wrapper::* )( ::CTakeDamageInfo const & ) )(&CBaseFilter_wrapper::default_PassesDamageFilterImpl)
             , ( bp::arg("info") ) )    
         .def( 
             "PassesFilter"
@@ -602,7 +634,7 @@ void register_CBaseFilter_class(){
             , ( bp::arg("pCaller"), bp::arg("pEntity") ) )    
         .def( 
             "PassesFilterImpl"
-            , (bool ( CBaseFilter_wrapper::* )( ::CBaseEntity *,::CBaseEntity * ) )(&CBaseFilter_wrapper::PassesFilterImpl)
+            , (bool ( CBaseFilter_wrapper::* )( ::CBaseEntity *,::CBaseEntity * ) )(&CBaseFilter_wrapper::default_PassesFilterImpl)
             , ( bp::arg("pCaller"), bp::arg("pEntity") ) )    
         .def( 
             "Activate"

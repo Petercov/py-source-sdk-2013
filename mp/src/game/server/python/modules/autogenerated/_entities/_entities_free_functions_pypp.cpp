@@ -20,7 +20,9 @@
 #include "vcollide_parse.h"
 #include "iservervehicle.h"
 #include "gib.h"
+#include "spark.h"
 #include "filters.h"
+#include "EntityFlame.h"
 #include "player_resource.h"
 #include "props.h"
 #include "physics_prop_ragdoll.h"
@@ -46,6 +48,18 @@ void _entities_register_free_functions(){
     
     }
 
+    { //::CreateRagGib
+    
+        typedef ::CBaseEntity * ( *CreateRagGib_function_type )( char const *,::Vector const &,::QAngle const &,::Vector const &,float,bool );
+        
+        bp::def( 
+            "CreateRagGib"
+            , CreateRagGib_function_type( &::CreateRagGib )
+            , ( bp::arg("szModel"), bp::arg("vecOrigin"), bp::arg("vecAngles"), bp::arg("vecForce"), bp::arg("flFadeTime")=0.0, bp::arg("bShouldIgnite")=(bool)(false) )
+            , bp::return_value_policy< bp::return_by_value >() );
+    
+    }
+
     { //::DispatchSpawn
     
         typedef int ( *DispatchSpawn_function_type )( ::CBaseEntity * );
@@ -54,6 +68,28 @@ void _entities_register_free_functions(){
             "DispatchSpawn"
             , DispatchSpawn_function_type( &::DispatchSpawn )
             , ( bp::arg("pEntity") ) );
+    
+    }
+
+    { //::DoSpark
+    
+        typedef void ( *DoSpark_function_type )( ::CBaseEntity *,::Vector const &,int,int,bool,::Vector const & );
+        
+        bp::def( 
+            "DoSpark"
+            , DoSpark_function_type( &::DoSpark )
+            , ( bp::arg("ent"), bp::arg("location"), bp::arg("nMagnitude"), bp::arg("nTrailLength"), bp::arg("bPlaySound"), bp::arg("vecDir") ) );
+    
+    }
+
+    { //::PropBreakablePrecacheAll
+    
+        typedef int ( *PropBreakablePrecacheAll_function_type )( ::string_t );
+        
+        bp::def( 
+            "PropBreakablePrecacheAll"
+            , PropBreakablePrecacheAll_function_type( &::PropBreakablePrecacheAll )
+            , ( bp::arg("modelName") ) );
     
     }
 
