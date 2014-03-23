@@ -316,7 +316,6 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         mb.free_functions('CalculateMeleeDamageForce').include()
         mb.free_functions('GuessDamageForce').include()
         
-        # //--------------------------------------------------------------------------------------------------------------------------------
         # FireBulletsInfo_t
         cls = mb.class_('FireBulletsInfo_t')
         cls.include()
@@ -340,7 +339,6 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         cls.include()
         
         if self.isserver:
-            # //--------------------------------------------------------------------------------------------------------------------------------
             # Bone follower
             cls = mb.class_('pyphysfollower_t')
             cls.include()
@@ -352,8 +350,7 @@ class EntitiesMisc(SemiSharedModuleGenerator):
             
             mb.free_function('GetAttachmentPositionInSpaceOfBone').include()
             
-            # //--------------------------------------------------------------------------------------------------------------------------------
-            # Ragdoll stuff
+            # Ragdoll functions
             mb.free_function('CreateServerRagdoll').include()
             mb.free_function('CreateServerRagdoll').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
 
@@ -363,7 +360,6 @@ class EntitiesMisc(SemiSharedModuleGenerator):
                 mb.free_function('PyCreateServerRagdollAttached').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
             mb.free_function('DetachAttachedRagdoll').include()
             mb.free_function('DetachAttachedRagdollsForEntity').include()
-        
         
         # Shared Props
         mb.class_('breakablepropparams_t').include()

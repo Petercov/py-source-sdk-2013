@@ -174,6 +174,8 @@ class Entities(SemiSharedModuleGenerator):
         '#filters.h',
         '$c_playerresource.h',
         '#player_resource.h',
+        '#props.h',
+        '#physics_prop_ragdoll.h',
         
         # For parsing only (used to exclude functions based on return value)
         '$%baseviewmodel_shared.h',
@@ -218,6 +220,10 @@ class Entities(SemiSharedModuleGenerator):
         'CTriggerMultiple',
         'CBaseFilter',
         'CGib',
+        'CBaseProp',
+        'CBreakableProp',
+        'CPhysicsProp',
+        'CRagdollProp',
     ]
     
     def AddEntityConverter(self, mb, clsname, pyhandletoptronly=False):
@@ -923,6 +929,17 @@ class Entities(SemiSharedModuleGenerator):
         cls_name = 'C_BaseTrigger' if self.isclient else 'CBaseTrigger'
         cls = mb.class_(cls_name)
         cls.no_init = False
+                         
+    def ParseProps(self, mb):
+        if self.isserver:
+            cls = mb.class_('CBreakableProp')
+            cls.mem_funs('GetRootPhysicsObjectForBreak').exclude()
+            
+            cls = mb.class_('CPhysicsProp')
+                
+            cls = mb.class_('CRagdollProp')
+            cls.mem_funs('GetRagdoll').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        
             
     def ParseEntities(self, mb):
         self.ParseBaseEntityHandles(mb)
@@ -946,6 +963,7 @@ class Entities(SemiSharedModuleGenerator):
         self.ParseBaseCombatCharacter(mb)
         self.ParseBasePlayer(mb)
         self.ParseTriggers(mb)
+        self.ParseProps(mb)
         
     def Parse(self, mb):
         # Exclude everything by default
