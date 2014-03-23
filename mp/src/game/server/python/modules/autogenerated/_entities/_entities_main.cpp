@@ -51,6 +51,8 @@
 
 #include "physics_prop_ragdoll.h"
 
+#include "nav_area.h"
+
 #include "tier0/valve_minmax_off.h"
 
 #include "srcpy.h"

@@ -27,6 +27,7 @@
 #include "player_resource.h"
 #include "props.h"
 #include "physics_prop_ragdoll.h"
+#include "nav_area.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"

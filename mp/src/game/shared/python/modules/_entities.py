@@ -180,6 +180,7 @@ class Entities(SemiSharedModuleGenerator):
             '#player_resource.h',
             '#props.h',
             '#physics_prop_ragdoll.h',
+            '#nav_area.h',
             
             # For parsing only (used to exclude functions based on return value)
             '$%baseviewmodel_shared.h',
@@ -187,8 +188,6 @@ class Entities(SemiSharedModuleGenerator):
             '$%c_team.h',
             '%mapentities_shared.h',
             '%ai_responsesystem.h' if self.settings.branch == 'swarm' else '%#ai_responsesystem.h',
-            '%#nav_area.h',
-            
         ])
         
     # List of entity classes want to have exposed
