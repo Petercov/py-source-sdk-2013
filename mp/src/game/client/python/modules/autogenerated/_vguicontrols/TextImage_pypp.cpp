@@ -20,6 +20,7 @@
 #include "vgui_controls/Tooltip.h"
 #include "vgui/IBorder.h"
 #include "vgui_bitmapimage.h"
+#include "vgui_avatarimage.h"
 #include "srcpy_vgui.h"
 #include "srcpy.h"
 #include "tier0/memdbgon.h"

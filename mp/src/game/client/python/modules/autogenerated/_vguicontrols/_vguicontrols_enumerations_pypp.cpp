@@ -22,18 +22,17 @@
 #include "srcpy_vgui.h"
 #include "srcpy.h"
 #include "tier0/memdbgon.h"
-#include "PyBaseVGUIHandle_pypp.hpp"
+#include "_vguicontrols_enumerations_pypp.hpp"
 
 namespace bp = boost::python;
 
-void register_PyBaseVGUIHandle_class(){
+void _vguicontrols_register_enumerations(){
 
-    { //::PyBaseVGUIHandle
-        typedef bp::class_< PyBaseVGUIHandle > PyBaseVGUIHandle_exposer_t;
-        PyBaseVGUIHandle_exposer_t PyBaseVGUIHandle_exposer = PyBaseVGUIHandle_exposer_t( "PyBaseVGUIHandle", bp::init< >() );
-        bp::scope PyBaseVGUIHandle_scope( PyBaseVGUIHandle_exposer );
-        PyBaseVGUIHandle_exposer.def( bp::init< vgui::VPANEL >(( bp::arg("handle") )) );
-        bp::implicitly_convertible< vgui::VPANEL, PyBaseVGUIHandle >();
-    }
+    bp::enum_< EAvatarSize>("EAvatarSize")
+        .value("k_EAvatarSize32x32", k_EAvatarSize32x32)
+        .value("k_EAvatarSize64x64", k_EAvatarSize64x64)
+        .value("k_EAvatarSize184x184", k_EAvatarSize184x184)
+        .export_values()
+        ;
 
 }

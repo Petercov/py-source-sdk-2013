@@ -20,6 +20,7 @@
 #include "vgui_controls/Tooltip.h"
 #include "vgui/IBorder.h"
 #include "vgui_bitmapimage.h"
+#include "vgui_avatarimage.h"
 #include "srcpy_vgui.h"
 #include "srcpy.h"
 #include "tier0/memdbgon.h"
@@ -1016,7 +1017,7 @@ struct Panel_wrapper : vgui::Panel, bp::wrapper< vgui::Panel > {
         bp::override func_SetParent = this->get_override( "SetParent" );
         if( func_SetParent.ptr() != Py_None )
             try {
-                func_SetParent( boost::python::ptr(newParent) );
+                func_SetParent( boost::python::object(*newParent) );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 this->vgui::Panel::SetParent( newParent );

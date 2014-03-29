@@ -1,9 +1,9 @@
 from srcpy.module_generators import ClientModuleGenerator
 from srcpy.matchers import calldef_withtypes, MatcherTestInheritClass
 
+from pygccxml.declarations import matcher, matchers, pointer_t, const_t, reference_t, declarated_t, char_t, int_t, wchar_t
 from pyplusplus.code_creators import calldef
 from pyplusplus import function_transformers as FT
-from pygccxml.declarations import matcher, matchers, pointer_t, const_t, reference_t, declarated_t, char_t, int_t, wchar_t
 from pyplusplus.module_builder import call_policies
 
 # Convert templates for without vgui lib
@@ -124,7 +124,7 @@ class VGUIControls(ClientModuleGenerator):
         'vgui/IBorder.h',
 
         'vgui_bitmapimage.h',
-        #'vgui_avatarimages.h',
+        'vgui_avatarimage.h',
         
         'srcpy_vgui.h',
     ]
@@ -291,18 +291,17 @@ class VGUIControls(ClientModuleGenerator):
         cls.calldefs('GetColor', calldef_withtypes([reference_t(declarated_t(int_t()))])).add_transformation(FT.output('r'), FT.output('g'), FT.output('b'), FT.output('a'))
         cls.mem_funs( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
         
-        if self.settings.branch == 'swarm':
-            # CAvatarImage
-            cls = mb.class_('CAvatarImage')
-            cls.include()
-            cls.calldefs().virtuality = 'not virtual' 
-            cls.mem_funs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
-            cls.rename('AvatarImage')
-            cls.mem_funs( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-            cls.mem_funs( 'GetContentSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-            cls.mem_funs( 'InitFromRGBA' ).exclude()
+        # CAvatarImage
+        cls = mb.class_('CAvatarImage')
+        cls.include()
+        cls.calldefs().virtuality = 'not virtual' 
+        cls.mem_funs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
+        cls.rename('AvatarImage')
+        cls.mem_funs( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.mem_funs( 'GetContentSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.mem_funs( 'InitFromRGBA' ).exclude()
         
-            mb.enum('EAvatarSize').include()
+        mb.enum('EAvatarSize').include()
     
     def ParsePanelHandles(self, mb):
         # Base handle for Panels
@@ -332,16 +331,7 @@ class VGUIControls(ClientModuleGenerator):
             # By default exclude any subclass. These classes are likely controlled intern by the panel
             if cls.classes(allow_empty=True):
                 cls.classes().exclude()
-        
-            # SetPythonManaged(true) prevents deletes of panels in the c++ side. Otherwise crash.
-            if not self.novguilib: # FIXME/TODO
-                pass
-            #    constructors = cls.constructors(name=cls_name)
-            #    constructors.body = '\tPyInit();'    
-            else:
-                pass
-                #constructors = cls.constructors(name=cls_name)
-                #constructors.body = '\tSetAutoDelete(false);'
+                
             self.AddVGUIConverter(mb, cls_name, self.novguilib, containsabstract=False)
             
             # # Add custom wrappers for functions who take keyvalues as input
@@ -496,6 +486,7 @@ class VGUIControls(ClientModuleGenerator):
         mb.mem_funs( 'GetResizeOffset' ).add_transformation( FT.output('dx'), FT.output('dy') )
         mb.mem_funs( 'GetCornerTextureSize' ).add_transformation( FT.output('w'), FT.output('h') )    
         
+        # Exclude list
         mb.mem_funs('QueryInterface').exclude()
         
         # We don't care about build mode, since we can easily reload modules in python
@@ -698,6 +689,14 @@ class VGUIControls(ClientModuleGenerator):
         if self.settings.branch == 'swarm':
             mb.mem_funs('GetScrollBar').exclude()
         
+    def TestBasePanel(self, cls):
+        basepanelcls = self.basepanelcls
+        recursive_bases = cls.recursive_bases
+        for testcls in recursive_bases:
+            if basepanelcls == testcls.related_class:
+                return True
+        return cls == basepanelcls
+        
     def Parse(self, mb):
         self.novguilib = (self.settings.branch == 'swarm')
         
@@ -722,6 +721,14 @@ class VGUIControls(ClientModuleGenerator):
         testinherit = MatcherTestInheritClass(mb.class_('Panel'))
         decls = mb.calldefs(matchers.custom_matcher_t(testinherit))
         decls.call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        
+        # All CBaseEntity related classes should have a custom call trait
+        self.basepanelcls = mb.class_('Panel')
+        def panel_call_trait(type_):
+            return 'boost::python::object(*%(arg)s)'
+        panelclasses = mb.classes(self.TestBasePanel)
+        for panelclass in panelclasses:
+            panelclass.custom_call_trait = panel_call_trait
         
         # Remove any protected function
         #mb.calldefs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
