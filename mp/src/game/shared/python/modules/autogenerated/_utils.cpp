@@ -1766,17 +1766,6 @@ BOOST_PYTHON_MODULE(_utils){
     
     }
 
-    { //::UTIL_ListDir
-    
-        typedef ::boost::python::list ( *UTIL_ListDir_function_type )( char const *,char const *,char const * );
-        
-        bp::def( 
-            "UTIL_ListDir"
-            , UTIL_ListDir_function_type( &::UTIL_ListDir )
-            , ( bp::arg("path"), bp::arg("pathid")=bp::object(), bp::arg("wildcard")="*" ) );
-    
-    }
-
     { //::UTIL_MakeSafeName
     
         typedef void ( *UTIL_MakeSafeName_function_type )( char const *,char *,int );
@@ -4483,17 +4472,6 @@ BOOST_PYTHON_MODULE(_utils){
             "UTIL_IsValidEntity"
             , UTIL_IsValidEntity_function_type( &::UTIL_IsValidEntity )
             , ( bp::arg("pEnt") ) );
-    
-    }
-
-    { //::UTIL_ListDir
-    
-        typedef ::boost::python::list ( *UTIL_ListDir_function_type )( char const *,char const *,char const * );
-        
-        bp::def( 
-            "UTIL_ListDir"
-            , UTIL_ListDir_function_type( &::UTIL_ListDir )
-            , ( bp::arg("path"), bp::arg("pathid")=bp::object(), bp::arg("wildcard")="*" ) );
     
     }
 
