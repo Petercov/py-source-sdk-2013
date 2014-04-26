@@ -21,6 +21,13 @@
 
 #include <boost/python.hpp>
 
+// Common defines
+#if PY_VERSION_HEX >= 0x03000000
+#define PY_NEXT_METHODNAME "__next__"
+#else
+#define PY_NEXT_METHODNAME "next"
+#endif
+
 //#include "minmax.h"
 #ifndef min
 #define min(a,b)  (((a) < (b)) ? (a) : (b))

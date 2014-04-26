@@ -8,13 +8,9 @@
 
 #include "__call_policies.pypp.hpp"
 
+#include "cbase.h"
+
 #include "srcpy_srcbuiltins.h"
-
-#include "Color.h"
-
-#include "globalvars_base.h"
-
-#include "edict.h"
 
 #include "srcpy_srcbuiltins_converters.h"
 
@@ -214,6 +210,13 @@ BOOST_PYTHON_MODULE(srcbuiltins){
             "write"
             , (void ( ::SrcPyStdOut::* )( char const * ) )( &::SrcPyStdOut::write )
             , ( bp::arg("msg") ) );
+
+    bp::class_< color32_s >( "color32" )    
+        .def( bp::self != bp::self )    
+        .def_readwrite( "a", &color32_s::a )    
+        .def_readwrite( "b", &color32_s::b )    
+        .def_readwrite( "g", &color32_s::g )    
+        .def_readwrite( "r", &color32_s::r );
 
     { //::GetRegisteredPerFrameMethods
     

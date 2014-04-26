@@ -26,6 +26,7 @@ EXTERN_SEND_TABLE( DT_BaseProjectile );
 EXTERN_SEND_TABLE( DT_BaseGrenade );
 EXTERN_SEND_TABLE( DT_BaseCombatWeapon );
 EXTERN_SEND_TABLE( DT_PlayerResource );
+EXTERN_SEND_TABLE( DT_BreakableProp );
 
 
 namespace bp = boost::python;
@@ -78,6 +79,9 @@ void PyServerClass::SetupServerClass( int iType )
 		break;
 	case PN_PLAYERRESOURCE:
 		m_pTable = &(DT_PlayerResource::g_SendTable);
+		break;
+	case PN_BREAKABLEPROP:
+		m_pTable = &(DT_BreakableProp::g_SendTable);
 		break;
 #if 0 // TODO
 	case PN_BASETOGGLE:

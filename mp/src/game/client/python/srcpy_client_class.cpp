@@ -23,6 +23,7 @@
 #include "beam_shared.h"
 #include "basecombatweapon_shared.h"
 #include "c_playerresource.h"
+#include "c_breakableprop.h"
 //#include "c_basetoggle.h"
 //#include "c_triggers.h"
 
@@ -43,6 +44,7 @@ EXTERN_RECV_TABLE( DT_BaseProjectile );
 EXTERN_RECV_TABLE( DT_BaseGrenade );
 EXTERN_RECV_TABLE( DT_BaseCombatWeapon );
 EXTERN_RECV_TABLE( DT_PlayerResource );
+EXTERN_RECV_TABLE( DT_BreakableProp );
 
 
 // A lot of factories
@@ -72,6 +74,7 @@ IMPLEMENT_FALLBACK_FACTORY(C_SmokeTrail)
 IMPLEMENT_FALLBACK_FACTORY(C_Beam)
 IMPLEMENT_FALLBACK_FACTORY(C_BaseCombatWeapon)
 IMPLEMENT_FALLBACK_FACTORY(C_PlayerResource)
+IMPLEMENT_FALLBACK_FACTORY(C_BreakableProp)
 
 #if 0 // TODO
 IMPLEMENT_FALLBACK_FACTORY(C_BaseToggle)
@@ -112,6 +115,9 @@ void SetupClientClassRecv( PyClientClassBase *p, int iType  )
 		break;
 	case PN_PLAYERRESOURCE:
 		p->m_pRecvTable = &(DT_PlayerResource::g_RecvTable);
+		break;
+	case PN_BREAKABLEPROP:
+		p->m_pRecvTable = &(DT_BreakableProp::g_RecvTable);
 		break;
 #if 0 // TODO
 	case PN_BASETOGGLE:
@@ -203,7 +209,9 @@ IClientNetworkable *ClientClassFactory( int iType, boost::python::object cls_typ
 		case PN_BASECOMBATWEAPON:
 			pResult = CALL_FALLBACK_FACTORY( C_BaseCombatWeapon, entnum, serialNum );
 			break;
-
+		case PN_BREAKABLEPROP:
+			pResult = CALL_FALLBACK_FACTORY( C_BreakableProp, entnum, serialNum );
+			break;
 #if 0 // TODO
 		case PN_BASETOGGLE:
 			pResult = CALL_FALLBACK_FACTORY( C_BaseToggle, entnum, serialNum );

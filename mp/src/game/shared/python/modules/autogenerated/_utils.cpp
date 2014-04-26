@@ -65,7 +65,7 @@ struct CTraceFilter_wrapper : CTraceFilter, bp::wrapper< CTraceFilter > {
     virtual bool ShouldHitEntity( ::IHandleEntity * pEntity, int contentsMask ){
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         try {
-            return func_ShouldHitEntity( boost::python::ptr(pEntity), contentsMask );
+            return func_ShouldHitEntity( PyEntityFromEntityHandle( pEntity ), contentsMask );
         } catch(bp::error_already_set &) {
             throw boost::python::error_already_set();
         }
@@ -88,7 +88,7 @@ struct CTraceFilterSimple_wrapper : CTraceFilterSimple, bp::wrapper< CTraceFilte
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSimple::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -125,7 +125,7 @@ struct CPyTraceFilterSimple_wrapper : CPyTraceFilterSimple, bp::wrapper< CPyTrac
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSimple::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -162,7 +162,7 @@ struct CTraceFilterChain_wrapper : CTraceFilterChain, bp::wrapper< CTraceFilterC
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterChain::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -189,7 +189,7 @@ struct CTraceFilterEntitiesOnly_wrapper : CTraceFilterEntitiesOnly, bp::wrapper<
     virtual bool ShouldHitEntity( ::IHandleEntity * pEntity, int contentsMask ){
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         try {
-            return func_ShouldHitEntity( boost::python::ptr(pEntity), contentsMask );
+            return func_ShouldHitEntity( PyEntityFromEntityHandle( pEntity ), contentsMask );
         } catch(bp::error_already_set &) {
             throw boost::python::error_already_set();
         }
@@ -219,7 +219,7 @@ struct CTraceFilterHitAll_wrapper : CTraceFilterHitAll, bp::wrapper< CTraceFilte
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pServerEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterHitAll::ShouldHitEntity( pServerEntity, contentsMask );
@@ -256,7 +256,7 @@ struct CTraceFilterSkipTwoEntities_wrapper : CTraceFilterSkipTwoEntities, bp::wr
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSkipTwoEntities::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -293,7 +293,7 @@ struct CTraceFilterLOS_wrapper : CTraceFilterLOS, bp::wrapper< CTraceFilterLOS >
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterLOS::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -330,7 +330,7 @@ struct CTraceFilterNoNPCsOrPlayer_wrapper : CTraceFilterNoNPCsOrPlayer, bp::wrap
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterNoNPCsOrPlayer::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -367,7 +367,7 @@ struct CTraceFilterOnlyNPCsAndPlayer_wrapper : CTraceFilterOnlyNPCsAndPlayer, bp
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -397,7 +397,7 @@ struct CTraceFilterSimpleClassnameList_wrapper : CTraceFilterSimpleClassnameList
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSimpleClassnameList::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -427,7 +427,7 @@ struct CTraceFilterSimpleList_wrapper : CTraceFilterSimpleList, bp::wrapper< CTr
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSimpleList::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -464,7 +464,7 @@ struct CTraceFilterSkipClassname_wrapper : CTraceFilterSkipClassname, bp::wrappe
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSkipClassname::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -501,7 +501,7 @@ struct CTraceFilterSkipTwoClassnames_wrapper : CTraceFilterSkipTwoClassnames, bp
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSkipTwoClassnames::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -538,7 +538,7 @@ struct CTraceFilterWorldAndPropsOnly_wrapper : CTraceFilterWorldAndPropsOnly, bp
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pServerEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterWorldAndPropsOnly::ShouldHitEntity( pServerEntity, contentsMask );
@@ -575,7 +575,7 @@ struct CTraceFilterWorldOnly_wrapper : CTraceFilterWorldOnly, bp::wrapper< CTrac
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pServerEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterWorldOnly::ShouldHitEntity( pServerEntity, contentsMask );
@@ -2248,7 +2248,7 @@ struct CTraceFilter_wrapper : CTraceFilter, bp::wrapper< CTraceFilter > {
     virtual bool ShouldHitEntity( ::IHandleEntity * pEntity, int contentsMask ){
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         try {
-            return func_ShouldHitEntity( boost::python::ptr(pEntity), contentsMask );
+            return func_ShouldHitEntity( PyEntityFromEntityHandle( pEntity ), contentsMask );
         } catch(bp::error_already_set &) {
             throw boost::python::error_already_set();
         }
@@ -2271,7 +2271,7 @@ struct CTraceFilterSimple_wrapper : CTraceFilterSimple, bp::wrapper< CTraceFilte
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSimple::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -2308,7 +2308,7 @@ struct CPyTraceFilterSimple_wrapper : CPyTraceFilterSimple, bp::wrapper< CPyTrac
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSimple::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -2345,7 +2345,7 @@ struct CTraceFilterChain_wrapper : CTraceFilterChain, bp::wrapper< CTraceFilterC
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterChain::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -2372,7 +2372,7 @@ struct CTraceFilterEntitiesOnly_wrapper : CTraceFilterEntitiesOnly, bp::wrapper<
     virtual bool ShouldHitEntity( ::IHandleEntity * pEntity, int contentsMask ){
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         try {
-            return func_ShouldHitEntity( boost::python::ptr(pEntity), contentsMask );
+            return func_ShouldHitEntity( PyEntityFromEntityHandle( pEntity ), contentsMask );
         } catch(bp::error_already_set &) {
             throw boost::python::error_already_set();
         }
@@ -2402,7 +2402,7 @@ struct CTraceFilterHitAll_wrapper : CTraceFilterHitAll, bp::wrapper< CTraceFilte
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pServerEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterHitAll::ShouldHitEntity( pServerEntity, contentsMask );
@@ -2439,7 +2439,7 @@ struct CTraceFilterSkipTwoEntities_wrapper : CTraceFilterSkipTwoEntities, bp::wr
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSkipTwoEntities::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -2476,7 +2476,7 @@ struct CTraceFilterLOS_wrapper : CTraceFilterLOS, bp::wrapper< CTraceFilterLOS >
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterLOS::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -2506,7 +2506,7 @@ struct CTraceFilterMelee_wrapper : CTraceFilterMelee, bp::wrapper< CTraceFilterM
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterMelee::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -2573,7 +2573,7 @@ struct CTraceFilterNoNPCsOrPlayer_wrapper : CTraceFilterNoNPCsOrPlayer, bp::wrap
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterNoNPCsOrPlayer::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -2610,7 +2610,7 @@ struct CTraceFilterOnlyNPCsAndPlayer_wrapper : CTraceFilterOnlyNPCsAndPlayer, bp
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -2640,7 +2640,7 @@ struct CTraceFilterSimpleClassnameList_wrapper : CTraceFilterSimpleClassnameList
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSimpleClassnameList::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -2670,7 +2670,7 @@ struct CTraceFilterSimpleList_wrapper : CTraceFilterSimpleList, bp::wrapper< CTr
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSimpleList::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -2707,7 +2707,7 @@ struct CTraceFilterSkipClassname_wrapper : CTraceFilterSkipClassname, bp::wrappe
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSkipClassname::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -2744,7 +2744,7 @@ struct CTraceFilterSkipTwoClassnames_wrapper : CTraceFilterSkipTwoClassnames, bp
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pHandleEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pHandleEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterSkipTwoClassnames::ShouldHitEntity( pHandleEntity, contentsMask );
@@ -2781,7 +2781,7 @@ struct CTraceFilterWorldAndPropsOnly_wrapper : CTraceFilterWorldAndPropsOnly, bp
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pServerEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterWorldAndPropsOnly::ShouldHitEntity( pServerEntity, contentsMask );
@@ -2818,7 +2818,7 @@ struct CTraceFilterWorldOnly_wrapper : CTraceFilterWorldOnly, bp::wrapper< CTrac
         bp::override func_ShouldHitEntity = this->get_override( "ShouldHitEntity" );
         if( func_ShouldHitEntity.ptr() != Py_None )
             try {
-                return func_ShouldHitEntity( boost::python::ptr(pServerEntity), contentsMask );
+                return func_ShouldHitEntity( PyEntityFromEntityHandle( pServerEntity ), contentsMask );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
                 return this->CTraceFilterWorldOnly::ShouldHitEntity( pServerEntity, contentsMask );

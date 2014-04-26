@@ -20,6 +20,7 @@
 #include "steam/steamclientpublic.h"
 #include "view_shared.h"
 #include "c_playerresource.h"
+#include "c_breakableprop.h"
 #include "tier0/valve_minmax_off.h"
 #include "srcpy.h"
 #include "tier0/valve_minmax_on.h"
