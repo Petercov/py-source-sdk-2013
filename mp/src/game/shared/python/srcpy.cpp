@@ -40,10 +40,12 @@ namespace bp = boost::python;
 	// TODO: extern void DestroyPyPanels();
 #endif // CLIENT_DLL
 
+#if PY_VERSION_HEX >= 0x03000000
 // Stubs for Python
 const char *Py_GetBuildInfo(void) { return "SourcePy"; }
 const char *_Py_hgversion(void) { return "1"; }
 const char *_Py_hgidentifier(void) { return "srcpy"; }
+#endif
 
 #ifdef WIN32
 extern "C" 
