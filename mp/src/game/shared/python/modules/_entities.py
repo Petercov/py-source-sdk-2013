@@ -65,7 +65,15 @@ tmpl_enthandle = '''{ //::%(handlename)s
                 "__nonzero__"
                 , NonZero_function_type( &::%(handlename)s::NonZero )
             );
+        }
+        { //::%(handlename)s::Bool
         
+            typedef bool ( ::%(handlename)s::*Bool_function_type )( ) const;
+            
+            %(handlename)s_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::%(handlename)s::Bool )
+            );
         }
         { //::%(handlename)s::Set
         
@@ -451,6 +459,7 @@ class Entities(SemiSharedModuleGenerator):
         cls = mb.class_('DeadEntity')
         cls.include()
         cls.mem_fun('NonZero').rename('__nonzero__')
+        cls.mem_fun('Bool').rename('__bool__')
         
         # Entity Handles
         cls = mb.class_('CBaseHandle')
@@ -470,6 +479,7 @@ class Entities(SemiSharedModuleGenerator):
         cls.mem_fun('SetAttr').rename('__setattr__')
         cls.mem_fun('Cmp').rename('__cmp__')
         cls.mem_fun('NonZero').rename('__nonzero__')
+        cls.mem_fun('Bool').rename('__bool__')
         cls.mem_fun('Str').rename('__str__')
         
         cls.add_wrapper_code(

@@ -384,6 +384,15 @@ BOOST_PYTHON_MODULE(_physics){
                 , BecomeTrigger_function_type( &::PyPhysicsObject::BecomeTrigger ) );
         
         }
+        { //::PyPhysicsObject::Bool
+        
+            typedef bool ( ::PyPhysicsObject::*__bool___function_type )(  ) ;
+            
+            PhysicsObject_exposer.def( 
+                "__bool__"
+                , __bool___function_type( &::PyPhysicsObject::Bool ) );
+        
+        }
         { //::PyPhysicsObject::CalculateAngularDrag
         
             typedef float ( ::PyPhysicsObject::*CalculateAngularDrag_function_type )( ::Vector const & ) ;
@@ -1093,6 +1102,15 @@ BOOST_PYTHON_MODULE(_physics){
             PhysicsShadowController_exposer.def( 
                 "AllowsTranslation"
                 , AllowsTranslation_function_type( &::PyPhysicsShadowController::AllowsTranslation ) );
+        
+        }
+        { //::PyPhysicsShadowController::Bool
+        
+            typedef bool ( ::PyPhysicsShadowController::*__bool___function_type )(  ) ;
+            
+            PhysicsShadowController_exposer.def( 
+                "__bool__"
+                , __bool___function_type( &::PyPhysicsShadowController::Bool ) );
         
         }
         { //::PyPhysicsShadowController::Cmp
@@ -1756,6 +1774,15 @@ BOOST_PYTHON_MODULE(_physics){
                 , BecomeTrigger_function_type( &::PyPhysicsObject::BecomeTrigger ) );
         
         }
+        { //::PyPhysicsObject::Bool
+        
+            typedef bool ( ::PyPhysicsObject::*__bool___function_type )(  ) ;
+            
+            PhysicsObject_exposer.def( 
+                "__bool__"
+                , __bool___function_type( &::PyPhysicsObject::Bool ) );
+        
+        }
         { //::PyPhysicsObject::CalculateAngularDrag
         
             typedef float ( ::PyPhysicsObject::*CalculateAngularDrag_function_type )( ::Vector const & ) ;
@@ -2465,6 +2492,15 @@ BOOST_PYTHON_MODULE(_physics){
             PhysicsShadowController_exposer.def( 
                 "AllowsTranslation"
                 , AllowsTranslation_function_type( &::PyPhysicsShadowController::AllowsTranslation ) );
+        
+        }
+        { //::PyPhysicsShadowController::Bool
+        
+            typedef bool ( ::PyPhysicsShadowController::*__bool___function_type )(  ) ;
+            
+            PhysicsShadowController_exposer.def( 
+                "__bool__"
+                , __bool___function_type( &::PyPhysicsShadowController::Bool ) );
         
         }
         { //::PyPhysicsShadowController::Cmp

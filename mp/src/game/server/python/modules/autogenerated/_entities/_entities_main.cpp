@@ -1153,7 +1153,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBaseEntityHANDLE::NonZero )
             );
+        }
+        { //::CBaseEntityHANDLE::Bool
         
+            typedef bool ( ::CBaseEntityHANDLE::*Bool_function_type )( ) const;
+            
+            CBaseEntityHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBaseEntityHANDLE::Bool )
+            );
         }
         { //::CBaseEntityHANDLE::Set
         
@@ -1228,7 +1236,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBaseAnimatingHANDLE::NonZero )
             );
+        }
+        { //::CBaseAnimatingHANDLE::Bool
         
+            typedef bool ( ::CBaseAnimatingHANDLE::*Bool_function_type )( ) const;
+            
+            CBaseAnimatingHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBaseAnimatingHANDLE::Bool )
+            );
         }
         { //::CBaseAnimatingHANDLE::Set
         
@@ -1303,7 +1319,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBaseAnimatingOverlayHANDLE::NonZero )
             );
+        }
+        { //::CBaseAnimatingOverlayHANDLE::Bool
         
+            typedef bool ( ::CBaseAnimatingOverlayHANDLE::*Bool_function_type )( ) const;
+            
+            CBaseAnimatingOverlayHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBaseAnimatingOverlayHANDLE::Bool )
+            );
         }
         { //::CBaseAnimatingOverlayHANDLE::Set
         
@@ -1378,7 +1402,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBaseFlexHANDLE::NonZero )
             );
+        }
+        { //::CBaseFlexHANDLE::Bool
         
+            typedef bool ( ::CBaseFlexHANDLE::*Bool_function_type )( ) const;
+            
+            CBaseFlexHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBaseFlexHANDLE::Bool )
+            );
         }
         { //::CBaseFlexHANDLE::Set
         
@@ -1453,7 +1485,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBaseCombatCharacterHANDLE::NonZero )
             );
+        }
+        { //::CBaseCombatCharacterHANDLE::Bool
         
+            typedef bool ( ::CBaseCombatCharacterHANDLE::*Bool_function_type )( ) const;
+            
+            CBaseCombatCharacterHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBaseCombatCharacterHANDLE::Bool )
+            );
         }
         { //::CBaseCombatCharacterHANDLE::Set
         
@@ -1528,7 +1568,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBaseCombatWeaponHANDLE::NonZero )
             );
+        }
+        { //::CBaseCombatWeaponHANDLE::Bool
         
+            typedef bool ( ::CBaseCombatWeaponHANDLE::*Bool_function_type )( ) const;
+            
+            CBaseCombatWeaponHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBaseCombatWeaponHANDLE::Bool )
+            );
         }
         { //::CBaseCombatWeaponHANDLE::Set
         
@@ -1603,7 +1651,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBaseProjectileHANDLE::NonZero )
             );
+        }
+        { //::CBaseProjectileHANDLE::Bool
         
+            typedef bool ( ::CBaseProjectileHANDLE::*Bool_function_type )( ) const;
+            
+            CBaseProjectileHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBaseProjectileHANDLE::Bool )
+            );
         }
         { //::CBaseProjectileHANDLE::Set
         
@@ -1678,7 +1734,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBaseGrenadeHANDLE::NonZero )
             );
+        }
+        { //::CBaseGrenadeHANDLE::Bool
         
+            typedef bool ( ::CBaseGrenadeHANDLE::*Bool_function_type )( ) const;
+            
+            CBaseGrenadeHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBaseGrenadeHANDLE::Bool )
+            );
         }
         { //::CBaseGrenadeHANDLE::Set
         
@@ -1753,7 +1817,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBasePlayerHANDLE::NonZero )
             );
+        }
+        { //::CBasePlayerHANDLE::Bool
         
+            typedef bool ( ::CBasePlayerHANDLE::*Bool_function_type )( ) const;
+            
+            CBasePlayerHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBasePlayerHANDLE::Bool )
+            );
         }
         { //::CBasePlayerHANDLE::Set
         
@@ -1828,7 +1900,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CPlayerResourceHANDLE::NonZero )
             );
+        }
+        { //::CPlayerResourceHANDLE::Bool
         
+            typedef bool ( ::CPlayerResourceHANDLE::*Bool_function_type )( ) const;
+            
+            CPlayerResourceHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CPlayerResourceHANDLE::Bool )
+            );
         }
         { //::CPlayerResourceHANDLE::Set
         
@@ -1903,7 +1983,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CPointEntityHANDLE::NonZero )
             );
+        }
+        { //::CPointEntityHANDLE::Bool
         
+            typedef bool ( ::CPointEntityHANDLE::*Bool_function_type )( ) const;
+            
+            CPointEntityHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CPointEntityHANDLE::Bool )
+            );
         }
         { //::CPointEntityHANDLE::Set
         
@@ -1978,7 +2066,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CServerOnlyEntityHANDLE::NonZero )
             );
+        }
+        { //::CServerOnlyEntityHANDLE::Bool
         
+            typedef bool ( ::CServerOnlyEntityHANDLE::*Bool_function_type )( ) const;
+            
+            CServerOnlyEntityHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CServerOnlyEntityHANDLE::Bool )
+            );
         }
         { //::CServerOnlyEntityHANDLE::Set
         
@@ -2053,7 +2149,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CServerOnlyPointEntityHANDLE::NonZero )
             );
+        }
+        { //::CServerOnlyPointEntityHANDLE::Bool
         
+            typedef bool ( ::CServerOnlyPointEntityHANDLE::*Bool_function_type )( ) const;
+            
+            CServerOnlyPointEntityHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CServerOnlyPointEntityHANDLE::Bool )
+            );
         }
         { //::CServerOnlyPointEntityHANDLE::Set
         
@@ -2128,7 +2232,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CLogicalEntityHANDLE::NonZero )
             );
+        }
+        { //::CLogicalEntityHANDLE::Bool
         
+            typedef bool ( ::CLogicalEntityHANDLE::*Bool_function_type )( ) const;
+            
+            CLogicalEntityHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CLogicalEntityHANDLE::Bool )
+            );
         }
         { //::CLogicalEntityHANDLE::Set
         
@@ -2203,7 +2315,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CFuncBrushHANDLE::NonZero )
             );
+        }
+        { //::CFuncBrushHANDLE::Bool
         
+            typedef bool ( ::CFuncBrushHANDLE::*Bool_function_type )( ) const;
+            
+            CFuncBrushHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CFuncBrushHANDLE::Bool )
+            );
         }
         { //::CFuncBrushHANDLE::Set
         
@@ -2278,7 +2398,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBaseToggleHANDLE::NonZero )
             );
+        }
+        { //::CBaseToggleHANDLE::Bool
         
+            typedef bool ( ::CBaseToggleHANDLE::*Bool_function_type )( ) const;
+            
+            CBaseToggleHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBaseToggleHANDLE::Bool )
+            );
         }
         { //::CBaseToggleHANDLE::Set
         
@@ -2353,7 +2481,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBaseTriggerHANDLE::NonZero )
             );
+        }
+        { //::CBaseTriggerHANDLE::Bool
         
+            typedef bool ( ::CBaseTriggerHANDLE::*Bool_function_type )( ) const;
+            
+            CBaseTriggerHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBaseTriggerHANDLE::Bool )
+            );
         }
         { //::CBaseTriggerHANDLE::Set
         
@@ -2428,7 +2564,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CTriggerMultipleHANDLE::NonZero )
             );
+        }
+        { //::CTriggerMultipleHANDLE::Bool
         
+            typedef bool ( ::CTriggerMultipleHANDLE::*Bool_function_type )( ) const;
+            
+            CTriggerMultipleHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CTriggerMultipleHANDLE::Bool )
+            );
         }
         { //::CTriggerMultipleHANDLE::Set
         
@@ -2503,7 +2647,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBaseFilterHANDLE::NonZero )
             );
+        }
+        { //::CBaseFilterHANDLE::Bool
         
+            typedef bool ( ::CBaseFilterHANDLE::*Bool_function_type )( ) const;
+            
+            CBaseFilterHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBaseFilterHANDLE::Bool )
+            );
         }
         { //::CBaseFilterHANDLE::Set
         
@@ -2578,7 +2730,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CGibHANDLE::NonZero )
             );
+        }
+        { //::CGibHANDLE::Bool
         
+            typedef bool ( ::CGibHANDLE::*Bool_function_type )( ) const;
+            
+            CGibHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CGibHANDLE::Bool )
+            );
         }
         { //::CGibHANDLE::Set
         
@@ -2653,7 +2813,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBasePropHANDLE::NonZero )
             );
+        }
+        { //::CBasePropHANDLE::Bool
         
+            typedef bool ( ::CBasePropHANDLE::*Bool_function_type )( ) const;
+            
+            CBasePropHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBasePropHANDLE::Bool )
+            );
         }
         { //::CBasePropHANDLE::Set
         
@@ -2728,7 +2896,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CBreakablePropHANDLE::NonZero )
             );
+        }
+        { //::CBreakablePropHANDLE::Bool
         
+            typedef bool ( ::CBreakablePropHANDLE::*Bool_function_type )( ) const;
+            
+            CBreakablePropHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CBreakablePropHANDLE::Bool )
+            );
         }
         { //::CBreakablePropHANDLE::Set
         
@@ -2803,7 +2979,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CPhysicsPropHANDLE::NonZero )
             );
+        }
+        { //::CPhysicsPropHANDLE::Bool
         
+            typedef bool ( ::CPhysicsPropHANDLE::*Bool_function_type )( ) const;
+            
+            CPhysicsPropHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CPhysicsPropHANDLE::Bool )
+            );
         }
         { //::CPhysicsPropHANDLE::Set
         
@@ -2878,7 +3062,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CRagdollPropHANDLE::NonZero )
             );
+        }
+        { //::CRagdollPropHANDLE::Bool
         
+            typedef bool ( ::CRagdollPropHANDLE::*Bool_function_type )( ) const;
+            
+            CRagdollPropHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CRagdollPropHANDLE::Bool )
+            );
         }
         { //::CRagdollPropHANDLE::Set
         
@@ -2953,7 +3145,15 @@ BOOST_PYTHON_MODULE(_entities){
                 "__nonzero__"
                 , NonZero_function_type( &::CEntityFlameHANDLE::NonZero )
             );
+        }
+        { //::CEntityFlameHANDLE::Bool
         
+            typedef bool ( ::CEntityFlameHANDLE::*Bool_function_type )( ) const;
+            
+            CEntityFlameHANDLE_exposer.def( 
+                "__bool__"
+                , Bool_function_type( &::CEntityFlameHANDLE::Bool )
+            );
         }
         { //::CEntityFlameHANDLE::Set
         
