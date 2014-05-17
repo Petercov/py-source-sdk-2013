@@ -1202,6 +1202,28 @@ bool C_BaseEntity::InitializeAsClientEntityByIndex( int iIndex, RenderGroup_t re
 	// Add the client entity to the renderable "leaf system." (Renderable)
 	AddToLeafSystem( renderGroup );
 
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	// If we are a python entity, then grab our reference
+	if( GetPySelf() )
+	{
+		m_pyInstance = boost::python::object(
+			boost::python::handle<>(
+			boost::python::borrowed(GetPySelf())
+			)
+		);
+	}
+
+	// Create handle for python
+	if( SrcPySystem()->IsPythonRunning() )
+		m_pyHandle = CreatePyHandle();
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+
 	// Add the client entity to the spatial partition. (Collidable)
 	CollisionProp()->CreatePartitionHandle();
 
