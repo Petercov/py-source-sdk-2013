@@ -818,6 +818,9 @@ BASEPTR	CBaseEntity::ThinkSet( BASEPTR func, float thinkTime, const char *szCont
 	if ( !szContext )
 	{
 		m_pfnThink = func;
+#ifdef ENABLE_PYTHON
+		m_pyThink = boost::python::object();
+#endif // ENABLE_PYTHON
 #if !defined( CLIENT_DLL )
 #ifdef _DEBUG
 		FunctionCheck( *(reinterpret_cast<void **>(&m_pfnThink)), "BaseThinkFunc" ); 
@@ -834,6 +837,9 @@ BASEPTR	CBaseEntity::ThinkSet( BASEPTR func, float thinkTime, const char *szCont
 	}
 
 	m_aThinkFunctions[ iIndex ].m_pfnThink = func;
+#ifdef ENABLE_PYTHON
+	m_aThinkFunctions[ iIndex ].m_pyThink = boost::python::object();
+#endif // ENABLE_PYTHON
 #if !defined( CLIENT_DLL )
 #ifdef _DEBUG
 	FunctionCheck( *(reinterpret_cast<void **>(&m_aThinkFunctions[ iIndex ].m_pfnThink)), szContext ); 
