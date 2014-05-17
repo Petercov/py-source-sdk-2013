@@ -318,8 +318,8 @@ bool CSrcPython::InitInterpreter( void )
 #endif // OSX
 	
 #ifdef WIN32
-	::SetEnvironmentVariable( "PYTHONHOME", pythonhome );
-	::SetEnvironmentVariable( "PYTHONPATH", pythonpath );
+	::_putenv( VarArgs( "PYTHONHOME=%s", pythonhome ) );
+	::_putenv( VarArgs( "PYTHONPATH=%s", pythonpath ) );
 #else
 	::setenv( "PYTHONHOME", pythonhome, 1 );
     ::setenv( "PYTHONPATH", pythonpath, 1 );
@@ -512,10 +512,7 @@ bool CSrcPython::ShutdownInterpreter( void )
 	PyErr_Clear(); // Make sure it does not hold any references...
 	GarbageCollect();
 	Py_Finalize();
-#ifdef WIN32
-	// TODO/Check if still needed or can be solved otherwise
-	//PyImport_FreeDynLibraries(); // IMPORTANT, otherwise it will crash.
-#endif // WIN32
+
 	m_bPythonIsFinalizing = false;
 	m_bPythonRunning = false;
 
