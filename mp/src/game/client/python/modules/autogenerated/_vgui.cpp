@@ -3159,12 +3159,12 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetFullscreenViewportAndRenderTarget
         
-            typedef void ( ::CWrapSurface::*SetFullscreenViewportAndRenderTarget_function_type )( int,int,int,int,::ITexture * ) ;
+			typedef void(::CWrapSurface::*SetFullscreenViewport_function_type)(int, int, int, int);
             
             ISurface_exposer.def( 
-                "SetFullscreenViewportAndRenderTarget"
-                , SetFullscreenViewportAndRenderTarget_function_type( &::CWrapSurface::SetFullscreenViewportAndRenderTarget )
-                , ( bp::arg("x"), bp::arg("y"), bp::arg("w"), bp::arg("h"), bp::arg("pRenderTarget") ) );
+                "SetFullscreenViewport"
+				, SetFullscreenViewport_function_type(&::CWrapSurface::SetFullscreenViewport)
+                , ( bp::arg("x"), bp::arg("y"), bp::arg("w"), bp::arg("h") ) );
         
         }
         { //::CWrapSurface::SetMinimized
