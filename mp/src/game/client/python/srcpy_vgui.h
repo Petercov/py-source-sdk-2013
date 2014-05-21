@@ -407,15 +407,14 @@ public:
 	//inline IHTMLChromeController *AccessChromeHTMLController() = 0;
 
 	// the origin of the viewport on the framebuffer (Which might not be 0,0 for stereo)
-	inline void SetFullscreenViewportAndRenderTarget( int x, int y, int w, int h, ITexture *pRenderTarget ) { surface()->SetFullscreenViewportAndRenderTarget( x, y, w, h, pRenderTarget ); }
-
-	virtual void GetFullscreenViewport( int & x, int & y, int & w, int & h ) { surface()->GetFullscreenViewport( x, y, w, h ); }
-	virtual void PushFullscreenViewport() { surface()->PushFullscreenViewport(); }
-	virtual void PopFullscreenViewport() { surface()->PopFullscreenViewport(); }
+	inline void SetFullscreenViewport(int x, int y, int w, int h) { surface()->SetFullscreenViewport(x, y, w, h); } // this uses NULL for the render target.
+	inline void GetFullscreenViewport(int & x, int & y, int & w, int & h) { surface()->GetFullscreenViewport(x, y, w, h); }
+	inline void PushFullscreenViewport() { surface()->PushFullscreenViewport(); }
+	inline void PopFullscreenViewport() { surface()->PopFullscreenViewport(); }
 
 	// handles support for software cursors
-	virtual void SetSoftwareCursor( bool bUseSoftwareCursor ) { surface()->SetSoftwareCursor( bUseSoftwareCursor ); }
-	virtual void PaintSoftwareCursor() { surface()->PaintSoftwareCursor(); }
+	inline void SetSoftwareCursor(bool bUseSoftwareCursor) { surface()->SetSoftwareCursor(bUseSoftwareCursor); }
+	inline void PaintSoftwareCursor() { surface()->PaintSoftwareCursor(); }
 
 };
 
