@@ -269,179 +269,66 @@ static boost::python::tuple GetSize_fba0e720f363027307b500cd921b3d4d( ::CWrapIPa
     return bp::make_tuple( wide2, tall2 );
 }
 
-struct CWrapSurface_wrapper : CWrapSurface, bp::wrapper< CWrapSurface > {
+static boost::python::tuple DrawGetTextPos_92858a1d1df22607f77d7dc97addce72( ::CWrapSurface & inst ){
+    int x2;
+    int y2;
+    inst.DrawGetTextPos(x2, y2);
+    return bp::make_tuple( x2, y2 );
+}
 
-    CWrapSurface_wrapper(CWrapSurface const & arg )
-    : CWrapSurface( arg )
-      , bp::wrapper< CWrapSurface >(){
-        // copy constructor
-        
-    }
+static boost::python::tuple DrawGetTextureSize_504f17554f7a1586154279f7b497bdc5( ::CWrapSurface & inst, int id ){
+    int wide2;
+    int tall2;
+    inst.DrawGetTextureSize(id, wide2, tall2);
+    return bp::make_tuple( wide2, tall2 );
+}
 
-    CWrapSurface_wrapper()
-    : CWrapSurface()
-      , bp::wrapper< CWrapSurface >(){
-        // null constructor
-        
-    }
+static boost::python::tuple GetAbsoluteWindowBounds_4eeabd4192197f16277efab83fa86ec3( ::CWrapSurface & inst ){
+    int x2;
+    int y2;
+    int wide2;
+    int tall2;
+    inst.GetAbsoluteWindowBounds(x2, y2, wide2, tall2);
+    return bp::make_tuple( x2, y2, wide2, tall2 );
+}
 
-    static boost::python::tuple DrawGetTextPos( ::CWrapSurface & inst ){
-        int x2;
-        int y2;
-        inst.DrawGetTextPos(x2, y2);
-        return bp::make_tuple( x2, y2 );
-    }
+static boost::python::tuple GetCharABCwide_ef480d0fcafaf3205ebae70db66cb095( ::CWrapSurface & inst, ::vgui::HFont font, int ch ){
+    int a2;
+    int b2;
+    int c2;
+    inst.GetCharABCwide(font, ch, a2, b2, c2);
+    return bp::make_tuple( a2, b2, c2 );
+}
 
-    static boost::python::tuple DrawGetTextureSize( ::CWrapSurface & inst, int id ){
-        int wide2;
-        int tall2;
-        inst.DrawGetTextureSize(id, wide2, tall2);
-        return bp::make_tuple( wide2, tall2 );
-    }
+static boost::python::tuple GetProportionalBase_90058266cbe328bbb8669583210ff19f( ::CWrapSurface & inst ){
+    int width2;
+    int height2;
+    inst.GetProportionalBase(width2, height2);
+    return bp::make_tuple( width2, height2 );
+}
 
-    static boost::python::tuple GetAbsoluteWindowBounds( ::CWrapSurface & inst ){
-        int x2;
-        int y2;
-        int wide2;
-        int tall2;
-        inst.GetAbsoluteWindowBounds(x2, y2, wide2, tall2);
-        return bp::make_tuple( x2, y2, wide2, tall2 );
-    }
+static boost::python::tuple GetScreenSize_c24f87ae2c57535c3d8716f319252d08( ::CWrapSurface & inst ){
+    int wide2;
+    int tall2;
+    inst.GetScreenSize(wide2, tall2);
+    return bp::make_tuple( wide2, tall2 );
+}
 
-    static boost::python::tuple GetCharABCwide( ::CWrapSurface & inst, ::vgui::HFont font, int ch ){
-        int a2;
-        int b2;
-        int c2;
-        inst.GetCharABCwide(font, ch, a2, b2, c2);
-        return bp::make_tuple( a2, b2, c2 );
-    }
+static boost::python::tuple GetWorkspaceBounds_d2722ac443d22323887a859b0a9167bb( ::CWrapSurface & inst ){
+    int x2;
+    int y2;
+    int wide2;
+    int tall2;
+    inst.GetWorkspaceBounds(x2, y2, wide2, tall2);
+    return bp::make_tuple( x2, y2, wide2, tall2 );
+}
 
-    virtual void GetFullscreenViewport( int & x, int & y, int & w, int & h ) {
-        PY_OVERRIDE_CHECK( CWrapSurface, GetFullscreenViewport )
-        PY_OVERRIDE_LOG( _vgui, CWrapSurface, GetFullscreenViewport )
-        bp::override func_GetFullscreenViewport = this->get_override( "GetFullscreenViewport" );
-        if( func_GetFullscreenViewport.ptr() != Py_None )
-            try {
-                func_GetFullscreenViewport( x, y, w, h );
-            } catch(bp::error_already_set &) {
-                PyErr_Print();
-                this->CWrapSurface::GetFullscreenViewport( x, y, w, h );
-            }
-        else
-            this->CWrapSurface::GetFullscreenViewport( x, y, w, h );
-    }
-    
-    void default_GetFullscreenViewport( int & x, int & y, int & w, int & h ) {
-        CWrapSurface::GetFullscreenViewport( x, y, w, h );
-    }
-
-    static boost::python::tuple GetProportionalBase( ::CWrapSurface & inst ){
-        int width2;
-        int height2;
-        inst.GetProportionalBase(width2, height2);
-        return bp::make_tuple( width2, height2 );
-    }
-
-    static boost::python::tuple GetScreenSize( ::CWrapSurface & inst ){
-        int wide2;
-        int tall2;
-        inst.GetScreenSize(wide2, tall2);
-        return bp::make_tuple( wide2, tall2 );
-    }
-
-    static boost::python::tuple GetWorkspaceBounds( ::CWrapSurface & inst ){
-        int x2;
-        int y2;
-        int wide2;
-        int tall2;
-        inst.GetWorkspaceBounds(x2, y2, wide2, tall2);
-        return bp::make_tuple( x2, y2, wide2, tall2 );
-    }
-
-    virtual void PaintSoftwareCursor(  ) {
-        PY_OVERRIDE_CHECK( CWrapSurface, PaintSoftwareCursor )
-        PY_OVERRIDE_LOG( _vgui, CWrapSurface, PaintSoftwareCursor )
-        bp::override func_PaintSoftwareCursor = this->get_override( "PaintSoftwareCursor" );
-        if( func_PaintSoftwareCursor.ptr() != Py_None )
-            try {
-                func_PaintSoftwareCursor(  );
-            } catch(bp::error_already_set &) {
-                PyErr_Print();
-                this->CWrapSurface::PaintSoftwareCursor(  );
-            }
-        else
-            this->CWrapSurface::PaintSoftwareCursor(  );
-    }
-    
-    void default_PaintSoftwareCursor(  ) {
-        CWrapSurface::PaintSoftwareCursor( );
-    }
-
-    virtual void PopFullscreenViewport(  ) {
-        PY_OVERRIDE_CHECK( CWrapSurface, PopFullscreenViewport )
-        PY_OVERRIDE_LOG( _vgui, CWrapSurface, PopFullscreenViewport )
-        bp::override func_PopFullscreenViewport = this->get_override( "PopFullscreenViewport" );
-        if( func_PopFullscreenViewport.ptr() != Py_None )
-            try {
-                func_PopFullscreenViewport(  );
-            } catch(bp::error_already_set &) {
-                PyErr_Print();
-                this->CWrapSurface::PopFullscreenViewport(  );
-            }
-        else
-            this->CWrapSurface::PopFullscreenViewport(  );
-    }
-    
-    void default_PopFullscreenViewport(  ) {
-        CWrapSurface::PopFullscreenViewport( );
-    }
-
-    virtual void PushFullscreenViewport(  ) {
-        PY_OVERRIDE_CHECK( CWrapSurface, PushFullscreenViewport )
-        PY_OVERRIDE_LOG( _vgui, CWrapSurface, PushFullscreenViewport )
-        bp::override func_PushFullscreenViewport = this->get_override( "PushFullscreenViewport" );
-        if( func_PushFullscreenViewport.ptr() != Py_None )
-            try {
-                func_PushFullscreenViewport(  );
-            } catch(bp::error_already_set &) {
-                PyErr_Print();
-                this->CWrapSurface::PushFullscreenViewport(  );
-            }
-        else
-            this->CWrapSurface::PushFullscreenViewport(  );
-    }
-    
-    void default_PushFullscreenViewport(  ) {
-        CWrapSurface::PushFullscreenViewport( );
-    }
-
-    virtual void SetSoftwareCursor( bool bUseSoftwareCursor ) {
-        PY_OVERRIDE_CHECK( CWrapSurface, SetSoftwareCursor )
-        PY_OVERRIDE_LOG( _vgui, CWrapSurface, SetSoftwareCursor )
-        bp::override func_SetSoftwareCursor = this->get_override( "SetSoftwareCursor" );
-        if( func_SetSoftwareCursor.ptr() != Py_None )
-            try {
-                func_SetSoftwareCursor( bUseSoftwareCursor );
-            } catch(bp::error_already_set &) {
-                PyErr_Print();
-                this->CWrapSurface::SetSoftwareCursor( bUseSoftwareCursor );
-            }
-        else
-            this->CWrapSurface::SetSoftwareCursor( bUseSoftwareCursor );
-    }
-    
-    void default_SetSoftwareCursor( bool bUseSoftwareCursor ) {
-        CWrapSurface::SetSoftwareCursor( bUseSoftwareCursor );
-    }
-
-    static boost::python::tuple SurfaceGetCursorPos( ::CWrapSurface & inst ){
-        int x2;
-        int y2;
-        inst.SurfaceGetCursorPos(x2, y2);
-        return bp::make_tuple( x2, y2 );
-    }
-
-};
+static boost::python::tuple SurfaceGetCursorPos_85305e292f21cbb771f464ea4d42675c( ::CWrapSurface & inst ){
+    int x2;
+    int y2;
+    inst.SurfaceGetCursorPos(x2, y2);
+    return bp::make_tuple( x2, y2 );
+}
 
 static boost::python::tuple AdjustEngineViewport_87ddaa1f407679177ff698173425f388( ::IClientMode & inst ){
     int x2;
@@ -1916,7 +1803,7 @@ BOOST_PYTHON_MODULE(_vgui){
             , ( bp::arg("vguiPanel") ) );
 
     { //::CWrapSurface
-        typedef bp::class_< CWrapSurface_wrapper > ISurface_exposer_t;
+        typedef bp::class_< CWrapSurface > ISurface_exposer_t;
         ISurface_exposer_t ISurface_exposer = ISurface_exposer_t( "ISurface" );
         bp::scope ISurface_scope( ISurface_exposer );
         bp::enum_< CWrapSurface::EFontFlags>("EFontFlags")
@@ -2152,7 +2039,7 @@ BOOST_PYTHON_MODULE(_vgui){
             
             ISurface_exposer.def( 
                 "DrawGetTextPos"
-                , DrawGetTextPos_function_type( &CWrapSurface_wrapper::DrawGetTextPos )
+                , DrawGetTextPos_function_type( &DrawGetTextPos_92858a1d1df22607f77d7dc97addce72 )
                 , ( bp::arg("inst") ) );
         
         }
@@ -2193,7 +2080,7 @@ BOOST_PYTHON_MODULE(_vgui){
             
             ISurface_exposer.def( 
                 "DrawGetTextureSize"
-                , DrawGetTextureSize_function_type( &CWrapSurface_wrapper::DrawGetTextureSize )
+                , DrawGetTextureSize_function_type( &DrawGetTextureSize_504f17554f7a1586154279f7b497bdc5 )
                 , ( bp::arg("inst"), bp::arg("id") ) );
         
         }
@@ -2493,7 +2380,7 @@ BOOST_PYTHON_MODULE(_vgui){
             
             ISurface_exposer.def( 
                 "GetAbsoluteWindowBounds"
-                , GetAbsoluteWindowBounds_function_type( &CWrapSurface_wrapper::GetAbsoluteWindowBounds )
+                , GetAbsoluteWindowBounds_function_type( &GetAbsoluteWindowBounds_4eeabd4192197f16277efab83fa86ec3 )
                 , ( bp::arg("inst") ) );
         
         }
@@ -2513,7 +2400,7 @@ BOOST_PYTHON_MODULE(_vgui){
             
             ISurface_exposer.def( 
                 "GetCharABCwide"
-                , GetCharABCwide_function_type( &CWrapSurface_wrapper::GetCharABCwide )
+                , GetCharABCwide_function_type( &GetCharABCwide_ef480d0fcafaf3205ebae70db66cb095 )
                 , ( bp::arg("inst"), bp::arg("font"), bp::arg("ch") ) );
         
         }
@@ -2589,12 +2476,10 @@ BOOST_PYTHON_MODULE(_vgui){
         { //::CWrapSurface::GetFullscreenViewport
         
             typedef void ( ::CWrapSurface::*GetFullscreenViewport_function_type )( int &,int &,int &,int & ) ;
-            typedef void ( CWrapSurface_wrapper::*default_GetFullscreenViewport_function_type )( int &,int &,int &,int & ) ;
             
             ISurface_exposer.def( 
                 "GetFullscreenViewport"
-                , GetFullscreenViewport_function_type(&::CWrapSurface::GetFullscreenViewport)
-                , default_GetFullscreenViewport_function_type(&CWrapSurface_wrapper::default_GetFullscreenViewport)
+                , GetFullscreenViewport_function_type( &::CWrapSurface::GetFullscreenViewport )
                 , ( bp::arg("x"), bp::arg("y"), bp::arg("w"), bp::arg("h") ) );
         
         }
@@ -2662,7 +2547,7 @@ BOOST_PYTHON_MODULE(_vgui){
             
             ISurface_exposer.def( 
                 "GetProportionalBase"
-                , GetProportionalBase_function_type( &CWrapSurface_wrapper::GetProportionalBase )
+                , GetProportionalBase_function_type( &GetProportionalBase_90058266cbe328bbb8669583210ff19f )
                 , ( bp::arg("inst") ) );
         
         }
@@ -2681,7 +2566,7 @@ BOOST_PYTHON_MODULE(_vgui){
             
             ISurface_exposer.def( 
                 "GetScreenSize"
-                , GetScreenSize_function_type( &CWrapSurface_wrapper::GetScreenSize )
+                , GetScreenSize_function_type( &GetScreenSize_c24f87ae2c57535c3d8716f319252d08 )
                 , ( bp::arg("inst") ) );
         
         }
@@ -2740,7 +2625,7 @@ BOOST_PYTHON_MODULE(_vgui){
             
             ISurface_exposer.def( 
                 "GetWorkspaceBounds"
-                , GetWorkspaceBounds_function_type( &CWrapSurface_wrapper::GetWorkspaceBounds )
+                , GetWorkspaceBounds_function_type( &GetWorkspaceBounds_d2722ac443d22323887a859b0a9167bb )
                 , ( bp::arg("inst") ) );
         
         }
@@ -2928,12 +2813,10 @@ BOOST_PYTHON_MODULE(_vgui){
         { //::CWrapSurface::PaintSoftwareCursor
         
             typedef void ( ::CWrapSurface::*PaintSoftwareCursor_function_type )(  ) ;
-            typedef void ( CWrapSurface_wrapper::*default_PaintSoftwareCursor_function_type )(  ) ;
             
             ISurface_exposer.def( 
                 "PaintSoftwareCursor"
-                , PaintSoftwareCursor_function_type(&::CWrapSurface::PaintSoftwareCursor)
-                , default_PaintSoftwareCursor_function_type(&CWrapSurface_wrapper::default_PaintSoftwareCursor) );
+                , PaintSoftwareCursor_function_type( &::CWrapSurface::PaintSoftwareCursor ) );
         
         }
         { //::CWrapSurface::PaintTraverse
@@ -2969,12 +2852,10 @@ BOOST_PYTHON_MODULE(_vgui){
         { //::CWrapSurface::PopFullscreenViewport
         
             typedef void ( ::CWrapSurface::*PopFullscreenViewport_function_type )(  ) ;
-            typedef void ( CWrapSurface_wrapper::*default_PopFullscreenViewport_function_type )(  ) ;
             
             ISurface_exposer.def( 
                 "PopFullscreenViewport"
-                , PopFullscreenViewport_function_type(&::CWrapSurface::PopFullscreenViewport)
-                , default_PopFullscreenViewport_function_type(&CWrapSurface_wrapper::default_PopFullscreenViewport) );
+                , PopFullscreenViewport_function_type( &::CWrapSurface::PopFullscreenViewport ) );
         
         }
         { //::CWrapSurface::PopMakeCurrent
@@ -3000,12 +2881,10 @@ BOOST_PYTHON_MODULE(_vgui){
         { //::CWrapSurface::PushFullscreenViewport
         
             typedef void ( ::CWrapSurface::*PushFullscreenViewport_function_type )(  ) ;
-            typedef void ( CWrapSurface_wrapper::*default_PushFullscreenViewport_function_type )(  ) ;
             
             ISurface_exposer.def( 
                 "PushFullscreenViewport"
-                , PushFullscreenViewport_function_type(&::CWrapSurface::PushFullscreenViewport)
-                , default_PushFullscreenViewport_function_type(&CWrapSurface_wrapper::default_PushFullscreenViewport) );
+                , PushFullscreenViewport_function_type( &::CWrapSurface::PushFullscreenViewport ) );
         
         }
         { //::CWrapSurface::PushMakeCurrent
@@ -3157,13 +3036,13 @@ BOOST_PYTHON_MODULE(_vgui){
                 , ( bp::arg("panel") ) );
         
         }
-        { //::CWrapSurface::SetFullscreenViewportAndRenderTarget
+        { //::CWrapSurface::SetFullscreenViewport
         
-			typedef void(::CWrapSurface::*SetFullscreenViewport_function_type)(int, int, int, int);
+            typedef void ( ::CWrapSurface::*SetFullscreenViewport_function_type )( int,int,int,int ) ;
             
             ISurface_exposer.def( 
                 "SetFullscreenViewport"
-				, SetFullscreenViewport_function_type(&::CWrapSurface::SetFullscreenViewport)
+                , SetFullscreenViewport_function_type( &::CWrapSurface::SetFullscreenViewport )
                 , ( bp::arg("x"), bp::arg("y"), bp::arg("w"), bp::arg("h") ) );
         
         }
@@ -3220,12 +3099,10 @@ BOOST_PYTHON_MODULE(_vgui){
         { //::CWrapSurface::SetSoftwareCursor
         
             typedef void ( ::CWrapSurface::*SetSoftwareCursor_function_type )( bool ) ;
-            typedef void ( CWrapSurface_wrapper::*default_SetSoftwareCursor_function_type )( bool ) ;
             
             ISurface_exposer.def( 
                 "SetSoftwareCursor"
-                , SetSoftwareCursor_function_type(&::CWrapSurface::SetSoftwareCursor)
-                , default_SetSoftwareCursor_function_type(&CWrapSurface_wrapper::default_SetSoftwareCursor)
+                , SetSoftwareCursor_function_type( &::CWrapSurface::SetSoftwareCursor )
                 , ( bp::arg("bUseSoftwareCursor") ) );
         
         }
@@ -3305,7 +3182,7 @@ BOOST_PYTHON_MODULE(_vgui){
             
             ISurface_exposer.def( 
                 "SurfaceGetCursorPos"
-                , SurfaceGetCursorPos_function_type( &CWrapSurface_wrapper::SurfaceGetCursorPos )
+                , SurfaceGetCursorPos_function_type( &SurfaceGetCursorPos_85305e292f21cbb771f464ea4d42675c )
                 , ( bp::arg("inst") ) );
         
         }

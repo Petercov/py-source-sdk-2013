@@ -338,6 +338,12 @@ BOOST_PYTHON_MODULE(_steam){
         .value("k_EResultBadResponse", k_EResultBadResponse)
         .value("k_EResultRequirePasswordReEntry", k_EResultRequirePasswordReEntry)
         .value("k_EResultValueOutOfRange", k_EResultValueOutOfRange)
+        .value("k_EResultUnexpectedError", k_EResultUnexpectedError)
+        .value("k_EResultDisabled", k_EResultDisabled)
+        .value("k_EResultInvalidCEGSubmission", k_EResultInvalidCEGSubmission)
+        .value("k_EResultRestrictedDevice", k_EResultRestrictedDevice)
+        .value("k_EResultRegionLocked", k_EResultRegionLocked)
+        .value("k_EResultRateLimitExceeded", k_EResultRateLimitExceeded)
         .export_values()
         ;
 
@@ -364,6 +370,14 @@ BOOST_PYTHON_MODULE(_steam){
 
     bp::class_< CSteamAPIContext >( "CSteamAPIContext", bp::init< >() )    
         .def( 
+            "SteamAppList"
+            , (::ISteamAppList * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamAppList )
+                /* undefined call policies */ )    
+        .def( 
+            "SteamController"
+            , (::ISteamController * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamController )
+                /* undefined call policies */ )    
+        .def( 
             "SteamFriends"
             , (::ISteamFriends * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamFriends )
             , bp::return_internal_reference< >() )    
@@ -371,6 +385,14 @@ BOOST_PYTHON_MODULE(_steam){
             "SteamMatchmaking"
             , (::ISteamMatchmaking * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamMatchmaking )
             , bp::return_internal_reference< >() )    
+        .def( 
+            "SteamMusic"
+            , (::ISteamMusic * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamMusic )
+                /* undefined call policies */ )    
+        .def( 
+            "SteamUGC"
+            , (::ISteamUGC * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamUGC )
+                /* undefined call policies */ )    
         .def( 
             "SteamUser"
             , (::ISteamUser * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamUser )
@@ -626,6 +648,25 @@ BOOST_PYTHON_MODULE(_steam){
                 , IsValid_function_type( &::CSteamID::IsValid ) );
         
         }
+        { //::CSteamID::RenderLink
+        
+            typedef char const * ( ::CSteamID::*RenderLink_function_type )(  ) const;
+            
+            CSteamID_exposer.def( 
+                "RenderLink"
+                , RenderLink_function_type( &::CSteamID::RenderLink ) );
+        
+        }
+        { //::CSteamID::RenderLink
+        
+            typedef char const * ( *RenderLink_function_type )( ::uint64 );
+            
+            CSteamID_exposer.def( 
+                "RenderLink"
+                , RenderLink_function_type( &::CSteamID::RenderLink )
+                , ( bp::arg("ulSteamID") ) );
+        
+        }
         { //::CSteamID::Set
         
             typedef void ( ::CSteamID::*Set_function_type )( ::uint32,::EUniverse,::EAccountType ) ;
@@ -680,6 +721,7 @@ BOOST_PYTHON_MODULE(_steam){
         CSteamID_exposer.def( bp::self < bp::self );
         CSteamID_exposer.def( bp::self == bp::self );
         CSteamID_exposer.def( bp::self > bp::self );
+        CSteamID_exposer.staticmethod( "RenderLink" );
     }
 
     bp::class_< ISteamFriends, boost::noncopyable >( "ISteamFriends", bp::no_init )    
@@ -737,7 +779,7 @@ BOOST_PYTHON_MODULE(_steam){
         .def( 
             "GetClanChatMessage"
             , (int ( ::ISteamFriends::* )( ::CSteamID,int,void *,int,::EChatEntryType *,::CSteamID * ) )( &::ISteamFriends::GetClanChatMessage )
-            , ( bp::arg("steamIDClanChat"), bp::arg("iMessage"), bp::arg("prgchText"), bp::arg("cchTextMax"), bp::arg("arg4"), bp::arg("arg5") ) )    
+            , ( bp::arg("steamIDClanChat"), bp::arg("iMessage"), bp::arg("prgchText"), bp::arg("cchTextMax"), bp::arg("peChatEntryType"), bp::arg("psteamidChatter") ) )    
         .def( 
             "GetClanCount"
             , (int ( ::ISteamFriends::* )(  ) )( &::ISteamFriends::GetClanCount ) )    
@@ -842,6 +884,10 @@ BOOST_PYTHON_MODULE(_steam){
         .def( 
             "GetPersonaState"
             , (::EPersonaState ( ::ISteamFriends::* )(  ) )( &::ISteamFriends::GetPersonaState ) )    
+        .def( 
+            "GetPlayerNickname"
+            , (char const * ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetPlayerNickname )
+            , ( bp::arg("steamIDPlayer") ) )    
         .def( 
             "GetSmallFriendAvatar"
             , (int ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetSmallFriendAvatar )
@@ -1118,8 +1164,15 @@ BOOST_PYTHON_MODULE(_steam){
             , (bool ( ::ISteamUser::* )( void *,int,::uint32 * ) )( &::ISteamUser::GetEncryptedAppTicket )
             , ( bp::arg("pTicket"), bp::arg("cbMaxTicket"), bp::arg("pcbTicket") ) )    
         .def( 
+            "GetGameBadgeLevel"
+            , (int ( ::ISteamUser::* )( int,bool ) )( &::ISteamUser::GetGameBadgeLevel )
+            , ( bp::arg("nSeries"), bp::arg("bFoil") ) )    
+        .def( 
             "GetHSteamUser"
             , (::HSteamUser ( ::ISteamUser::* )(  ) )( &::ISteamUser::GetHSteamUser ) )    
+        .def( 
+            "GetPlayerSteamLevel"
+            , (int ( ::ISteamUser::* )(  ) )( &::ISteamUser::GetPlayerSteamLevel ) )    
         .def( 
             "GetSteamID"
             , (::CSteamID ( ::ISteamUser::* )(  ) )( &::ISteamUser::GetSteamID ) )    
@@ -1223,6 +1276,9 @@ BOOST_PYTHON_MODULE(_steam){
             "IsOverlayEnabled"
             , (bool ( ::ISteamUtils::* )(  ) )( &::ISteamUtils::IsOverlayEnabled ) )    
         .def( 
+            "IsSteamRunningInVR"
+            , (bool ( ::ISteamUtils::* )(  ) )( &::ISteamUtils::IsSteamRunningInVR ) )    
+        .def( 
             "RunFrame"
             , (void ( ::ISteamUtils::* )(  ) )( &::ISteamUtils::RunFrame ) )    
         .def( 
@@ -1231,8 +1287,8 @@ BOOST_PYTHON_MODULE(_steam){
             , ( bp::arg("eNotificationPosition") ) )    
         .def( 
             "ShowGamepadTextInput"
-            , (bool ( ::ISteamUtils::* )( ::EGamepadTextInputMode,::EGamepadTextInputLineMode,char const *,::uint32 ) )( &::ISteamUtils::ShowGamepadTextInput )
-            , ( bp::arg("eInputMode"), bp::arg("eLineInputMode"), bp::arg("pchDescription"), bp::arg("unCharMax") ) );
+            , (bool ( ::ISteamUtils::* )( ::EGamepadTextInputMode,::EGamepadTextInputLineMode,char const *,::uint32,char const * ) )( &::ISteamUtils::ShowGamepadTextInput )
+            , ( bp::arg("eInputMode"), bp::arg("eLineInputMode"), bp::arg("pchDescription"), bp::arg("unCharMax"), bp::arg("pchExistingText") ) );
 
     { //::LobbyCreated_t
         typedef bp::class_< LobbyCreated_t > LobbyCreated_t_exposer_t;
@@ -1675,6 +1731,12 @@ BOOST_PYTHON_MODULE(_steam){
         .value("k_EResultBadResponse", k_EResultBadResponse)
         .value("k_EResultRequirePasswordReEntry", k_EResultRequirePasswordReEntry)
         .value("k_EResultValueOutOfRange", k_EResultValueOutOfRange)
+        .value("k_EResultUnexpectedError", k_EResultUnexpectedError)
+        .value("k_EResultDisabled", k_EResultDisabled)
+        .value("k_EResultInvalidCEGSubmission", k_EResultInvalidCEGSubmission)
+        .value("k_EResultRestrictedDevice", k_EResultRestrictedDevice)
+        .value("k_EResultRegionLocked", k_EResultRegionLocked)
+        .value("k_EResultRateLimitExceeded", k_EResultRateLimitExceeded)
         .export_values()
         ;
 
@@ -1701,6 +1763,14 @@ BOOST_PYTHON_MODULE(_steam){
 
     bp::class_< CSteamAPIContext >( "CSteamAPIContext", bp::init< >() )    
         .def( 
+            "SteamAppList"
+            , (::ISteamAppList * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamAppList )
+                /* undefined call policies */ )    
+        .def( 
+            "SteamController"
+            , (::ISteamController * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamController )
+                /* undefined call policies */ )    
+        .def( 
             "SteamFriends"
             , (::ISteamFriends * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamFriends )
             , bp::return_internal_reference< >() )    
@@ -1708,6 +1778,14 @@ BOOST_PYTHON_MODULE(_steam){
             "SteamMatchmaking"
             , (::ISteamMatchmaking * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamMatchmaking )
             , bp::return_internal_reference< >() )    
+        .def( 
+            "SteamMusic"
+            , (::ISteamMusic * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamMusic )
+                /* undefined call policies */ )    
+        .def( 
+            "SteamUGC"
+            , (::ISteamUGC * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamUGC )
+                /* undefined call policies */ )    
         .def( 
             "SteamUser"
             , (::ISteamUser * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamUser )
@@ -1963,6 +2041,25 @@ BOOST_PYTHON_MODULE(_steam){
                 , IsValid_function_type( &::CSteamID::IsValid ) );
         
         }
+        { //::CSteamID::RenderLink
+        
+            typedef char const * ( ::CSteamID::*RenderLink_function_type )(  ) const;
+            
+            CSteamID_exposer.def( 
+                "RenderLink"
+                , RenderLink_function_type( &::CSteamID::RenderLink ) );
+        
+        }
+        { //::CSteamID::RenderLink
+        
+            typedef char const * ( *RenderLink_function_type )( ::uint64 );
+            
+            CSteamID_exposer.def( 
+                "RenderLink"
+                , RenderLink_function_type( &::CSteamID::RenderLink )
+                , ( bp::arg("ulSteamID") ) );
+        
+        }
         { //::CSteamID::Set
         
             typedef void ( ::CSteamID::*Set_function_type )( ::uint32,::EUniverse,::EAccountType ) ;
@@ -2017,6 +2114,7 @@ BOOST_PYTHON_MODULE(_steam){
         CSteamID_exposer.def( bp::self < bp::self );
         CSteamID_exposer.def( bp::self == bp::self );
         CSteamID_exposer.def( bp::self > bp::self );
+        CSteamID_exposer.staticmethod( "RenderLink" );
     }
 
     bp::class_< ISteamFriends, boost::noncopyable >( "ISteamFriends", bp::no_init )    
@@ -2074,7 +2172,7 @@ BOOST_PYTHON_MODULE(_steam){
         .def( 
             "GetClanChatMessage"
             , (int ( ::ISteamFriends::* )( ::CSteamID,int,void *,int,::EChatEntryType *,::CSteamID * ) )( &::ISteamFriends::GetClanChatMessage )
-            , ( bp::arg("steamIDClanChat"), bp::arg("iMessage"), bp::arg("prgchText"), bp::arg("cchTextMax"), bp::arg("arg4"), bp::arg("arg5") ) )    
+            , ( bp::arg("steamIDClanChat"), bp::arg("iMessage"), bp::arg("prgchText"), bp::arg("cchTextMax"), bp::arg("peChatEntryType"), bp::arg("psteamidChatter") ) )    
         .def( 
             "GetClanCount"
             , (int ( ::ISteamFriends::* )(  ) )( &::ISteamFriends::GetClanCount ) )    
@@ -2179,6 +2277,10 @@ BOOST_PYTHON_MODULE(_steam){
         .def( 
             "GetPersonaState"
             , (::EPersonaState ( ::ISteamFriends::* )(  ) )( &::ISteamFriends::GetPersonaState ) )    
+        .def( 
+            "GetPlayerNickname"
+            , (char const * ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetPlayerNickname )
+            , ( bp::arg("steamIDPlayer") ) )    
         .def( 
             "GetSmallFriendAvatar"
             , (int ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetSmallFriendAvatar )
@@ -2455,8 +2557,15 @@ BOOST_PYTHON_MODULE(_steam){
             , (bool ( ::ISteamUser::* )( void *,int,::uint32 * ) )( &::ISteamUser::GetEncryptedAppTicket )
             , ( bp::arg("pTicket"), bp::arg("cbMaxTicket"), bp::arg("pcbTicket") ) )    
         .def( 
+            "GetGameBadgeLevel"
+            , (int ( ::ISteamUser::* )( int,bool ) )( &::ISteamUser::GetGameBadgeLevel )
+            , ( bp::arg("nSeries"), bp::arg("bFoil") ) )    
+        .def( 
             "GetHSteamUser"
             , (::HSteamUser ( ::ISteamUser::* )(  ) )( &::ISteamUser::GetHSteamUser ) )    
+        .def( 
+            "GetPlayerSteamLevel"
+            , (int ( ::ISteamUser::* )(  ) )( &::ISteamUser::GetPlayerSteamLevel ) )    
         .def( 
             "GetSteamID"
             , (::CSteamID ( ::ISteamUser::* )(  ) )( &::ISteamUser::GetSteamID ) )    
@@ -2560,6 +2669,9 @@ BOOST_PYTHON_MODULE(_steam){
             "IsOverlayEnabled"
             , (bool ( ::ISteamUtils::* )(  ) )( &::ISteamUtils::IsOverlayEnabled ) )    
         .def( 
+            "IsSteamRunningInVR"
+            , (bool ( ::ISteamUtils::* )(  ) )( &::ISteamUtils::IsSteamRunningInVR ) )    
+        .def( 
             "RunFrame"
             , (void ( ::ISteamUtils::* )(  ) )( &::ISteamUtils::RunFrame ) )    
         .def( 
@@ -2568,8 +2680,8 @@ BOOST_PYTHON_MODULE(_steam){
             , ( bp::arg("eNotificationPosition") ) )    
         .def( 
             "ShowGamepadTextInput"
-            , (bool ( ::ISteamUtils::* )( ::EGamepadTextInputMode,::EGamepadTextInputLineMode,char const *,::uint32 ) )( &::ISteamUtils::ShowGamepadTextInput )
-            , ( bp::arg("eInputMode"), bp::arg("eLineInputMode"), bp::arg("pchDescription"), bp::arg("unCharMax") ) );
+            , (bool ( ::ISteamUtils::* )( ::EGamepadTextInputMode,::EGamepadTextInputLineMode,char const *,::uint32,char const * ) )( &::ISteamUtils::ShowGamepadTextInput )
+            , ( bp::arg("eInputMode"), bp::arg("eLineInputMode"), bp::arg("pchDescription"), bp::arg("unCharMax"), bp::arg("pchExistingText") ) );
 
     { //::LobbyCreated_t
         typedef bp::class_< LobbyCreated_t > LobbyCreated_t_exposer_t;
