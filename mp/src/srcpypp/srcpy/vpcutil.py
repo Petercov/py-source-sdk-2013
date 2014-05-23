@@ -10,6 +10,7 @@ import os
 import platform
 
 valuepattern = re.compile('^(?P<key>-?\$?(\w|/|#|\+)+)(\s+(?P<condition>\[.*\])|\s+(?P<value>[^\[].*[^\]]))*$')
+commentpattern = re.compile('^(?P<statement>.*)//.*')
 
 verbose = 0
 
@@ -164,8 +165,13 @@ def ParseVPC(vpcpath, macros, curnode=None):
             if not line or line.startswith('//'):
                 continue
                 
+            # Strip comments from line
+            match = commentpattern.match(line)
+            if match:
+                print(line)
+                line = match.group('statement')
+                
             # Push or pop node stack when finding a { or }
-            
             if line == '{':
                 nodestack.append(curnode)
                 curnode = curnode[curkey]
