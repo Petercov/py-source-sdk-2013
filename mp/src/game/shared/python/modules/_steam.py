@@ -136,6 +136,7 @@ class Steam(SemiSharedModuleGenerator):
         constpchararg = pointer_t(const_t(declarated_t(char_t())))
         cls.constructors(matchers.calldef_matcher_t(arg_types=[constpchararg, None])).exclude()
         cls.mem_funs('Render').exclude()
+        cls.mem_funs('RenderLink').exclude()
         cls.mem_funs('SetFromStringStrict').exclude()
         cls.mem_funs('SetFromString').exclude()      # No definition...
         cls.mem_funs('SetFromSteam2String').exclude()      # No definition...
@@ -155,6 +156,12 @@ class Steam(SemiSharedModuleGenerator):
         cls.include()
         cls.mem_fun('Init').exclude()
         cls.mem_fun('Clear').exclude()
+        
+        cls.mem_fun('SteamAppList').exclude()
+        cls.mem_fun('SteamController').exclude()
+        cls.mem_fun('SteamMusic').exclude()
+        cls.mem_fun('SteamUGC').exclude()
+        
         cls.mem_fun('SteamUserStats').exclude()
         cls.mem_fun('SteamApps').exclude()
         cls.mem_fun('SteamMatchmakingServers').exclude()

@@ -370,14 +370,6 @@ BOOST_PYTHON_MODULE(_steam){
 
     bp::class_< CSteamAPIContext >( "CSteamAPIContext", bp::init< >() )    
         .def( 
-            "SteamAppList"
-            , (::ISteamAppList * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamAppList )
-                /* undefined call policies */ )    
-        .def( 
-            "SteamController"
-            , (::ISteamController * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamController )
-                /* undefined call policies */ )    
-        .def( 
             "SteamFriends"
             , (::ISteamFriends * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamFriends )
             , bp::return_internal_reference< >() )    
@@ -385,14 +377,6 @@ BOOST_PYTHON_MODULE(_steam){
             "SteamMatchmaking"
             , (::ISteamMatchmaking * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamMatchmaking )
             , bp::return_internal_reference< >() )    
-        .def( 
-            "SteamMusic"
-            , (::ISteamMusic * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamMusic )
-                /* undefined call policies */ )    
-        .def( 
-            "SteamUGC"
-            , (::ISteamUGC * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamUGC )
-                /* undefined call policies */ )    
         .def( 
             "SteamUser"
             , (::ISteamUser * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamUser )
@@ -648,25 +632,6 @@ BOOST_PYTHON_MODULE(_steam){
                 , IsValid_function_type( &::CSteamID::IsValid ) );
         
         }
-        { //::CSteamID::RenderLink
-        
-            typedef char const * ( ::CSteamID::*RenderLink_function_type )(  ) const;
-            
-            CSteamID_exposer.def( 
-                "RenderLink"
-                , RenderLink_function_type( &::CSteamID::RenderLink ) );
-        
-        }
-        { //::CSteamID::RenderLink
-        
-            typedef char const * ( *RenderLink_function_type )( ::uint64 );
-            
-            CSteamID_exposer.def( 
-                "RenderLink"
-                , RenderLink_function_type( &::CSteamID::RenderLink )
-                , ( bp::arg("ulSteamID") ) );
-        
-        }
         { //::CSteamID::Set
         
             typedef void ( ::CSteamID::*Set_function_type )( ::uint32,::EUniverse,::EAccountType ) ;
@@ -721,7 +686,6 @@ BOOST_PYTHON_MODULE(_steam){
         CSteamID_exposer.def( bp::self < bp::self );
         CSteamID_exposer.def( bp::self == bp::self );
         CSteamID_exposer.def( bp::self > bp::self );
-        CSteamID_exposer.staticmethod( "RenderLink" );
     }
 
     bp::class_< ISteamFriends, boost::noncopyable >( "ISteamFriends", bp::no_init )    
@@ -1763,14 +1727,6 @@ BOOST_PYTHON_MODULE(_steam){
 
     bp::class_< CSteamAPIContext >( "CSteamAPIContext", bp::init< >() )    
         .def( 
-            "SteamAppList"
-            , (::ISteamAppList * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamAppList )
-                /* undefined call policies */ )    
-        .def( 
-            "SteamController"
-            , (::ISteamController * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamController )
-                /* undefined call policies */ )    
-        .def( 
             "SteamFriends"
             , (::ISteamFriends * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamFriends )
             , bp::return_internal_reference< >() )    
@@ -1778,14 +1734,6 @@ BOOST_PYTHON_MODULE(_steam){
             "SteamMatchmaking"
             , (::ISteamMatchmaking * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamMatchmaking )
             , bp::return_internal_reference< >() )    
-        .def( 
-            "SteamMusic"
-            , (::ISteamMusic * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamMusic )
-                /* undefined call policies */ )    
-        .def( 
-            "SteamUGC"
-            , (::ISteamUGC * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamUGC )
-                /* undefined call policies */ )    
         .def( 
             "SteamUser"
             , (::ISteamUser * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamUser )
@@ -2041,25 +1989,6 @@ BOOST_PYTHON_MODULE(_steam){
                 , IsValid_function_type( &::CSteamID::IsValid ) );
         
         }
-        { //::CSteamID::RenderLink
-        
-            typedef char const * ( ::CSteamID::*RenderLink_function_type )(  ) const;
-            
-            CSteamID_exposer.def( 
-                "RenderLink"
-                , RenderLink_function_type( &::CSteamID::RenderLink ) );
-        
-        }
-        { //::CSteamID::RenderLink
-        
-            typedef char const * ( *RenderLink_function_type )( ::uint64 );
-            
-            CSteamID_exposer.def( 
-                "RenderLink"
-                , RenderLink_function_type( &::CSteamID::RenderLink )
-                , ( bp::arg("ulSteamID") ) );
-        
-        }
         { //::CSteamID::Set
         
             typedef void ( ::CSteamID::*Set_function_type )( ::uint32,::EUniverse,::EAccountType ) ;
@@ -2114,7 +2043,6 @@ BOOST_PYTHON_MODULE(_steam){
         CSteamID_exposer.def( bp::self < bp::self );
         CSteamID_exposer.def( bp::self == bp::self );
         CSteamID_exposer.def( bp::self > bp::self );
-        CSteamID_exposer.staticmethod( "RenderLink" );
     }
 
     bp::class_< ISteamFriends, boost::noncopyable >( "ISteamFriends", bp::no_init )    
