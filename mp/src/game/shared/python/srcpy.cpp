@@ -1,4 +1,4 @@
-//====== Copyright © Sandern Corporation, All rights reserved. ===========//
+//====== Copyright ï¿½ Sandern Corporation, All rights reserved. ===========//
 //
 // Purpose:
 //
@@ -52,22 +52,22 @@ const char *_Py_hgversion(void) { return "1"; }
 const char *_Py_hgidentifier(void) { return "srcpy"; }
 #endif
 
-#ifdef WIN32
 extern "C" 
 {
+#ifdef WIN32
 	char dllVersionBuffer[16] = ""; // a private buffer
 	HMODULE PyWin_DLLhModule = NULL;
 	const char *PyWin_DLLVersionString = dllVersionBuffer;
-
+#endif // WIN32
+	
 	// Custom frozen modules
 	static const struct _frozen _PyImport_FrozenModules[] = {
 		/* importlib */
 		{"_frozen_importlib", _Py_M__importlib, (int)sizeof(_Py_M__importlib)},
 		{0, 0, 0} /* sentinel */
 	};
-
 }
-#endif // WIN32
+
 
 // For debugging
 ConVar g_debug_python( "g_debug_python", "0", FCVAR_REPLICATED );
