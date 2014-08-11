@@ -2586,6 +2586,10 @@ BOOST_PYTHON_MODULE(_gameinterface){
         .def( 
             "GetModelName"
             , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetModelName )
+            , ( bp::arg("model") ) )    
+        .def( 
+            "GetStudioModel"
+            , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetStudioModel )
             , ( bp::arg("model") ) );
 
     { //::dheader_t
@@ -5398,6 +5402,10 @@ BOOST_PYTHON_MODULE(_gameinterface){
         .def( 
             "GetModelName"
             , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetModelName )
+            , ( bp::arg("model") ) )    
+        .def( 
+            "GetStudioModel"
+            , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetStudioModel )
             , ( bp::arg("model") ) );
 
     { //::dheader_t

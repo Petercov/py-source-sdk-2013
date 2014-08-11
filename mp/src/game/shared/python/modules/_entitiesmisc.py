@@ -87,6 +87,9 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         mb.free_function('PyGetClassByClassname').rename('GetClassByClassname')
         mb.free_function('PyGetAllClassnames').include()
         mb.free_function('PyGetAllClassnames').rename('GetAllClassnames')
+        if self.isserver or self.settings.branch == 'swarm':
+            mb.free_function('PyReadDataDesc').include()
+            mb.free_function('PyReadDataDesc').rename('ReadDataDesc')
         
         # Client only structs
         cls = mb.class_('SpatializationInfo_t')
@@ -471,7 +474,7 @@ class EntitiesMisc(SemiSharedModuleGenerator):
                     
     def Parse(self, mb):
         # Exclude everything by default
-        mb.decls().exclude()        
+        mb.decls().exclude()
 
         if self.isclient:
             self.ParseClientEntityRelated(mb)

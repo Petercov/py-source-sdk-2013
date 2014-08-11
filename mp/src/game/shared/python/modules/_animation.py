@@ -22,7 +22,7 @@ class Animation(SemiSharedModuleGenerator):
         cls = mb.class_('CStudioHdr')
         cls.include()
         cls.calldefs('CStudioHdr').exclude()
-        cls.no_init = True
+        #cls.no_init = True
         cls.mem_funs('pszName').rename('name')
         
         cls.mem_fun('pSeqdesc').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
@@ -94,6 +94,7 @@ class Animation(SemiSharedModuleGenerator):
         mb.free_function('ResetEventIndexes').include()
         
         # Animation
+        mb.free_function('ExtractBbox').include()
         mb.free_function('BuildAllAnimationEventIndexes').include()
         mb.free_function('LookupActivity').include()
         mb.free_function('LookupSequence').include()
@@ -102,6 +103,8 @@ class Animation(SemiSharedModuleGenerator):
         mb.free_function('GetSequenceFlags').include()
         mb.free_function('GetAnimationEvent').include()
         mb.free_function('HasAnimationEventOfType').include()
+        mb.free_function('SelectWeightedSequence').include()
+        mb.free_function('SelectHeaviestSequence').include()
         
         # Activity
         mb.free_function('ActivityList_RegisterPrivateActivity').include()

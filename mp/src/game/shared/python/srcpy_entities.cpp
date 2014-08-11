@@ -23,6 +23,10 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+#ifndef CLIENT_DLL
+extern bool ExtractKeyvalue( void *pObject, typedescription_t *pFields, int iNumFields, const char *szKeyName, char *szValue, int iMaxLen );
+#endif // CLIENT_DLL
+
 namespace bp = boost::python;
 
 // -------------------------------------------------------------------------------
@@ -124,6 +128,7 @@ void PyHandle::SetAttr( const char *name, bp::object v )
 	PyGet().attr("__setattr__")(name, v);
 }
 
+#if PY_VERSION_HEX < 0x03000000
 int PyHandle::Cmp( bp::object other )
 {
 	// The thing to which we compare is NULL
@@ -183,6 +188,7 @@ int PyHandle::Cmp( bp::object other )
 
 	return -1;
 }
+#endif // PY_VERSION_HEX < 0x03000000
 
 boost::python::object PyHandle::Str()
 {
@@ -476,6 +482,62 @@ void InitAllPythonEntities( void )
 
 #endif // CLIENT_DLL
 
+#ifndef CLIENT_DLL
+//-----------------------------------------------------------------------------
+// Purpose: Allows reading out the data desc of an entity in Python
+//-----------------------------------------------------------------------------
+boost::python::dict PyReadDataDesc( CBaseEntity *entity )
+{
+	bp::dict datadesc;
+	if( !entity )
+		return datadesc;
+
+	char szValue[256];
+
+	// Read key values from data desc
+	for ( datamap_t *dmap = entity->GetDataDescMap(); dmap != NULL; dmap = dmap->baseMap )
+	{
+		int iNumFields = dmap->dataNumFields;
+		typedescription_t 	*pField;
+		typedescription_t *pFields = dmap->dataDesc;
+		for ( int i = 0; i < iNumFields; i++ )
+		{
+			pField = &pFields[i];
+			if( !(pField->flags & FTYPEDESC_KEY) )
+				continue;
+
+			bp::object key( pField->externalName );
+			if( !datadesc.contains( key ) )
+			{
+				szValue[0] = 0;
+				if ( ::ExtractKeyvalue( entity, pFields, iNumFields, pField->externalName, szValue, 256 ) )
+				{
+					try 
+					{
+						datadesc[key] = bp::object( szValue );
+					} 
+					catch( bp::error_already_set & ) // Can happen due decode errors
+					{
+						Warning( "PyReadDataDesc: error while reading key %s\n", pField->externalName );
+						datadesc[key] = bp::object( "<unknown>" );
+					}
+				}
+			}
+		}
+	}
+
+	// Add in some fixed properties not part of the data desc
+	V_snprintf( szValue, sizeof( szValue ), "%.2f %.2f %.2f", entity->GetAbsOrigin().x, entity->GetAbsOrigin().y, entity->GetAbsOrigin().z );
+	datadesc["origin"] = bp::object( szValue );
+	V_snprintf( szValue, sizeof( szValue ), "%.2f %.2f %.2f", entity->GetAbsAngles().x, entity->GetAbsAngles().y, entity->GetAbsAngles().z );
+	datadesc["angles"] = bp::object( szValue );
+	V_snprintf( szValue, sizeof( szValue ), "%d %d %d", entity->GetRenderColor().r, entity->GetRenderColor().g, entity->GetRenderColor().b );
+	datadesc["rendercolor"] = bp::object( szValue );
+	datadesc["model"] = bp::object( entity->GetModelName() );
+
+	return datadesc;
+}
+#endif // CLIENT_DLL
 
 // -------------------------------------------------------------------------------
 #ifdef CLIENT_DLL

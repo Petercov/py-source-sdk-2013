@@ -38,6 +38,20 @@ struct C_BaseAnimating_wrapper : C_BaseAnimating, bp::wrapper< C_BaseAnimating >
     
     }
 
+    static boost::python::tuple ComputeEntitySpaceHitboxSurroundingBox( ::C_BaseAnimating & inst ){
+        Vector pVecWorldMins2;
+        Vector pVecWorldMaxs2;
+        bool result = inst.ComputeEntitySpaceHitboxSurroundingBox(&pVecWorldMins2, &pVecWorldMaxs2);
+        return bp::make_tuple( result, pVecWorldMins2, pVecWorldMaxs2 );
+    }
+
+    static boost::python::tuple ComputeHitboxSurroundingBox( ::C_BaseAnimating & inst ){
+        Vector pVecWorldMins2;
+        Vector pVecWorldMaxs2;
+        bool result = inst.ComputeHitboxSurroundingBox(&pVecWorldMins2, &pVecWorldMaxs2);
+        return bp::make_tuple( result, pVecWorldMins2, pVecWorldMaxs2 );
+    }
+
     virtual ::CollideType_t GetCollideType(  ) {
         PY_OVERRIDE_CHECK( C_BaseAnimating, GetCollideType )
         PY_OVERRIDE_LOG( _entities, C_BaseAnimating, GetCollideType )
@@ -470,10 +484,19 @@ struct C_BaseAnimating_wrapper : C_BaseAnimating, bp::wrapper< C_BaseAnimating >
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return C_BaseAnimating::GetClientClass();
 #endif // _WIN32
-        PY_OVERRIDE_LOG( _entities, C_BaseAnimating, GetClientClass )
-        ClientClass *pClientClass = SrcPySystem()->Get<ClientClass *>( "pyClientClass", GetPyInstance(), NULL, true );
-        if( pClientClass )
-            return pClientClass;
+        if( PyObject_HasAttrString(GetPyInstance().ptr(), "pyClientClass") )
+        {
+            try
+            {
+                ClientClass *pClientClass = boost::python::extract<ClientClass *>( GetPyInstance().attr("pyClientClass") );
+                if( pClientClass )
+                    return pClientClass;
+            }
+            catch( bp::error_already_set & ) 
+            {
+                PyErr_Print();
+            }
+        }
         return C_BaseAnimating::GetClientClass();
     }
 
@@ -657,22 +680,22 @@ void register_C_BaseAnimating_class(){
         }
         { //::C_BaseAnimating::ComputeEntitySpaceHitboxSurroundingBox
         
-            typedef bool ( ::C_BaseAnimating::*ComputeEntitySpaceHitboxSurroundingBox_function_type )( ::Vector *,::Vector * ) ;
+            typedef boost::python::tuple ( *ComputeEntitySpaceHitboxSurroundingBox_function_type )( ::C_BaseAnimating & );
             
             C_BaseAnimating_exposer.def( 
                 "ComputeEntitySpaceHitboxSurroundingBox"
-                , ComputeEntitySpaceHitboxSurroundingBox_function_type( &::C_BaseAnimating::ComputeEntitySpaceHitboxSurroundingBox )
-                , ( bp::arg("pVecWorldMins"), bp::arg("pVecWorldMaxs") ) );
+                , ComputeEntitySpaceHitboxSurroundingBox_function_type( &C_BaseAnimating_wrapper::ComputeEntitySpaceHitboxSurroundingBox )
+                , ( bp::arg("inst") ) );
         
         }
         { //::C_BaseAnimating::ComputeHitboxSurroundingBox
         
-            typedef bool ( ::C_BaseAnimating::*ComputeHitboxSurroundingBox_function_type )( ::Vector *,::Vector * ) ;
+            typedef boost::python::tuple ( *ComputeHitboxSurroundingBox_function_type )( ::C_BaseAnimating & );
             
             C_BaseAnimating_exposer.def( 
                 "ComputeHitboxSurroundingBox"
-                , ComputeHitboxSurroundingBox_function_type( &::C_BaseAnimating::ComputeHitboxSurroundingBox )
-                , ( bp::arg("pVecWorldMins"), bp::arg("pVecWorldMaxs") ) );
+                , ComputeHitboxSurroundingBox_function_type( &C_BaseAnimating_wrapper::ComputeHitboxSurroundingBox )
+                , ( bp::arg("inst") ) );
         
         }
         { //::C_BaseAnimating::ControlMouth

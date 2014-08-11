@@ -118,7 +118,7 @@ BOOST_PYTHON_MODULE(_animation){
 
     { //::CStudioHdr
         typedef bp::class_< CStudioHdr, boost::noncopyable > CStudioHdr_exposer_t;
-        CStudioHdr_exposer_t CStudioHdr_exposer = CStudioHdr_exposer_t( "CStudioHdr", bp::no_init );
+        CStudioHdr_exposer_t CStudioHdr_exposer = CStudioHdr_exposer_t( "CStudioHdr" );
         bp::scope CStudioHdr_scope( CStudioHdr_exposer );
         { //::CStudioHdr::CActivityToSequenceMapping
             typedef bp::class_< CStudioHdr::CActivityToSequenceMapping, boost::noncopyable > CActivityToSequenceMapping_exposer_t;
@@ -1003,6 +1003,17 @@ BOOST_PYTHON_MODULE(_animation){
     
     }
 
+    { //::ExtractBbox
+    
+        typedef int ( *ExtractBbox_function_type )( ::CStudioHdr *,int,::Vector &,::Vector & );
+        
+        bp::def( 
+            "ExtractBbox"
+            , ExtractBbox_function_type( &::ExtractBbox )
+            , ( bp::arg("pstudiohdr"), bp::arg("sequence"), bp::arg("mins"), bp::arg("maxs") ) );
+    
+    }
+
     { //::GetAnimationEvent
     
         typedef int ( *GetAnimationEvent_function_type )( ::CStudioHdr *,int,::animevent_t *,float,float,int );
@@ -1143,6 +1154,28 @@ BOOST_PYTHON_MODULE(_animation){
             "ResetEventIndexes"
             , ResetEventIndexes_function_type( &::ResetEventIndexes )
             , ( bp::arg("pstudiohdr") ) );
+    
+    }
+
+    { //::SelectHeaviestSequence
+    
+        typedef int ( *SelectHeaviestSequence_function_type )( ::CStudioHdr *,int );
+        
+        bp::def( 
+            "SelectHeaviestSequence"
+            , SelectHeaviestSequence_function_type( &::SelectHeaviestSequence )
+            , ( bp::arg("pstudiohdr"), bp::arg("activity") ) );
+    
+    }
+
+    { //::SelectWeightedSequence
+    
+        typedef int ( *SelectWeightedSequence_function_type )( ::CStudioHdr *,int,int );
+        
+        bp::def( 
+            "SelectWeightedSequence"
+            , SelectWeightedSequence_function_type( &::SelectWeightedSequence )
+            , ( bp::arg("pstudiohdr"), bp::arg("activity"), bp::arg("curSequence")=(int)(-0x000000001) ) );
     
     }
 
@@ -1274,7 +1307,7 @@ BOOST_PYTHON_MODULE(_animation){
 
     { //::CStudioHdr
         typedef bp::class_< CStudioHdr, boost::noncopyable > CStudioHdr_exposer_t;
-        CStudioHdr_exposer_t CStudioHdr_exposer = CStudioHdr_exposer_t( "CStudioHdr", bp::no_init );
+        CStudioHdr_exposer_t CStudioHdr_exposer = CStudioHdr_exposer_t( "CStudioHdr" );
         bp::scope CStudioHdr_scope( CStudioHdr_exposer );
         { //::CStudioHdr::CActivityToSequenceMapping
             typedef bp::class_< CStudioHdr::CActivityToSequenceMapping, boost::noncopyable > CActivityToSequenceMapping_exposer_t;
@@ -2159,6 +2192,17 @@ BOOST_PYTHON_MODULE(_animation){
     
     }
 
+    { //::ExtractBbox
+    
+        typedef int ( *ExtractBbox_function_type )( ::CStudioHdr *,int,::Vector &,::Vector & );
+        
+        bp::def( 
+            "ExtractBbox"
+            , ExtractBbox_function_type( &::ExtractBbox )
+            , ( bp::arg("pstudiohdr"), bp::arg("sequence"), bp::arg("mins"), bp::arg("maxs") ) );
+    
+    }
+
     { //::GetAnimationEvent
     
         typedef int ( *GetAnimationEvent_function_type )( ::CStudioHdr *,int,::animevent_t *,float,float,int );
@@ -2299,6 +2343,28 @@ BOOST_PYTHON_MODULE(_animation){
             "ResetEventIndexes"
             , ResetEventIndexes_function_type( &::ResetEventIndexes )
             , ( bp::arg("pstudiohdr") ) );
+    
+    }
+
+    { //::SelectHeaviestSequence
+    
+        typedef int ( *SelectHeaviestSequence_function_type )( ::CStudioHdr *,int );
+        
+        bp::def( 
+            "SelectHeaviestSequence"
+            , SelectHeaviestSequence_function_type( &::SelectHeaviestSequence )
+            , ( bp::arg("pstudiohdr"), bp::arg("activity") ) );
+    
+    }
+
+    { //::SelectWeightedSequence
+    
+        typedef int ( *SelectWeightedSequence_function_type )( ::CStudioHdr *,int,int );
+        
+        bp::def( 
+            "SelectWeightedSequence"
+            , SelectWeightedSequence_function_type( &::SelectWeightedSequence )
+            , ( bp::arg("pstudiohdr"), bp::arg("activity"), bp::arg("curSequence")=(int)(-0x000000001) ) );
     
     }
 

@@ -1,5 +1,4 @@
-if isserver:
-    from gameinterface import CSingleUserRecipientFilter
+from gameinterface import CSingleUserRecipientFilter
     
 from _utils import *
 
@@ -58,6 +57,7 @@ else:
     
 if isserver:
     def UTIL_GetPlayers():
+        ''' Gets all connected players. '''
         players = []
         for i in range(1, gpGlobals.maxClients+1):
             player = UTIL_PlayerByIndex(i)
@@ -67,6 +67,10 @@ if isserver:
         return players
 else:
     def UTIL_GetPlayers():
+        ''' Gets all players client side. 
+            Note that other player entities might not exist on a client, even
+            though they exist on the server. 
+        '''
         players = []
         for i in range(1, gpGlobals.maxClients+1):
             player = UTIL_PlayerByIndex(i)

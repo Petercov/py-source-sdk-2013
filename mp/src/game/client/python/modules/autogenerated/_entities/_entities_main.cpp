@@ -562,6 +562,7 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
+#if PY_VERSION_HEX < 0x03000000
         { //::C_BaseEntityHANDLE::Cmp
         
             typedef bool ( ::C_BaseEntityHANDLE::*Cmp_function_type )( bp::object ) const;
@@ -581,6 +582,7 @@ BOOST_PYTHON_MODULE(_entities){
                 , NonZero_function_type( &::C_BaseEntityHANDLE::NonZero )
             );
         }
+#else
         { //::C_BaseEntityHANDLE::Bool
         
             typedef bool ( ::C_BaseEntityHANDLE::*Bool_function_type )( ) const;
@@ -588,6 +590,16 @@ BOOST_PYTHON_MODULE(_entities){
             C_BaseEntityHANDLE_exposer.def( 
                 "__bool__"
                 , Bool_function_type( &::C_BaseEntityHANDLE::Bool )
+            );
+        }
+#endif // PY_VERSION_HEX < 0x03000000
+        { //::C_BaseEntityHANDLE::Hash
+        
+            typedef Py_hash_t ( ::C_BaseEntityHANDLE::*Hash_function_type )( ) const;
+            
+            C_BaseEntityHANDLE_exposer.def( 
+                "__hash__"
+                , Hash_function_type( &::C_BaseEntityHANDLE::Hash )
             );
         }
         { //::C_BaseEntityHANDLE::Set
@@ -620,8 +632,8 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
-        C_BaseEntityHANDLE_exposer.def( bp::self != bp::self );
-        C_BaseEntityHANDLE_exposer.def( bp::self == bp::self );
+        C_BaseEntityHANDLE_exposer.def( bp::self != bp::other< bp::api::object >() );
+        C_BaseEntityHANDLE_exposer.def( bp::self == bp::other< bp::api::object >() );
     }
 
     ptr_C_BaseEntity_to_handle();
@@ -645,6 +657,7 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
+#if PY_VERSION_HEX < 0x03000000
         { //::C_BaseAnimatingHANDLE::Cmp
         
             typedef bool ( ::C_BaseAnimatingHANDLE::*Cmp_function_type )( bp::object ) const;
@@ -664,6 +677,7 @@ BOOST_PYTHON_MODULE(_entities){
                 , NonZero_function_type( &::C_BaseAnimatingHANDLE::NonZero )
             );
         }
+#else
         { //::C_BaseAnimatingHANDLE::Bool
         
             typedef bool ( ::C_BaseAnimatingHANDLE::*Bool_function_type )( ) const;
@@ -671,6 +685,16 @@ BOOST_PYTHON_MODULE(_entities){
             C_BaseAnimatingHANDLE_exposer.def( 
                 "__bool__"
                 , Bool_function_type( &::C_BaseAnimatingHANDLE::Bool )
+            );
+        }
+#endif // PY_VERSION_HEX < 0x03000000
+        { //::C_BaseAnimatingHANDLE::Hash
+        
+            typedef Py_hash_t ( ::C_BaseAnimatingHANDLE::*Hash_function_type )( ) const;
+            
+            C_BaseAnimatingHANDLE_exposer.def( 
+                "__hash__"
+                , Hash_function_type( &::C_BaseAnimatingHANDLE::Hash )
             );
         }
         { //::C_BaseAnimatingHANDLE::Set
@@ -703,8 +727,8 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
-        C_BaseAnimatingHANDLE_exposer.def( bp::self != bp::self );
-        C_BaseAnimatingHANDLE_exposer.def( bp::self == bp::self );
+        C_BaseAnimatingHANDLE_exposer.def( bp::self != bp::other< bp::api::object >() );
+        C_BaseAnimatingHANDLE_exposer.def( bp::self == bp::other< bp::api::object >() );
     }
 
     ptr_C_BaseAnimating_to_handle();
@@ -728,6 +752,7 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
+#if PY_VERSION_HEX < 0x03000000
         { //::C_BaseAnimatingOverlayHANDLE::Cmp
         
             typedef bool ( ::C_BaseAnimatingOverlayHANDLE::*Cmp_function_type )( bp::object ) const;
@@ -747,6 +772,7 @@ BOOST_PYTHON_MODULE(_entities){
                 , NonZero_function_type( &::C_BaseAnimatingOverlayHANDLE::NonZero )
             );
         }
+#else
         { //::C_BaseAnimatingOverlayHANDLE::Bool
         
             typedef bool ( ::C_BaseAnimatingOverlayHANDLE::*Bool_function_type )( ) const;
@@ -754,6 +780,16 @@ BOOST_PYTHON_MODULE(_entities){
             C_BaseAnimatingOverlayHANDLE_exposer.def( 
                 "__bool__"
                 , Bool_function_type( &::C_BaseAnimatingOverlayHANDLE::Bool )
+            );
+        }
+#endif // PY_VERSION_HEX < 0x03000000
+        { //::C_BaseAnimatingOverlayHANDLE::Hash
+        
+            typedef Py_hash_t ( ::C_BaseAnimatingOverlayHANDLE::*Hash_function_type )( ) const;
+            
+            C_BaseAnimatingOverlayHANDLE_exposer.def( 
+                "__hash__"
+                , Hash_function_type( &::C_BaseAnimatingOverlayHANDLE::Hash )
             );
         }
         { //::C_BaseAnimatingOverlayHANDLE::Set
@@ -786,8 +822,8 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
-        C_BaseAnimatingOverlayHANDLE_exposer.def( bp::self != bp::self );
-        C_BaseAnimatingOverlayHANDLE_exposer.def( bp::self == bp::self );
+        C_BaseAnimatingOverlayHANDLE_exposer.def( bp::self != bp::other< bp::api::object >() );
+        C_BaseAnimatingOverlayHANDLE_exposer.def( bp::self == bp::other< bp::api::object >() );
     }
 
     ptr_C_BaseAnimatingOverlay_to_handle();
@@ -811,6 +847,7 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
+#if PY_VERSION_HEX < 0x03000000
         { //::C_BaseFlexHANDLE::Cmp
         
             typedef bool ( ::C_BaseFlexHANDLE::*Cmp_function_type )( bp::object ) const;
@@ -830,6 +867,7 @@ BOOST_PYTHON_MODULE(_entities){
                 , NonZero_function_type( &::C_BaseFlexHANDLE::NonZero )
             );
         }
+#else
         { //::C_BaseFlexHANDLE::Bool
         
             typedef bool ( ::C_BaseFlexHANDLE::*Bool_function_type )( ) const;
@@ -837,6 +875,16 @@ BOOST_PYTHON_MODULE(_entities){
             C_BaseFlexHANDLE_exposer.def( 
                 "__bool__"
                 , Bool_function_type( &::C_BaseFlexHANDLE::Bool )
+            );
+        }
+#endif // PY_VERSION_HEX < 0x03000000
+        { //::C_BaseFlexHANDLE::Hash
+        
+            typedef Py_hash_t ( ::C_BaseFlexHANDLE::*Hash_function_type )( ) const;
+            
+            C_BaseFlexHANDLE_exposer.def( 
+                "__hash__"
+                , Hash_function_type( &::C_BaseFlexHANDLE::Hash )
             );
         }
         { //::C_BaseFlexHANDLE::Set
@@ -869,8 +917,8 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
-        C_BaseFlexHANDLE_exposer.def( bp::self != bp::self );
-        C_BaseFlexHANDLE_exposer.def( bp::self == bp::self );
+        C_BaseFlexHANDLE_exposer.def( bp::self != bp::other< bp::api::object >() );
+        C_BaseFlexHANDLE_exposer.def( bp::self == bp::other< bp::api::object >() );
     }
 
     ptr_C_BaseFlex_to_handle();
@@ -894,6 +942,7 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
+#if PY_VERSION_HEX < 0x03000000
         { //::C_BaseCombatCharacterHANDLE::Cmp
         
             typedef bool ( ::C_BaseCombatCharacterHANDLE::*Cmp_function_type )( bp::object ) const;
@@ -913,6 +962,7 @@ BOOST_PYTHON_MODULE(_entities){
                 , NonZero_function_type( &::C_BaseCombatCharacterHANDLE::NonZero )
             );
         }
+#else
         { //::C_BaseCombatCharacterHANDLE::Bool
         
             typedef bool ( ::C_BaseCombatCharacterHANDLE::*Bool_function_type )( ) const;
@@ -920,6 +970,16 @@ BOOST_PYTHON_MODULE(_entities){
             C_BaseCombatCharacterHANDLE_exposer.def( 
                 "__bool__"
                 , Bool_function_type( &::C_BaseCombatCharacterHANDLE::Bool )
+            );
+        }
+#endif // PY_VERSION_HEX < 0x03000000
+        { //::C_BaseCombatCharacterHANDLE::Hash
+        
+            typedef Py_hash_t ( ::C_BaseCombatCharacterHANDLE::*Hash_function_type )( ) const;
+            
+            C_BaseCombatCharacterHANDLE_exposer.def( 
+                "__hash__"
+                , Hash_function_type( &::C_BaseCombatCharacterHANDLE::Hash )
             );
         }
         { //::C_BaseCombatCharacterHANDLE::Set
@@ -952,8 +1012,8 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
-        C_BaseCombatCharacterHANDLE_exposer.def( bp::self != bp::self );
-        C_BaseCombatCharacterHANDLE_exposer.def( bp::self == bp::self );
+        C_BaseCombatCharacterHANDLE_exposer.def( bp::self != bp::other< bp::api::object >() );
+        C_BaseCombatCharacterHANDLE_exposer.def( bp::self == bp::other< bp::api::object >() );
     }
 
     ptr_C_BaseCombatCharacter_to_handle();
@@ -977,6 +1037,7 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
+#if PY_VERSION_HEX < 0x03000000
         { //::C_BaseCombatWeaponHANDLE::Cmp
         
             typedef bool ( ::C_BaseCombatWeaponHANDLE::*Cmp_function_type )( bp::object ) const;
@@ -996,6 +1057,7 @@ BOOST_PYTHON_MODULE(_entities){
                 , NonZero_function_type( &::C_BaseCombatWeaponHANDLE::NonZero )
             );
         }
+#else
         { //::C_BaseCombatWeaponHANDLE::Bool
         
             typedef bool ( ::C_BaseCombatWeaponHANDLE::*Bool_function_type )( ) const;
@@ -1003,6 +1065,16 @@ BOOST_PYTHON_MODULE(_entities){
             C_BaseCombatWeaponHANDLE_exposer.def( 
                 "__bool__"
                 , Bool_function_type( &::C_BaseCombatWeaponHANDLE::Bool )
+            );
+        }
+#endif // PY_VERSION_HEX < 0x03000000
+        { //::C_BaseCombatWeaponHANDLE::Hash
+        
+            typedef Py_hash_t ( ::C_BaseCombatWeaponHANDLE::*Hash_function_type )( ) const;
+            
+            C_BaseCombatWeaponHANDLE_exposer.def( 
+                "__hash__"
+                , Hash_function_type( &::C_BaseCombatWeaponHANDLE::Hash )
             );
         }
         { //::C_BaseCombatWeaponHANDLE::Set
@@ -1035,8 +1107,8 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
-        C_BaseCombatWeaponHANDLE_exposer.def( bp::self != bp::self );
-        C_BaseCombatWeaponHANDLE_exposer.def( bp::self == bp::self );
+        C_BaseCombatWeaponHANDLE_exposer.def( bp::self != bp::other< bp::api::object >() );
+        C_BaseCombatWeaponHANDLE_exposer.def( bp::self == bp::other< bp::api::object >() );
     }
 
     ptr_C_BaseCombatWeapon_to_handle();
@@ -1060,6 +1132,7 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
+#if PY_VERSION_HEX < 0x03000000
         { //::C_BaseProjectileHANDLE::Cmp
         
             typedef bool ( ::C_BaseProjectileHANDLE::*Cmp_function_type )( bp::object ) const;
@@ -1079,6 +1152,7 @@ BOOST_PYTHON_MODULE(_entities){
                 , NonZero_function_type( &::C_BaseProjectileHANDLE::NonZero )
             );
         }
+#else
         { //::C_BaseProjectileHANDLE::Bool
         
             typedef bool ( ::C_BaseProjectileHANDLE::*Bool_function_type )( ) const;
@@ -1086,6 +1160,16 @@ BOOST_PYTHON_MODULE(_entities){
             C_BaseProjectileHANDLE_exposer.def( 
                 "__bool__"
                 , Bool_function_type( &::C_BaseProjectileHANDLE::Bool )
+            );
+        }
+#endif // PY_VERSION_HEX < 0x03000000
+        { //::C_BaseProjectileHANDLE::Hash
+        
+            typedef Py_hash_t ( ::C_BaseProjectileHANDLE::*Hash_function_type )( ) const;
+            
+            C_BaseProjectileHANDLE_exposer.def( 
+                "__hash__"
+                , Hash_function_type( &::C_BaseProjectileHANDLE::Hash )
             );
         }
         { //::C_BaseProjectileHANDLE::Set
@@ -1118,8 +1202,8 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
-        C_BaseProjectileHANDLE_exposer.def( bp::self != bp::self );
-        C_BaseProjectileHANDLE_exposer.def( bp::self == bp::self );
+        C_BaseProjectileHANDLE_exposer.def( bp::self != bp::other< bp::api::object >() );
+        C_BaseProjectileHANDLE_exposer.def( bp::self == bp::other< bp::api::object >() );
     }
 
     ptr_C_BaseProjectile_to_handle();
@@ -1143,6 +1227,7 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
+#if PY_VERSION_HEX < 0x03000000
         { //::C_BaseGrenadeHANDLE::Cmp
         
             typedef bool ( ::C_BaseGrenadeHANDLE::*Cmp_function_type )( bp::object ) const;
@@ -1162,6 +1247,7 @@ BOOST_PYTHON_MODULE(_entities){
                 , NonZero_function_type( &::C_BaseGrenadeHANDLE::NonZero )
             );
         }
+#else
         { //::C_BaseGrenadeHANDLE::Bool
         
             typedef bool ( ::C_BaseGrenadeHANDLE::*Bool_function_type )( ) const;
@@ -1169,6 +1255,16 @@ BOOST_PYTHON_MODULE(_entities){
             C_BaseGrenadeHANDLE_exposer.def( 
                 "__bool__"
                 , Bool_function_type( &::C_BaseGrenadeHANDLE::Bool )
+            );
+        }
+#endif // PY_VERSION_HEX < 0x03000000
+        { //::C_BaseGrenadeHANDLE::Hash
+        
+            typedef Py_hash_t ( ::C_BaseGrenadeHANDLE::*Hash_function_type )( ) const;
+            
+            C_BaseGrenadeHANDLE_exposer.def( 
+                "__hash__"
+                , Hash_function_type( &::C_BaseGrenadeHANDLE::Hash )
             );
         }
         { //::C_BaseGrenadeHANDLE::Set
@@ -1201,8 +1297,8 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
-        C_BaseGrenadeHANDLE_exposer.def( bp::self != bp::self );
-        C_BaseGrenadeHANDLE_exposer.def( bp::self == bp::self );
+        C_BaseGrenadeHANDLE_exposer.def( bp::self != bp::other< bp::api::object >() );
+        C_BaseGrenadeHANDLE_exposer.def( bp::self == bp::other< bp::api::object >() );
     }
 
     ptr_C_BaseGrenade_to_handle();
@@ -1226,6 +1322,7 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
+#if PY_VERSION_HEX < 0x03000000
         { //::C_BasePlayerHANDLE::Cmp
         
             typedef bool ( ::C_BasePlayerHANDLE::*Cmp_function_type )( bp::object ) const;
@@ -1245,6 +1342,7 @@ BOOST_PYTHON_MODULE(_entities){
                 , NonZero_function_type( &::C_BasePlayerHANDLE::NonZero )
             );
         }
+#else
         { //::C_BasePlayerHANDLE::Bool
         
             typedef bool ( ::C_BasePlayerHANDLE::*Bool_function_type )( ) const;
@@ -1252,6 +1350,16 @@ BOOST_PYTHON_MODULE(_entities){
             C_BasePlayerHANDLE_exposer.def( 
                 "__bool__"
                 , Bool_function_type( &::C_BasePlayerHANDLE::Bool )
+            );
+        }
+#endif // PY_VERSION_HEX < 0x03000000
+        { //::C_BasePlayerHANDLE::Hash
+        
+            typedef Py_hash_t ( ::C_BasePlayerHANDLE::*Hash_function_type )( ) const;
+            
+            C_BasePlayerHANDLE_exposer.def( 
+                "__hash__"
+                , Hash_function_type( &::C_BasePlayerHANDLE::Hash )
             );
         }
         { //::C_BasePlayerHANDLE::Set
@@ -1284,8 +1392,8 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
-        C_BasePlayerHANDLE_exposer.def( bp::self != bp::self );
-        C_BasePlayerHANDLE_exposer.def( bp::self == bp::self );
+        C_BasePlayerHANDLE_exposer.def( bp::self != bp::other< bp::api::object >() );
+        C_BasePlayerHANDLE_exposer.def( bp::self == bp::other< bp::api::object >() );
     }
 
     ptr_C_BasePlayer_to_handle();
@@ -1309,6 +1417,7 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
+#if PY_VERSION_HEX < 0x03000000
         { //::C_PlayerResourceHANDLE::Cmp
         
             typedef bool ( ::C_PlayerResourceHANDLE::*Cmp_function_type )( bp::object ) const;
@@ -1328,6 +1437,7 @@ BOOST_PYTHON_MODULE(_entities){
                 , NonZero_function_type( &::C_PlayerResourceHANDLE::NonZero )
             );
         }
+#else
         { //::C_PlayerResourceHANDLE::Bool
         
             typedef bool ( ::C_PlayerResourceHANDLE::*Bool_function_type )( ) const;
@@ -1335,6 +1445,16 @@ BOOST_PYTHON_MODULE(_entities){
             C_PlayerResourceHANDLE_exposer.def( 
                 "__bool__"
                 , Bool_function_type( &::C_PlayerResourceHANDLE::Bool )
+            );
+        }
+#endif // PY_VERSION_HEX < 0x03000000
+        { //::C_PlayerResourceHANDLE::Hash
+        
+            typedef Py_hash_t ( ::C_PlayerResourceHANDLE::*Hash_function_type )( ) const;
+            
+            C_PlayerResourceHANDLE_exposer.def( 
+                "__hash__"
+                , Hash_function_type( &::C_PlayerResourceHANDLE::Hash )
             );
         }
         { //::C_PlayerResourceHANDLE::Set
@@ -1367,8 +1487,8 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
-        C_PlayerResourceHANDLE_exposer.def( bp::self != bp::self );
-        C_PlayerResourceHANDLE_exposer.def( bp::self == bp::self );
+        C_PlayerResourceHANDLE_exposer.def( bp::self != bp::other< bp::api::object >() );
+        C_PlayerResourceHANDLE_exposer.def( bp::self == bp::other< bp::api::object >() );
     }
 
     ptr_C_PlayerResource_to_handle();
@@ -1392,6 +1512,7 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
+#if PY_VERSION_HEX < 0x03000000
         { //::C_BreakablePropHANDLE::Cmp
         
             typedef bool ( ::C_BreakablePropHANDLE::*Cmp_function_type )( bp::object ) const;
@@ -1411,6 +1532,7 @@ BOOST_PYTHON_MODULE(_entities){
                 , NonZero_function_type( &::C_BreakablePropHANDLE::NonZero )
             );
         }
+#else
         { //::C_BreakablePropHANDLE::Bool
         
             typedef bool ( ::C_BreakablePropHANDLE::*Bool_function_type )( ) const;
@@ -1418,6 +1540,16 @@ BOOST_PYTHON_MODULE(_entities){
             C_BreakablePropHANDLE_exposer.def( 
                 "__bool__"
                 , Bool_function_type( &::C_BreakablePropHANDLE::Bool )
+            );
+        }
+#endif // PY_VERSION_HEX < 0x03000000
+        { //::C_BreakablePropHANDLE::Hash
+        
+            typedef Py_hash_t ( ::C_BreakablePropHANDLE::*Hash_function_type )( ) const;
+            
+            C_BreakablePropHANDLE_exposer.def( 
+                "__hash__"
+                , Hash_function_type( &::C_BreakablePropHANDLE::Hash )
             );
         }
         { //::C_BreakablePropHANDLE::Set
@@ -1450,8 +1582,8 @@ BOOST_PYTHON_MODULE(_entities){
             );
         
         }
-        C_BreakablePropHANDLE_exposer.def( bp::self != bp::self );
-        C_BreakablePropHANDLE_exposer.def( bp::self == bp::self );
+        C_BreakablePropHANDLE_exposer.def( bp::self != bp::other< bp::api::object >() );
+        C_BreakablePropHANDLE_exposer.def( bp::self == bp::other< bp::api::object >() );
     }
 
     ptr_C_BreakableProp_to_handle();

@@ -1,7 +1,7 @@
 """
 Game signals.
 """
-from . dispatch import Signal
+from .dispatch import Signal
 from collections import defaultdict
 
 def FireSignalRobust(s, **kwargs):
@@ -19,16 +19,7 @@ def _CheckReponses(responses):
 def _CallSignal(method, kwargs):
     _CheckReponses(method(**kwargs))
 
-class LevelInitSignal(Signal):
-    """ Special signal class for levelinit signals.
-    
-        Takes an additional argument to immediately call if the level is already initialized.
-    """
-    def connect(self, receiver, sender=None, weak=True, dispatch_uid=None): # TODO:, callifinit=False):
-        super(LevelInitSignal, self).connect(receiver, sender, weak, dispatch_uid)
-        # TODO?
-        #if callifinit and srcmgr.levelinit:
-        #    receiver()
+LevelInitSignal = Signal
             
 # The level signals are send from src_python.cpp.
 # Send at level initialization before entities are spawned
@@ -49,8 +40,13 @@ map_postlevelshutdown = defaultdict(lambda : Signal())
 
 if isserver:
     # Send when a new client connected
-    clientactive = Signal(providing_args=["client"])
-    map_clientactive = defaultdict(lambda : Signal(providing_args=["client"]))
+    clientactive = Signal(providing_args=['client'])
+    map_clientactive = defaultdict(lambda : Signal(providing_args=['client']))
+    
+# Called before initializing new gamerules
+preinitgamerules = Signal(providing_args=['gamerules'])
+# Called after initializing new gamerules
+postinitgamerules = Signal(providing_args=['gamerules'])
 
 '''
 # Examples of several signals:
@@ -75,5 +71,10 @@ def on_prelevelshutdown(sender, **kwargs):
 @receiver(postlevelshutdown)
 def on_postlevelshutdown(sender, **kwargs):
     print "Post Level shutdown callback!"
+    
+if isserver:
+    @receiver(clientactive)
+    def on_clientactive(sender, client, **kwargs):
+        print "client active %s" % (client)
     
 '''

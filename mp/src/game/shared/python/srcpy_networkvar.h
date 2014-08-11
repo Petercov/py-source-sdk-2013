@@ -61,7 +61,7 @@ protected:
 	bp::object m_pySendProxyRef;
 };
 
-class CPythonNetworkVar : CPythonNetworkVarBase
+class CPythonNetworkVar : public CPythonNetworkVarBase
 {
 public:
 	CPythonNetworkVar( bp::object self, const char *name, bp::object data = bp::object(), 
@@ -76,7 +76,7 @@ private:
 	bp::object m_dataInternal;
 };
 
-class CPythonNetworkArray : CPythonNetworkVarBase
+class CPythonNetworkArray : public CPythonNetworkVarBase
 {
 public:
 	CPythonNetworkArray( bp::object self, const char *name, bp::list data = bp::list(), 
@@ -94,7 +94,7 @@ private:
 	bp::list m_dataInternal;
 };
 
-class CPythonNetworkDict : CPythonNetworkVarBase
+class CPythonNetworkDict : public CPythonNetworkVarBase
 {
 public:
 	CPythonNetworkDict( bp::object self, const char *name, bp::dict data = bp::dict(), 

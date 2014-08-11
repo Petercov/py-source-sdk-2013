@@ -168,7 +168,6 @@ def ParseVPC(vpcpath, macros, curnode=None):
             # Strip comments from line
             match = commentpattern.match(line)
             if match:
-                print(line)
                 line = match.group('statement')
                 
             # Push or pop node stack when finding a { or }

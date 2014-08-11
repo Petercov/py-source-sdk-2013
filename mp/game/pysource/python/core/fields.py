@@ -8,19 +8,19 @@ from srcbuiltins import Color
 from vmath import Vector, QAngle
 from core.dispatch import receiver
 from core.signals import postlevelshutdown
-from utils import UTIL_StringToVector, UTIL_StringToAngle, UTIL_StringToColor
-from . networkvar import NetworkVar, NetworkArray, NetworkDict, NetworkDefaultDict, NetworkVarProp
-from _entitiesmisc import _fieldtypes as fieldtypes
-if isserver:
-    from _entitiesmisc import COutputEvent, variant_t
-
 import inspect
+from utils import UTIL_StringToVector, UTIL_StringToAngle, UTIL_StringToColor
 import copy
 import weakref
 import ast
 from types import MethodType
 from collections import defaultdict
+import traceback
+from .networkvar import NetworkVar, NetworkArray, NetworkDict, NetworkDefaultDict, NetworkVarProp
 
+from _entitiesmisc import _fieldtypes as fieldtypes
+if isserver:
+    from _entitiesmisc import COutputEvent, variant_t
     
 if isclient:
     from vgui import localize
@@ -162,7 +162,9 @@ class BaseField(object):
         try:
             self.ToValue(value)
         except:
-            raise ValueError('Value %s is not a %s:\n%s' % (value, self.__class__.__name__, traceback.format_exc()))
+            errmsg = 'Value "%s" is not a valid "%s":\n%s' % (value, self.__class__.__name__, traceback.format_exc())
+            #errmsg = errmsg.encode('ascii', errors='ignore')
+            raise ValueError(errmsg)
         
     def ToValue(self, rawvalue):
         """ Convert value to right type.
@@ -192,20 +194,18 @@ class BaseField(object):
         filename = inspect.getsourcefile(cls)
         sourcelines = inspect.getsourcelines(cls)
         
-        f = open(filename, 'rb')
-        content = f.readlines()
-        f.close()
+        with open(filename, 'rb') as f:
+            content = f.readlines()
         
-        fout = open(filename, 'wb')
-        linenumber = 0
-        for line in sourcelines[0]:
-            splitted = line.split('=')
-            if splitted[0].rstrip().strip() == '__%s_fieldinfo' % (self.name):
-                pass # Bla
-                #content[sourcelines[1]+linenumber-1] = '%s=%s\n' % (self.default)
-            linenumber += 1
-        fout.writelines(content)
-        fout.close()
+        with open(filename, 'wb') as fout: 
+            linenumber = 0
+            for line in sourcelines[0]:
+                splitted = line.split('=')
+                if splitted[0].rstrip().strip() == '__%s_fieldinfo' % (self.name):
+                    pass # Bla
+                    #content[sourcelines[1]+linenumber-1] = '%s=%s\n' % (self.default)
+                linenumber += 1
+            fout.writelines(content)
     
     #: The name of this field. This is also the attribute name on the class/instance of this field.
     name = None
@@ -306,13 +306,14 @@ class LocalizedStringField(StringField):
         try:
             localizedvalue = str(rawvalue)
         except UnicodeEncodeError:
-            localizedvalue = unicode(rawvalue)
+            localizedvalue = str(rawvalue)
             
         if isclient and rawvalue and rawvalue[0] == '#':
             localizedvalue = localize.Find(rawvalue)
             if localizedvalue != None:
-                if self.encoding:
-                    localizedvalue = localizedvalue.encode(self.encoding)
+                pass
+                #if self.encoding:
+                #    localizedvalue = localizedvalue.encode(self.encoding)
             else:
                 localizedvalue = ''
         return localizedvalue if localizedvalue != None else ''
@@ -583,7 +584,7 @@ class OutputField(BaseField):
 @receiver(postlevelshutdown)
 def ResetFields(sender, **kwargs):
     global fields
-    fields = filter(lambda f: bool(f()), fields) # Remove None fields
+    fields = list([f for f in fields if bool(f())]) # Remove None fields
     for f in fields:
         try:
             f().Reset()
@@ -601,7 +602,7 @@ def HasField(obj, name):
     return hasattr(obj, '__%s_fieldinfo' % (name))
         
 def BuildFieldsMap(obj, fieldmap):
-    for name, field in obj.__dict__.iteritems():
+    for name, field in obj.__dict__.items():
         if not isinstance(field, BaseField):
             continue
         if name not in fieldmap.keys():
@@ -612,7 +613,7 @@ def BuildFieldsMap(obj, fieldmap):
 def GetAllFields(obj):
     fieldmap = {}
     BuildFieldsMap(obj, fieldmap)
-    return fieldmap.values()
+    return list(fieldmap.values())
     
 class KeyValueLookupDict(dict):
     def get(self, key, default=None):
@@ -705,7 +706,7 @@ def SetupClassFields(cls, done=None):
         except:
             pass
     keyvaluemap.update(keyfields)
-    keyvaluemap = KeyValueLookupDict(filter(lambda x: not x[1].cppimplemented, keyvaluemap.items()))
+    keyvaluemap = KeyValueLookupDict([x for x in list(keyvaluemap.items()) if not x[1].cppimplemented])
     cls.keyvaluemap = keyvaluemap
     
     # Setup init map (entity only)

@@ -60,6 +60,8 @@ if isserver:
             return self.data.__add__(other)
         def __sub__(self, other):
             return self.data.__sub__(other)
+        def copy(self):
+            return self.data.copy()
             
     class NetworkDict(NetworkDictInternal):
         def __init__(self, ent, name, data=None, changedcallback=None, sendproxy=None):
@@ -83,19 +85,13 @@ if isserver:
         def items(self):
             return self.data.items()
         def has_key(self, key):
-            return self.data.has_key(key)
+            return key in self.data
         def get(self, key, default=None):
             return self.data.get(key, default)
         def clear(self):
             return self.data.clear()
         def setdefault(self, key, default=None):
             return self.data.setdefault(key, default)
-        def iterkeys(self):
-            return self.data.iterkeys()
-        def itervalues(self):
-            return self.data.itervalues()
-        def iteritems(self):
-            return self.data.iteritems()
         def pop(self, key, default=None):
             return self.data.pop(key, default)
         def popitem(self):

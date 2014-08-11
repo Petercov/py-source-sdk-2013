@@ -58,5 +58,7 @@ class GameRulesProxy(object):
         
     def __nonzero__(self):
         return bool(GameRules())
-    
+    def __bool__(self):
+        return bool(GameRules())
+        
 gamerules = GameRulesProxy()

@@ -395,7 +395,9 @@ public:
 	} py_delayed_data_update;
 
 	void AddToDelayedUpdateList( EHANDLE hEnt, char *name, boost::python::object data, bool callchanged=false );
-	void CleanupDelayedUpdateList();
+	void CleanupDelayedUpdateList(); // TODO: Remove?
+	void PreProcessDelayedUpdates( CBaseEntity *pEntity );
+	void PostProcessDelayedUpdates( CBaseEntity *pEntity );
 #endif // CLIENT_DLL
 
 private:
@@ -407,7 +409,7 @@ private:
 	bool m_bPathProtected;
 
 	bool m_bActive;
-	string_t m_LevelName;
+	char m_LevelName[2048];
 
 	// Delete list
 	CUtlVector< boost::python::object > m_deleteList;

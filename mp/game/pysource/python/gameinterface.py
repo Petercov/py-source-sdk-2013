@@ -82,5 +82,5 @@ class AutoCompletion(object):
             keywords = filter(lambda keyword: keyword.lower().startswith(partial), keywords)
             
         # Return keywords (with the command in front of each keyword)
-        keywords = map(lambda keyword: '%s %s' % (command, keyword), keywords)
+        keywords = ['%s %s' % (command, keyword) for keyword in keywords]
         return sorted(keywords)

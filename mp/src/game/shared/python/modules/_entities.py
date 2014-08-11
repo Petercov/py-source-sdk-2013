@@ -13,20 +13,38 @@ tmpl_clientclass = '''virtual ClientClass* GetClientClass() {
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return %(clsname)s::GetClientClass();
 #endif // _WIN32
-        PY_OVERRIDE_LOG( %(modulename)s, %(clsname)s, GetClientClass )
-        ClientClass *pClientClass = SrcPySystem()->Get<ClientClass *>( "pyClientClass", GetPyInstance(), NULL, true );
-        if( pClientClass )
-            return pClientClass;
+        if( PyObject_HasAttrString(GetPyInstance().ptr(), "pyClientClass") )
+        {
+            try
+            {
+                ClientClass *pClientClass = boost::python::extract<ClientClass *>( GetPyInstance().attr("pyClientClass") );
+                if( pClientClass )
+                    return pClientClass;
+            }
+            catch( bp::error_already_set & ) 
+            {
+                PyErr_Print();
+            }
+        }
         return %(clsname)s::GetClientClass();
     }
 '''
 
 tmpl_serverclass = '''virtual ServerClass* GetServerClass() {
         PY_OVERRIDE_CHECK( %(clsname)s, GetServerClass )
-        PY_OVERRIDE_LOG( %(modulename)s, %(clsname)s, GetServerClass )
-        ServerClass *pServerClass = SrcPySystem()->Get<ServerClass *>( "pyServerClass", GetPyInstance(), NULL, true );
-        if( pServerClass )
-            return pServerClass;
+        if( PyObject_HasAttrString(GetPyInstance().ptr(), "pyServerClass") )
+        {
+            try
+            {
+                ServerClass *pServerClass = boost::python::extract<ServerClass *>( GetPyInstance().attr("pyServerClass") );
+                if( pServerClass )
+                    return pServerClass;
+            }
+            catch( bp::error_already_set & ) 
+            {
+                PyErr_Print();
+            }
+        }
         return %(clsname)s::GetServerClass();
     }
 '''
@@ -47,6 +65,7 @@ tmpl_enthandle = '''{ //::%(handlename)s
             );
         
         }
+#if PY_VERSION_HEX < 0x03000000
         { //::%(handlename)s::Cmp
         
             typedef bool ( ::%(handlename)s::*Cmp_function_type )( bp::object ) const;
@@ -66,6 +85,7 @@ tmpl_enthandle = '''{ //::%(handlename)s
                 , NonZero_function_type( &::%(handlename)s::NonZero )
             );
         }
+#else
         { //::%(handlename)s::Bool
         
             typedef bool ( ::%(handlename)s::*Bool_function_type )( ) const;
@@ -73,6 +93,16 @@ tmpl_enthandle = '''{ //::%(handlename)s
             %(handlename)s_exposer.def( 
                 "__bool__"
                 , Bool_function_type( &::%(handlename)s::Bool )
+            );
+        }
+#endif // PY_VERSION_HEX < 0x03000000
+        { //::%(handlename)s::Hash
+        
+            typedef Py_hash_t ( ::%(handlename)s::*Hash_function_type )( ) const;
+            
+            %(handlename)s_exposer.def( 
+                "__hash__"
+                , Hash_function_type( &::%(handlename)s::Hash )
             );
         }
         { //::%(handlename)s::Set
@@ -105,8 +135,8 @@ tmpl_enthandle = '''{ //::%(handlename)s
             );
         
         }
-        %(handlename)s_exposer.def( bp::self != bp::self );
-        %(handlename)s_exposer.def( bp::self == bp::self );
+        %(handlename)s_exposer.def( bp::self != bp::other< bp::api::object >() );
+        %(handlename)s_exposer.def( bp::self == bp::other< bp::api::object >() );
     }
 '''
 
@@ -458,8 +488,8 @@ class Entities(SemiSharedModuleGenerator):
         # Dead entity
         cls = mb.class_('DeadEntity')
         cls.include()
-        cls.mem_fun('NonZero').rename('__nonzero__')
-        cls.mem_fun('Bool').rename('__bool__')
+        cls.mem_funs('NonZero', allow_empty=True).rename('__nonzero__') # Py2
+        cls.mem_funs('Bool', allow_empty=True).rename('__bool__') # Py3
         
         # Entity Handles
         cls = mb.class_('CBaseHandle')
@@ -477,9 +507,10 @@ class Entities(SemiSharedModuleGenerator):
         cls.mem_fun('GetAttr').rename('__getattr__')
         cls.mem_fun('GetAttribute').rename('__getattribute__')
         cls.mem_fun('SetAttr').rename('__setattr__')
-        cls.mem_fun('Cmp').rename('__cmp__')
-        cls.mem_fun('NonZero').rename('__nonzero__')
-        cls.mem_fun('Bool').rename('__bool__')
+        cls.mem_funs('Cmp', allow_empty=True).rename('__cmp__') # Py2
+        cls.mem_funs('NonZero', allow_empty=True).rename('__nonzero__') # Py2
+        cls.mem_funs('Bool', allow_empty=True).rename('__bool__') # Py3
+        cls.mem_fun('Hash').rename('__hash__')
         cls.mem_fun('Str').rename('__str__')
         
         cls.add_wrapper_code(
@@ -617,6 +648,7 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_funs('AttemptToPowerup').exclude() # CDamageModifier has no class on the client...
             
             mb.mem_funs('PyUpdateNetworkVar').exclude() # Internal for network vars
+            mb.mem_funs('PyNetworkVarChanged').exclude() # Internal for network vars
             
             if self.settings.branch == 'swarm':
                 mb.mem_funs('GetClientAlphaProperty').exclude()
@@ -764,7 +796,11 @@ class Entities(SemiSharedModuleGenerator):
         # Exclude anything return CBoneCache
         bonecache = mb.class_('CBoneCache')
         mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(bonecache))), allow_empty=True).exclude()
-            
+        
+        # Transformations
+        mb.mem_funs('ComputeHitboxSurroundingBox').add_transformation(FT.output('pVecWorldMins'), FT.output('pVecWorldMaxs'))
+        mb.mem_funs('ComputeEntitySpaceHitboxSurroundingBox').add_transformation(FT.output('pVecWorldMins'), FT.output('pVecWorldMaxs'))
+        
         if self.isclient:
             # Exclude
             if self.settings.branch == 'swarm':

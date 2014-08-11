@@ -16,15 +16,20 @@
 #include "gamestringpool.h"
 
 #ifdef CLIENT_DLL
-	#include "networkstringtable_clientdll.h"
-	#include "srcpy_materials.h"
+#include "networkstringtable_clientdll.h"
+#include "srcpy_materials.h"
+#include "c_world.h"
 #else
-	#include "networkstringtable_gamedll.h"
+#include "networkstringtable_gamedll.h"
+#include "world.h"
 #endif // CLIENT_DLL
 
 #ifdef WIN32
 #include <winlite.h>
 #endif // WIN32
+
+//#include "../python/importlib.h" // Original
+#include "srcpy_importlib.h" // Custom importlib for loading from vpk files
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -53,6 +58,14 @@ extern "C"
 	char dllVersionBuffer[16] = ""; // a private buffer
 	HMODULE PyWin_DLLhModule = NULL;
 	const char *PyWin_DLLVersionString = dllVersionBuffer;
+
+	// Custom frozen modules
+	static const struct _frozen _PyImport_FrozenModules[] = {
+		/* importlib */
+		{"_frozen_importlib", _Py_M__importlib, (int)sizeof(_Py_M__importlib)},
+		{0, 0, 0} /* sentinel */
+	};
+
 }
 #endif // WIN32
 
@@ -159,6 +172,8 @@ CSrcPython::CSrcPython()
 #endif // CLIENT_DLL
 	AppendSharedModules();
 
+	PyImport_FrozenModules = _PyImport_FrozenModules;
+
 #ifdef CLIENT_DLL
 	DevMsg( "CLIENT: " );
 #else
@@ -253,7 +268,7 @@ bool CSrcPython::InitInterpreter( void )
 	if( m_bPythonRunning )
 		return true;
 
-#if 1
+	const int iVerbose = CommandLine() ? CommandLine()->ParmValue("-pythonverbose", 0) : 0;
 	if( !bNoChangeWorkingDirectory )
 	{
 		// Change working directory	
@@ -262,7 +277,6 @@ bool CSrcPython::InitInterpreter( void )
 		V_FixupPathName(moddir, _MAX_PATH, moddir);	
 		V_SetCurrentDirectory(moddir);
 	}
-#endif // 0
 
 	m_bPythonRunning = true;
 
@@ -288,35 +302,51 @@ bool CSrcPython::InitInterpreter( void )
 	V_strcat( pythonhome, buf, sizeof(pythonhome) );
 	
 	// Set PYTHONPATH
+#ifdef WIN32
+#ifdef CLIENT_DLL
+	filesystem->RelativePathToFullPath("python/ClientDLLs", "MOD", buf, sizeof(buf));
+	V_FixupPathName(buf, sizeof(buf), buf);
+	V_strcat( pythonpath, buf, sizeof(pythonpath) );
+#else
+	filesystem->RelativePathToFullPath("python/DLLs", "MOD", buf, sizeof(buf));
+	V_FixupPathName(buf, sizeof(buf), buf);
+	V_strcat( pythonpath, buf, sizeof(pythonpath) );
+#endif // CLIENT_DLL
+	V_strcat( pythonpath, PYPATH_SEP, sizeof(pythonpath) );
+#endif // WIN32
+
+	filesystem->RelativePathToFullPath("python", "MOD", buf, sizeof(buf));
+	V_FixupPathName(buf, sizeof(buf), buf);
+	V_strcat( pythonpath, buf, sizeof(pythonpath) );
+	V_strcat( pythonpath, PYPATH_SEP, sizeof(pythonpath) );
+
+	if( filesystem->FileExists( "python/Lib", "MOD" ) == false )
+	{
+		filesystem->CreateDirHierarchy( "python/Lib", "MOD" );
+	}
+
 	filesystem->RelativePathToFullPath("python/Lib", "MOD", buf, sizeof(buf));
 	V_FixupPathName(buf, sizeof(buf), buf);
 	V_strcat( pythonpath, buf, sizeof(pythonpath) );
-
-#ifdef WIN32
-	V_strcat( pythonpath, PYPATH_SEP, sizeof(pythonpath) );
-#ifdef CLIENT_DLL
-	filesystem->RelativePathToFullPath("python/Lib/ClientDLLs", "MOD", buf, sizeof(pythonpath));
-	V_FixupPathName(buf, sizeof(pythonpath), buf);
-	V_strcat( pythonpath, buf, sizeof(pythonpath) );
-#else
-	filesystem->RelativePathToFullPath("python/Lib/DLLs", "MOD", buf, sizeof(pythonpath));
-	V_FixupPathName(buf, sizeof(pythonpath), buf);
-	V_strcat( pythonpath, buf, sizeof(pythonpath) );
-#endif // CLIENT_DLL
-#endif // WIN32
 	
 #ifdef OSX
 	V_strcat( pythonpath, PYPATH_SEP, sizeof(pythonpath) );
-	filesystem->RelativePathToFullPath("python/Lib/plat-darwin", "MOD", buf, sizeof(pythonpath));
-	V_FixupPathName(buf, sizeof(pythonpath), buf);
+	filesystem->RelativePathToFullPath("python/plat-darwin", "MOD", buf, sizeof(buf));
+	V_FixupPathName(buf, sizeof(buf), buf);
 	V_strcat( pythonpath, buf, sizeof(pythonpath) );
 	
 	V_strcat( pythonpath, PYPATH_SEP, sizeof(pythonpath) );
-	filesystem->RelativePathToFullPath("python", "MOD", buf, sizeof(pythonpath));
-	V_FixupPathName(buf, sizeof(pythonpath), buf);
+	filesystem->RelativePathToFullPath("python", "MOD", buf, sizeof(buf));
+	V_FixupPathName(buf, sizeof(buf), buf);
 	V_strcat( pythonpath, buf, sizeof(pythonpath) );
 #endif // OSX
 	
+	if( g_debug_python.GetBool() )
+	{
+		DevMsg("PYTHONPATH: %s (%d)\nPYTHONHOME: %s (%d)\n", 
+			pythonpath, V_strlen(pythonpath), pythonhome, V_strlen(pythonhome));
+	}
+
 #ifdef WIN32
 	::_putenv( VarArgs( "PYTHONHOME=%s", pythonhome ) );
 	::_putenv( VarArgs( "PYTHONPATH=%s", pythonpath ) );
@@ -325,11 +355,7 @@ bool CSrcPython::InitInterpreter( void )
     ::setenv( "PYTHONPATH", pythonpath, 1 );
 #endif // WIN32
 
-	//DevMsg( "PYTHONHOME: %s\nPYTHONPATH: %s\n", pythonhome, pythonpath );
-    
-#ifdef OSX
-	Py_NoSiteFlag = 1;
-#endif // OSX
+	Py_NoSiteFlag = 1; // Not needed, so disabled
 
 	// Enable optimizations when not running in developer mode
 	// This removes asserts and statements with "if __debug__"
@@ -337,6 +363,9 @@ bool CSrcPython::InitInterpreter( void )
 	if( !developer.GetBool() )
 		Py_OptimizeFlag = 1;
 #endif // _DEBUG
+
+	if( iVerbose > 0 )
+		Py_VerboseFlag = iVerbose;
 
 	// Initialize an interpreter
 	Py_InitializeEx( 0 );
@@ -469,7 +498,21 @@ bool CSrcPython::ShutdownInterpreter( void )
 
 	// Clear Python gamerules
 	if( PyGameRules().ptr() != Py_None )
-		ClearPyGameRules();
+	{
+		// Ingame: install default c++ gamerules
+#ifdef CLIENT_DLL
+		if( GetClientWorldEntity() )
+#else
+		if( GetWorldEntity() )
+#endif // CLIENT_DLL
+		{
+			PyInstallGameRules( boost::python::object() );
+		}
+		else
+		{
+			ClearPyGameRules();
+		}
+	}
 
 	// Make sure these lists don't hold references
 	m_deleteList.Purge();
@@ -755,7 +798,7 @@ void CSrcPython::LevelInitPreEntity()
 	const char *pLevelName = STRING(gpGlobals->mapname);
 #endif
 
-	m_LevelName = AllocPooledString(pLevelName);
+	V_strncpy( m_LevelName, pLevelName, sizeof( m_LevelName ) );
 
 	// BEFORE creating the entities setup the network tables
 #ifndef CLIENT_DLL
@@ -766,11 +809,11 @@ void CSrcPython::LevelInitPreEntity()
 	try 
 	{
 		CallSignalNoArgs( Get("prelevelinit", "core.signals", true) );
-		CallSignalNoArgs( Get("map_prelevelinit", "core.signals", true)[STRING(m_LevelName)] );
+		CallSignalNoArgs( Get("map_prelevelinit", "core.signals", true)[m_LevelName] );
 	} 
 	catch( bp::error_already_set & ) 
 	{
-		Warning("Failed to retrieve level signal:\n");
+		Warning( "Failed to retrieve pre level init signal (level name: %s):\n", m_LevelName );
 		PyErr_Print();
 	}
 }
@@ -787,11 +830,11 @@ void CSrcPython::LevelInitPostEntity()
 	try 
 	{
 		CallSignalNoArgs( Get("postlevelinit", "core.signals", true) );
-		CallSignalNoArgs( Get("map_postlevelinit", "core.signals", true)[STRING(m_LevelName)] );
+		CallSignalNoArgs( Get("map_postlevelinit", "core.signals", true)[m_LevelName] );
 	} 
 	catch( bp::error_already_set & ) 
 	{
-		Warning("Failed to retrieve level signal:\n");
+		Warning( "Failed to retrieve post level init signal (level name: %s):\n", m_LevelName );
 		PyErr_Print();
 	}
 }
@@ -808,11 +851,11 @@ void CSrcPython::LevelShutdownPreEntity()
 	try 
 	{
 		CallSignalNoArgs( Get("prelevelshutdown", "core.signals", true) );
-		CallSignalNoArgs( Get("map_prelevelshutdown", "core.signals", true)[STRING(m_LevelName)] );
+		CallSignalNoArgs( Get("map_prelevelshutdown", "core.signals", true)[m_LevelName] );
 	} 
 	catch( bp::error_already_set & ) 
 	{
-		Warning("Failed to retrieve level signal:\n");
+		Warning( "Failed to retrieve pre level shutdown signal (level name: %s):\n", m_LevelName );
 		PyErr_Print();
 	}
 }
@@ -834,11 +877,11 @@ void CSrcPython::LevelShutdownPostEntity()
 	try 
 	{
 		CallSignalNoArgs( Get("postlevelshutdown", "core.signals", true) );
-		CallSignalNoArgs( Get("map_postlevelshutdown", "core.signals", true)[STRING(m_LevelName)] );
+		CallSignalNoArgs( Get("map_postlevelshutdown", "core.signals", true)[m_LevelName] );
 	} 
 	catch( bp::error_already_set & ) 
 	{
-		Warning("Failed to retrieve level signal:\n");
+		Warning( "Failed to retrieve post level shutdown signal (level name: %s):\n", m_LevelName );
 		PyErr_Print();
 	}
 
@@ -1307,14 +1350,18 @@ void CSrcPython::AddToDelayedUpdateList( EHANDLE hEnt, char *name, bp::object da
 
 //-----------------------------------------------------------------------------
 // Purpose: 
+// TODO: Remove? This is likely not needed, since ProcessDelayedUpdates is 
+//		 called upon creation.
 //-----------------------------------------------------------------------------
 void CSrcPython::CleanupDelayedUpdateList()
 {
-	for( int i=py_delayed_data_update_list.Count()-1; i >= 0; i-- )
+	for( int i = py_delayed_data_update_list.Count() - 1; i >= 0; i-- )
 	{
 		EHANDLE h = py_delayed_data_update_list[i].hEnt;
 		if( h != NULL )
 		{	
+			DevMsg("CleanupDelayedUpdateList called while not expected\n");
+
 			if( g_debug_pynetworkvar.GetBool() )
 			{
 				DevMsg("#%d Cleaning up delayed PyNetworkVar update %s (callback: %d)\n", 
@@ -1325,6 +1372,62 @@ void CSrcPython::CleanupDelayedUpdateList()
 			
 			h->PyUpdateNetworkVar( py_delayed_data_update_list[i].name, 
 				py_delayed_data_update_list[i].data, py_delayed_data_update_list[i].callchanged );
+
+			py_delayed_data_update_list.Remove(i);
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CSrcPython::PreProcessDelayedUpdates( CBaseEntity *pEntity )
+{
+	for( int i = py_delayed_data_update_list.Count() - 1; i >= 0; i-- )
+	{
+		EHANDLE h = py_delayed_data_update_list[i].hEnt;
+		if( h == pEntity )
+		{	
+			if( g_debug_pynetworkvar.GetBool() )
+			{
+				DevMsg("#%d Processing delayed PyNetworkVar update %s (callback: %d)\n", 
+					h.GetEntryIndex(),
+					py_delayed_data_update_list[i].name,
+					py_delayed_data_update_list[i].callchanged );
+			}
+			
+			h->PyUpdateNetworkVar( py_delayed_data_update_list[i].name, 
+				py_delayed_data_update_list[i].data, false, true );
+
+			if( !py_delayed_data_update_list[i].callchanged )
+				py_delayed_data_update_list.Remove(i);
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CSrcPython::PostProcessDelayedUpdates( CBaseEntity *pEntity )
+{
+	for( int i = py_delayed_data_update_list.Count() - 1; i >= 0; i-- )
+	{
+		EHANDLE h = py_delayed_data_update_list[i].hEnt;
+		if( h == pEntity )
+		{	
+			if( g_debug_pynetworkvar.GetBool() )
+			{
+				DevMsg("#%d Post Processing delayed PyNetworkVar update %s (callback: %d)\n", 
+					h.GetEntryIndex(),
+					py_delayed_data_update_list[i].name,
+					py_delayed_data_update_list[i].callchanged );
+			}
+			
+			// Dispatch changed callback if needed
+			if( py_delayed_data_update_list[i].callchanged )
+			{
+				h->PyNetworkVarChanged( py_delayed_data_update_list[i].name );
+			}
 
 			py_delayed_data_update_list.Remove(i);
 		}

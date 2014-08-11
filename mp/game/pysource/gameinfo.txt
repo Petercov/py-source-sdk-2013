@@ -52,6 +52,9 @@
 			// that's used when writing to the "mod" path.
 			game+mod+mod_write+default_write_path		|gameinfo_path|.
 			gamebin				|gameinfo_path|bin
+			
+			// Add PySource VPKs
+			game+mod			|gameinfo_path|pysource_lib.vpk
 
 			// We search VPK files before ordinary folders, because most files will be found in
 			// VPK and we can avoid making thousands of file system calls to attempt to open files

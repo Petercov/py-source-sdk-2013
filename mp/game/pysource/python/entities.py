@@ -80,7 +80,8 @@ def DetermineClsType(cls):
         return clstoclstype[cls.__name__]
     for basecls in cls.__bases__:
         rs = DetermineClsType(basecls)
-        if rs: return rs
+        if rs: 
+            return rs
     return None
 
 def networked(cls):
@@ -129,11 +130,14 @@ def entity( clsname,
         
         if not factory.clstype:
             info = DetermineClsType(cls)
-            if info: factory.clstype = info[0]
-        else: info = None
+            if info: 
+                factory.clstype = info[0]
+        else: 
+            info = None
         
         if not factory.fgdbase:
-            if info: factory.fgdbase = info[1]
+            if info: 
+                factory.fgdbase = info[1]
 
         if networked and 'networkinst' not in cls.__dict__:
             networkname = '%s.__%s' % (cls.__module__, cls.__name__)
