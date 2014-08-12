@@ -9,8 +9,8 @@ of what is possible (most game code of the mod is written in Python!).
 
 Please let me know if you have any issues. Pull requests are welcome too!
 
-## Quickstart
-Currently tested on Windows and OSX only:
+## Quick-start
+Currently tested on Windows (VS2010 & VS2013 Express) and OSX (XCode 5) only:
 
 1. Run [mp/src/createpysourceprojects](mp/src/createpysourceprojects) 
 2. Open games.sln or games.xproj and compile
