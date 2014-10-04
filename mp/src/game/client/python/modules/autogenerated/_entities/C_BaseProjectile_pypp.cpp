@@ -36,6 +36,25 @@ struct C_BaseProjectile_wrapper : C_BaseProjectile, bp::wrapper< C_BaseProjectil
     
     }
 
+    virtual void Spawn(  ) {
+        PY_OVERRIDE_CHECK( C_BaseProjectile, Spawn )
+        PY_OVERRIDE_LOG( _entities, C_BaseProjectile, Spawn )
+        bp::override func_Spawn = this->get_override( "Spawn" );
+        if( func_Spawn.ptr() != Py_None )
+            try {
+                func_Spawn(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseProjectile::Spawn(  );
+            }
+        else
+            this->C_BaseProjectile::Spawn(  );
+    }
+    
+    void default_Spawn(  ) {
+        C_BaseProjectile::Spawn( );
+    }
+
     virtual void Activate(  ) {
         PY_OVERRIDE_CHECK( C_BaseEntity, Activate )
         PY_OVERRIDE_LOG( _entities, C_BaseEntity, Activate )
@@ -397,25 +416,6 @@ struct C_BaseProjectile_wrapper : C_BaseProjectile, bp::wrapper< C_BaseProjectil
         C_BaseAnimating::Simulate( );
     }
 
-    virtual void Spawn(  ) {
-        PY_OVERRIDE_CHECK( C_BaseEntity, Spawn )
-        PY_OVERRIDE_LOG( _entities, C_BaseEntity, Spawn )
-        bp::override func_Spawn = this->get_override( "Spawn" );
-        if( func_Spawn.ptr() != Py_None )
-            try {
-                func_Spawn(  );
-            } catch(bp::error_already_set &) {
-                PyErr_Print();
-                this->C_BaseEntity::Spawn(  );
-            }
-        else
-            this->C_BaseEntity::Spawn(  );
-    }
-    
-    void default_Spawn(  ) {
-        C_BaseEntity::Spawn( );
-    }
-
     virtual void StartTouch( ::C_BaseEntity * pOther ) {
         PY_OVERRIDE_CHECK( C_BaseEntity, StartTouch )
         PY_OVERRIDE_LOG( _entities, C_BaseEntity, StartTouch )
@@ -499,11 +499,23 @@ void register_C_BaseProjectile_class(){
             , (void ( ::C_BaseProjectile::* )( bool,bool ) )( &::C_BaseProjectile::Destroy )
             , ( bp::arg("bBlinkOut")=(bool)(true), bp::arg("bBreakRocket")=(bool)(false) ) )    
         .def( 
+            "GetOriginalLauncher"
+            , (::C_BaseEntity * ( ::C_BaseProjectile::* )(  ) const)( &::C_BaseProjectile::GetOriginalLauncher )
+            , bp::return_value_policy< bp::return_by_value >() )    
+        .def( 
             "GetPyNetworkType"
             , (int (*)(  ))( &::C_BaseProjectile::GetPyNetworkType ) )    
         .def( 
             "IsDestroyable"
             , (bool ( ::C_BaseProjectile::* )(  ) )( &::C_BaseProjectile::IsDestroyable ) )    
+        .def( 
+            "SetLauncher"
+            , (void ( ::C_BaseProjectile::* )( ::C_BaseEntity * ) )( &::C_BaseProjectile::SetLauncher )
+            , ( bp::arg("pLauncher") ) )    
+        .def( 
+            "Spawn"
+            , (void ( ::C_BaseProjectile::* )(  ) )(&::C_BaseProjectile::Spawn)
+            , (void ( C_BaseProjectile_wrapper::* )(  ) )(&C_BaseProjectile_wrapper::default_Spawn) )    
         .def( 
             "Activate"
             , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::Activate)
@@ -590,10 +602,6 @@ void register_C_BaseProjectile_class(){
             "Simulate"
             , (void ( ::C_BaseAnimating::* )(  ) )(&::C_BaseAnimating::Simulate)
             , (void ( C_BaseProjectile_wrapper::* )(  ) )(&C_BaseProjectile_wrapper::default_Simulate) )    
-        .def( 
-            "Spawn"
-            , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::Spawn)
-            , (void ( C_BaseProjectile_wrapper::* )(  ) )(&C_BaseProjectile_wrapper::default_Spawn) )    
         .def( 
             "StartTouch"
             , (void ( ::C_BaseEntity::* )( ::C_BaseEntity * ) )(&::C_BaseEntity::StartTouch)

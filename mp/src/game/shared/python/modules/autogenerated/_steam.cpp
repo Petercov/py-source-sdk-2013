@@ -674,6 +674,8 @@ BOOST_PYTHON_MODULE(_steam){
         .value("k_EChatEntryTypeWasBanned", k_EChatEntryTypeWasBanned)
         .value("k_EChatEntryTypeDisconnected", k_EChatEntryTypeDisconnected)
         .value("k_EChatEntryTypeHistoricalChat", k_EChatEntryTypeHistoricalChat)
+        .value("k_EChatEntryTypeReserved1", k_EChatEntryTypeReserved1)
+        .value("k_EChatEntryTypeReserved2", k_EChatEntryTypeReserved2)
         .export_values()
         ;
 
@@ -863,6 +865,11 @@ BOOST_PYTHON_MODULE(_steam){
         .value("k_EResultRestrictedDevice", k_EResultRestrictedDevice)
         .value("k_EResultRegionLocked", k_EResultRegionLocked)
         .value("k_EResultRateLimitExceeded", k_EResultRateLimitExceeded)
+        .value("k_EResultAccountLoginDeniedNeedTwoFactor", k_EResultAccountLoginDeniedNeedTwoFactor)
+        .value("k_EResultItemDeleted", k_EResultItemDeleted)
+        .value("k_EResultAccountLoginDeniedThrottle", k_EResultAccountLoginDeniedThrottle)
+        .value("k_EResultTwoFactorCodeMismatch", k_EResultTwoFactorCodeMismatch)
+        .value("k_EResultTwoFactorActivationCodeMismatch", k_EResultTwoFactorActivationCodeMismatch)
         .export_values()
         ;
 
@@ -3155,6 +3162,8 @@ BOOST_PYTHON_MODULE(_steam){
         .value("k_EChatEntryTypeWasBanned", k_EChatEntryTypeWasBanned)
         .value("k_EChatEntryTypeDisconnected", k_EChatEntryTypeDisconnected)
         .value("k_EChatEntryTypeHistoricalChat", k_EChatEntryTypeHistoricalChat)
+        .value("k_EChatEntryTypeReserved1", k_EChatEntryTypeReserved1)
+        .value("k_EChatEntryTypeReserved2", k_EChatEntryTypeReserved2)
         .export_values()
         ;
 
@@ -3344,6 +3353,11 @@ BOOST_PYTHON_MODULE(_steam){
         .value("k_EResultRestrictedDevice", k_EResultRestrictedDevice)
         .value("k_EResultRegionLocked", k_EResultRegionLocked)
         .value("k_EResultRateLimitExceeded", k_EResultRateLimitExceeded)
+        .value("k_EResultAccountLoginDeniedNeedTwoFactor", k_EResultAccountLoginDeniedNeedTwoFactor)
+        .value("k_EResultItemDeleted", k_EResultItemDeleted)
+        .value("k_EResultAccountLoginDeniedThrottle", k_EResultAccountLoginDeniedThrottle)
+        .value("k_EResultTwoFactorCodeMismatch", k_EResultTwoFactorCodeMismatch)
+        .value("k_EResultTwoFactorActivationCodeMismatch", k_EResultTwoFactorActivationCodeMismatch)
         .export_values()
         ;
 

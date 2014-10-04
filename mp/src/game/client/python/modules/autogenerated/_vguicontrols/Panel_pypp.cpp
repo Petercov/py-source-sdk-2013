@@ -1252,6 +1252,16 @@ void register_Panel_class(){
                 , ( bp::arg("startx"), bp::arg("starty"), bp::arg("mx"), bp::arg("my") ) );
         
         }
+        { //::vgui::Panel::ComputePos
+        
+            typedef int ( ::vgui::Panel::*ComputePos_function_type )( char const *,int &,int const &,int const &,bool const & ) ;
+            
+            Panel_exposer.def( 
+                "ComputePos"
+                , ComputePos_function_type( &::vgui::Panel::ComputePos )
+                , ( bp::arg("pszInput"), bp::arg("nPos"), bp::arg("nSize"), bp::arg("nParentSize"), bp::arg("bX") ) );
+        
+        }
         { //::vgui::Panel::CreateDragData
         
             typedef void ( Panel_wrapper::*CreateDragData_function_type )(  ) ;

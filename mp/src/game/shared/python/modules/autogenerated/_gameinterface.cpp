@@ -2105,6 +2105,10 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , (float ( ::ICommandLine::* )( char const *,float ) const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("flDefaultVal") ) )    
         .def( 
+            "ParmValueByIndex"
+            , (char const * ( ::ICommandLine::* )( int,char const * ) const)( &::ICommandLine::ParmValueByIndex )
+            , ( bp::arg("nIndex"), bp::arg("pDefaultVal")=bp::object() ) )    
+        .def( 
             "RemoveParm"
             , (void ( ::ICommandLine::* )( char const * ) )( &::ICommandLine::RemoveParm )
             , ( bp::arg("parm") ) )    
@@ -4660,7 +4664,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , ( bp::arg("playerbits") ) )    
         .def( 
             "AddRecipient"
-            , (void ( ::CRecipientFilter::* )( ::CBasePlayer * ) )( &::CRecipientFilter::AddRecipient )
+            , (void ( ::CRecipientFilter::* )( ::CBasePlayer const * ) )( &::CRecipientFilter::AddRecipient )
             , ( bp::arg("player") ) )    
         .def( 
             "AddRecipientsByPAS"
@@ -4818,9 +4822,9 @@ BOOST_PYTHON_MODULE(_gameinterface){
 
     { //::CSingleUserRecipientFilter
         typedef bp::class_< CSingleUserRecipientFilter, bp::bases< CRecipientFilter >, boost::noncopyable > CSingleUserRecipientFilter_exposer_t;
-        CSingleUserRecipientFilter_exposer_t CSingleUserRecipientFilter_exposer = CSingleUserRecipientFilter_exposer_t( "CSingleUserRecipientFilter", bp::init< CBasePlayer * >(( bp::arg("player") )) );
+        CSingleUserRecipientFilter_exposer_t CSingleUserRecipientFilter_exposer = CSingleUserRecipientFilter_exposer_t( "CSingleUserRecipientFilter", bp::init< CBasePlayer const * >(( bp::arg("player") )) );
         bp::scope CSingleUserRecipientFilter_scope( CSingleUserRecipientFilter_exposer );
-        bp::implicitly_convertible< CBasePlayer *, CSingleUserRecipientFilter >();
+        bp::implicitly_convertible< CBasePlayer const *, CSingleUserRecipientFilter >();
     }
 
     { //::ConVarRef
@@ -4999,6 +5003,10 @@ BOOST_PYTHON_MODULE(_gameinterface){
             "ParmValue"
             , (float ( ::ICommandLine::* )( char const *,float ) const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("flDefaultVal") ) )    
+        .def( 
+            "ParmValueByIndex"
+            , (char const * ( ::ICommandLine::* )( int,char const * ) const)( &::ICommandLine::ParmValueByIndex )
+            , ( bp::arg("nIndex"), bp::arg("pDefaultVal")=bp::object() ) )    
         .def( 
             "RemoveParm"
             , (void ( ::ICommandLine::* )( char const * ) )( &::ICommandLine::RemoveParm )

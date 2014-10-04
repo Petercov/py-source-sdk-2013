@@ -176,8 +176,7 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         cls.mem_funs('NotifyCreateEntity').exclude()
         cls.mem_funs('NotifySpawn').exclude()
         cls.mem_funs('NotifyRemoveEntity').exclude()
-        cls.mem_funs('FindEntityByNetname').exclude()    # <-- Declaration only, lol
-        cls.mem_funs('AddListenerEntity').exclude()      # Would require some kind of python version
+        cls.mem_funs('AddListenerEntity').exclude() # Would require some kind of python version
         cls.mem_funs('RemoveListenerEntity').exclude()
         
         cls.mem_funs('NextEnt').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
@@ -196,7 +195,6 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         cls.mem_funs('FindEntityGenericNearest').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         cls.mem_funs('FindEntityNearestFacing').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         cls.mem_funs('FindEntityClassNearestFacing').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityByNetname').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         cls.mem_funs('FindEntityProcedural').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
 
         if self.settings.branch == 'swarm':

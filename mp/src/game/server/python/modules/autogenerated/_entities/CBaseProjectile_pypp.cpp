@@ -43,6 +43,25 @@ struct CBaseProjectile_wrapper : CBaseProjectile, bp::wrapper< CBaseProjectile >
     
     }
 
+    virtual void Spawn(  ) {
+        PY_OVERRIDE_CHECK( CBaseProjectile, Spawn )
+        PY_OVERRIDE_LOG( _entities, CBaseProjectile, Spawn )
+        bp::override func_Spawn = this->get_override( "Spawn" );
+        if( func_Spawn.ptr() != Py_None )
+            try {
+                func_Spawn(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CBaseProjectile::Spawn(  );
+            }
+        else
+            this->CBaseProjectile::Spawn(  );
+    }
+    
+    void default_Spawn(  ) {
+        CBaseProjectile::Spawn( );
+    }
+
     virtual void Activate(  ) {
         PY_OVERRIDE_CHECK( CBaseAnimating, Activate )
         PY_OVERRIDE_LOG( _entities, CBaseAnimating, Activate )
@@ -480,25 +499,6 @@ struct CBaseProjectile_wrapper : CBaseProjectile, bp::wrapper< CBaseProjectile >
         CBaseAnimating::Precache( );
     }
 
-    virtual void Spawn(  ) {
-        PY_OVERRIDE_CHECK( CBaseAnimating, Spawn )
-        PY_OVERRIDE_LOG( _entities, CBaseAnimating, Spawn )
-        bp::override func_Spawn = this->get_override( "Spawn" );
-        if( func_Spawn.ptr() != Py_None )
-            try {
-                func_Spawn(  );
-            } catch(bp::error_already_set &) {
-                PyErr_Print();
-                this->CBaseAnimating::Spawn(  );
-            }
-        else
-            this->CBaseAnimating::Spawn(  );
-    }
-    
-    void default_Spawn(  ) {
-        CBaseAnimating::Spawn( );
-    }
-
     virtual void StartTouch( ::CBaseEntity * pOther ) {
         PY_OVERRIDE_CHECK( CBaseEntity, StartTouch )
         PY_OVERRIDE_LOG( _entities, CBaseEntity, StartTouch )
@@ -636,12 +636,22 @@ void register_CBaseProjectile_class(){
 
     bp::class_< CBaseProjectile_wrapper, bp::bases< CBaseAnimating >, boost::noncopyable >( "CBaseProjectile", bp::init< >() )    
         .def( 
+            "CanCollideWithTeammates"
+            , (bool ( ::CBaseProjectile::* )(  ) const)( &::CBaseProjectile::CanCollideWithTeammates ) )    
+        .def( 
             "Destroy"
             , (void ( ::CBaseProjectile::* )( bool,bool ) )( &::CBaseProjectile::Destroy )
             , ( bp::arg("bBlinkOut")=(bool)(true), bp::arg("bBreakRocket")=(bool)(false) ) )    
         .def( 
+            "GetCollideWithTeammatesDelay"
+            , (float ( ::CBaseProjectile::* )(  ) const)( &::CBaseProjectile::GetCollideWithTeammatesDelay ) )    
+        .def( 
             "GetDestroyableHitCount"
             , (int ( ::CBaseProjectile::* )(  ) const)( &::CBaseProjectile::GetDestroyableHitCount ) )    
+        .def( 
+            "GetOriginalLauncher"
+            , (::CBaseEntity * ( ::CBaseProjectile::* )(  ) const)( &::CBaseProjectile::GetOriginalLauncher )
+            , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetPyNetworkType"
             , (int (*)(  ))( &::CBaseProjectile::GetPyNetworkType ) )    
@@ -651,6 +661,14 @@ void register_CBaseProjectile_class(){
         .def( 
             "IsDestroyable"
             , (bool ( ::CBaseProjectile::* )(  ) )( &::CBaseProjectile::IsDestroyable ) )    
+        .def( 
+            "SetLauncher"
+            , (void ( ::CBaseProjectile::* )( ::CBaseEntity * ) )( &::CBaseProjectile::SetLauncher )
+            , ( bp::arg("pLauncher") ) )    
+        .def( 
+            "Spawn"
+            , (void ( ::CBaseProjectile::* )(  ) )(&::CBaseProjectile::Spawn)
+            , (void ( CBaseProjectile_wrapper::* )(  ) )(&CBaseProjectile_wrapper::default_Spawn) )    
         .def( 
             "Activate"
             , (void ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::Activate)
@@ -757,10 +775,6 @@ void register_CBaseProjectile_class(){
             "Precache"
             , (void ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::Precache)
             , (void ( CBaseProjectile_wrapper::* )(  ) )(&CBaseProjectile_wrapper::default_Precache) )    
-        .def( 
-            "Spawn"
-            , (void ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::Spawn)
-            , (void ( CBaseProjectile_wrapper::* )(  ) )(&CBaseProjectile_wrapper::default_Spawn) )    
         .def( 
             "StartTouch"
             , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::StartTouch)

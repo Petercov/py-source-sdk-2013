@@ -695,7 +695,7 @@ void register_CFuncBrush_class(){
         }
         { //::CFuncBrush::IsOn
         
-            typedef bool ( ::CFuncBrush::*IsOn_function_type )(  ) ;
+            typedef bool ( ::CFuncBrush::*IsOn_function_type )(  ) const;
             
             CFuncBrush_exposer.def( 
                 "IsOn"

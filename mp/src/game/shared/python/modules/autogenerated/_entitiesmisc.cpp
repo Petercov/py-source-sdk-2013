@@ -1972,6 +1972,29 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .value("ACT_SPELL_VM_IDLE", ACT_SPELL_VM_IDLE)
         .value("ACT_SPELL_VM_ARM", ACT_SPELL_VM_ARM)
         .value("ACT_SPELL_VM_FIRE", ACT_SPELL_VM_FIRE)
+        .value("ACT_BREADSAPPER_VM_DRAW", ACT_BREADSAPPER_VM_DRAW)
+        .value("ACT_BREADSAPPER_VM_IDLE", ACT_BREADSAPPER_VM_IDLE)
+        .value("ACT_BREADGLOVES_VM_HITLEFT", ACT_BREADGLOVES_VM_HITLEFT)
+        .value("ACT_BREADGLOVES_VM_HITRIGHT", ACT_BREADGLOVES_VM_HITRIGHT)
+        .value("ACT_BREADGLOVES_VM_SWINGHARD", ACT_BREADGLOVES_VM_SWINGHARD)
+        .value("ACT_BREADGLOVES_VM_IDLE", ACT_BREADGLOVES_VM_IDLE)
+        .value("ACT_BREADGLOVES_VM_DRAW", ACT_BREADGLOVES_VM_DRAW)
+        .value("ACT_BREADMONSTER_GLOVES_IDLE", ACT_BREADMONSTER_GLOVES_IDLE)
+        .value("ACT_BREADMONSTER_GLOVES_HITRIGHT", ACT_BREADMONSTER_GLOVES_HITRIGHT)
+        .value("ACT_BREADMONSTER_GLOVES_HITUP", ACT_BREADMONSTER_GLOVES_HITUP)
+        .value("ACT_BREADMONSTER_VM_DRAW", ACT_BREADMONSTER_VM_DRAW)
+        .value("ACT_BREADMONSTER_VM_IDLE", ACT_BREADMONSTER_VM_IDLE)
+        .value("ACT_BREADMONSTER_VM_PRIMARYATTACK", ACT_BREADMONSTER_VM_PRIMARYATTACK)
+        .value("ACT_PARACHUTE_DEPLOY", ACT_PARACHUTE_DEPLOY)
+        .value("ACT_PARACHUTE_DEPLOY_IDLE", ACT_PARACHUTE_DEPLOY_IDLE)
+        .value("ACT_PARACHUTE_RETRACT", ACT_PARACHUTE_RETRACT)
+        .value("ACT_PARACHUTE_RETRACT_IDLE", ACT_PARACHUTE_RETRACT_IDLE)
+        .value("ACT_BOT_SPAWN", ACT_BOT_SPAWN)
+        .value("ACT_BOT_PANIC", ACT_BOT_PANIC)
+        .value("ACT_BOT_PRIMARY_MOVEMENT", ACT_BOT_PRIMARY_MOVEMENT)
+        .value("ACT_BOT_GESTURE_FLINCH", ACT_BOT_GESTURE_FLINCH)
+        .value("ACT_BOT_PANIC_START", ACT_BOT_PANIC_START)
+        .value("ACT_BOT_PANIC_END", ACT_BOT_PANIC_END)
         .value("LAST_SHARED_ACTIVITY", LAST_SHARED_ACTIVITY)
         .export_values()
         ;
@@ -2353,6 +2376,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             "GetDamageBonus"
             , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageBonus ) )    
         .def( 
+            "GetDamageBonusProvider"
+            , (::C_BaseEntity * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageBonusProvider )
+            , bp::return_value_policy< bp::return_by_value >() )    
+        .def( 
             "GetDamageCustom"
             , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageCustom ) )    
         .def( 
@@ -2428,8 +2455,8 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             , ( bp::arg("flDamage") ) )    
         .def( 
             "SetDamageBonus"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::SetDamageBonus )
-            , ( bp::arg("flBonus") ) )    
+            , (void ( ::CTakeDamageInfo::* )( float,::C_BaseEntity * ) )( &::CTakeDamageInfo::SetDamageBonus )
+            , ( bp::arg("flBonus"), bp::arg("pProvider")=bp::object() ) )    
         .def( 
             "SetDamageCustom"
             , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamageCustom )
@@ -5047,6 +5074,29 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .value("ACT_SPELL_VM_IDLE", ACT_SPELL_VM_IDLE)
         .value("ACT_SPELL_VM_ARM", ACT_SPELL_VM_ARM)
         .value("ACT_SPELL_VM_FIRE", ACT_SPELL_VM_FIRE)
+        .value("ACT_BREADSAPPER_VM_DRAW", ACT_BREADSAPPER_VM_DRAW)
+        .value("ACT_BREADSAPPER_VM_IDLE", ACT_BREADSAPPER_VM_IDLE)
+        .value("ACT_BREADGLOVES_VM_HITLEFT", ACT_BREADGLOVES_VM_HITLEFT)
+        .value("ACT_BREADGLOVES_VM_HITRIGHT", ACT_BREADGLOVES_VM_HITRIGHT)
+        .value("ACT_BREADGLOVES_VM_SWINGHARD", ACT_BREADGLOVES_VM_SWINGHARD)
+        .value("ACT_BREADGLOVES_VM_IDLE", ACT_BREADGLOVES_VM_IDLE)
+        .value("ACT_BREADGLOVES_VM_DRAW", ACT_BREADGLOVES_VM_DRAW)
+        .value("ACT_BREADMONSTER_GLOVES_IDLE", ACT_BREADMONSTER_GLOVES_IDLE)
+        .value("ACT_BREADMONSTER_GLOVES_HITRIGHT", ACT_BREADMONSTER_GLOVES_HITRIGHT)
+        .value("ACT_BREADMONSTER_GLOVES_HITUP", ACT_BREADMONSTER_GLOVES_HITUP)
+        .value("ACT_BREADMONSTER_VM_DRAW", ACT_BREADMONSTER_VM_DRAW)
+        .value("ACT_BREADMONSTER_VM_IDLE", ACT_BREADMONSTER_VM_IDLE)
+        .value("ACT_BREADMONSTER_VM_PRIMARYATTACK", ACT_BREADMONSTER_VM_PRIMARYATTACK)
+        .value("ACT_PARACHUTE_DEPLOY", ACT_PARACHUTE_DEPLOY)
+        .value("ACT_PARACHUTE_DEPLOY_IDLE", ACT_PARACHUTE_DEPLOY_IDLE)
+        .value("ACT_PARACHUTE_RETRACT", ACT_PARACHUTE_RETRACT)
+        .value("ACT_PARACHUTE_RETRACT_IDLE", ACT_PARACHUTE_RETRACT_IDLE)
+        .value("ACT_BOT_SPAWN", ACT_BOT_SPAWN)
+        .value("ACT_BOT_PANIC", ACT_BOT_PANIC)
+        .value("ACT_BOT_PRIMARY_MOVEMENT", ACT_BOT_PRIMARY_MOVEMENT)
+        .value("ACT_BOT_GESTURE_FLINCH", ACT_BOT_GESTURE_FLINCH)
+        .value("ACT_BOT_PANIC_START", ACT_BOT_PANIC_START)
+        .value("ACT_BOT_PANIC_END", ACT_BOT_PANIC_END)
         .value("LAST_SHARED_ACTIVITY", LAST_SHARED_ACTIVITY)
         .export_values()
         ;
@@ -5506,6 +5556,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             "GetDamageBonus"
             , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageBonus ) )    
         .def( 
+            "GetDamageBonusProvider"
+            , (::CBaseEntity * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageBonusProvider )
+            , bp::return_value_policy< bp::return_by_value >() )    
+        .def( 
             "GetDamageCustom"
             , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageCustom ) )    
         .def( 
@@ -5581,8 +5635,8 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             , ( bp::arg("flDamage") ) )    
         .def( 
             "SetDamageBonus"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::SetDamageBonus )
-            , ( bp::arg("flBonus") ) )    
+            , (void ( ::CTakeDamageInfo::* )( float,::CBaseEntity * ) )( &::CTakeDamageInfo::SetDamageBonus )
+            , ( bp::arg("flBonus"), bp::arg("pProvider")=bp::object() ) )    
         .def( 
             "SetDamageCustom"
             , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamageCustom )

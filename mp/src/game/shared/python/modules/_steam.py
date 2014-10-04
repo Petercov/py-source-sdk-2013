@@ -266,7 +266,6 @@ class Steam(SemiSharedModuleGenerator):
         cls.mem_funs('SetFromString').exclude() # No definition...
         cls.mem_funs('SetFromSteam2String').exclude() # No definition...
         cls.mem_funs('BValidExternalSteamID').exclude() # No definition...
-        cls.mem_funs('RenderLink').exclude() # No definition...
         
         mb.enum('EResult').include()
         mb.enum('EDenyReason').include()
@@ -280,7 +279,7 @@ class Steam(SemiSharedModuleGenerator):
         # Generic API functions
         mb.free_function('SteamAPI_RunCallbacks').include()
         
-        # Accessor class for all
+        # Accessor class client
         mb.add_registration_code( "bp::scope().attr( \"steamapicontext\" ) = boost::ref(steamapicontext);" )
         cls = mb.class_('CSteamAPIContext')
         cls.include()
@@ -298,7 +297,9 @@ class Steam(SemiSharedModuleGenerator):
         cls.mem_fun('SteamAppList').exclude()
         cls.mem_fun('SteamController').exclude()
         cls.mem_fun('SteamMusic').exclude()
-        cls.mem_fun('SteamUGC').exclude() 
+        cls.mem_fun('SteamUGC').exclude()
+        cls.mem_fun('SteamHTMLSurface').exclude()
+        cls.mem_fun('SteamMusicRemote').exclude()
         
         cls.mem_funs('SteamFriends').call_policies = call_policies.return_internal_reference()
         cls.mem_funs('SteamUtils').call_policies = call_policies.return_internal_reference()

@@ -477,8 +477,8 @@ BOOST_PYTHON_MODULE(_particles){
             , ( bp::arg("pEntity") ) )    
         .def( 
             "StopParticlesNamed"
-            , (void ( ::CParticleProperty::* )( char const *,bool ) )( &::CParticleProperty::StopParticlesNamed )
-            , ( bp::arg("pszEffectName"), bp::arg("bForceRemoveInstantly")=(bool)(false) ) )    
+            , (void ( ::CParticleProperty::* )( char const *,bool,bool ) )( &::CParticleProperty::StopParticlesNamed )
+            , ( bp::arg("pszEffectName"), bp::arg("bForceRemoveInstantly")=(bool)(false), bp::arg("bInverse")=(bool)(false) ) )    
         .def( 
             "StopParticlesWithNameAndAttachment"
             , (void ( ::CParticleProperty::* )( char const *,int,bool ) )( &::CParticleProperty::StopParticlesWithNameAndAttachment )

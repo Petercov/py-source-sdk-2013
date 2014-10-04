@@ -417,22 +417,22 @@ struct C_BaseGrenade_wrapper : C_BaseGrenade, bp::wrapper< C_BaseGrenade > {
     }
 
     virtual void Spawn(  ) {
-        PY_OVERRIDE_CHECK( C_BaseEntity, Spawn )
-        PY_OVERRIDE_LOG( _entities, C_BaseEntity, Spawn )
+        PY_OVERRIDE_CHECK( C_BaseProjectile, Spawn )
+        PY_OVERRIDE_LOG( _entities, C_BaseProjectile, Spawn )
         bp::override func_Spawn = this->get_override( "Spawn" );
         if( func_Spawn.ptr() != Py_None )
             try {
                 func_Spawn(  );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                this->C_BaseEntity::Spawn(  );
+                this->C_BaseProjectile::Spawn(  );
             }
         else
-            this->C_BaseEntity::Spawn(  );
+            this->C_BaseProjectile::Spawn(  );
     }
     
     void default_Spawn(  ) {
-        C_BaseEntity::Spawn( );
+        C_BaseProjectile::Spawn( );
     }
 
     virtual void StartTouch( ::C_BaseEntity * pOther ) {
@@ -936,14 +936,14 @@ void register_C_BaseGrenade_class(){
                 , default_Simulate_function_type(&C_BaseGrenade_wrapper::default_Simulate) );
         
         }
-        { //::C_BaseEntity::Spawn
+        { //::C_BaseProjectile::Spawn
         
-            typedef void ( ::C_BaseEntity::*Spawn_function_type )(  ) ;
+            typedef void ( ::C_BaseProjectile::*Spawn_function_type )(  ) ;
             typedef void ( C_BaseGrenade_wrapper::*default_Spawn_function_type )(  ) ;
             
             C_BaseGrenade_exposer.def( 
                 "Spawn"
-                , Spawn_function_type(&::C_BaseEntity::Spawn)
+                , Spawn_function_type(&::C_BaseProjectile::Spawn)
                 , default_Spawn_function_type(&C_BaseGrenade_wrapper::default_Spawn) );
         
         }

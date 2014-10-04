@@ -112,6 +112,7 @@ BOOST_PYTHON_MODULE(_animation){
         .value("AE_WPN_HIDE", AE_WPN_HIDE)
         .value("AE_WPN_UNHIDE", AE_WPN_UNHIDE)
         .value("AE_WPN_PLAYWPNSOUND", AE_WPN_PLAYWPNSOUND)
+        .value("AE_RD_ROBOT_POP_PANELS_OFF", AE_RD_ROBOT_POP_PANELS_OFF)
         .value("LAST_SHARED_ANIMEVENT", LAST_SHARED_ANIMEVENT)
         .export_values()
         ;
@@ -1301,6 +1302,7 @@ BOOST_PYTHON_MODULE(_animation){
         .value("AE_WPN_HIDE", AE_WPN_HIDE)
         .value("AE_WPN_UNHIDE", AE_WPN_UNHIDE)
         .value("AE_WPN_PLAYWPNSOUND", AE_WPN_PLAYWPNSOUND)
+        .value("AE_RD_ROBOT_POP_PANELS_OFF", AE_RD_ROBOT_POP_PANELS_OFF)
         .value("LAST_SHARED_ANIMEVENT", LAST_SHARED_ANIMEVENT)
         .export_values()
         ;

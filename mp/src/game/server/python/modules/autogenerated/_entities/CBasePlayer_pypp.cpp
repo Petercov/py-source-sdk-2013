@@ -1262,6 +1262,9 @@ void register_CBasePlayer_class(){
             "GetTimeBase"
             , (float ( ::CBasePlayer::* )(  ) const)( &::CBasePlayer::GetTimeBase ) )    
         .def( 
+            "GetTimeSinceLastObjective"
+            , (float ( ::CBasePlayer::* )(  ) const)( &::CBasePlayer::GetTimeSinceLastObjective ) )    
+        .def( 
             "GetTimeSinceLastUserCommand"
             , (float ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::GetTimeSinceLastUserCommand ) )    
         .def( 
@@ -1749,6 +1752,10 @@ void register_CBasePlayer_class(){
             "SetLaggedMovementValue"
             , (void ( ::CBasePlayer::* )( float ) )( &::CBasePlayer::SetLaggedMovementValue )
             , ( bp::arg("flValue") ) )    
+        .def( 
+            "SetLastObjectiveTime"
+            , (void ( ::CBasePlayer::* )( float ) )( &::CBasePlayer::SetLastObjectiveTime )
+            , ( bp::arg("flTime") ) )    
         .def( 
             "SetLastUserCommand"
             , (void ( ::CBasePlayer::* )( ::CUserCmd const & ) )( &::CBasePlayer::SetLastUserCommand )

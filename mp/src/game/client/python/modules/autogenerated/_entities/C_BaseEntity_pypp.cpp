@@ -1644,6 +1644,15 @@ void register_C_BaseEntity_class(){
                 , GetHealth_function_type( &::C_BaseEntity::GetHealth ) );
         
         }
+        { //::C_BaseEntity::GetHealthBarHeightOffset
+        
+            typedef float ( ::C_BaseEntity::*GetHealthBarHeightOffset_function_type )(  ) const;
+            
+            C_BaseEntity_exposer.def( 
+                "GetHealthBarHeightOffset"
+                , GetHealthBarHeightOffset_function_type( &::C_BaseEntity::GetHealthBarHeightOffset ) );
+        
+        }
         { //::C_BaseEntity::GetInterpolationAmount
         
             typedef float ( ::C_BaseEntity::*GetInterpolationAmount_function_type )( int ) ;
@@ -2720,6 +2729,15 @@ void register_C_BaseEntity_class(){
                 , IsFollowingEntity_function_type( &::C_BaseEntity::IsFollowingEntity ) );
         
         }
+        { //::C_BaseEntity::IsHealthBarVisible
+        
+            typedef bool ( ::C_BaseEntity::*IsHealthBarVisible_function_type )(  ) const;
+            
+            C_BaseEntity_exposer.def( 
+                "IsHealthBarVisible"
+                , IsHealthBarVisible_function_type( &::C_BaseEntity::IsHealthBarVisible ) );
+        
+        }
         { //::C_BaseEntity::IsInWorld
         
             typedef bool ( ::C_BaseEntity::*IsInWorld_function_type )(  ) ;
@@ -2939,7 +2957,7 @@ void register_C_BaseEntity_class(){
         }
         { //::C_BaseEntity::IsVisibleToTargetID
         
-            typedef bool ( ::C_BaseEntity::*IsVisibleToTargetID_function_type )(  ) ;
+            typedef bool ( ::C_BaseEntity::*IsVisibleToTargetID_function_type )(  ) const;
             
             C_BaseEntity_exposer.def( 
                 "IsVisibleToTargetID"
@@ -3209,6 +3227,15 @@ void register_C_BaseEntity_class(){
                 , OnDataChanged_function_type(&::C_BaseEntity::OnDataChanged)
                 , default_OnDataChanged_function_type(&C_BaseEntity_wrapper::default_OnDataChanged)
                 , ( bp::arg("type") ) );
+        
+        }
+        { //::C_BaseEntity::OnDataUnchangedInPVS
+        
+            typedef void ( ::C_BaseEntity::*OnDataUnchangedInPVS_function_type )(  ) ;
+            
+            C_BaseEntity_exposer.def( 
+                "OnDataUnchangedInPVS"
+                , OnDataUnchangedInPVS_function_type( &::C_BaseEntity::OnDataUnchangedInPVS ) );
         
         }
         { //::C_BaseEntity::OnLatchInterpolatedVariables

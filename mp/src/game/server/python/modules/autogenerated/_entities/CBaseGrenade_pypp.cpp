@@ -500,22 +500,22 @@ struct CBaseGrenade_wrapper : CBaseGrenade, bp::wrapper< CBaseGrenade > {
     }
 
     virtual void Spawn(  ) {
-        PY_OVERRIDE_CHECK( CBaseAnimating, Spawn )
-        PY_OVERRIDE_LOG( _entities, CBaseAnimating, Spawn )
+        PY_OVERRIDE_CHECK( CBaseProjectile, Spawn )
+        PY_OVERRIDE_LOG( _entities, CBaseProjectile, Spawn )
         bp::override func_Spawn = this->get_override( "Spawn" );
         if( func_Spawn.ptr() != Py_None )
             try {
                 func_Spawn(  );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                this->CBaseAnimating::Spawn(  );
+                this->CBaseProjectile::Spawn(  );
             }
         else
-            this->CBaseAnimating::Spawn(  );
+            this->CBaseProjectile::Spawn(  );
     }
     
     void default_Spawn(  ) {
-        CBaseAnimating::Spawn( );
+        CBaseProjectile::Spawn( );
     }
 
     virtual void StartTouch( ::CBaseEntity * pOther ) {
@@ -1134,14 +1134,14 @@ void register_CBaseGrenade_class(){
                 , ( bp::arg("szClassname") ) );
         
         }
-        { //::CBaseAnimating::Spawn
+        { //::CBaseProjectile::Spawn
         
-            typedef void ( ::CBaseAnimating::*Spawn_function_type )(  ) ;
+            typedef void ( ::CBaseProjectile::*Spawn_function_type )(  ) ;
             typedef void ( CBaseGrenade_wrapper::*default_Spawn_function_type )(  ) ;
             
             CBaseGrenade_exposer.def( 
                 "Spawn"
-                , Spawn_function_type(&::CBaseAnimating::Spawn)
+                , Spawn_function_type(&::CBaseProjectile::Spawn)
                 , default_Spawn_function_type(&CBaseGrenade_wrapper::default_Spawn) );
         
         }

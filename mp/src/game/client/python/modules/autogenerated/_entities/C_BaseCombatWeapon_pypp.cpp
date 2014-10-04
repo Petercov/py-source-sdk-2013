@@ -626,6 +626,9 @@ void register_C_BaseCombatWeapon_class(){
             "CanOverload"
             , (bool ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::CanOverload ) )    
         .def( 
+            "CanPerformSecondaryAttack"
+            , (bool ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::CanPerformSecondaryAttack ) )    
+        .def( 
             "CanReload"
             , (bool ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::CanReload ) )    
         .def( 
