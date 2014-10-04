@@ -145,6 +145,9 @@ IHandleEntity *CServerNetworkProperty::GetEntityHandle( )
 void CServerNetworkProperty::Release()
 {
 	delete m_pOuter;
+	// Don't zero m_pOuter or reference any member variables after
+	// the delete call because the object may be deleted.
+	//m_pOuter = NULL;
 }
 
 

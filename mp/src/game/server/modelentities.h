@@ -18,7 +18,7 @@
 //-----------------------------------------------------------------------------
 // Purpose: basic solid geometry
 // enabled state:	brush is visible
-// disabled staute:	brush not visible
+// disabled state:	brush not visible
 //-----------------------------------------------------------------------------
 class CFuncBrush : public CBaseEntity
 {
@@ -39,8 +39,8 @@ public:
 
 	virtual int DrawDebugTextOverlays( void );
 
-	void TurnOff( void );
-	void TurnOn( void );
+	virtual void TurnOff( void );
+	virtual void TurnOn( void );
 
 	// Input handlers
 	void InputTurnOff( inputdata_t &inputdata );
@@ -63,7 +63,7 @@ public:
 
 	DECLARE_DATADESC();
 
-	virtual bool IsOn( void );
+	virtual bool IsOn( void ) const;
 };
 
 
