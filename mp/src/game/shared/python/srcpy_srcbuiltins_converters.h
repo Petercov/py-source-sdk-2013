@@ -16,7 +16,6 @@
 
 namespace bp = boost::python;
 
-#if 0 // TODO
 // ---------------------------------------------------------------------------------------------------------
 // -- KeyValues converter
 struct ptr_keyvalues_to_py_keyvalues : boost::python::to_python_converter<KeyValues *, ptr_keyvalues_to_py_keyvalues>
@@ -25,7 +24,6 @@ struct ptr_keyvalues_to_py_keyvalues : boost::python::to_python_converter<KeyVal
 	{
 		if( s ) {
 			return boost::python::incref(boost::python::object(PyKeyValues(s)).ptr());
-			//return boost::python::incref(PyKeyValuesToDict(s).ptr());
 		}
 		else {
 			return boost::python::incref(Py_None);
@@ -38,7 +36,6 @@ struct keyvalues_to_py_keyvalues : boost::python::to_python_converter<KeyValues,
 	static PyObject* convert(const KeyValues &s)
 	{
 		return boost::python::incref(boost::python::object(PyKeyValues(&s)).ptr());
-		//return boost::python::incref(PyKeyValuesToDict(&s).ptr()); //
 	}
 };
 
@@ -75,8 +72,6 @@ struct py_keyvalues_to_keyvalues
 #endif // 0
 	}
 };
-
-#endif // 0
 
 // ---------------------------------------------------------------------------------------------------------
 // -- string_t converter

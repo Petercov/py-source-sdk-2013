@@ -51,26 +51,98 @@ boost::python::tuple PyGetLobbyChatEntry( CSteamID steamIDLobby, int iChatID, CS
 	return boost::python::make_tuple( data, eChatEntryType );
 }
 
+boost::python::object PyGetStatFloat( const char *name )
+{
+	if( !steamapicontext->SteamUserStats() )
+	{
+		PyErr_SetString(PyExc_Exception, "No steam user stats API available!" );
+		throw boost::python::error_already_set(); 
+	}
+
+	float stat;
+	if( !steamapicontext->SteamUserStats()->GetStat( name, &stat ) )
+	{
+		return boost::python::object();
+	}
+	return boost::python::object( stat );
+}
+
+boost::python::object PyGetStatInt( const char *name )
+{
+	if( !steamapicontext->SteamUserStats() )
+	{
+		PyErr_SetString(PyExc_Exception, "No steam user stats API available!" );
+		throw boost::python::error_already_set(); 
+	}
+
+	int32 stat;
+	if( !steamapicontext->SteamUserStats()->GetStat( name, &stat ) )
+	{
+		return boost::python::object();
+	}
+	return boost::python::object( stat );
+}
+
 #define STEAM_MM_SERVERS_VALID()	if( !steamapicontext->SteamMatchmakingServers() ) \
 	{ \
 		PyErr_SetString(PyExc_Exception, "No steam matchmaking servers API available!" ); \
 		throw boost::python::error_already_set(); \
 	}
 
+#define STEAM_MM_PROCESS_FILTERS()	uint32 nFilters = boost::python::len( filters );	\
+	MatchMakingKeyValuePair_t **ppchFilters = (MatchMakingKeyValuePair_t **)stackalloc( sizeof( MatchMakingKeyValuePair_t * ) * nFilters );	\
+	for( uint32 i = 0; i < nFilters; i++ )	\
+	{	\
+		ppchFilters[i] = (MatchMakingKeyValuePair_t *)stackalloc( sizeof( MatchMakingKeyValuePair_t ) );	\
+		V_strncpy( ppchFilters[i]->m_szKey, boost::python::extract<const char *>( filters[i][0] ), sizeof(ppchFilters[i]->m_szKey) );	\
+		V_strncpy( ppchFilters[i]->m_szValue, boost::python::extract<const char *>( filters[i][1] ), sizeof(ppchFilters[i]->m_szValue) );	\
+	}
+
 int PySteamMatchmakingServers::RequestInternetServerList( AppId_t iApp, boost::python::list filters, PySteamMatchmakingServerListResponse *pRequestServersResponse )
 {
 	STEAM_MM_SERVERS_VALID();
-
-	int nFilters = boost::python::len( filters );
-	MatchMakingKeyValuePair_t **ppchFilters = (MatchMakingKeyValuePair_t **)stackalloc( sizeof( MatchMakingKeyValuePair_t * ) * nFilters );
-	for( int i = 0; i < nFilters; i++ )
-	{
-		ppchFilters[i] = (MatchMakingKeyValuePair_t *)stackalloc( sizeof( MatchMakingKeyValuePair_t ) );
-		V_strcpy( ppchFilters[i]->m_szKey, boost::python::extract<const char *>( filters[i][0] ) );
-		V_strcpy( ppchFilters[i]->m_szValue, boost::python::extract<const char *>( filters[i][1] ) );
-	}
+	STEAM_MM_PROCESS_FILTERS();
 
 	return (int)steamapicontext->SteamMatchmakingServers()->RequestInternetServerList( iApp, ppchFilters, nFilters, pRequestServersResponse );
+}
+
+int PySteamMatchmakingServers::RequestLANServerList( AppId_t iApp, ISteamMatchmakingServerListResponse *pRequestServersResponse )
+{
+	STEAM_MM_SERVERS_VALID();
+
+	return (int)steamapicontext->SteamMatchmakingServers()->RequestLANServerList( iApp, pRequestServersResponse );
+}
+
+int PySteamMatchmakingServers::RequestFriendsServerList( AppId_t iApp, boost::python::list filters, ISteamMatchmakingServerListResponse *pRequestServersResponse )
+{
+	STEAM_MM_SERVERS_VALID();
+	STEAM_MM_PROCESS_FILTERS();
+
+	return (int)steamapicontext->SteamMatchmakingServers()->RequestFriendsServerList( iApp, ppchFilters, nFilters, pRequestServersResponse );
+}
+
+int PySteamMatchmakingServers::RequestFavoritesServerList( AppId_t iApp, boost::python::list filters, ISteamMatchmakingServerListResponse *pRequestServersResponse )
+{
+	STEAM_MM_SERVERS_VALID();
+	STEAM_MM_PROCESS_FILTERS();
+
+	return (int)steamapicontext->SteamMatchmakingServers()->RequestFavoritesServerList( iApp, ppchFilters, nFilters, pRequestServersResponse );
+}
+
+int PySteamMatchmakingServers::RequestHistoryServerList( AppId_t iApp, boost::python::list filters, ISteamMatchmakingServerListResponse *pRequestServersResponse )
+{
+	STEAM_MM_SERVERS_VALID();
+	STEAM_MM_PROCESS_FILTERS();
+
+	return (int)steamapicontext->SteamMatchmakingServers()->RequestHistoryServerList( iApp, ppchFilters, nFilters, pRequestServersResponse );
+}
+
+int PySteamMatchmakingServers::RequestSpectatorServerList( AppId_t iApp, boost::python::list filters, ISteamMatchmakingServerListResponse *pRequestServersResponse )
+{
+	STEAM_MM_SERVERS_VALID();
+	STEAM_MM_PROCESS_FILTERS();
+
+	return (int)steamapicontext->SteamMatchmakingServers()->RequestSpectatorServerList( iApp, ppchFilters, nFilters, pRequestServersResponse );
 }
 
 void PySteamMatchmakingServers::ReleaseRequest( int hServerListRequest )
@@ -79,10 +151,14 @@ void PySteamMatchmakingServers::ReleaseRequest( int hServerListRequest )
 	steamapicontext->SteamMatchmakingServers()->ReleaseRequest( reinterpret_cast<HServerListRequest>(hServerListRequest) );
 }
 
-gameserveritem_t *PySteamMatchmakingServers::GetServerDetails( int hRequest, int iServer )
+pygameserveritem_t PySteamMatchmakingServers::GetServerDetails( int hRequest, int iServer )
 {
 	STEAM_MM_SERVERS_VALID();
-	return steamapicontext->SteamMatchmakingServers()->GetServerDetails( reinterpret_cast<HServerListRequest>(hRequest), iServer );
+	gameserveritem_t *details = steamapicontext->SteamMatchmakingServers()->GetServerDetails( reinterpret_cast<HServerListRequest>(hRequest), iServer );
+
+	pygameserveritem_t pydetails;
+	V_memcpy( &pydetails, details, sizeof(gameserveritem_t) );
+	return pydetails;
 }
 
 int PySteamMatchmakingServers::PingServer( uint32 unIP, uint16 usPort, PySteamMatchmakingPingResponse *pRequestServersResponse )

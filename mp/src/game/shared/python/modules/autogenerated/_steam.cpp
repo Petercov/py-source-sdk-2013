@@ -4,6 +4,10 @@
 #ifdef CLIENT_DLL
 #include "__array_1.pypp.hpp"
 
+#include "__convenience.pypp.hpp"
+
+#include "__call_policies.pypp.hpp"
+
 #include "cbase.h"
 
 #include "steam/steam_api.h"
@@ -29,6 +33,91 @@
 #include "tier0/memdbgon.h"
 
 namespace bp = boost::python;
+
+struct FriendsEnumerateFollowingList_t_wrapper : FriendsEnumerateFollowingList_t, bp::wrapper< FriendsEnumerateFollowingList_t > {
+
+    FriendsEnumerateFollowingList_t_wrapper(FriendsEnumerateFollowingList_t const & arg )
+    : FriendsEnumerateFollowingList_t( arg )
+      , bp::wrapper< FriendsEnumerateFollowingList_t >(){
+        // copy constructor
+        
+    }
+
+    FriendsEnumerateFollowingList_t_wrapper()
+    : FriendsEnumerateFollowingList_t()
+      , bp::wrapper< FriendsEnumerateFollowingList_t >(){
+        // null constructor
+        
+    }
+
+    static pyplusplus::containers::static_sized::array_1_t< ::CSteamID, 50>
+    pyplusplus_m_rgSteamID_wrapper( ::FriendsEnumerateFollowingList_t & inst ){
+        return pyplusplus::containers::static_sized::array_1_t< ::CSteamID, 50>( inst.m_rgSteamID );
+    }
+
+};
+
+struct GameRichPresenceJoinRequested_t_wrapper : GameRichPresenceJoinRequested_t, bp::wrapper< GameRichPresenceJoinRequested_t > {
+
+    GameRichPresenceJoinRequested_t_wrapper(GameRichPresenceJoinRequested_t const & arg )
+    : GameRichPresenceJoinRequested_t( arg )
+      , bp::wrapper< GameRichPresenceJoinRequested_t >(){
+        // copy constructor
+        
+    }
+
+    GameRichPresenceJoinRequested_t_wrapper()
+    : GameRichPresenceJoinRequested_t()
+      , bp::wrapper< GameRichPresenceJoinRequested_t >(){
+        // null constructor
+        
+    }
+
+    static pyplusplus::containers::static_sized::array_1_t< char, 256>
+    pyplusplus_m_rgchConnect_wrapper( ::GameRichPresenceJoinRequested_t & inst ){
+        return pyplusplus::containers::static_sized::array_1_t< char, 256>( inst.m_rgchConnect );
+    }
+
+};
+
+struct GameServerChangeRequested_t_wrapper : GameServerChangeRequested_t, bp::wrapper< GameServerChangeRequested_t > {
+
+    GameServerChangeRequested_t_wrapper(GameServerChangeRequested_t const & arg )
+    : GameServerChangeRequested_t( arg )
+      , bp::wrapper< GameServerChangeRequested_t >(){
+        // copy constructor
+        
+    }
+
+    GameServerChangeRequested_t_wrapper()
+    : GameServerChangeRequested_t()
+      , bp::wrapper< GameServerChangeRequested_t >(){
+        // null constructor
+        
+    }
+
+    static pyplusplus::containers::static_sized::array_1_t< char, 64>
+    pyplusplus_m_rgchPassword_wrapper( ::GameServerChangeRequested_t & inst ){
+        return pyplusplus::containers::static_sized::array_1_t< char, 64>( inst.m_rgchPassword );
+    }
+
+    static pyplusplus::containers::static_sized::array_1_t< char, 64>
+    pyplusplus_m_rgchServer_wrapper( ::GameServerChangeRequested_t & inst ){
+        return pyplusplus::containers::static_sized::array_1_t< char, 64>( inst.m_rgchServer );
+    }
+
+};
+
+static boost::python::tuple GetLobbyGameServer_e3badaaa69eb32a59ea528ba9e97e8ee( ::ISteamMatchmaking & inst, ::CSteamID steamIDLobby ){
+    unsigned int punGameServerIP2;
+    short unsigned int punGameServerPort2;
+    CSteamID psteamIDGameServer2;
+    bool result = inst.GetLobbyGameServer(steamIDLobby, &punGameServerIP2, &punGameServerPort2, &psteamIDGameServer2);
+    return bp::make_tuple( result
+                            , punGameServerIP2
+                            , punGameServerPort2
+                            , psteamIDGameServer2 );
+}
 
 struct PySteamMatchmakingPingResponse_wrapper : PySteamMatchmakingPingResponse, bp::wrapper< PySteamMatchmakingPingResponse > {
 
@@ -311,42 +400,688 @@ struct PySteamMatchmakingServerListResponse_wrapper : PySteamMatchmakingServerLi
 
 };
 
-struct gameserveritem_t_wrapper : gameserveritem_t, bp::wrapper< gameserveritem_t > {
+PY_STEAM_CALLBACK_WRAPPER( PersonaStateChange, PersonaStateChange_t );
 
-    gameserveritem_t_wrapper(gameserveritem_t const & arg )
-    : gameserveritem_t( arg )
-      , bp::wrapper< gameserveritem_t >(){
+struct PersonaStateChangeCallback_wrapper : PersonaStateChangeCallback, bp::wrapper< PersonaStateChangeCallback > {
+
+    PersonaStateChangeCallback_wrapper(PersonaStateChangeCallback const & arg )
+    : PersonaStateChangeCallback( arg )
+      , bp::wrapper< PersonaStateChangeCallback >(){
         // copy constructor
         
     }
 
-    gameserveritem_t_wrapper( )
-    : gameserveritem_t( )
-      , bp::wrapper< gameserveritem_t >(){
-        // null constructor
+    PersonaStateChangeCallback_wrapper()
+    : PersonaStateChangeCallback()
+      , bp::wrapper< PersonaStateChangeCallback >(){
+        // constructor
     
     }
 
-    static pyplusplus::containers::static_sized::array_1_t< char, 64>
-    pyplusplus_m_szGameDescription_wrapper( ::gameserveritem_t & inst ){
-        return pyplusplus::containers::static_sized::array_1_t< char, 64>( inst.m_szGameDescription );
+    virtual void OnPersonaStateChange( ::PersonaStateChange_t * pData ) {
+        PY_OVERRIDE_CHECK( PersonaStateChangeCallback, OnPersonaStateChange )
+        PY_OVERRIDE_LOG( _steam, PersonaStateChangeCallback, OnPersonaStateChange )
+        bp::override func_OnPersonaStateChange = this->get_override( "OnPersonaStateChange" );
+        if( func_OnPersonaStateChange.ptr() != Py_None )
+            try {
+                func_OnPersonaStateChange( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->PersonaStateChangeCallback::OnPersonaStateChange( pData );
+            }
+        else
+            this->PersonaStateChangeCallback::OnPersonaStateChange( pData );
+    }
+    
+    void default_OnPersonaStateChange( ::PersonaStateChange_t * pData ) {
+        PersonaStateChangeCallback::OnPersonaStateChange( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameOverlayActivated, GameOverlayActivated_t );
+
+struct GameOverlayActivatedCallback_wrapper : GameOverlayActivatedCallback, bp::wrapper< GameOverlayActivatedCallback > {
+
+    GameOverlayActivatedCallback_wrapper(GameOverlayActivatedCallback const & arg )
+    : GameOverlayActivatedCallback( arg )
+      , bp::wrapper< GameOverlayActivatedCallback >(){
+        // copy constructor
+        
     }
 
-    static pyplusplus::containers::static_sized::array_1_t< char, 32>
-    pyplusplus_m_szGameDir_wrapper( ::gameserveritem_t & inst ){
-        return pyplusplus::containers::static_sized::array_1_t< char, 32>( inst.m_szGameDir );
+    GameOverlayActivatedCallback_wrapper()
+    : GameOverlayActivatedCallback()
+      , bp::wrapper< GameOverlayActivatedCallback >(){
+        // constructor
+    
     }
 
-    static pyplusplus::containers::static_sized::array_1_t< char, 128>
-    pyplusplus_m_szGameTags_wrapper( ::gameserveritem_t & inst ){
-        return pyplusplus::containers::static_sized::array_1_t< char, 128>( inst.m_szGameTags );
+    virtual void OnGameOverlayActivated( ::GameOverlayActivated_t * pData ) {
+        PY_OVERRIDE_CHECK( GameOverlayActivatedCallback, OnGameOverlayActivated )
+        PY_OVERRIDE_LOG( _steam, GameOverlayActivatedCallback, OnGameOverlayActivated )
+        bp::override func_OnGameOverlayActivated = this->get_override( "OnGameOverlayActivated" );
+        if( func_OnGameOverlayActivated.ptr() != Py_None )
+            try {
+                func_OnGameOverlayActivated( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameOverlayActivatedCallback::OnGameOverlayActivated( pData );
+            }
+        else
+            this->GameOverlayActivatedCallback::OnGameOverlayActivated( pData );
+    }
+    
+    void default_OnGameOverlayActivated( ::GameOverlayActivated_t * pData ) {
+        GameOverlayActivatedCallback::OnGameOverlayActivated( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameServerChangeRequested, GameServerChangeRequested_t );
+
+struct GameServerChangeRequestedCallback_wrapper : GameServerChangeRequestedCallback, bp::wrapper< GameServerChangeRequestedCallback > {
+
+    GameServerChangeRequestedCallback_wrapper(GameServerChangeRequestedCallback const & arg )
+    : GameServerChangeRequestedCallback( arg )
+      , bp::wrapper< GameServerChangeRequestedCallback >(){
+        // copy constructor
+        
     }
 
-    static pyplusplus::containers::static_sized::array_1_t< char, 32>
-    pyplusplus_m_szMap_wrapper( ::gameserveritem_t & inst ){
-        return pyplusplus::containers::static_sized::array_1_t< char, 32>( inst.m_szMap );
+    GameServerChangeRequestedCallback_wrapper()
+    : GameServerChangeRequestedCallback()
+      , bp::wrapper< GameServerChangeRequestedCallback >(){
+        // constructor
+    
     }
 
+    virtual void OnGameServerChangeRequested( ::GameServerChangeRequested_t * pData ) {
+        PY_OVERRIDE_CHECK( GameServerChangeRequestedCallback, OnGameServerChangeRequested )
+        PY_OVERRIDE_LOG( _steam, GameServerChangeRequestedCallback, OnGameServerChangeRequested )
+        bp::override func_OnGameServerChangeRequested = this->get_override( "OnGameServerChangeRequested" );
+        if( func_OnGameServerChangeRequested.ptr() != Py_None )
+            try {
+                func_OnGameServerChangeRequested( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameServerChangeRequestedCallback::OnGameServerChangeRequested( pData );
+            }
+        else
+            this->GameServerChangeRequestedCallback::OnGameServerChangeRequested( pData );
+    }
+    
+    void default_OnGameServerChangeRequested( ::GameServerChangeRequested_t * pData ) {
+        GameServerChangeRequestedCallback::OnGameServerChangeRequested( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameLobbyJoinRequested, GameLobbyJoinRequested_t );
+
+struct GameLobbyJoinRequestedCallback_wrapper : GameLobbyJoinRequestedCallback, bp::wrapper< GameLobbyJoinRequestedCallback > {
+
+    GameLobbyJoinRequestedCallback_wrapper(GameLobbyJoinRequestedCallback const & arg )
+    : GameLobbyJoinRequestedCallback( arg )
+      , bp::wrapper< GameLobbyJoinRequestedCallback >(){
+        // copy constructor
+        
+    }
+
+    GameLobbyJoinRequestedCallback_wrapper()
+    : GameLobbyJoinRequestedCallback()
+      , bp::wrapper< GameLobbyJoinRequestedCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnGameLobbyJoinRequested( ::GameLobbyJoinRequested_t * pData ) {
+        PY_OVERRIDE_CHECK( GameLobbyJoinRequestedCallback, OnGameLobbyJoinRequested )
+        PY_OVERRIDE_LOG( _steam, GameLobbyJoinRequestedCallback, OnGameLobbyJoinRequested )
+        bp::override func_OnGameLobbyJoinRequested = this->get_override( "OnGameLobbyJoinRequested" );
+        if( func_OnGameLobbyJoinRequested.ptr() != Py_None )
+            try {
+                func_OnGameLobbyJoinRequested( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameLobbyJoinRequestedCallback::OnGameLobbyJoinRequested( pData );
+            }
+        else
+            this->GameLobbyJoinRequestedCallback::OnGameLobbyJoinRequested( pData );
+    }
+    
+    void default_OnGameLobbyJoinRequested( ::GameLobbyJoinRequested_t * pData ) {
+        GameLobbyJoinRequestedCallback::OnGameLobbyJoinRequested( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( AvatarImageLoaded, AvatarImageLoaded_t );
+
+struct AvatarImageLoadedCallback_wrapper : AvatarImageLoadedCallback, bp::wrapper< AvatarImageLoadedCallback > {
+
+    AvatarImageLoadedCallback_wrapper(AvatarImageLoadedCallback const & arg )
+    : AvatarImageLoadedCallback( arg )
+      , bp::wrapper< AvatarImageLoadedCallback >(){
+        // copy constructor
+        
+    }
+
+    AvatarImageLoadedCallback_wrapper()
+    : AvatarImageLoadedCallback()
+      , bp::wrapper< AvatarImageLoadedCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnAvatarImageLoaded( ::AvatarImageLoaded_t * pData ) {
+        PY_OVERRIDE_CHECK( AvatarImageLoadedCallback, OnAvatarImageLoaded )
+        PY_OVERRIDE_LOG( _steam, AvatarImageLoadedCallback, OnAvatarImageLoaded )
+        bp::override func_OnAvatarImageLoaded = this->get_override( "OnAvatarImageLoaded" );
+        if( func_OnAvatarImageLoaded.ptr() != Py_None )
+            try {
+                func_OnAvatarImageLoaded( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->AvatarImageLoadedCallback::OnAvatarImageLoaded( pData );
+            }
+        else
+            this->AvatarImageLoadedCallback::OnAvatarImageLoaded( pData );
+    }
+    
+    void default_OnAvatarImageLoaded( ::AvatarImageLoaded_t * pData ) {
+        AvatarImageLoadedCallback::OnAvatarImageLoaded( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( ClanOfficerListResponse, ClanOfficerListResponse_t );
+
+struct ClanOfficerListResponseCallback_wrapper : ClanOfficerListResponseCallback, bp::wrapper< ClanOfficerListResponseCallback > {
+
+    ClanOfficerListResponseCallback_wrapper(ClanOfficerListResponseCallback const & arg )
+    : ClanOfficerListResponseCallback( arg )
+      , bp::wrapper< ClanOfficerListResponseCallback >(){
+        // copy constructor
+        
+    }
+
+    ClanOfficerListResponseCallback_wrapper()
+    : ClanOfficerListResponseCallback()
+      , bp::wrapper< ClanOfficerListResponseCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnClanOfficerListResponse( ::ClanOfficerListResponse_t * pData ) {
+        PY_OVERRIDE_CHECK( ClanOfficerListResponseCallback, OnClanOfficerListResponse )
+        PY_OVERRIDE_LOG( _steam, ClanOfficerListResponseCallback, OnClanOfficerListResponse )
+        bp::override func_OnClanOfficerListResponse = this->get_override( "OnClanOfficerListResponse" );
+        if( func_OnClanOfficerListResponse.ptr() != Py_None )
+            try {
+                func_OnClanOfficerListResponse( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->ClanOfficerListResponseCallback::OnClanOfficerListResponse( pData );
+            }
+        else
+            this->ClanOfficerListResponseCallback::OnClanOfficerListResponse( pData );
+    }
+    
+    void default_OnClanOfficerListResponse( ::ClanOfficerListResponse_t * pData ) {
+        ClanOfficerListResponseCallback::OnClanOfficerListResponse( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( FriendRichPresenceUpdate, FriendRichPresenceUpdate_t );
+
+struct FriendRichPresenceUpdateCallback_wrapper : FriendRichPresenceUpdateCallback, bp::wrapper< FriendRichPresenceUpdateCallback > {
+
+    FriendRichPresenceUpdateCallback_wrapper(FriendRichPresenceUpdateCallback const & arg )
+    : FriendRichPresenceUpdateCallback( arg )
+      , bp::wrapper< FriendRichPresenceUpdateCallback >(){
+        // copy constructor
+        
+    }
+
+    FriendRichPresenceUpdateCallback_wrapper()
+    : FriendRichPresenceUpdateCallback()
+      , bp::wrapper< FriendRichPresenceUpdateCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnFriendRichPresenceUpdate( ::FriendRichPresenceUpdate_t * pData ) {
+        PY_OVERRIDE_CHECK( FriendRichPresenceUpdateCallback, OnFriendRichPresenceUpdate )
+        PY_OVERRIDE_LOG( _steam, FriendRichPresenceUpdateCallback, OnFriendRichPresenceUpdate )
+        bp::override func_OnFriendRichPresenceUpdate = this->get_override( "OnFriendRichPresenceUpdate" );
+        if( func_OnFriendRichPresenceUpdate.ptr() != Py_None )
+            try {
+                func_OnFriendRichPresenceUpdate( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->FriendRichPresenceUpdateCallback::OnFriendRichPresenceUpdate( pData );
+            }
+        else
+            this->FriendRichPresenceUpdateCallback::OnFriendRichPresenceUpdate( pData );
+    }
+    
+    void default_OnFriendRichPresenceUpdate( ::FriendRichPresenceUpdate_t * pData ) {
+        FriendRichPresenceUpdateCallback::OnFriendRichPresenceUpdate( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameRichPresenceJoinRequested, GameRichPresenceJoinRequested_t );
+
+struct GameRichPresenceJoinRequestedCallback_wrapper : GameRichPresenceJoinRequestedCallback, bp::wrapper< GameRichPresenceJoinRequestedCallback > {
+
+    GameRichPresenceJoinRequestedCallback_wrapper(GameRichPresenceJoinRequestedCallback const & arg )
+    : GameRichPresenceJoinRequestedCallback( arg )
+      , bp::wrapper< GameRichPresenceJoinRequestedCallback >(){
+        // copy constructor
+        
+    }
+
+    GameRichPresenceJoinRequestedCallback_wrapper()
+    : GameRichPresenceJoinRequestedCallback()
+      , bp::wrapper< GameRichPresenceJoinRequestedCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnGameRichPresenceJoinRequested( ::GameRichPresenceJoinRequested_t * pData ) {
+        PY_OVERRIDE_CHECK( GameRichPresenceJoinRequestedCallback, OnGameRichPresenceJoinRequested )
+        PY_OVERRIDE_LOG( _steam, GameRichPresenceJoinRequestedCallback, OnGameRichPresenceJoinRequested )
+        bp::override func_OnGameRichPresenceJoinRequested = this->get_override( "OnGameRichPresenceJoinRequested" );
+        if( func_OnGameRichPresenceJoinRequested.ptr() != Py_None )
+            try {
+                func_OnGameRichPresenceJoinRequested( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameRichPresenceJoinRequestedCallback::OnGameRichPresenceJoinRequested( pData );
+            }
+        else
+            this->GameRichPresenceJoinRequestedCallback::OnGameRichPresenceJoinRequested( pData );
+    }
+    
+    void default_OnGameRichPresenceJoinRequested( ::GameRichPresenceJoinRequested_t * pData ) {
+        GameRichPresenceJoinRequestedCallback::OnGameRichPresenceJoinRequested( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameConnectedClanChatMsg, GameConnectedClanChatMsg_t );
+
+struct GameConnectedClanChatMsgCallback_wrapper : GameConnectedClanChatMsgCallback, bp::wrapper< GameConnectedClanChatMsgCallback > {
+
+    GameConnectedClanChatMsgCallback_wrapper(GameConnectedClanChatMsgCallback const & arg )
+    : GameConnectedClanChatMsgCallback( arg )
+      , bp::wrapper< GameConnectedClanChatMsgCallback >(){
+        // copy constructor
+        
+    }
+
+    GameConnectedClanChatMsgCallback_wrapper()
+    : GameConnectedClanChatMsgCallback()
+      , bp::wrapper< GameConnectedClanChatMsgCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnGameConnectedClanChatMsg( ::GameConnectedClanChatMsg_t * pData ) {
+        PY_OVERRIDE_CHECK( GameConnectedClanChatMsgCallback, OnGameConnectedClanChatMsg )
+        PY_OVERRIDE_LOG( _steam, GameConnectedClanChatMsgCallback, OnGameConnectedClanChatMsg )
+        bp::override func_OnGameConnectedClanChatMsg = this->get_override( "OnGameConnectedClanChatMsg" );
+        if( func_OnGameConnectedClanChatMsg.ptr() != Py_None )
+            try {
+                func_OnGameConnectedClanChatMsg( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameConnectedClanChatMsgCallback::OnGameConnectedClanChatMsg( pData );
+            }
+        else
+            this->GameConnectedClanChatMsgCallback::OnGameConnectedClanChatMsg( pData );
+    }
+    
+    void default_OnGameConnectedClanChatMsg( ::GameConnectedClanChatMsg_t * pData ) {
+        GameConnectedClanChatMsgCallback::OnGameConnectedClanChatMsg( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameConnectedChatJoin, GameConnectedChatJoin_t );
+
+struct GameConnectedChatJoinCallback_wrapper : GameConnectedChatJoinCallback, bp::wrapper< GameConnectedChatJoinCallback > {
+
+    GameConnectedChatJoinCallback_wrapper(GameConnectedChatJoinCallback const & arg )
+    : GameConnectedChatJoinCallback( arg )
+      , bp::wrapper< GameConnectedChatJoinCallback >(){
+        // copy constructor
+        
+    }
+
+    GameConnectedChatJoinCallback_wrapper()
+    : GameConnectedChatJoinCallback()
+      , bp::wrapper< GameConnectedChatJoinCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnGameConnectedChatJoin( ::GameConnectedChatJoin_t * pData ) {
+        PY_OVERRIDE_CHECK( GameConnectedChatJoinCallback, OnGameConnectedChatJoin )
+        PY_OVERRIDE_LOG( _steam, GameConnectedChatJoinCallback, OnGameConnectedChatJoin )
+        bp::override func_OnGameConnectedChatJoin = this->get_override( "OnGameConnectedChatJoin" );
+        if( func_OnGameConnectedChatJoin.ptr() != Py_None )
+            try {
+                func_OnGameConnectedChatJoin( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameConnectedChatJoinCallback::OnGameConnectedChatJoin( pData );
+            }
+        else
+            this->GameConnectedChatJoinCallback::OnGameConnectedChatJoin( pData );
+    }
+    
+    void default_OnGameConnectedChatJoin( ::GameConnectedChatJoin_t * pData ) {
+        GameConnectedChatJoinCallback::OnGameConnectedChatJoin( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameConnectedChatLeave, GameConnectedChatLeave_t );
+
+struct GameConnectedChatLeaveCallback_wrapper : GameConnectedChatLeaveCallback, bp::wrapper< GameConnectedChatLeaveCallback > {
+
+    GameConnectedChatLeaveCallback_wrapper(GameConnectedChatLeaveCallback const & arg )
+    : GameConnectedChatLeaveCallback( arg )
+      , bp::wrapper< GameConnectedChatLeaveCallback >(){
+        // copy constructor
+        
+    }
+
+    GameConnectedChatLeaveCallback_wrapper()
+    : GameConnectedChatLeaveCallback()
+      , bp::wrapper< GameConnectedChatLeaveCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnGameConnectedChatLeave( ::GameConnectedChatLeave_t * pData ) {
+        PY_OVERRIDE_CHECK( GameConnectedChatLeaveCallback, OnGameConnectedChatLeave )
+        PY_OVERRIDE_LOG( _steam, GameConnectedChatLeaveCallback, OnGameConnectedChatLeave )
+        bp::override func_OnGameConnectedChatLeave = this->get_override( "OnGameConnectedChatLeave" );
+        if( func_OnGameConnectedChatLeave.ptr() != Py_None )
+            try {
+                func_OnGameConnectedChatLeave( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameConnectedChatLeaveCallback::OnGameConnectedChatLeave( pData );
+            }
+        else
+            this->GameConnectedChatLeaveCallback::OnGameConnectedChatLeave( pData );
+    }
+    
+    void default_OnGameConnectedChatLeave( ::GameConnectedChatLeave_t * pData ) {
+        GameConnectedChatLeaveCallback::OnGameConnectedChatLeave( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( DownloadClanActivityCountsResult, DownloadClanActivityCountsResult_t );
+
+struct DownloadClanActivityCountsResultCallback_wrapper : DownloadClanActivityCountsResultCallback, bp::wrapper< DownloadClanActivityCountsResultCallback > {
+
+    DownloadClanActivityCountsResultCallback_wrapper(DownloadClanActivityCountsResultCallback const & arg )
+    : DownloadClanActivityCountsResultCallback( arg )
+      , bp::wrapper< DownloadClanActivityCountsResultCallback >(){
+        // copy constructor
+        
+    }
+
+    DownloadClanActivityCountsResultCallback_wrapper()
+    : DownloadClanActivityCountsResultCallback()
+      , bp::wrapper< DownloadClanActivityCountsResultCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnDownloadClanActivityCountsResult( ::DownloadClanActivityCountsResult_t * pData ) {
+        PY_OVERRIDE_CHECK( DownloadClanActivityCountsResultCallback, OnDownloadClanActivityCountsResult )
+        PY_OVERRIDE_LOG( _steam, DownloadClanActivityCountsResultCallback, OnDownloadClanActivityCountsResult )
+        bp::override func_OnDownloadClanActivityCountsResult = this->get_override( "OnDownloadClanActivityCountsResult" );
+        if( func_OnDownloadClanActivityCountsResult.ptr() != Py_None )
+            try {
+                func_OnDownloadClanActivityCountsResult( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->DownloadClanActivityCountsResultCallback::OnDownloadClanActivityCountsResult( pData );
+            }
+        else
+            this->DownloadClanActivityCountsResultCallback::OnDownloadClanActivityCountsResult( pData );
+    }
+    
+    void default_OnDownloadClanActivityCountsResult( ::DownloadClanActivityCountsResult_t * pData ) {
+        DownloadClanActivityCountsResultCallback::OnDownloadClanActivityCountsResult( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( JoinClanChatRoomCompletionResult, JoinClanChatRoomCompletionResult_t );
+
+struct JoinClanChatRoomCompletionResultCallback_wrapper : JoinClanChatRoomCompletionResultCallback, bp::wrapper< JoinClanChatRoomCompletionResultCallback > {
+
+    JoinClanChatRoomCompletionResultCallback_wrapper(JoinClanChatRoomCompletionResultCallback const & arg )
+    : JoinClanChatRoomCompletionResultCallback( arg )
+      , bp::wrapper< JoinClanChatRoomCompletionResultCallback >(){
+        // copy constructor
+        
+    }
+
+    JoinClanChatRoomCompletionResultCallback_wrapper()
+    : JoinClanChatRoomCompletionResultCallback()
+      , bp::wrapper< JoinClanChatRoomCompletionResultCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnJoinClanChatRoomCompletionResult( ::JoinClanChatRoomCompletionResult_t * pData ) {
+        PY_OVERRIDE_CHECK( JoinClanChatRoomCompletionResultCallback, OnJoinClanChatRoomCompletionResult )
+        PY_OVERRIDE_LOG( _steam, JoinClanChatRoomCompletionResultCallback, OnJoinClanChatRoomCompletionResult )
+        bp::override func_OnJoinClanChatRoomCompletionResult = this->get_override( "OnJoinClanChatRoomCompletionResult" );
+        if( func_OnJoinClanChatRoomCompletionResult.ptr() != Py_None )
+            try {
+                func_OnJoinClanChatRoomCompletionResult( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->JoinClanChatRoomCompletionResultCallback::OnJoinClanChatRoomCompletionResult( pData );
+            }
+        else
+            this->JoinClanChatRoomCompletionResultCallback::OnJoinClanChatRoomCompletionResult( pData );
+    }
+    
+    void default_OnJoinClanChatRoomCompletionResult( ::JoinClanChatRoomCompletionResult_t * pData ) {
+        JoinClanChatRoomCompletionResultCallback::OnJoinClanChatRoomCompletionResult( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameConnectedFriendChatMsg, GameConnectedFriendChatMsg_t );
+
+struct GameConnectedFriendChatMsgCallback_wrapper : GameConnectedFriendChatMsgCallback, bp::wrapper< GameConnectedFriendChatMsgCallback > {
+
+    GameConnectedFriendChatMsgCallback_wrapper(GameConnectedFriendChatMsgCallback const & arg )
+    : GameConnectedFriendChatMsgCallback( arg )
+      , bp::wrapper< GameConnectedFriendChatMsgCallback >(){
+        // copy constructor
+        
+    }
+
+    GameConnectedFriendChatMsgCallback_wrapper()
+    : GameConnectedFriendChatMsgCallback()
+      , bp::wrapper< GameConnectedFriendChatMsgCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnGameConnectedFriendChatMsg( ::GameConnectedFriendChatMsg_t * pData ) {
+        PY_OVERRIDE_CHECK( GameConnectedFriendChatMsgCallback, OnGameConnectedFriendChatMsg )
+        PY_OVERRIDE_LOG( _steam, GameConnectedFriendChatMsgCallback, OnGameConnectedFriendChatMsg )
+        bp::override func_OnGameConnectedFriendChatMsg = this->get_override( "OnGameConnectedFriendChatMsg" );
+        if( func_OnGameConnectedFriendChatMsg.ptr() != Py_None )
+            try {
+                func_OnGameConnectedFriendChatMsg( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameConnectedFriendChatMsgCallback::OnGameConnectedFriendChatMsg( pData );
+            }
+        else
+            this->GameConnectedFriendChatMsgCallback::OnGameConnectedFriendChatMsg( pData );
+    }
+    
+    void default_OnGameConnectedFriendChatMsg( ::GameConnectedFriendChatMsg_t * pData ) {
+        GameConnectedFriendChatMsgCallback::OnGameConnectedFriendChatMsg( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( FriendsGetFollowerCount, FriendsGetFollowerCount_t );
+
+struct FriendsGetFollowerCountCallback_wrapper : FriendsGetFollowerCountCallback, bp::wrapper< FriendsGetFollowerCountCallback > {
+
+    FriendsGetFollowerCountCallback_wrapper(FriendsGetFollowerCountCallback const & arg )
+    : FriendsGetFollowerCountCallback( arg )
+      , bp::wrapper< FriendsGetFollowerCountCallback >(){
+        // copy constructor
+        
+    }
+
+    FriendsGetFollowerCountCallback_wrapper()
+    : FriendsGetFollowerCountCallback()
+      , bp::wrapper< FriendsGetFollowerCountCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnFriendsGetFollowerCount( ::FriendsGetFollowerCount_t * pData ) {
+        PY_OVERRIDE_CHECK( FriendsGetFollowerCountCallback, OnFriendsGetFollowerCount )
+        PY_OVERRIDE_LOG( _steam, FriendsGetFollowerCountCallback, OnFriendsGetFollowerCount )
+        bp::override func_OnFriendsGetFollowerCount = this->get_override( "OnFriendsGetFollowerCount" );
+        if( func_OnFriendsGetFollowerCount.ptr() != Py_None )
+            try {
+                func_OnFriendsGetFollowerCount( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->FriendsGetFollowerCountCallback::OnFriendsGetFollowerCount( pData );
+            }
+        else
+            this->FriendsGetFollowerCountCallback::OnFriendsGetFollowerCount( pData );
+    }
+    
+    void default_OnFriendsGetFollowerCount( ::FriendsGetFollowerCount_t * pData ) {
+        FriendsGetFollowerCountCallback::OnFriendsGetFollowerCount( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( FriendsIsFollowing, FriendsIsFollowing_t );
+
+struct FriendsIsFollowingCallback_wrapper : FriendsIsFollowingCallback, bp::wrapper< FriendsIsFollowingCallback > {
+
+    FriendsIsFollowingCallback_wrapper(FriendsIsFollowingCallback const & arg )
+    : FriendsIsFollowingCallback( arg )
+      , bp::wrapper< FriendsIsFollowingCallback >(){
+        // copy constructor
+        
+    }
+
+    FriendsIsFollowingCallback_wrapper()
+    : FriendsIsFollowingCallback()
+      , bp::wrapper< FriendsIsFollowingCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnFriendsIsFollowing( ::FriendsIsFollowing_t * pData ) {
+        PY_OVERRIDE_CHECK( FriendsIsFollowingCallback, OnFriendsIsFollowing )
+        PY_OVERRIDE_LOG( _steam, FriendsIsFollowingCallback, OnFriendsIsFollowing )
+        bp::override func_OnFriendsIsFollowing = this->get_override( "OnFriendsIsFollowing" );
+        if( func_OnFriendsIsFollowing.ptr() != Py_None )
+            try {
+                func_OnFriendsIsFollowing( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->FriendsIsFollowingCallback::OnFriendsIsFollowing( pData );
+            }
+        else
+            this->FriendsIsFollowingCallback::OnFriendsIsFollowing( pData );
+    }
+    
+    void default_OnFriendsIsFollowing( ::FriendsIsFollowing_t * pData ) {
+        FriendsIsFollowingCallback::OnFriendsIsFollowing( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( FriendsEnumerateFollowingList, FriendsEnumerateFollowingList_t );
+
+struct FriendsEnumerateFollowingListCallback_wrapper : FriendsEnumerateFollowingListCallback, bp::wrapper< FriendsEnumerateFollowingListCallback > {
+
+    FriendsEnumerateFollowingListCallback_wrapper(FriendsEnumerateFollowingListCallback const & arg )
+    : FriendsEnumerateFollowingListCallback( arg )
+      , bp::wrapper< FriendsEnumerateFollowingListCallback >(){
+        // copy constructor
+        
+    }
+
+    FriendsEnumerateFollowingListCallback_wrapper()
+    : FriendsEnumerateFollowingListCallback()
+      , bp::wrapper< FriendsEnumerateFollowingListCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnFriendsEnumerateFollowingList( ::FriendsEnumerateFollowingList_t * pData ) {
+        PY_OVERRIDE_CHECK( FriendsEnumerateFollowingListCallback, OnFriendsEnumerateFollowingList )
+        PY_OVERRIDE_LOG( _steam, FriendsEnumerateFollowingListCallback, OnFriendsEnumerateFollowingList )
+        bp::override func_OnFriendsEnumerateFollowingList = this->get_override( "OnFriendsEnumerateFollowingList" );
+        if( func_OnFriendsEnumerateFollowingList.ptr() != Py_None )
+            try {
+                func_OnFriendsEnumerateFollowingList( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->FriendsEnumerateFollowingListCallback::OnFriendsEnumerateFollowingList( pData );
+            }
+        else
+            this->FriendsEnumerateFollowingListCallback::OnFriendsEnumerateFollowingList( pData );
+    }
+    
+    void default_OnFriendsEnumerateFollowingList( ::FriendsEnumerateFollowingList_t * pData ) {
+        FriendsEnumerateFollowingListCallback::OnFriendsEnumerateFollowingList( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( SetPersonaNameResponse, SetPersonaNameResponse_t );
+
+struct SetPersonaNameResponseCallback_wrapper : SetPersonaNameResponseCallback, bp::wrapper< SetPersonaNameResponseCallback > {
+
+    SetPersonaNameResponseCallback_wrapper(SetPersonaNameResponseCallback const & arg )
+    : SetPersonaNameResponseCallback( arg )
+      , bp::wrapper< SetPersonaNameResponseCallback >(){
+        // copy constructor
+        
+    }
+
+    SetPersonaNameResponseCallback_wrapper()
+    : SetPersonaNameResponseCallback()
+      , bp::wrapper< SetPersonaNameResponseCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnSetPersonaNameResponse( ::SetPersonaNameResponse_t * pData ) {
+        PY_OVERRIDE_CHECK( SetPersonaNameResponseCallback, OnSetPersonaNameResponse )
+        PY_OVERRIDE_LOG( _steam, SetPersonaNameResponseCallback, OnSetPersonaNameResponse )
+        bp::override func_OnSetPersonaNameResponse = this->get_override( "OnSetPersonaNameResponse" );
+        if( func_OnSetPersonaNameResponse.ptr() != Py_None )
+            try {
+                func_OnSetPersonaNameResponse( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->SetPersonaNameResponseCallback::OnSetPersonaNameResponse( pData );
+            }
+        else
+            this->SetPersonaNameResponseCallback::OnSetPersonaNameResponse( pData );
+    }
+    
+    void default_OnSetPersonaNameResponse( ::SetPersonaNameResponse_t * pData ) {
+        SetPersonaNameResponseCallback::OnSetPersonaNameResponse( pData );
+    }
 };
 
 PY_STEAM_CALLRESULT_WRAPPER( LobbyMatchList, LobbyMatchList_t );
@@ -769,6 +1504,24 @@ BOOST_PYTHON_MODULE(_steam){
         .export_values()
         ;
 
+    bp::enum_< EPersonaChange>("EPersonaChange")
+        .value("k_EPersonaChangeName", k_EPersonaChangeName)
+        .value("k_EPersonaChangeStatus", k_EPersonaChangeStatus)
+        .value("k_EPersonaChangeComeOnline", k_EPersonaChangeComeOnline)
+        .value("k_EPersonaChangeGoneOffline", k_EPersonaChangeGoneOffline)
+        .value("k_EPersonaChangeGamePlayed", k_EPersonaChangeGamePlayed)
+        .value("k_EPersonaChangeGameServer", k_EPersonaChangeGameServer)
+        .value("k_EPersonaChangeAvatar", k_EPersonaChangeAvatar)
+        .value("k_EPersonaChangeJoinedSource", k_EPersonaChangeJoinedSource)
+        .value("k_EPersonaChangeLeftSource", k_EPersonaChangeLeftSource)
+        .value("k_EPersonaChangeRelationshipChanged", k_EPersonaChangeRelationshipChanged)
+        .value("k_EPersonaChangeNameFirstSet", k_EPersonaChangeNameFirstSet)
+        .value("k_EPersonaChangeFacebookInfo", k_EPersonaChangeFacebookInfo)
+        .value("k_EPersonaChangeNickname", k_EPersonaChangeNickname)
+        .value("k_EPersonaChangeSteamLevel", k_EPersonaChangeSteamLevel)
+        .export_values()
+        ;
+
     bp::enum_< EPersonaState>("EPersonaState")
         .value("k_EPersonaStateOffline", k_EPersonaStateOffline)
         .value("k_EPersonaStateOnline", k_EPersonaStateOnline)
@@ -893,6 +1646,17 @@ BOOST_PYTHON_MODULE(_steam){
         .value("k_EUniverseMax", k_EUniverseMax)
         .export_values()
         ;
+
+    { //::AvatarImageLoaded_t
+        typedef bp::class_< AvatarImageLoaded_t > AvatarImageLoaded_t_exposer_t;
+        AvatarImageLoaded_t_exposer_t AvatarImageLoaded_t_exposer = AvatarImageLoaded_t_exposer_t( "AvatarImageLoaded_t" );
+        bp::scope AvatarImageLoaded_t_scope( AvatarImageLoaded_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)AvatarImageLoaded_t::k_iCallback;
+        AvatarImageLoaded_t_exposer.def_readwrite( "image", &AvatarImageLoaded_t::m_iImage );
+        AvatarImageLoaded_t_exposer.def_readwrite( "tall", &AvatarImageLoaded_t::m_iTall );
+        AvatarImageLoaded_t_exposer.def_readwrite( "wide", &AvatarImageLoaded_t::m_iWide );
+        AvatarImageLoaded_t_exposer.def_readwrite( "steamid", &AvatarImageLoaded_t::m_steamID );
+    }
 
     bp::class_< CSteamAPIContext >( "CSteamAPIContext", bp::init< >() )    
         .def( 
@@ -1218,6 +1982,169 @@ BOOST_PYTHON_MODULE(_steam){
         CSteamID_exposer.def( bp::self > bp::self );
     }
 
+    { //::ClanOfficerListResponse_t
+        typedef bp::class_< ClanOfficerListResponse_t > ClanOfficerListResponse_t_exposer_t;
+        ClanOfficerListResponse_t_exposer_t ClanOfficerListResponse_t_exposer = ClanOfficerListResponse_t_exposer_t( "ClanOfficerListResponse_t" );
+        bp::scope ClanOfficerListResponse_t_scope( ClanOfficerListResponse_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)ClanOfficerListResponse_t::k_iCallback;
+        ClanOfficerListResponse_t_exposer.def_readwrite( "success", &ClanOfficerListResponse_t::m_bSuccess );
+        ClanOfficerListResponse_t_exposer.def_readwrite( "officers", &ClanOfficerListResponse_t::m_cOfficers );
+        ClanOfficerListResponse_t_exposer.def_readwrite( "steamidclan", &ClanOfficerListResponse_t::m_steamIDClan );
+    }
+
+    { //::DownloadClanActivityCountsResult_t
+        typedef bp::class_< DownloadClanActivityCountsResult_t > DownloadClanActivityCountsResult_t_exposer_t;
+        DownloadClanActivityCountsResult_t_exposer_t DownloadClanActivityCountsResult_t_exposer = DownloadClanActivityCountsResult_t_exposer_t( "DownloadClanActivityCountsResult_t" );
+        bp::scope DownloadClanActivityCountsResult_t_scope( DownloadClanActivityCountsResult_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)DownloadClanActivityCountsResult_t::k_iCallback;
+        DownloadClanActivityCountsResult_t_exposer.def_readwrite( "success", &DownloadClanActivityCountsResult_t::m_bSuccess );
+    }
+
+    { //::FriendRichPresenceUpdate_t
+        typedef bp::class_< FriendRichPresenceUpdate_t > FriendRichPresenceUpdate_t_exposer_t;
+        FriendRichPresenceUpdate_t_exposer_t FriendRichPresenceUpdate_t_exposer = FriendRichPresenceUpdate_t_exposer_t( "FriendRichPresenceUpdate_t" );
+        bp::scope FriendRichPresenceUpdate_t_scope( FriendRichPresenceUpdate_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)FriendRichPresenceUpdate_t::k_iCallback;
+        FriendRichPresenceUpdate_t_exposer.def_readwrite( "appid", &FriendRichPresenceUpdate_t::m_nAppID );
+        FriendRichPresenceUpdate_t_exposer.def_readwrite( "steamidfriend", &FriendRichPresenceUpdate_t::m_steamIDFriend );
+    }
+
+    { //::FriendsEnumerateFollowingList_t
+        typedef bp::class_< FriendsEnumerateFollowingList_t_wrapper > FriendsEnumerateFollowingList_t_exposer_t;
+        FriendsEnumerateFollowingList_t_exposer_t FriendsEnumerateFollowingList_t_exposer = FriendsEnumerateFollowingList_t_exposer_t( "FriendsEnumerateFollowingList_t" );
+        bp::scope FriendsEnumerateFollowingList_t_scope( FriendsEnumerateFollowingList_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)FriendsEnumerateFollowingList_t::k_iCallback;
+        FriendsEnumerateFollowingList_t_exposer.def_readwrite( "result", &FriendsEnumerateFollowingList_t::m_eResult );
+        FriendsEnumerateFollowingList_t_exposer.def_readwrite( "resultsreturned", &FriendsEnumerateFollowingList_t::m_nResultsReturned );
+        FriendsEnumerateFollowingList_t_exposer.def_readwrite( "totalresultcount", &FriendsEnumerateFollowingList_t::m_nTotalResultCount );
+        pyplusplus::containers::static_sized::register_array_1< ::CSteamID, 50, bp::return_internal_reference< > >( "__array_1__scope_CSteamID_50" );
+        { //FriendsEnumerateFollowingList_t::m_rgSteamID [variable], type=CSteamID[50]
+        
+            typedef pyplusplus::containers::static_sized::array_1_t< ::CSteamID, 50> ( *array_wrapper_creator )( ::FriendsEnumerateFollowingList_t & );
+            
+            FriendsEnumerateFollowingList_t_exposer.add_property( "m_rgSteamID"
+                , bp::make_function( array_wrapper_creator(&FriendsEnumerateFollowingList_t_wrapper::pyplusplus_m_rgSteamID_wrapper)
+                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
+        }
+    }
+
+    { //::FriendsGetFollowerCount_t
+        typedef bp::class_< FriendsGetFollowerCount_t > FriendsGetFollowerCount_t_exposer_t;
+        FriendsGetFollowerCount_t_exposer_t FriendsGetFollowerCount_t_exposer = FriendsGetFollowerCount_t_exposer_t( "FriendsGetFollowerCount_t" );
+        bp::scope FriendsGetFollowerCount_t_scope( FriendsGetFollowerCount_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)FriendsGetFollowerCount_t::k_iCallback;
+        FriendsGetFollowerCount_t_exposer.def_readwrite( "result", &FriendsGetFollowerCount_t::m_eResult );
+        FriendsGetFollowerCount_t_exposer.def_readwrite( "count", &FriendsGetFollowerCount_t::m_nCount );
+        FriendsGetFollowerCount_t_exposer.def_readwrite( "steamid", &FriendsGetFollowerCount_t::m_steamID );
+    }
+
+    { //::FriendsIsFollowing_t
+        typedef bp::class_< FriendsIsFollowing_t > FriendsIsFollowing_t_exposer_t;
+        FriendsIsFollowing_t_exposer_t FriendsIsFollowing_t_exposer = FriendsIsFollowing_t_exposer_t( "FriendsIsFollowing_t" );
+        bp::scope FriendsIsFollowing_t_scope( FriendsIsFollowing_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)FriendsIsFollowing_t::k_iCallback;
+        FriendsIsFollowing_t_exposer.def_readwrite( "isfollowing", &FriendsIsFollowing_t::m_bIsFollowing );
+        FriendsIsFollowing_t_exposer.def_readwrite( "result", &FriendsIsFollowing_t::m_eResult );
+        FriendsIsFollowing_t_exposer.def_readwrite( "steamid", &FriendsIsFollowing_t::m_steamID );
+    }
+
+    { //::GameConnectedChatJoin_t
+        typedef bp::class_< GameConnectedChatJoin_t > GameConnectedChatJoin_t_exposer_t;
+        GameConnectedChatJoin_t_exposer_t GameConnectedChatJoin_t_exposer = GameConnectedChatJoin_t_exposer_t( "GameConnectedChatJoin_t" );
+        bp::scope GameConnectedChatJoin_t_scope( GameConnectedChatJoin_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameConnectedChatJoin_t::k_iCallback;
+        GameConnectedChatJoin_t_exposer.def_readwrite( "steamidclanchat", &GameConnectedChatJoin_t::m_steamIDClanChat );
+        GameConnectedChatJoin_t_exposer.def_readwrite( "steamiduser", &GameConnectedChatJoin_t::m_steamIDUser );
+    }
+
+    { //::GameConnectedChatLeave_t
+        typedef bp::class_< GameConnectedChatLeave_t > GameConnectedChatLeave_t_exposer_t;
+        GameConnectedChatLeave_t_exposer_t GameConnectedChatLeave_t_exposer = GameConnectedChatLeave_t_exposer_t( "GameConnectedChatLeave_t" );
+        bp::scope GameConnectedChatLeave_t_scope( GameConnectedChatLeave_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameConnectedChatLeave_t::k_iCallback;
+        GameConnectedChatLeave_t_exposer.def_readwrite( "dropped", &GameConnectedChatLeave_t::m_bDropped );
+        GameConnectedChatLeave_t_exposer.def_readwrite( "kicked", &GameConnectedChatLeave_t::m_bKicked );
+        GameConnectedChatLeave_t_exposer.def_readwrite( "steamidclanchat", &GameConnectedChatLeave_t::m_steamIDClanChat );
+        GameConnectedChatLeave_t_exposer.def_readwrite( "steamiduser", &GameConnectedChatLeave_t::m_steamIDUser );
+    }
+
+    { //::GameConnectedClanChatMsg_t
+        typedef bp::class_< GameConnectedClanChatMsg_t > GameConnectedClanChatMsg_t_exposer_t;
+        GameConnectedClanChatMsg_t_exposer_t GameConnectedClanChatMsg_t_exposer = GameConnectedClanChatMsg_t_exposer_t( "GameConnectedClanChatMsg_t" );
+        bp::scope GameConnectedClanChatMsg_t_scope( GameConnectedClanChatMsg_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameConnectedClanChatMsg_t::k_iCallback;
+        GameConnectedClanChatMsg_t_exposer.def_readwrite( "messageid", &GameConnectedClanChatMsg_t::m_iMessageID );
+        GameConnectedClanChatMsg_t_exposer.def_readwrite( "steamidclanchat", &GameConnectedClanChatMsg_t::m_steamIDClanChat );
+        GameConnectedClanChatMsg_t_exposer.def_readwrite( "steamiduser", &GameConnectedClanChatMsg_t::m_steamIDUser );
+    }
+
+    { //::GameConnectedFriendChatMsg_t
+        typedef bp::class_< GameConnectedFriendChatMsg_t > GameConnectedFriendChatMsg_t_exposer_t;
+        GameConnectedFriendChatMsg_t_exposer_t GameConnectedFriendChatMsg_t_exposer = GameConnectedFriendChatMsg_t_exposer_t( "GameConnectedFriendChatMsg_t" );
+        bp::scope GameConnectedFriendChatMsg_t_scope( GameConnectedFriendChatMsg_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameConnectedFriendChatMsg_t::k_iCallback;
+        GameConnectedFriendChatMsg_t_exposer.def_readwrite( "messageid", &GameConnectedFriendChatMsg_t::m_iMessageID );
+        GameConnectedFriendChatMsg_t_exposer.def_readwrite( "steamiduser", &GameConnectedFriendChatMsg_t::m_steamIDUser );
+    }
+
+    { //::GameLobbyJoinRequested_t
+        typedef bp::class_< GameLobbyJoinRequested_t > GameLobbyJoinRequested_t_exposer_t;
+        GameLobbyJoinRequested_t_exposer_t GameLobbyJoinRequested_t_exposer = GameLobbyJoinRequested_t_exposer_t( "GameLobbyJoinRequested_t" );
+        bp::scope GameLobbyJoinRequested_t_scope( GameLobbyJoinRequested_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameLobbyJoinRequested_t::k_iCallback;
+        GameLobbyJoinRequested_t_exposer.def_readwrite( "steamidfriend", &GameLobbyJoinRequested_t::m_steamIDFriend );
+        GameLobbyJoinRequested_t_exposer.def_readwrite( "steamidlobby", &GameLobbyJoinRequested_t::m_steamIDLobby );
+    }
+
+    { //::GameOverlayActivated_t
+        typedef bp::class_< GameOverlayActivated_t > GameOverlayActivated_t_exposer_t;
+        GameOverlayActivated_t_exposer_t GameOverlayActivated_t_exposer = GameOverlayActivated_t_exposer_t( "GameOverlayActivated_t" );
+        bp::scope GameOverlayActivated_t_scope( GameOverlayActivated_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameOverlayActivated_t::k_iCallback;
+        GameOverlayActivated_t_exposer.def_readwrite( "active", &GameOverlayActivated_t::m_bActive );
+    }
+
+    { //::GameRichPresenceJoinRequested_t
+        typedef bp::class_< GameRichPresenceJoinRequested_t_wrapper > GameRichPresenceJoinRequested_t_exposer_t;
+        GameRichPresenceJoinRequested_t_exposer_t GameRichPresenceJoinRequested_t_exposer = GameRichPresenceJoinRequested_t_exposer_t( "GameRichPresenceJoinRequested_t" );
+        bp::scope GameRichPresenceJoinRequested_t_scope( GameRichPresenceJoinRequested_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameRichPresenceJoinRequested_t::k_iCallback;
+        pyplusplus::containers::static_sized::register_array_1< char, 256 >( "__array_1_char_256" );
+        { //GameRichPresenceJoinRequested_t::m_rgchConnect [variable], type=char[256]
+        
+            typedef pyplusplus::containers::static_sized::array_1_t< char, 256> ( *array_wrapper_creator )( ::GameRichPresenceJoinRequested_t & );
+            
+            GameRichPresenceJoinRequested_t_exposer.add_property( "m_rgchConnect"
+                , bp::make_function( array_wrapper_creator(&GameRichPresenceJoinRequested_t_wrapper::pyplusplus_m_rgchConnect_wrapper)
+                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
+        }
+        GameRichPresenceJoinRequested_t_exposer.def_readwrite( "steamidfriend", &GameRichPresenceJoinRequested_t::m_steamIDFriend );
+    }
+
+    { //::GameServerChangeRequested_t
+        typedef bp::class_< GameServerChangeRequested_t_wrapper > GameServerChangeRequested_t_exposer_t;
+        GameServerChangeRequested_t_exposer_t GameServerChangeRequested_t_exposer = GameServerChangeRequested_t_exposer_t( "GameServerChangeRequested_t" );
+        bp::scope GameServerChangeRequested_t_scope( GameServerChangeRequested_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameServerChangeRequested_t::k_iCallback;
+        pyplusplus::containers::static_sized::register_array_1< char, 64 >( "__array_1_char_64" );
+        { //GameServerChangeRequested_t::m_rgchPassword [variable], type=char[64]
+        
+            typedef pyplusplus::containers::static_sized::array_1_t< char, 64> ( *array_wrapper_creator )( ::GameServerChangeRequested_t & );
+            
+            GameServerChangeRequested_t_exposer.add_property( "m_rgchPassword"
+                , bp::make_function( array_wrapper_creator(&GameServerChangeRequested_t_wrapper::pyplusplus_m_rgchPassword_wrapper)
+                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
+        }
+        { //GameServerChangeRequested_t::m_rgchServer [variable], type=char[64]
+        
+            typedef pyplusplus::containers::static_sized::array_1_t< char, 64> ( *array_wrapper_creator )( ::GameServerChangeRequested_t & );
+            
+            GameServerChangeRequested_t_exposer.add_property( "m_rgchServer"
+                , bp::make_function( array_wrapper_creator(&GameServerChangeRequested_t_wrapper::pyplusplus_m_rgchServer_wrapper)
+                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
+        }
+    }
+
     bp::class_< ISteamFriends, boost::noncopyable >( "ISteamFriends", bp::no_init )    
         .def( 
             "ActivateGameOverlay"
@@ -1536,8 +2463,8 @@ BOOST_PYTHON_MODULE(_steam){
             , ( bp::arg("steamIDLobby") ) )    
         .def( 
             "GetLobbyGameServer"
-            , (bool ( ::ISteamMatchmaking::* )( ::CSteamID,::uint32 *,::uint16 *,::CSteamID * ) )( &::ISteamMatchmaking::GetLobbyGameServer )
-            , ( bp::arg("steamIDLobby"), bp::arg("punGameServerIP"), bp::arg("punGameServerPort"), bp::arg("psteamIDGameServer") ) )    
+            , (boost::python::tuple (*)( ::ISteamMatchmaking &,::CSteamID ))( &GetLobbyGameServer_e3badaaa69eb32a59ea528ba9e97e8ee )
+            , ( bp::arg("inst"), bp::arg("steamIDLobby") ) )    
         .def( 
             "GetLobbyMemberByIndex"
             , (::CSteamID ( ::ISteamMatchmaking::* )( ::CSteamID,int ) )( &::ISteamMatchmaking::GetLobbyMemberByIndex )
@@ -1953,6 +2880,15 @@ BOOST_PYTHON_MODULE(_steam){
             , (bool ( ::ISteamUtils::* )( ::EGamepadTextInputMode,::EGamepadTextInputLineMode,char const *,::uint32,char const * ) )( &::ISteamUtils::ShowGamepadTextInput )
             , ( bp::arg("eInputMode"), bp::arg("eLineInputMode"), bp::arg("pchDescription"), bp::arg("unCharMax"), bp::arg("pchExistingText") ) );
 
+    { //::JoinClanChatRoomCompletionResult_t
+        typedef bp::class_< JoinClanChatRoomCompletionResult_t > JoinClanChatRoomCompletionResult_t_exposer_t;
+        JoinClanChatRoomCompletionResult_t_exposer_t JoinClanChatRoomCompletionResult_t_exposer = JoinClanChatRoomCompletionResult_t_exposer_t( "JoinClanChatRoomCompletionResult_t" );
+        bp::scope JoinClanChatRoomCompletionResult_t_scope( JoinClanChatRoomCompletionResult_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)JoinClanChatRoomCompletionResult_t::k_iCallback;
+        JoinClanChatRoomCompletionResult_t_exposer.def_readwrite( "chatroomenterresponse", &JoinClanChatRoomCompletionResult_t::m_eChatRoomEnterResponse );
+        JoinClanChatRoomCompletionResult_t_exposer.def_readwrite( "steamidclanchat", &JoinClanChatRoomCompletionResult_t::m_steamIDClanChat );
+    }
+
     { //::LobbyChatMsg_t
         typedef bp::class_< LobbyChatMsg_t > LobbyChatMsg_t_exposer_t;
         LobbyChatMsg_t_exposer_t LobbyChatMsg_t_exposer = LobbyChatMsg_t_exposer_t( "LobbyChatMsg_t" );
@@ -2033,6 +2969,15 @@ BOOST_PYTHON_MODULE(_steam){
         NumberOfCurrentPlayers_t_exposer.def_readwrite( "players", &NumberOfCurrentPlayers_t::m_cPlayers );
     }
 
+    { //::PersonaStateChange_t
+        typedef bp::class_< PersonaStateChange_t > PersonaStateChange_t_exposer_t;
+        PersonaStateChange_t_exposer_t PersonaStateChange_t_exposer = PersonaStateChange_t_exposer_t( "PersonaStateChange_t" );
+        bp::scope PersonaStateChange_t_scope( PersonaStateChange_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)PersonaStateChange_t::k_iCallback;
+        PersonaStateChange_t_exposer.def_readwrite( "changeflags", &PersonaStateChange_t::m_nChangeFlags );
+        PersonaStateChange_t_exposer.def_readwrite( "steamid", &PersonaStateChange_t::m_ulSteamID );
+    }
+
     bp::class_< PySteamMatchmakingPingResponse_wrapper >( "SteamMatchmakingPingResponse" )    
         .def( 
             "ServerFailedToRespond"
@@ -2098,9 +3043,8 @@ BOOST_PYTHON_MODULE(_steam){
             , ( bp::arg("hServerQuery") ) )    
         .def( 
             "GetServerDetails"
-            , (::gameserveritem_t * ( ::PySteamMatchmakingServers::* )( int,int ) )( &::PySteamMatchmakingServers::GetServerDetails )
-            , ( bp::arg("hRequest"), bp::arg("iServer") )
-            , bp::return_internal_reference< >() )    
+            , (::pygameserveritem_t ( ::PySteamMatchmakingServers::* )( int,int ) )( &::PySteamMatchmakingServers::GetServerDetails )
+            , ( bp::arg("hRequest"), bp::arg("iServer") ) )    
         .def( 
             "PingServer"
             , (int ( ::PySteamMatchmakingServers::* )( ::uint32,::uint16,::PySteamMatchmakingPingResponse * ) )( &::PySteamMatchmakingServers::PingServer )
@@ -2114,86 +3058,113 @@ BOOST_PYTHON_MODULE(_steam){
             , (void ( ::PySteamMatchmakingServers::* )( int ) )( &::PySteamMatchmakingServers::ReleaseRequest )
             , ( bp::arg("hServerListRequest") ) )    
         .def( 
+            "RequestFavoritesServerList"
+            , (int ( ::PySteamMatchmakingServers::* )( ::AppId_t,::boost::python::list,::ISteamMatchmakingServerListResponse * ) )( &::PySteamMatchmakingServers::RequestFavoritesServerList )
+            , ( bp::arg("iApp"), bp::arg("filters"), bp::arg("pRequestServersResponse") ) )    
+        .def( 
+            "RequestFriendsServerList"
+            , (int ( ::PySteamMatchmakingServers::* )( ::AppId_t,::boost::python::list,::ISteamMatchmakingServerListResponse * ) )( &::PySteamMatchmakingServers::RequestFriendsServerList )
+            , ( bp::arg("iApp"), bp::arg("filters"), bp::arg("pRequestServersResponse") ) )    
+        .def( 
+            "RequestHistoryServerList"
+            , (int ( ::PySteamMatchmakingServers::* )( ::AppId_t,::boost::python::list,::ISteamMatchmakingServerListResponse * ) )( &::PySteamMatchmakingServers::RequestHistoryServerList )
+            , ( bp::arg("iApp"), bp::arg("filters"), bp::arg("pRequestServersResponse") ) )    
+        .def( 
             "RequestInternetServerList"
             , (int ( ::PySteamMatchmakingServers::* )( ::AppId_t,::boost::python::list,::PySteamMatchmakingServerListResponse * ) )( &::PySteamMatchmakingServers::RequestInternetServerList )
+            , ( bp::arg("iApp"), bp::arg("filters"), bp::arg("pRequestServersResponse") ) )    
+        .def( 
+            "RequestLANServerList"
+            , (int ( ::PySteamMatchmakingServers::* )( ::AppId_t,::ISteamMatchmakingServerListResponse * ) )( &::PySteamMatchmakingServers::RequestLANServerList )
+            , ( bp::arg("iApp"), bp::arg("pRequestServersResponse") ) )    
+        .def( 
+            "RequestSpectatorServerList"
+            , (int ( ::PySteamMatchmakingServers::* )( ::AppId_t,::boost::python::list,::ISteamMatchmakingServerListResponse * ) )( &::PySteamMatchmakingServers::RequestSpectatorServerList )
             , ( bp::arg("iApp"), bp::arg("filters"), bp::arg("pRequestServersResponse") ) )    
         .def( 
             "ServerRules"
             , (::HServerQuery ( ::PySteamMatchmakingServers::* )( ::uint32,::uint16,::PySteamMatchmakingRulesResponse * ) )( &::PySteamMatchmakingServers::ServerRules )
             , ( bp::arg("unIP"), bp::arg("usPort"), bp::arg("pRequestServersResponse") ) );
 
-    { //::gameserveritem_t
-        typedef bp::class_< gameserveritem_t_wrapper > gameserveritem_t_exposer_t;
-        gameserveritem_t_exposer_t gameserveritem_t_exposer = gameserveritem_t_exposer_t( "gameserveritem_t", bp::init< >() );
-        bp::scope gameserveritem_t_scope( gameserveritem_t_exposer );
-        { //::gameserveritem_t::GetName
+    { //::SetPersonaNameResponse_t
+        typedef bp::class_< SetPersonaNameResponse_t > SetPersonaNameResponse_t_exposer_t;
+        SetPersonaNameResponse_t_exposer_t SetPersonaNameResponse_t_exposer = SetPersonaNameResponse_t_exposer_t( "SetPersonaNameResponse_t" );
+        bp::scope SetPersonaNameResponse_t_scope( SetPersonaNameResponse_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)SetPersonaNameResponse_t::k_iCallback;
+        SetPersonaNameResponse_t_exposer.def_readwrite( "localsuccess", &SetPersonaNameResponse_t::m_bLocalSuccess );
+        SetPersonaNameResponse_t_exposer.def_readwrite( "success", &SetPersonaNameResponse_t::m_bSuccess );
+        SetPersonaNameResponse_t_exposer.def_readwrite( "result", &SetPersonaNameResponse_t::m_result );
+    }
+
+    bp::class_< gameserveritem_t >( "gameserveritem_t", bp::init< >() )    
+        .def( 
+            "GetName"
+            , (char const * ( ::gameserveritem_t::* )(  ) const)( &::gameserveritem_t::GetName ) )    
+        .def_readwrite( "netadr", &gameserveritem_t::m_NetAdr )    
+        .def_readwrite( "donotrefresh", &gameserveritem_t::m_bDoNotRefresh )    
+        .def_readwrite( "hadsuccessfulresponse", &gameserveritem_t::m_bHadSuccessfulResponse )    
+        .def_readwrite( "password", &gameserveritem_t::m_bPassword )    
+        .def_readwrite( "secure", &gameserveritem_t::m_bSecure )    
+        .def_readwrite( "appid", &gameserveritem_t::m_nAppID )    
+        .def_readwrite( "botplayers", &gameserveritem_t::m_nBotPlayers )    
+        .def_readwrite( "maxplayers", &gameserveritem_t::m_nMaxPlayers )    
+        .def_readwrite( "ping", &gameserveritem_t::m_nPing )    
+        .def_readwrite( "players", &gameserveritem_t::m_nPlayers )    
+        .def_readwrite( "serverversion", &gameserveritem_t::m_nServerVersion )    
+        .def_readwrite( "steamid", &gameserveritem_t::m_steamID )    
+        .def_readwrite( "timelastplayed", &gameserveritem_t::m_ulTimeLastPlayed );
+
+    { //::pygameserveritem_t
+        typedef bp::class_< pygameserveritem_t, bp::bases< gameserveritem_t > > pygameserveritem_t_exposer_t;
+        pygameserveritem_t_exposer_t pygameserveritem_t_exposer = pygameserveritem_t_exposer_t( "pygameserveritem_t" );
+        bp::scope pygameserveritem_t_scope( pygameserveritem_t_exposer );
+        { //property "gamedir"[fget=::pygameserveritem_t::GetGameDir]
         
-            typedef char const * ( ::gameserveritem_t::*GetName_function_type )(  ) const;
+            typedef char const * ( ::pygameserveritem_t::*fget )(  ) ;
             
-            gameserveritem_t_exposer.def( 
-                "GetName"
-                , GetName_function_type( &::gameserveritem_t::GetName ) );
+            pygameserveritem_t_exposer.add_property( 
+                "gamedir"
+                , fget( &::pygameserveritem_t::GetGameDir ) );
         
         }
-        gameserveritem_t_exposer.def_readwrite( "m_netadr", &gameserveritem_t::m_NetAdr );
-        gameserveritem_t_exposer.def_readwrite( "donotrefresh", &gameserveritem_t::m_bDoNotRefresh );
-        gameserveritem_t_exposer.def_readwrite( "hadsuccessfulresponse", &gameserveritem_t::m_bHadSuccessfulResponse );
-        gameserveritem_t_exposer.def_readwrite( "password", &gameserveritem_t::m_bPassword );
-        gameserveritem_t_exposer.def_readwrite( "secure", &gameserveritem_t::m_bSecure );
-        gameserveritem_t_exposer.def_readwrite( "appid", &gameserveritem_t::m_nAppID );
-        gameserveritem_t_exposer.def_readwrite( "botplayers", &gameserveritem_t::m_nBotPlayers );
-        gameserveritem_t_exposer.def_readwrite( "maxplayers", &gameserveritem_t::m_nMaxPlayers );
-        gameserveritem_t_exposer.def_readwrite( "ping", &gameserveritem_t::m_nPing );
-        gameserveritem_t_exposer.def_readwrite( "players", &gameserveritem_t::m_nPlayers );
-        gameserveritem_t_exposer.def_readwrite( "serverversion", &gameserveritem_t::m_nServerVersion );
-        gameserveritem_t_exposer.def_readwrite( "m_steamid", &gameserveritem_t::m_steamID );
-        pyplusplus::containers::static_sized::register_array_1< char, 64 >( "__array_1_char_64" );
-        { //gameserveritem_t::m_szGameDescription [variable], type=char[64]
+        { //property "map"[fget=::pygameserveritem_t::GetMap]
         
-            typedef pyplusplus::containers::static_sized::array_1_t< char, 64> ( *array_wrapper_creator )( ::gameserveritem_t & );
+            typedef char const * ( ::pygameserveritem_t::*fget )(  ) ;
             
-            gameserveritem_t_exposer.add_property( "m_szGameDescription"
-                , bp::make_function( array_wrapper_creator(&gameserveritem_t_wrapper::pyplusplus_m_szGameDescription_wrapper)
-                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
-        }
-        pyplusplus::containers::static_sized::register_array_1< char, 32 >( "__array_1_char_32" );
-        { //gameserveritem_t::m_szGameDir [variable], type=char[32]
+            pygameserveritem_t_exposer.add_property( 
+                "map"
+                , fget( &::pygameserveritem_t::GetMap ) );
         
-            typedef pyplusplus::containers::static_sized::array_1_t< char, 32> ( *array_wrapper_creator )( ::gameserveritem_t & );
-            
-            gameserveritem_t_exposer.add_property( "m_szGameDir"
-                , bp::make_function( array_wrapper_creator(&gameserveritem_t_wrapper::pyplusplus_m_szGameDir_wrapper)
-                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
-        pyplusplus::containers::static_sized::register_array_1< char, 128 >( "__array_1_char_128" );
-        { //gameserveritem_t::m_szGameTags [variable], type=char[128]
+        { //property "gamedescription"[fget=::pygameserveritem_t::GetGameDescription]
         
-            typedef pyplusplus::containers::static_sized::array_1_t< char, 128> ( *array_wrapper_creator )( ::gameserveritem_t & );
+            typedef char const * ( ::pygameserveritem_t::*fget )(  ) ;
             
-            gameserveritem_t_exposer.add_property( "m_szGameTags"
-                , bp::make_function( array_wrapper_creator(&gameserveritem_t_wrapper::pyplusplus_m_szGameTags_wrapper)
-                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
-        }
-        { //gameserveritem_t::m_szMap [variable], type=char[32]
+            pygameserveritem_t_exposer.add_property( 
+                "gamedescription"
+                , fget( &::pygameserveritem_t::GetGameDescription ) );
         
-            typedef pyplusplus::containers::static_sized::array_1_t< char, 32> ( *array_wrapper_creator )( ::gameserveritem_t & );
-            
-            gameserveritem_t_exposer.add_property( "m_szMap"
-                , bp::make_function( array_wrapper_creator(&gameserveritem_t_wrapper::pyplusplus_m_szMap_wrapper)
-                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
-        gameserveritem_t_exposer.def_readwrite( "timelastplayed", &gameserveritem_t::m_ulTimeLastPlayed );
+        { //property "gametags"[fget=::pygameserveritem_t::GetGameTags]
+        
+            typedef char const * ( ::pygameserveritem_t::*fget )(  ) ;
+            
+            pygameserveritem_t_exposer.add_property( 
+                "gametags"
+                , fget( &::pygameserveritem_t::GetGameTags ) );
+        
+        }
     }
 
     { //::servernetadr_t
-        typedef bp::class_< servernetadr_t > servernetadr_t_exposer_t;
-        servernetadr_t_exposer_t servernetadr_t_exposer = servernetadr_t_exposer_t( "servernetadr_t" );
-        bp::scope servernetadr_t_scope( servernetadr_t_exposer );
+        typedef bp::class_< servernetadr_t > servernetadr_exposer_t;
+        servernetadr_exposer_t servernetadr_exposer = servernetadr_exposer_t( "servernetadr" );
+        bp::scope servernetadr_scope( servernetadr_exposer );
         { //::servernetadr_t::GetConnectionAddressString
         
             typedef char const * ( ::servernetadr_t::*GetConnectionAddressString_function_type )(  ) const;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "GetConnectionAddressString"
                 , GetConnectionAddressString_function_type( &::servernetadr_t::GetConnectionAddressString ) );
         
@@ -2202,7 +3173,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef ::uint16 ( ::servernetadr_t::*GetConnectionPort_function_type )(  ) const;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "GetConnectionPort"
                 , GetConnectionPort_function_type( &::servernetadr_t::GetConnectionPort ) );
         
@@ -2211,7 +3182,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef ::uint32 ( ::servernetadr_t::*GetIP_function_type )(  ) const;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "GetIP"
                 , GetIP_function_type( &::servernetadr_t::GetIP ) );
         
@@ -2220,7 +3191,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef char const * ( ::servernetadr_t::*GetQueryAddressString_function_type )(  ) const;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "GetQueryAddressString"
                 , GetQueryAddressString_function_type( &::servernetadr_t::GetQueryAddressString ) );
         
@@ -2229,7 +3200,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef ::uint16 ( ::servernetadr_t::*GetQueryPort_function_type )(  ) const;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "GetQueryPort"
                 , GetQueryPort_function_type( &::servernetadr_t::GetQueryPort ) );
         
@@ -2238,7 +3209,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef void ( ::servernetadr_t::*Init_function_type )( unsigned int,::uint16,::uint16 ) ;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "Init"
                 , Init_function_type( &::servernetadr_t::Init )
                 , ( bp::arg("ip"), bp::arg("usQueryPort"), bp::arg("usConnectionPort") ) );
@@ -2248,7 +3219,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef void ( ::servernetadr_t::*SetConnectionPort_function_type )( ::uint16 ) ;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "SetConnectionPort"
                 , SetConnectionPort_function_type( &::servernetadr_t::SetConnectionPort )
                 , ( bp::arg("usPort") ) );
@@ -2258,7 +3229,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef void ( ::servernetadr_t::*SetIP_function_type )( ::uint32 ) ;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "SetIP"
                 , SetIP_function_type( &::servernetadr_t::SetIP )
                 , ( bp::arg("unIP") ) );
@@ -2268,18 +3239,18 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef void ( ::servernetadr_t::*SetQueryPort_function_type )( ::uint16 ) ;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "SetQueryPort"
                 , SetQueryPort_function_type( &::servernetadr_t::SetQueryPort )
                 , ( bp::arg("usPort") ) );
         
         }
-        servernetadr_t_exposer.def( bp::self < bp::self );
+        servernetadr_exposer.def( bp::self < bp::self );
         { //::servernetadr_t::operator=
         
             typedef void ( ::servernetadr_t::*assign_function_type )( ::servernetadr_t const & ) ;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "assign"
                 , assign_function_type( &::servernetadr_t::operator= )
                 , ( bp::arg("that") ) );
@@ -2306,6 +3277,28 @@ BOOST_PYTHON_MODULE(_steam){
             "PyGetLobbyDataByIndex"
             , PyGetLobbyDataByIndex_function_type( &::PyGetLobbyDataByIndex )
             , ( bp::arg("steamIDLobby"), bp::arg("iLobbyData") ) );
+    
+    }
+
+    { //::PyGetStatFloat
+    
+        typedef ::boost::python::api::object ( *PyGetStatFloat_function_type )( char const * );
+        
+        bp::def( 
+            "PyGetStatFloat"
+            , PyGetStatFloat_function_type( &::PyGetStatFloat )
+            , ( bp::arg("name") ) );
+    
+    }
+
+    { //::PyGetStatInt
+    
+        typedef ::boost::python::api::object ( *PyGetStatInt_function_type )( char const * );
+        
+        bp::def( 
+            "PyGetStatInt"
+            , PyGetStatInt_function_type( &::PyGetStatInt )
+            , ( bp::arg("name") ) );
     
     }
 
@@ -2337,6 +3330,330 @@ BOOST_PYTHON_MODULE(_steam){
     bp::scope().attr( "QUERY_PORT_ERROR" ) = (int)QUERY_PORT_ERROR;
 
     bp::scope().attr( "k_cchPersonaNameMax" ) = (int)k_cchPersonaNameMax;
+
+    { //::PersonaStateChangeCallback
+        typedef bp::class_< PersonaStateChangeCallback_wrapper > PersonaStateChangeCallback_exposer_t;
+        PersonaStateChangeCallback_exposer_t PersonaStateChangeCallback_exposer = PersonaStateChangeCallback_exposer_t( "PersonaStateChangeCallback", bp::init<>() );
+        bp::scope PersonaStateChangeCallback_scope( PersonaStateChangeCallback_exposer );
+        { //::PersonaStateChangeCallback::OnPersonaStateChange
+        
+            typedef void ( ::PersonaStateChangeCallback::*OnPersonaStateChange_function_type )( ::PersonaStateChange_t * ) ;
+            typedef void ( PersonaStateChangeCallback_wrapper::*default_OnPersonaStateChange_function_type )( ::PersonaStateChange_t * ) ;
+            
+            PersonaStateChangeCallback_exposer.def( 
+                "OnPersonaStateChange"
+                , OnPersonaStateChange_function_type(&::PersonaStateChangeCallback::OnPersonaStateChange)
+                , default_OnPersonaStateChange_function_type(&PersonaStateChangeCallback_wrapper::default_OnPersonaStateChange)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameOverlayActivatedCallback
+        typedef bp::class_< GameOverlayActivatedCallback_wrapper > GameOverlayActivatedCallback_exposer_t;
+        GameOverlayActivatedCallback_exposer_t GameOverlayActivatedCallback_exposer = GameOverlayActivatedCallback_exposer_t( "GameOverlayActivatedCallback", bp::init<>() );
+        bp::scope GameOverlayActivatedCallback_scope( GameOverlayActivatedCallback_exposer );
+        { //::GameOverlayActivatedCallback::OnGameOverlayActivated
+        
+            typedef void ( ::GameOverlayActivatedCallback::*OnGameOverlayActivated_function_type )( ::GameOverlayActivated_t * ) ;
+            typedef void ( GameOverlayActivatedCallback_wrapper::*default_OnGameOverlayActivated_function_type )( ::GameOverlayActivated_t * ) ;
+            
+            GameOverlayActivatedCallback_exposer.def( 
+                "OnGameOverlayActivated"
+                , OnGameOverlayActivated_function_type(&::GameOverlayActivatedCallback::OnGameOverlayActivated)
+                , default_OnGameOverlayActivated_function_type(&GameOverlayActivatedCallback_wrapper::default_OnGameOverlayActivated)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameServerChangeRequestedCallback
+        typedef bp::class_< GameServerChangeRequestedCallback_wrapper > GameServerChangeRequestedCallback_exposer_t;
+        GameServerChangeRequestedCallback_exposer_t GameServerChangeRequestedCallback_exposer = GameServerChangeRequestedCallback_exposer_t( "GameServerChangeRequestedCallback", bp::init<>() );
+        bp::scope GameServerChangeRequestedCallback_scope( GameServerChangeRequestedCallback_exposer );
+        { //::GameServerChangeRequestedCallback::OnGameServerChangeRequested
+        
+            typedef void ( ::GameServerChangeRequestedCallback::*OnGameServerChangeRequested_function_type )( ::GameServerChangeRequested_t * ) ;
+            typedef void ( GameServerChangeRequestedCallback_wrapper::*default_OnGameServerChangeRequested_function_type )( ::GameServerChangeRequested_t * ) ;
+            
+            GameServerChangeRequestedCallback_exposer.def( 
+                "OnGameServerChangeRequested"
+                , OnGameServerChangeRequested_function_type(&::GameServerChangeRequestedCallback::OnGameServerChangeRequested)
+                , default_OnGameServerChangeRequested_function_type(&GameServerChangeRequestedCallback_wrapper::default_OnGameServerChangeRequested)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameLobbyJoinRequestedCallback
+        typedef bp::class_< GameLobbyJoinRequestedCallback_wrapper > GameLobbyJoinRequestedCallback_exposer_t;
+        GameLobbyJoinRequestedCallback_exposer_t GameLobbyJoinRequestedCallback_exposer = GameLobbyJoinRequestedCallback_exposer_t( "GameLobbyJoinRequestedCallback", bp::init<>() );
+        bp::scope GameLobbyJoinRequestedCallback_scope( GameLobbyJoinRequestedCallback_exposer );
+        { //::GameLobbyJoinRequestedCallback::OnGameLobbyJoinRequested
+        
+            typedef void ( ::GameLobbyJoinRequestedCallback::*OnGameLobbyJoinRequested_function_type )( ::GameLobbyJoinRequested_t * ) ;
+            typedef void ( GameLobbyJoinRequestedCallback_wrapper::*default_OnGameLobbyJoinRequested_function_type )( ::GameLobbyJoinRequested_t * ) ;
+            
+            GameLobbyJoinRequestedCallback_exposer.def( 
+                "OnGameLobbyJoinRequested"
+                , OnGameLobbyJoinRequested_function_type(&::GameLobbyJoinRequestedCallback::OnGameLobbyJoinRequested)
+                , default_OnGameLobbyJoinRequested_function_type(&GameLobbyJoinRequestedCallback_wrapper::default_OnGameLobbyJoinRequested)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::AvatarImageLoadedCallback
+        typedef bp::class_< AvatarImageLoadedCallback_wrapper > AvatarImageLoadedCallback_exposer_t;
+        AvatarImageLoadedCallback_exposer_t AvatarImageLoadedCallback_exposer = AvatarImageLoadedCallback_exposer_t( "AvatarImageLoadedCallback", bp::init<>() );
+        bp::scope AvatarImageLoadedCallback_scope( AvatarImageLoadedCallback_exposer );
+        { //::AvatarImageLoadedCallback::OnAvatarImageLoaded
+        
+            typedef void ( ::AvatarImageLoadedCallback::*OnAvatarImageLoaded_function_type )( ::AvatarImageLoaded_t * ) ;
+            typedef void ( AvatarImageLoadedCallback_wrapper::*default_OnAvatarImageLoaded_function_type )( ::AvatarImageLoaded_t * ) ;
+            
+            AvatarImageLoadedCallback_exposer.def( 
+                "OnAvatarImageLoaded"
+                , OnAvatarImageLoaded_function_type(&::AvatarImageLoadedCallback::OnAvatarImageLoaded)
+                , default_OnAvatarImageLoaded_function_type(&AvatarImageLoadedCallback_wrapper::default_OnAvatarImageLoaded)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::ClanOfficerListResponseCallback
+        typedef bp::class_< ClanOfficerListResponseCallback_wrapper > ClanOfficerListResponseCallback_exposer_t;
+        ClanOfficerListResponseCallback_exposer_t ClanOfficerListResponseCallback_exposer = ClanOfficerListResponseCallback_exposer_t( "ClanOfficerListResponseCallback", bp::init<>() );
+        bp::scope ClanOfficerListResponseCallback_scope( ClanOfficerListResponseCallback_exposer );
+        { //::ClanOfficerListResponseCallback::OnClanOfficerListResponse
+        
+            typedef void ( ::ClanOfficerListResponseCallback::*OnClanOfficerListResponse_function_type )( ::ClanOfficerListResponse_t * ) ;
+            typedef void ( ClanOfficerListResponseCallback_wrapper::*default_OnClanOfficerListResponse_function_type )( ::ClanOfficerListResponse_t * ) ;
+            
+            ClanOfficerListResponseCallback_exposer.def( 
+                "OnClanOfficerListResponse"
+                , OnClanOfficerListResponse_function_type(&::ClanOfficerListResponseCallback::OnClanOfficerListResponse)
+                , default_OnClanOfficerListResponse_function_type(&ClanOfficerListResponseCallback_wrapper::default_OnClanOfficerListResponse)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::FriendRichPresenceUpdateCallback
+        typedef bp::class_< FriendRichPresenceUpdateCallback_wrapper > FriendRichPresenceUpdateCallback_exposer_t;
+        FriendRichPresenceUpdateCallback_exposer_t FriendRichPresenceUpdateCallback_exposer = FriendRichPresenceUpdateCallback_exposer_t( "FriendRichPresenceUpdateCallback", bp::init<>() );
+        bp::scope FriendRichPresenceUpdateCallback_scope( FriendRichPresenceUpdateCallback_exposer );
+        { //::FriendRichPresenceUpdateCallback::OnFriendRichPresenceUpdate
+        
+            typedef void ( ::FriendRichPresenceUpdateCallback::*OnFriendRichPresenceUpdate_function_type )( ::FriendRichPresenceUpdate_t * ) ;
+            typedef void ( FriendRichPresenceUpdateCallback_wrapper::*default_OnFriendRichPresenceUpdate_function_type )( ::FriendRichPresenceUpdate_t * ) ;
+            
+            FriendRichPresenceUpdateCallback_exposer.def( 
+                "OnFriendRichPresenceUpdate"
+                , OnFriendRichPresenceUpdate_function_type(&::FriendRichPresenceUpdateCallback::OnFriendRichPresenceUpdate)
+                , default_OnFriendRichPresenceUpdate_function_type(&FriendRichPresenceUpdateCallback_wrapper::default_OnFriendRichPresenceUpdate)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameRichPresenceJoinRequestedCallback
+        typedef bp::class_< GameRichPresenceJoinRequestedCallback_wrapper > GameRichPresenceJoinRequestedCallback_exposer_t;
+        GameRichPresenceJoinRequestedCallback_exposer_t GameRichPresenceJoinRequestedCallback_exposer = GameRichPresenceJoinRequestedCallback_exposer_t( "GameRichPresenceJoinRequestedCallback", bp::init<>() );
+        bp::scope GameRichPresenceJoinRequestedCallback_scope( GameRichPresenceJoinRequestedCallback_exposer );
+        { //::GameRichPresenceJoinRequestedCallback::OnGameRichPresenceJoinRequested
+        
+            typedef void ( ::GameRichPresenceJoinRequestedCallback::*OnGameRichPresenceJoinRequested_function_type )( ::GameRichPresenceJoinRequested_t * ) ;
+            typedef void ( GameRichPresenceJoinRequestedCallback_wrapper::*default_OnGameRichPresenceJoinRequested_function_type )( ::GameRichPresenceJoinRequested_t * ) ;
+            
+            GameRichPresenceJoinRequestedCallback_exposer.def( 
+                "OnGameRichPresenceJoinRequested"
+                , OnGameRichPresenceJoinRequested_function_type(&::GameRichPresenceJoinRequestedCallback::OnGameRichPresenceJoinRequested)
+                , default_OnGameRichPresenceJoinRequested_function_type(&GameRichPresenceJoinRequestedCallback_wrapper::default_OnGameRichPresenceJoinRequested)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameConnectedClanChatMsgCallback
+        typedef bp::class_< GameConnectedClanChatMsgCallback_wrapper > GameConnectedClanChatMsgCallback_exposer_t;
+        GameConnectedClanChatMsgCallback_exposer_t GameConnectedClanChatMsgCallback_exposer = GameConnectedClanChatMsgCallback_exposer_t( "GameConnectedClanChatMsgCallback", bp::init<>() );
+        bp::scope GameConnectedClanChatMsgCallback_scope( GameConnectedClanChatMsgCallback_exposer );
+        { //::GameConnectedClanChatMsgCallback::OnGameConnectedClanChatMsg
+        
+            typedef void ( ::GameConnectedClanChatMsgCallback::*OnGameConnectedClanChatMsg_function_type )( ::GameConnectedClanChatMsg_t * ) ;
+            typedef void ( GameConnectedClanChatMsgCallback_wrapper::*default_OnGameConnectedClanChatMsg_function_type )( ::GameConnectedClanChatMsg_t * ) ;
+            
+            GameConnectedClanChatMsgCallback_exposer.def( 
+                "OnGameConnectedClanChatMsg"
+                , OnGameConnectedClanChatMsg_function_type(&::GameConnectedClanChatMsgCallback::OnGameConnectedClanChatMsg)
+                , default_OnGameConnectedClanChatMsg_function_type(&GameConnectedClanChatMsgCallback_wrapper::default_OnGameConnectedClanChatMsg)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameConnectedChatJoinCallback
+        typedef bp::class_< GameConnectedChatJoinCallback_wrapper > GameConnectedChatJoinCallback_exposer_t;
+        GameConnectedChatJoinCallback_exposer_t GameConnectedChatJoinCallback_exposer = GameConnectedChatJoinCallback_exposer_t( "GameConnectedChatJoinCallback", bp::init<>() );
+        bp::scope GameConnectedChatJoinCallback_scope( GameConnectedChatJoinCallback_exposer );
+        { //::GameConnectedChatJoinCallback::OnGameConnectedChatJoin
+        
+            typedef void ( ::GameConnectedChatJoinCallback::*OnGameConnectedChatJoin_function_type )( ::GameConnectedChatJoin_t * ) ;
+            typedef void ( GameConnectedChatJoinCallback_wrapper::*default_OnGameConnectedChatJoin_function_type )( ::GameConnectedChatJoin_t * ) ;
+            
+            GameConnectedChatJoinCallback_exposer.def( 
+                "OnGameConnectedChatJoin"
+                , OnGameConnectedChatJoin_function_type(&::GameConnectedChatJoinCallback::OnGameConnectedChatJoin)
+                , default_OnGameConnectedChatJoin_function_type(&GameConnectedChatJoinCallback_wrapper::default_OnGameConnectedChatJoin)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameConnectedChatLeaveCallback
+        typedef bp::class_< GameConnectedChatLeaveCallback_wrapper > GameConnectedChatLeaveCallback_exposer_t;
+        GameConnectedChatLeaveCallback_exposer_t GameConnectedChatLeaveCallback_exposer = GameConnectedChatLeaveCallback_exposer_t( "GameConnectedChatLeaveCallback", bp::init<>() );
+        bp::scope GameConnectedChatLeaveCallback_scope( GameConnectedChatLeaveCallback_exposer );
+        { //::GameConnectedChatLeaveCallback::OnGameConnectedChatLeave
+        
+            typedef void ( ::GameConnectedChatLeaveCallback::*OnGameConnectedChatLeave_function_type )( ::GameConnectedChatLeave_t * ) ;
+            typedef void ( GameConnectedChatLeaveCallback_wrapper::*default_OnGameConnectedChatLeave_function_type )( ::GameConnectedChatLeave_t * ) ;
+            
+            GameConnectedChatLeaveCallback_exposer.def( 
+                "OnGameConnectedChatLeave"
+                , OnGameConnectedChatLeave_function_type(&::GameConnectedChatLeaveCallback::OnGameConnectedChatLeave)
+                , default_OnGameConnectedChatLeave_function_type(&GameConnectedChatLeaveCallback_wrapper::default_OnGameConnectedChatLeave)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::DownloadClanActivityCountsResultCallback
+        typedef bp::class_< DownloadClanActivityCountsResultCallback_wrapper > DownloadClanActivityCountsResultCallback_exposer_t;
+        DownloadClanActivityCountsResultCallback_exposer_t DownloadClanActivityCountsResultCallback_exposer = DownloadClanActivityCountsResultCallback_exposer_t( "DownloadClanActivityCountsResultCallback", bp::init<>() );
+        bp::scope DownloadClanActivityCountsResultCallback_scope( DownloadClanActivityCountsResultCallback_exposer );
+        { //::DownloadClanActivityCountsResultCallback::OnDownloadClanActivityCountsResult
+        
+            typedef void ( ::DownloadClanActivityCountsResultCallback::*OnDownloadClanActivityCountsResult_function_type )( ::DownloadClanActivityCountsResult_t * ) ;
+            typedef void ( DownloadClanActivityCountsResultCallback_wrapper::*default_OnDownloadClanActivityCountsResult_function_type )( ::DownloadClanActivityCountsResult_t * ) ;
+            
+            DownloadClanActivityCountsResultCallback_exposer.def( 
+                "OnDownloadClanActivityCountsResult"
+                , OnDownloadClanActivityCountsResult_function_type(&::DownloadClanActivityCountsResultCallback::OnDownloadClanActivityCountsResult)
+                , default_OnDownloadClanActivityCountsResult_function_type(&DownloadClanActivityCountsResultCallback_wrapper::default_OnDownloadClanActivityCountsResult)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::JoinClanChatRoomCompletionResultCallback
+        typedef bp::class_< JoinClanChatRoomCompletionResultCallback_wrapper > JoinClanChatRoomCompletionResultCallback_exposer_t;
+        JoinClanChatRoomCompletionResultCallback_exposer_t JoinClanChatRoomCompletionResultCallback_exposer = JoinClanChatRoomCompletionResultCallback_exposer_t( "JoinClanChatRoomCompletionResultCallback", bp::init<>() );
+        bp::scope JoinClanChatRoomCompletionResultCallback_scope( JoinClanChatRoomCompletionResultCallback_exposer );
+        { //::JoinClanChatRoomCompletionResultCallback::OnJoinClanChatRoomCompletionResult
+        
+            typedef void ( ::JoinClanChatRoomCompletionResultCallback::*OnJoinClanChatRoomCompletionResult_function_type )( ::JoinClanChatRoomCompletionResult_t * ) ;
+            typedef void ( JoinClanChatRoomCompletionResultCallback_wrapper::*default_OnJoinClanChatRoomCompletionResult_function_type )( ::JoinClanChatRoomCompletionResult_t * ) ;
+            
+            JoinClanChatRoomCompletionResultCallback_exposer.def( 
+                "OnJoinClanChatRoomCompletionResult"
+                , OnJoinClanChatRoomCompletionResult_function_type(&::JoinClanChatRoomCompletionResultCallback::OnJoinClanChatRoomCompletionResult)
+                , default_OnJoinClanChatRoomCompletionResult_function_type(&JoinClanChatRoomCompletionResultCallback_wrapper::default_OnJoinClanChatRoomCompletionResult)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameConnectedFriendChatMsgCallback
+        typedef bp::class_< GameConnectedFriendChatMsgCallback_wrapper > GameConnectedFriendChatMsgCallback_exposer_t;
+        GameConnectedFriendChatMsgCallback_exposer_t GameConnectedFriendChatMsgCallback_exposer = GameConnectedFriendChatMsgCallback_exposer_t( "GameConnectedFriendChatMsgCallback", bp::init<>() );
+        bp::scope GameConnectedFriendChatMsgCallback_scope( GameConnectedFriendChatMsgCallback_exposer );
+        { //::GameConnectedFriendChatMsgCallback::OnGameConnectedFriendChatMsg
+        
+            typedef void ( ::GameConnectedFriendChatMsgCallback::*OnGameConnectedFriendChatMsg_function_type )( ::GameConnectedFriendChatMsg_t * ) ;
+            typedef void ( GameConnectedFriendChatMsgCallback_wrapper::*default_OnGameConnectedFriendChatMsg_function_type )( ::GameConnectedFriendChatMsg_t * ) ;
+            
+            GameConnectedFriendChatMsgCallback_exposer.def( 
+                "OnGameConnectedFriendChatMsg"
+                , OnGameConnectedFriendChatMsg_function_type(&::GameConnectedFriendChatMsgCallback::OnGameConnectedFriendChatMsg)
+                , default_OnGameConnectedFriendChatMsg_function_type(&GameConnectedFriendChatMsgCallback_wrapper::default_OnGameConnectedFriendChatMsg)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::FriendsGetFollowerCountCallback
+        typedef bp::class_< FriendsGetFollowerCountCallback_wrapper > FriendsGetFollowerCountCallback_exposer_t;
+        FriendsGetFollowerCountCallback_exposer_t FriendsGetFollowerCountCallback_exposer = FriendsGetFollowerCountCallback_exposer_t( "FriendsGetFollowerCountCallback", bp::init<>() );
+        bp::scope FriendsGetFollowerCountCallback_scope( FriendsGetFollowerCountCallback_exposer );
+        { //::FriendsGetFollowerCountCallback::OnFriendsGetFollowerCount
+        
+            typedef void ( ::FriendsGetFollowerCountCallback::*OnFriendsGetFollowerCount_function_type )( ::FriendsGetFollowerCount_t * ) ;
+            typedef void ( FriendsGetFollowerCountCallback_wrapper::*default_OnFriendsGetFollowerCount_function_type )( ::FriendsGetFollowerCount_t * ) ;
+            
+            FriendsGetFollowerCountCallback_exposer.def( 
+                "OnFriendsGetFollowerCount"
+                , OnFriendsGetFollowerCount_function_type(&::FriendsGetFollowerCountCallback::OnFriendsGetFollowerCount)
+                , default_OnFriendsGetFollowerCount_function_type(&FriendsGetFollowerCountCallback_wrapper::default_OnFriendsGetFollowerCount)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::FriendsIsFollowingCallback
+        typedef bp::class_< FriendsIsFollowingCallback_wrapper > FriendsIsFollowingCallback_exposer_t;
+        FriendsIsFollowingCallback_exposer_t FriendsIsFollowingCallback_exposer = FriendsIsFollowingCallback_exposer_t( "FriendsIsFollowingCallback", bp::init<>() );
+        bp::scope FriendsIsFollowingCallback_scope( FriendsIsFollowingCallback_exposer );
+        { //::FriendsIsFollowingCallback::OnFriendsIsFollowing
+        
+            typedef void ( ::FriendsIsFollowingCallback::*OnFriendsIsFollowing_function_type )( ::FriendsIsFollowing_t * ) ;
+            typedef void ( FriendsIsFollowingCallback_wrapper::*default_OnFriendsIsFollowing_function_type )( ::FriendsIsFollowing_t * ) ;
+            
+            FriendsIsFollowingCallback_exposer.def( 
+                "OnFriendsIsFollowing"
+                , OnFriendsIsFollowing_function_type(&::FriendsIsFollowingCallback::OnFriendsIsFollowing)
+                , default_OnFriendsIsFollowing_function_type(&FriendsIsFollowingCallback_wrapper::default_OnFriendsIsFollowing)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::FriendsEnumerateFollowingListCallback
+        typedef bp::class_< FriendsEnumerateFollowingListCallback_wrapper > FriendsEnumerateFollowingListCallback_exposer_t;
+        FriendsEnumerateFollowingListCallback_exposer_t FriendsEnumerateFollowingListCallback_exposer = FriendsEnumerateFollowingListCallback_exposer_t( "FriendsEnumerateFollowingListCallback", bp::init<>() );
+        bp::scope FriendsEnumerateFollowingListCallback_scope( FriendsEnumerateFollowingListCallback_exposer );
+        { //::FriendsEnumerateFollowingListCallback::OnFriendsEnumerateFollowingList
+        
+            typedef void ( ::FriendsEnumerateFollowingListCallback::*OnFriendsEnumerateFollowingList_function_type )( ::FriendsEnumerateFollowingList_t * ) ;
+            typedef void ( FriendsEnumerateFollowingListCallback_wrapper::*default_OnFriendsEnumerateFollowingList_function_type )( ::FriendsEnumerateFollowingList_t * ) ;
+            
+            FriendsEnumerateFollowingListCallback_exposer.def( 
+                "OnFriendsEnumerateFollowingList"
+                , OnFriendsEnumerateFollowingList_function_type(&::FriendsEnumerateFollowingListCallback::OnFriendsEnumerateFollowingList)
+                , default_OnFriendsEnumerateFollowingList_function_type(&FriendsEnumerateFollowingListCallback_wrapper::default_OnFriendsEnumerateFollowingList)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::SetPersonaNameResponseCallback
+        typedef bp::class_< SetPersonaNameResponseCallback_wrapper > SetPersonaNameResponseCallback_exposer_t;
+        SetPersonaNameResponseCallback_exposer_t SetPersonaNameResponseCallback_exposer = SetPersonaNameResponseCallback_exposer_t( "SetPersonaNameResponseCallback", bp::init<>() );
+        bp::scope SetPersonaNameResponseCallback_scope( SetPersonaNameResponseCallback_exposer );
+        { //::SetPersonaNameResponseCallback::OnSetPersonaNameResponse
+        
+            typedef void ( ::SetPersonaNameResponseCallback::*OnSetPersonaNameResponse_function_type )( ::SetPersonaNameResponse_t * ) ;
+            typedef void ( SetPersonaNameResponseCallback_wrapper::*default_OnSetPersonaNameResponse_function_type )( ::SetPersonaNameResponse_t * ) ;
+            
+            SetPersonaNameResponseCallback_exposer.def( 
+                "OnSetPersonaNameResponse"
+                , OnSetPersonaNameResponse_function_type(&::SetPersonaNameResponseCallback::OnSetPersonaNameResponse)
+                , default_OnSetPersonaNameResponse_function_type(&SetPersonaNameResponseCallback_wrapper::default_OnSetPersonaNameResponse)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
 
     { //::LobbyMatchListCallResult
         typedef bp::class_< LobbyMatchListCallResult_wrapper > LobbyMatchListCallResult_exposer_t;
@@ -2492,6 +3809,10 @@ BOOST_PYTHON_MODULE(_steam){
 #else
 #include "__array_1.pypp.hpp"
 
+#include "__convenience.pypp.hpp"
+
+#include "__call_policies.pypp.hpp"
+
 #include "cbase.h"
 
 #include "steam/steam_api.h"
@@ -2517,6 +3838,91 @@ BOOST_PYTHON_MODULE(_steam){
 #include "tier0/memdbgon.h"
 
 namespace bp = boost::python;
+
+struct FriendsEnumerateFollowingList_t_wrapper : FriendsEnumerateFollowingList_t, bp::wrapper< FriendsEnumerateFollowingList_t > {
+
+    FriendsEnumerateFollowingList_t_wrapper(FriendsEnumerateFollowingList_t const & arg )
+    : FriendsEnumerateFollowingList_t( arg )
+      , bp::wrapper< FriendsEnumerateFollowingList_t >(){
+        // copy constructor
+        
+    }
+
+    FriendsEnumerateFollowingList_t_wrapper()
+    : FriendsEnumerateFollowingList_t()
+      , bp::wrapper< FriendsEnumerateFollowingList_t >(){
+        // null constructor
+        
+    }
+
+    static pyplusplus::containers::static_sized::array_1_t< ::CSteamID, 50>
+    pyplusplus_m_rgSteamID_wrapper( ::FriendsEnumerateFollowingList_t & inst ){
+        return pyplusplus::containers::static_sized::array_1_t< ::CSteamID, 50>( inst.m_rgSteamID );
+    }
+
+};
+
+struct GameRichPresenceJoinRequested_t_wrapper : GameRichPresenceJoinRequested_t, bp::wrapper< GameRichPresenceJoinRequested_t > {
+
+    GameRichPresenceJoinRequested_t_wrapper(GameRichPresenceJoinRequested_t const & arg )
+    : GameRichPresenceJoinRequested_t( arg )
+      , bp::wrapper< GameRichPresenceJoinRequested_t >(){
+        // copy constructor
+        
+    }
+
+    GameRichPresenceJoinRequested_t_wrapper()
+    : GameRichPresenceJoinRequested_t()
+      , bp::wrapper< GameRichPresenceJoinRequested_t >(){
+        // null constructor
+        
+    }
+
+    static pyplusplus::containers::static_sized::array_1_t< char, 256>
+    pyplusplus_m_rgchConnect_wrapper( ::GameRichPresenceJoinRequested_t & inst ){
+        return pyplusplus::containers::static_sized::array_1_t< char, 256>( inst.m_rgchConnect );
+    }
+
+};
+
+struct GameServerChangeRequested_t_wrapper : GameServerChangeRequested_t, bp::wrapper< GameServerChangeRequested_t > {
+
+    GameServerChangeRequested_t_wrapper(GameServerChangeRequested_t const & arg )
+    : GameServerChangeRequested_t( arg )
+      , bp::wrapper< GameServerChangeRequested_t >(){
+        // copy constructor
+        
+    }
+
+    GameServerChangeRequested_t_wrapper()
+    : GameServerChangeRequested_t()
+      , bp::wrapper< GameServerChangeRequested_t >(){
+        // null constructor
+        
+    }
+
+    static pyplusplus::containers::static_sized::array_1_t< char, 64>
+    pyplusplus_m_rgchPassword_wrapper( ::GameServerChangeRequested_t & inst ){
+        return pyplusplus::containers::static_sized::array_1_t< char, 64>( inst.m_rgchPassword );
+    }
+
+    static pyplusplus::containers::static_sized::array_1_t< char, 64>
+    pyplusplus_m_rgchServer_wrapper( ::GameServerChangeRequested_t & inst ){
+        return pyplusplus::containers::static_sized::array_1_t< char, 64>( inst.m_rgchServer );
+    }
+
+};
+
+static boost::python::tuple GetLobbyGameServer_e3badaaa69eb32a59ea528ba9e97e8ee( ::ISteamMatchmaking & inst, ::CSteamID steamIDLobby ){
+    unsigned int punGameServerIP2;
+    short unsigned int punGameServerPort2;
+    CSteamID psteamIDGameServer2;
+    bool result = inst.GetLobbyGameServer(steamIDLobby, &punGameServerIP2, &punGameServerPort2, &psteamIDGameServer2);
+    return bp::make_tuple( result
+                            , punGameServerIP2
+                            , punGameServerPort2
+                            , psteamIDGameServer2 );
+}
 
 struct PySteamMatchmakingPingResponse_wrapper : PySteamMatchmakingPingResponse, bp::wrapper< PySteamMatchmakingPingResponse > {
 
@@ -2799,42 +4205,688 @@ struct PySteamMatchmakingServerListResponse_wrapper : PySteamMatchmakingServerLi
 
 };
 
-struct gameserveritem_t_wrapper : gameserveritem_t, bp::wrapper< gameserveritem_t > {
+PY_STEAM_CALLBACK_WRAPPER( PersonaStateChange, PersonaStateChange_t );
 
-    gameserveritem_t_wrapper(gameserveritem_t const & arg )
-    : gameserveritem_t( arg )
-      , bp::wrapper< gameserveritem_t >(){
+struct PersonaStateChangeCallback_wrapper : PersonaStateChangeCallback, bp::wrapper< PersonaStateChangeCallback > {
+
+    PersonaStateChangeCallback_wrapper(PersonaStateChangeCallback const & arg )
+    : PersonaStateChangeCallback( arg )
+      , bp::wrapper< PersonaStateChangeCallback >(){
         // copy constructor
         
     }
 
-    gameserveritem_t_wrapper( )
-    : gameserveritem_t( )
-      , bp::wrapper< gameserveritem_t >(){
-        // null constructor
+    PersonaStateChangeCallback_wrapper()
+    : PersonaStateChangeCallback()
+      , bp::wrapper< PersonaStateChangeCallback >(){
+        // constructor
     
     }
 
-    static pyplusplus::containers::static_sized::array_1_t< char, 64>
-    pyplusplus_m_szGameDescription_wrapper( ::gameserveritem_t & inst ){
-        return pyplusplus::containers::static_sized::array_1_t< char, 64>( inst.m_szGameDescription );
+    virtual void OnPersonaStateChange( ::PersonaStateChange_t * pData ) {
+        PY_OVERRIDE_CHECK( PersonaStateChangeCallback, OnPersonaStateChange )
+        PY_OVERRIDE_LOG( _steam, PersonaStateChangeCallback, OnPersonaStateChange )
+        bp::override func_OnPersonaStateChange = this->get_override( "OnPersonaStateChange" );
+        if( func_OnPersonaStateChange.ptr() != Py_None )
+            try {
+                func_OnPersonaStateChange( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->PersonaStateChangeCallback::OnPersonaStateChange( pData );
+            }
+        else
+            this->PersonaStateChangeCallback::OnPersonaStateChange( pData );
+    }
+    
+    void default_OnPersonaStateChange( ::PersonaStateChange_t * pData ) {
+        PersonaStateChangeCallback::OnPersonaStateChange( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameOverlayActivated, GameOverlayActivated_t );
+
+struct GameOverlayActivatedCallback_wrapper : GameOverlayActivatedCallback, bp::wrapper< GameOverlayActivatedCallback > {
+
+    GameOverlayActivatedCallback_wrapper(GameOverlayActivatedCallback const & arg )
+    : GameOverlayActivatedCallback( arg )
+      , bp::wrapper< GameOverlayActivatedCallback >(){
+        // copy constructor
+        
     }
 
-    static pyplusplus::containers::static_sized::array_1_t< char, 32>
-    pyplusplus_m_szGameDir_wrapper( ::gameserveritem_t & inst ){
-        return pyplusplus::containers::static_sized::array_1_t< char, 32>( inst.m_szGameDir );
+    GameOverlayActivatedCallback_wrapper()
+    : GameOverlayActivatedCallback()
+      , bp::wrapper< GameOverlayActivatedCallback >(){
+        // constructor
+    
     }
 
-    static pyplusplus::containers::static_sized::array_1_t< char, 128>
-    pyplusplus_m_szGameTags_wrapper( ::gameserveritem_t & inst ){
-        return pyplusplus::containers::static_sized::array_1_t< char, 128>( inst.m_szGameTags );
+    virtual void OnGameOverlayActivated( ::GameOverlayActivated_t * pData ) {
+        PY_OVERRIDE_CHECK( GameOverlayActivatedCallback, OnGameOverlayActivated )
+        PY_OVERRIDE_LOG( _steam, GameOverlayActivatedCallback, OnGameOverlayActivated )
+        bp::override func_OnGameOverlayActivated = this->get_override( "OnGameOverlayActivated" );
+        if( func_OnGameOverlayActivated.ptr() != Py_None )
+            try {
+                func_OnGameOverlayActivated( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameOverlayActivatedCallback::OnGameOverlayActivated( pData );
+            }
+        else
+            this->GameOverlayActivatedCallback::OnGameOverlayActivated( pData );
+    }
+    
+    void default_OnGameOverlayActivated( ::GameOverlayActivated_t * pData ) {
+        GameOverlayActivatedCallback::OnGameOverlayActivated( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameServerChangeRequested, GameServerChangeRequested_t );
+
+struct GameServerChangeRequestedCallback_wrapper : GameServerChangeRequestedCallback, bp::wrapper< GameServerChangeRequestedCallback > {
+
+    GameServerChangeRequestedCallback_wrapper(GameServerChangeRequestedCallback const & arg )
+    : GameServerChangeRequestedCallback( arg )
+      , bp::wrapper< GameServerChangeRequestedCallback >(){
+        // copy constructor
+        
     }
 
-    static pyplusplus::containers::static_sized::array_1_t< char, 32>
-    pyplusplus_m_szMap_wrapper( ::gameserveritem_t & inst ){
-        return pyplusplus::containers::static_sized::array_1_t< char, 32>( inst.m_szMap );
+    GameServerChangeRequestedCallback_wrapper()
+    : GameServerChangeRequestedCallback()
+      , bp::wrapper< GameServerChangeRequestedCallback >(){
+        // constructor
+    
     }
 
+    virtual void OnGameServerChangeRequested( ::GameServerChangeRequested_t * pData ) {
+        PY_OVERRIDE_CHECK( GameServerChangeRequestedCallback, OnGameServerChangeRequested )
+        PY_OVERRIDE_LOG( _steam, GameServerChangeRequestedCallback, OnGameServerChangeRequested )
+        bp::override func_OnGameServerChangeRequested = this->get_override( "OnGameServerChangeRequested" );
+        if( func_OnGameServerChangeRequested.ptr() != Py_None )
+            try {
+                func_OnGameServerChangeRequested( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameServerChangeRequestedCallback::OnGameServerChangeRequested( pData );
+            }
+        else
+            this->GameServerChangeRequestedCallback::OnGameServerChangeRequested( pData );
+    }
+    
+    void default_OnGameServerChangeRequested( ::GameServerChangeRequested_t * pData ) {
+        GameServerChangeRequestedCallback::OnGameServerChangeRequested( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameLobbyJoinRequested, GameLobbyJoinRequested_t );
+
+struct GameLobbyJoinRequestedCallback_wrapper : GameLobbyJoinRequestedCallback, bp::wrapper< GameLobbyJoinRequestedCallback > {
+
+    GameLobbyJoinRequestedCallback_wrapper(GameLobbyJoinRequestedCallback const & arg )
+    : GameLobbyJoinRequestedCallback( arg )
+      , bp::wrapper< GameLobbyJoinRequestedCallback >(){
+        // copy constructor
+        
+    }
+
+    GameLobbyJoinRequestedCallback_wrapper()
+    : GameLobbyJoinRequestedCallback()
+      , bp::wrapper< GameLobbyJoinRequestedCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnGameLobbyJoinRequested( ::GameLobbyJoinRequested_t * pData ) {
+        PY_OVERRIDE_CHECK( GameLobbyJoinRequestedCallback, OnGameLobbyJoinRequested )
+        PY_OVERRIDE_LOG( _steam, GameLobbyJoinRequestedCallback, OnGameLobbyJoinRequested )
+        bp::override func_OnGameLobbyJoinRequested = this->get_override( "OnGameLobbyJoinRequested" );
+        if( func_OnGameLobbyJoinRequested.ptr() != Py_None )
+            try {
+                func_OnGameLobbyJoinRequested( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameLobbyJoinRequestedCallback::OnGameLobbyJoinRequested( pData );
+            }
+        else
+            this->GameLobbyJoinRequestedCallback::OnGameLobbyJoinRequested( pData );
+    }
+    
+    void default_OnGameLobbyJoinRequested( ::GameLobbyJoinRequested_t * pData ) {
+        GameLobbyJoinRequestedCallback::OnGameLobbyJoinRequested( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( AvatarImageLoaded, AvatarImageLoaded_t );
+
+struct AvatarImageLoadedCallback_wrapper : AvatarImageLoadedCallback, bp::wrapper< AvatarImageLoadedCallback > {
+
+    AvatarImageLoadedCallback_wrapper(AvatarImageLoadedCallback const & arg )
+    : AvatarImageLoadedCallback( arg )
+      , bp::wrapper< AvatarImageLoadedCallback >(){
+        // copy constructor
+        
+    }
+
+    AvatarImageLoadedCallback_wrapper()
+    : AvatarImageLoadedCallback()
+      , bp::wrapper< AvatarImageLoadedCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnAvatarImageLoaded( ::AvatarImageLoaded_t * pData ) {
+        PY_OVERRIDE_CHECK( AvatarImageLoadedCallback, OnAvatarImageLoaded )
+        PY_OVERRIDE_LOG( _steam, AvatarImageLoadedCallback, OnAvatarImageLoaded )
+        bp::override func_OnAvatarImageLoaded = this->get_override( "OnAvatarImageLoaded" );
+        if( func_OnAvatarImageLoaded.ptr() != Py_None )
+            try {
+                func_OnAvatarImageLoaded( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->AvatarImageLoadedCallback::OnAvatarImageLoaded( pData );
+            }
+        else
+            this->AvatarImageLoadedCallback::OnAvatarImageLoaded( pData );
+    }
+    
+    void default_OnAvatarImageLoaded( ::AvatarImageLoaded_t * pData ) {
+        AvatarImageLoadedCallback::OnAvatarImageLoaded( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( ClanOfficerListResponse, ClanOfficerListResponse_t );
+
+struct ClanOfficerListResponseCallback_wrapper : ClanOfficerListResponseCallback, bp::wrapper< ClanOfficerListResponseCallback > {
+
+    ClanOfficerListResponseCallback_wrapper(ClanOfficerListResponseCallback const & arg )
+    : ClanOfficerListResponseCallback( arg )
+      , bp::wrapper< ClanOfficerListResponseCallback >(){
+        // copy constructor
+        
+    }
+
+    ClanOfficerListResponseCallback_wrapper()
+    : ClanOfficerListResponseCallback()
+      , bp::wrapper< ClanOfficerListResponseCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnClanOfficerListResponse( ::ClanOfficerListResponse_t * pData ) {
+        PY_OVERRIDE_CHECK( ClanOfficerListResponseCallback, OnClanOfficerListResponse )
+        PY_OVERRIDE_LOG( _steam, ClanOfficerListResponseCallback, OnClanOfficerListResponse )
+        bp::override func_OnClanOfficerListResponse = this->get_override( "OnClanOfficerListResponse" );
+        if( func_OnClanOfficerListResponse.ptr() != Py_None )
+            try {
+                func_OnClanOfficerListResponse( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->ClanOfficerListResponseCallback::OnClanOfficerListResponse( pData );
+            }
+        else
+            this->ClanOfficerListResponseCallback::OnClanOfficerListResponse( pData );
+    }
+    
+    void default_OnClanOfficerListResponse( ::ClanOfficerListResponse_t * pData ) {
+        ClanOfficerListResponseCallback::OnClanOfficerListResponse( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( FriendRichPresenceUpdate, FriendRichPresenceUpdate_t );
+
+struct FriendRichPresenceUpdateCallback_wrapper : FriendRichPresenceUpdateCallback, bp::wrapper< FriendRichPresenceUpdateCallback > {
+
+    FriendRichPresenceUpdateCallback_wrapper(FriendRichPresenceUpdateCallback const & arg )
+    : FriendRichPresenceUpdateCallback( arg )
+      , bp::wrapper< FriendRichPresenceUpdateCallback >(){
+        // copy constructor
+        
+    }
+
+    FriendRichPresenceUpdateCallback_wrapper()
+    : FriendRichPresenceUpdateCallback()
+      , bp::wrapper< FriendRichPresenceUpdateCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnFriendRichPresenceUpdate( ::FriendRichPresenceUpdate_t * pData ) {
+        PY_OVERRIDE_CHECK( FriendRichPresenceUpdateCallback, OnFriendRichPresenceUpdate )
+        PY_OVERRIDE_LOG( _steam, FriendRichPresenceUpdateCallback, OnFriendRichPresenceUpdate )
+        bp::override func_OnFriendRichPresenceUpdate = this->get_override( "OnFriendRichPresenceUpdate" );
+        if( func_OnFriendRichPresenceUpdate.ptr() != Py_None )
+            try {
+                func_OnFriendRichPresenceUpdate( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->FriendRichPresenceUpdateCallback::OnFriendRichPresenceUpdate( pData );
+            }
+        else
+            this->FriendRichPresenceUpdateCallback::OnFriendRichPresenceUpdate( pData );
+    }
+    
+    void default_OnFriendRichPresenceUpdate( ::FriendRichPresenceUpdate_t * pData ) {
+        FriendRichPresenceUpdateCallback::OnFriendRichPresenceUpdate( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameRichPresenceJoinRequested, GameRichPresenceJoinRequested_t );
+
+struct GameRichPresenceJoinRequestedCallback_wrapper : GameRichPresenceJoinRequestedCallback, bp::wrapper< GameRichPresenceJoinRequestedCallback > {
+
+    GameRichPresenceJoinRequestedCallback_wrapper(GameRichPresenceJoinRequestedCallback const & arg )
+    : GameRichPresenceJoinRequestedCallback( arg )
+      , bp::wrapper< GameRichPresenceJoinRequestedCallback >(){
+        // copy constructor
+        
+    }
+
+    GameRichPresenceJoinRequestedCallback_wrapper()
+    : GameRichPresenceJoinRequestedCallback()
+      , bp::wrapper< GameRichPresenceJoinRequestedCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnGameRichPresenceJoinRequested( ::GameRichPresenceJoinRequested_t * pData ) {
+        PY_OVERRIDE_CHECK( GameRichPresenceJoinRequestedCallback, OnGameRichPresenceJoinRequested )
+        PY_OVERRIDE_LOG( _steam, GameRichPresenceJoinRequestedCallback, OnGameRichPresenceJoinRequested )
+        bp::override func_OnGameRichPresenceJoinRequested = this->get_override( "OnGameRichPresenceJoinRequested" );
+        if( func_OnGameRichPresenceJoinRequested.ptr() != Py_None )
+            try {
+                func_OnGameRichPresenceJoinRequested( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameRichPresenceJoinRequestedCallback::OnGameRichPresenceJoinRequested( pData );
+            }
+        else
+            this->GameRichPresenceJoinRequestedCallback::OnGameRichPresenceJoinRequested( pData );
+    }
+    
+    void default_OnGameRichPresenceJoinRequested( ::GameRichPresenceJoinRequested_t * pData ) {
+        GameRichPresenceJoinRequestedCallback::OnGameRichPresenceJoinRequested( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameConnectedClanChatMsg, GameConnectedClanChatMsg_t );
+
+struct GameConnectedClanChatMsgCallback_wrapper : GameConnectedClanChatMsgCallback, bp::wrapper< GameConnectedClanChatMsgCallback > {
+
+    GameConnectedClanChatMsgCallback_wrapper(GameConnectedClanChatMsgCallback const & arg )
+    : GameConnectedClanChatMsgCallback( arg )
+      , bp::wrapper< GameConnectedClanChatMsgCallback >(){
+        // copy constructor
+        
+    }
+
+    GameConnectedClanChatMsgCallback_wrapper()
+    : GameConnectedClanChatMsgCallback()
+      , bp::wrapper< GameConnectedClanChatMsgCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnGameConnectedClanChatMsg( ::GameConnectedClanChatMsg_t * pData ) {
+        PY_OVERRIDE_CHECK( GameConnectedClanChatMsgCallback, OnGameConnectedClanChatMsg )
+        PY_OVERRIDE_LOG( _steam, GameConnectedClanChatMsgCallback, OnGameConnectedClanChatMsg )
+        bp::override func_OnGameConnectedClanChatMsg = this->get_override( "OnGameConnectedClanChatMsg" );
+        if( func_OnGameConnectedClanChatMsg.ptr() != Py_None )
+            try {
+                func_OnGameConnectedClanChatMsg( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameConnectedClanChatMsgCallback::OnGameConnectedClanChatMsg( pData );
+            }
+        else
+            this->GameConnectedClanChatMsgCallback::OnGameConnectedClanChatMsg( pData );
+    }
+    
+    void default_OnGameConnectedClanChatMsg( ::GameConnectedClanChatMsg_t * pData ) {
+        GameConnectedClanChatMsgCallback::OnGameConnectedClanChatMsg( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameConnectedChatJoin, GameConnectedChatJoin_t );
+
+struct GameConnectedChatJoinCallback_wrapper : GameConnectedChatJoinCallback, bp::wrapper< GameConnectedChatJoinCallback > {
+
+    GameConnectedChatJoinCallback_wrapper(GameConnectedChatJoinCallback const & arg )
+    : GameConnectedChatJoinCallback( arg )
+      , bp::wrapper< GameConnectedChatJoinCallback >(){
+        // copy constructor
+        
+    }
+
+    GameConnectedChatJoinCallback_wrapper()
+    : GameConnectedChatJoinCallback()
+      , bp::wrapper< GameConnectedChatJoinCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnGameConnectedChatJoin( ::GameConnectedChatJoin_t * pData ) {
+        PY_OVERRIDE_CHECK( GameConnectedChatJoinCallback, OnGameConnectedChatJoin )
+        PY_OVERRIDE_LOG( _steam, GameConnectedChatJoinCallback, OnGameConnectedChatJoin )
+        bp::override func_OnGameConnectedChatJoin = this->get_override( "OnGameConnectedChatJoin" );
+        if( func_OnGameConnectedChatJoin.ptr() != Py_None )
+            try {
+                func_OnGameConnectedChatJoin( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameConnectedChatJoinCallback::OnGameConnectedChatJoin( pData );
+            }
+        else
+            this->GameConnectedChatJoinCallback::OnGameConnectedChatJoin( pData );
+    }
+    
+    void default_OnGameConnectedChatJoin( ::GameConnectedChatJoin_t * pData ) {
+        GameConnectedChatJoinCallback::OnGameConnectedChatJoin( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameConnectedChatLeave, GameConnectedChatLeave_t );
+
+struct GameConnectedChatLeaveCallback_wrapper : GameConnectedChatLeaveCallback, bp::wrapper< GameConnectedChatLeaveCallback > {
+
+    GameConnectedChatLeaveCallback_wrapper(GameConnectedChatLeaveCallback const & arg )
+    : GameConnectedChatLeaveCallback( arg )
+      , bp::wrapper< GameConnectedChatLeaveCallback >(){
+        // copy constructor
+        
+    }
+
+    GameConnectedChatLeaveCallback_wrapper()
+    : GameConnectedChatLeaveCallback()
+      , bp::wrapper< GameConnectedChatLeaveCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnGameConnectedChatLeave( ::GameConnectedChatLeave_t * pData ) {
+        PY_OVERRIDE_CHECK( GameConnectedChatLeaveCallback, OnGameConnectedChatLeave )
+        PY_OVERRIDE_LOG( _steam, GameConnectedChatLeaveCallback, OnGameConnectedChatLeave )
+        bp::override func_OnGameConnectedChatLeave = this->get_override( "OnGameConnectedChatLeave" );
+        if( func_OnGameConnectedChatLeave.ptr() != Py_None )
+            try {
+                func_OnGameConnectedChatLeave( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameConnectedChatLeaveCallback::OnGameConnectedChatLeave( pData );
+            }
+        else
+            this->GameConnectedChatLeaveCallback::OnGameConnectedChatLeave( pData );
+    }
+    
+    void default_OnGameConnectedChatLeave( ::GameConnectedChatLeave_t * pData ) {
+        GameConnectedChatLeaveCallback::OnGameConnectedChatLeave( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( DownloadClanActivityCountsResult, DownloadClanActivityCountsResult_t );
+
+struct DownloadClanActivityCountsResultCallback_wrapper : DownloadClanActivityCountsResultCallback, bp::wrapper< DownloadClanActivityCountsResultCallback > {
+
+    DownloadClanActivityCountsResultCallback_wrapper(DownloadClanActivityCountsResultCallback const & arg )
+    : DownloadClanActivityCountsResultCallback( arg )
+      , bp::wrapper< DownloadClanActivityCountsResultCallback >(){
+        // copy constructor
+        
+    }
+
+    DownloadClanActivityCountsResultCallback_wrapper()
+    : DownloadClanActivityCountsResultCallback()
+      , bp::wrapper< DownloadClanActivityCountsResultCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnDownloadClanActivityCountsResult( ::DownloadClanActivityCountsResult_t * pData ) {
+        PY_OVERRIDE_CHECK( DownloadClanActivityCountsResultCallback, OnDownloadClanActivityCountsResult )
+        PY_OVERRIDE_LOG( _steam, DownloadClanActivityCountsResultCallback, OnDownloadClanActivityCountsResult )
+        bp::override func_OnDownloadClanActivityCountsResult = this->get_override( "OnDownloadClanActivityCountsResult" );
+        if( func_OnDownloadClanActivityCountsResult.ptr() != Py_None )
+            try {
+                func_OnDownloadClanActivityCountsResult( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->DownloadClanActivityCountsResultCallback::OnDownloadClanActivityCountsResult( pData );
+            }
+        else
+            this->DownloadClanActivityCountsResultCallback::OnDownloadClanActivityCountsResult( pData );
+    }
+    
+    void default_OnDownloadClanActivityCountsResult( ::DownloadClanActivityCountsResult_t * pData ) {
+        DownloadClanActivityCountsResultCallback::OnDownloadClanActivityCountsResult( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( JoinClanChatRoomCompletionResult, JoinClanChatRoomCompletionResult_t );
+
+struct JoinClanChatRoomCompletionResultCallback_wrapper : JoinClanChatRoomCompletionResultCallback, bp::wrapper< JoinClanChatRoomCompletionResultCallback > {
+
+    JoinClanChatRoomCompletionResultCallback_wrapper(JoinClanChatRoomCompletionResultCallback const & arg )
+    : JoinClanChatRoomCompletionResultCallback( arg )
+      , bp::wrapper< JoinClanChatRoomCompletionResultCallback >(){
+        // copy constructor
+        
+    }
+
+    JoinClanChatRoomCompletionResultCallback_wrapper()
+    : JoinClanChatRoomCompletionResultCallback()
+      , bp::wrapper< JoinClanChatRoomCompletionResultCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnJoinClanChatRoomCompletionResult( ::JoinClanChatRoomCompletionResult_t * pData ) {
+        PY_OVERRIDE_CHECK( JoinClanChatRoomCompletionResultCallback, OnJoinClanChatRoomCompletionResult )
+        PY_OVERRIDE_LOG( _steam, JoinClanChatRoomCompletionResultCallback, OnJoinClanChatRoomCompletionResult )
+        bp::override func_OnJoinClanChatRoomCompletionResult = this->get_override( "OnJoinClanChatRoomCompletionResult" );
+        if( func_OnJoinClanChatRoomCompletionResult.ptr() != Py_None )
+            try {
+                func_OnJoinClanChatRoomCompletionResult( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->JoinClanChatRoomCompletionResultCallback::OnJoinClanChatRoomCompletionResult( pData );
+            }
+        else
+            this->JoinClanChatRoomCompletionResultCallback::OnJoinClanChatRoomCompletionResult( pData );
+    }
+    
+    void default_OnJoinClanChatRoomCompletionResult( ::JoinClanChatRoomCompletionResult_t * pData ) {
+        JoinClanChatRoomCompletionResultCallback::OnJoinClanChatRoomCompletionResult( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( GameConnectedFriendChatMsg, GameConnectedFriendChatMsg_t );
+
+struct GameConnectedFriendChatMsgCallback_wrapper : GameConnectedFriendChatMsgCallback, bp::wrapper< GameConnectedFriendChatMsgCallback > {
+
+    GameConnectedFriendChatMsgCallback_wrapper(GameConnectedFriendChatMsgCallback const & arg )
+    : GameConnectedFriendChatMsgCallback( arg )
+      , bp::wrapper< GameConnectedFriendChatMsgCallback >(){
+        // copy constructor
+        
+    }
+
+    GameConnectedFriendChatMsgCallback_wrapper()
+    : GameConnectedFriendChatMsgCallback()
+      , bp::wrapper< GameConnectedFriendChatMsgCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnGameConnectedFriendChatMsg( ::GameConnectedFriendChatMsg_t * pData ) {
+        PY_OVERRIDE_CHECK( GameConnectedFriendChatMsgCallback, OnGameConnectedFriendChatMsg )
+        PY_OVERRIDE_LOG( _steam, GameConnectedFriendChatMsgCallback, OnGameConnectedFriendChatMsg )
+        bp::override func_OnGameConnectedFriendChatMsg = this->get_override( "OnGameConnectedFriendChatMsg" );
+        if( func_OnGameConnectedFriendChatMsg.ptr() != Py_None )
+            try {
+                func_OnGameConnectedFriendChatMsg( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->GameConnectedFriendChatMsgCallback::OnGameConnectedFriendChatMsg( pData );
+            }
+        else
+            this->GameConnectedFriendChatMsgCallback::OnGameConnectedFriendChatMsg( pData );
+    }
+    
+    void default_OnGameConnectedFriendChatMsg( ::GameConnectedFriendChatMsg_t * pData ) {
+        GameConnectedFriendChatMsgCallback::OnGameConnectedFriendChatMsg( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( FriendsGetFollowerCount, FriendsGetFollowerCount_t );
+
+struct FriendsGetFollowerCountCallback_wrapper : FriendsGetFollowerCountCallback, bp::wrapper< FriendsGetFollowerCountCallback > {
+
+    FriendsGetFollowerCountCallback_wrapper(FriendsGetFollowerCountCallback const & arg )
+    : FriendsGetFollowerCountCallback( arg )
+      , bp::wrapper< FriendsGetFollowerCountCallback >(){
+        // copy constructor
+        
+    }
+
+    FriendsGetFollowerCountCallback_wrapper()
+    : FriendsGetFollowerCountCallback()
+      , bp::wrapper< FriendsGetFollowerCountCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnFriendsGetFollowerCount( ::FriendsGetFollowerCount_t * pData ) {
+        PY_OVERRIDE_CHECK( FriendsGetFollowerCountCallback, OnFriendsGetFollowerCount )
+        PY_OVERRIDE_LOG( _steam, FriendsGetFollowerCountCallback, OnFriendsGetFollowerCount )
+        bp::override func_OnFriendsGetFollowerCount = this->get_override( "OnFriendsGetFollowerCount" );
+        if( func_OnFriendsGetFollowerCount.ptr() != Py_None )
+            try {
+                func_OnFriendsGetFollowerCount( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->FriendsGetFollowerCountCallback::OnFriendsGetFollowerCount( pData );
+            }
+        else
+            this->FriendsGetFollowerCountCallback::OnFriendsGetFollowerCount( pData );
+    }
+    
+    void default_OnFriendsGetFollowerCount( ::FriendsGetFollowerCount_t * pData ) {
+        FriendsGetFollowerCountCallback::OnFriendsGetFollowerCount( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( FriendsIsFollowing, FriendsIsFollowing_t );
+
+struct FriendsIsFollowingCallback_wrapper : FriendsIsFollowingCallback, bp::wrapper< FriendsIsFollowingCallback > {
+
+    FriendsIsFollowingCallback_wrapper(FriendsIsFollowingCallback const & arg )
+    : FriendsIsFollowingCallback( arg )
+      , bp::wrapper< FriendsIsFollowingCallback >(){
+        // copy constructor
+        
+    }
+
+    FriendsIsFollowingCallback_wrapper()
+    : FriendsIsFollowingCallback()
+      , bp::wrapper< FriendsIsFollowingCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnFriendsIsFollowing( ::FriendsIsFollowing_t * pData ) {
+        PY_OVERRIDE_CHECK( FriendsIsFollowingCallback, OnFriendsIsFollowing )
+        PY_OVERRIDE_LOG( _steam, FriendsIsFollowingCallback, OnFriendsIsFollowing )
+        bp::override func_OnFriendsIsFollowing = this->get_override( "OnFriendsIsFollowing" );
+        if( func_OnFriendsIsFollowing.ptr() != Py_None )
+            try {
+                func_OnFriendsIsFollowing( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->FriendsIsFollowingCallback::OnFriendsIsFollowing( pData );
+            }
+        else
+            this->FriendsIsFollowingCallback::OnFriendsIsFollowing( pData );
+    }
+    
+    void default_OnFriendsIsFollowing( ::FriendsIsFollowing_t * pData ) {
+        FriendsIsFollowingCallback::OnFriendsIsFollowing( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( FriendsEnumerateFollowingList, FriendsEnumerateFollowingList_t );
+
+struct FriendsEnumerateFollowingListCallback_wrapper : FriendsEnumerateFollowingListCallback, bp::wrapper< FriendsEnumerateFollowingListCallback > {
+
+    FriendsEnumerateFollowingListCallback_wrapper(FriendsEnumerateFollowingListCallback const & arg )
+    : FriendsEnumerateFollowingListCallback( arg )
+      , bp::wrapper< FriendsEnumerateFollowingListCallback >(){
+        // copy constructor
+        
+    }
+
+    FriendsEnumerateFollowingListCallback_wrapper()
+    : FriendsEnumerateFollowingListCallback()
+      , bp::wrapper< FriendsEnumerateFollowingListCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnFriendsEnumerateFollowingList( ::FriendsEnumerateFollowingList_t * pData ) {
+        PY_OVERRIDE_CHECK( FriendsEnumerateFollowingListCallback, OnFriendsEnumerateFollowingList )
+        PY_OVERRIDE_LOG( _steam, FriendsEnumerateFollowingListCallback, OnFriendsEnumerateFollowingList )
+        bp::override func_OnFriendsEnumerateFollowingList = this->get_override( "OnFriendsEnumerateFollowingList" );
+        if( func_OnFriendsEnumerateFollowingList.ptr() != Py_None )
+            try {
+                func_OnFriendsEnumerateFollowingList( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->FriendsEnumerateFollowingListCallback::OnFriendsEnumerateFollowingList( pData );
+            }
+        else
+            this->FriendsEnumerateFollowingListCallback::OnFriendsEnumerateFollowingList( pData );
+    }
+    
+    void default_OnFriendsEnumerateFollowingList( ::FriendsEnumerateFollowingList_t * pData ) {
+        FriendsEnumerateFollowingListCallback::OnFriendsEnumerateFollowingList( pData );
+    }
+};
+
+PY_STEAM_CALLBACK_WRAPPER( SetPersonaNameResponse, SetPersonaNameResponse_t );
+
+struct SetPersonaNameResponseCallback_wrapper : SetPersonaNameResponseCallback, bp::wrapper< SetPersonaNameResponseCallback > {
+
+    SetPersonaNameResponseCallback_wrapper(SetPersonaNameResponseCallback const & arg )
+    : SetPersonaNameResponseCallback( arg )
+      , bp::wrapper< SetPersonaNameResponseCallback >(){
+        // copy constructor
+        
+    }
+
+    SetPersonaNameResponseCallback_wrapper()
+    : SetPersonaNameResponseCallback()
+      , bp::wrapper< SetPersonaNameResponseCallback >(){
+        // constructor
+    
+    }
+
+    virtual void OnSetPersonaNameResponse( ::SetPersonaNameResponse_t * pData ) {
+        PY_OVERRIDE_CHECK( SetPersonaNameResponseCallback, OnSetPersonaNameResponse )
+        PY_OVERRIDE_LOG( _steam, SetPersonaNameResponseCallback, OnSetPersonaNameResponse )
+        bp::override func_OnSetPersonaNameResponse = this->get_override( "OnSetPersonaNameResponse" );
+        if( func_OnSetPersonaNameResponse.ptr() != Py_None )
+            try {
+                func_OnSetPersonaNameResponse( boost::python::ptr(pData) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->SetPersonaNameResponseCallback::OnSetPersonaNameResponse( pData );
+            }
+        else
+            this->SetPersonaNameResponseCallback::OnSetPersonaNameResponse( pData );
+    }
+    
+    void default_OnSetPersonaNameResponse( ::SetPersonaNameResponse_t * pData ) {
+        SetPersonaNameResponseCallback::OnSetPersonaNameResponse( pData );
+    }
 };
 
 PY_STEAM_CALLRESULT_WRAPPER( LobbyMatchList, LobbyMatchList_t );
@@ -3257,6 +5309,24 @@ BOOST_PYTHON_MODULE(_steam){
         .export_values()
         ;
 
+    bp::enum_< EPersonaChange>("EPersonaChange")
+        .value("k_EPersonaChangeName", k_EPersonaChangeName)
+        .value("k_EPersonaChangeStatus", k_EPersonaChangeStatus)
+        .value("k_EPersonaChangeComeOnline", k_EPersonaChangeComeOnline)
+        .value("k_EPersonaChangeGoneOffline", k_EPersonaChangeGoneOffline)
+        .value("k_EPersonaChangeGamePlayed", k_EPersonaChangeGamePlayed)
+        .value("k_EPersonaChangeGameServer", k_EPersonaChangeGameServer)
+        .value("k_EPersonaChangeAvatar", k_EPersonaChangeAvatar)
+        .value("k_EPersonaChangeJoinedSource", k_EPersonaChangeJoinedSource)
+        .value("k_EPersonaChangeLeftSource", k_EPersonaChangeLeftSource)
+        .value("k_EPersonaChangeRelationshipChanged", k_EPersonaChangeRelationshipChanged)
+        .value("k_EPersonaChangeNameFirstSet", k_EPersonaChangeNameFirstSet)
+        .value("k_EPersonaChangeFacebookInfo", k_EPersonaChangeFacebookInfo)
+        .value("k_EPersonaChangeNickname", k_EPersonaChangeNickname)
+        .value("k_EPersonaChangeSteamLevel", k_EPersonaChangeSteamLevel)
+        .export_values()
+        ;
+
     bp::enum_< EPersonaState>("EPersonaState")
         .value("k_EPersonaStateOffline", k_EPersonaStateOffline)
         .value("k_EPersonaStateOnline", k_EPersonaStateOnline)
@@ -3382,6 +5452,17 @@ BOOST_PYTHON_MODULE(_steam){
         .export_values()
         ;
 
+    { //::AvatarImageLoaded_t
+        typedef bp::class_< AvatarImageLoaded_t > AvatarImageLoaded_t_exposer_t;
+        AvatarImageLoaded_t_exposer_t AvatarImageLoaded_t_exposer = AvatarImageLoaded_t_exposer_t( "AvatarImageLoaded_t" );
+        bp::scope AvatarImageLoaded_t_scope( AvatarImageLoaded_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)AvatarImageLoaded_t::k_iCallback;
+        AvatarImageLoaded_t_exposer.def_readwrite( "image", &AvatarImageLoaded_t::m_iImage );
+        AvatarImageLoaded_t_exposer.def_readwrite( "tall", &AvatarImageLoaded_t::m_iTall );
+        AvatarImageLoaded_t_exposer.def_readwrite( "wide", &AvatarImageLoaded_t::m_iWide );
+        AvatarImageLoaded_t_exposer.def_readwrite( "steamid", &AvatarImageLoaded_t::m_steamID );
+    }
+
     bp::class_< CSteamAPIContext >( "CSteamAPIContext", bp::init< >() )    
         .def( 
             "SteamFriends"
@@ -3402,6 +5483,12 @@ BOOST_PYTHON_MODULE(_steam){
         .def( 
             "SteamUtils"
             , (::ISteamUtils * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamUtils )
+            , bp::return_internal_reference< >() );
+
+    bp::class_< CSteamGameServerAPIContext >( "CSteamGameServerAPIContext", bp::init< >() )    
+        .def( 
+            "SteamGameServer"
+            , (::ISteamGameServer * ( ::CSteamGameServerAPIContext::* )(  ) )( &::CSteamGameServerAPIContext::SteamGameServer )
             , bp::return_internal_reference< >() );
 
     { //::CSteamID
@@ -3706,6 +5793,169 @@ BOOST_PYTHON_MODULE(_steam){
         CSteamID_exposer.def( bp::self > bp::self );
     }
 
+    { //::ClanOfficerListResponse_t
+        typedef bp::class_< ClanOfficerListResponse_t > ClanOfficerListResponse_t_exposer_t;
+        ClanOfficerListResponse_t_exposer_t ClanOfficerListResponse_t_exposer = ClanOfficerListResponse_t_exposer_t( "ClanOfficerListResponse_t" );
+        bp::scope ClanOfficerListResponse_t_scope( ClanOfficerListResponse_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)ClanOfficerListResponse_t::k_iCallback;
+        ClanOfficerListResponse_t_exposer.def_readwrite( "success", &ClanOfficerListResponse_t::m_bSuccess );
+        ClanOfficerListResponse_t_exposer.def_readwrite( "officers", &ClanOfficerListResponse_t::m_cOfficers );
+        ClanOfficerListResponse_t_exposer.def_readwrite( "steamidclan", &ClanOfficerListResponse_t::m_steamIDClan );
+    }
+
+    { //::DownloadClanActivityCountsResult_t
+        typedef bp::class_< DownloadClanActivityCountsResult_t > DownloadClanActivityCountsResult_t_exposer_t;
+        DownloadClanActivityCountsResult_t_exposer_t DownloadClanActivityCountsResult_t_exposer = DownloadClanActivityCountsResult_t_exposer_t( "DownloadClanActivityCountsResult_t" );
+        bp::scope DownloadClanActivityCountsResult_t_scope( DownloadClanActivityCountsResult_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)DownloadClanActivityCountsResult_t::k_iCallback;
+        DownloadClanActivityCountsResult_t_exposer.def_readwrite( "success", &DownloadClanActivityCountsResult_t::m_bSuccess );
+    }
+
+    { //::FriendRichPresenceUpdate_t
+        typedef bp::class_< FriendRichPresenceUpdate_t > FriendRichPresenceUpdate_t_exposer_t;
+        FriendRichPresenceUpdate_t_exposer_t FriendRichPresenceUpdate_t_exposer = FriendRichPresenceUpdate_t_exposer_t( "FriendRichPresenceUpdate_t" );
+        bp::scope FriendRichPresenceUpdate_t_scope( FriendRichPresenceUpdate_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)FriendRichPresenceUpdate_t::k_iCallback;
+        FriendRichPresenceUpdate_t_exposer.def_readwrite( "appid", &FriendRichPresenceUpdate_t::m_nAppID );
+        FriendRichPresenceUpdate_t_exposer.def_readwrite( "steamidfriend", &FriendRichPresenceUpdate_t::m_steamIDFriend );
+    }
+
+    { //::FriendsEnumerateFollowingList_t
+        typedef bp::class_< FriendsEnumerateFollowingList_t_wrapper > FriendsEnumerateFollowingList_t_exposer_t;
+        FriendsEnumerateFollowingList_t_exposer_t FriendsEnumerateFollowingList_t_exposer = FriendsEnumerateFollowingList_t_exposer_t( "FriendsEnumerateFollowingList_t" );
+        bp::scope FriendsEnumerateFollowingList_t_scope( FriendsEnumerateFollowingList_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)FriendsEnumerateFollowingList_t::k_iCallback;
+        FriendsEnumerateFollowingList_t_exposer.def_readwrite( "result", &FriendsEnumerateFollowingList_t::m_eResult );
+        FriendsEnumerateFollowingList_t_exposer.def_readwrite( "resultsreturned", &FriendsEnumerateFollowingList_t::m_nResultsReturned );
+        FriendsEnumerateFollowingList_t_exposer.def_readwrite( "totalresultcount", &FriendsEnumerateFollowingList_t::m_nTotalResultCount );
+        pyplusplus::containers::static_sized::register_array_1< ::CSteamID, 50, bp::return_internal_reference< > >( "__array_1__scope_CSteamID_50" );
+        { //FriendsEnumerateFollowingList_t::m_rgSteamID [variable], type=CSteamID[50]
+        
+            typedef pyplusplus::containers::static_sized::array_1_t< ::CSteamID, 50> ( *array_wrapper_creator )( ::FriendsEnumerateFollowingList_t & );
+            
+            FriendsEnumerateFollowingList_t_exposer.add_property( "m_rgSteamID"
+                , bp::make_function( array_wrapper_creator(&FriendsEnumerateFollowingList_t_wrapper::pyplusplus_m_rgSteamID_wrapper)
+                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
+        }
+    }
+
+    { //::FriendsGetFollowerCount_t
+        typedef bp::class_< FriendsGetFollowerCount_t > FriendsGetFollowerCount_t_exposer_t;
+        FriendsGetFollowerCount_t_exposer_t FriendsGetFollowerCount_t_exposer = FriendsGetFollowerCount_t_exposer_t( "FriendsGetFollowerCount_t" );
+        bp::scope FriendsGetFollowerCount_t_scope( FriendsGetFollowerCount_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)FriendsGetFollowerCount_t::k_iCallback;
+        FriendsGetFollowerCount_t_exposer.def_readwrite( "result", &FriendsGetFollowerCount_t::m_eResult );
+        FriendsGetFollowerCount_t_exposer.def_readwrite( "count", &FriendsGetFollowerCount_t::m_nCount );
+        FriendsGetFollowerCount_t_exposer.def_readwrite( "steamid", &FriendsGetFollowerCount_t::m_steamID );
+    }
+
+    { //::FriendsIsFollowing_t
+        typedef bp::class_< FriendsIsFollowing_t > FriendsIsFollowing_t_exposer_t;
+        FriendsIsFollowing_t_exposer_t FriendsIsFollowing_t_exposer = FriendsIsFollowing_t_exposer_t( "FriendsIsFollowing_t" );
+        bp::scope FriendsIsFollowing_t_scope( FriendsIsFollowing_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)FriendsIsFollowing_t::k_iCallback;
+        FriendsIsFollowing_t_exposer.def_readwrite( "isfollowing", &FriendsIsFollowing_t::m_bIsFollowing );
+        FriendsIsFollowing_t_exposer.def_readwrite( "result", &FriendsIsFollowing_t::m_eResult );
+        FriendsIsFollowing_t_exposer.def_readwrite( "steamid", &FriendsIsFollowing_t::m_steamID );
+    }
+
+    { //::GameConnectedChatJoin_t
+        typedef bp::class_< GameConnectedChatJoin_t > GameConnectedChatJoin_t_exposer_t;
+        GameConnectedChatJoin_t_exposer_t GameConnectedChatJoin_t_exposer = GameConnectedChatJoin_t_exposer_t( "GameConnectedChatJoin_t" );
+        bp::scope GameConnectedChatJoin_t_scope( GameConnectedChatJoin_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameConnectedChatJoin_t::k_iCallback;
+        GameConnectedChatJoin_t_exposer.def_readwrite( "steamidclanchat", &GameConnectedChatJoin_t::m_steamIDClanChat );
+        GameConnectedChatJoin_t_exposer.def_readwrite( "steamiduser", &GameConnectedChatJoin_t::m_steamIDUser );
+    }
+
+    { //::GameConnectedChatLeave_t
+        typedef bp::class_< GameConnectedChatLeave_t > GameConnectedChatLeave_t_exposer_t;
+        GameConnectedChatLeave_t_exposer_t GameConnectedChatLeave_t_exposer = GameConnectedChatLeave_t_exposer_t( "GameConnectedChatLeave_t" );
+        bp::scope GameConnectedChatLeave_t_scope( GameConnectedChatLeave_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameConnectedChatLeave_t::k_iCallback;
+        GameConnectedChatLeave_t_exposer.def_readwrite( "dropped", &GameConnectedChatLeave_t::m_bDropped );
+        GameConnectedChatLeave_t_exposer.def_readwrite( "kicked", &GameConnectedChatLeave_t::m_bKicked );
+        GameConnectedChatLeave_t_exposer.def_readwrite( "steamidclanchat", &GameConnectedChatLeave_t::m_steamIDClanChat );
+        GameConnectedChatLeave_t_exposer.def_readwrite( "steamiduser", &GameConnectedChatLeave_t::m_steamIDUser );
+    }
+
+    { //::GameConnectedClanChatMsg_t
+        typedef bp::class_< GameConnectedClanChatMsg_t > GameConnectedClanChatMsg_t_exposer_t;
+        GameConnectedClanChatMsg_t_exposer_t GameConnectedClanChatMsg_t_exposer = GameConnectedClanChatMsg_t_exposer_t( "GameConnectedClanChatMsg_t" );
+        bp::scope GameConnectedClanChatMsg_t_scope( GameConnectedClanChatMsg_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameConnectedClanChatMsg_t::k_iCallback;
+        GameConnectedClanChatMsg_t_exposer.def_readwrite( "messageid", &GameConnectedClanChatMsg_t::m_iMessageID );
+        GameConnectedClanChatMsg_t_exposer.def_readwrite( "steamidclanchat", &GameConnectedClanChatMsg_t::m_steamIDClanChat );
+        GameConnectedClanChatMsg_t_exposer.def_readwrite( "steamiduser", &GameConnectedClanChatMsg_t::m_steamIDUser );
+    }
+
+    { //::GameConnectedFriendChatMsg_t
+        typedef bp::class_< GameConnectedFriendChatMsg_t > GameConnectedFriendChatMsg_t_exposer_t;
+        GameConnectedFriendChatMsg_t_exposer_t GameConnectedFriendChatMsg_t_exposer = GameConnectedFriendChatMsg_t_exposer_t( "GameConnectedFriendChatMsg_t" );
+        bp::scope GameConnectedFriendChatMsg_t_scope( GameConnectedFriendChatMsg_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameConnectedFriendChatMsg_t::k_iCallback;
+        GameConnectedFriendChatMsg_t_exposer.def_readwrite( "messageid", &GameConnectedFriendChatMsg_t::m_iMessageID );
+        GameConnectedFriendChatMsg_t_exposer.def_readwrite( "steamiduser", &GameConnectedFriendChatMsg_t::m_steamIDUser );
+    }
+
+    { //::GameLobbyJoinRequested_t
+        typedef bp::class_< GameLobbyJoinRequested_t > GameLobbyJoinRequested_t_exposer_t;
+        GameLobbyJoinRequested_t_exposer_t GameLobbyJoinRequested_t_exposer = GameLobbyJoinRequested_t_exposer_t( "GameLobbyJoinRequested_t" );
+        bp::scope GameLobbyJoinRequested_t_scope( GameLobbyJoinRequested_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameLobbyJoinRequested_t::k_iCallback;
+        GameLobbyJoinRequested_t_exposer.def_readwrite( "steamidfriend", &GameLobbyJoinRequested_t::m_steamIDFriend );
+        GameLobbyJoinRequested_t_exposer.def_readwrite( "steamidlobby", &GameLobbyJoinRequested_t::m_steamIDLobby );
+    }
+
+    { //::GameOverlayActivated_t
+        typedef bp::class_< GameOverlayActivated_t > GameOverlayActivated_t_exposer_t;
+        GameOverlayActivated_t_exposer_t GameOverlayActivated_t_exposer = GameOverlayActivated_t_exposer_t( "GameOverlayActivated_t" );
+        bp::scope GameOverlayActivated_t_scope( GameOverlayActivated_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameOverlayActivated_t::k_iCallback;
+        GameOverlayActivated_t_exposer.def_readwrite( "active", &GameOverlayActivated_t::m_bActive );
+    }
+
+    { //::GameRichPresenceJoinRequested_t
+        typedef bp::class_< GameRichPresenceJoinRequested_t_wrapper > GameRichPresenceJoinRequested_t_exposer_t;
+        GameRichPresenceJoinRequested_t_exposer_t GameRichPresenceJoinRequested_t_exposer = GameRichPresenceJoinRequested_t_exposer_t( "GameRichPresenceJoinRequested_t" );
+        bp::scope GameRichPresenceJoinRequested_t_scope( GameRichPresenceJoinRequested_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameRichPresenceJoinRequested_t::k_iCallback;
+        pyplusplus::containers::static_sized::register_array_1< char, 256 >( "__array_1_char_256" );
+        { //GameRichPresenceJoinRequested_t::m_rgchConnect [variable], type=char[256]
+        
+            typedef pyplusplus::containers::static_sized::array_1_t< char, 256> ( *array_wrapper_creator )( ::GameRichPresenceJoinRequested_t & );
+            
+            GameRichPresenceJoinRequested_t_exposer.add_property( "m_rgchConnect"
+                , bp::make_function( array_wrapper_creator(&GameRichPresenceJoinRequested_t_wrapper::pyplusplus_m_rgchConnect_wrapper)
+                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
+        }
+        GameRichPresenceJoinRequested_t_exposer.def_readwrite( "steamidfriend", &GameRichPresenceJoinRequested_t::m_steamIDFriend );
+    }
+
+    { //::GameServerChangeRequested_t
+        typedef bp::class_< GameServerChangeRequested_t_wrapper > GameServerChangeRequested_t_exposer_t;
+        GameServerChangeRequested_t_exposer_t GameServerChangeRequested_t_exposer = GameServerChangeRequested_t_exposer_t( "GameServerChangeRequested_t" );
+        bp::scope GameServerChangeRequested_t_scope( GameServerChangeRequested_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)GameServerChangeRequested_t::k_iCallback;
+        pyplusplus::containers::static_sized::register_array_1< char, 64 >( "__array_1_char_64" );
+        { //GameServerChangeRequested_t::m_rgchPassword [variable], type=char[64]
+        
+            typedef pyplusplus::containers::static_sized::array_1_t< char, 64> ( *array_wrapper_creator )( ::GameServerChangeRequested_t & );
+            
+            GameServerChangeRequested_t_exposer.add_property( "m_rgchPassword"
+                , bp::make_function( array_wrapper_creator(&GameServerChangeRequested_t_wrapper::pyplusplus_m_rgchPassword_wrapper)
+                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
+        }
+        { //GameServerChangeRequested_t::m_rgchServer [variable], type=char[64]
+        
+            typedef pyplusplus::containers::static_sized::array_1_t< char, 64> ( *array_wrapper_creator )( ::GameServerChangeRequested_t & );
+            
+            GameServerChangeRequested_t_exposer.add_property( "m_rgchServer"
+                , bp::make_function( array_wrapper_creator(&GameServerChangeRequested_t_wrapper::pyplusplus_m_rgchServer_wrapper)
+                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
+        }
+    }
+
     bp::class_< ISteamFriends, boost::noncopyable >( "ISteamFriends", bp::no_init )    
         .def( 
             "ActivateGameOverlay"
@@ -3954,6 +6204,172 @@ BOOST_PYTHON_MODULE(_steam){
             , (bool ( ::ISteamFriends::* )( char const *,char const * ) )( &::ISteamFriends::SetRichPresence )
             , ( bp::arg("pchKey"), bp::arg("pchValue") ) );
 
+    bp::class_< ISteamGameServer, boost::noncopyable >( "ISteamGameServer", bp::no_init )    
+        .def( 
+            "AssociateWithClan"
+            , (::SteamAPICall_t ( ::ISteamGameServer::* )( ::CSteamID ) )( &::ISteamGameServer::AssociateWithClan )
+            , ( bp::arg("steamIDClan") ) )    
+        .def( 
+            "BLoggedOn"
+            , (bool ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::BLoggedOn ) )    
+        .def( 
+            "BSecure"
+            , (bool ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::BSecure ) )    
+        .def( 
+            "BUpdateUserData"
+            , (bool ( ::ISteamGameServer::* )( ::CSteamID,char const *,::uint32 ) )( &::ISteamGameServer::BUpdateUserData )
+            , ( bp::arg("steamIDUser"), bp::arg("pchPlayerName"), bp::arg("uScore") ) )    
+        .def( 
+            "BeginAuthSession"
+            , (::EBeginAuthSessionResult ( ::ISteamGameServer::* )( void const *,int,::CSteamID ) )( &::ISteamGameServer::BeginAuthSession )
+            , ( bp::arg("pAuthTicket"), bp::arg("cbAuthTicket"), bp::arg("steamID") ) )    
+        .def( 
+            "CancelAuthTicket"
+            , (void ( ::ISteamGameServer::* )( ::HAuthTicket ) )( &::ISteamGameServer::CancelAuthTicket )
+            , ( bp::arg("hAuthTicket") ) )    
+        .def( 
+            "ClearAllKeyValues"
+            , (void ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::ClearAllKeyValues ) )    
+        .def( 
+            "ComputeNewPlayerCompatibility"
+            , (::SteamAPICall_t ( ::ISteamGameServer::* )( ::CSteamID ) )( &::ISteamGameServer::ComputeNewPlayerCompatibility )
+            , ( bp::arg("steamIDNewPlayer") ) )    
+        .def( 
+            "CreateUnauthenticatedUserConnection"
+            , (::CSteamID ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::CreateUnauthenticatedUserConnection ) )    
+        .def( 
+            "EnableHeartbeats"
+            , (void ( ::ISteamGameServer::* )( bool ) )( &::ISteamGameServer::EnableHeartbeats )
+            , ( bp::arg("bActive") ) )    
+        .def( 
+            "EndAuthSession"
+            , (void ( ::ISteamGameServer::* )( ::CSteamID ) )( &::ISteamGameServer::EndAuthSession )
+            , ( bp::arg("steamID") ) )    
+        .def( 
+            "ForceHeartbeat"
+            , (void ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::ForceHeartbeat ) )    
+        .def( 
+            "GetAuthSessionTicket"
+            , (::HAuthTicket ( ::ISteamGameServer::* )( void *,int,::uint32 * ) )( &::ISteamGameServer::GetAuthSessionTicket )
+            , ( bp::arg("pTicket"), bp::arg("cbMaxTicket"), bp::arg("pcbTicket") ) )    
+        .def( 
+            "GetGameplayStats"
+            , (void ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::GetGameplayStats ) )    
+        .def( 
+            "GetNextOutgoingPacket"
+            , (int ( ::ISteamGameServer::* )( void *,int,::uint32 *,::uint16 * ) )( &::ISteamGameServer::GetNextOutgoingPacket )
+            , ( bp::arg("pOut"), bp::arg("cbMaxOut"), bp::arg("pNetAdr"), bp::arg("pPort") ) )    
+        .def( 
+            "GetPublicIP"
+            , (::uint32 ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::GetPublicIP ) )    
+        .def( 
+            "GetServerReputation"
+            , (::SteamAPICall_t ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::GetServerReputation ) )    
+        .def( 
+            "GetSteamID"
+            , (::CSteamID ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::GetSteamID ) )    
+        .def( 
+            "HandleIncomingPacket"
+            , (bool ( ::ISteamGameServer::* )( void const *,int,::uint32,::uint16 ) )( &::ISteamGameServer::HandleIncomingPacket )
+            , ( bp::arg("pData"), bp::arg("cbData"), bp::arg("srcIP"), bp::arg("srcPort") ) )    
+        .def( 
+            "InitGameServer"
+            , (bool ( ::ISteamGameServer::* )( ::uint32,::uint16,::uint16,::uint32,::AppId_t,char const * ) )( &::ISteamGameServer::InitGameServer )
+            , ( bp::arg("unIP"), bp::arg("usGamePort"), bp::arg("usQueryPort"), bp::arg("unFlags"), bp::arg("nGameAppId"), bp::arg("pchVersionString") ) )    
+        .def( 
+            "LogOff"
+            , (void ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::LogOff ) )    
+        .def( 
+            "LogOn"
+            , (void ( ::ISteamGameServer::* )( char const * ) )( &::ISteamGameServer::LogOn )
+            , ( bp::arg("pszToken") ) )    
+        .def( 
+            "LogOnAnonymous"
+            , (void ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::LogOnAnonymous ) )    
+        .def( 
+            "RequestUserGroupStatus"
+            , (bool ( ::ISteamGameServer::* )( ::CSteamID,::CSteamID ) )( &::ISteamGameServer::RequestUserGroupStatus )
+            , ( bp::arg("steamIDUser"), bp::arg("steamIDGroup") ) )    
+        .def( 
+            "SendUserConnectAndAuthenticate"
+            , (bool ( ::ISteamGameServer::* )( ::uint32,void const *,::uint32,::CSteamID * ) )( &::ISteamGameServer::SendUserConnectAndAuthenticate )
+            , ( bp::arg("unIPClient"), bp::arg("pvAuthBlob"), bp::arg("cubAuthBlobSize"), bp::arg("pSteamIDUser") ) )    
+        .def( 
+            "SendUserDisconnect"
+            , (void ( ::ISteamGameServer::* )( ::CSteamID ) )( &::ISteamGameServer::SendUserDisconnect )
+            , ( bp::arg("steamIDUser") ) )    
+        .def( 
+            "SetBotPlayerCount"
+            , (void ( ::ISteamGameServer::* )( int ) )( &::ISteamGameServer::SetBotPlayerCount )
+            , ( bp::arg("cBotplayers") ) )    
+        .def( 
+            "SetDedicatedServer"
+            , (void ( ::ISteamGameServer::* )( bool ) )( &::ISteamGameServer::SetDedicatedServer )
+            , ( bp::arg("bDedicated") ) )    
+        .def( 
+            "SetGameData"
+            , (void ( ::ISteamGameServer::* )( char const * ) )( &::ISteamGameServer::SetGameData )
+            , ( bp::arg("pchGameData") ) )    
+        .def( 
+            "SetGameDescription"
+            , (void ( ::ISteamGameServer::* )( char const * ) )( &::ISteamGameServer::SetGameDescription )
+            , ( bp::arg("pszGameDescription") ) )    
+        .def( 
+            "SetGameTags"
+            , (void ( ::ISteamGameServer::* )( char const * ) )( &::ISteamGameServer::SetGameTags )
+            , ( bp::arg("pchGameTags") ) )    
+        .def( 
+            "SetHeartbeatInterval"
+            , (void ( ::ISteamGameServer::* )( int ) )( &::ISteamGameServer::SetHeartbeatInterval )
+            , ( bp::arg("iHeartbeatInterval") ) )    
+        .def( 
+            "SetKeyValue"
+            , (void ( ::ISteamGameServer::* )( char const *,char const * ) )( &::ISteamGameServer::SetKeyValue )
+            , ( bp::arg("pKey"), bp::arg("pValue") ) )    
+        .def( 
+            "SetMapName"
+            , (void ( ::ISteamGameServer::* )( char const * ) )( &::ISteamGameServer::SetMapName )
+            , ( bp::arg("pszMapName") ) )    
+        .def( 
+            "SetMaxPlayerCount"
+            , (void ( ::ISteamGameServer::* )( int ) )( &::ISteamGameServer::SetMaxPlayerCount )
+            , ( bp::arg("cPlayersMax") ) )    
+        .def( 
+            "SetModDir"
+            , (void ( ::ISteamGameServer::* )( char const * ) )( &::ISteamGameServer::SetModDir )
+            , ( bp::arg("pszModDir") ) )    
+        .def( 
+            "SetPasswordProtected"
+            , (void ( ::ISteamGameServer::* )( bool ) )( &::ISteamGameServer::SetPasswordProtected )
+            , ( bp::arg("bPasswordProtected") ) )    
+        .def( 
+            "SetProduct"
+            , (void ( ::ISteamGameServer::* )( char const * ) )( &::ISteamGameServer::SetProduct )
+            , ( bp::arg("pszProduct") ) )    
+        .def( 
+            "SetRegion"
+            , (void ( ::ISteamGameServer::* )( char const * ) )( &::ISteamGameServer::SetRegion )
+            , ( bp::arg("pszRegion") ) )    
+        .def( 
+            "SetServerName"
+            , (void ( ::ISteamGameServer::* )( char const * ) )( &::ISteamGameServer::SetServerName )
+            , ( bp::arg("pszServerName") ) )    
+        .def( 
+            "SetSpectatorPort"
+            , (void ( ::ISteamGameServer::* )( ::uint16 ) )( &::ISteamGameServer::SetSpectatorPort )
+            , ( bp::arg("unSpectatorPort") ) )    
+        .def( 
+            "SetSpectatorServerName"
+            , (void ( ::ISteamGameServer::* )( char const * ) )( &::ISteamGameServer::SetSpectatorServerName )
+            , ( bp::arg("pszSpectatorServerName") ) )    
+        .def( 
+            "UserHasLicenseForApp"
+            , (::EUserHasLicenseForAppResult ( ::ISteamGameServer::* )( ::CSteamID,::AppId_t ) )( &::ISteamGameServer::UserHasLicenseForApp )
+            , ( bp::arg("steamID"), bp::arg("appID") ) )    
+        .def( 
+            "WasRestartRequested"
+            , (bool ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::WasRestartRequested ) );
+
     bp::class_< ISteamMatchmaking, boost::noncopyable >( "ISteamMatchmaking", bp::no_init )    
         .def( 
             "AddFavoriteGame"
@@ -4024,8 +6440,8 @@ BOOST_PYTHON_MODULE(_steam){
             , ( bp::arg("steamIDLobby") ) )    
         .def( 
             "GetLobbyGameServer"
-            , (bool ( ::ISteamMatchmaking::* )( ::CSteamID,::uint32 *,::uint16 *,::CSteamID * ) )( &::ISteamMatchmaking::GetLobbyGameServer )
-            , ( bp::arg("steamIDLobby"), bp::arg("punGameServerIP"), bp::arg("punGameServerPort"), bp::arg("psteamIDGameServer") ) )    
+            , (boost::python::tuple (*)( ::ISteamMatchmaking &,::CSteamID ))( &GetLobbyGameServer_e3badaaa69eb32a59ea528ba9e97e8ee )
+            , ( bp::arg("inst"), bp::arg("steamIDLobby") ) )    
         .def( 
             "GetLobbyMemberByIndex"
             , (::CSteamID ( ::ISteamMatchmaking::* )( ::CSteamID,int ) )( &::ISteamMatchmaking::GetLobbyMemberByIndex )
@@ -4441,6 +6857,15 @@ BOOST_PYTHON_MODULE(_steam){
             , (bool ( ::ISteamUtils::* )( ::EGamepadTextInputMode,::EGamepadTextInputLineMode,char const *,::uint32,char const * ) )( &::ISteamUtils::ShowGamepadTextInput )
             , ( bp::arg("eInputMode"), bp::arg("eLineInputMode"), bp::arg("pchDescription"), bp::arg("unCharMax"), bp::arg("pchExistingText") ) );
 
+    { //::JoinClanChatRoomCompletionResult_t
+        typedef bp::class_< JoinClanChatRoomCompletionResult_t > JoinClanChatRoomCompletionResult_t_exposer_t;
+        JoinClanChatRoomCompletionResult_t_exposer_t JoinClanChatRoomCompletionResult_t_exposer = JoinClanChatRoomCompletionResult_t_exposer_t( "JoinClanChatRoomCompletionResult_t" );
+        bp::scope JoinClanChatRoomCompletionResult_t_scope( JoinClanChatRoomCompletionResult_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)JoinClanChatRoomCompletionResult_t::k_iCallback;
+        JoinClanChatRoomCompletionResult_t_exposer.def_readwrite( "chatroomenterresponse", &JoinClanChatRoomCompletionResult_t::m_eChatRoomEnterResponse );
+        JoinClanChatRoomCompletionResult_t_exposer.def_readwrite( "steamidclanchat", &JoinClanChatRoomCompletionResult_t::m_steamIDClanChat );
+    }
+
     { //::LobbyChatMsg_t
         typedef bp::class_< LobbyChatMsg_t > LobbyChatMsg_t_exposer_t;
         LobbyChatMsg_t_exposer_t LobbyChatMsg_t_exposer = LobbyChatMsg_t_exposer_t( "LobbyChatMsg_t" );
@@ -4521,6 +6946,15 @@ BOOST_PYTHON_MODULE(_steam){
         NumberOfCurrentPlayers_t_exposer.def_readwrite( "players", &NumberOfCurrentPlayers_t::m_cPlayers );
     }
 
+    { //::PersonaStateChange_t
+        typedef bp::class_< PersonaStateChange_t > PersonaStateChange_t_exposer_t;
+        PersonaStateChange_t_exposer_t PersonaStateChange_t_exposer = PersonaStateChange_t_exposer_t( "PersonaStateChange_t" );
+        bp::scope PersonaStateChange_t_scope( PersonaStateChange_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)PersonaStateChange_t::k_iCallback;
+        PersonaStateChange_t_exposer.def_readwrite( "changeflags", &PersonaStateChange_t::m_nChangeFlags );
+        PersonaStateChange_t_exposer.def_readwrite( "steamid", &PersonaStateChange_t::m_ulSteamID );
+    }
+
     bp::class_< PySteamMatchmakingPingResponse_wrapper >( "SteamMatchmakingPingResponse" )    
         .def( 
             "ServerFailedToRespond"
@@ -4586,9 +7020,8 @@ BOOST_PYTHON_MODULE(_steam){
             , ( bp::arg("hServerQuery") ) )    
         .def( 
             "GetServerDetails"
-            , (::gameserveritem_t * ( ::PySteamMatchmakingServers::* )( int,int ) )( &::PySteamMatchmakingServers::GetServerDetails )
-            , ( bp::arg("hRequest"), bp::arg("iServer") )
-            , bp::return_internal_reference< >() )    
+            , (::pygameserveritem_t ( ::PySteamMatchmakingServers::* )( int,int ) )( &::PySteamMatchmakingServers::GetServerDetails )
+            , ( bp::arg("hRequest"), bp::arg("iServer") ) )    
         .def( 
             "PingServer"
             , (int ( ::PySteamMatchmakingServers::* )( ::uint32,::uint16,::PySteamMatchmakingPingResponse * ) )( &::PySteamMatchmakingServers::PingServer )
@@ -4602,86 +7035,113 @@ BOOST_PYTHON_MODULE(_steam){
             , (void ( ::PySteamMatchmakingServers::* )( int ) )( &::PySteamMatchmakingServers::ReleaseRequest )
             , ( bp::arg("hServerListRequest") ) )    
         .def( 
+            "RequestFavoritesServerList"
+            , (int ( ::PySteamMatchmakingServers::* )( ::AppId_t,::boost::python::list,::ISteamMatchmakingServerListResponse * ) )( &::PySteamMatchmakingServers::RequestFavoritesServerList )
+            , ( bp::arg("iApp"), bp::arg("filters"), bp::arg("pRequestServersResponse") ) )    
+        .def( 
+            "RequestFriendsServerList"
+            , (int ( ::PySteamMatchmakingServers::* )( ::AppId_t,::boost::python::list,::ISteamMatchmakingServerListResponse * ) )( &::PySteamMatchmakingServers::RequestFriendsServerList )
+            , ( bp::arg("iApp"), bp::arg("filters"), bp::arg("pRequestServersResponse") ) )    
+        .def( 
+            "RequestHistoryServerList"
+            , (int ( ::PySteamMatchmakingServers::* )( ::AppId_t,::boost::python::list,::ISteamMatchmakingServerListResponse * ) )( &::PySteamMatchmakingServers::RequestHistoryServerList )
+            , ( bp::arg("iApp"), bp::arg("filters"), bp::arg("pRequestServersResponse") ) )    
+        .def( 
             "RequestInternetServerList"
             , (int ( ::PySteamMatchmakingServers::* )( ::AppId_t,::boost::python::list,::PySteamMatchmakingServerListResponse * ) )( &::PySteamMatchmakingServers::RequestInternetServerList )
+            , ( bp::arg("iApp"), bp::arg("filters"), bp::arg("pRequestServersResponse") ) )    
+        .def( 
+            "RequestLANServerList"
+            , (int ( ::PySteamMatchmakingServers::* )( ::AppId_t,::ISteamMatchmakingServerListResponse * ) )( &::PySteamMatchmakingServers::RequestLANServerList )
+            , ( bp::arg("iApp"), bp::arg("pRequestServersResponse") ) )    
+        .def( 
+            "RequestSpectatorServerList"
+            , (int ( ::PySteamMatchmakingServers::* )( ::AppId_t,::boost::python::list,::ISteamMatchmakingServerListResponse * ) )( &::PySteamMatchmakingServers::RequestSpectatorServerList )
             , ( bp::arg("iApp"), bp::arg("filters"), bp::arg("pRequestServersResponse") ) )    
         .def( 
             "ServerRules"
             , (::HServerQuery ( ::PySteamMatchmakingServers::* )( ::uint32,::uint16,::PySteamMatchmakingRulesResponse * ) )( &::PySteamMatchmakingServers::ServerRules )
             , ( bp::arg("unIP"), bp::arg("usPort"), bp::arg("pRequestServersResponse") ) );
 
-    { //::gameserveritem_t
-        typedef bp::class_< gameserveritem_t_wrapper > gameserveritem_t_exposer_t;
-        gameserveritem_t_exposer_t gameserveritem_t_exposer = gameserveritem_t_exposer_t( "gameserveritem_t", bp::init< >() );
-        bp::scope gameserveritem_t_scope( gameserveritem_t_exposer );
-        { //::gameserveritem_t::GetName
+    { //::SetPersonaNameResponse_t
+        typedef bp::class_< SetPersonaNameResponse_t > SetPersonaNameResponse_t_exposer_t;
+        SetPersonaNameResponse_t_exposer_t SetPersonaNameResponse_t_exposer = SetPersonaNameResponse_t_exposer_t( "SetPersonaNameResponse_t" );
+        bp::scope SetPersonaNameResponse_t_scope( SetPersonaNameResponse_t_exposer );
+        bp::scope().attr("k_iCallback") = (int)SetPersonaNameResponse_t::k_iCallback;
+        SetPersonaNameResponse_t_exposer.def_readwrite( "localsuccess", &SetPersonaNameResponse_t::m_bLocalSuccess );
+        SetPersonaNameResponse_t_exposer.def_readwrite( "success", &SetPersonaNameResponse_t::m_bSuccess );
+        SetPersonaNameResponse_t_exposer.def_readwrite( "result", &SetPersonaNameResponse_t::m_result );
+    }
+
+    bp::class_< gameserveritem_t >( "gameserveritem_t", bp::init< >() )    
+        .def( 
+            "GetName"
+            , (char const * ( ::gameserveritem_t::* )(  ) const)( &::gameserveritem_t::GetName ) )    
+        .def_readwrite( "netadr", &gameserveritem_t::m_NetAdr )    
+        .def_readwrite( "donotrefresh", &gameserveritem_t::m_bDoNotRefresh )    
+        .def_readwrite( "hadsuccessfulresponse", &gameserveritem_t::m_bHadSuccessfulResponse )    
+        .def_readwrite( "password", &gameserveritem_t::m_bPassword )    
+        .def_readwrite( "secure", &gameserveritem_t::m_bSecure )    
+        .def_readwrite( "appid", &gameserveritem_t::m_nAppID )    
+        .def_readwrite( "botplayers", &gameserveritem_t::m_nBotPlayers )    
+        .def_readwrite( "maxplayers", &gameserveritem_t::m_nMaxPlayers )    
+        .def_readwrite( "ping", &gameserveritem_t::m_nPing )    
+        .def_readwrite( "players", &gameserveritem_t::m_nPlayers )    
+        .def_readwrite( "serverversion", &gameserveritem_t::m_nServerVersion )    
+        .def_readwrite( "steamid", &gameserveritem_t::m_steamID )    
+        .def_readwrite( "timelastplayed", &gameserveritem_t::m_ulTimeLastPlayed );
+
+    { //::pygameserveritem_t
+        typedef bp::class_< pygameserveritem_t, bp::bases< gameserveritem_t > > pygameserveritem_t_exposer_t;
+        pygameserveritem_t_exposer_t pygameserveritem_t_exposer = pygameserveritem_t_exposer_t( "pygameserveritem_t" );
+        bp::scope pygameserveritem_t_scope( pygameserveritem_t_exposer );
+        { //property "gamedir"[fget=::pygameserveritem_t::GetGameDir]
         
-            typedef char const * ( ::gameserveritem_t::*GetName_function_type )(  ) const;
+            typedef char const * ( ::pygameserveritem_t::*fget )(  ) ;
             
-            gameserveritem_t_exposer.def( 
-                "GetName"
-                , GetName_function_type( &::gameserveritem_t::GetName ) );
+            pygameserveritem_t_exposer.add_property( 
+                "gamedir"
+                , fget( &::pygameserveritem_t::GetGameDir ) );
         
         }
-        gameserveritem_t_exposer.def_readwrite( "m_netadr", &gameserveritem_t::m_NetAdr );
-        gameserveritem_t_exposer.def_readwrite( "donotrefresh", &gameserveritem_t::m_bDoNotRefresh );
-        gameserveritem_t_exposer.def_readwrite( "hadsuccessfulresponse", &gameserveritem_t::m_bHadSuccessfulResponse );
-        gameserveritem_t_exposer.def_readwrite( "password", &gameserveritem_t::m_bPassword );
-        gameserveritem_t_exposer.def_readwrite( "secure", &gameserveritem_t::m_bSecure );
-        gameserveritem_t_exposer.def_readwrite( "appid", &gameserveritem_t::m_nAppID );
-        gameserveritem_t_exposer.def_readwrite( "botplayers", &gameserveritem_t::m_nBotPlayers );
-        gameserveritem_t_exposer.def_readwrite( "maxplayers", &gameserveritem_t::m_nMaxPlayers );
-        gameserveritem_t_exposer.def_readwrite( "ping", &gameserveritem_t::m_nPing );
-        gameserveritem_t_exposer.def_readwrite( "players", &gameserveritem_t::m_nPlayers );
-        gameserveritem_t_exposer.def_readwrite( "serverversion", &gameserveritem_t::m_nServerVersion );
-        gameserveritem_t_exposer.def_readwrite( "m_steamid", &gameserveritem_t::m_steamID );
-        pyplusplus::containers::static_sized::register_array_1< char, 64 >( "__array_1_char_64" );
-        { //gameserveritem_t::m_szGameDescription [variable], type=char[64]
+        { //property "map"[fget=::pygameserveritem_t::GetMap]
         
-            typedef pyplusplus::containers::static_sized::array_1_t< char, 64> ( *array_wrapper_creator )( ::gameserveritem_t & );
+            typedef char const * ( ::pygameserveritem_t::*fget )(  ) ;
             
-            gameserveritem_t_exposer.add_property( "m_szGameDescription"
-                , bp::make_function( array_wrapper_creator(&gameserveritem_t_wrapper::pyplusplus_m_szGameDescription_wrapper)
-                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
-        }
-        pyplusplus::containers::static_sized::register_array_1< char, 32 >( "__array_1_char_32" );
-        { //gameserveritem_t::m_szGameDir [variable], type=char[32]
+            pygameserveritem_t_exposer.add_property( 
+                "map"
+                , fget( &::pygameserveritem_t::GetMap ) );
         
-            typedef pyplusplus::containers::static_sized::array_1_t< char, 32> ( *array_wrapper_creator )( ::gameserveritem_t & );
-            
-            gameserveritem_t_exposer.add_property( "m_szGameDir"
-                , bp::make_function( array_wrapper_creator(&gameserveritem_t_wrapper::pyplusplus_m_szGameDir_wrapper)
-                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
-        pyplusplus::containers::static_sized::register_array_1< char, 128 >( "__array_1_char_128" );
-        { //gameserveritem_t::m_szGameTags [variable], type=char[128]
+        { //property "gamedescription"[fget=::pygameserveritem_t::GetGameDescription]
         
-            typedef pyplusplus::containers::static_sized::array_1_t< char, 128> ( *array_wrapper_creator )( ::gameserveritem_t & );
+            typedef char const * ( ::pygameserveritem_t::*fget )(  ) ;
             
-            gameserveritem_t_exposer.add_property( "m_szGameTags"
-                , bp::make_function( array_wrapper_creator(&gameserveritem_t_wrapper::pyplusplus_m_szGameTags_wrapper)
-                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
-        }
-        { //gameserveritem_t::m_szMap [variable], type=char[32]
+            pygameserveritem_t_exposer.add_property( 
+                "gamedescription"
+                , fget( &::pygameserveritem_t::GetGameDescription ) );
         
-            typedef pyplusplus::containers::static_sized::array_1_t< char, 32> ( *array_wrapper_creator )( ::gameserveritem_t & );
-            
-            gameserveritem_t_exposer.add_property( "m_szMap"
-                , bp::make_function( array_wrapper_creator(&gameserveritem_t_wrapper::pyplusplus_m_szMap_wrapper)
-                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
-        gameserveritem_t_exposer.def_readwrite( "timelastplayed", &gameserveritem_t::m_ulTimeLastPlayed );
+        { //property "gametags"[fget=::pygameserveritem_t::GetGameTags]
+        
+            typedef char const * ( ::pygameserveritem_t::*fget )(  ) ;
+            
+            pygameserveritem_t_exposer.add_property( 
+                "gametags"
+                , fget( &::pygameserveritem_t::GetGameTags ) );
+        
+        }
     }
 
     { //::servernetadr_t
-        typedef bp::class_< servernetadr_t > servernetadr_t_exposer_t;
-        servernetadr_t_exposer_t servernetadr_t_exposer = servernetadr_t_exposer_t( "servernetadr_t" );
-        bp::scope servernetadr_t_scope( servernetadr_t_exposer );
+        typedef bp::class_< servernetadr_t > servernetadr_exposer_t;
+        servernetadr_exposer_t servernetadr_exposer = servernetadr_exposer_t( "servernetadr" );
+        bp::scope servernetadr_scope( servernetadr_exposer );
         { //::servernetadr_t::GetConnectionAddressString
         
             typedef char const * ( ::servernetadr_t::*GetConnectionAddressString_function_type )(  ) const;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "GetConnectionAddressString"
                 , GetConnectionAddressString_function_type( &::servernetadr_t::GetConnectionAddressString ) );
         
@@ -4690,7 +7150,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef ::uint16 ( ::servernetadr_t::*GetConnectionPort_function_type )(  ) const;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "GetConnectionPort"
                 , GetConnectionPort_function_type( &::servernetadr_t::GetConnectionPort ) );
         
@@ -4699,7 +7159,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef ::uint32 ( ::servernetadr_t::*GetIP_function_type )(  ) const;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "GetIP"
                 , GetIP_function_type( &::servernetadr_t::GetIP ) );
         
@@ -4708,7 +7168,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef char const * ( ::servernetadr_t::*GetQueryAddressString_function_type )(  ) const;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "GetQueryAddressString"
                 , GetQueryAddressString_function_type( &::servernetadr_t::GetQueryAddressString ) );
         
@@ -4717,7 +7177,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef ::uint16 ( ::servernetadr_t::*GetQueryPort_function_type )(  ) const;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "GetQueryPort"
                 , GetQueryPort_function_type( &::servernetadr_t::GetQueryPort ) );
         
@@ -4726,7 +7186,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef void ( ::servernetadr_t::*Init_function_type )( unsigned int,::uint16,::uint16 ) ;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "Init"
                 , Init_function_type( &::servernetadr_t::Init )
                 , ( bp::arg("ip"), bp::arg("usQueryPort"), bp::arg("usConnectionPort") ) );
@@ -4736,7 +7196,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef void ( ::servernetadr_t::*SetConnectionPort_function_type )( ::uint16 ) ;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "SetConnectionPort"
                 , SetConnectionPort_function_type( &::servernetadr_t::SetConnectionPort )
                 , ( bp::arg("usPort") ) );
@@ -4746,7 +7206,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef void ( ::servernetadr_t::*SetIP_function_type )( ::uint32 ) ;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "SetIP"
                 , SetIP_function_type( &::servernetadr_t::SetIP )
                 , ( bp::arg("unIP") ) );
@@ -4756,18 +7216,18 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef void ( ::servernetadr_t::*SetQueryPort_function_type )( ::uint16 ) ;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "SetQueryPort"
                 , SetQueryPort_function_type( &::servernetadr_t::SetQueryPort )
                 , ( bp::arg("usPort") ) );
         
         }
-        servernetadr_t_exposer.def( bp::self < bp::self );
+        servernetadr_exposer.def( bp::self < bp::self );
         { //::servernetadr_t::operator=
         
             typedef void ( ::servernetadr_t::*assign_function_type )( ::servernetadr_t const & ) ;
             
-            servernetadr_t_exposer.def( 
+            servernetadr_exposer.def( 
                 "assign"
                 , assign_function_type( &::servernetadr_t::operator= )
                 , ( bp::arg("that") ) );
@@ -4794,6 +7254,28 @@ BOOST_PYTHON_MODULE(_steam){
             "PyGetLobbyDataByIndex"
             , PyGetLobbyDataByIndex_function_type( &::PyGetLobbyDataByIndex )
             , ( bp::arg("steamIDLobby"), bp::arg("iLobbyData") ) );
+    
+    }
+
+    { //::PyGetStatFloat
+    
+        typedef ::boost::python::api::object ( *PyGetStatFloat_function_type )( char const * );
+        
+        bp::def( 
+            "PyGetStatFloat"
+            , PyGetStatFloat_function_type( &::PyGetStatFloat )
+            , ( bp::arg("name") ) );
+    
+    }
+
+    { //::PyGetStatInt
+    
+        typedef ::boost::python::api::object ( *PyGetStatInt_function_type )( char const * );
+        
+        bp::def( 
+            "PyGetStatInt"
+            , PyGetStatInt_function_type( &::PyGetStatInt )
+            , ( bp::arg("name") ) );
     
     }
 
@@ -4825,6 +7307,330 @@ BOOST_PYTHON_MODULE(_steam){
     bp::scope().attr( "QUERY_PORT_ERROR" ) = (int)QUERY_PORT_ERROR;
 
     bp::scope().attr( "k_cchPersonaNameMax" ) = (int)k_cchPersonaNameMax;
+
+    { //::PersonaStateChangeCallback
+        typedef bp::class_< PersonaStateChangeCallback_wrapper > PersonaStateChangeCallback_exposer_t;
+        PersonaStateChangeCallback_exposer_t PersonaStateChangeCallback_exposer = PersonaStateChangeCallback_exposer_t( "PersonaStateChangeCallback", bp::init<>() );
+        bp::scope PersonaStateChangeCallback_scope( PersonaStateChangeCallback_exposer );
+        { //::PersonaStateChangeCallback::OnPersonaStateChange
+        
+            typedef void ( ::PersonaStateChangeCallback::*OnPersonaStateChange_function_type )( ::PersonaStateChange_t * ) ;
+            typedef void ( PersonaStateChangeCallback_wrapper::*default_OnPersonaStateChange_function_type )( ::PersonaStateChange_t * ) ;
+            
+            PersonaStateChangeCallback_exposer.def( 
+                "OnPersonaStateChange"
+                , OnPersonaStateChange_function_type(&::PersonaStateChangeCallback::OnPersonaStateChange)
+                , default_OnPersonaStateChange_function_type(&PersonaStateChangeCallback_wrapper::default_OnPersonaStateChange)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameOverlayActivatedCallback
+        typedef bp::class_< GameOverlayActivatedCallback_wrapper > GameOverlayActivatedCallback_exposer_t;
+        GameOverlayActivatedCallback_exposer_t GameOverlayActivatedCallback_exposer = GameOverlayActivatedCallback_exposer_t( "GameOverlayActivatedCallback", bp::init<>() );
+        bp::scope GameOverlayActivatedCallback_scope( GameOverlayActivatedCallback_exposer );
+        { //::GameOverlayActivatedCallback::OnGameOverlayActivated
+        
+            typedef void ( ::GameOverlayActivatedCallback::*OnGameOverlayActivated_function_type )( ::GameOverlayActivated_t * ) ;
+            typedef void ( GameOverlayActivatedCallback_wrapper::*default_OnGameOverlayActivated_function_type )( ::GameOverlayActivated_t * ) ;
+            
+            GameOverlayActivatedCallback_exposer.def( 
+                "OnGameOverlayActivated"
+                , OnGameOverlayActivated_function_type(&::GameOverlayActivatedCallback::OnGameOverlayActivated)
+                , default_OnGameOverlayActivated_function_type(&GameOverlayActivatedCallback_wrapper::default_OnGameOverlayActivated)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameServerChangeRequestedCallback
+        typedef bp::class_< GameServerChangeRequestedCallback_wrapper > GameServerChangeRequestedCallback_exposer_t;
+        GameServerChangeRequestedCallback_exposer_t GameServerChangeRequestedCallback_exposer = GameServerChangeRequestedCallback_exposer_t( "GameServerChangeRequestedCallback", bp::init<>() );
+        bp::scope GameServerChangeRequestedCallback_scope( GameServerChangeRequestedCallback_exposer );
+        { //::GameServerChangeRequestedCallback::OnGameServerChangeRequested
+        
+            typedef void ( ::GameServerChangeRequestedCallback::*OnGameServerChangeRequested_function_type )( ::GameServerChangeRequested_t * ) ;
+            typedef void ( GameServerChangeRequestedCallback_wrapper::*default_OnGameServerChangeRequested_function_type )( ::GameServerChangeRequested_t * ) ;
+            
+            GameServerChangeRequestedCallback_exposer.def( 
+                "OnGameServerChangeRequested"
+                , OnGameServerChangeRequested_function_type(&::GameServerChangeRequestedCallback::OnGameServerChangeRequested)
+                , default_OnGameServerChangeRequested_function_type(&GameServerChangeRequestedCallback_wrapper::default_OnGameServerChangeRequested)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameLobbyJoinRequestedCallback
+        typedef bp::class_< GameLobbyJoinRequestedCallback_wrapper > GameLobbyJoinRequestedCallback_exposer_t;
+        GameLobbyJoinRequestedCallback_exposer_t GameLobbyJoinRequestedCallback_exposer = GameLobbyJoinRequestedCallback_exposer_t( "GameLobbyJoinRequestedCallback", bp::init<>() );
+        bp::scope GameLobbyJoinRequestedCallback_scope( GameLobbyJoinRequestedCallback_exposer );
+        { //::GameLobbyJoinRequestedCallback::OnGameLobbyJoinRequested
+        
+            typedef void ( ::GameLobbyJoinRequestedCallback::*OnGameLobbyJoinRequested_function_type )( ::GameLobbyJoinRequested_t * ) ;
+            typedef void ( GameLobbyJoinRequestedCallback_wrapper::*default_OnGameLobbyJoinRequested_function_type )( ::GameLobbyJoinRequested_t * ) ;
+            
+            GameLobbyJoinRequestedCallback_exposer.def( 
+                "OnGameLobbyJoinRequested"
+                , OnGameLobbyJoinRequested_function_type(&::GameLobbyJoinRequestedCallback::OnGameLobbyJoinRequested)
+                , default_OnGameLobbyJoinRequested_function_type(&GameLobbyJoinRequestedCallback_wrapper::default_OnGameLobbyJoinRequested)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::AvatarImageLoadedCallback
+        typedef bp::class_< AvatarImageLoadedCallback_wrapper > AvatarImageLoadedCallback_exposer_t;
+        AvatarImageLoadedCallback_exposer_t AvatarImageLoadedCallback_exposer = AvatarImageLoadedCallback_exposer_t( "AvatarImageLoadedCallback", bp::init<>() );
+        bp::scope AvatarImageLoadedCallback_scope( AvatarImageLoadedCallback_exposer );
+        { //::AvatarImageLoadedCallback::OnAvatarImageLoaded
+        
+            typedef void ( ::AvatarImageLoadedCallback::*OnAvatarImageLoaded_function_type )( ::AvatarImageLoaded_t * ) ;
+            typedef void ( AvatarImageLoadedCallback_wrapper::*default_OnAvatarImageLoaded_function_type )( ::AvatarImageLoaded_t * ) ;
+            
+            AvatarImageLoadedCallback_exposer.def( 
+                "OnAvatarImageLoaded"
+                , OnAvatarImageLoaded_function_type(&::AvatarImageLoadedCallback::OnAvatarImageLoaded)
+                , default_OnAvatarImageLoaded_function_type(&AvatarImageLoadedCallback_wrapper::default_OnAvatarImageLoaded)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::ClanOfficerListResponseCallback
+        typedef bp::class_< ClanOfficerListResponseCallback_wrapper > ClanOfficerListResponseCallback_exposer_t;
+        ClanOfficerListResponseCallback_exposer_t ClanOfficerListResponseCallback_exposer = ClanOfficerListResponseCallback_exposer_t( "ClanOfficerListResponseCallback", bp::init<>() );
+        bp::scope ClanOfficerListResponseCallback_scope( ClanOfficerListResponseCallback_exposer );
+        { //::ClanOfficerListResponseCallback::OnClanOfficerListResponse
+        
+            typedef void ( ::ClanOfficerListResponseCallback::*OnClanOfficerListResponse_function_type )( ::ClanOfficerListResponse_t * ) ;
+            typedef void ( ClanOfficerListResponseCallback_wrapper::*default_OnClanOfficerListResponse_function_type )( ::ClanOfficerListResponse_t * ) ;
+            
+            ClanOfficerListResponseCallback_exposer.def( 
+                "OnClanOfficerListResponse"
+                , OnClanOfficerListResponse_function_type(&::ClanOfficerListResponseCallback::OnClanOfficerListResponse)
+                , default_OnClanOfficerListResponse_function_type(&ClanOfficerListResponseCallback_wrapper::default_OnClanOfficerListResponse)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::FriendRichPresenceUpdateCallback
+        typedef bp::class_< FriendRichPresenceUpdateCallback_wrapper > FriendRichPresenceUpdateCallback_exposer_t;
+        FriendRichPresenceUpdateCallback_exposer_t FriendRichPresenceUpdateCallback_exposer = FriendRichPresenceUpdateCallback_exposer_t( "FriendRichPresenceUpdateCallback", bp::init<>() );
+        bp::scope FriendRichPresenceUpdateCallback_scope( FriendRichPresenceUpdateCallback_exposer );
+        { //::FriendRichPresenceUpdateCallback::OnFriendRichPresenceUpdate
+        
+            typedef void ( ::FriendRichPresenceUpdateCallback::*OnFriendRichPresenceUpdate_function_type )( ::FriendRichPresenceUpdate_t * ) ;
+            typedef void ( FriendRichPresenceUpdateCallback_wrapper::*default_OnFriendRichPresenceUpdate_function_type )( ::FriendRichPresenceUpdate_t * ) ;
+            
+            FriendRichPresenceUpdateCallback_exposer.def( 
+                "OnFriendRichPresenceUpdate"
+                , OnFriendRichPresenceUpdate_function_type(&::FriendRichPresenceUpdateCallback::OnFriendRichPresenceUpdate)
+                , default_OnFriendRichPresenceUpdate_function_type(&FriendRichPresenceUpdateCallback_wrapper::default_OnFriendRichPresenceUpdate)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameRichPresenceJoinRequestedCallback
+        typedef bp::class_< GameRichPresenceJoinRequestedCallback_wrapper > GameRichPresenceJoinRequestedCallback_exposer_t;
+        GameRichPresenceJoinRequestedCallback_exposer_t GameRichPresenceJoinRequestedCallback_exposer = GameRichPresenceJoinRequestedCallback_exposer_t( "GameRichPresenceJoinRequestedCallback", bp::init<>() );
+        bp::scope GameRichPresenceJoinRequestedCallback_scope( GameRichPresenceJoinRequestedCallback_exposer );
+        { //::GameRichPresenceJoinRequestedCallback::OnGameRichPresenceJoinRequested
+        
+            typedef void ( ::GameRichPresenceJoinRequestedCallback::*OnGameRichPresenceJoinRequested_function_type )( ::GameRichPresenceJoinRequested_t * ) ;
+            typedef void ( GameRichPresenceJoinRequestedCallback_wrapper::*default_OnGameRichPresenceJoinRequested_function_type )( ::GameRichPresenceJoinRequested_t * ) ;
+            
+            GameRichPresenceJoinRequestedCallback_exposer.def( 
+                "OnGameRichPresenceJoinRequested"
+                , OnGameRichPresenceJoinRequested_function_type(&::GameRichPresenceJoinRequestedCallback::OnGameRichPresenceJoinRequested)
+                , default_OnGameRichPresenceJoinRequested_function_type(&GameRichPresenceJoinRequestedCallback_wrapper::default_OnGameRichPresenceJoinRequested)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameConnectedClanChatMsgCallback
+        typedef bp::class_< GameConnectedClanChatMsgCallback_wrapper > GameConnectedClanChatMsgCallback_exposer_t;
+        GameConnectedClanChatMsgCallback_exposer_t GameConnectedClanChatMsgCallback_exposer = GameConnectedClanChatMsgCallback_exposer_t( "GameConnectedClanChatMsgCallback", bp::init<>() );
+        bp::scope GameConnectedClanChatMsgCallback_scope( GameConnectedClanChatMsgCallback_exposer );
+        { //::GameConnectedClanChatMsgCallback::OnGameConnectedClanChatMsg
+        
+            typedef void ( ::GameConnectedClanChatMsgCallback::*OnGameConnectedClanChatMsg_function_type )( ::GameConnectedClanChatMsg_t * ) ;
+            typedef void ( GameConnectedClanChatMsgCallback_wrapper::*default_OnGameConnectedClanChatMsg_function_type )( ::GameConnectedClanChatMsg_t * ) ;
+            
+            GameConnectedClanChatMsgCallback_exposer.def( 
+                "OnGameConnectedClanChatMsg"
+                , OnGameConnectedClanChatMsg_function_type(&::GameConnectedClanChatMsgCallback::OnGameConnectedClanChatMsg)
+                , default_OnGameConnectedClanChatMsg_function_type(&GameConnectedClanChatMsgCallback_wrapper::default_OnGameConnectedClanChatMsg)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameConnectedChatJoinCallback
+        typedef bp::class_< GameConnectedChatJoinCallback_wrapper > GameConnectedChatJoinCallback_exposer_t;
+        GameConnectedChatJoinCallback_exposer_t GameConnectedChatJoinCallback_exposer = GameConnectedChatJoinCallback_exposer_t( "GameConnectedChatJoinCallback", bp::init<>() );
+        bp::scope GameConnectedChatJoinCallback_scope( GameConnectedChatJoinCallback_exposer );
+        { //::GameConnectedChatJoinCallback::OnGameConnectedChatJoin
+        
+            typedef void ( ::GameConnectedChatJoinCallback::*OnGameConnectedChatJoin_function_type )( ::GameConnectedChatJoin_t * ) ;
+            typedef void ( GameConnectedChatJoinCallback_wrapper::*default_OnGameConnectedChatJoin_function_type )( ::GameConnectedChatJoin_t * ) ;
+            
+            GameConnectedChatJoinCallback_exposer.def( 
+                "OnGameConnectedChatJoin"
+                , OnGameConnectedChatJoin_function_type(&::GameConnectedChatJoinCallback::OnGameConnectedChatJoin)
+                , default_OnGameConnectedChatJoin_function_type(&GameConnectedChatJoinCallback_wrapper::default_OnGameConnectedChatJoin)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameConnectedChatLeaveCallback
+        typedef bp::class_< GameConnectedChatLeaveCallback_wrapper > GameConnectedChatLeaveCallback_exposer_t;
+        GameConnectedChatLeaveCallback_exposer_t GameConnectedChatLeaveCallback_exposer = GameConnectedChatLeaveCallback_exposer_t( "GameConnectedChatLeaveCallback", bp::init<>() );
+        bp::scope GameConnectedChatLeaveCallback_scope( GameConnectedChatLeaveCallback_exposer );
+        { //::GameConnectedChatLeaveCallback::OnGameConnectedChatLeave
+        
+            typedef void ( ::GameConnectedChatLeaveCallback::*OnGameConnectedChatLeave_function_type )( ::GameConnectedChatLeave_t * ) ;
+            typedef void ( GameConnectedChatLeaveCallback_wrapper::*default_OnGameConnectedChatLeave_function_type )( ::GameConnectedChatLeave_t * ) ;
+            
+            GameConnectedChatLeaveCallback_exposer.def( 
+                "OnGameConnectedChatLeave"
+                , OnGameConnectedChatLeave_function_type(&::GameConnectedChatLeaveCallback::OnGameConnectedChatLeave)
+                , default_OnGameConnectedChatLeave_function_type(&GameConnectedChatLeaveCallback_wrapper::default_OnGameConnectedChatLeave)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::DownloadClanActivityCountsResultCallback
+        typedef bp::class_< DownloadClanActivityCountsResultCallback_wrapper > DownloadClanActivityCountsResultCallback_exposer_t;
+        DownloadClanActivityCountsResultCallback_exposer_t DownloadClanActivityCountsResultCallback_exposer = DownloadClanActivityCountsResultCallback_exposer_t( "DownloadClanActivityCountsResultCallback", bp::init<>() );
+        bp::scope DownloadClanActivityCountsResultCallback_scope( DownloadClanActivityCountsResultCallback_exposer );
+        { //::DownloadClanActivityCountsResultCallback::OnDownloadClanActivityCountsResult
+        
+            typedef void ( ::DownloadClanActivityCountsResultCallback::*OnDownloadClanActivityCountsResult_function_type )( ::DownloadClanActivityCountsResult_t * ) ;
+            typedef void ( DownloadClanActivityCountsResultCallback_wrapper::*default_OnDownloadClanActivityCountsResult_function_type )( ::DownloadClanActivityCountsResult_t * ) ;
+            
+            DownloadClanActivityCountsResultCallback_exposer.def( 
+                "OnDownloadClanActivityCountsResult"
+                , OnDownloadClanActivityCountsResult_function_type(&::DownloadClanActivityCountsResultCallback::OnDownloadClanActivityCountsResult)
+                , default_OnDownloadClanActivityCountsResult_function_type(&DownloadClanActivityCountsResultCallback_wrapper::default_OnDownloadClanActivityCountsResult)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::JoinClanChatRoomCompletionResultCallback
+        typedef bp::class_< JoinClanChatRoomCompletionResultCallback_wrapper > JoinClanChatRoomCompletionResultCallback_exposer_t;
+        JoinClanChatRoomCompletionResultCallback_exposer_t JoinClanChatRoomCompletionResultCallback_exposer = JoinClanChatRoomCompletionResultCallback_exposer_t( "JoinClanChatRoomCompletionResultCallback", bp::init<>() );
+        bp::scope JoinClanChatRoomCompletionResultCallback_scope( JoinClanChatRoomCompletionResultCallback_exposer );
+        { //::JoinClanChatRoomCompletionResultCallback::OnJoinClanChatRoomCompletionResult
+        
+            typedef void ( ::JoinClanChatRoomCompletionResultCallback::*OnJoinClanChatRoomCompletionResult_function_type )( ::JoinClanChatRoomCompletionResult_t * ) ;
+            typedef void ( JoinClanChatRoomCompletionResultCallback_wrapper::*default_OnJoinClanChatRoomCompletionResult_function_type )( ::JoinClanChatRoomCompletionResult_t * ) ;
+            
+            JoinClanChatRoomCompletionResultCallback_exposer.def( 
+                "OnJoinClanChatRoomCompletionResult"
+                , OnJoinClanChatRoomCompletionResult_function_type(&::JoinClanChatRoomCompletionResultCallback::OnJoinClanChatRoomCompletionResult)
+                , default_OnJoinClanChatRoomCompletionResult_function_type(&JoinClanChatRoomCompletionResultCallback_wrapper::default_OnJoinClanChatRoomCompletionResult)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::GameConnectedFriendChatMsgCallback
+        typedef bp::class_< GameConnectedFriendChatMsgCallback_wrapper > GameConnectedFriendChatMsgCallback_exposer_t;
+        GameConnectedFriendChatMsgCallback_exposer_t GameConnectedFriendChatMsgCallback_exposer = GameConnectedFriendChatMsgCallback_exposer_t( "GameConnectedFriendChatMsgCallback", bp::init<>() );
+        bp::scope GameConnectedFriendChatMsgCallback_scope( GameConnectedFriendChatMsgCallback_exposer );
+        { //::GameConnectedFriendChatMsgCallback::OnGameConnectedFriendChatMsg
+        
+            typedef void ( ::GameConnectedFriendChatMsgCallback::*OnGameConnectedFriendChatMsg_function_type )( ::GameConnectedFriendChatMsg_t * ) ;
+            typedef void ( GameConnectedFriendChatMsgCallback_wrapper::*default_OnGameConnectedFriendChatMsg_function_type )( ::GameConnectedFriendChatMsg_t * ) ;
+            
+            GameConnectedFriendChatMsgCallback_exposer.def( 
+                "OnGameConnectedFriendChatMsg"
+                , OnGameConnectedFriendChatMsg_function_type(&::GameConnectedFriendChatMsgCallback::OnGameConnectedFriendChatMsg)
+                , default_OnGameConnectedFriendChatMsg_function_type(&GameConnectedFriendChatMsgCallback_wrapper::default_OnGameConnectedFriendChatMsg)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::FriendsGetFollowerCountCallback
+        typedef bp::class_< FriendsGetFollowerCountCallback_wrapper > FriendsGetFollowerCountCallback_exposer_t;
+        FriendsGetFollowerCountCallback_exposer_t FriendsGetFollowerCountCallback_exposer = FriendsGetFollowerCountCallback_exposer_t( "FriendsGetFollowerCountCallback", bp::init<>() );
+        bp::scope FriendsGetFollowerCountCallback_scope( FriendsGetFollowerCountCallback_exposer );
+        { //::FriendsGetFollowerCountCallback::OnFriendsGetFollowerCount
+        
+            typedef void ( ::FriendsGetFollowerCountCallback::*OnFriendsGetFollowerCount_function_type )( ::FriendsGetFollowerCount_t * ) ;
+            typedef void ( FriendsGetFollowerCountCallback_wrapper::*default_OnFriendsGetFollowerCount_function_type )( ::FriendsGetFollowerCount_t * ) ;
+            
+            FriendsGetFollowerCountCallback_exposer.def( 
+                "OnFriendsGetFollowerCount"
+                , OnFriendsGetFollowerCount_function_type(&::FriendsGetFollowerCountCallback::OnFriendsGetFollowerCount)
+                , default_OnFriendsGetFollowerCount_function_type(&FriendsGetFollowerCountCallback_wrapper::default_OnFriendsGetFollowerCount)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::FriendsIsFollowingCallback
+        typedef bp::class_< FriendsIsFollowingCallback_wrapper > FriendsIsFollowingCallback_exposer_t;
+        FriendsIsFollowingCallback_exposer_t FriendsIsFollowingCallback_exposer = FriendsIsFollowingCallback_exposer_t( "FriendsIsFollowingCallback", bp::init<>() );
+        bp::scope FriendsIsFollowingCallback_scope( FriendsIsFollowingCallback_exposer );
+        { //::FriendsIsFollowingCallback::OnFriendsIsFollowing
+        
+            typedef void ( ::FriendsIsFollowingCallback::*OnFriendsIsFollowing_function_type )( ::FriendsIsFollowing_t * ) ;
+            typedef void ( FriendsIsFollowingCallback_wrapper::*default_OnFriendsIsFollowing_function_type )( ::FriendsIsFollowing_t * ) ;
+            
+            FriendsIsFollowingCallback_exposer.def( 
+                "OnFriendsIsFollowing"
+                , OnFriendsIsFollowing_function_type(&::FriendsIsFollowingCallback::OnFriendsIsFollowing)
+                , default_OnFriendsIsFollowing_function_type(&FriendsIsFollowingCallback_wrapper::default_OnFriendsIsFollowing)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::FriendsEnumerateFollowingListCallback
+        typedef bp::class_< FriendsEnumerateFollowingListCallback_wrapper > FriendsEnumerateFollowingListCallback_exposer_t;
+        FriendsEnumerateFollowingListCallback_exposer_t FriendsEnumerateFollowingListCallback_exposer = FriendsEnumerateFollowingListCallback_exposer_t( "FriendsEnumerateFollowingListCallback", bp::init<>() );
+        bp::scope FriendsEnumerateFollowingListCallback_scope( FriendsEnumerateFollowingListCallback_exposer );
+        { //::FriendsEnumerateFollowingListCallback::OnFriendsEnumerateFollowingList
+        
+            typedef void ( ::FriendsEnumerateFollowingListCallback::*OnFriendsEnumerateFollowingList_function_type )( ::FriendsEnumerateFollowingList_t * ) ;
+            typedef void ( FriendsEnumerateFollowingListCallback_wrapper::*default_OnFriendsEnumerateFollowingList_function_type )( ::FriendsEnumerateFollowingList_t * ) ;
+            
+            FriendsEnumerateFollowingListCallback_exposer.def( 
+                "OnFriendsEnumerateFollowingList"
+                , OnFriendsEnumerateFollowingList_function_type(&::FriendsEnumerateFollowingListCallback::OnFriendsEnumerateFollowingList)
+                , default_OnFriendsEnumerateFollowingList_function_type(&FriendsEnumerateFollowingListCallback_wrapper::default_OnFriendsEnumerateFollowingList)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
+
+    { //::SetPersonaNameResponseCallback
+        typedef bp::class_< SetPersonaNameResponseCallback_wrapper > SetPersonaNameResponseCallback_exposer_t;
+        SetPersonaNameResponseCallback_exposer_t SetPersonaNameResponseCallback_exposer = SetPersonaNameResponseCallback_exposer_t( "SetPersonaNameResponseCallback", bp::init<>() );
+        bp::scope SetPersonaNameResponseCallback_scope( SetPersonaNameResponseCallback_exposer );
+        { //::SetPersonaNameResponseCallback::OnSetPersonaNameResponse
+        
+            typedef void ( ::SetPersonaNameResponseCallback::*OnSetPersonaNameResponse_function_type )( ::SetPersonaNameResponse_t * ) ;
+            typedef void ( SetPersonaNameResponseCallback_wrapper::*default_OnSetPersonaNameResponse_function_type )( ::SetPersonaNameResponse_t * ) ;
+            
+            SetPersonaNameResponseCallback_exposer.def( 
+                "OnSetPersonaNameResponse"
+                , OnSetPersonaNameResponse_function_type(&::SetPersonaNameResponseCallback::OnSetPersonaNameResponse)
+                , default_OnSetPersonaNameResponse_function_type(&SetPersonaNameResponseCallback_wrapper::default_OnSetPersonaNameResponse)
+                , ( bp::arg("data") ) );
+        
+        }
+    }
 
     { //::LobbyMatchListCallResult
         typedef bp::class_< LobbyMatchListCallResult_wrapper > LobbyMatchListCallResult_exposer_t;
@@ -4974,6 +7780,8 @@ BOOST_PYTHON_MODULE(_steam){
         
         }
     }
+
+    bp::scope().attr( "steamgameserverapicontext" ) = boost::ref(steamgameserverapicontext);
 
     bp::scope().attr("k_uAPICallInvalid") = k_uAPICallInvalid;
 }

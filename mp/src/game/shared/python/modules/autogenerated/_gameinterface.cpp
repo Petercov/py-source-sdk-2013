@@ -26,6 +26,8 @@
 
 #include "cdll_int.h"
 
+#include "clientsteamcontext.h"
+
 #include "srcpy_gameinterface_converters.h"
 
 #include "tier0/valve_minmax_off.h"
@@ -1852,6 +1854,37 @@ BOOST_PYTHON_MODULE(_gameinterface){
 
     bp::class_< CBroadcastRecipientFilter, bp::bases< C_RecipientFilter >, boost::noncopyable >( "CBroadcastRecipientFilter", bp::init< >() );
 
+    bp::class_< CClientSteamContext, boost::noncopyable >( "CClientSteamContext", bp::no_init )    
+        .def( bp::init< >() )    
+        .def( 
+            "BLoggedOn"
+            , (bool ( ::CClientSteamContext::* )(  ) )( &::CClientSteamContext::BLoggedOn ) )    
+        .def( 
+            "GetAppID"
+            , (::uint32 ( ::CClientSteamContext::* )(  ) )( &::CClientSteamContext::GetAppID ) )    
+        .def( 
+            "GetConnectedUniverse"
+            , (::EUniverse ( ::CClientSteamContext::* )(  ) )( &::CClientSteamContext::GetConnectedUniverse ) )    
+        .def( 
+            "GetLocalPlayerSteamID"
+            , (::CSteamID const & ( ::CClientSteamContext::* )(  ) )( &::CClientSteamContext::GetLocalPlayerSteamID )
+            , bp::return_value_policy< bp::copy_const_reference >() )    
+        .def( 
+            "OnSteamServerConnectFailure"
+            , (void ( ::CClientSteamContext::* )( ::SteamServerConnectFailure_t * ) )( &::CClientSteamContext::OnSteamServerConnectFailure )
+            , ( bp::arg("pParam") ) )    
+        .def( 
+            "OnSteamServersConnected"
+            , (void ( ::CClientSteamContext::* )( ::SteamServersConnected_t * ) )( &::CClientSteamContext::OnSteamServersConnected )
+            , ( bp::arg("pParam") ) )    
+        .def( 
+            "OnSteamServersDisconnected"
+            , (void ( ::CClientSteamContext::* )( ::SteamServersDisconnected_t * ) )( &::CClientSteamContext::OnSteamServersDisconnected )
+            , ( bp::arg("pParam") ) )    
+        .def_readwrite( "m_CallbackSteamServerConnectFailure", &CClientSteamContext::m_CallbackSteamServerConnectFailure )    
+        .def_readwrite( "m_CallbackSteamServersConnected", &CClientSteamContext::m_CallbackSteamServersConnected )    
+        .def_readwrite( "m_CallbackSteamServersDisconnected", &CClientSteamContext::m_CallbackSteamServersDisconnected );
+
     bp::class_< CCommand >( "CCommand", bp::init< >() )    
         .def( bp::init< int, char const * * >(( bp::arg("nArgC"), bp::arg("ppArgV") )) )    
         .def( 
@@ -2656,6 +2689,17 @@ BOOST_PYTHON_MODULE(_gameinterface){
     }
 
     bp::class_< wrap_model_t >( "model_t", bp::no_init );
+
+    { //::ClientSteamContext
+    
+        typedef ::CClientSteamContext & ( *ClientSteamContext_function_type )(  );
+        
+        bp::def( 
+            "ClientSteamContext"
+            , ClientSteamContext_function_type( &::ClientSteamContext )
+            , bp::return_value_policy< bp::reference_existing_object >() );
+    
+    }
 
     { //::CommandLine_Tier0
     
@@ -4086,6 +4130,8 @@ struct py_player_info_s_wrapper : py_player_info_s, bp::wrapper< py_player_info_
 typedef struct model_t {};
 #endif // POSIX
 
+extern CServerGameDLL g_ServerGameDLL;
+
 BOOST_PYTHON_MODULE(_gameinterface){
     bp::docstring_options doc_options( true, true, false );
 
@@ -4819,6 +4865,139 @@ BOOST_PYTHON_MODULE(_gameinterface){
     }
 
     bp::class_< CReliableBroadcastRecipientFilter, bp::bases< CBroadcastRecipientFilter >, boost::noncopyable >( "CReliableBroadcastRecipientFilter", bp::init< >() );
+
+    bp::class_< CServerGameDLL >( "CServerGameDLL" )    
+        .def( 
+            "BuildAdjacentMapList"
+            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::BuildAdjacentMapList ) )    
+        .def( 
+            "CreateEntityTransitionList"
+            , (int ( ::CServerGameDLL::* )( ::CSaveRestoreData *,int ) )( &::CServerGameDLL::CreateEntityTransitionList )
+            , ( bp::arg("arg0"), bp::arg("arg1") ) )    
+        .def( 
+            "CreateNetworkStringTables"
+            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::CreateNetworkStringTables ) )    
+        .def( 
+            "DLLShutdown"
+            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::DLLShutdown ) )    
+        .def( 
+            "GameFrame"
+            , (void ( ::CServerGameDLL::* )( bool ) )( &::CServerGameDLL::GameFrame )
+            , ( bp::arg("simulating") ) )    
+        .def( 
+            "GameInit"
+            , (bool ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GameInit ) )    
+        .def( 
+            "GameServerSteamAPIActivated"
+            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GameServerSteamAPIActivated ) )    
+        .def( 
+            "GameServerSteamAPIShutdown"
+            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GameServerSteamAPIShutdown ) )    
+        .def( 
+            "GameShutdown"
+            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GameShutdown ) )    
+        .def( 
+            "GetGameDescription"
+            , (char const * ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GetGameDescription ) )    
+        .def( 
+            "GetSaveComment"
+            , (void ( ::CServerGameDLL::* )( char *,int,float,float,bool ) )( &::CServerGameDLL::GetSaveComment )
+            , ( bp::arg("comment"), bp::arg("maxlength"), bp::arg("flMinutes"), bp::arg("flSeconds"), bp::arg("bNoTime")=(bool)(false) ) )    
+        .def( 
+            "GetServerBrowserGameData"
+            , (char const * ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GetServerBrowserGameData ) )    
+        .def( 
+            "GetServerBrowserMapOverride"
+            , (char const * ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GetServerBrowserMapOverride ) )    
+        .def( 
+            "GetTickInterval"
+            , (float ( ::CServerGameDLL::* )(  ) const)( &::CServerGameDLL::GetTickInterval ) )    
+        .def( 
+            "GetUserMessageInfo"
+            , (bool ( ::CServerGameDLL::* )( int,char *,int,int & ) )( &::CServerGameDLL::GetUserMessageInfo )
+            , ( bp::arg("msg_type"), bp::arg("name"), bp::arg("maxnamelength"), bp::arg("size") ) )    
+        .def( 
+            "InvalidateMdlCache"
+            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::InvalidateMdlCache ) )    
+        .def( 
+            "IsRestoring"
+            , (bool ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::IsRestoring ) )    
+        .def( 
+            "LevelInit"
+            , (bool ( ::CServerGameDLL::* )( char const *,char const *,char const *,char const *,bool,bool ) )( &::CServerGameDLL::LevelInit )
+            , ( bp::arg("pMapName"), bp::arg("pMapEntities"), bp::arg("pOldLevel"), bp::arg("pLandmarkName"), bp::arg("loadGame"), bp::arg("background") ) )    
+        .def( 
+            "LevelShutdown"
+            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::LevelShutdown ) )    
+        .def( 
+            "OnQueryCvarValueFinished"
+            , (void ( ::CServerGameDLL::* )( ::QueryCvarCookie_t,::edict_t *,::EQueryCvarValueStatus,char const *,char const * ) )( &::CServerGameDLL::OnQueryCvarValueFinished )
+            , ( bp::arg("iCookie"), bp::arg("pPlayerEntity"), bp::arg("eStatus"), bp::arg("pCvarName"), bp::arg("pCvarValue") ) )    
+        .def( 
+            "PostInit"
+            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::PostInit ) )    
+        .def( 
+            "PreClientUpdate"
+            , (void ( ::CServerGameDLL::* )( bool ) )( &::CServerGameDLL::PreClientUpdate )
+            , ( bp::arg("simulating") ) )    
+        .def( 
+            "PreSave"
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::PreSave )
+            , ( bp::arg("arg0") ) )    
+        .def( 
+            "PreSaveGameLoaded"
+            , (void ( ::CServerGameDLL::* )( char const *,bool ) )( &::CServerGameDLL::PreSaveGameLoaded )
+            , ( bp::arg("pSaveName"), bp::arg("bInGame") ) )    
+        .def( 
+            "ReadRestoreHeaders"
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::ReadRestoreHeaders )
+            , ( bp::arg("arg0") ) )    
+        .def( 
+            "Restore"
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData *,bool ) )( &::CServerGameDLL::Restore )
+            , ( bp::arg("arg0"), bp::arg("arg1") ) )    
+        .def( 
+            "RestoreGlobalState"
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::RestoreGlobalState )
+            , ( bp::arg("arg0") ) )    
+        .def( 
+            "Save"
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::Save )
+            , ( bp::arg("arg0") ) )    
+        .def( 
+            "SaveGlobalState"
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::SaveGlobalState )
+            , ( bp::arg("arg0") ) )    
+        .def( 
+            "SaveReadFields"
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData *,char const *,void *,::datamap_t *,::typedescription_t *,int ) )( &::CServerGameDLL::SaveReadFields )
+            , ( bp::arg("arg0"), bp::arg("arg1"), bp::arg("arg2"), bp::arg("arg3"), bp::arg("arg4"), bp::arg("arg5") ) )    
+        .def( 
+            "SaveWriteFields"
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData *,char const *,void *,::datamap_t *,::typedescription_t *,int ) )( &::CServerGameDLL::SaveWriteFields )
+            , ( bp::arg("arg0"), bp::arg("arg1"), bp::arg("arg2"), bp::arg("arg3"), bp::arg("arg4"), bp::arg("arg5") ) )    
+        .def( 
+            "ServerActivate"
+            , (void ( ::CServerGameDLL::* )( ::edict_t *,int,int ) )( &::CServerGameDLL::ServerActivate )
+            , ( bp::arg("pEdictList"), bp::arg("edictCount"), bp::arg("clientMax") ) )    
+        .def( 
+            "SetServerHibernation"
+            , (void ( ::CServerGameDLL::* )( bool ) )( &::CServerGameDLL::SetServerHibernation )
+            , ( bp::arg("bHibernating") ) )    
+        .def( 
+            "ShouldHideServer"
+            , (bool ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::ShouldHideServer ) )    
+        .def( 
+            "Think"
+            , (void ( ::CServerGameDLL::* )( bool ) )( &::CServerGameDLL::Think )
+            , ( bp::arg("finalTick") ) )    
+        .def( 
+            "WriteSaveHeaders"
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::WriteSaveHeaders )
+            , ( bp::arg("arg0") ) )    
+        .def_readwrite( "m_bIsHibernating", &CServerGameDLL::m_bIsHibernating )    
+        .def_readwrite( "m_fAutoSaveDangerousMinHealthToCommit", &CServerGameDLL::m_fAutoSaveDangerousMinHealthToCommit )    
+        .def_readwrite( "m_fAutoSaveDangerousTime", &CServerGameDLL::m_fAutoSaveDangerousTime );
 
     { //::CSingleUserRecipientFilter
         typedef bp::class_< CSingleUserRecipientFilter, bp::bases< CRecipientFilter >, boost::noncopyable > CSingleUserRecipientFilter_exposer_t;
@@ -5686,6 +5865,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::scope().attr( "engine" ) = boost::ref(pyengine);
 
     bp::scope().attr( "modelinfo" ) = boost::ref(pymodelinfo);
+
+    bp::scope().attr( "servergamedll" ) = boost::ref(g_ServerGameDLL);
 
     ptr_model_t_to_wrap_model_t();
 

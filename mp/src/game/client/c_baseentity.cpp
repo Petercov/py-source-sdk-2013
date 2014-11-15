@@ -3418,7 +3418,7 @@ void C_BaseEntity::OnDataChanged( DataUpdateType_t type )
 // =======================================
 	// Ensures Python networked variables are processed on client creation of this entity
 #ifdef ENABLE_PYTHON
-		if ( type == DATA_UPDATE_CREATED && GetPySelf() != NULL )
+		if ( GetPySelf() != NULL )
 		{
 			SrcPySystem()->PostProcessDelayedUpdates( this );
 		}

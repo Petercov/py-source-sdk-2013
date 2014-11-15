@@ -91,6 +91,7 @@ bp::object consolespace; // Used by spy/cpy commands
 // Global module references.
 bp::object builtins;
 bp::object types;
+bp::object collections;
 bp::object sys;
 
 bp::object core;
@@ -102,13 +103,13 @@ bp::object _entitiesmisc;
 bp::object _entities;
 bp::object _particles;
 bp::object _physics;
-//bp::object matchmaking;
 
 #ifdef CLIENT_DLL
 	boost::python::object _vguicontrols;
 #endif // CLIENT_DLL
 
 boost::python::object fntype;
+boost::python::object fnisinstance;
 
 static CSrcPython g_SrcPythonSystem;
 
@@ -154,6 +155,9 @@ extern void AppendServerModules();
 #endif // CLIENT_DLL
 extern void AppendSharedModules();
 
+extern struct _inittab *PyImport_Inittab;
+extern struct _inittab _PySourceImport_Inittab[];
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -164,7 +168,10 @@ CSrcPython::CSrcPython()
 	m_bPathProtected = true;
 
 	double fStartTime = Plat_FloatTime();
+
 	// Before the python interpreter is initialized, the modules must be appended
+	PyImport_Inittab = _PySourceImport_Inittab;
+
 #ifdef CLIENT_DLL
 	AppendClientModules();
 #else
@@ -320,6 +327,7 @@ bool CSrcPython::InitInterpreter( void )
 	V_strcat( pythonpath, buf, sizeof(pythonpath) );
 	V_strcat( pythonpath, PYPATH_SEP, sizeof(pythonpath) );
 
+	// Workaround for adding these paths
 	if( filesystem->FileExists( "python/Lib", "MOD" ) == false )
 	{
 		filesystem->CreateDirHierarchy( "python/Lib", "MOD" );
@@ -396,17 +404,15 @@ bool CSrcPython::InitInterpreter( void )
 	}
 
 	// Import sys module
-	Run( "import sys" );
-	
 	sys = Import("sys");
 
 	// Redirect stdout/stderr to source print functions
 	srcbuiltins = Import("srcbuiltins");
 	sys.attr("stdout") = srcbuiltins.attr("SrcPyStdOut")();
 	sys.attr("stderr") = srcbuiltins.attr("SrcPyStdErr")();
-	
-	weakref = Import("weakref");
 
+	weakref = Import("weakref");
+	
 #if PY_VERSION_HEX < 0x03000000
 	builtins = Import("__builtin__");
 #else
@@ -438,6 +444,7 @@ bool CSrcPython::InitInterpreter( void )
 	}
 
 	fntype = builtins.attr("type");
+	fnisinstance = builtins.attr("isinstance");
 
 	// Add the maps directory to the modules path
 	SysAppendPath("maps");
@@ -445,6 +452,7 @@ bool CSrcPython::InitInterpreter( void )
 	// Default imports
 	Import( "vmath" );
 	types = Import("types");
+	collections = Import("collections");
 	steam = Import("steam");
 	Import( "sound" ); // Import _sound before _entitiesmisc (register converters)
 	_physics = Import("_physics");
@@ -536,6 +544,7 @@ bool CSrcPython::ShutdownInterpreter( void )
 	srcbuiltins = bp::object();
 	sys = bp::object();
 	types = bp::object();
+	collections = bp::object();
 	weakref = bp::object();
 	steam = bp::object();
 	_entitiesmisc = bp::object();
@@ -549,6 +558,7 @@ bool CSrcPython::ShutdownInterpreter( void )
 	core = bp::object();
 
 	fntype = bp::object();
+	fnisinstance = bp::object();
 
 	// Finalize
 	m_bPythonIsFinalizing = true;
@@ -973,8 +983,6 @@ void CSrcPython::FrameUpdatePostEntityThink( void )
 
 #ifdef CLIENT_DLL
 	PyUpdateProceduralMaterials();
-
-	CleanupDelayedUpdateList();
 #endif // CLIENT_DLL
 
 	// Clears references from the delete list, causing instances to cleanup if possible
@@ -1112,10 +1120,18 @@ void CSrcPython::Run( bp::object method, bool report_errors )
 //-----------------------------------------------------------------------------
 void CSrcPython::Run( const char *pString, const char *pModule )
 {
+	Run( pString, pModule ? Import(pModule).attr("__dict__") : mainnamespace );
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CSrcPython::Run( const char *pString, boost::python::object module )
+{
 	// execute statement
 	try
 	{
-		bp::object dict = pModule ? Import(pModule).attr("__dict__") : mainnamespace;
+		bp::object dict = module.ptr() != Py_None ? module.attr("__dict__") : mainnamespace;
 		bp::exec( pString, dict, dict );
 	}
 	catch( bp::error_already_set & )
@@ -1203,12 +1219,12 @@ void CSrcPython::SysAppendPath( const char* path, bool inclsubdirs )
 	bp::object append = Get("append", Get("path", "sys", true), true);
 
 	// Fixup path
-	char char_output_full_filename[ _MAX_PATH ];
-	char p_out[_MAX_PATH];
-	filesystem->RelativePathToFullPath(path,"GAME",char_output_full_filename,sizeof(char_output_full_filename));
-	V_FixupPathName(char_output_full_filename, _MAX_PATH, char_output_full_filename );
-	V_StrSubst(char_output_full_filename, "\\", "//", p_out, _MAX_PATH ); 
-
+	char char_output_full_filename[MAX_PATH];
+	char p_out[MAX_PATH];
+	filesystem->RelativePathToFullPath( path, NULL, char_output_full_filename, sizeof( char_output_full_filename ) );
+	V_FixupPathName( char_output_full_filename, sizeof( char_output_full_filename ), char_output_full_filename );
+	V_StrSubst( char_output_full_filename, "\\", "//", p_out, sizeof( p_out ) ); 
+	
 	// Append
 	Run<const char *>( append, p_out, true );
 
@@ -1218,8 +1234,8 @@ void CSrcPython::SysAppendPath( const char* path, bool inclsubdirs )
 		char wildcard[MAX_PATH];
 		FileFindHandle_t findHandle;
 		
-		V_snprintf( wildcard, sizeof( wildcard ), "%s//*", path );
-		const char *pFilename = filesystem->FindFirstEx( wildcard, "MOD", &findHandle );
+		V_snprintf( wildcard, sizeof( wildcard ), "%s/*", path );
+		const char *pFilename = filesystem->FindFirstEx( wildcard, NULL, &findHandle );
 		while ( pFilename != NULL )
 		{
 
@@ -1228,8 +1244,8 @@ void CSrcPython::SysAppendPath( const char* path, bool inclsubdirs )
 				filesystem->FindIsDirectory(findHandle) ) 
 			{
 				char path2[MAX_PATH];
-				V_snprintf( path2, sizeof( path2 ), "%s//%s", path, pFilename );
-				SysAppendPath(path2, inclsubdirs);
+				V_snprintf( path2, sizeof( path2 ), "%s/%s", path, pFilename );
+				SysAppendPath( path2, inclsubdirs );
 			}
 			pFilename = filesystem->FindNext( findHandle );
 		}
@@ -1264,7 +1280,7 @@ void CSrcPython::ExecuteAllScriptsInPath( const char *pPath )
 	V_snprintf( wildcard, sizeof( wildcard ), "%s*.py", pPath );
 
 	FileFindHandle_t findHandle;
-	const char *pFilename = filesystem->FindFirstEx( wildcard, "GAME", &findHandle );
+	const char *pFilename = filesystem->FindFirstEx( wildcard, NULL, &findHandle );
 	while ( pFilename != NULL )
 	{
 		V_snprintf( tempfile, sizeof( tempfile ), "%s/%s", pPath, pFilename );
@@ -1346,36 +1362,6 @@ void CSrcPython::AddToDelayedUpdateList( EHANDLE hEnt, char *name, bp::object da
 	v.data = data;
 	v.callchanged = callchanged;
 	py_delayed_data_update_list.AddToTail( v );
-}
-
-//-----------------------------------------------------------------------------
-// Purpose: 
-// TODO: Remove? This is likely not needed, since ProcessDelayedUpdates is 
-//		 called upon creation.
-//-----------------------------------------------------------------------------
-void CSrcPython::CleanupDelayedUpdateList()
-{
-	for( int i = py_delayed_data_update_list.Count() - 1; i >= 0; i-- )
-	{
-		EHANDLE h = py_delayed_data_update_list[i].hEnt;
-		if( h != NULL )
-		{	
-			DevMsg("CleanupDelayedUpdateList called while not expected\n");
-
-			if( g_debug_pynetworkvar.GetBool() )
-			{
-				DevMsg("#%d Cleaning up delayed PyNetworkVar update %s (callback: %d)\n", 
-					h.GetEntryIndex(),
-					py_delayed_data_update_list[i].name,
-					py_delayed_data_update_list[i].callchanged );
-			}
-			
-			h->PyUpdateNetworkVar( py_delayed_data_update_list[i].name, 
-				py_delayed_data_update_list[i].data, py_delayed_data_update_list[i].callchanged );
-
-			py_delayed_data_update_list.Remove(i);
-		}
-	}
 }
 
 //-----------------------------------------------------------------------------
@@ -1600,7 +1586,7 @@ CON_COMMAND_F( cpy, "Run a string on the python interpreter", FCVAR_CHEAT)
 	if( !UTIL_IsCommandIssuedByServerAdmin() )
 		return;
 #endif // CLIENT_DLL
-	g_SrcPythonSystem.Run( args.ArgS(), "consolespace" );
+	g_SrcPythonSystem.Run( args.ArgS(), consolespace );
 }
 
 #ifndef CLIENT_DLL
@@ -1745,7 +1731,7 @@ CON_COMMAND_F_COMPLETION( cl_py_import, "Import a python module", FCVAR_CHEAT, P
 #endif // CLIENT_DLL
 	char command[MAX_PATH];
 	V_snprintf( command, sizeof( command ), "import %s", args.ArgS() );
-	g_SrcPythonSystem.Run( command, "consolespace" );
+	g_SrcPythonSystem.Run( command, consolespace );
 }
 
 //-----------------------------------------------------------------------------

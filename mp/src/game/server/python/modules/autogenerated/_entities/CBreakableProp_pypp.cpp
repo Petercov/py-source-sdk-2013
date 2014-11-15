@@ -499,6 +499,25 @@ struct CBreakableProp_wrapper : CBreakableProp, bp::wrapper< CBreakableProp > {
         CBaseEntity::PostConstructor( szClassname );
     }
 
+    virtual int Restore( ::IRestore & restore ) {
+        PY_OVERRIDE_CHECK( CBaseAnimating, Restore )
+        PY_OVERRIDE_LOG( _entities, CBaseAnimating, Restore )
+        bp::override func_Restore = this->get_override( "Restore" );
+        if( func_Restore.ptr() != Py_None )
+            try {
+                return func_Restore( boost::ref(restore) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CBaseAnimating::Restore( restore );
+            }
+        else
+            return this->CBaseAnimating::Restore( restore );
+    }
+    
+    int default_Restore( ::IRestore & restore ) {
+        return CBaseAnimating::Restore( restore );
+    }
+
     virtual void StartTouch( ::CBaseEntity * pOther ) {
         PY_OVERRIDE_CHECK( CBaseEntity, StartTouch )
         PY_OVERRIDE_LOG( _entities, CBaseEntity, StartTouch )
@@ -958,6 +977,11 @@ void register_CBreakableProp_class(){
             , (void ( ::CBaseEntity::* )( char const * ) )(&::CBaseEntity::PostConstructor)
             , (void ( CBreakableProp_wrapper::* )( char const * ) )(&CBreakableProp_wrapper::default_PostConstructor)
             , ( bp::arg("szClassname") ) )    
+        .def( 
+            "Restore"
+            , (int ( ::CBaseAnimating::* )( ::IRestore & ) )(&::CBaseAnimating::Restore)
+            , (int ( CBreakableProp_wrapper::* )( ::IRestore & ) )(&CBreakableProp_wrapper::default_Restore)
+            , ( bp::arg("restore") ) )    
         .def( 
             "StartTouch"
             , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::StartTouch)

@@ -86,6 +86,8 @@ extern boost::python::object mainnamespace;
 extern boost::python::object builtins;
 extern boost::python::object types;
 extern boost::python::object sys;
+extern boost::python::object collections;
+extern boost::python::object srcbuiltins;
 extern boost::python::object steam;
 extern boost::python::object _entitiesmisc;
 extern boost::python::object _entities;
@@ -97,6 +99,7 @@ extern boost::python::object _physics;
 #endif // CLIENT_DLL
 
 extern boost::python::object fntype;
+extern boost::python::object fnisinstance;
 
 //-----------------------------------------------------------------------------
 // Purpose: Adding modules to python
@@ -262,7 +265,8 @@ public:
 	boost::python::object	Get( const char *pAttrName, boost::python::object obj, bool bReport = false );
 	boost::python::object	Get( const char *pAttrName, const char *pModule, bool bReport = false );
 	void					Run( boost::python::object method, bool report_errors = true );
-	void					Run( const char *pString, const char *pModule = NULL );
+	void					Run( const char *pString, const char *pModule );
+	void					Run( const char *pString, boost::python::object module = boost::python::object() );
 	bool					ExecuteFile( const char* pScript );
 	void					Reload( const char *pModule );
 	void					GarbageCollect();

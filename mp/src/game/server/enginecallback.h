@@ -79,6 +79,7 @@ void MessageEnd( void );
 
 // bytewise
 void MessageWriteByte( int iValue);
+void MessageWriteBytes(const void *pBuf, int nBytes);
 void MessageWriteChar( int iValue);
 void MessageWriteShort( int iValue);
 void MessageWriteWord( int iValue );
@@ -111,6 +112,7 @@ extern CSteamID GetSteamIDForPlayerIndex( int iPlayerIndex );
 
 // Bytewise
 #define WRITE_BYTE		(MessageWriteByte)
+#define WRITE_BYTES		(MessageWriteBytes)
 #define WRITE_CHAR		(MessageWriteChar)
 #define WRITE_SHORT		(MessageWriteShort)
 #define WRITE_WORD		(MessageWriteWord)

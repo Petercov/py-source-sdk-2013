@@ -499,6 +499,25 @@ struct CBaseProjectile_wrapper : CBaseProjectile, bp::wrapper< CBaseProjectile >
         CBaseAnimating::Precache( );
     }
 
+    virtual int Restore( ::IRestore & restore ) {
+        PY_OVERRIDE_CHECK( CBaseAnimating, Restore )
+        PY_OVERRIDE_LOG( _entities, CBaseAnimating, Restore )
+        bp::override func_Restore = this->get_override( "Restore" );
+        if( func_Restore.ptr() != Py_None )
+            try {
+                return func_Restore( boost::ref(restore) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CBaseAnimating::Restore( restore );
+            }
+        else
+            return this->CBaseAnimating::Restore( restore );
+    }
+    
+    int default_Restore( ::IRestore & restore ) {
+        return CBaseAnimating::Restore( restore );
+    }
+
     virtual void StartTouch( ::CBaseEntity * pOther ) {
         PY_OVERRIDE_CHECK( CBaseEntity, StartTouch )
         PY_OVERRIDE_LOG( _entities, CBaseEntity, StartTouch )
@@ -775,6 +794,11 @@ void register_CBaseProjectile_class(){
             "Precache"
             , (void ( ::CBaseAnimating::* )(  ) )(&::CBaseAnimating::Precache)
             , (void ( CBaseProjectile_wrapper::* )(  ) )(&CBaseProjectile_wrapper::default_Precache) )    
+        .def( 
+            "Restore"
+            , (int ( ::CBaseAnimating::* )( ::IRestore & ) )(&::CBaseAnimating::Restore)
+            , (int ( CBaseProjectile_wrapper::* )( ::IRestore & ) )(&CBaseProjectile_wrapper::default_Restore)
+            , ( bp::arg("restore") ) )    
         .def( 
             "StartTouch"
             , (void ( ::CBaseEntity::* )( ::CBaseEntity * ) )(&::CBaseEntity::StartTouch)

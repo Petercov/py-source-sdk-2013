@@ -378,6 +378,25 @@ struct C_BaseGrenade_wrapper : C_BaseGrenade, bp::wrapper< C_BaseGrenade > {
         C_BaseEntity::PyReceiveMessage( msg );
     }
 
+    virtual int Restore( ::IRestore & restore ) {
+        PY_OVERRIDE_CHECK( C_BaseEntity, Restore )
+        PY_OVERRIDE_LOG( _entities, C_BaseEntity, Restore )
+        bp::override func_Restore = this->get_override( "Restore" );
+        if( func_Restore.ptr() != Py_None )
+            try {
+                return func_Restore( boost::ref(restore) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->C_BaseEntity::Restore( restore );
+            }
+        else
+            return this->C_BaseEntity::Restore( restore );
+    }
+    
+    int default_Restore( ::IRestore & restore ) {
+        return C_BaseEntity::Restore( restore );
+    }
+
     virtual bool ShouldDraw(  ) {
         PY_OVERRIDE_CHECK( C_BaseAnimating, ShouldDraw )
         PY_OVERRIDE_LOG( _entities, C_BaseAnimating, ShouldDraw )
@@ -912,6 +931,18 @@ void register_C_BaseGrenade_class(){
                 , ReceiveMessage_function_type(&::C_BaseEntity::PyReceiveMessage)
                 , default_ReceiveMessage_function_type(&C_BaseGrenade_wrapper::default_ReceiveMessage)
                 , ( bp::arg("msg") ) );
+        
+        }
+        { //::C_BaseEntity::Restore
+        
+            typedef int ( ::C_BaseEntity::*Restore_function_type )( ::IRestore & ) ;
+            typedef int ( C_BaseGrenade_wrapper::*default_Restore_function_type )( ::IRestore & ) ;
+            
+            C_BaseGrenade_exposer.def( 
+                "Restore"
+                , Restore_function_type(&::C_BaseEntity::Restore)
+                , default_Restore_function_type(&C_BaseGrenade_wrapper::default_Restore)
+                , ( bp::arg("restore") ) );
         
         }
         { //::C_BaseAnimating::ShouldDraw

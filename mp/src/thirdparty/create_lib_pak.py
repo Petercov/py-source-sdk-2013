@@ -1,5 +1,9 @@
+''' Creates the vpk containing Python standard library. '''
+
 import os
 import subprocess
+import shutil
+import distutils.dir_util
 
 basescript = r'''
 rem @echo off
@@ -14,10 +18,11 @@ echo %steamdir%
 PATH=PATH;"%steamdir%/SteamApps/common/Source SDK Base 2013 Multiplayer/bin"
 '''
 
-
-
-target_folders = ['python/lib']
+target_folder = 'python/lib'
 file_types = ['.py']
+
+# Patch target folder
+distutils.dir_util.copy_tree('../srcpypp/srcpy_patchlib', target_folder)
 
 response_path = os.path.join(os.getcwd(),"vpk_list.txt")
 script_path = os.path.join(os.getcwd(),"vpk_script.bat")
@@ -25,13 +30,11 @@ script_path = os.path.join(os.getcwd(),"vpk_script.bat")
 len_cd = len(os.getcwd()) + 1
  
 with open(response_path,'wt') as fp:
-    for user_folder in target_folders:
-        for root, dirs, files in os.walk(os.path.join(os.getcwd(),user_folder)):
-            for file in files:
-                #if len(file_types) and file.rsplit(".")[-1] in file_types:
-                fp.write(os.path.join(root[len_cd:].replace("/","\\"),file) + "\n")
+    for root, dirs, files in os.walk(os.path.join(os.getcwd(), target_folder)):
+        for file in files:
+            fp.write(os.path.join(root[len_cd:].replace("/","\\"),file) + "\n")
                     
-with open(script_path, 'wt') as fp:
+with open(script_path, 'w') as fp:
     fp.write(basescript)
     fp.write('cd %s\n' % os.getcwd())
     fp.write('vpk.exe -M a pysource_lib "@%s"' % response_path)

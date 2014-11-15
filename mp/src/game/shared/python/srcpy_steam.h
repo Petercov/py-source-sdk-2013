@@ -60,6 +60,10 @@ boost::python::tuple PyGetLobbyDataByIndex( CSteamID steamIDLobby, int iLobbyDat
 bool PySendLobbyChatMsg( CSteamID steamIDLobby, const char *pvMsgBody );
 boost::python::tuple PyGetLobbyChatEntry( CSteamID steamIDLobby, int iChatID, CSteamID *pSteamIDUser );
 
+// Wrapper functions UserStats
+boost::python::object PyGetStatFloat( const char *name );
+boost::python::object PyGetStatInt( const char *name );
+
 // Wrapper functions Matchmaking Servers
 class PySteamMatchmakingServerListResponse : public ISteamMatchmakingServerListResponse
 {
@@ -102,14 +106,28 @@ public:
 	void RulesRefreshComplete() {}
 };
 
+class pygameserveritem_t : public gameserveritem_t 
+{
+public:
+	const char *GetGameDir() { return m_szGameDir; }
+	const char *GetMap() { return m_szMap; }
+	const char *GetGameDescription() { return m_szGameDescription; }
+	const char *GetGameTags() { return m_szGameTags; }
+};
+
 class PySteamMatchmakingServers
 {
 public:
 	int RequestInternetServerList( AppId_t iApp, boost::python::list filters, PySteamMatchmakingServerListResponse *pRequestServersResponse );
+	int RequestLANServerList( AppId_t iApp, ISteamMatchmakingServerListResponse *pRequestServersResponse );
+	int RequestFriendsServerList( AppId_t iApp, boost::python::list filters, ISteamMatchmakingServerListResponse *pRequestServersResponse );
+	int RequestFavoritesServerList( AppId_t iApp, boost::python::list filters, ISteamMatchmakingServerListResponse *pRequestServersResponse );
+	int RequestHistoryServerList( AppId_t iApp, boost::python::list filters, ISteamMatchmakingServerListResponse *pRequestServersResponse );
+	int RequestSpectatorServerList( AppId_t iApp, boost::python::list filters, ISteamMatchmakingServerListResponse *pRequestServersResponse );
 
 	void ReleaseRequest( int hServerListRequest );
 
-	gameserveritem_t *GetServerDetails( int hRequest, int iServer );
+	pygameserveritem_t GetServerDetails( int hRequest, int iServer );
 
 	// --
 	int PingServer( uint32 unIP, uint16 usPort, PySteamMatchmakingPingResponse *pRequestServersResponse ); 

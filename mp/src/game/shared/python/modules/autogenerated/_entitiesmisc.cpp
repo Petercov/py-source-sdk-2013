@@ -2596,6 +2596,27 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
     }
 
+    { //::CUserCmd
+        typedef bp::class_< CUserCmd > CUserCmd_exposer_t;
+        CUserCmd_exposer_t CUserCmd_exposer = CUserCmd_exposer_t( "CUserCmd", bp::no_init );
+        bp::scope CUserCmd_scope( CUserCmd_exposer );
+        CUserCmd_exposer.def_readwrite( "buttons", &CUserCmd::buttons );
+        CUserCmd_exposer.def_readwrite( "command_number", &CUserCmd::command_number );
+        CUserCmd_exposer.def_readwrite( "entitygroundcontact", &CUserCmd::entitygroundcontact );
+        CUserCmd_exposer.def_readwrite( "forwardmove", &CUserCmd::forwardmove );
+        CUserCmd_exposer.def_readwrite( "hasbeenpredicted", &CUserCmd::hasbeenpredicted );
+        CUserCmd_exposer.def_readwrite( "impulse", &CUserCmd::impulse );
+        CUserCmd_exposer.def_readwrite( "mousedx", &CUserCmd::mousedx );
+        CUserCmd_exposer.def_readwrite( "mousedy", &CUserCmd::mousedy );
+        CUserCmd_exposer.def_readwrite( "random_seed", &CUserCmd::random_seed );
+        CUserCmd_exposer.def_readwrite( "sidemove", &CUserCmd::sidemove );
+        CUserCmd_exposer.def_readwrite( "tick_count", &CUserCmd::tick_count );
+        CUserCmd_exposer.def_readwrite( "upmove", &CUserCmd::upmove );
+        CUserCmd_exposer.def_readwrite( "viewangles", &CUserCmd::viewangles );
+        CUserCmd_exposer.def_readwrite( "weaponselect", &CUserCmd::weaponselect );
+        CUserCmd_exposer.def_readwrite( "weaponsubtype", &CUserCmd::weaponsubtype );
+    }
+
     bp::class_< ClientClass >( "ClientClass", bp::no_init )    
         .def( 
             "GetName"
@@ -2621,6 +2642,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .def_readwrite( "vecdirshooting", &FireBulletsInfo_t::m_vecDirShooting )    
         .def_readwrite( "vecspread", &FireBulletsInfo_t::m_vecSpread )    
         .def_readwrite( "vecsrc", &FireBulletsInfo_t::m_vecSrc );
+
+    bp::class_< IRestore, boost::noncopyable >( "IRestore", bp::no_init );
+
+    bp::class_< ISave, boost::noncopyable >( "ISave", bp::no_init );
 
     bp::class_< NetworkedClass >( "NetworkedClass", bp::init< char const *, bp::api::object, bp::optional< char const * > >(( bp::arg("pNetworkName"), bp::arg("cls_type"), bp::arg("pClientModuleName")=bp::object() )) )    
         .def( 
@@ -5824,6 +5849,27 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
     }
 
+    { //::CUserCmd
+        typedef bp::class_< CUserCmd > CUserCmd_exposer_t;
+        CUserCmd_exposer_t CUserCmd_exposer = CUserCmd_exposer_t( "CUserCmd", bp::no_init );
+        bp::scope CUserCmd_scope( CUserCmd_exposer );
+        CUserCmd_exposer.def_readwrite( "buttons", &CUserCmd::buttons );
+        CUserCmd_exposer.def_readwrite( "command_number", &CUserCmd::command_number );
+        CUserCmd_exposer.def_readwrite( "entitygroundcontact", &CUserCmd::entitygroundcontact );
+        CUserCmd_exposer.def_readwrite( "forwardmove", &CUserCmd::forwardmove );
+        CUserCmd_exposer.def_readwrite( "hasbeenpredicted", &CUserCmd::hasbeenpredicted );
+        CUserCmd_exposer.def_readwrite( "impulse", &CUserCmd::impulse );
+        CUserCmd_exposer.def_readwrite( "mousedx", &CUserCmd::mousedx );
+        CUserCmd_exposer.def_readwrite( "mousedy", &CUserCmd::mousedy );
+        CUserCmd_exposer.def_readwrite( "random_seed", &CUserCmd::random_seed );
+        CUserCmd_exposer.def_readwrite( "sidemove", &CUserCmd::sidemove );
+        CUserCmd_exposer.def_readwrite( "tick_count", &CUserCmd::tick_count );
+        CUserCmd_exposer.def_readwrite( "upmove", &CUserCmd::upmove );
+        CUserCmd_exposer.def_readwrite( "viewangles", &CUserCmd::viewangles );
+        CUserCmd_exposer.def_readwrite( "weaponselect", &CUserCmd::weaponselect );
+        CUserCmd_exposer.def_readwrite( "weaponsubtype", &CUserCmd::weaponsubtype );
+    }
+
     bp::class_< FireBulletsInfo_t_wrapper >( "FireBulletsInfo_t", bp::init< >() )    
         .def( bp::init< int, Vector const &, Vector const &, Vector const &, float, int, bp::optional< bool > >(( bp::arg("nShots"), bp::arg("vecSrc"), bp::arg("vecDir"), bp::arg("vecSpread"), bp::arg("flDistance"), bp::arg("nAmmoType"), bp::arg("bPrimaryAttack")=(bool)(true) )) )    
         .def_readwrite( "primaryattack", &FireBulletsInfo_t::m_bPrimaryAttack )    
@@ -5844,6 +5890,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .def_readwrite( "vecdirshooting", &FireBulletsInfo_t::m_vecDirShooting )    
         .def_readwrite( "vecspread", &FireBulletsInfo_t::m_vecSpread )    
         .def_readwrite( "vecsrc", &FireBulletsInfo_t::m_vecSrc );
+
+    bp::class_< IRestore, boost::noncopyable >( "IRestore", bp::no_init );
+
+    bp::class_< ISave, boost::noncopyable >( "ISave", bp::no_init );
 
     bp::class_< NetworkedClass >( "NetworkedClass", bp::init< char const *, bp::api::object >(( bp::arg("pNetworkName"), bp::arg("cls_type") )) )    
         .def( 
