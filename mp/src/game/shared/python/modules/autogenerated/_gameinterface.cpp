@@ -6,6 +6,8 @@
 
 #include "cbase.h"
 
+#include "saverestoretypes.h"
+
 #include "gamerules.h"
 
 #include "multiplay_gamerules.h"
@@ -2928,6 +2930,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
 #include "srcpy_usermessage.h"
 
 #include "mapentities.h"
+
+#include "saverestoretypes.h"
 
 #include "tier0/icommandline.h"
 
