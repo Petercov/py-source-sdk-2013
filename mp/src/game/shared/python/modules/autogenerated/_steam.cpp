@@ -400,6 +400,12 @@ struct PySteamMatchmakingServerListResponse_wrapper : PySteamMatchmakingServerLi
 
 };
 
+static bp::tuple GetCurrentBetaName_44cfc773ce5b4e98b34b5a2219de76ad( ::ISteamApps & inst ){
+    char buf[1024];
+    bool rv = inst.GetCurrentBetaName( buf, sizeof(buf) );
+    return bp::make_tuple( rv, bp::object( buf ) );
+}
+
 PY_STEAM_CALLBACK_WRAPPER( PersonaStateChange, PersonaStateChange_t );
 
 struct PersonaStateChangeCallback_wrapper : PersonaStateChangeCallback, bp::wrapper< PersonaStateChangeCallback > {
@@ -1658,7 +1664,12 @@ BOOST_PYTHON_MODULE(_steam){
         AvatarImageLoaded_t_exposer.def_readwrite( "steamid", &AvatarImageLoaded_t::m_steamID );
     }
 
-    bp::class_< CSteamAPIContext >( "CSteamAPIContext", bp::init< >() )    
+    bp::class_< CSteamAPIContext >( "CSteamAPIContext", bp::no_init )    
+        .def( bp::init< >() )    
+        .def( 
+            "SteamApps"
+            , (::ISteamApps * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamApps )
+            , bp::return_internal_reference< >() )    
         .def( 
             "SteamFriends"
             , (::ISteamFriends * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamFriends )
@@ -2144,6 +2155,87 @@ BOOST_PYTHON_MODULE(_steam){
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
     }
+
+    bp::class_< ISteamApps, boost::noncopyable >( "ISteamApps", bp::no_init )    
+        .def( 
+            "BGetDLCDataByIndex"
+            , (bool ( ::ISteamApps::* )( int,::AppId_t *,bool *,char *,int ) )( &::ISteamApps::BGetDLCDataByIndex )
+            , ( bp::arg("iDLC"), bp::arg("pAppID"), bp::arg("pbAvailable"), bp::arg("pchName"), bp::arg("cchNameBufferSize") ) )    
+        .def( 
+            "BIsAppInstalled"
+            , (bool ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::BIsAppInstalled )
+            , ( bp::arg("appID") ) )    
+        .def( 
+            "BIsCybercafe"
+            , (bool ( ::ISteamApps::* )(  ) )( &::ISteamApps::BIsCybercafe ) )    
+        .def( 
+            "BIsDlcInstalled"
+            , (bool ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::BIsDlcInstalled )
+            , ( bp::arg("appID") ) )    
+        .def( 
+            "BIsLowViolence"
+            , (bool ( ::ISteamApps::* )(  ) )( &::ISteamApps::BIsLowViolence ) )    
+        .def( 
+            "BIsSubscribed"
+            , (bool ( ::ISteamApps::* )(  ) )( &::ISteamApps::BIsSubscribed ) )    
+        .def( 
+            "BIsSubscribedApp"
+            , (bool ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::BIsSubscribedApp )
+            , ( bp::arg("appID") ) )    
+        .def( 
+            "BIsSubscribedFromFreeWeekend"
+            , (bool ( ::ISteamApps::* )(  ) )( &::ISteamApps::BIsSubscribedFromFreeWeekend ) )    
+        .def( 
+            "BIsVACBanned"
+            , (bool ( ::ISteamApps::* )(  ) )( &::ISteamApps::BIsVACBanned ) )    
+        .def( 
+            "GetAppInstallDir"
+            , (::uint32 ( ::ISteamApps::* )( ::AppId_t,char *,::uint32 ) )( &::ISteamApps::GetAppInstallDir )
+            , ( bp::arg("appID"), bp::arg("pchFolder"), bp::arg("cchFolderBufferSize") ) )    
+        .def( 
+            "GetAppOwner"
+            , (::CSteamID ( ::ISteamApps::* )(  ) )( &::ISteamApps::GetAppOwner ) )    
+        .def( 
+            "GetAvailableGameLanguages"
+            , (char const * ( ::ISteamApps::* )(  ) )( &::ISteamApps::GetAvailableGameLanguages ) )    
+        .def( 
+            "GetCurrentGameLanguage"
+            , (char const * ( ::ISteamApps::* )(  ) )( &::ISteamApps::GetCurrentGameLanguage ) )    
+        .def( 
+            "GetDLCCount"
+            , (int ( ::ISteamApps::* )(  ) )( &::ISteamApps::GetDLCCount ) )    
+        .def( 
+            "GetEarliestPurchaseUnixTime"
+            , (::uint32 ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::GetEarliestPurchaseUnixTime )
+            , ( bp::arg("nAppID") ) )    
+        .def( 
+            "GetInstalledDepots"
+            , (::uint32 ( ::ISteamApps::* )( ::AppId_t,::DepotId_t *,::uint32 ) )( &::ISteamApps::GetInstalledDepots )
+            , ( bp::arg("appID"), bp::arg("pvecDepots"), bp::arg("cMaxDepots") ) )    
+        .def( 
+            "GetLaunchQueryParam"
+            , (char const * ( ::ISteamApps::* )( char const * ) )( &::ISteamApps::GetLaunchQueryParam )
+            , ( bp::arg("pchKey") ) )    
+        .def( 
+            "InstallDLC"
+            , (void ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::InstallDLC )
+            , ( bp::arg("nAppID") ) )    
+        .def( 
+            "MarkContentCorrupt"
+            , (bool ( ::ISteamApps::* )( bool ) )( &::ISteamApps::MarkContentCorrupt )
+            , ( bp::arg("bMissingFilesOnly") ) )    
+        .def( 
+            "RequestAppProofOfPurchaseKey"
+            , (void ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::RequestAppProofOfPurchaseKey )
+            , ( bp::arg("nAppID") ) )    
+        .def( 
+            "UninstallDLC"
+            , (void ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::UninstallDLC )
+            , ( bp::arg("nAppID") ) )    
+        .def( 
+            "GetCurrentBetaName"
+            , (bp::tuple (*)( ::ISteamApps & ) )( &GetCurrentBetaName_44cfc773ce5b4e98b34b5a2219de76ad )
+            , ( bp::arg("inst") ) );
 
     bp::class_< ISteamFriends, boost::noncopyable >( "ISteamFriends", bp::no_init )    
         .def( 
@@ -4205,6 +4297,12 @@ struct PySteamMatchmakingServerListResponse_wrapper : PySteamMatchmakingServerLi
 
 };
 
+static bp::tuple GetCurrentBetaName_44cfc773ce5b4e98b34b5a2219de76ad( ::ISteamApps & inst ){
+    char buf[1024];
+    bool rv = inst.GetCurrentBetaName( buf, sizeof(buf) );
+    return bp::make_tuple( rv, bp::object( buf ) );
+}
+
 PY_STEAM_CALLBACK_WRAPPER( PersonaStateChange, PersonaStateChange_t );
 
 struct PersonaStateChangeCallback_wrapper : PersonaStateChangeCallback, bp::wrapper< PersonaStateChangeCallback > {
@@ -5463,7 +5561,12 @@ BOOST_PYTHON_MODULE(_steam){
         AvatarImageLoaded_t_exposer.def_readwrite( "steamid", &AvatarImageLoaded_t::m_steamID );
     }
 
-    bp::class_< CSteamAPIContext >( "CSteamAPIContext", bp::init< >() )    
+    bp::class_< CSteamAPIContext >( "CSteamAPIContext", bp::no_init )    
+        .def( bp::init< >() )    
+        .def( 
+            "SteamApps"
+            , (::ISteamApps * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamApps )
+            , bp::return_internal_reference< >() )    
         .def( 
             "SteamFriends"
             , (::ISteamFriends * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamFriends )
@@ -5485,7 +5588,8 @@ BOOST_PYTHON_MODULE(_steam){
             , (::ISteamUtils * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamUtils )
             , bp::return_internal_reference< >() );
 
-    bp::class_< CSteamGameServerAPIContext >( "CSteamGameServerAPIContext", bp::init< >() )    
+    bp::class_< CSteamGameServerAPIContext >( "CSteamGameServerAPIContext", bp::no_init )    
+        .def( bp::init< >() )    
         .def( 
             "SteamGameServer"
             , (::ISteamGameServer * ( ::CSteamGameServerAPIContext::* )(  ) )( &::CSteamGameServerAPIContext::SteamGameServer )
@@ -5955,6 +6059,87 @@ BOOST_PYTHON_MODULE(_steam){
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
     }
+
+    bp::class_< ISteamApps, boost::noncopyable >( "ISteamApps", bp::no_init )    
+        .def( 
+            "BGetDLCDataByIndex"
+            , (bool ( ::ISteamApps::* )( int,::AppId_t *,bool *,char *,int ) )( &::ISteamApps::BGetDLCDataByIndex )
+            , ( bp::arg("iDLC"), bp::arg("pAppID"), bp::arg("pbAvailable"), bp::arg("pchName"), bp::arg("cchNameBufferSize") ) )    
+        .def( 
+            "BIsAppInstalled"
+            , (bool ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::BIsAppInstalled )
+            , ( bp::arg("appID") ) )    
+        .def( 
+            "BIsCybercafe"
+            , (bool ( ::ISteamApps::* )(  ) )( &::ISteamApps::BIsCybercafe ) )    
+        .def( 
+            "BIsDlcInstalled"
+            , (bool ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::BIsDlcInstalled )
+            , ( bp::arg("appID") ) )    
+        .def( 
+            "BIsLowViolence"
+            , (bool ( ::ISteamApps::* )(  ) )( &::ISteamApps::BIsLowViolence ) )    
+        .def( 
+            "BIsSubscribed"
+            , (bool ( ::ISteamApps::* )(  ) )( &::ISteamApps::BIsSubscribed ) )    
+        .def( 
+            "BIsSubscribedApp"
+            , (bool ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::BIsSubscribedApp )
+            , ( bp::arg("appID") ) )    
+        .def( 
+            "BIsSubscribedFromFreeWeekend"
+            , (bool ( ::ISteamApps::* )(  ) )( &::ISteamApps::BIsSubscribedFromFreeWeekend ) )    
+        .def( 
+            "BIsVACBanned"
+            , (bool ( ::ISteamApps::* )(  ) )( &::ISteamApps::BIsVACBanned ) )    
+        .def( 
+            "GetAppInstallDir"
+            , (::uint32 ( ::ISteamApps::* )( ::AppId_t,char *,::uint32 ) )( &::ISteamApps::GetAppInstallDir )
+            , ( bp::arg("appID"), bp::arg("pchFolder"), bp::arg("cchFolderBufferSize") ) )    
+        .def( 
+            "GetAppOwner"
+            , (::CSteamID ( ::ISteamApps::* )(  ) )( &::ISteamApps::GetAppOwner ) )    
+        .def( 
+            "GetAvailableGameLanguages"
+            , (char const * ( ::ISteamApps::* )(  ) )( &::ISteamApps::GetAvailableGameLanguages ) )    
+        .def( 
+            "GetCurrentGameLanguage"
+            , (char const * ( ::ISteamApps::* )(  ) )( &::ISteamApps::GetCurrentGameLanguage ) )    
+        .def( 
+            "GetDLCCount"
+            , (int ( ::ISteamApps::* )(  ) )( &::ISteamApps::GetDLCCount ) )    
+        .def( 
+            "GetEarliestPurchaseUnixTime"
+            , (::uint32 ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::GetEarliestPurchaseUnixTime )
+            , ( bp::arg("nAppID") ) )    
+        .def( 
+            "GetInstalledDepots"
+            , (::uint32 ( ::ISteamApps::* )( ::AppId_t,::DepotId_t *,::uint32 ) )( &::ISteamApps::GetInstalledDepots )
+            , ( bp::arg("appID"), bp::arg("pvecDepots"), bp::arg("cMaxDepots") ) )    
+        .def( 
+            "GetLaunchQueryParam"
+            , (char const * ( ::ISteamApps::* )( char const * ) )( &::ISteamApps::GetLaunchQueryParam )
+            , ( bp::arg("pchKey") ) )    
+        .def( 
+            "InstallDLC"
+            , (void ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::InstallDLC )
+            , ( bp::arg("nAppID") ) )    
+        .def( 
+            "MarkContentCorrupt"
+            , (bool ( ::ISteamApps::* )( bool ) )( &::ISteamApps::MarkContentCorrupt )
+            , ( bp::arg("bMissingFilesOnly") ) )    
+        .def( 
+            "RequestAppProofOfPurchaseKey"
+            , (void ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::RequestAppProofOfPurchaseKey )
+            , ( bp::arg("nAppID") ) )    
+        .def( 
+            "UninstallDLC"
+            , (void ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::UninstallDLC )
+            , ( bp::arg("nAppID") ) )    
+        .def( 
+            "GetCurrentBetaName"
+            , (bp::tuple (*)( ::ISteamApps & ) )( &GetCurrentBetaName_44cfc773ce5b4e98b34b5a2219de76ad )
+            , ( bp::arg("inst") ) );
 
     bp::class_< ISteamFriends, boost::noncopyable >( "ISteamFriends", bp::no_init )    
         .def( 

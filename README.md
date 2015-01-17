@@ -84,7 +84,7 @@ You can find instructions in [mp/src/srcpypp](mp/src/srcpypp).
 - [_physics](mp/src/game/shared/python/modules/_physics.py): Exposed IPhysicsObject and related.
 - [_sound](mp/src/game/shared/python/modules/_sound.py): Exposes sound engine interface and related.
 - [srcbuiltins](mp/src/game/shared/python/modules/srcbuiltins.py): Exposes debug Msg functions, used for redirecting output of Python
-- [steam](mp/src/game/shared/python/modules/steam.py): Exposes steam api related classes.
+- [_steam](mp/src/game/shared/python/modules/steam.py): Exposes steam api related classes.
 - [_te](mp/src/game/shared/python/modules/_te.py): Exposes temporary effects/entities, client side effects and FX_ functions
 - [_utils](mp/src/game/shared/python/modules/_utils.py): Exposes utils functions and related (e.g. UTIL_TraceLine)
 - [_vgui](mp/src/game/client/python/modules/_vgui.py): Exposes client VGUI related classes and functions.

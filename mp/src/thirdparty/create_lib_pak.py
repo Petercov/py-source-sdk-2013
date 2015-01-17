@@ -4,6 +4,7 @@ import os
 import subprocess
 import shutil
 import distutils.dir_util
+import glob
 
 basescript = r'''
 rem @echo off
@@ -33,6 +34,10 @@ with open(response_path,'wt') as fp:
     for root, dirs, files in os.walk(os.path.join(os.getcwd(), target_folder)):
         for file in files:
             fp.write(os.path.join(root[len_cd:].replace("/","\\"),file) + "\n")
+                    
+for filename in glob.glob('./pysource_lib_*.vpk'):
+    if os.path.exists(filename):
+        os.remove(filename)
                     
 with open(script_path, 'w') as fp:
     fp.write(basescript)

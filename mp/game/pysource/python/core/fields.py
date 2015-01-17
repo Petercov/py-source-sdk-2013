@@ -16,7 +16,7 @@ import ast
 from types import MethodType
 from collections import defaultdict
 import traceback
-from .networkvar import NetworkVar, NetworkArray, NetworkDict, NetworkDefaultDict, NetworkVarProp
+from .networkvar import NetworkVar, NetworkArray, NetworkSet, NetworkDict, NetworkDefaultDict, NetworkVarProp
 
 from _entitiesmisc import _fieldtypes as fieldtypes
 if isserver:
@@ -66,7 +66,7 @@ class BaseField(object):
                cppimplemented (bool): if implemented in c++. In this case it won't set the attribute on the instances of the object.
                choices (list): List of choices to be displayed in Hammer or attribute editor. Each choice is a tuple of the value and display name.
         '''
-        super(BaseField, self).__init__()
+        super().__init__()
 
         self.default = value
         self.keyname = keyname
@@ -234,10 +234,10 @@ class BooleanField(BaseField):
         super(BooleanField, self).__init__(value=value, **kwargs)
         
     def ToValue(self, value):
-        if value == "0": # Hammer will send "0" as False
-            return False
-        elif value == "1": # Hammer will send "1" as True
-            return True
+        # Hammer sends string "0" as False and "1" as True.
+        # Also, in the attribute editor we might set it as "True" or "False"
+        if type(value) == str:
+            return ast.literal_eval(value)
         # Fallback to evaluate as a boolean
         return bool(value)
         
@@ -257,7 +257,7 @@ class IntegerField(BaseField):
     """ The integer field only accepts numbers as values (or 
         anything that evaluates to that)."""
     def __init__(self, value=0, **kwargs):
-        super(IntegerField, self).__init__(value=value, **kwargs)
+        super().__init__(value=value, **kwargs)
         
     def ToValue(self, value):
         return int(value)
@@ -271,7 +271,7 @@ class IntegerField(BaseField):
 class FloatField(BaseField):
     """ Float field """
     def __init__(self, value=0.0, **kwargs):
-        super(FloatField, self).__init__(value=value, **kwargs)
+        super().__init__(value=value, **kwargs)
         
     def ToValue(self, value):
         return float(value)
@@ -281,7 +281,7 @@ class FloatField(BaseField):
 class StringField(BaseField):
     """ String field """
     def __init__(self, value='', **kwargs):
-        super(StringField, self).__init__(value=value, **kwargs)
+        super().__init__(value=value, **kwargs)
         
     def ToValue(self, value):
         return str(value)
@@ -294,7 +294,7 @@ class LocalizedStringField(StringField):
               Use the encoding argument to change it if needed (i.e. encoding='ascii')
     '''
     def __init__(self, value='', encoding=None, **kwargs):
-        super(StringField, self).__init__(value=value, **kwargs)
+        super().__init__(value=value, **kwargs)
         
         self.encoding = encoding
         
@@ -344,7 +344,7 @@ class VectorField(BaseField):
         if invalidate:
             value.Invalidate()
     
-        super(VectorField, self).__init__(value=value, **kwargs)
+        super().__init__(value=value, **kwargs)
     
     def ToValue(self, value):
         if type(value) is Vector:
@@ -382,7 +382,7 @@ class QAngleField(BaseField):
         if invalidate:
             value.Invalidate()
     
-        super(QAngleField, self).__init__(value=value, **kwargs)
+        super().__init__(value=value, **kwargs)
     
     def ToValue(self, value):
         if type(value) is QAngle:
@@ -414,6 +414,27 @@ class ColorField(BaseField):
         return UTIL_StringToColor(value)
         
     fgdtype = 'color255'
+    
+class SetField(BaseField):
+    def __init__(self, value=set(), **kwargs):
+        super().__init__(value=set(value), **kwargs)
+        
+    def InitField(self, inst):
+        if self.networked:
+            assert(not self.propname)
+            NetworkSet(inst, self.name, set(self.default)
+                    , changedcallback=self.clientchangecallback, sendproxy=self.sendproxy)
+        else:
+            setattr(inst, self.name, set(self.default))
+        
+    def ToValue(self, rawvalue):
+        """ Convert string to value.
+            Will return the same value if already correct. """
+        if type(rawvalue) == str:
+            return ast.literal_eval(rawvalue)
+        return set(rawvalue) # Create a copy of the set
+        
+    requiresinit = True
         
 class ListField(BaseField):
     """ List field.
@@ -421,7 +442,7 @@ class ListField(BaseField):
         NOTE: networked list fields do not implement all list methods!
     """
     def __init__(self, value=list(), **kwargs):
-        super(ListField, self).__init__(value=list(value), **kwargs)
+        super().__init__(value=list(value), **kwargs)
         
     def InitField(self, inst):
         if self.networked:
@@ -446,7 +467,7 @@ class DictField(BaseField):
         NOTE: networked dictionary fields do not implement all dict methods!
     """
     def __init__(self, value=dict(), default=None, **kwargs):
-        super(DictField, self).__init__(value=value, **kwargs)
+        super().__init__(value=value, **kwargs)
         self.defaultvalue = default
         
     def InitField(self, inst):
@@ -481,10 +502,10 @@ class FlagsField(BaseField):
                 
             value |= defaultvalue
             setattr(self, cppflagname, value)
-        super(FlagsField, self).__init__(value=value, *args, **kwargs)
+        super().__init__(value=value, *args, **kwargs)
 
     def Parse(self, cls, name):
-        super(FlagsField, self).Parse(cls, name)
+        super().Parse(cls, name)
         
         # Add flag names to cls
         for flaginfo in self.flags: 
@@ -509,7 +530,7 @@ class FlagsField(BaseField):
 if isserver:
     class OutputEvent(COutputEvent):
         def __init__(self, fieldtype):
-            super(OutputEvent, self).__init__()
+            super().__init__()
             self.fieldtype = fieldtype
             self.value = variant_t()
             
@@ -541,13 +562,13 @@ output_fgdtypes = {
     fieldtypes.FIELD_BOOLEAN : 'bool',
     fieldtypes.FIELD_VECTOR : 'vector',
     fieldtypes.FIELD_POSITION_VECTOR : 'void', # not used anywhere ?
-    fieldtypes.FIELD_EHANDLE : 'string',
+    fieldtypes.FIELD_EHANDLE : 'target_destination',
 }
             
 class OutputField(BaseField):
     """ Output field (entity only)"""
     def __init__(self, keyname, fieldtype=fieldtypes.FIELD_VOID, *args, **kwargs):
-        super(OutputField, self).__init__(keyname=keyname, noreset=True, *args, **kwargs)
+        super().__init__(keyname=keyname, noreset=True, *args, **kwargs)
         self.fieldtype = fieldtype
 
     if isserver:
@@ -595,7 +616,7 @@ def ResetFields(sender, **kwargs):
 def GetField(obj, name):
     return getattr(obj, '__%s_fieldinfo' % (name))
     
-def SetField(obj, name, field):
+def ObjSetField(obj, name, field):
     setattr(obj, '__%s_fieldinfo' % (name), field)
     
 def HasField(obj, name):
@@ -746,11 +767,8 @@ def input(inputname, helpstring='', fieldtype=fieldtypes.FIELD_VOID):
     return fnwrapper
     
 def SetupInputMethods(cls):
-    try: 
-        if cls.__dict__['__inputmethodsparsed']: 
-            return
-    except KeyError: 
-        pass
+    if getattr(cls, '__inputmethodsparsed', False):
+        return
         
     # Set attribute to False
     # If we cannot do that, it is a builtin object
@@ -764,8 +782,7 @@ def SetupInputMethods(cls):
         SetupInputMethods(basecls)
         
     # Grab base inputmap. Create new one if there is no inputmap yet.
-    try: inputmap = dict(getattr(cls, 'inputmap'))
-    except: inputmap = {}
+    inputmap = dict(getattr(cls, 'inputmap', {}))
     
     for name, f in cls.__dict__.items():
         # TODO: Verify is function?

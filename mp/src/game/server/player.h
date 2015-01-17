@@ -379,6 +379,15 @@ public:
 	// returns the player name
 	const char *			GetPlayerName() { return m_szNetname; }
 	void					SetPlayerName( const char *name );
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	boost::python::object	PyGetPlayerName();
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
 
 	int						GetUserID() { return engine->GetPlayerUserId( edict() ); }
 	const char *			GetNetworkIDString(); 

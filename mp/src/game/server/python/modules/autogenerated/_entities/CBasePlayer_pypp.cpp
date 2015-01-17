@@ -1236,9 +1236,6 @@ void register_CBasePlayer_class(){
             "GetPlayerMins"
             , (::Vector const ( ::CBasePlayer::* )(  ) const)( &::CBasePlayer::GetPlayerMins ) )    
         .def( 
-            "GetPlayerName"
-            , (char const * ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::GetPlayerName ) )    
-        .def( 
             "GetPreviouslyPredictedOrigin"
             , (::Vector const & ( ::CBasePlayer::* )(  ) const)( &::CBasePlayer::GetPreviouslyPredictedOrigin )
             , bp::return_value_policy< bp::copy_const_reference >() )    
@@ -1643,6 +1640,9 @@ void register_CBasePlayer_class(){
             "Precache"
             , (void ( ::CBasePlayer::* )(  ) )(&::CBasePlayer::Precache)
             , (void ( CBasePlayer_wrapper::* )(  ) )(&CBasePlayer_wrapper::default_Precache) )    
+        .def( 
+            "GetPlayerName"
+            , (::boost::python::api::object ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::PyGetPlayerName ) )    
         .def( 
             "RefreshCollisionBounds"
             , (void ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::RefreshCollisionBounds ) )    

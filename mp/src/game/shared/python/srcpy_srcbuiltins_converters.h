@@ -118,7 +118,6 @@ struct python_str_to_string_t
 #else
 		PyObject *pDecoded = PyUnicode_AsUTF8String( obj_ptr );
 		char* value = PyBytes_AsString( pDecoded );
-		Py_DECREF( pDecoded );
 #endif
 
 		if (value == 0) 
@@ -126,13 +125,18 @@ struct python_str_to_string_t
 			boost::python::throw_error_already_set();
 		}
 		void* storage = ((boost::python::converter::rvalue_from_python_storage<string_t>*)data)->storage.bytes;
+
 #ifndef CLIENT_DLL
-		string_t s = AllocPooledString(value);
-		memcpy(storage, &s, sizeof(string_t));
+		string_t s = AllocPooledString( value );
+		new (storage) string_t(s);
 #else
 		boost::python::throw_error_already_set();
 #endif // CLIENT_DLL
 		data->convertible = storage;
+
+#if PY_VERSION_HEX >= 0x03000000
+		Py_DECREF( pDecoded );
+#endif
 	}
 };
 
@@ -190,7 +194,6 @@ struct python_str_to_wchar_t
 #else
 		PyObject *pDecoded = PyUnicode_AsUTF8String( obj_ptr );
 		char* strvalue = PyBytes_AsString( pDecoded );
-		Py_DECREF( pDecoded );
 #endif
 
 		if (strvalue == 0) 
@@ -201,6 +204,10 @@ struct python_str_to_wchar_t
 		void* storage = ((boost::python::converter::rvalue_from_python_storage<wchar_t>*)data)->storage.bytes;
 		new (storage) wchar_t(strvalue[0]);
 		data->convertible = storage;
+
+#if PY_VERSION_HEX >= 0x03000000
+		Py_DECREF( pDecoded );
+#endif
 	}
 };
 
@@ -221,6 +228,27 @@ struct python_unicode_to_ptr_const_wchar_t
 		if( PyUnicode_Check( obj ) )
 		{
 			return PyUnicode_AsUnicode(obj);
+		}
+		return 0;
+	}
+};
+#else
+struct python_unicode_to_ptr_const_wchar_t
+{
+	python_unicode_to_ptr_const_wchar_t()
+	{
+		boost::python::converter::registry::insert(
+			&convert_to_wcstring, 
+			boost::python::type_id<wchar_t>(),
+			&boost::python::converter::wrap_pytype<&PyUnicode_Type>::get_pytype
+		);
+	}
+
+	static void *convert_to_wcstring(PyObject* obj)
+	{
+		if( PyUnicode_Check( obj ) )
+		{
+			return PyUnicode_AsUnicode( obj );
 		}
 		return 0;
 	}

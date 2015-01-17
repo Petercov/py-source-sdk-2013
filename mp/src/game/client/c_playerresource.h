@@ -64,6 +64,16 @@ public : // IGameResources intreface
 	virtual void ClientThink();
 	virtual	void	OnDataChanged(DataUpdateType_t updateType);
 
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+	boost::python::object		PyGetPlayerName( int index );
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================
+
 protected:
 	void	UpdatePlayerName( int slot );
 

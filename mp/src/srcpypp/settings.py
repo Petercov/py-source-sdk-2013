@@ -34,6 +34,7 @@ vpcclientautopath = os.path.join(os.path.dirname(vpcclientpath), '%s_autogen.vpc
 modules = [
     # Base
     ('srcbuiltins', 'SrcBuiltins'),
+    ('_srcbase', 'SrcBase'),
     ('_vmath', 'VMath'),
     ('_filesystem', 'SrcFilesystem'),
     

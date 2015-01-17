@@ -16,6 +16,12 @@
 #pragma once
 #endif
 
+#ifndef ENABLE_PYTHON
+	#define IMPLEMENT_PYSERVERCLASS_SYSTEM( name, network_name )
+	#define DECLARE_PYSERVERCLASS( name, networkType )
+	#define DECLARE_PYCLASS( name )
+#else
+
 #include "server_class.h"
 #include "dt_send.h"
 #include "srcpy_class_shared.h"
@@ -76,5 +82,7 @@ void PyResetAllNetworkTables();
 	DECLARE_PYCLASS( name )																			\
 	public:																							\
 	static int GetPyNetworkType() { return networkType; }
+
+#endif // ENABLE_PYTHON
 
 #endif // SRCPY_SERVER_CLASS_H

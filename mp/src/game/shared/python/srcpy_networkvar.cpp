@@ -26,7 +26,7 @@ namespace bp = boost::python;
 CPythonNetworkVarBase::CPythonNetworkVarBase( bp::object ent, const char *name, bool changedcallback, bp::object sendproxy )
 	: m_bChangedCallback(changedcallback), m_bInitialState(true)
 {
-	Q_snprintf(m_Name, PYNETVAR_MAX_NAME, name);
+	m_Name = name;
 	CBaseEntity *pEnt = NULL;
 	m_pPySendProxy = NULL;
 	try 
@@ -90,6 +90,20 @@ void CPythonNetworkVarBase::Remove( CBaseEntity *pEnt )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
+bool CPythonNetworkVarBase::ShouldUpdateClient( CBaseEntity *pEnt, int iClient )
+{
+	if( m_PlayerUpdateBits.Get( iClient ) == false )
+		return false;
+
+	if( m_pPySendProxy && !m_pPySendProxy->ShouldSend( pEnt, iClient ) )
+		return false ;
+
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
 void CPythonNetworkVarBase::NetworkStateChanged( void )
 {
 	m_PlayerUpdateBits.SetAll();
@@ -131,13 +145,16 @@ bp::object CPythonNetworkVar::Get( void )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
+bp::object CPythonNetworkVar::Str()
+{
+	return m_dataInternal.attr("__str__")();
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
 void CPythonNetworkVar::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient )
 {
-	if( m_pPySendProxy && !m_pPySendProxy->ShouldSend( pEnt, iClient ) )
-		return;
-
-	m_PlayerUpdateBits.Clear(iClient);
-
 	pywrite write;
 	try 
 	{
@@ -145,7 +162,7 @@ void CPythonNetworkVar::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient 
 	} 
 	catch(boost::python::error_already_set &) 
 	{
-		Warning("Failed to parse data for network variable %s:\n", m_Name );
+		Warning("Failed to parse data for network variable %s:\n", m_Name.String() );
 		PyErr_Print();
 		PyErr_Clear();
 		Set( bp::object(0) );
@@ -160,13 +177,13 @@ void CPythonNetworkVar::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient 
 	else
 		UserMessageBegin( filter, "PyNetworkVar");
 	WRITE_EHANDLE(pEnt);
-	WRITE_STRING(m_Name);
+	WRITE_STRING(m_Name.String());
 	PyWriteElement(write);
 	MessageEnd();
 
 	if( g_debug_pynetworkvar.GetBool() )
 	{
-		DevMsg("#%d:%s - %f - PyNetworkVar: %s, Value -> ", pEnt->entindex(), pEnt->GetClassname(), gpGlobals->curtime, m_Name);
+		DevMsg("#%d:%s - %f - PyNetworkVar: %s, Value -> ", pEnt->entindex(), pEnt->GetClassname(), gpGlobals->curtime, m_Name.String());
 		PyPrintElement(write);
 	}
 }
@@ -227,13 +244,16 @@ void CPythonNetworkArray::Set( bp::list data )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
+bp::object CPythonNetworkArray::Str()
+{
+	return m_dataInternal.attr("__str__")();
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
 void CPythonNetworkArray::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient )
 {
-	if( m_pPySendProxy && !m_pPySendProxy->ShouldSend( pEnt, iClient ) )
-		return;
-
-	m_PlayerUpdateBits.Clear(iClient);
-
 	// Parse list
 	int length = 0;
 	CUtlVector<pywrite> writelist;
@@ -262,7 +282,7 @@ void CPythonNetworkArray::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClien
 	else
 		UserMessageBegin( filter, "PyNetworkArrayFull");
 	WRITE_EHANDLE(pEnt);
-	WRITE_STRING(m_Name);
+	WRITE_STRING(m_Name.String());
 	WRITE_BYTE(length);
 	for( int i = 0; i < writelist.Count(); i++ )
 	{
@@ -272,7 +292,7 @@ void CPythonNetworkArray::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClien
 
 	if( g_debug_pynetworkvar.GetBool() )
 	{
-		DevMsg("#%d:%s - %f - PyNetworkArray: %s\n", pEnt->entindex(), pEnt->GetClassname(), gpGlobals->curtime, m_Name);
+		DevMsg("#%d:%s - %f - PyNetworkArray: %s\n", pEnt->entindex(), pEnt->GetClassname(), gpGlobals->curtime, m_Name.String());
 		for( int i = 0; i < writelist.Count(); i++ )
 		{
 			DevMsg("\t");
@@ -336,13 +356,16 @@ void CPythonNetworkDict::Set( bp::dict data )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
+bp::object CPythonNetworkDict::Str()
+{
+	return m_dataInternal.attr("__str__")();
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
 void CPythonNetworkDict::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient )
 {
-	if( m_pPySendProxy && !m_pPySendProxy->ShouldSend( pEnt, iClient ) )
-		return;
-
-	m_PlayerUpdateBits.Clear(iClient);
-
 	// Create write list
 	// TODO: Only write changed keys if possible
 	unsigned long length = 0;
@@ -390,7 +413,7 @@ void CPythonNetworkDict::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient
 	filter.AddRecipient( UTIL_PlayerByIndex( iClient + 1 ) );
 	UserMessageBegin( filter, m_bChangedCallback ? "PyNetworkDictFullCC" : "PyNetworkDictFull" );
 	WRITE_EHANDLE(pEnt);
-	WRITE_STRING(m_Name);
+	WRITE_STRING(m_Name.String());
 	WRITE_BYTE((int)length);
 	for( int i = 0; i < writelist.Count(); i++ )
 	{
@@ -400,7 +423,7 @@ void CPythonNetworkDict::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient
 
 	if( g_debug_pynetworkvar.GetBool() )
 	{
-		DevMsg("#%d:%s - %f - PyNetworkDict: %s (length: %d)\n", pEnt->entindex(), pEnt->GetClassname(), gpGlobals->curtime, m_Name, (int)length);
+		DevMsg("#%d:%s - %f - PyNetworkDict: %s (length: %d)\n", pEnt->entindex(), pEnt->GetClassname(), gpGlobals->curtime, m_Name.String(), (int)length);
 		for( int i = 0; i < writelist.Count(); i++ )
 		{
 			DevMsg("\t");
@@ -444,11 +467,14 @@ void PyNetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient )
 
 	for( int i = 0; i < pEnt->m_utlPyNetworkVars.Count(); i++ )
 	{
-		if( pEnt->m_utlPyNetworkVars.Element( i )->m_PlayerUpdateBits.Get( iClient ) == false )
+		CPythonNetworkVarBase *pNetVar = pEnt->m_utlPyNetworkVars.Element( i );
+		if( !pNetVar->ShouldUpdateClient( pEnt, iClient ) )
 			continue;
 
 		pEnt->m_utlPyNetworkVars.Element( i )->NetworkVarsUpdateClient( pEnt, iClient );
+		pNetVar->m_PlayerUpdateBits.Clear(iClient);
 	}
+
 }
 
 #else 

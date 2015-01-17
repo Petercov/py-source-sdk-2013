@@ -709,9 +709,6 @@ void register_C_BasePlayer_class(){
             "GetPlayerMins"
             , (::Vector const ( ::C_BasePlayer::* )(  ) const)( &::C_BasePlayer::GetPlayerMins ) )    
         .def( 
-            "GetPlayerName"
-            , (char const * ( ::C_BasePlayer::* )(  ) )( &::C_BasePlayer::GetPlayerName ) )    
-        .def( 
             "GetPredictionErrorSmoothingVector"
             , (void ( ::C_BasePlayer::* )( ::Vector & ) )( &::C_BasePlayer::GetPredictionErrorSmoothingVector )
             , ( bp::arg("vOffset") ) )    
@@ -924,6 +921,9 @@ void register_C_BasePlayer_class(){
         .def( 
             "PreThink"
             , (void ( ::C_BasePlayer::* )(  ) )( &::C_BasePlayer::PreThink ) )    
+        .def( 
+            "GetPlayerName"
+            , (::boost::python::api::object ( ::C_BasePlayer::* )(  ) )( &::C_BasePlayer::PyGetPlayerName ) )    
         .def( 
             "RemoveFromPlayerSimulationList"
             , (void ( ::C_BasePlayer::* )( ::C_BaseEntity * ) )( &::C_BasePlayer::RemoveFromPlayerSimulationList )
