@@ -145,8 +145,9 @@ struct handle_to_IHandleEntity
 
     static void* extract_IHandleEntity(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -181,8 +182,9 @@ struct handle_to_CBaseEntity
 
     static void* extract_CBaseEntity(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -217,8 +219,9 @@ struct handle_to_CBaseAnimating
 
     static void* extract_CBaseAnimating(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -253,8 +256,9 @@ struct handle_to_CBaseAnimatingOverlay
 
     static void* extract_CBaseAnimatingOverlay(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -289,8 +293,9 @@ struct handle_to_CBaseFlex
 
     static void* extract_CBaseFlex(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -325,8 +330,9 @@ struct handle_to_CBaseCombatCharacter
 
     static void* extract_CBaseCombatCharacter(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -361,8 +367,9 @@ struct handle_to_CBaseCombatWeapon
 
     static void* extract_CBaseCombatWeapon(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -397,8 +404,9 @@ struct handle_to_CBaseProjectile
 
     static void* extract_CBaseProjectile(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -433,8 +441,9 @@ struct handle_to_CBaseGrenade
 
     static void* extract_CBaseGrenade(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -469,8 +478,9 @@ struct handle_to_CBasePlayer
 
     static void* extract_CBasePlayer(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -505,8 +515,9 @@ struct handle_to_CPlayerResource
 
     static void* extract_CPlayerResource(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -541,8 +552,9 @@ struct handle_to_CPointEntity
 
     static void* extract_CPointEntity(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -577,8 +589,9 @@ struct handle_to_CServerOnlyEntity
 
     static void* extract_CServerOnlyEntity(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -613,8 +626,9 @@ struct handle_to_CServerOnlyPointEntity
 
     static void* extract_CServerOnlyPointEntity(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -649,8 +663,9 @@ struct handle_to_CLogicalEntity
 
     static void* extract_CLogicalEntity(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -685,8 +700,9 @@ struct handle_to_CFuncBrush
 
     static void* extract_CFuncBrush(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -721,8 +737,9 @@ struct handle_to_CBaseToggle
 
     static void* extract_CBaseToggle(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -757,8 +774,9 @@ struct handle_to_CBaseTrigger
 
     static void* extract_CBaseTrigger(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -793,8 +811,9 @@ struct handle_to_CTriggerMultiple
 
     static void* extract_CTriggerMultiple(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -829,8 +848,9 @@ struct handle_to_CBaseFilter
 
     static void* extract_CBaseFilter(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -865,8 +885,9 @@ struct handle_to_CGib
 
     static void* extract_CGib(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -901,8 +922,9 @@ struct handle_to_CBaseProp
 
     static void* extract_CBaseProp(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -937,8 +959,9 @@ struct handle_to_CBreakableProp
 
     static void* extract_CBreakableProp(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -973,8 +996,9 @@ struct handle_to_CPhysicsProp
 
     static void* extract_CPhysicsProp(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -1009,8 +1033,9 @@ struct handle_to_CRagdollProp
 
     static void* extract_CRagdollProp(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -1045,8 +1070,9 @@ struct handle_to_CEntityFlame
 
     static void* extract_CEntityFlame(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };

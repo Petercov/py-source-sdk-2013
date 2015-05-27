@@ -18,12 +18,13 @@ long PyFS_GetFileTime( const char *pFileName, const char *pPathID = 0 );
 unsigned int PyFS_Size( const char *pFileName, const char *pPathID = 0 );
 bool PyFS_IsAbsolutePath( const char *path );
 
-boost::python::object PyFS_ReadFile( const char *filepath, const char *pathid, bool optimalalloc = false, int maxtyes = 0, int startingbyte = 0, bool textmode = false );
+boost::python::object PyFS_ReadFile( const char *filepath, const char *pathid, bool optimalalloc = false, int maxbytes = 0, int startingbyte = 0, bool textmode = false );
 void PyFS_WriteFile( const char *filepath, const char *pathid, const char *content );
 
 boost::python::object PyFS_FullPathToRelativePath( const char *path, const char *pathid = 0, boost::python::object defaultvalue = boost::python::object() );
 boost::python::object PyFS_RelativePathToFullPath( const char *path, const char *pathid = 0, boost::python::object defaultvalue = boost::python::object() );
 
+void PyFS_CreateDirHierarchy( const char *path, const char *pathID = 0 );
 boost::python::list PyFS_ListDir( const char *path, const char *pathid = NULL, const char *wildcard = "*", bool appendslashdir = true );
 bool PyFS_IsDirectory( const char *pFileName, const char *pathID = 0 );
 

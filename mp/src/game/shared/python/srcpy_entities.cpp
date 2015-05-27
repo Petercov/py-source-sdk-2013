@@ -103,9 +103,9 @@ bp::object PyHandle::GetAttr( const char *name )
 
 	boost::python::object self = boost::python::object(
 		boost::python::handle<>(
-		boost::python::borrowed(GetPySelf())
+			boost::python::borrowed(GetPySelf())
 		)
-		);
+	);
 	Assert( self.ptr() != NULL );
 	return builtins.attr("object").attr("__getattr__")(self, name);	
 }
@@ -116,7 +116,7 @@ bp::object PyHandle::GetAttribute( const char *name )
 		return PyGet().attr("__getattribute__")(name);
 	boost::python::object self = boost::python::object(
 		boost::python::handle<>(
-		boost::python::borrowed(GetPySelf())
+			boost::python::borrowed(GetPySelf())
 		)
 	);
 	Assert( self.ptr() != NULL );
@@ -226,16 +226,16 @@ bp::object PyGetWorldEntity()
 #ifdef CLIENT_DLL
 PyEntityFactory::PyEntityFactory( const char *pMapName, boost::python::object pyClass )
 {
-	if( !pMapName )
-		return;
+	m_ClassName[0] = 0;
 
-	char *pClassName = NULL;
-	try {
-		pClassName = boost::python::extract<char *>(pyClass.attr("__name__"));
-	} catch(bp::error_already_set &) {
-		PyErr_Print();
+	if( !pMapName )
+	{
+		PyErr_SetString(PyExc_ValueError, "EntityFactory must have a valid name");
+		throw boost::python::error_already_set(); 
 		return;
 	}
+
+	char *pClassName = boost::python::extract<char *>(pyClass.attr("__name__"));
 
 	V_strncpy( m_ClassName, pClassName, sizeof( m_ClassName ) );
 	m_PyClass = pyClass;
@@ -295,8 +295,15 @@ bp::list PyGetAllClassnames()
 PyEntityFactory *g_pPyEntityFactoryHead=0;
 PyEntityFactory::PyEntityFactory( const char *pClassName, boost::python::object PyClass )
 {
+	m_pPyNext = NULL;
+	m_ClassName[0] = 0;
+
 	if( !pClassName )
+	{
+		PyErr_SetString(PyExc_ValueError, "EntityFactory must have a valid name");
+		throw boost::python::error_already_set(); 
 		return;
+	}
 
 	V_strncpy( m_ClassName, pClassName, sizeof( m_ClassName ) );
 	m_PyClass = PyClass;

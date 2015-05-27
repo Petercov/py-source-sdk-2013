@@ -361,6 +361,8 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         cls.var('m_flDamage').rename('damage')
         cls.var('m_iPlayerDamage' if self.settings.branch == 'source2013' else 'm_flPlayerDamage').rename('playerdamage')
         
+        mb.enum('FireBulletsFlags_t').include()
+        
         # CShotManipulator
         cls = mb.class_('CShotManipulator')
         cls.include()
@@ -397,7 +399,6 @@ class EntitiesMisc(SemiSharedModuleGenerator):
     
         # Enums
         mb.enums('MoveType_t').include()
-        mb.enums('MoveCollide_t').include()
         mb.enums('SolidType_t').include()
         mb.enums('SolidFlags_t').include()
         mb.enums('Collision_Group_t').include()

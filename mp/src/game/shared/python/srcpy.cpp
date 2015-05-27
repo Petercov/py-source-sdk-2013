@@ -14,6 +14,7 @@
 #include "srcpy_entities.h"
 #include "srcpy_networkvar.h"
 #include "gamestringpool.h"
+#include <utlbuffer.h>
 
 #ifdef CLIENT_DLL
 #include "networkstringtable_clientdll.h"
@@ -246,6 +247,8 @@ static void VSPTParmRemove( const char *pParmToCheck )
 	CommandLine()->RemoveParm( pParmToCheck );
 }
 
+#define PY_MAX_PATH 2048
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -254,9 +257,6 @@ bool CSrcPython::InitInterpreter( void )
 	const bool bEnabled = CommandLine() && CommandLine()->FindParm("-disablepython") == 0;
 	//const bool bToolsMode = CommandLine() && CommandLine()->FindParm("-tools") != 0;
 
-	/*const char *pGameDir = COM_GetModDirectory();
-	const char *pDevModDir = "hl2wars_asw_dev";
-	if( V_strncmp( pGameDir, pDevModDir, V_strlen( pDevModDir ) ) != 0 )*/
 	m_bPathProtected = CommandLine() ? CommandLine()->FindParm("-nopathprotection") == 0 : true;
 
 	bool bNoChangeWorkingDirectory = CommandLine() ? CommandLine()->FindParm("-testnochangeworkingdir") != 0 : false;
@@ -276,20 +276,21 @@ bool CSrcPython::InitInterpreter( void )
 		return true;
 
 	const int iVerbose = CommandLine() ? CommandLine()->ParmValue("-pythonverbose", 0) : 0;
+	const int iDebugPython = CommandLine() ? CommandLine()->ParmValue("-pythondebug", 0) : 0;
+	g_debug_python.SetValue( iDebugPython );
+
 	if( !bNoChangeWorkingDirectory )
 	{
 		// Change working directory	
-		char moddir[_MAX_PATH];
-		filesystem->RelativePathToFullPath(".", "MOD", moddir, _MAX_PATH);
-		V_FixupPathName(moddir, _MAX_PATH, moddir);	
-		V_SetCurrentDirectory(moddir);
+		char moddir[MAX_PATH];
+		filesystem->RelativePathToFullPath( ".", "MOD", moddir, sizeof( moddir ) );
+		V_FixupPathName( moddir, sizeof( moddir ), moddir );	
+		V_SetCurrentDirectory( moddir );
 	}
 
 	m_bPythonRunning = true;
 
 	double fStartTime = Plat_FloatTime();
-	
-#define PY_MAX_PATH 2048
 
 	char buf[PY_MAX_PATH];
 	char pythonpath[PY_MAX_PATH];
@@ -377,14 +378,47 @@ bool CSrcPython::InitInterpreter( void )
 
 	// Initialize an interpreter
 	Py_InitializeEx( 0 );
+
+	if( developer.GetInt() > 0 )
+	{
 #ifdef CLIENT_DLL
-	ConColorMsg( g_PythonColor, "CLIENT: " );
+		ConColorMsg( g_PythonColor, "CLIENT: " );
 #else
-	ConColorMsg( g_PythonColor, "SERVER: " );
+		ConColorMsg( g_PythonColor, "SERVER: " );
 #endif // CLIENT_DLL
-	ConColorMsg( g_PythonColor, "Initialized Python... (%f seconds)\n", Plat_FloatTime() - fStartTime );
+		ConColorMsg( g_PythonColor, "Initialized Python... (%f seconds)\n", Plat_FloatTime() - fStartTime );
+	}
 	fStartTime = Plat_FloatTime();
 
+	// Shared initialization by standalone interpreter against game dll
+	if( !PostInitInterpreter() )
+	{
+		return false;
+	}
+	
+	// For spy/cpy commands
+	consolespace = Import("consolespace");
+
+#ifdef CLIENT_DLL
+	DevMsg( "CLIENT: " );
+#else
+	DevMsg( "SERVER: " );
+#endif // CLIENT_DLL
+	DevMsg( "Initialized Python default modules... (%f seconds)\n", Plat_FloatTime() - fStartTime );
+
+#ifdef WIN32
+	if( !CheckVSPTDebugger() )
+		return false;
+#endif // WIN32
+
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+bool CSrcPython::PostInitInterpreter( bool bStandAloneInterpreter )
+{
 	// Save our thread ID
 #ifdef _WIN32
 	g_hPythonThreadID = GetCurrentThreadId();
@@ -407,9 +441,15 @@ bool CSrcPython::InitInterpreter( void )
 	sys = Import("sys");
 
 	// Redirect stdout/stderr to source print functions
+	// Also set these to the "original" values, which are none.
 	srcbuiltins = Import("srcbuiltins");
-	sys.attr("stdout") = srcbuiltins.attr("SrcPyStdOut")();
-	sys.attr("stderr") = srcbuiltins.attr("SrcPyStdErr")();
+	if( !bStandAloneInterpreter )
+	{
+		sys.attr("stdout") = srcbuiltins.attr("SrcPyStdOut")();
+		sys.attr("stderr") = srcbuiltins.attr("SrcPyStdErr")();
+		sys.attr("__stdout__") = sys.attr("stdout");
+		sys.attr("__stderr__") = sys.attr("stderr");
+	}
 
 	weakref = Import("weakref");
 	
@@ -446,94 +486,79 @@ bool CSrcPython::InitInterpreter( void )
 	fntype = builtins.attr("type");
 	fnisinstance = builtins.attr("isinstance");
 
-	// Add the maps directory to the modules path
-	SysAppendPath("maps");
-
 	// Default imports
 	Import( "vmath" );
-	types = Import("types");
-	collections = Import("collections");
-	steam = Import("steam");
-	Import( "sound" ); // Import _sound before _entitiesmisc (register converters)
-	_physics = Import("_physics");
-	_entitiesmisc = Import("_entitiesmisc");
-	_entities = Import("_entities");
-	_particles = Import("_particles");
-	Import("_utils"); // Register after _entitiesmisc
-#ifdef CLIENT_DLL
-	Run( "import input" );		// Registers buttons
-	_vguicontrols = Import("_vguicontrols");
-#endif	// CLIENT_DLL
 
-	core = Import("core");
+	// Most of these modules are not needed for the standalone interpreter, so 
+	// skip them since they can have side effects.
+	if( !bStandAloneInterpreter )
+	{
+		types = Import("types");
+		collections = Import("collections");
+		steam = Import("steam");
+		Import( "sound" ); // Import _sound before _entitiesmisc (register converters)
+		_physics = Import("_physics");
+		_entitiesmisc = Import("_entitiesmisc");
+		_entities = Import("_entities");
+		_particles = Import("_particles");
+		Import("_utils"); // Register after _entitiesmisc
+	#ifdef CLIENT_DLL
+		Run( "import input" );		// Registers buttons
+		_vguicontrols = Import("_vguicontrols");
+	#endif	// CLIENT_DLL
 
-	// For spy/cpy commands
-	consolespace = Import("consolespace");
-
-#ifdef CLIENT_DLL
-	DevMsg( "CLIENT: " );
-#else
-	DevMsg( "SERVER: " );
-#endif // CLIENT_DLL
-	DevMsg( "Initialized Python default modules... (%f seconds)\n", Plat_FloatTime() - fStartTime );
-
-#ifdef WIN32
-	if( !CheckVSPTInterpreter() )
-		return false;
-
-	if( !CheckVSPTDebugger() )
-		return false;
-#endif // WIN32
+		core = Import("core");
+	}
 
 	return true;
 }
 
 //-----------------------------------------------------------------------------
-// Purpose: 
+// Purpose: Shared shutdown code between standalone and game interpreter
 //-----------------------------------------------------------------------------
-bool CSrcPython::ShutdownInterpreter( void )
+bool CSrcPython::PreShutdownInterpreter( bool bIsStandAlone )
 {
-	if( !m_bPythonRunning )
-		return false;
-
 	PyErr_Clear(); // Make sure it does not hold any references...
 	GarbageCollect();
 
-#ifdef CLIENT_DLL
-	// Clear python panels
-	// TODO: DestroyPyPanels();
-#endif // CLIENT_DLL
-
-	// Clear Python gamerules
-	if( PyGameRules().ptr() != Py_None )
+	if( !bIsStandAlone )
 	{
-		// Ingame: install default c++ gamerules
-#ifdef CLIENT_DLL
-		if( GetClientWorldEntity() )
-#else
-		if( GetWorldEntity() )
-#endif // CLIENT_DLL
+	#ifdef CLIENT_DLL
+		// Clear python panels
+		// TODO: DestroyPyPanels();
+	#endif // CLIENT_DLL
+
+		// Clear Python gamerules
+		if( PyGameRules().ptr() != Py_None )
 		{
-			PyInstallGameRules( boost::python::object() );
+			// Ingame: install default c++ gamerules
+	#ifdef CLIENT_DLL
+			if( GetClientWorldEntity() )
+	#else
+			if( GetWorldEntity() )
+	#endif // CLIENT_DLL
+			{
+				PyInstallGameRules( boost::python::object() );
+			}
+			else
+			{
+				ClearPyGameRules();
+			}
 		}
-		else
-		{
-			ClearPyGameRules();
-		}
+
+		// Make sure these lists don't hold references
+		m_deleteList.Purge();
+		m_methodTickList.Purge();
+		m_methodPerFrameList.Purge();
+
+	#ifdef CLIENT_DLL
+		py_delayed_data_update_list.Purge();
+	#endif // CLIENT_DLL
+
+		// Disconnect redirecting stdout/stderr
+		sys.attr("stdout") = bp::object();
+		sys.attr("stderr") = bp::object();
 	}
-
-	// Make sure these lists don't hold references
-	m_deleteList.Purge();
-	m_methodTickList.Purge();
-	m_methodPerFrameList.Purge();
-
-#ifdef CLIENT_DLL
-	py_delayed_data_update_list.Purge();
-#endif // CLIENT_DLL
-
-	// Disconnect redirecting stdout/stderr
-	sys.attr("stdout") = bp::object();
-	sys.attr("stderr") = bp::object();
 
 	// Clear modules
 	mainmodule = bp::object();
@@ -564,17 +589,50 @@ bool CSrcPython::ShutdownInterpreter( void )
 	m_bPythonIsFinalizing = true;
 	PyErr_Clear(); // Make sure it does not hold any references...
 	GarbageCollect();
-	Py_Finalize();
+
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: Shared shutdown code between standalone and game interpreter
+//-----------------------------------------------------------------------------
+bool CSrcPython::PostShutdownInterpreter( bool bIsStandAlone )
+{
+#ifdef WIN32
+	//PyImport_FreeDynLibraries(); // IMPORTANT, otherwise it will crash if c extension modules are used.
+#endif // WIN32
 
 	m_bPythonIsFinalizing = false;
 	m_bPythonRunning = false;
 
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+bool CSrcPython::ShutdownInterpreter( void )
+{
+	if( !m_bPythonRunning )
+		return false;
+
+	if( !PreShutdownInterpreter() )
+		return false;
+
+	Py_Finalize();
+
+	if( !PostShutdownInterpreter() )
+		return false;
+
+	if( developer.GetInt() > 0 )
+	{
 #ifdef CLIENT_DLL
-	ConColorMsg( g_PythonColor, "CLIENT: " );
+		ConColorMsg( g_PythonColor, "CLIENT: " );
 #else
-	ConColorMsg( g_PythonColor, "SERVER: " );
+		ConColorMsg( g_PythonColor, "SERVER: " );
 #endif // CLIENT_DLL
-	ConColorMsg( g_PythonColor, "Python is no longer running...\n" );
+		ConColorMsg( g_PythonColor, "Python is no longer running...\n" );
+	}
 
 	return true;
 }
@@ -594,158 +652,19 @@ void CSrcPython::PostInit()
 	HookPyNetworkVar();
 #endif // CLIENT_DLL
 
-	PostInterpreterInit();
+	PostInitInterpreterActions();
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CSrcPython::PostInterpreterInit( void )
+void CSrcPython::PostInitInterpreterActions( void )
 {
 	// Autorun once
 	ExecuteAllScriptsInPath("python/autorun_once/");
 }
 
 #ifdef WIN32
-//-----------------------------------------------------------------------------
-// Purpose: Support for Visual Studio Python Tools Interpreter
-//-----------------------------------------------------------------------------
-bool CSrcPython::CheckVSPTInterpreter()
-{
-#ifdef CLIENT_DLL
-	return true; // TODO
-#endif // CLIENT_DLL
-
-	const bool bRunInterpreter = CommandLine() && CommandLine()->FindParm("-interpreter") != 0;
-	if( !bRunInterpreter )
-		return true;
-
-#ifdef WIN32
-	bool bSuccess = false;
-
-#ifndef CLIENT_DLL
-	tm today;
-	VCRHook_LocalTime( &today );
-
-	// Note: appends to the same log on the same day
-	char logfilename[MAX_PATH];
-	Q_snprintf( logfilename, sizeof( logfilename ), "con_logfile vspt_%02i-%02i-%04i.txt\n",
-		today.tm_mon+1, today.tm_mday, 1900 + today.tm_year );
-
-	engine->ServerCommand( logfilename );
-	engine->ServerExecute();
-#endif // CLIENT_DLL
-
-	Msg("\n\n=======================================\n");
-	Msg("Running in PySource Interpreter mode...\n");
-	Msg("=======================================\n");
-
-	Msg( "Pre-modified Command: %s\n", CommandLine()->GetCmdLine() );
-
-	// "-insecure" is added at the back. Remove it, so we can just take the remainder
-	// after "-interpreter" argument.
-	VSPTParmRemove("-insecure");
-
-	std::string command("<null>");
-	std::string cmdline = CommandLine()->GetCmdLine();
-	std::string needle( "-interpreter " );
-	std::size_t found = cmdline.find( needle );
-
-	if( found == std::string::npos )
-	{
-		Warning("CheckVSPTInterpreter: -interpreter argument not found!\n");
-		return true;
-	}
-
-	command = cmdline.substr( found + needle.length() );
-	Msg( "Command: %s\n", command.c_str() );
-
-	try
-	{
-		// Parse arguments for Python
-		bp::str args( command.c_str() );
-
-		bp::exec( "import shlex", mainnamespace, mainnamespace );
-		bp::object shlex = Import("shlex");
-
-		bp::str newCmd( args );
-		newCmd = newCmd.replace( "\\\"", "\\\\\"" );
-
-		builtins.attr("print")( newCmd );
-
-		bp::list argv( shlex.attr("split")( newCmd ) );
-		bp::setattr( sys, bp::object("argv"), argv );
-
-		const char *pFilePath = bp::extract< const char * >( argv[0] );
-
-		// Add path
-		char vtptpath[MAX_PATH];
-		V_strncpy( vtptpath, pFilePath, MAX_PATH );
-		V_StripFilename( vtptpath );
-		this->SysAppendPath( vtptpath );
-
-		// Support 3 modes:
-		// 1. Run a command with "-c"
-		// 2. Run a module with "-m"
-		// 3. Execute a file
-		std::string firstchars = command.substr(0, 3);
-		if( firstchars == "-c " )
-		{
-			command = command.substr( 3 );
-			Msg("Running interpreter command: %s\n", command.c_str() );
-
-			bp::exec( command.c_str() );
-			bSuccess = true;
-		}
-		else if( firstchars == "-m " )
-		{
-			command = command.substr( 3 );
-			Msg("Running interpreter module: %s\n", command.c_str() );
-
-			bp::str newCmd( command.c_str() );
-			newCmd = newCmd.replace( "\\\"", "\\\\\"" );
-
-			builtins.attr("print")( newCmd );
-
-			bp::list argv( shlex.attr("split")( newCmd ) );
-			bp::setattr( sys, bp::object("argv"), argv );
-
-			bp::object runpy = bp::import( "runpy" );
-			boost::python::dict kwargs;
-			kwargs["run_name"] = bp::object("__main__");
-			kwargs["alter_sys"] = (bool)(true);
-			runpy.attr("run_module")( *bp::make_tuple(argv[0]), **kwargs );
-			bSuccess = true;
-		}
-		else
-		{
-			// Change working directory	
-			V_SetCurrentDirectory( vtptpath );
-
-			Msg("Running interpreter file: %s\n", pFilePath );
-			Run("import encodings.idna");
-			bSuccess = this->ExecuteFile( pFilePath );
-		}
-	}
-	catch( bp::error_already_set & ) 
-	{
-		PyErr_Print();
-	}
-
-	if( !bSuccess )
-	{
-		Warning("PySource: Failed to execute interpreter file (%s). Please check log.\n", command.c_str() );
-	}
-	// Make sure logs are saved
-#ifndef CLIENT_DLL
-	engine->ServerExecute();
-#endif // CLIENT_DLL
-	filesystem->AsyncFinishAllWrites();
-	::TerminateProcess( ::GetCurrentProcess(), 0 );
-	return true;
-#endif // WIN32
-}
-
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -932,7 +851,7 @@ void CSrcPython::FrameUpdatePostEntityThink( void )
 				m_activeMethod();
 
 				// Method might have removed the entry already
-				if( !m_methodTickList.IsValidIndex(i) )
+				if( !m_methodTickList.IsValidIndex(i) || m_methodTickList[i].method != m_activeMethod )
 					continue;
 
 				// Remove tick methods that are not looped (used to call back a function after a set time)
@@ -1013,7 +932,7 @@ void CSrcPython::UpdateRealtimeTickMethods()
 				m_activeMethod();
 
 				// Method might have removed the entry already
-				if( !m_methodTickList.IsValidIndex(i) )
+				if( !m_methodTickList.IsValidIndex(i) || m_methodTickList[i].method != m_activeMethod )
 					continue;
 
 				// Remove tick methods that are not looped (used to call back a function after a set time)
@@ -1032,8 +951,10 @@ void CSrcPython::UpdateRealtimeTickMethods()
 			}
 
 			m_methodTickList[i].m_fNextTickTime = Plat_FloatTime() + m_methodTickList[i].m_fTickSignal;
-		}	
+		}
 	}
+
+	m_activeMethod = boost::python::object();
 }
 
 //-----------------------------------------------------------------------------
@@ -1143,23 +1064,54 @@ void CSrcPython::Run( const char *pString, boost::python::object module )
 //-----------------------------------------------------------------------------
 bool CSrcPython::ExecuteFile( const char* pScript )
 {
-	char char_filename[ _MAX_PATH ];
-	char char_output_full_filename[ _MAX_PATH ];
-
-	V_strncpy( char_filename, pScript, sizeof( char_filename ) );
-	filesystem->RelativePathToFullPath( char_filename, "MOD", char_output_full_filename, sizeof( char_output_full_filename ) );
-
-	const char *constcharpointer = reinterpret_cast<const char *>( char_output_full_filename );
-
-	if( !filesystem->FileExists( constcharpointer ) )
+	if( !filesystem->FileExists( pScript ) )
 	{
-		Warning( "[Python] IFileSystem Cannot find the file: %s\n", constcharpointer );
+		Warning( "[Python] IFileSystem Cannot find the file: %s\n", pScript );
 		return false;
 	}
 
 	try
 	{
-		exec_file( constcharpointer, mainnamespace, mainnamespace );
+		// Read in file using source filesystem, to prevent issues with encoding in path name
+		PyObject *filename;
+		filename = PyUnicode_DecodeFSDefault(pScript);
+		if (filename == NULL)
+		{
+			Warning( "[Python] IFileSystem Cannot find the file: %s\n", pScript );
+			return false;
+		}
+
+		boost::python::object global = mainnamespace;
+		boost::python::object local = mainnamespace;
+
+		// Set suitable default values for global and local dicts.
+		if (global.is_none())
+		{
+			if (PyObject *g = PyEval_GetGlobals())
+				global = boost::python::object(boost::python::detail::borrowed_reference(g));
+			else
+				global = boost::python::dict();
+		}
+		if (local.is_none()) local = global;
+
+		CUtlBuffer content;
+		if( !filesystem->ReadFile( pScript, NULL, content ) )
+		{
+			Warning( "[Python] IFileSystem Cannot find the file: %s\n", pScript );
+			Py_DECREF(filename);
+			return false;
+		}
+
+		PyCompilerFlags cf;
+		cf.cf_flags = PyCF_SOURCE_IS_UTF8;
+
+		PyObject *v = PyRun_StringFlags((const char *)content.Base(), Py_file_input, global.ptr(), local.ptr(), &cf);
+		if( v )
+		{
+			Py_DECREF(v);
+		}
+
+		Py_DECREF(filename);
 	}
 	catch( bp::error_already_set & )
 	{
@@ -1216,15 +1168,8 @@ void CSrcPython::SysAppendPath( const char* path, bool inclsubdirs )
 	// First retrieve the append method
 	bp::object append = Get("append", Get("path", "sys", true), true);
 
-	// Fixup path
-	char char_output_full_filename[MAX_PATH];
-	char p_out[MAX_PATH];
-	filesystem->RelativePathToFullPath( path, NULL, char_output_full_filename, sizeof( char_output_full_filename ) );
-	V_FixupPathName( char_output_full_filename, sizeof( char_output_full_filename ), char_output_full_filename );
-	V_StrSubst( char_output_full_filename, "\\", "//", p_out, sizeof( p_out ) ); 
-	
 	// Append
-	Run<const char *>( append, p_out, true );
+	Run<const char *>( append, path, true );
 
 	// Check for sub dirs
 	if( inclsubdirs )
@@ -1430,13 +1375,13 @@ void CSrcPython::RegisterTickMethod( bp::object method, float ticksignal, bool l
 		throw boost::python::error_already_set(); 
 	}
 
-	py_tick_methods tickmethod;
+	m_methodTickList.AddToTail();
+	py_tick_methods &tickmethod = m_methodTickList.Tail();
 	tickmethod.method = method;
 	tickmethod.m_fTickSignal = ticksignal;
 	tickmethod.m_fNextTickTime = (userealtime ? Plat_FloatTime() : gpGlobals->curtime) + ticksignal;
 	tickmethod.m_bLooped = looped;
 	tickmethod.m_bUseRealTime = userealtime;
-	m_methodTickList.AddToTail(tickmethod);
 }
 
 //-----------------------------------------------------------------------------
@@ -1446,7 +1391,7 @@ void CSrcPython::UnregisterTickMethod( bp::object method )
 {
 	if( m_activeMethod.ptr() != Py_None && method != m_activeMethod )
 	{
-		PyErr_SetString(PyExc_Exception, "Cannot remove methods from a tick method (other than the active tick method itself)" );
+		PyErr_SetString(PyExc_Exception, "Cannot remove methods from tick method (other than the active tick method itself)" );
 		throw boost::python::error_already_set(); 
 	}
 
@@ -1601,7 +1546,7 @@ CON_COMMAND_F( cl_py_restart, "Restarts the Python interpreter on the Client", F
 #endif // CLIENT_DLL
 	g_SrcPythonSystem.ShutdownInterpreter();
 	g_SrcPythonSystem.InitInterpreter();
-	g_SrcPythonSystem.PostInterpreterInit();
+	g_SrcPythonSystem.PostInitInterpreterActions();
 }
 
 //-----------------------------------------------------------------------------
@@ -1678,8 +1623,6 @@ static int PyModuleAutocomplete( char const *partial, char commands[ COMMAND_COM
 			V_snprintf( initpath, MAX_PATH, "%s\\__init__.py", fullpath );
 			if( filesystem->FileExists( initpath, "MOD" ) )
 			{
-				
-				
 				V_snprintf( newmodulepath, MAX_PATH, "%s%s", basemodulepath, filename );
 				if( V_strncmp( pRest, newmodulepath, V_strlen(pRest) ) == 0 )
 					V_snprintf( commands[ numMatches++ ], COMMAND_COMPLETION_ITEM_LENGTH, "%s %s", pCommand, newmodulepath );
@@ -1691,7 +1634,7 @@ static int PyModuleAutocomplete( char const *partial, char commands[ COMMAND_COM
 			char ext[5];
 			V_ExtractFileExtension( filename, ext, 5 );
 
-			if( V_strncmp( ext, "py", 5 ) == 0 )
+			if( V_strncmp( ext, "py", 2 ) == 0 )
 			{
 				char noextfilename[MAX_PATH]; 
 				V_StripExtension( filename, noextfilename, MAX_PATH );

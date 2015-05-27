@@ -43,6 +43,9 @@ void PyAsyncFinishAllWrites( void )
 //-----------------------------------------------------------------------------
 bool PyShutdownConVar( const char *pName )
 {
+	if( !cvar )
+		return false;
+
 	PyConVar *pConVar = dynamic_cast<PyConVar *>( cvar->FindVar( pName ) );
 	if( pConVar != NULL )
 	{
@@ -58,6 +61,9 @@ bool PyShutdownConVar( const char *pName )
 //-----------------------------------------------------------------------------
 bool PyShutdownConCommand( const char *pName )
 {
+	if( !cvar )
+		return false;
+
 	PyConCommand *pConCommand = dynamic_cast<PyConCommand *>( cvar->FindCommand( pName ) );
 	if( pConCommand != NULL )
 	{
@@ -67,6 +73,12 @@ bool PyShutdownConCommand( const char *pName )
 
 	return false;
 }
+
+#define VERIFY_CONVAR_HASNAME( pName ) \
+	if( !pName || V_strlen( pName ) == 0 ) { \
+		PyErr_SetString(PyExc_Exception, "ConVar must have a name and string must not be empty" );	\
+		throw boost::python::error_already_set(); \
+	}
 
 // -------------------------------------------------------------------------------
 void PyDummyCallback( const CCommand &args ) {}
@@ -79,6 +91,8 @@ ConCommand( pName ? CopyString(pName) : NULL, PyDummyCallback, pHelpString ? Cop
 ConCommand( pName ? CopyString(pName) : NULL, PyDummyCallback, pHelpString ? CopyString(pHelpString) : NULL, flags|FCVAR_GAMEDLL, 0 )
 #endif
 {
+	VERIFY_CONVAR_HASNAME( pName );
+
 	// Save call back
 	m_bUsesWeakRef = useweakref;
 	if( m_bUsesWeakRef )
@@ -164,13 +178,16 @@ void PyConCommand::Shutdown()
 PyConVar::PyConVar( const char *name, const char *default_value, int flags )
 : ConVar((name ? CopyString(name) : NULL), (default_value ? CopyString(default_value) : NULL), flags)
 {
+	VERIFY_CONVAR_HASNAME( name );
 	m_pyChangeCallback = bp::object();
 }
 
 PyConVar::PyConVar( const char *name, const char *default_value, int flags, 
 				   const char *help_string )
-				   : ConVar(name, (default_value ? CopyString(default_value) : NULL), flags, (help_string ? CopyString(help_string) : NULL))
+				   : ConVar((name ? CopyString(name) : NULL), (default_value ? CopyString(default_value) : NULL), 
+				   flags, (help_string ? CopyString(help_string) : NULL))
 {
+	VERIFY_CONVAR_HASNAME( name );
 	m_pyChangeCallback = bp::object();
 }
 
@@ -179,6 +196,7 @@ PyConVar::PyConVar( const char *name, const char *default_value, int flags,
 				   : ConVar((name ? CopyString(name) : NULL), (default_value ? CopyString(default_value) : NULL), flags, 
 				   (help_string ? CopyString(help_string) : NULL), bMin, fMin, bMax, fMax)
 {
+	VERIFY_CONVAR_HASNAME( name );
 	m_pyChangeCallback = bp::object();
 }
 
@@ -187,6 +205,7 @@ PyConVar::PyConVar( const char *name, const char *default_value, int flags,
 				   : ConVar((name ? CopyString(name) : NULL), (default_value ? CopyString(default_value) : NULL), flags, 
 				   (help_string ? CopyString(help_string) : NULL))
 {
+	VERIFY_CONVAR_HASNAME( name );
 	m_pyChangeCallback = callback;
 }
 
@@ -196,6 +215,7 @@ PyConVar::PyConVar( const char *name, const char *default_value, int flags,
 				   : ConVar((name ? CopyString(name) : NULL), (default_value ? CopyString(default_value) : NULL), flags, 
 				   (help_string ? CopyString(help_string) : NULL), bMin, fMin, bMax, fMax)
 {
+	VERIFY_CONVAR_HASNAME( name );
 	m_pyChangeCallback = callback;
 }
 

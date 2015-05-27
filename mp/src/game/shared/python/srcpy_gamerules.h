@@ -7,8 +7,8 @@
 // $NoKeywords: $
 //=============================================================================//
 
-#ifndef SRCPYTHON_GAMERULES_H
-#define SRCPYTHON_GAMERULES_H
+#ifndef SRCPY_GAMERULES_H
+#define SRCPY_GAMERULES_H
 
 #ifdef _WIN32
 #pragma once
@@ -28,4 +28,4 @@ void					PyInstallGameRules( boost::python::object gamerules );
 boost::python::object	PyGameRules();
 void					ClearPyGameRules();
 
-#endif // SRCPYTHON_GAMERULES_H
+#endif // SRCPY_GAMERULES_H

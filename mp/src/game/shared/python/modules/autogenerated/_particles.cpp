@@ -34,28 +34,6 @@
 
 namespace bp = boost::python;
 
-struct CNewParticleEffect_wrapper : CNewParticleEffect, bp::wrapper< CNewParticleEffect > {
-
-    CNewParticleEffect_wrapper(::C_BaseEntity * pOwner, char const * pEffectName )
-    : CNewParticleEffect( pOwner, pEffectName )
-      , bp::wrapper< CNewParticleEffect >(){
-        // constructor
-    
-    }
-
-    CNewParticleEffect_wrapper(::C_BaseEntity * pOwner, ::CParticleSystemDefinition * pEffect )
-    : CNewParticleEffect( pOwner, pEffect )
-      , bp::wrapper< CNewParticleEffect >(){
-        // constructor
-    
-    }
-
-    int IsReleased(  ){
-        return CNewParticleEffect::IsReleased(  );
-    }
-
-};
-
 struct SimpleParticle_wrapper : SimpleParticle, bp::wrapper< SimpleParticle > {
 
     SimpleParticle_wrapper(SimpleParticle const & arg )
@@ -100,7 +78,13 @@ BOOST_PYTHON_MODULE(_particles){
         .export_values()
         ;
 
-    bp::class_< CNewParticleEffect_wrapper, boost::noncopyable >( "CNewParticleEffect", bp::init< C_BaseEntity *, char const * >(( bp::arg("pOwner"), bp::arg("pEffectName") )) )    
+    bp::class_< CParticleCollection, boost::noncopyable >( "CParticleCollection", bp::no_init )    
+        .def( 
+            "IsValid"
+            , (bool ( ::CParticleCollection::* )(  ) const)( &::CParticleCollection::IsValid ) );
+
+    bp::class_< CNewParticleEffect, bp::bases< CParticleCollection >, boost::noncopyable >( "CNewParticleEffect", bp::no_init )    
+        .def( bp::init< C_BaseEntity *, char const * >(( bp::arg("pOwner"), bp::arg("pEffectName") )) )    
         .def( bp::init< C_BaseEntity *, CParticleSystemDefinition * >(( bp::arg("pOwner"), bp::arg("pEffect") )) )    
         .def( 
             "AllocateToolParticleEffectId"
@@ -164,9 +148,6 @@ BOOST_PYTHON_MODULE(_particles){
         .def( 
             "GetToolParticleEffectId"
             , (int ( ::CNewParticleEffect::* )(  ) const)( &::CNewParticleEffect::GetToolParticleEffectId ) )    
-        .def( 
-            "IsReleased"
-            , (int ( CNewParticleEffect_wrapper::* )(  ) )(&CNewParticleEffect_wrapper::IsReleased) )    
         .def( 
             "IsTransparent"
             , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::IsTransparent ) )    

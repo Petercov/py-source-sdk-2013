@@ -295,6 +295,12 @@ $Project "Server (PySource)"
 		
 		$Folder	"Python"
 		{
+			$Folder	"Helpers"
+			{
+				$File	"$SRCDIR\game\shared\python\helpers\filesystem_init.cpp"
+				$File	"$SRCDIR\game\shared\python\helpers\filesystem_init.h"
+			}
+		
 			$File	"$SRCDIR\game\shared\python\srcpy.cpp"
 			$File	"$SRCDIR\game\shared\python\srcpy.h"
 			$File	"$SRCDIR\game\shared\python\srcpy_animation.cpp"
@@ -328,6 +334,8 @@ $Project "Server (PySource)"
 			$File	"$SRCDIR\game\shared\python\srcpy_srcbuiltins.cpp"
 			$File	"$SRCDIR\game\shared\python\srcpy_srcbuiltins.h"
 			$File	"$SRCDIR\game\shared\python\srcpy_srcbuiltins_converters.h"
+			$File	"$SRCDIR\game\shared\python\srcpy_standalone.cpp"
+			$File	"$SRCDIR\game\shared\python\srcpy_standalone.h"
 			$File	"$SRCDIR\game\shared\python\srcpy_steam.cpp"
 			$File	"$SRCDIR\game\shared\python\srcpy_steam.h"
 			$File	"$SRCDIR\game\shared\python\srcpy_te.cpp"

@@ -20,20 +20,23 @@ static bool SrcPyPathIsInGameFolder( const char *pPath )
 	if( SrcPySystem()->IsPathProtected() )
 	{
 		// Verify the file is in the gamefolder
-		char searchPaths[_MAX_PATH];
+		char searchPaths[MAX_PATH];
 		filesystem->GetSearchPath( "MOD", true, searchPaths, sizeof( searchPaths ) );
 		V_StripTrailingSlash( searchPaths );
-
-		if( V_IsAbsolutePath(pPath) )
+		
+		if( V_IsAbsolutePath( pPath ) )
 		{
-			if( V_strnicmp(pPath, searchPaths, V_strlen(searchPaths)) != 0 ) 
+			if( V_strnicmp( pPath, searchPaths, V_strlen( searchPaths ) ) != 0 ) 
 				return false;
 		}
 		else
 		{
-			char pFullPath[_MAX_PATH];
-			filesystem->RelativePathToFullPath(pPath, "MOD", pFullPath, _MAX_PATH);
-			if( V_strnicmp(pFullPath, searchPaths, V_strlen(searchPaths)) != 0 ) 
+			char pFullPath[MAX_PATH];
+			char moddir[MAX_PATH];
+			filesystem->RelativePathToFullPath( ".", "MOD", moddir, sizeof( moddir ) );
+			V_MakeAbsolutePath( pFullPath, sizeof( pFullPath ), pPath, moddir );
+
+			if( V_strnicmp( pFullPath, searchPaths, V_strlen(searchPaths) ) != 0 ) 
 				return false;
 		}
 	}
@@ -136,7 +139,7 @@ void PyFS_WriteFile( const char *filepath, const char *pathid, const char *conte
 	if( !content )
 	{
 		PyErr_SetString(PyExc_IOError, "Content cannot be empty" );
-		throw boost::python::error_already_set(); 
+		throw boost::python::error_already_set();
 	}
 
 	char convertedPath[MAX_PATH];
@@ -190,6 +193,23 @@ boost::python::object PyFS_RelativePathToFullPath( const char *path, const char 
 	if( !filesystem->RelativePathToFullPath( path, pathid, temp, sizeof( temp ) ) )
 		return defaultvalue;
 	return boost::python::object(temp);
+}
+
+//-----------------------------------------------------------------------------
+// Purpose:
+//-----------------------------------------------------------------------------
+void PyFS_CreateDirHierarchy( const char *path, const char *pathID )
+{
+	if( !path )
+		return;
+
+	if( !SrcPyPathIsInGameFolder( path ) )
+	{
+		PyErr_SetString(PyExc_IOError, "filesystem module only allows paths in the game folder" );
+		throw boost::python::error_already_set(); 
+	}
+
+	filesystem->CreateDirHierarchy( path, pathID );
 }
 
 //-----------------------------------------------------------------------------

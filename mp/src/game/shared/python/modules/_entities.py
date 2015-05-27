@@ -171,8 +171,9 @@ struct %(convert_from_py_name)s
 
     static void* extract_%(clsname)s(PyObject* op){
        CBaseHandle h = bp::extract<CBaseHandle>(op);
-       if( h.Get() == NULL )
+       if( h.Get() == NULL ) {
            return Py_None;
+       }
        return h.Get();
     }
 };
@@ -755,7 +756,7 @@ class Entities(SemiSharedModuleGenerator):
             mb.mem_funs('ForceVPhysicsCollide').exclude() # Don't care
             mb.mem_funs('GetGroundVelocityToApply').exclude() # Don't care
             mb.mem_funs('GetMaxHealth').exclude() # Use property maxhealth
-            mb.mem_funs('SetModelIndex').exclude()
+            #mb.mem_funs('SetModelIndex').exclude()
             
             if self.settings.branch == 'swarm':
                 mb.mem_funs('GetEntityNameAsCStr').exclude() # Always use GetEntityName()
@@ -780,6 +781,8 @@ class Entities(SemiSharedModuleGenerator):
             
             # Do not want the firebullets function with multiple arguments. Only the one with the struct.
             mb.mem_funs(name='FireBullets', function=calldef_withtypes('int')).exclude()
+            
+        mb.enum('MoveCollide_t').include()
 
     def ParseBaseAnimating(self, mb):
         cls = mb.class_('C_BaseAnimating' if self.isclient else 'CBaseAnimating')
