@@ -255,7 +255,7 @@ public:
 	void							ForceClientSideAnimationOn();
 	
 	void							AddToClientSideAnimationList();
-	void							RemoveFromClientSideAnimationList();
+	void							RemoveFromClientSideAnimationList( bool bBeingDestroyed = false );
 
 	virtual bool					IsSelfAnimating();
 	virtual void					ResetLatched();
@@ -306,8 +306,8 @@ public:
 	virtual void					Clear( void );
 	void							ClearRagdoll();
 	void							CreateUnragdollInfo( C_BaseAnimating *pRagdoll );
-	void							ForceSetupBonesAtTime( matrix3x4_t *pBonesOut, float flTime );
-	virtual void					GetRagdollInitBoneArrays( matrix3x4_t *pDeltaBones0, matrix3x4_t *pDeltaBones1, matrix3x4_t *pCurrentBones, float boneDt );
+	bool							ForceSetupBonesAtTime( matrix3x4_t *pBonesOut, float flTime );
+	virtual bool					GetRagdollInitBoneArrays( matrix3x4_t *pDeltaBones0, matrix3x4_t *pDeltaBones1, matrix3x4_t *pCurrentBones, float boneDt );
 
 	// For shadows rendering the correct body + sequence...
 	virtual int GetBody()			{ return m_nBody; }
@@ -437,6 +437,7 @@ public:
 
 	// For prediction
 	int								SelectWeightedSequence ( int activity );
+	int								SelectWeightedSequenceFromModifiers( Activity activity, CUtlSymbol *pActivityModifiers, int iModifierCount );
 	void							ResetSequenceInfo( void );
 	float							SequenceDuration( void );
 	float							SequenceDuration( CStudioHdr *pStudioHdr, int iSequence );
@@ -452,6 +453,7 @@ public:
 	virtual bool					ShouldResetSequenceOnNewModel( void );
 
 	virtual bool					IsViewModel() const;
+	virtual void					UpdateOnRemove( void );
 
 protected:
 	// View models scale their attachment positions to account for FOV. To get the unmodified
@@ -613,7 +615,7 @@ private:
 	// Calculated attachment points
 	CUtlVector<CAttachmentData>		m_Attachments;
 
-	void							SetupBones_AttachmentHelper( CStudioHdr *pStudioHdr );
+	bool							SetupBones_AttachmentHelper( CStudioHdr *pStudioHdr );
 
 	EHANDLE							m_hLightingOrigin;
 	EHANDLE							m_hLightingOriginRelative;
@@ -766,19 +768,12 @@ inline CStudioHdr *C_BaseAnimating::GetModelPtr() const
 
 inline void C_BaseAnimating::InvalidateMdlCache()
 {
-	if ( m_pStudioHdr )
-	{
-		UnlockStudioHdr();
-		delete m_pStudioHdr;
-		m_pStudioHdr = NULL;
-	}
+	UnlockStudioHdr();
 }
 
-
-inline bool C_BaseAnimating::IsModelScaleFractional() const   /// very fast way to ask if the model scale is < 1.0f
+inline bool C_BaseAnimating::IsModelScaleFractional() const
 {
-	COMPILE_TIME_ASSERT( sizeof( m_flModelScale ) == sizeof( int ) );
-	return *((const int *) &m_flModelScale) < 0x3f800000;
+	return ( m_flModelScale < 1.0f );
 }
 
 inline bool C_BaseAnimating::IsModelScaled() const
