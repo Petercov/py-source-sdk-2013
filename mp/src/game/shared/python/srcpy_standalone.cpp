@@ -75,7 +75,7 @@ bool CSrcPython::InitStandAloneInterpreter()
 		return 0;
 
 	char szFullModPath[MAX_PATH];
-	_fullpath( szFullModPath, "lambdawarsdev", sizeof( szFullModPath ) );
+	_fullpath( szFullModPath, "pysource", sizeof( szFullModPath ) );
 
 	// Init filesystem
 	CFSSearchPathsInit initInfo;
@@ -128,10 +128,6 @@ bool CSrcPython::InitStandAloneInterpreter()
 	if( filesystem->FileExists( "python/LibDev", "MOD" ) == false )
 	{
 		filesystem->CreateDirHierarchy( "python/LibDev", "MOD" );
-	}
-	if( filesystem->FileExists( "python/srclib", "MOD" ) == false )
-	{
-		filesystem->CreateDirHierarchy( "python/srclib", "MOD" );
 	}
 
 	V_strcat( pythonpath, moddir, sizeof(pythonpath) );

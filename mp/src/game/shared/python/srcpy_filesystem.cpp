@@ -105,12 +105,14 @@ boost::python::object PyFS_ReadFile( const char *filepath, const char *pathid, b
 		throw boost::python::error_already_set(); 
 	}
 
-	int iExpectedSize = filesystem->Size( filepath, pathid );
+	int iExpectedSize = maxbytes == 0 ? filesystem->Size( filepath, pathid ) : maxbytes - 1;
 	void *buffer = NULL;
 	int len = filesystem->ReadFileEx( filepath, pathid, &buffer, true, optimalalloc, maxbytes, startingbyte );
 	if( len != iExpectedSize )
 	{
-		PyErr_SetString(PyExc_IOError, "Failed to read file" );
+		char buf[256];
+		V_snprintf( buf, sizeof( buf ), "Failed to read file. Expected file size %d, got %d instead", iExpectedSize, len );
+		PyErr_SetString( PyExc_IOError, buf );
 		throw boost::python::error_already_set(); 
 	}
 
@@ -142,19 +144,7 @@ void PyFS_WriteFile( const char *filepath, const char *pathid, const char *conte
 		throw boost::python::error_already_set();
 	}
 
-	char convertedPath[MAX_PATH];
-	if( V_IsAbsolutePath( filepath ) )
-	{
-		V_strncpy( convertedPath, filepath, sizeof(convertedPath) );
-	}
-	else
-	{
-		char moddir[_MAX_PATH];
-		filesystem->RelativePathToFullPath(".", "MOD", moddir, _MAX_PATH);
-		V_MakeAbsolutePath( convertedPath, sizeof(convertedPath), filepath, moddir );
-	}
-
-	if( !SrcPyPathIsInGameFolder( convertedPath ) )
+	if( !SrcPyPathIsInGameFolder( filepath ) )
 	{
 		PyErr_SetString(PyExc_IOError, "filesystem module only allows paths in the game folder" );
 		throw boost::python::error_already_set(); 
@@ -162,7 +152,7 @@ void PyFS_WriteFile( const char *filepath, const char *pathid, const char *conte
 
 	CUtlBuffer buf( 0, 0, CUtlBuffer::TEXT_BUFFER );
 	buf.Put( content, V_strlen( content ) );
-	if( !filesystem->WriteFile( convertedPath, pathid, buf ) )
+	if( !filesystem->WriteFile( filepath, pathid, buf ) )
 	{
 		PyErr_SetString(PyExc_IOError, "Failed to write file" );
 		throw boost::python::error_already_set(); 

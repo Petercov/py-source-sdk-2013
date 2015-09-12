@@ -7470,151 +7470,7 @@ void CBaseEntity::SetCollisionBoundsFromModel()
 	}
 }
 
-// =======================================
-// PySource Additions
-// =======================================
-#ifdef ENABLE_PYTHON
-void *CBaseEntity::PyAllocate(PyObject* self_, std::size_t holder_offset, std::size_t holder_size)
-{
-	// call into engine to get memory
-	Assert( holder_size != 0 );
-	return engine->PvAllocEntPrivateData( holder_size );
-}
 
-void CBaseEntity::PyDeallocate(PyObject* self_, void *storage)
-{
-	// get the engine to free the memory
-	engine->FreeEntPrivateData( storage );
-}	
-
-//------------------------------------------------------------------------------
-// Purpose: Removes the Python instance
-//------------------------------------------------------------------------------
-void CBaseEntity::DestroyPyInstance()
-{
-	// FIXME: This can't be called from UpdateOnRemove! There's at least one
-	// case where friction sounds are added between the call to UpdateOnRemove + ~CBaseEntity
-	PhysCleanupFrictionSounds( this );
-
-	Assert( !IsDynamicModelIndex( m_nModelIndex ) );
-	Verify( !sg_DynamicLoadHandlers.Remove( this ) );
-
-	// In debug make sure that we don't call delete on an entity without setting
-	//  the disable flag first!
-	// EHANDLE accessors will check, in debug, for access to entities during destruction of
-	//  another entity.
-	// That kind of operation should only occur in UpdateOnRemove calls
-	// Deletion should only occur via UTIL_Remove(Immediate) calls, not via naked delete calls
-	Assert( g_bDisableEhandleAccess );
-
-	VPhysicsDestroyObject();
-
-	// Need to remove references to this entity before EHANDLES go null
-	{
-		g_bDisableEhandleAccess = false;
-		CBaseEntity::PhysicsRemoveTouchedList( this );
-		CBaseEntity::PhysicsRemoveGroundList( this );
-		SetGroundEntity( NULL ); // remove us from the ground entity if we are on it
-		DestroyAllDataObjects();
-		g_bDisableEhandleAccess = true;
-
-		// Remove this entity from the ent list (NOTE:  This Makes EHANDLES go NULL)
-		gEntList.RemoveEntity( GetRefEHandle() );
-	}
-
-	// Python cleanup
-	m_bPyDestroyed = true;
-
-	// CLOSE NETWORKPROP (ensure client side is cleaned up)
-	m_Network.DestroyNetworkProperty();
-
-	// Close collision property
-	m_Collision.DestroyPartitionHandle();
-
-	// Clear Python network vars
-	for( int i = m_utlPyNetworkVars.Count() - 1; i >= 0; i-- )
-		m_utlPyNetworkVars[i]->Remove( this );
-
-	// Dereference py think/touch functions
-	m_pyHandle = boost::python::object();
-	m_pyTouchMethod = boost::python::object();
-	SetPyThink(boost::python::object());
-	int i;
-	for( i=0; i < m_aThinkFunctions.Count(); i++ )
-	{
-		if( m_aThinkFunctions.Element(i).m_pyThink.ptr() != Py_None )
-			m_aThinkFunctions.Element(i).m_pyThink = boost::python::object();
-	}
-
-	// Rebind the class, so we can't accidently access unbound methods of the class (some methods might
-	// be dangerous after deletion of the entity)
-	setattr(m_pyInstance, "__class__",  _entities.attr("DeadEntity"));
-
-	// Add m_pyInstance to the delete list before dereferencing it
-	// Dereferencing m_pyInstance here might result in direct deletion of the entity
-	// This will result into heap corruption.
-	SrcPySystem()->AddToDeleteList( m_pyInstance );
-	m_pyInstance = boost::python::object();
-}
-
-
-//------------------------------------------------------------------------------
-// Purpose: Send Python Entity Message
-//------------------------------------------------------------------------------
-void CBaseEntity::PySendMessage( bp::list msg, bool reliable )
-{
-	// Skip parsing if none
-	if( msg.ptr() == Py_None )
-	{
-		// Shortcut
-		EntityMessageBegin( this, true );
-			WRITE_BYTE(BASEENTITY_MSG_PYTHON);
-			WRITE_BYTE(0);	// len(msg) == 0
-		MessageEnd();
-		return;
-	}
-
-	// Parse list
-	int length = 0;
-	CUtlVector<pywrite> writelist;
-	try 
-	{
-		length = boost::python::len(msg);
-		for( int i = 0; i < length; i++ )
-		{
-			pywrite write;
-			PyFillWriteElement( write, boost::python::object(msg[i]) );
-			writelist.AddToTail( write );
-		}
-	} 
-	catch( boost::python::error_already_set & ) 
-	{
-		PyErr_Print();
-		PyErr_Clear();
-		return;
-	}
-
-	EntityMessageBegin( this, reliable );
-		WRITE_BYTE(BASEENTITY_MSG_PYTHON);
-		WRITE_BYTE(length);
-		for(int i=0; i<writelist.Count(); i++)
-		{
-			PyWriteElement(writelist.Element(i));
-		}
-	MessageEnd();
-}
-
-//------------------------------------------------------------------------------
-// Purpose: Sends an event
-//------------------------------------------------------------------------------
-void CBaseEntity::PySendEvent( IRecipientFilter &filter, int event, int data )
-{
-	::PySendEvent( filter, this, event, data );
-}
-#endif // ENABLE_PYTHON
-// =======================================
-// END PySource Additions
-// =======================================
 
 //------------------------------------------------------------------------------
 // Purpose: Create an NPC of the given type
@@ -7793,3 +7649,147 @@ void CC_Ent_Orient( const CCommand& args )
 }
 
 static ConCommand ent_orient("ent_orient", CC_Ent_Orient, "Orient the specified entity to match the player's angles. By default, only orients target entity's YAW. Use the 'allangles' option to orient on all axis.\n\tFormat: ent_orient <entity name> <optional: allangles>", FCVAR_CHEAT);
+// =======================================
+// PySource Additions
+// =======================================
+#ifdef ENABLE_PYTHON
+void *CBaseEntity::PyAllocate(PyObject* self_, std::size_t holder_offset, std::size_t holder_size)
+{
+	// call into engine to get memory
+	Assert( holder_size != 0 );
+	return engine->PvAllocEntPrivateData( holder_size );
+}
+
+void CBaseEntity::PyDeallocate(PyObject* self_, void *storage)
+{
+	// get the engine to free the memory
+	engine->FreeEntPrivateData( storage );
+}	
+
+//------------------------------------------------------------------------------
+// Purpose: Removes the Python instance
+//------------------------------------------------------------------------------
+void CBaseEntity::DestroyPyInstance()
+{
+	// FIXME: This can't be called from UpdateOnRemove! There's at least one
+	// case where friction sounds are added between the call to UpdateOnRemove + ~CBaseEntity
+	PhysCleanupFrictionSounds( this );
+
+	Assert( !IsDynamicModelIndex( m_nModelIndex ) );
+	Verify( !sg_DynamicLoadHandlers.Remove( this ) );
+
+	// In debug make sure that we don't call delete on an entity without setting
+	//  the disable flag first!
+	// EHANDLE accessors will check, in debug, for access to entities during destruction of
+	//  another entity.
+	// That kind of operation should only occur in UpdateOnRemove calls
+	// Deletion should only occur via UTIL_Remove(Immediate) calls, not via naked delete calls
+	Assert( g_bDisableEhandleAccess );
+
+	VPhysicsDestroyObject();
+
+	// Need to remove references to this entity before EHANDLES go null
+	{
+		g_bDisableEhandleAccess = false;
+		CBaseEntity::PhysicsRemoveTouchedList( this );
+		CBaseEntity::PhysicsRemoveGroundList( this );
+		SetGroundEntity( NULL ); // remove us from the ground entity if we are on it
+		DestroyAllDataObjects();
+		g_bDisableEhandleAccess = true;
+
+		// Remove this entity from the ent list (NOTE:  This Makes EHANDLES go NULL)
+		gEntList.RemoveEntity( GetRefEHandle() );
+	}
+
+	// Python cleanup
+	m_bPyDestroyed = true;
+
+	// CLOSE NETWORKPROP (ensure client side is cleaned up)
+	m_Network.DestroyNetworkProperty();
+
+	// Close collision property
+	m_Collision.DestroyPartitionHandle();
+
+	// Clear Python network vars
+	for( int i = m_utlPyNetworkVars.Count() - 1; i >= 0; i-- )
+		m_utlPyNetworkVars[i]->Remove( this );
+
+	// Dereference py think/touch functions
+	m_pyHandle = boost::python::object();
+	m_pyTouchMethod = boost::python::object();
+	SetPyThink(boost::python::object());
+	int i;
+	for( i=0; i < m_aThinkFunctions.Count(); i++ )
+	{
+		if( m_aThinkFunctions.Element(i).m_pyThink.ptr() != Py_None )
+			m_aThinkFunctions.Element(i).m_pyThink = boost::python::object();
+	}
+
+	// Rebind the class, so we can't accidently access unbound methods of the class (some methods might
+	// be dangerous after deletion of the entity)
+	setattr(m_pyInstance, "__class__",  _entities.attr("DeadEntity"));
+
+	// Add m_pyInstance to the delete list before dereferencing it
+	// Dereferencing m_pyInstance here might result in direct deletion of the entity
+	// This will result into heap corruption.
+	SrcPySystem()->AddToDeleteList( m_pyInstance );
+	m_pyInstance = boost::python::object();
+}
+
+
+//------------------------------------------------------------------------------
+// Purpose: Send Python Entity Message
+//------------------------------------------------------------------------------
+void CBaseEntity::PySendMessage( boost::python::list msg, bool reliable )
+{
+	// Skip parsing if none
+	if( msg.ptr() == Py_None )
+	{
+		// Shortcut
+		EntityMessageBegin( this, true );
+			WRITE_BYTE(BASEENTITY_MSG_PYTHON);
+			WRITE_BYTE(0);	// len(msg) == 0
+		MessageEnd();
+		return;
+	}
+
+	// Parse list
+	int length = 0;
+	CUtlVector<pywrite> writelist;
+	try 
+	{
+		length = boost::python::len(msg);
+		for( int i = 0; i < length; i++ )
+		{
+			pywrite write;
+			PyFillWriteElement( write, boost::python::object(msg[i]) );
+			writelist.AddToTail( write );
+		}
+	} 
+	catch( boost::python::error_already_set & ) 
+	{
+		PyErr_Print();
+		return;
+	}
+
+	EntityMessageBegin( this, reliable );
+		WRITE_BYTE(BASEENTITY_MSG_PYTHON);
+		WRITE_BYTE(length);
+		for(int i=0; i<writelist.Count(); i++)
+		{
+			PyWriteElement(writelist.Element(i));
+		}
+	MessageEnd();
+}
+
+//------------------------------------------------------------------------------
+// Purpose: Sends an event
+//------------------------------------------------------------------------------
+void CBaseEntity::PySendEvent( IRecipientFilter &filter, int event, int data )
+{
+	::PySendEvent( filter, this, event, data );
+}
+#endif // ENABLE_PYTHON
+// =======================================
+// END PySource Additions
+// =======================================

@@ -86,12 +86,12 @@ void CWrapSurface::DrawFilledRectArray( boost::python::list rects )
 	int i, n;
 	n = boost::python::len( rects );
 	IntRect *pRects = new IntRect[n];
-	for(i=0; i<n; i++)
+	for( i = 0; i < n; i++ )
 	{
 		pRects[i] = boost::python::extract<IntRect>(rects[i]);
 	}
 	surface()->DrawFilledRectArray(pRects, n);
-	delete pRects;
+	delete [] pRects;
 }
 
 boost::python::tuple CWrapSurface::GetTextSize( HFont font, boost::python::object unistr )
@@ -122,7 +122,7 @@ boost::python::tuple CWrapSurface::GetTextSize( HFont font, boost::python::objec
 		throw boost::python::error_already_set();
 	}
 	wchar_t* w = new wchar_t[l+1];
-	for(int i=0;i<l;i++){
+	for( int i = 0; i < l; i++ ){
 		w[i] = value[i];
 	}
 	w[l] = '\0';
@@ -130,7 +130,7 @@ boost::python::tuple CWrapSurface::GetTextSize( HFont font, boost::python::objec
 	int wide, tall;
 	surface()->GetTextSize(font, w, wide, tall); 
 
-	delete w;
+	delete [] w;
 	return boost::python::make_tuple(wide, tall);
 }
 
@@ -145,7 +145,7 @@ void CWrapSurface::DrawTexturedPolyLine( boost::python::list vertices )
 	{
 		n = boost::python::len( vertices );
 		pVertices = new Vertex_t[n];
-		for(i=0; i<n; i++)
+		for( i = 0; i < n; i++ )
 			pVertices[i] = boost::python::extract<Vertex_t>(vertices[i]);
 	}
 	catch(...)
@@ -155,7 +155,7 @@ void CWrapSurface::DrawTexturedPolyLine( boost::python::list vertices )
 	}
 	vgui::surface()->DrawTexturedPolyLine(pVertices, n);
 
-	delete pVertices;
+	delete [] pVertices;
 }
 
 //-----------------------------------------------------------------------------
@@ -169,7 +169,7 @@ void CWrapSurface::DrawTexturedPolygon( boost::python::list vertices )
 	{
 		n = boost::python::len( vertices );
 		pVertices = new Vertex_t[n];
-		for(i=0; i<n; i++)
+		for( i = 0; i < n; i++ )
 			pVertices[i] = boost::python::extract<Vertex_t>(vertices[i]);
 	}
 	catch(...)
@@ -179,7 +179,7 @@ void CWrapSurface::DrawTexturedPolygon( boost::python::list vertices )
 	}
 	vgui::surface()->DrawTexturedPolygon(n, pVertices);
 
-	delete pVertices;
+	delete [] pVertices;
 }
 
 //-----------------------------------------------------------------------------
@@ -213,13 +213,13 @@ void CWrapSurface::DrawUnicodeString( boost::python::object unistr, FontDrawType
 		throw boost::python::error_already_set();
 	}
 	wchar_t* w = new wchar_t[l+1];
-	for(int i=0;i<l;i++){
+	for( int i = 0; i < l; i++ ){
 		w[i] = value[i];
 	}
 	w[l] = '\0';
 	surface()->DrawUnicodeString(w, drawType);
 
-	delete w;
+	delete [] w;
 }
 
 //=============================================================================

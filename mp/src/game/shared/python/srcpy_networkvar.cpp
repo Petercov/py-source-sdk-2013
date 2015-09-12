@@ -38,7 +38,6 @@ CPythonNetworkVarBase::CPythonNetworkVarBase( bp::object ent, const char *name, 
 	catch(boost::python::error_already_set &) 
 	{
 		PyErr_Print();
-		PyErr_Clear();
 		return;
 	}
 
@@ -67,7 +66,6 @@ CPythonNetworkVarBase::~CPythonNetworkVarBase()
 	catch(boost::python::error_already_set &) 
 	{
 		PyErr_Print();
-		PyErr_Clear();
 		return;
 	}
 
@@ -164,7 +162,6 @@ void CPythonNetworkVar::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient 
 	{
 		Warning("Failed to parse data for network variable %s:\n", m_Name.String() );
 		PyErr_Print();
-		PyErr_Clear();
 		Set( bp::object(0) );
 		return;
 	}
@@ -270,7 +267,6 @@ void CPythonNetworkArray::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClien
 	catch(boost::python::error_already_set &) 
 	{
 		PyErr_Print();
-		PyErr_Clear();
 		return;
 	}
 
@@ -403,7 +399,6 @@ void CPythonNetworkDict::NetworkVarsUpdateClient( CBaseEntity *pEnt, int iClient
 	catch( boost::python::error_already_set & ) 
 	{
 		PyErr_Print();
-		PyErr_Clear();
 		return;
 	}
 
@@ -514,7 +509,6 @@ void __MsgFunc_PyNetworkVar( bf_read &msg )
 	catch(boost::python::error_already_set &)
 	{
 		PyErr_Print();
-		PyErr_Clear();
 		return;
 	}
 
@@ -552,7 +546,6 @@ void __MsgFunc_PyNetworkVarChangedCallback( bf_read &msg )
 	catch(boost::python::error_already_set &) 
 	{
 		PyErr_Print();
-		PyErr_Clear();
 		return;
 	}
 
@@ -598,7 +591,6 @@ void __MsgFunc_PyNetworkArrayFull( bf_read &msg )
 	catch(boost::python::error_already_set &) 
 	{
 		PyErr_Print();
-		PyErr_Clear();
 		return;
 	}
 
@@ -643,7 +635,6 @@ void __MsgFunc_PyNetworkArrayFullChangedCallback( bf_read &msg )
 	catch(boost::python::error_already_set &) 
 	{
 		PyErr_Print();
-		PyErr_Clear();
 		return;
 	}
 
@@ -687,7 +678,6 @@ void __MsgFunc_PyNetworkDictElement( bf_read &msg )
 	catch(boost::python::error_already_set &)
 	{
 		PyErr_Print();
-		PyErr_Clear();
 		return;
 	}
 
@@ -733,7 +723,6 @@ void __MsgFunc_PyNetworkDictFull( bf_read &msg )
 	catch(boost::python::error_already_set &) 
 	{
 		PyErr_Print();
-		PyErr_Clear();
 		return;
 	}
 
@@ -779,7 +768,6 @@ void __MsgFunc_PyNetworkDictFullChangedCallback( bf_read &msg )
 	catch(boost::python::error_already_set &) 
 	{
 		PyErr_Print();
-		PyErr_Clear();
 		return;
 	}
 

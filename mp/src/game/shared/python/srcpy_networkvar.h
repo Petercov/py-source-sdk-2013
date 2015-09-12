@@ -13,12 +13,6 @@
 
 #include "srcpy_boostpython.h"
 
-#if 0
-#include <set>
-#endif // 0
-
-namespace bp = boost::python;
-
 extern ConVar g_debug_pynetworkvar;
 
 #ifndef CLIENT_DLL

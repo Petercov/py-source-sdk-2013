@@ -1110,6 +1110,16 @@ bool CSrcPython::ExecuteFile( const char* pScript )
 		{
 			Py_DECREF(v);
 		}
+		else
+		{
+#ifdef CLIENT_DLL
+			DevMsg( "CLIENT: " );
+#else
+			DevMsg( "SERVER: " );
+#endif // CLIENT_DLL
+			DevMsg( "RunPythonFile failed -> file: %s\n", pScript );
+			PyErr_Print();
+		}
 
 		Py_DECREF(filename);
 	}
@@ -1133,10 +1143,19 @@ bool CSrcPython::ExecuteFile( const char* pScript )
 //-----------------------------------------------------------------------------
 void CSrcPython::Reload( const char *pModule )
 {
-	DevMsg("Reloading module %s\n", pModule);
+	DevMsg( "Reloading module %s\n", pModule );
 
 	try
 	{
+		
+#if PY_VERSION_HEX >= 0x03000000
+		// Must have the module
+		boost::python::object m = Import( pModule );
+
+		// Reload the module
+		boost::python::object imp = Import( "imp" );
+		imp.attr("reload")( m );
+#else
 		// import into the main space
 		char command[MAX_PATH];
 		V_snprintf( command, sizeof( command ), "import %s", pModule );
@@ -1145,6 +1164,7 @@ void CSrcPython::Reload( const char *pModule )
 		// Reload
 		V_snprintf( command, sizeof( command ), "reload(%s)", pModule );
 		exec(command, mainnamespace, mainnamespace );
+#endif // PY_VERSION_HEX >= 0x03000000
 	}
 	catch( bp::error_already_set & )
 	{
@@ -1452,7 +1472,7 @@ void CSrcPython::UnregisterPerFrameMethod( bp::object method )
 {
 	if( m_activeMethod.ptr() != Py_None && method != m_activeMethod )
 	{
-		PyErr_SetString(PyExc_Exception, "Cannot remove methods from a perframe method (other than the active perframe method itself)" );
+		PyErr_SetString(PyExc_Exception, "Cannot remove methods from perframe method (other than the active perframe method itself)" );
 		throw boost::python::error_already_set(); 
 	}
 

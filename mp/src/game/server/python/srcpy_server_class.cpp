@@ -201,10 +201,10 @@ void NetworkedClass::SetupServerClass()
 		iType = boost::python::call_method<int>(m_PyClass.ptr(), "GetPyNetworkType");
 		m_pServerClass->SetupServerClass( iType );
 		PyObject_SetAttrString(m_PyClass.ptr(), "pyServerClass", bp::object(bp::ptr((ServerClass *)m_pServerClass)).ptr());
-	} catch(bp::error_already_set &) 
+	} 
+	catch(bp::error_already_set &) 
 	{
 		PyErr_Print();
-		PyErr_Clear();
 	}
 
 	// Send message to all clients
@@ -225,6 +225,9 @@ void FullClientUpdatePyNetworkCls( CBasePlayer *pPlayer )
 	FullClientUpdatePyNetworkClsByFilter(filter);
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: Sends Python network class setup through user messages
+//-----------------------------------------------------------------------------
 void FullClientUpdatePyNetworkClsByFilter( IRecipientFilter &filter )
 {
 	if( !SrcPySystem()->IsPythonRunning() )
@@ -252,6 +255,9 @@ void FullClientUpdatePyNetworkClsByFilter( IRecipientFilter &filter )
 	}
 }
 
+//-----------------------------------------------------------------------------
+// Purpose: Sends Python network class setup through commands
+//-----------------------------------------------------------------------------
 void FullClientUpdatePyNetworkClsByEdict( edict_t *pEdict )
 {
 	if( !SrcPySystem()->IsPythonRunning() )

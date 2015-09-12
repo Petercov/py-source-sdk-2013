@@ -155,7 +155,7 @@ IClientNetworkable *ClientClassFactory( int iType, boost::python::object cls_typ
 		if( iNetworkType != iType )
 		{
 			char buf[512];
-			Q_snprintf( buf, sizeof(buf), "Network type does not match client %d != server %d", iNetworkType, iType );
+			V_snprintf( buf, sizeof(buf), "Network type does not match client %d != server %d", iNetworkType, iType );
 			PyErr_SetString(PyExc_Exception, buf );
 			throw boost::python::error_already_set(); 
 		}
@@ -176,7 +176,6 @@ IClientNetworkable *ClientClassFactory( int iType, boost::python::object cls_typ
 	{
 		Warning("Failed to create python client side entity, falling back to base c++ class\n");
 		PyErr_Print();
-		PyErr_Clear();
 		
 		// Call the correct fallback factory
 		IClientNetworkable *pResult = NULL;
@@ -248,7 +247,7 @@ PyClientClassBase *FindPyClientClass( const char *pName )
 	PyClientClassBase *p = g_pPyClientClassHead;
 	while( p )
 	{
-		if ( _stricmp( p->GetName(), pName ) == 0)
+		if ( V_stricmp( p->GetName(), pName ) == 0)
 		{
 			return p;
 		}
@@ -262,7 +261,7 @@ PyClientClassBase *FindPyClientClassToNetworkClass( const char *pNetworkName )
 	PyClientClassBase *p = g_pPyClientClassHead;
 	while( p )
 	{
-		if ( _stricmp( p->m_strPyNetworkedClassName, pNetworkName ) == 0)
+		if ( V_stricmp( p->m_strPyNetworkedClassName, pNetworkName ) == 0)
 		{
 			return p;
 		}
@@ -367,7 +366,6 @@ void NetworkedClass::AttachClientClass( PyClientClassBase *pClientClass )
 		PyObject_SetAttrString(m_pyClass.ptr(), "pyClientClass", bp::object(bp::ptr((ClientClass *)m_pClientClass)).ptr());
 	} catch(boost::python::error_already_set &) {
 		PyErr_Print();
-		PyErr_Clear();
 	}
 }
 
@@ -386,7 +384,7 @@ void __MsgFunc_PyNetworkCls( bf_read &msg )
 	DbgStrPyMsg( "__MsgFunc_PyNetworkCls: Registering Python network class message %d %s %s\n", iType, clientClass, networkName );
 
 	// Get module path
-	const char *pch = Q_strrchr( networkName, '.' );
+	const char *pch = V_strrchr( networkName, '.' );
 	if( !pch )
 	{
 		Warning( "Invalid python class name %s\n", networkName );
@@ -395,7 +393,7 @@ void __MsgFunc_PyNetworkCls( bf_read &msg )
 	int n = pch - networkName + 1;
 
 	char modulePath[PYNETCLS_BUFSIZE];
-	Q_strncpy( modulePath, networkName, n );
+	V_strncpy( modulePath, networkName, n );
 
 	// Make sure the client class is imported
 	SrcPySystem()->Import( modulePath );
@@ -413,7 +411,7 @@ void __MsgFunc_PyNetworkCls( bf_read &msg )
 	SetupClientClassRecv( p, iType );
 
 	// Read network class name
-	Q_strncpy( p->m_strPyNetworkedClassName, networkName, PYNETCLS_BUFSIZE );
+	V_strncpy( p->m_strPyNetworkedClassName, networkName, sizeof( p->m_strPyNetworkedClassName ) );
 
 	// Attach if a network class exists
 	unsigned short lookup = m_NetworkClassDatabase.Find( networkName );
@@ -440,7 +438,7 @@ CON_COMMAND_F( rpc, "", FCVAR_HIDDEN )
 	DbgStrPyMsg( "register_py_class: Registering Python network class message %d %s %s\n", iType, args[2], args[3] );
 
 	// Get module path
-	const char *pch = Q_strrchr( args[3], '.' );
+	const char *pch = V_strrchr( args[3], '.' );
 	if( !pch )
 	{
 		Warning("Invalid python class name %s\n", args[3] );
@@ -449,7 +447,7 @@ CON_COMMAND_F( rpc, "", FCVAR_HIDDEN )
 	int n = pch - args[3] + 1;
 
 	char modulePath[PYNETCLS_BUFSIZE];
-	Q_strncpy( modulePath, args[3], n );
+	V_strncpy( modulePath, args[3], n );
 
 	SrcPySystem()->Import( modulePath );
 	PyClientClassBase *p = FindPyClientClass(args[2]);
@@ -463,7 +461,7 @@ CON_COMMAND_F( rpc, "", FCVAR_HIDDEN )
 	p->SetType(iType );
 	SetupClientClassRecv(p, iType);
 
-	Q_strncpy(p->m_strPyNetworkedClassName, args[3], 512);
+	V_strncpy( p->m_strPyNetworkedClassName, args[3], sizeof( p->m_strPyNetworkedClassName ) );
 
 	// Attach if a network class exists
 	unsigned short lookup = m_NetworkClassDatabase.Find( args[3] );

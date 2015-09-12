@@ -1,6 +1,6 @@
 //====== Copyright © Sandern Corporation, All rights reserved. ===========//
 //
-// Purpose: The TF Game rules object
+// Purpose: Manages Python implemented gamerules.
 //
 // $Workfile:     $
 // $Date:         $

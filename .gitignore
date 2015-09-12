@@ -58,3 +58,18 @@ config.cfg
 # shader files
 *.tmp
 
+# Generated tmp files for Python bindings
+*.hpp~
+*.cpp~
+*.py~
+*.txt~
+*.h~
+
+# Python
+mp/src/thirdparty/python/PCBuild/Win32-temp-Release/*
+mp/src/thirdparty/python/PCBuild/Win32-temp-Debug/*
+mp/src/thirdparty/python/PCBuild/Win32-temp-Release_Client/*
+mp/src/thirdparty/python/PCBuild/Win32-temp-Debug_Client/*
+
+# PyCharm lib location
+mp/game/pysource/python/libdev
