@@ -494,22 +494,22 @@ struct C_BaseCombatWeapon_wrapper : C_BaseCombatWeapon, bp::wrapper< C_BaseComba
     }
 
     virtual void UpdateOnRemove(  ) {
-        PY_OVERRIDE_CHECK( C_BaseEntity, UpdateOnRemove )
-        PY_OVERRIDE_LOG( _entities, C_BaseEntity, UpdateOnRemove )
+        PY_OVERRIDE_CHECK( C_BaseAnimating, UpdateOnRemove )
+        PY_OVERRIDE_LOG( _entities, C_BaseAnimating, UpdateOnRemove )
         bp::override func_UpdateOnRemove = this->get_override( "UpdateOnRemove" );
         if( func_UpdateOnRemove.ptr() != Py_None )
             try {
                 func_UpdateOnRemove(  );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                this->C_BaseEntity::UpdateOnRemove(  );
+                this->C_BaseAnimating::UpdateOnRemove(  );
             }
         else
-            this->C_BaseEntity::UpdateOnRemove(  );
+            this->C_BaseAnimating::UpdateOnRemove(  );
     }
     
     void default_UpdateOnRemove(  ) {
-        C_BaseEntity::UpdateOnRemove( );
+        C_BaseAnimating::UpdateOnRemove( );
     }
 
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
@@ -592,9 +592,6 @@ void register_C_BaseCombatWeapon_class(){
             , (void ( ::C_BaseCombatWeapon::* )(  ) )(&::C_BaseCombatWeapon::Activate)
             , (void ( C_BaseCombatWeapon_wrapper::* )(  ) )(&C_BaseCombatWeapon_wrapper::default_Activate) )    
         .def( 
-            "ActivityListCount"
-            , (int ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::ActivityListCount ) )    
-        .def( 
             "ActivityOverride"
             , (::Activity ( ::C_BaseCombatWeapon::* )( ::Activity,bool * ) )( &::C_BaseCombatWeapon::ActivityOverride )
             , ( bp::arg("baseAct"), bp::arg("pRequired") ) )    
@@ -616,7 +613,7 @@ void register_C_BaseCombatWeapon_class(){
             , (bool ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::AllowsAutoSwitchTo ) )    
         .def( 
             "AutoFiresFullClip"
-            , (bool ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::AutoFiresFullClip ) )    
+            , (bool ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::AutoFiresFullClip ) )    
         .def( 
             "BoneMergeFastCullBloat"
             , (void ( ::C_BaseCombatWeapon::* )( ::Vector &,::Vector &,::Vector const &,::Vector const & ) const)( &::C_BaseCombatWeapon::BoneMergeFastCullBloat )
@@ -638,13 +635,10 @@ void register_C_BaseCombatWeapon_class(){
             , (bool ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::CanDeploy ) )    
         .def( 
             "CanHolster"
-            , (bool ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::CanHolster ) )    
+            , (bool ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::CanHolster ) )    
         .def( 
             "CanLower"
             , (bool ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::CanLower ) )    
-        .def( 
-            "CanOverload"
-            , (bool ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::CanOverload ) )    
         .def( 
             "CanPerformSecondaryAttack"
             , (bool ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::CanPerformSecondaryAttack ) )    
@@ -707,8 +701,11 @@ void register_C_BaseCombatWeapon_class(){
             "FinishReload"
             , (void ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::FinishReload ) )    
         .def( 
+            "ForceWeaponSwitch"
+            , (bool ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::ForceWeaponSwitch ) )    
+        .def( 
             "GetActivity"
-            , (::Activity ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::GetActivity ) )    
+            , (::Activity ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::GetActivity ) )    
         .def( 
             "GetAnimPrefix"
             , (char const * ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::GetAnimPrefix ) )    
@@ -949,7 +946,7 @@ void register_C_BaseCombatWeapon_class(){
             , (bool ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::IsPredicted ) )    
         .def( 
             "IsViewModelSequenceFinished"
-            , (bool ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::IsViewModelSequenceFinished ) )    
+            , (bool ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::IsViewModelSequenceFinished ) )    
         .def( 
             "IsWeaponVisible"
             , (bool ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::IsWeaponVisible ) )    
@@ -1018,6 +1015,10 @@ void register_C_BaseCombatWeapon_class(){
             , (void ( ::C_BaseCombatWeapon::* )( float *,float * ) )( &::C_BaseCombatWeapon::OverrideMouseInput )
             , ( bp::arg("x"), bp::arg("y") ) )    
         .def( 
+            "PoseParameterOverride"
+            , (void ( ::C_BaseCombatWeapon::* )( bool ) )( &::C_BaseCombatWeapon::PoseParameterOverride )
+            , ( bp::arg("bReset") ) )    
+        .def( 
             "Precache"
             , (void ( ::C_BaseCombatWeapon::* )(  ) )(&::C_BaseCombatWeapon::Precache)
             , (void ( C_BaseCombatWeapon_wrapper::* )(  ) )(&C_BaseCombatWeapon_wrapper::default_Precache) )    
@@ -1028,6 +1029,10 @@ void register_C_BaseCombatWeapon_class(){
         .def( 
             "Ready"
             , (bool ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::Ready ) )    
+        .def( 
+            "RecvProxy_WeaponState"
+            , (void (*)( ::CRecvProxyData const *,void *,void * ))( &::C_BaseCombatWeapon::RecvProxy_WeaponState )
+            , ( bp::arg("pData"), bp::arg("pStruct"), bp::arg("pOut") ) )    
         .def( 
             "Redraw"
             , (void ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::Redraw ) )    
@@ -1288,9 +1293,10 @@ void register_C_BaseCombatWeapon_class(){
             , ( bp::arg("pOther") ) )    
         .def( 
             "UpdateOnRemove"
-            , (void ( ::C_BaseEntity::* )(  ) )(&::C_BaseEntity::UpdateOnRemove)
+            , (void ( ::C_BaseAnimating::* )(  ) )(&::C_BaseAnimating::UpdateOnRemove)
             , (void ( C_BaseCombatWeapon_wrapper::* )(  ) )(&C_BaseCombatWeapon_wrapper::default_UpdateOnRemove) )    
         .staticmethod( "GetPyNetworkType" )    
+        .staticmethod( "RecvProxy_WeaponState" )    
         .add_property( "lifestate", &C_BaseCombatWeapon_wrapper::m_lifeState_Get, &C_BaseCombatWeapon_wrapper::m_lifeState_Set )    
         .add_property( "takedamage", &C_BaseCombatWeapon_wrapper::m_takedamage_Get, &C_BaseCombatWeapon_wrapper::m_takedamage_Set )    
         .add_property( "skin", &C_BaseCombatWeapon_wrapper::m_nSkin_Get, &C_BaseCombatWeapon_wrapper::m_nSkin_Set )    

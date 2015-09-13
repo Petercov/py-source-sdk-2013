@@ -939,6 +939,16 @@ void register_CBaseAnimatingOverlay_class(){
                 , ( bp::arg("iLayer"), bp::arg("flCycle"), bp::arg("flPrevCycle") ) );
         
         }
+        { //::CBaseAnimatingOverlay::SetLayerCycle
+        
+            typedef void ( ::CBaseAnimatingOverlay::*SetLayerCycle_function_type )( int,float,float,float ) ;
+            
+            CBaseAnimatingOverlay_exposer.def( 
+                "SetLayerCycle"
+                , SetLayerCycle_function_type( &::CBaseAnimatingOverlay::SetLayerCycle )
+                , ( bp::arg("iLayer"), bp::arg("flCycle"), bp::arg("flPrevCycle"), bp::arg("flLastEventCheck") ) );
+        
+        }
         { //::CBaseAnimatingOverlay::SetLayerDuration
         
             typedef void ( ::CBaseAnimatingOverlay::*SetLayerDuration_function_type )( int,float ) ;

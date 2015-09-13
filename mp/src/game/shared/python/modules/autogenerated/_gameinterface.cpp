@@ -1177,29 +1177,6 @@ struct dheader_t_wrapper : dheader_t, bp::wrapper< dheader_t > {
 
 };
 
-struct lump_t_wrapper : lump_t, bp::wrapper< lump_t > {
-
-    lump_t_wrapper(lump_t const & arg )
-    : lump_t( arg )
-      , bp::wrapper< lump_t >(){
-        // copy constructor
-        
-    }
-
-    lump_t_wrapper()
-    : lump_t()
-      , bp::wrapper< lump_t >(){
-        // null constructor
-        
-    }
-
-    static pyplusplus::containers::static_sized::array_1_t< char, 4>
-    pyplusplus_fourCC_wrapper( ::lump_t & inst ){
-        return pyplusplus::containers::static_sized::array_1_t< char, 4>( inst.fourCC );
-    }
-
-};
-
 struct py_player_info_s_wrapper : py_player_info_s, bp::wrapper< py_player_info_s > {
 
     py_player_info_s_wrapper(py_player_info_s const & arg )
@@ -1883,9 +1860,9 @@ BOOST_PYTHON_MODULE(_gameinterface){
             "OnSteamServersDisconnected"
             , (void ( ::CClientSteamContext::* )( ::SteamServersDisconnected_t * ) )( &::CClientSteamContext::OnSteamServersDisconnected )
             , ( bp::arg("pParam") ) )    
-        .def_readwrite( "m_CallbackSteamServerConnectFailure", &CClientSteamContext::m_CallbackSteamServerConnectFailure )    
-        .def_readwrite( "m_CallbackSteamServersConnected", &CClientSteamContext::m_CallbackSteamServersConnected )    
-        .def_readwrite( "m_CallbackSteamServersDisconnected", &CClientSteamContext::m_CallbackSteamServersDisconnected );
+        .def_readonly( "m_CallbackSteamServerConnectFailure", &CClientSteamContext::m_CallbackSteamServerConnectFailure )    
+        .def_readonly( "m_CallbackSteamServersConnected", &CClientSteamContext::m_CallbackSteamServersConnected )    
+        .def_readonly( "m_CallbackSteamServersDisconnected", &CClientSteamContext::m_CallbackSteamServersDisconnected );
 
     bp::class_< CCommand >( "CCommand", bp::init< >() )    
         .def( bp::init< int, char const * * >(( bp::arg("nArgC"), bp::arg("ppArgV") )) )    
@@ -2645,27 +2622,15 @@ BOOST_PYTHON_MODULE(_gameinterface){
                 , bp::make_function( array_wrapper_creator(&dheader_t_wrapper::pyplusplus_lumps_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
-        dheader_t_exposer.def_readwrite( "mapRevision", &dheader_t::mapRevision );
+        dheader_t_exposer.def_readwrite( "maprevision", &dheader_t::mapRevision );
         dheader_t_exposer.def_readwrite( "version", &dheader_t::version );
     }
 
-    { //::lump_t
-        typedef bp::class_< lump_t_wrapper > lump_t_exposer_t;
-        lump_t_exposer_t lump_t_exposer = lump_t_exposer_t( "lump_t" );
-        bp::scope lump_t_scope( lump_t_exposer );
-        lump_t_exposer.def_readwrite( "filelen", &lump_t::filelen );
-        lump_t_exposer.def_readwrite( "fileofs", &lump_t::fileofs );
-        pyplusplus::containers::static_sized::register_array_1< char, 4 >( "__array_1_char_4" );
-        { //lump_t::fourCC [variable], type=char[4]
-        
-            typedef pyplusplus::containers::static_sized::array_1_t< char, 4> ( *array_wrapper_creator )( ::lump_t & );
-            
-            lump_t_exposer.add_property( "fourCC"
-                , bp::make_function( array_wrapper_creator(&lump_t_wrapper::pyplusplus_fourCC_wrapper)
-                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
-        }
-        lump_t_exposer.def_readwrite( "version", &lump_t::version );
-    }
+    bp::class_< lump_t >( "lump_t" )    
+        .def_readwrite( "filelen", &lump_t::filelen )    
+        .def_readwrite( "fileofs", &lump_t::fileofs )    
+        .def_readwrite( "uncompressedSize", &lump_t::uncompressedSize )    
+        .def_readwrite( "version", &lump_t::version );
 
     { //::py_player_info_s
         typedef bp::class_< py_player_info_s_wrapper > PlayerInfo_exposer_t;
@@ -4084,29 +4049,6 @@ struct dheader_t_wrapper : dheader_t, bp::wrapper< dheader_t > {
 
 };
 
-struct lump_t_wrapper : lump_t, bp::wrapper< lump_t > {
-
-    lump_t_wrapper(lump_t const & arg )
-    : lump_t( arg )
-      , bp::wrapper< lump_t >(){
-        // copy constructor
-        
-    }
-
-    lump_t_wrapper()
-    : lump_t()
-      , bp::wrapper< lump_t >(){
-        // null constructor
-        
-    }
-
-    static pyplusplus::containers::static_sized::array_1_t< char, 4>
-    pyplusplus_fourCC_wrapper( ::lump_t & inst ){
-        return pyplusplus::containers::static_sized::array_1_t< char, 4>( inst.fourCC );
-    }
-
-};
-
 struct py_player_info_s_wrapper : py_player_info_s, bp::wrapper< py_player_info_s > {
 
     py_player_info_s_wrapper(py_player_info_s const & arg )
@@ -4872,8 +4814,16 @@ BOOST_PYTHON_MODULE(_gameinterface){
 
     bp::class_< CServerGameDLL >( "CServerGameDLL" )    
         .def( 
+            "AsyncPrepareLevelResources"
+            , (::IServerGameDLL::ePrepareLevelResourcesResult ( ::CServerGameDLL::* )( char *,::size_t,char *,::size_t,float * ) )( &::CServerGameDLL::AsyncPrepareLevelResources )
+            , ( bp::arg("pszMapName"), bp::arg("nMapNameSize"), bp::arg("pszMapFile"), bp::arg("nMapFileSize"), bp::arg("flProgress")=bp::object() ) )    
+        .def( 
             "BuildAdjacentMapList"
             , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::BuildAdjacentMapList ) )    
+        .def( 
+            "CanProvideLevel"
+            , (::IServerGameDLL::eCanProvideLevelResult ( ::CServerGameDLL::* )( char *,int ) )( &::CServerGameDLL::CanProvideLevel )
+            , ( bp::arg("pMapName"), bp::arg("nMapNameMax") ) )    
         .def( 
             "CreateEntityTransitionList"
             , (int ( ::CServerGameDLL::* )( ::CSaveRestoreData *,int ) )( &::CServerGameDLL::CreateEntityTransitionList )
@@ -4924,6 +4874,10 @@ BOOST_PYTHON_MODULE(_gameinterface){
             "InvalidateMdlCache"
             , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::InvalidateMdlCache ) )    
         .def( 
+            "IsManualMapChangeOkay"
+            , (bool ( ::CServerGameDLL::* )( char const * * ) )( &::CServerGameDLL::IsManualMapChangeOkay )
+            , ( bp::arg("pszReason") ) )    
+        .def( 
             "IsRestoring"
             , (bool ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::IsRestoring ) )    
         .def( 
@@ -4952,6 +4906,10 @@ BOOST_PYTHON_MODULE(_gameinterface){
             "PreSaveGameLoaded"
             , (void ( ::CServerGameDLL::* )( char const *,bool ) )( &::CServerGameDLL::PreSaveGameLoaded )
             , ( bp::arg("pSaveName"), bp::arg("bInGame") ) )    
+        .def( 
+            "PrepareLevelResources"
+            , (void ( ::CServerGameDLL::* )( char *,::size_t,char *,::size_t ) )( &::CServerGameDLL::PrepareLevelResources )
+            , ( bp::arg("pszMapName"), bp::arg("nMapNameSize"), bp::arg("pszMapFile"), bp::arg("nMapFileSize") ) )    
         .def( 
             "ReadRestoreHeaders"
             , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::ReadRestoreHeaders )
@@ -5613,30 +5571,18 @@ BOOST_PYTHON_MODULE(_gameinterface){
                 , bp::make_function( array_wrapper_creator(&dheader_t_wrapper::pyplusplus_lumps_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
-        dheader_t_exposer.def_readwrite( "mapRevision", &dheader_t::mapRevision );
+        dheader_t_exposer.def_readwrite( "maprevision", &dheader_t::mapRevision );
         dheader_t_exposer.def_readwrite( "version", &dheader_t::version );
     }
 
     bp::class_< edict_t >( "edict_t" )    
         .def_readwrite( "freetime", &edict_t::freetime );
 
-    { //::lump_t
-        typedef bp::class_< lump_t_wrapper > lump_t_exposer_t;
-        lump_t_exposer_t lump_t_exposer = lump_t_exposer_t( "lump_t" );
-        bp::scope lump_t_scope( lump_t_exposer );
-        lump_t_exposer.def_readwrite( "filelen", &lump_t::filelen );
-        lump_t_exposer.def_readwrite( "fileofs", &lump_t::fileofs );
-        pyplusplus::containers::static_sized::register_array_1< char, 4 >( "__array_1_char_4" );
-        { //lump_t::fourCC [variable], type=char[4]
-        
-            typedef pyplusplus::containers::static_sized::array_1_t< char, 4> ( *array_wrapper_creator )( ::lump_t & );
-            
-            lump_t_exposer.add_property( "fourCC"
-                , bp::make_function( array_wrapper_creator(&lump_t_wrapper::pyplusplus_fourCC_wrapper)
-                                    , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
-        }
-        lump_t_exposer.def_readwrite( "version", &lump_t::version );
-    }
+    bp::class_< lump_t >( "lump_t" )    
+        .def_readwrite( "filelen", &lump_t::filelen )    
+        .def_readwrite( "fileofs", &lump_t::fileofs )    
+        .def_readwrite( "uncompressedSize", &lump_t::uncompressedSize )    
+        .def_readwrite( "version", &lump_t::version );
 
     { //::py_player_info_s
         typedef bp::class_< py_player_info_s_wrapper > PlayerInfo_exposer_t;

@@ -638,23 +638,73 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         g_PyKeyValuesType = (PyTypeObject *)KeyValues_exposer.ptr();
     }
 
-    bp::class_< SrcPyStdErr >( "SrcPyStdErr" )    
-        .def( 
-            "flush"
-            , (void ( ::SrcPyStdErr::* )(  ) )( &::SrcPyStdErr::flush ) )    
-        .def( 
-            "write"
-            , (void ( ::SrcPyStdErr::* )( char const * ) )( &::SrcPyStdErr::write )
-            , ( bp::arg("msg") ) );
+    { //::SrcPyStdErr
+        typedef bp::class_< SrcPyStdErr > SrcPyStdErr_exposer_t;
+        SrcPyStdErr_exposer_t SrcPyStdErr_exposer = SrcPyStdErr_exposer_t( "SrcPyStdErr" );
+        bp::scope SrcPyStdErr_scope( SrcPyStdErr_exposer );
+        { //::SrcPyStdErr::flush
+        
+            typedef void ( ::SrcPyStdErr::*flush_function_type )(  ) ;
+            
+            SrcPyStdErr_exposer.def( 
+                "flush"
+                , flush_function_type( &::SrcPyStdErr::flush ) );
+        
+        }
+        { //::SrcPyStdErr::write
+        
+            typedef void ( ::SrcPyStdErr::*write_function_type )( char const * ) ;
+            
+            SrcPyStdErr_exposer.def( 
+                "write"
+                , write_function_type( &::SrcPyStdErr::write )
+                , ( bp::arg("msg") ) );
+        
+        }
+        { //property "encoding"[fget=::SrcPyStdErr::encoding]
+        
+            typedef char const * ( ::SrcPyStdErr::*fget )(  ) ;
+            
+            SrcPyStdErr_exposer.add_property( 
+                "encoding"
+                , fget( &::SrcPyStdErr::encoding ) );
+        
+        }
+    }
 
-    bp::class_< SrcPyStdOut >( "SrcPyStdOut" )    
-        .def( 
-            "flush"
-            , (void ( ::SrcPyStdOut::* )(  ) )( &::SrcPyStdOut::flush ) )    
-        .def( 
-            "write"
-            , (void ( ::SrcPyStdOut::* )( char const * ) )( &::SrcPyStdOut::write )
-            , ( bp::arg("msg") ) );
+    { //::SrcPyStdOut
+        typedef bp::class_< SrcPyStdOut > SrcPyStdOut_exposer_t;
+        SrcPyStdOut_exposer_t SrcPyStdOut_exposer = SrcPyStdOut_exposer_t( "SrcPyStdOut" );
+        bp::scope SrcPyStdOut_scope( SrcPyStdOut_exposer );
+        { //::SrcPyStdOut::flush
+        
+            typedef void ( ::SrcPyStdOut::*flush_function_type )(  ) ;
+            
+            SrcPyStdOut_exposer.def( 
+                "flush"
+                , flush_function_type( &::SrcPyStdOut::flush ) );
+        
+        }
+        { //::SrcPyStdOut::write
+        
+            typedef void ( ::SrcPyStdOut::*write_function_type )( char const * ) ;
+            
+            SrcPyStdOut_exposer.def( 
+                "write"
+                , write_function_type( &::SrcPyStdOut::write )
+                , ( bp::arg("msg") ) );
+        
+        }
+        { //property "encoding"[fget=::SrcPyStdOut::encoding]
+        
+            typedef char const * ( ::SrcPyStdOut::*fget )(  ) ;
+            
+            SrcPyStdOut_exposer.add_property( 
+                "encoding"
+                , fget( &::SrcPyStdOut::encoding ) );
+        
+        }
+    }
 
     bp::class_< color32_s >( "color32" )    
         .def( bp::self != bp::self )    
@@ -740,12 +790,12 @@ BOOST_PYTHON_MODULE(srcbuiltins){
 
     { //::PyDictToKeyValues
     
-        typedef ::KeyValues * ( *DictToKeyValues_function_type )( ::boost::python::api::object );
+        typedef ::KeyValues * ( *DictToKeyValues_function_type )( ::boost::python::api::object,char const *,bool );
         
         bp::def( 
             "DictToKeyValues"
             , DictToKeyValues_function_type( &::PyDictToKeyValues )
-            , ( bp::arg("d") )
+            , ( bp::arg("d"), bp::arg("name")=bp::object(), bp::arg("keys_sorted")=(bool)(false) )
             , bp::return_value_policy< bp::return_by_value >() );
     
     }
@@ -769,6 +819,28 @@ BOOST_PYTHON_MODULE(srcbuiltins){
             "KeyValuesToDictFromFile"
             , KeyValuesToDictFromFile_function_type( &::PyKeyValuesToDictFromFile )
             , ( bp::arg("pFileName") ) );
+    
+    }
+
+    { //::PyReadKeyValuesFromFile
+    
+        typedef ::boost::python::api::object ( *ReadKeyValuesFromFile_function_type )( char const *,char const * );
+        
+        bp::def( 
+            "ReadKeyValuesFromFile"
+            , ReadKeyValuesFromFile_function_type( &::PyReadKeyValuesFromFile )
+            , ( bp::arg("filename"), bp::arg("pathid")=bp::object() ) );
+    
+    }
+
+    { //::PyWriteKeyValuesToFile
+    
+        typedef bool ( *WriteKeyValuesToFile_function_type )( ::KeyValues *,char const *,char const * );
+        
+        bp::def( 
+            "WriteKeyValuesToFile"
+            , WriteKeyValuesToFile_function_type( &::PyWriteKeyValuesToFile )
+            , ( bp::arg("pKV"), bp::arg("filename"), bp::arg("pathid")=bp::object() ) );
     
     }
 

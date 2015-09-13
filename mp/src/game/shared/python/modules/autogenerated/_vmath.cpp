@@ -532,6 +532,15 @@ BOOST_PYTHON_MODULE(_vmath){
                 , GetScale_function_type( &::VMatrix::GetScale ) );
         
         }
+        { //::VMatrix::GetTranslation
+        
+            typedef ::Vector ( ::VMatrix::*GetTranslation_function_type )(  ) const;
+            
+            VMatrix_exposer.def( 
+                "GetTranslation"
+                , GetTranslation_function_type( &::VMatrix::GetTranslation ) );
+        
+        }
         { //::VMatrix::GetUp
         
             typedef ::Vector ( ::VMatrix::*GetUp_function_type )(  ) const;

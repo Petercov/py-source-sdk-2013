@@ -663,6 +663,9 @@ void register_CBaseProjectile_class(){
             , (void ( ::CBaseProjectile::* )( bool,bool ) )( &::CBaseProjectile::Destroy )
             , ( bp::arg("bBlinkOut")=(bool)(true), bp::arg("bBreakRocket")=(bool)(false) ) )    
         .def( 
+            "GetBaseProjectileType"
+            , (int ( ::CBaseProjectile::* )(  ) const)( &::CBaseProjectile::GetBaseProjectileType ) )    
+        .def( 
             "GetCollideWithTeammatesDelay"
             , (float ( ::CBaseProjectile::* )(  ) const)( &::CBaseProjectile::GetCollideWithTeammatesDelay ) )    
         .def( 
@@ -672,6 +675,9 @@ void register_CBaseProjectile_class(){
             "GetOriginalLauncher"
             , (::CBaseEntity * ( ::CBaseProjectile::* )(  ) const)( &::CBaseProjectile::GetOriginalLauncher )
             , bp::return_value_policy< bp::return_by_value >() )    
+        .def( 
+            "GetProjectileType"
+            , (int ( ::CBaseProjectile::* )(  ) const)( &::CBaseProjectile::GetProjectileType ) )    
         .def( 
             "GetPyNetworkType"
             , (int (*)(  ))( &::CBaseProjectile::GetPyNetworkType ) )    

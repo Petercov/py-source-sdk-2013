@@ -2201,11 +2201,12 @@ void register_CBaseEntity_class(){
         }
         { //::CBaseEntity::GetPredictionRandomSeed
         
-            typedef int ( *GetPredictionRandomSeed_function_type )(  );
+            typedef int ( *GetPredictionRandomSeed_function_type )( bool );
             
             CBaseEntity_exposer.def( 
                 "GetPredictionRandomSeed"
-                , GetPredictionRandomSeed_function_type( &::CBaseEntity::GetPredictionRandomSeed ) );
+                , GetPredictionRandomSeed_function_type( &::CBaseEntity::GetPredictionRandomSeed )
+                , ( bp::arg("bUseUnSyncedServerPlatTime")=(bool)(false) ) );
         
         }
         { //::CBaseEntity::GetPyHandle
@@ -4718,6 +4719,15 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("pAimingEnt") ) );
         
         }
+        { //::CBaseEntity::ShouldBlockNav
+        
+            typedef bool ( ::CBaseEntity::*ShouldBlockNav_function_type )(  ) const;
+            
+            CBaseEntity_exposer.def( 
+                "ShouldBlockNav"
+                , ShouldBlockNav_function_type( &::CBaseEntity::ShouldBlockNav ) );
+        
+        }
         { //::CBaseEntity::ShouldCollide
         
             typedef bool ( ::CBaseEntity::*ShouldCollide_function_type )( int,int ) const;
@@ -4861,7 +4871,7 @@ void register_CBaseEntity_class(){
         }
         { //::CBaseEntity::TakeDamage
         
-            typedef void ( ::CBaseEntity::*TakeDamage_function_type )( ::CTakeDamageInfo const & ) ;
+            typedef int ( ::CBaseEntity::*TakeDamage_function_type )( ::CTakeDamageInfo const & ) ;
             
             CBaseEntity_exposer.def( 
                 "TakeDamage"

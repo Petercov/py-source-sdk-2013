@@ -1192,6 +1192,16 @@ void register_CBasePlayer_class(){
             "GetLastKnownPlaceName"
             , (char const * ( ::CBasePlayer::* )(  ) const)( &::CBasePlayer::GetLastKnownPlaceName ) )    
         .def( 
+            "GetLastWeapon"
+            , (::CBaseCombatWeapon * ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::GetLastWeapon )
+            , bp::return_value_policy< bp::return_by_value >() )    
+        .def( 
+            "GetLockViewanglesData"
+            , (::QAngle ( ::CBasePlayer::* )(  ) const)( &::CBasePlayer::GetLockViewanglesData ) )    
+        .def( 
+            "GetLockViewanglesTickNumber"
+            , (int ( ::CBasePlayer::* )(  ) const)( &::CBasePlayer::GetLockViewanglesTickNumber ) )    
+        .def( 
             "GetNetworkIDString"
             , (char const * ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::GetNetworkIDString ) )    
         .def( 
@@ -2058,10 +2068,6 @@ void register_CBasePlayer_class(){
             , (void ( ::CBasePlayer::* )( ::CBaseCombatWeapon * ) )(&::CBasePlayer::Weapon_Equip)
             , (void ( CBasePlayer_wrapper::* )( ::CBaseCombatWeapon * ) )(&CBasePlayer_wrapper::default_Weapon_Equip)
             , ( bp::arg("pWeapon") ) )    
-        .def( 
-            "Weapon_GetLast"
-            , (::CBaseCombatWeapon * ( ::CBasePlayer::* )(  ) )( &::CBasePlayer::Weapon_GetLast )
-            , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "Weapon_SetLast"
             , (void ( ::CBasePlayer::* )( ::CBaseCombatWeapon * ) )( &::CBasePlayer::Weapon_SetLast )

@@ -65,6 +65,9 @@ config.cfg
 *.txt~
 *.h~
 
+exposed_decl.pypp.txt
+named_tuple.py
+
 # Python
 mp/src/thirdparty/python/PCBuild/Win32-temp-Release/*
 mp/src/thirdparty/python/PCBuild/Win32-temp-Debug/*

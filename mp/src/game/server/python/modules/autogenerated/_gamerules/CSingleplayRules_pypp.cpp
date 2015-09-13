@@ -1759,6 +1759,25 @@ struct CSingleplayRules_wrapper : CSingleplayRules, bp::wrapper< CSingleplayRule
         return CGameRules::IsHolidayActive( eHoliday );
     }
 
+    virtual bool IsManualMapChangeOkay( char const * * pszReason ) {
+        PY_OVERRIDE_CHECK( CGameRules, IsManualMapChangeOkay )
+        PY_OVERRIDE_LOG( _gamerules, CGameRules, IsManualMapChangeOkay )
+        bp::override func_IsManualMapChangeOkay = this->get_override( "IsManualMapChangeOkay" );
+        if( func_IsManualMapChangeOkay.ptr() != Py_None )
+            try {
+                return func_IsManualMapChangeOkay( pszReason );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CGameRules::IsManualMapChangeOkay( pszReason );
+            }
+        else
+            return this->CGameRules::IsManualMapChangeOkay( pszReason );
+    }
+    
+    bool default_IsManualMapChangeOkay( char const * * pszReason ) {
+        return CGameRules::IsManualMapChangeOkay( pszReason );
+    }
+
     virtual bool IsSkillLevel( int iLevel ) {
         PY_OVERRIDE_CHECK( CGameRules, IsSkillLevel )
         PY_OVERRIDE_LOG( _gamerules, CGameRules, IsSkillLevel )
@@ -2701,6 +2720,11 @@ void register_CSingleplayRules_class(){
             , (bool ( ::CGameRules::* )( int ) const)(&::CGameRules::IsHolidayActive)
             , (bool ( CSingleplayRules_wrapper::* )( int ) const)(&CSingleplayRules_wrapper::default_IsHolidayActive)
             , ( bp::arg("eHoliday") ) )    
+        .def( 
+            "IsManualMapChangeOkay"
+            , (bool ( ::CGameRules::* )( char const * * ) )(&::CGameRules::IsManualMapChangeOkay)
+            , (bool ( CSingleplayRules_wrapper::* )( char const * * ) )(&CSingleplayRules_wrapper::default_IsManualMapChangeOkay)
+            , ( bp::arg("pszReason") ) )    
         .def( 
             "IsSkillLevel"
             , (bool ( ::CGameRules::* )( int ) )(&::CGameRules::IsSkillLevel)

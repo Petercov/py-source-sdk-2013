@@ -250,8 +250,12 @@ BOOST_PYTHON_MODULE(_input){
             "CAM_CameraThirdThink"
             , (void ( ::CInput::* )(  ) )( &::CInput::CAM_CameraThirdThink ) )    
         .def( 
+            "CAM_CapPitch"
+            , (float ( ::CInput::* )( float ) const)( &::CInput::CAM_CapPitch )
+            , ( bp::arg("fVal") ) )    
+        .def( 
             "CAM_CapYaw"
-            , (float ( ::CInput::* )( float ) )( &::CInput::CAM_CapYaw )
+            , (float ( ::CInput::* )( float ) const)( &::CInput::CAM_CapYaw )
             , ( bp::arg("fVal") ) )    
         .def( 
             "CAM_EndDistance"

@@ -442,6 +442,25 @@ struct C_GameRules_wrapper : C_GameRules, bp::wrapper< C_GameRules > {
         return C_GameRules::IsLocalPlayer( nEntIndex );
     }
 
+    virtual bool IsManualMapChangeOkay( char const * * pszReason ) {
+        PY_OVERRIDE_CHECK( C_GameRules, IsManualMapChangeOkay )
+        PY_OVERRIDE_LOG( _gamerules, C_GameRules, IsManualMapChangeOkay )
+        bp::override func_IsManualMapChangeOkay = this->get_override( "IsManualMapChangeOkay" );
+        if( func_IsManualMapChangeOkay.ptr() != Py_None )
+            try {
+                return func_IsManualMapChangeOkay( pszReason );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->C_GameRules::IsManualMapChangeOkay( pszReason );
+            }
+        else
+            return this->C_GameRules::IsManualMapChangeOkay( pszReason );
+    }
+    
+    bool default_IsManualMapChangeOkay( char const * * pszReason ) {
+        return C_GameRules::IsManualMapChangeOkay( pszReason );
+    }
+
     virtual bool IsMultiplayer(  ){
         bp::override func_IsMultiplayer = this->get_override( "IsMultiplayer" );
         try {
@@ -724,6 +743,11 @@ void register_CGameRules_class(){
             , (bool ( ::C_GameRules::* )( int ) )(&::C_GameRules::IsLocalPlayer)
             , (bool ( C_GameRules_wrapper::* )( int ) )(&C_GameRules_wrapper::default_IsLocalPlayer)
             , ( bp::arg("nEntIndex") ) )    
+        .def( 
+            "IsManualMapChangeOkay"
+            , (bool ( ::C_GameRules::* )( char const * * ) )(&::C_GameRules::IsManualMapChangeOkay)
+            , (bool ( C_GameRules_wrapper::* )( char const * * ) )(&C_GameRules_wrapper::default_IsManualMapChangeOkay)
+            , ( bp::arg("pszReason") ) )    
         .def( 
             "IsMultiplayer"
             , bp::pure_virtual( (bool ( ::C_GameRules::* )(  ) )(&::C_GameRules::IsMultiplayer) ) )    

@@ -155,6 +155,25 @@ struct C_BaseAnimating_wrapper : C_BaseAnimating, bp::wrapper< C_BaseAnimating >
         C_BaseAnimating::Simulate( );
     }
 
+    virtual void UpdateOnRemove(  ) {
+        PY_OVERRIDE_CHECK( C_BaseAnimating, UpdateOnRemove )
+        PY_OVERRIDE_LOG( _entities, C_BaseAnimating, UpdateOnRemove )
+        bp::override func_UpdateOnRemove = this->get_override( "UpdateOnRemove" );
+        if( func_UpdateOnRemove.ptr() != Py_None )
+            try {
+                func_UpdateOnRemove(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->C_BaseAnimating::UpdateOnRemove(  );
+            }
+        else
+            this->C_BaseAnimating::UpdateOnRemove(  );
+    }
+    
+    void default_UpdateOnRemove(  ) {
+        C_BaseAnimating::UpdateOnRemove( );
+    }
+
     virtual void Activate(  ) {
         PY_OVERRIDE_CHECK( C_BaseEntity, Activate )
         PY_OVERRIDE_LOG( _entities, C_BaseEntity, Activate )
@@ -476,25 +495,6 @@ struct C_BaseAnimating_wrapper : C_BaseAnimating, bp::wrapper< C_BaseAnimating >
     
     void default_StartTouch( ::C_BaseEntity * pOther ) {
         C_BaseEntity::StartTouch( pOther );
-    }
-
-    virtual void UpdateOnRemove(  ) {
-        PY_OVERRIDE_CHECK( C_BaseEntity, UpdateOnRemove )
-        PY_OVERRIDE_LOG( _entities, C_BaseEntity, UpdateOnRemove )
-        bp::override func_UpdateOnRemove = this->get_override( "UpdateOnRemove" );
-        if( func_UpdateOnRemove.ptr() != Py_None )
-            try {
-                func_UpdateOnRemove(  );
-            } catch(bp::error_already_set &) {
-                PyErr_Print();
-                this->C_BaseEntity::UpdateOnRemove(  );
-            }
-        else
-            this->C_BaseEntity::UpdateOnRemove(  );
-    }
-    
-    void default_UpdateOnRemove(  ) {
-        C_BaseEntity::UpdateOnRemove( );
     }
 
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
@@ -895,7 +895,7 @@ void register_C_BaseAnimating_class(){
         }
         { //::C_BaseAnimating::ForceSetupBonesAtTime
         
-            typedef void ( ::C_BaseAnimating::*ForceSetupBonesAtTime_function_type )( ::matrix3x4_t *,float ) ;
+            typedef bool ( ::C_BaseAnimating::*ForceSetupBonesAtTime_function_type )( ::matrix3x4_t *,float ) ;
             
             C_BaseAnimating_exposer.def( 
                 "ForceSetupBonesAtTime"
@@ -1336,7 +1336,7 @@ void register_C_BaseAnimating_class(){
         }
         { //::C_BaseAnimating::GetRagdollInitBoneArrays
         
-            typedef void ( ::C_BaseAnimating::*GetRagdollInitBoneArrays_function_type )( ::matrix3x4_t *,::matrix3x4_t *,::matrix3x4_t *,float ) ;
+            typedef bool ( ::C_BaseAnimating::*GetRagdollInitBoneArrays_function_type )( ::matrix3x4_t *,::matrix3x4_t *,::matrix3x4_t *,float ) ;
             
             C_BaseAnimating_exposer.def( 
                 "GetRagdollInitBoneArrays"
@@ -1970,11 +1970,12 @@ void register_C_BaseAnimating_class(){
         }
         { //::C_BaseAnimating::RemoveFromClientSideAnimationList
         
-            typedef void ( ::C_BaseAnimating::*RemoveFromClientSideAnimationList_function_type )(  ) ;
+            typedef void ( ::C_BaseAnimating::*RemoveFromClientSideAnimationList_function_type )( bool ) ;
             
             C_BaseAnimating_exposer.def( 
                 "RemoveFromClientSideAnimationList"
-                , RemoveFromClientSideAnimationList_function_type( &::C_BaseAnimating::RemoveFromClientSideAnimationList ) );
+                , RemoveFromClientSideAnimationList_function_type( &::C_BaseAnimating::RemoveFromClientSideAnimationList )
+                , ( bp::arg("bBeingDestroyed")=(bool)(false) ) );
         
         }
         { //::C_BaseAnimating::ResetClientsideFrame
@@ -2052,6 +2053,16 @@ void register_C_BaseAnimating_class(){
                 "SelectWeightedSequence"
                 , SelectWeightedSequence_function_type( &::C_BaseAnimating::SelectWeightedSequence )
                 , ( bp::arg("activity") ) );
+        
+        }
+        { //::C_BaseAnimating::SelectWeightedSequenceFromModifiers
+        
+            typedef int ( ::C_BaseAnimating::*SelectWeightedSequenceFromModifiers_function_type )( ::Activity,::CUtlSymbol *,int ) ;
+            
+            C_BaseAnimating_exposer.def( 
+                "SelectWeightedSequenceFromModifiers"
+                , SelectWeightedSequenceFromModifiers_function_type( &::C_BaseAnimating::SelectWeightedSequenceFromModifiers )
+                , ( bp::arg("activity"), bp::arg("pActivityModifiers"), bp::arg("iModifierCount") ) );
         
         }
         { //::C_BaseAnimating::SequenceDuration
@@ -2413,6 +2424,17 @@ void register_C_BaseAnimating_class(){
                 , UpdateModelScale_function_type( &::C_BaseAnimating::UpdateModelScale ) );
         
         }
+        { //::C_BaseAnimating::UpdateOnRemove
+        
+            typedef void ( ::C_BaseAnimating::*UpdateOnRemove_function_type )(  ) ;
+            typedef void ( C_BaseAnimating_wrapper::*default_UpdateOnRemove_function_type )(  ) ;
+            
+            C_BaseAnimating_exposer.def( 
+                "UpdateOnRemove"
+                , UpdateOnRemove_function_type(&::C_BaseAnimating::UpdateOnRemove)
+                , default_UpdateOnRemove_function_type(&C_BaseAnimating_wrapper::default_UpdateOnRemove) );
+        
+        }
         { //::C_BaseAnimating::UseClientSideAnimation
         
             typedef void ( ::C_BaseAnimating::*UseClientSideAnimation_function_type )(  ) ;
@@ -2645,17 +2667,6 @@ void register_C_BaseAnimating_class(){
                 , StartTouch_function_type(&::C_BaseEntity::StartTouch)
                 , default_StartTouch_function_type(&C_BaseAnimating_wrapper::default_StartTouch)
                 , ( bp::arg("pOther") ) );
-        
-        }
-        { //::C_BaseEntity::UpdateOnRemove
-        
-            typedef void ( ::C_BaseEntity::*UpdateOnRemove_function_type )(  ) ;
-            typedef void ( C_BaseAnimating_wrapper::*default_UpdateOnRemove_function_type )(  ) ;
-            
-            C_BaseAnimating_exposer.def( 
-                "UpdateOnRemove"
-                , UpdateOnRemove_function_type(&::C_BaseEntity::UpdateOnRemove)
-                , default_UpdateOnRemove_function_type(&C_BaseAnimating_wrapper::default_UpdateOnRemove) );
         
         }
         C_BaseAnimating_exposer.staticmethod( "GetPyNetworkType" );

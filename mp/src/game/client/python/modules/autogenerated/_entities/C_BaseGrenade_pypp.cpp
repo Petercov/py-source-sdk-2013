@@ -475,22 +475,22 @@ struct C_BaseGrenade_wrapper : C_BaseGrenade, bp::wrapper< C_BaseGrenade > {
     }
 
     virtual void UpdateOnRemove(  ) {
-        PY_OVERRIDE_CHECK( C_BaseEntity, UpdateOnRemove )
-        PY_OVERRIDE_LOG( _entities, C_BaseEntity, UpdateOnRemove )
+        PY_OVERRIDE_CHECK( C_BaseAnimating, UpdateOnRemove )
+        PY_OVERRIDE_LOG( _entities, C_BaseAnimating, UpdateOnRemove )
         bp::override func_UpdateOnRemove = this->get_override( "UpdateOnRemove" );
         if( func_UpdateOnRemove.ptr() != Py_None )
             try {
                 func_UpdateOnRemove(  );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                this->C_BaseEntity::UpdateOnRemove(  );
+                this->C_BaseAnimating::UpdateOnRemove(  );
             }
         else
-            this->C_BaseEntity::UpdateOnRemove(  );
+            this->C_BaseAnimating::UpdateOnRemove(  );
     }
     
     void default_UpdateOnRemove(  ) {
-        C_BaseEntity::UpdateOnRemove( );
+        C_BaseAnimating::UpdateOnRemove( );
     }
 
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
@@ -991,14 +991,14 @@ void register_C_BaseGrenade_class(){
                 , ( bp::arg("pOther") ) );
         
         }
-        { //::C_BaseEntity::UpdateOnRemove
+        { //::C_BaseAnimating::UpdateOnRemove
         
-            typedef void ( ::C_BaseEntity::*UpdateOnRemove_function_type )(  ) ;
+            typedef void ( ::C_BaseAnimating::*UpdateOnRemove_function_type )(  ) ;
             typedef void ( C_BaseGrenade_wrapper::*default_UpdateOnRemove_function_type )(  ) ;
             
             C_BaseGrenade_exposer.def( 
                 "UpdateOnRemove"
-                , UpdateOnRemove_function_type(&::C_BaseEntity::UpdateOnRemove)
+                , UpdateOnRemove_function_type(&::C_BaseAnimating::UpdateOnRemove)
                 , default_UpdateOnRemove_function_type(&C_BaseGrenade_wrapper::default_UpdateOnRemove) );
         
         }

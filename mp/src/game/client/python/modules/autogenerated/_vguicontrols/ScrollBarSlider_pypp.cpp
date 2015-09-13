@@ -285,6 +285,10 @@ struct ScrollBarSlider_wrapper : vgui::ScrollBarSlider, bp::wrapper< vgui::Scrol
         vgui::Panel::OnChildAdded( child );
     }
 
+    void OnChildSettingsApplied( ::KeyValues * pInResourceData, ::vgui::Panel * pChild ){
+        vgui::Panel::OnChildSettingsApplied( pInResourceData, pChild );
+    }
+
     virtual void OnCommand( char const * command ) {
         PY_OVERRIDE_CHECK( vgui::Panel, OnCommand )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, OnCommand )
@@ -1156,6 +1160,10 @@ void register_ScrollBarSlider_class(){
             , (void ( ::vgui::Panel::* )( ::vgui::VPANEL ) )(&::vgui::Panel::OnChildAdded)
             , (void ( ScrollBarSlider_wrapper::* )( ::vgui::VPANEL ) )(&ScrollBarSlider_wrapper::default_OnChildAdded)
             , ( bp::arg("child") ) )    
+        .def( 
+            "OnChildSettingsApplied"
+            , (void ( ScrollBarSlider_wrapper::* )( ::KeyValues *,::vgui::Panel * ) )(&ScrollBarSlider_wrapper::OnChildSettingsApplied)
+            , ( bp::arg("pInResourceData"), bp::arg("pChild") ) )    
         .def( 
             "OnCommand"
             , (void ( ::vgui::Panel::* )( char const * ) )(&::vgui::Panel::OnCommand)

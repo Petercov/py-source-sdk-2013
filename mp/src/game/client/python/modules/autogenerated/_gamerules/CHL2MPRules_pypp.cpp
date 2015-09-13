@@ -846,6 +846,25 @@ struct C_HL2MPRules_wrapper : C_HL2MPRules, bp::wrapper< C_HL2MPRules > {
         return C_GameRules::IsLocalPlayer( nEntIndex );
     }
 
+    virtual bool IsManualMapChangeOkay( char const * * pszReason ) {
+        PY_OVERRIDE_CHECK( C_GameRules, IsManualMapChangeOkay )
+        PY_OVERRIDE_LOG( _gamerules, C_GameRules, IsManualMapChangeOkay )
+        bp::override func_IsManualMapChangeOkay = this->get_override( "IsManualMapChangeOkay" );
+        if( func_IsManualMapChangeOkay.ptr() != Py_None )
+            try {
+                return func_IsManualMapChangeOkay( pszReason );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->C_GameRules::IsManualMapChangeOkay( pszReason );
+            }
+        else
+            return this->C_GameRules::IsManualMapChangeOkay( pszReason );
+    }
+    
+    bool default_IsManualMapChangeOkay( char const * * pszReason ) {
+        return C_GameRules::IsManualMapChangeOkay( pszReason );
+    }
+
     virtual bool IsMultiplayer(  ) {
         PY_OVERRIDE_CHECK( C_MultiplayRules, IsMultiplayer )
         PY_OVERRIDE_LOG( _gamerules, C_MultiplayRules, IsMultiplayer )
@@ -1335,6 +1354,11 @@ void register_CHL2MPRules_class(){
             , (bool ( ::C_GameRules::* )( int ) )(&::C_GameRules::IsLocalPlayer)
             , (bool ( C_HL2MPRules_wrapper::* )( int ) )(&C_HL2MPRules_wrapper::default_IsLocalPlayer)
             , ( bp::arg("nEntIndex") ) )    
+        .def( 
+            "IsManualMapChangeOkay"
+            , (bool ( ::C_GameRules::* )( char const * * ) )(&::C_GameRules::IsManualMapChangeOkay)
+            , (bool ( C_HL2MPRules_wrapper::* )( char const * * ) )(&C_HL2MPRules_wrapper::default_IsManualMapChangeOkay)
+            , ( bp::arg("pszReason") ) )    
         .def( 
             "IsMultiplayer"
             , (bool ( ::C_MultiplayRules::* )(  ) )(&::C_MultiplayRules::IsMultiplayer)

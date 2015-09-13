@@ -812,6 +812,10 @@ struct Frame_wrapper : vgui::Frame, bp::wrapper< vgui::Frame > {
         vgui::Panel::InvalidateLayout( layoutNow, reloadScheme );
     }
 
+    void OnChildSettingsApplied( ::KeyValues * pInResourceData, ::vgui::Panel * pChild ){
+        vgui::Panel::OnChildSettingsApplied( pInResourceData, pChild );
+    }
+
     void OnContinueDragging(  ){
         vgui::Panel::OnContinueDragging(  );
     }
@@ -1805,6 +1809,10 @@ void register_Frame_class(){
             , (void ( ::vgui::Panel::* )( bool,bool ) )(&::vgui::Panel::InvalidateLayout)
             , (void ( Frame_wrapper::* )( bool,bool ) )(&Frame_wrapper::default_InvalidateLayout)
             , ( bp::arg("layoutNow")=(bool)(false), bp::arg("reloadScheme")=(bool)(false) ) )    
+        .def( 
+            "OnChildSettingsApplied"
+            , (void ( Frame_wrapper::* )( ::KeyValues *,::vgui::Panel * ) )(&Frame_wrapper::OnChildSettingsApplied)
+            , ( bp::arg("pInResourceData"), bp::arg("pChild") ) )    
         .def( 
             "OnContinueDragging"
             , (void ( Frame_wrapper::* )(  ) )(&Frame_wrapper::OnContinueDragging) )    

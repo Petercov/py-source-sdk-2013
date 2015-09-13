@@ -466,22 +466,22 @@ struct C_BaseCombatCharacter_wrapper : C_BaseCombatCharacter, bp::wrapper< C_Bas
     }
 
     virtual void UpdateOnRemove(  ) {
-        PY_OVERRIDE_CHECK( C_BaseEntity, UpdateOnRemove )
-        PY_OVERRIDE_LOG( _entities, C_BaseEntity, UpdateOnRemove )
+        PY_OVERRIDE_CHECK( C_BaseAnimating, UpdateOnRemove )
+        PY_OVERRIDE_LOG( _entities, C_BaseAnimating, UpdateOnRemove )
         bp::override func_UpdateOnRemove = this->get_override( "UpdateOnRemove" );
         if( func_UpdateOnRemove.ptr() != Py_None )
             try {
                 func_UpdateOnRemove(  );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                this->C_BaseEntity::UpdateOnRemove(  );
+                this->C_BaseAnimating::UpdateOnRemove(  );
             }
         else
-            this->C_BaseEntity::UpdateOnRemove(  );
+            this->C_BaseAnimating::UpdateOnRemove(  );
     }
     
     void default_UpdateOnRemove(  ) {
-        C_BaseEntity::UpdateOnRemove( );
+        C_BaseAnimating::UpdateOnRemove( );
     }
 
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
@@ -643,6 +643,15 @@ void register_C_BaseCombatCharacter_class(){
                 , IsBaseCombatCharacter_function_type( &::C_BaseCombatCharacter::IsBaseCombatCharacter ) );
         
         }
+        { //::C_BaseCombatCharacter::IsClientSideGlowEnabled
+        
+            typedef bool ( ::C_BaseCombatCharacter::*IsClientSideGlowEnabled_function_type )(  ) ;
+            
+            C_BaseCombatCharacter_exposer.def( 
+                "IsClientSideGlowEnabled"
+                , IsClientSideGlowEnabled_function_type( &::C_BaseCombatCharacter::IsClientSideGlowEnabled ) );
+        
+        }
         { //::C_BaseCombatCharacter::IsInFieldOfView
         
             typedef bool ( ::C_BaseCombatCharacter::*IsInFieldOfView_function_type )( ::C_BaseEntity * ) const;
@@ -772,6 +781,16 @@ void register_C_BaseCombatCharacter_class(){
                 "SetBloodColor"
                 , SetBloodColor_function_type( &::C_BaseCombatCharacter::SetBloodColor )
                 , ( bp::arg("nBloodColor") ) );
+        
+        }
+        { //::C_BaseCombatCharacter::SetClientSideGlowEnabled
+        
+            typedef void ( ::C_BaseCombatCharacter::*SetClientSideGlowEnabled_function_type )( bool ) ;
+            
+            C_BaseCombatCharacter_exposer.def( 
+                "SetClientSideGlowEnabled"
+                , SetClientSideGlowEnabled_function_type( &::C_BaseCombatCharacter::SetClientSideGlowEnabled )
+                , ( bp::arg("bEnabled") ) );
         
         }
         { //::C_BaseCombatCharacter::SetNextAttack
@@ -1076,14 +1095,14 @@ void register_C_BaseCombatCharacter_class(){
                 , ( bp::arg("pOther") ) );
         
         }
-        { //::C_BaseEntity::UpdateOnRemove
+        { //::C_BaseAnimating::UpdateOnRemove
         
-            typedef void ( ::C_BaseEntity::*UpdateOnRemove_function_type )(  ) ;
+            typedef void ( ::C_BaseAnimating::*UpdateOnRemove_function_type )(  ) ;
             typedef void ( C_BaseCombatCharacter_wrapper::*default_UpdateOnRemove_function_type )(  ) ;
             
             C_BaseCombatCharacter_exposer.def( 
                 "UpdateOnRemove"
-                , UpdateOnRemove_function_type(&::C_BaseEntity::UpdateOnRemove)
+                , UpdateOnRemove_function_type(&::C_BaseAnimating::UpdateOnRemove)
                 , default_UpdateOnRemove_function_type(&C_BaseCombatCharacter_wrapper::default_UpdateOnRemove) );
         
         }

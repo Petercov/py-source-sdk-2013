@@ -67,8 +67,7 @@ class Animation(SemiSharedModuleGenerator):
         # Excludes
         cls.mem_fun('GetBaseMap').exclude()
         cls.var('m_DataMap').exclude()
-        if self.settings.branch == 'swarm':
-            cls.mem_fun('pActivityModifier').exclude()
+        cls.mem_fun('pActivityModifier').exclude()
         cls.mem_fun('pAutolayer').exclude()
         cls.mem_fun('pBoneweight').exclude()
         cls.mem_fun('pEvent').exclude()

@@ -322,6 +322,16 @@ void register_TextImage_class(){
                 , ( bp::arg("inst") ) );
         
         }
+        { //::vgui::TextImage::GetEllipsesPosition
+        
+            typedef wchar_t const * ( ::vgui::TextImage::*GetEllipsesPosition_function_type )(  ) const;
+            
+            TextImage_exposer.def( 
+                "GetEllipsesPosition"
+                , GetEllipsesPosition_function_type( &::vgui::TextImage::GetEllipsesPosition )
+                , bp::return_value_policy< bp::return_by_value >() );
+        
+        }
         { //::vgui::TextImage::GetFont
         
             typedef ::vgui::HFont ( ::vgui::TextImage::*GetFont_function_type )(  ) ;
@@ -358,6 +368,15 @@ void register_TextImage_class(){
             TextImage_exposer.def( 
                 "GetUnlocalizedTextSymbol"
                 , GetUnlocalizedTextSymbol_function_type( &::vgui::TextImage::GetUnlocalizedTextSymbol ) );
+        
+        }
+        { //::vgui::TextImage::IsWrapping
+        
+            typedef bool ( ::vgui::TextImage::*IsWrapping_function_type )(  ) const;
+            
+            TextImage_exposer.def( 
+                "IsWrapping"
+                , IsWrapping_function_type( &::vgui::TextImage::IsWrapping ) );
         
         }
         { //::vgui::TextImage::Paint

@@ -44,7 +44,8 @@ static boost::python::tuple GetSize_69f7f625b2d0bcaac60f977200868e1c( ::CAvatarI
 
 void register_AvatarImage_class(){
 
-    bp::class_< CAvatarImage, bp::bases< vgui::IImage > >( "AvatarImage", bp::init< >() )    
+    bp::class_< CAvatarImage, bp::bases< vgui::IImage >, boost::noncopyable >( "AvatarImage", bp::no_init )    
+        .def( bp::init< >() )    
         .def( 
             "ClearAvatarSteamID"
             , (void ( ::CAvatarImage::* )(  ) )( &::CAvatarImage::ClearAvatarSteamID ) )    

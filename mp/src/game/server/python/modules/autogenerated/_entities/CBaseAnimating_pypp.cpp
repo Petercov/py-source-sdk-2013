@@ -2148,6 +2148,16 @@ void register_CBaseAnimating_class(){
                 , ( bp::arg("activity"), bp::arg("curSequence") ) );
         
         }
+        { //::CBaseAnimating::SelectWeightedSequenceFromModifiers
+        
+            typedef int ( ::CBaseAnimating::*SelectWeightedSequenceFromModifiers_function_type )( ::Activity,::CUtlSymbol *,int ) ;
+            
+            CBaseAnimating_exposer.def( 
+                "SelectWeightedSequenceFromModifiers"
+                , SelectWeightedSequenceFromModifiers_function_type( &::CBaseAnimating::SelectWeightedSequenceFromModifiers )
+                , ( bp::arg("activity"), bp::arg("pActivityModifiers"), bp::arg("iModifierCount") ) );
+        
+        }
         { //::CBaseAnimating::SequenceDuration
         
             typedef float ( ::CBaseAnimating::*SequenceDuration_function_type )(  ) ;

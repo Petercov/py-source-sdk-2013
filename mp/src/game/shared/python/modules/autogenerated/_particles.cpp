@@ -115,6 +115,9 @@ BOOST_PYTHON_MODULE(_particles){
             "GetFirstFrameFlag"
             , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetFirstFrameFlag ) )    
         .def( 
+            "GetIsViewModelEffect"
+            , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetIsViewModelEffect ) )    
+        .def( 
             "GetNeedsBBoxUpdate"
             , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetNeedsBBoxUpdate ) )    
         .def( 
@@ -224,6 +227,10 @@ BOOST_PYTHON_MODULE(_particles){
             "SetFirstFrameFlag"
             , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::SetFirstFrameFlag )
             , ( bp::arg("bFirst") ) )    
+        .def( 
+            "SetIsViewModelEffect"
+            , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::SetIsViewModelEffect )
+            , ( bp::arg("bIsViewModelEffect") ) )    
         .def( 
             "SetNeedsBBoxUpdate"
             , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::SetNeedsBBoxUpdate )

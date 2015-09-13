@@ -734,9 +734,6 @@ void register_CBaseCombatWeapon_class(){
             , (void ( ::CBaseCombatWeapon::* )(  ) )(&::CBaseCombatWeapon::Activate)
             , (void ( CBaseCombatWeapon_wrapper::* )(  ) )(&CBaseCombatWeapon_wrapper::default_Activate) )    
         .def( 
-            "ActivityListCount"
-            , (int ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::ActivityListCount ) )    
-        .def( 
             "ActivityOverride"
             , (::Activity ( ::CBaseCombatWeapon::* )( ::Activity,bool * ) )( &::CBaseCombatWeapon::ActivityOverride )
             , ( bp::arg("baseAct"), bp::arg("pRequired") ) )    
@@ -758,7 +755,7 @@ void register_CBaseCombatWeapon_class(){
             , (void ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::AttemptToMaterialize ) )    
         .def( 
             "AutoFiresFullClip"
-            , (bool ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::AutoFiresFullClip ) )    
+            , (bool ( ::CBaseCombatWeapon::* )(  ) const)( &::CBaseCombatWeapon::AutoFiresFullClip ) )    
         .def( 
             "CalcViewmodelBob"
             , (float ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::CalcViewmodelBob ) )    
@@ -773,13 +770,10 @@ void register_CBaseCombatWeapon_class(){
             , (bool ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::CanDeploy ) )    
         .def( 
             "CanHolster"
-            , (bool ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::CanHolster ) )    
+            , (bool ( ::CBaseCombatWeapon::* )(  ) const)( &::CBaseCombatWeapon::CanHolster ) )    
         .def( 
             "CanLower"
             , (bool ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::CanLower ) )    
-        .def( 
-            "CanOverload"
-            , (bool ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::CanOverload ) )    
         .def( 
             "CanPerformSecondaryAttack"
             , (bool ( ::CBaseCombatWeapon::* )(  ) const)( &::CBaseCombatWeapon::CanPerformSecondaryAttack ) )    
@@ -849,8 +843,11 @@ void register_CBaseCombatWeapon_class(){
             "FinishReload"
             , (void ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::FinishReload ) )    
         .def( 
+            "ForceWeaponSwitch"
+            , (bool ( ::CBaseCombatWeapon::* )(  ) const)( &::CBaseCombatWeapon::ForceWeaponSwitch ) )    
+        .def( 
             "GetActivity"
-            , (::Activity ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::GetActivity ) )    
+            , (::Activity ( ::CBaseCombatWeapon::* )(  ) const)( &::CBaseCombatWeapon::GetActivity ) )    
         .def( 
             "GetAnimPrefix"
             , (char const * ( ::CBaseCombatWeapon::* )(  ) const)( &::CBaseCombatWeapon::GetAnimPrefix ) )    
@@ -1069,7 +1066,7 @@ void register_CBaseCombatWeapon_class(){
             , (bool ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::IsRemoveable ) )    
         .def( 
             "IsViewModelSequenceFinished"
-            , (bool ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::IsViewModelSequenceFinished ) )    
+            , (bool ( ::CBaseCombatWeapon::* )(  ) const)( &::CBaseCombatWeapon::IsViewModelSequenceFinished ) )    
         .def( 
             "IsWeaponVisible"
             , (bool ( ::CBaseCombatWeapon::* )(  ) )( &::CBaseCombatWeapon::IsWeaponVisible ) )    
@@ -1132,6 +1129,10 @@ void register_CBaseCombatWeapon_class(){
             "Operator_HandleAnimEvent"
             , (void ( ::CBaseCombatWeapon::* )( ::animevent_t *,::CBaseCombatCharacter * ) )( &::CBaseCombatWeapon::Operator_HandleAnimEvent )
             , ( bp::arg("pEvent"), bp::arg("pOperator") ) )    
+        .def( 
+            "PoseParameterOverride"
+            , (void ( ::CBaseCombatWeapon::* )( bool ) )( &::CBaseCombatWeapon::PoseParameterOverride )
+            , ( bp::arg("bReset") ) )    
         .def( 
             "Precache"
             , (void ( ::CBaseCombatWeapon::* )(  ) )(&::CBaseCombatWeapon::Precache)

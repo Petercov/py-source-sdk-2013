@@ -136,6 +136,10 @@ struct AnimationController_wrapper : vgui::AnimationController, bp::wrapper< vgu
         vgui::Panel::OnChildAdded( child );
     }
 
+    void OnChildSettingsApplied( ::KeyValues * pInResourceData, ::vgui::Panel * pChild ){
+        vgui::Panel::OnChildSettingsApplied( pInResourceData, pChild );
+    }
+
     virtual void OnCommand( char const * command ) {
         PY_OVERRIDE_CHECK( vgui::Panel, OnCommand )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, OnCommand )
@@ -1026,6 +1030,16 @@ void register_AnimationController_class(){
                 , CancelAllAnimations_function_type( &::vgui::AnimationController::CancelAllAnimations ) );
         
         }
+        { //::vgui::AnimationController::CancelAnimationsForPanel
+        
+            typedef void ( ::vgui::AnimationController::*CancelAnimationsForPanel_function_type )( ::vgui::Panel * ) ;
+            
+            AnimationController_exposer.def( 
+                "CancelAnimationsForPanel"
+                , CancelAnimationsForPanel_function_type( &::vgui::AnimationController::CancelAnimationsForPanel )
+                , ( bp::arg("pWithinParent") ) );
+        
+        }
         { //::vgui::AnimationController::GetAnimationSequenceLength
         
             typedef float ( ::vgui::AnimationController::*GetAnimationSequenceLength_function_type )( char const * ) ;
@@ -1138,6 +1152,16 @@ void register_AnimationController_class(){
             AnimationController_exposer.def( 
                 "StartAnimationSequence"
                 , StartAnimationSequence_function_type( &::vgui::AnimationController::StartAnimationSequence )
+                , ( bp::arg("pWithinParent"), bp::arg("sequenceName") ) );
+        
+        }
+        { //::vgui::AnimationController::StopAnimationSequence
+        
+            typedef bool ( ::vgui::AnimationController::*StopAnimationSequence_function_type )( ::vgui::Panel *,char const * ) ;
+            
+            AnimationController_exposer.def( 
+                "StopAnimationSequence"
+                , StopAnimationSequence_function_type( &::vgui::AnimationController::StopAnimationSequence )
                 , ( bp::arg("pWithinParent"), bp::arg("sequenceName") ) );
         
         }
@@ -1292,6 +1316,16 @@ void register_AnimationController_class(){
                 , OnChildAdded_function_type(&::vgui::Panel::OnChildAdded)
                 , default_OnChildAdded_function_type(&AnimationController_wrapper::default_OnChildAdded)
                 , ( bp::arg("child") ) );
+        
+        }
+        { //::vgui::Panel::OnChildSettingsApplied
+        
+            typedef void ( AnimationController_wrapper::*OnChildSettingsApplied_function_type )( ::KeyValues *,::vgui::Panel * ) ;
+            
+            AnimationController_exposer.def( 
+                "OnChildSettingsApplied"
+                , OnChildSettingsApplied_function_type( &AnimationController_wrapper::OnChildSettingsApplied )
+                , ( bp::arg("pInResourceData"), bp::arg("pChild") ) );
         
         }
         { //::vgui::Panel::OnCommand

@@ -1986,11 +1986,12 @@ void register_C_BaseEntity_class(){
         }
         { //::C_BaseEntity::GetPredictionRandomSeed
         
-            typedef int ( *GetPredictionRandomSeed_function_type )(  );
+            typedef int ( *GetPredictionRandomSeed_function_type )( bool );
             
             C_BaseEntity_exposer.def( 
                 "GetPredictionRandomSeed"
-                , GetPredictionRandomSeed_function_type( &::C_BaseEntity::GetPredictionRandomSeed ) );
+                , GetPredictionRandomSeed_function_type( &::C_BaseEntity::GetPredictionRandomSeed )
+                , ( bp::arg("bUseUnSyncedServerPlatTime")=(bool)(false) ) );
         
         }
         { //::C_BaseEntity::GetPrevLocalAngles
@@ -2655,6 +2656,15 @@ void register_C_BaseEntity_class(){
             C_BaseEntity_exposer.def( 
                 "IsClientCreated"
                 , IsClientCreated_function_type( &::C_BaseEntity::IsClientCreated ) );
+        
+        }
+        { //::C_BaseEntity::IsCombatCharacter
+        
+            typedef bool ( ::C_BaseEntity::*IsCombatCharacter_function_type )(  ) ;
+            
+            C_BaseEntity_exposer.def( 
+                "IsCombatCharacter"
+                , IsCombatCharacter_function_type( &::C_BaseEntity::IsCombatCharacter ) );
         
         }
         { //::C_BaseEntity::IsCombatItem
@@ -4962,6 +4972,16 @@ void register_C_BaseEntity_class(){
                 "TraceBleed"
                 , TraceBleed_function_type( &::C_BaseEntity::TraceBleed )
                 , ( bp::arg("flDamage"), bp::arg("vecDir"), bp::arg("ptr"), bp::arg("bitsDamageType") ) );
+        
+        }
+        { //::C_BaseEntity::TrackAngRotation
+        
+            typedef void ( ::C_BaseEntity::*TrackAngRotation_function_type )( bool ) ;
+            
+            C_BaseEntity_exposer.def( 
+                "TrackAngRotation"
+                , TrackAngRotation_function_type( &::C_BaseEntity::TrackAngRotation )
+                , ( bp::arg("bTrack") ) );
         
         }
         { //::C_BaseEntity::UnsetPlayerSimulated

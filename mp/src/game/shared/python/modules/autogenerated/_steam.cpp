@@ -36,13 +36,6 @@ namespace bp = boost::python;
 
 struct FriendsEnumerateFollowingList_t_wrapper : FriendsEnumerateFollowingList_t, bp::wrapper< FriendsEnumerateFollowingList_t > {
 
-    FriendsEnumerateFollowingList_t_wrapper(FriendsEnumerateFollowingList_t const & arg )
-    : FriendsEnumerateFollowingList_t( arg )
-      , bp::wrapper< FriendsEnumerateFollowingList_t >(){
-        // copy constructor
-        
-    }
-
     FriendsEnumerateFollowingList_t_wrapper()
     : FriendsEnumerateFollowingList_t()
       , bp::wrapper< FriendsEnumerateFollowingList_t >(){
@@ -59,13 +52,6 @@ struct FriendsEnumerateFollowingList_t_wrapper : FriendsEnumerateFollowingList_t
 
 struct GameRichPresenceJoinRequested_t_wrapper : GameRichPresenceJoinRequested_t, bp::wrapper< GameRichPresenceJoinRequested_t > {
 
-    GameRichPresenceJoinRequested_t_wrapper(GameRichPresenceJoinRequested_t const & arg )
-    : GameRichPresenceJoinRequested_t( arg )
-      , bp::wrapper< GameRichPresenceJoinRequested_t >(){
-        // copy constructor
-        
-    }
-
     GameRichPresenceJoinRequested_t_wrapper()
     : GameRichPresenceJoinRequested_t()
       , bp::wrapper< GameRichPresenceJoinRequested_t >(){
@@ -81,13 +67,6 @@ struct GameRichPresenceJoinRequested_t_wrapper : GameRichPresenceJoinRequested_t
 };
 
 struct GameServerChangeRequested_t_wrapper : GameServerChangeRequested_t, bp::wrapper< GameServerChangeRequested_t > {
-
-    GameServerChangeRequested_t_wrapper(GameServerChangeRequested_t const & arg )
-    : GameServerChangeRequested_t( arg )
-      , bp::wrapper< GameServerChangeRequested_t >(){
-        // copy constructor
-        
-    }
 
     GameServerChangeRequested_t_wrapper()
     : GameServerChangeRequested_t()
@@ -410,13 +389,6 @@ PY_STEAM_CALLBACK_WRAPPER( PersonaStateChange, PersonaStateChange_t );
 
 struct PersonaStateChangeCallback_wrapper : PersonaStateChangeCallback, bp::wrapper< PersonaStateChangeCallback > {
 
-    PersonaStateChangeCallback_wrapper(PersonaStateChangeCallback const & arg )
-    : PersonaStateChangeCallback( arg )
-      , bp::wrapper< PersonaStateChangeCallback >(){
-        // copy constructor
-        
-    }
-
     PersonaStateChangeCallback_wrapper()
     : PersonaStateChangeCallback()
       , bp::wrapper< PersonaStateChangeCallback >(){
@@ -447,13 +419,6 @@ struct PersonaStateChangeCallback_wrapper : PersonaStateChangeCallback, bp::wrap
 PY_STEAM_CALLBACK_WRAPPER( GameOverlayActivated, GameOverlayActivated_t );
 
 struct GameOverlayActivatedCallback_wrapper : GameOverlayActivatedCallback, bp::wrapper< GameOverlayActivatedCallback > {
-
-    GameOverlayActivatedCallback_wrapper(GameOverlayActivatedCallback const & arg )
-    : GameOverlayActivatedCallback( arg )
-      , bp::wrapper< GameOverlayActivatedCallback >(){
-        // copy constructor
-        
-    }
 
     GameOverlayActivatedCallback_wrapper()
     : GameOverlayActivatedCallback()
@@ -486,13 +451,6 @@ PY_STEAM_CALLBACK_WRAPPER( GameServerChangeRequested, GameServerChangeRequested_
 
 struct GameServerChangeRequestedCallback_wrapper : GameServerChangeRequestedCallback, bp::wrapper< GameServerChangeRequestedCallback > {
 
-    GameServerChangeRequestedCallback_wrapper(GameServerChangeRequestedCallback const & arg )
-    : GameServerChangeRequestedCallback( arg )
-      , bp::wrapper< GameServerChangeRequestedCallback >(){
-        // copy constructor
-        
-    }
-
     GameServerChangeRequestedCallback_wrapper()
     : GameServerChangeRequestedCallback()
       , bp::wrapper< GameServerChangeRequestedCallback >(){
@@ -523,13 +481,6 @@ struct GameServerChangeRequestedCallback_wrapper : GameServerChangeRequestedCall
 PY_STEAM_CALLBACK_WRAPPER( GameLobbyJoinRequested, GameLobbyJoinRequested_t );
 
 struct GameLobbyJoinRequestedCallback_wrapper : GameLobbyJoinRequestedCallback, bp::wrapper< GameLobbyJoinRequestedCallback > {
-
-    GameLobbyJoinRequestedCallback_wrapper(GameLobbyJoinRequestedCallback const & arg )
-    : GameLobbyJoinRequestedCallback( arg )
-      , bp::wrapper< GameLobbyJoinRequestedCallback >(){
-        // copy constructor
-        
-    }
 
     GameLobbyJoinRequestedCallback_wrapper()
     : GameLobbyJoinRequestedCallback()
@@ -562,13 +513,6 @@ PY_STEAM_CALLBACK_WRAPPER( AvatarImageLoaded, AvatarImageLoaded_t );
 
 struct AvatarImageLoadedCallback_wrapper : AvatarImageLoadedCallback, bp::wrapper< AvatarImageLoadedCallback > {
 
-    AvatarImageLoadedCallback_wrapper(AvatarImageLoadedCallback const & arg )
-    : AvatarImageLoadedCallback( arg )
-      , bp::wrapper< AvatarImageLoadedCallback >(){
-        // copy constructor
-        
-    }
-
     AvatarImageLoadedCallback_wrapper()
     : AvatarImageLoadedCallback()
       , bp::wrapper< AvatarImageLoadedCallback >(){
@@ -599,13 +543,6 @@ struct AvatarImageLoadedCallback_wrapper : AvatarImageLoadedCallback, bp::wrappe
 PY_STEAM_CALLBACK_WRAPPER( ClanOfficerListResponse, ClanOfficerListResponse_t );
 
 struct ClanOfficerListResponseCallback_wrapper : ClanOfficerListResponseCallback, bp::wrapper< ClanOfficerListResponseCallback > {
-
-    ClanOfficerListResponseCallback_wrapper(ClanOfficerListResponseCallback const & arg )
-    : ClanOfficerListResponseCallback( arg )
-      , bp::wrapper< ClanOfficerListResponseCallback >(){
-        // copy constructor
-        
-    }
 
     ClanOfficerListResponseCallback_wrapper()
     : ClanOfficerListResponseCallback()
@@ -638,13 +575,6 @@ PY_STEAM_CALLBACK_WRAPPER( FriendRichPresenceUpdate, FriendRichPresenceUpdate_t 
 
 struct FriendRichPresenceUpdateCallback_wrapper : FriendRichPresenceUpdateCallback, bp::wrapper< FriendRichPresenceUpdateCallback > {
 
-    FriendRichPresenceUpdateCallback_wrapper(FriendRichPresenceUpdateCallback const & arg )
-    : FriendRichPresenceUpdateCallback( arg )
-      , bp::wrapper< FriendRichPresenceUpdateCallback >(){
-        // copy constructor
-        
-    }
-
     FriendRichPresenceUpdateCallback_wrapper()
     : FriendRichPresenceUpdateCallback()
       , bp::wrapper< FriendRichPresenceUpdateCallback >(){
@@ -675,13 +605,6 @@ struct FriendRichPresenceUpdateCallback_wrapper : FriendRichPresenceUpdateCallba
 PY_STEAM_CALLBACK_WRAPPER( GameRichPresenceJoinRequested, GameRichPresenceJoinRequested_t );
 
 struct GameRichPresenceJoinRequestedCallback_wrapper : GameRichPresenceJoinRequestedCallback, bp::wrapper< GameRichPresenceJoinRequestedCallback > {
-
-    GameRichPresenceJoinRequestedCallback_wrapper(GameRichPresenceJoinRequestedCallback const & arg )
-    : GameRichPresenceJoinRequestedCallback( arg )
-      , bp::wrapper< GameRichPresenceJoinRequestedCallback >(){
-        // copy constructor
-        
-    }
 
     GameRichPresenceJoinRequestedCallback_wrapper()
     : GameRichPresenceJoinRequestedCallback()
@@ -714,13 +637,6 @@ PY_STEAM_CALLBACK_WRAPPER( GameConnectedClanChatMsg, GameConnectedClanChatMsg_t 
 
 struct GameConnectedClanChatMsgCallback_wrapper : GameConnectedClanChatMsgCallback, bp::wrapper< GameConnectedClanChatMsgCallback > {
 
-    GameConnectedClanChatMsgCallback_wrapper(GameConnectedClanChatMsgCallback const & arg )
-    : GameConnectedClanChatMsgCallback( arg )
-      , bp::wrapper< GameConnectedClanChatMsgCallback >(){
-        // copy constructor
-        
-    }
-
     GameConnectedClanChatMsgCallback_wrapper()
     : GameConnectedClanChatMsgCallback()
       , bp::wrapper< GameConnectedClanChatMsgCallback >(){
@@ -751,13 +667,6 @@ struct GameConnectedClanChatMsgCallback_wrapper : GameConnectedClanChatMsgCallba
 PY_STEAM_CALLBACK_WRAPPER( GameConnectedChatJoin, GameConnectedChatJoin_t );
 
 struct GameConnectedChatJoinCallback_wrapper : GameConnectedChatJoinCallback, bp::wrapper< GameConnectedChatJoinCallback > {
-
-    GameConnectedChatJoinCallback_wrapper(GameConnectedChatJoinCallback const & arg )
-    : GameConnectedChatJoinCallback( arg )
-      , bp::wrapper< GameConnectedChatJoinCallback >(){
-        // copy constructor
-        
-    }
 
     GameConnectedChatJoinCallback_wrapper()
     : GameConnectedChatJoinCallback()
@@ -790,13 +699,6 @@ PY_STEAM_CALLBACK_WRAPPER( GameConnectedChatLeave, GameConnectedChatLeave_t );
 
 struct GameConnectedChatLeaveCallback_wrapper : GameConnectedChatLeaveCallback, bp::wrapper< GameConnectedChatLeaveCallback > {
 
-    GameConnectedChatLeaveCallback_wrapper(GameConnectedChatLeaveCallback const & arg )
-    : GameConnectedChatLeaveCallback( arg )
-      , bp::wrapper< GameConnectedChatLeaveCallback >(){
-        // copy constructor
-        
-    }
-
     GameConnectedChatLeaveCallback_wrapper()
     : GameConnectedChatLeaveCallback()
       , bp::wrapper< GameConnectedChatLeaveCallback >(){
@@ -827,13 +729,6 @@ struct GameConnectedChatLeaveCallback_wrapper : GameConnectedChatLeaveCallback, 
 PY_STEAM_CALLBACK_WRAPPER( DownloadClanActivityCountsResult, DownloadClanActivityCountsResult_t );
 
 struct DownloadClanActivityCountsResultCallback_wrapper : DownloadClanActivityCountsResultCallback, bp::wrapper< DownloadClanActivityCountsResultCallback > {
-
-    DownloadClanActivityCountsResultCallback_wrapper(DownloadClanActivityCountsResultCallback const & arg )
-    : DownloadClanActivityCountsResultCallback( arg )
-      , bp::wrapper< DownloadClanActivityCountsResultCallback >(){
-        // copy constructor
-        
-    }
 
     DownloadClanActivityCountsResultCallback_wrapper()
     : DownloadClanActivityCountsResultCallback()
@@ -866,13 +761,6 @@ PY_STEAM_CALLBACK_WRAPPER( JoinClanChatRoomCompletionResult, JoinClanChatRoomCom
 
 struct JoinClanChatRoomCompletionResultCallback_wrapper : JoinClanChatRoomCompletionResultCallback, bp::wrapper< JoinClanChatRoomCompletionResultCallback > {
 
-    JoinClanChatRoomCompletionResultCallback_wrapper(JoinClanChatRoomCompletionResultCallback const & arg )
-    : JoinClanChatRoomCompletionResultCallback( arg )
-      , bp::wrapper< JoinClanChatRoomCompletionResultCallback >(){
-        // copy constructor
-        
-    }
-
     JoinClanChatRoomCompletionResultCallback_wrapper()
     : JoinClanChatRoomCompletionResultCallback()
       , bp::wrapper< JoinClanChatRoomCompletionResultCallback >(){
@@ -903,13 +791,6 @@ struct JoinClanChatRoomCompletionResultCallback_wrapper : JoinClanChatRoomComple
 PY_STEAM_CALLBACK_WRAPPER( GameConnectedFriendChatMsg, GameConnectedFriendChatMsg_t );
 
 struct GameConnectedFriendChatMsgCallback_wrapper : GameConnectedFriendChatMsgCallback, bp::wrapper< GameConnectedFriendChatMsgCallback > {
-
-    GameConnectedFriendChatMsgCallback_wrapper(GameConnectedFriendChatMsgCallback const & arg )
-    : GameConnectedFriendChatMsgCallback( arg )
-      , bp::wrapper< GameConnectedFriendChatMsgCallback >(){
-        // copy constructor
-        
-    }
 
     GameConnectedFriendChatMsgCallback_wrapper()
     : GameConnectedFriendChatMsgCallback()
@@ -942,13 +823,6 @@ PY_STEAM_CALLBACK_WRAPPER( FriendsGetFollowerCount, FriendsGetFollowerCount_t );
 
 struct FriendsGetFollowerCountCallback_wrapper : FriendsGetFollowerCountCallback, bp::wrapper< FriendsGetFollowerCountCallback > {
 
-    FriendsGetFollowerCountCallback_wrapper(FriendsGetFollowerCountCallback const & arg )
-    : FriendsGetFollowerCountCallback( arg )
-      , bp::wrapper< FriendsGetFollowerCountCallback >(){
-        // copy constructor
-        
-    }
-
     FriendsGetFollowerCountCallback_wrapper()
     : FriendsGetFollowerCountCallback()
       , bp::wrapper< FriendsGetFollowerCountCallback >(){
@@ -979,13 +853,6 @@ struct FriendsGetFollowerCountCallback_wrapper : FriendsGetFollowerCountCallback
 PY_STEAM_CALLBACK_WRAPPER( FriendsIsFollowing, FriendsIsFollowing_t );
 
 struct FriendsIsFollowingCallback_wrapper : FriendsIsFollowingCallback, bp::wrapper< FriendsIsFollowingCallback > {
-
-    FriendsIsFollowingCallback_wrapper(FriendsIsFollowingCallback const & arg )
-    : FriendsIsFollowingCallback( arg )
-      , bp::wrapper< FriendsIsFollowingCallback >(){
-        // copy constructor
-        
-    }
 
     FriendsIsFollowingCallback_wrapper()
     : FriendsIsFollowingCallback()
@@ -1018,13 +885,6 @@ PY_STEAM_CALLBACK_WRAPPER( FriendsEnumerateFollowingList, FriendsEnumerateFollow
 
 struct FriendsEnumerateFollowingListCallback_wrapper : FriendsEnumerateFollowingListCallback, bp::wrapper< FriendsEnumerateFollowingListCallback > {
 
-    FriendsEnumerateFollowingListCallback_wrapper(FriendsEnumerateFollowingListCallback const & arg )
-    : FriendsEnumerateFollowingListCallback( arg )
-      , bp::wrapper< FriendsEnumerateFollowingListCallback >(){
-        // copy constructor
-        
-    }
-
     FriendsEnumerateFollowingListCallback_wrapper()
     : FriendsEnumerateFollowingListCallback()
       , bp::wrapper< FriendsEnumerateFollowingListCallback >(){
@@ -1055,13 +915,6 @@ struct FriendsEnumerateFollowingListCallback_wrapper : FriendsEnumerateFollowing
 PY_STEAM_CALLBACK_WRAPPER( SetPersonaNameResponse, SetPersonaNameResponse_t );
 
 struct SetPersonaNameResponseCallback_wrapper : SetPersonaNameResponseCallback, bp::wrapper< SetPersonaNameResponseCallback > {
-
-    SetPersonaNameResponseCallback_wrapper(SetPersonaNameResponseCallback const & arg )
-    : SetPersonaNameResponseCallback( arg )
-      , bp::wrapper< SetPersonaNameResponseCallback >(){
-        // copy constructor
-        
-    }
 
     SetPersonaNameResponseCallback_wrapper()
     : SetPersonaNameResponseCallback()
@@ -1094,12 +947,6 @@ PY_STEAM_CALLRESULT_WRAPPER( LobbyMatchList, LobbyMatchList_t );
 
 struct LobbyMatchListCallResult_wrapper : LobbyMatchListCallResult, bp::wrapper< LobbyMatchListCallResult > {
 
-    LobbyMatchListCallResult_wrapper(LobbyMatchListCallResult const & arg )
-    : LobbyMatchListCallResult( arg )
-      , bp::wrapper< LobbyMatchListCallResult >(){
-        // copy constructor
-    }
-
     LobbyMatchListCallResult_wrapper(::SteamAPICall_t steamapicall )
     : LobbyMatchListCallResult( steamapicall )
       , bp::wrapper< LobbyMatchListCallResult >(){
@@ -1129,12 +976,6 @@ struct LobbyMatchListCallResult_wrapper : LobbyMatchListCallResult, bp::wrapper<
 PY_STEAM_CALLRESULT_WRAPPER( LobbyGameCreated, LobbyGameCreated_t );
 
 struct LobbyGameCreatedCallResult_wrapper : LobbyGameCreatedCallResult, bp::wrapper< LobbyGameCreatedCallResult > {
-
-    LobbyGameCreatedCallResult_wrapper(LobbyGameCreatedCallResult const & arg )
-    : LobbyGameCreatedCallResult( arg )
-      , bp::wrapper< LobbyGameCreatedCallResult >(){
-        // copy constructor
-    }
 
     LobbyGameCreatedCallResult_wrapper(::SteamAPICall_t steamapicall )
     : LobbyGameCreatedCallResult( steamapicall )
@@ -1166,12 +1007,6 @@ PY_STEAM_CALLRESULT_WRAPPER( LobbyCreated, LobbyCreated_t );
 
 struct LobbyCreatedCallResult_wrapper : LobbyCreatedCallResult, bp::wrapper< LobbyCreatedCallResult > {
 
-    LobbyCreatedCallResult_wrapper(LobbyCreatedCallResult const & arg )
-    : LobbyCreatedCallResult( arg )
-      , bp::wrapper< LobbyCreatedCallResult >(){
-        // copy constructor
-    }
-
     LobbyCreatedCallResult_wrapper(::SteamAPICall_t steamapicall )
     : LobbyCreatedCallResult( steamapicall )
       , bp::wrapper< LobbyCreatedCallResult >(){
@@ -1202,12 +1037,6 @@ PY_STEAM_CALLRESULT_WRAPPER( LobbyEnter, LobbyEnter_t );
 
 struct LobbyEnterCallResult_wrapper : LobbyEnterCallResult, bp::wrapper< LobbyEnterCallResult > {
 
-    LobbyEnterCallResult_wrapper(LobbyEnterCallResult const & arg )
-    : LobbyEnterCallResult( arg )
-      , bp::wrapper< LobbyEnterCallResult >(){
-        // copy constructor
-    }
-
     LobbyEnterCallResult_wrapper(::SteamAPICall_t steamapicall )
     : LobbyEnterCallResult( steamapicall )
       , bp::wrapper< LobbyEnterCallResult >(){
@@ -1237,13 +1066,6 @@ struct LobbyEnterCallResult_wrapper : LobbyEnterCallResult, bp::wrapper< LobbyEn
 PY_STEAM_CALLBACK_WRAPPER( LobbyChatUpdate, LobbyChatUpdate_t );
 
 struct LobbyChatUpdateCallback_wrapper : LobbyChatUpdateCallback, bp::wrapper< LobbyChatUpdateCallback > {
-
-    LobbyChatUpdateCallback_wrapper(LobbyChatUpdateCallback const & arg )
-    : LobbyChatUpdateCallback( arg )
-      , bp::wrapper< LobbyChatUpdateCallback >(){
-        // copy constructor
-        
-    }
 
     LobbyChatUpdateCallback_wrapper()
     : LobbyChatUpdateCallback()
@@ -1276,13 +1098,6 @@ PY_STEAM_CALLBACK_WRAPPER( LobbyChatMsg, LobbyChatMsg_t );
 
 struct LobbyChatMsgCallback_wrapper : LobbyChatMsgCallback, bp::wrapper< LobbyChatMsgCallback > {
 
-    LobbyChatMsgCallback_wrapper(LobbyChatMsgCallback const & arg )
-    : LobbyChatMsgCallback( arg )
-      , bp::wrapper< LobbyChatMsgCallback >(){
-        // copy constructor
-        
-    }
-
     LobbyChatMsgCallback_wrapper()
     : LobbyChatMsgCallback()
       , bp::wrapper< LobbyChatMsgCallback >(){
@@ -1314,13 +1129,6 @@ PY_STEAM_CALLBACK_WRAPPER( LobbyDataUpdate, LobbyDataUpdate_t );
 
 struct LobbyDataUpdateCallback_wrapper : LobbyDataUpdateCallback, bp::wrapper< LobbyDataUpdateCallback > {
 
-    LobbyDataUpdateCallback_wrapper(LobbyDataUpdateCallback const & arg )
-    : LobbyDataUpdateCallback( arg )
-      , bp::wrapper< LobbyDataUpdateCallback >(){
-        // copy constructor
-        
-    }
-
     LobbyDataUpdateCallback_wrapper()
     : LobbyDataUpdateCallback()
       , bp::wrapper< LobbyDataUpdateCallback >(){
@@ -1351,12 +1159,6 @@ struct LobbyDataUpdateCallback_wrapper : LobbyDataUpdateCallback, bp::wrapper< L
 PY_STEAM_CALLRESULT_WRAPPER( NumberOfCurrentPlayers, NumberOfCurrentPlayers_t );
 
 struct NumberOfCurrentPlayersCallResult_wrapper : NumberOfCurrentPlayersCallResult, bp::wrapper< NumberOfCurrentPlayersCallResult > {
-
-    NumberOfCurrentPlayersCallResult_wrapper(NumberOfCurrentPlayersCallResult const & arg )
-    : NumberOfCurrentPlayersCallResult( arg )
-      , bp::wrapper< NumberOfCurrentPlayersCallResult >(){
-        // copy constructor
-    }
 
     NumberOfCurrentPlayersCallResult_wrapper(::SteamAPICall_t steamapicall )
     : NumberOfCurrentPlayersCallResult( steamapicall )
@@ -1417,6 +1219,7 @@ BOOST_PYTHON_MODULE(_steam){
         .value("k_EChatEntryTypeHistoricalChat", k_EChatEntryTypeHistoricalChat)
         .value("k_EChatEntryTypeReserved1", k_EChatEntryTypeReserved1)
         .value("k_EChatEntryTypeReserved2", k_EChatEntryTypeReserved2)
+        .value("k_EChatEntryTypeLinkBlocked", k_EChatEntryTypeLinkBlocked)
         .export_values()
         ;
 
@@ -1629,6 +1432,17 @@ BOOST_PYTHON_MODULE(_steam){
         .value("k_EResultAccountLoginDeniedThrottle", k_EResultAccountLoginDeniedThrottle)
         .value("k_EResultTwoFactorCodeMismatch", k_EResultTwoFactorCodeMismatch)
         .value("k_EResultTwoFactorActivationCodeMismatch", k_EResultTwoFactorActivationCodeMismatch)
+        .value("k_EResultAccountAssociatedToMultiplePartners", k_EResultAccountAssociatedToMultiplePartners)
+        .value("k_EResultNotModified", k_EResultNotModified)
+        .value("k_EResultNoMobileDevice", k_EResultNoMobileDevice)
+        .value("k_EResultTimeNotSynced", k_EResultTimeNotSynced)
+        .value("k_EResultSmsCodeFailed", k_EResultSmsCodeFailed)
+        .value("k_EResultAccountLimitExceeded", k_EResultAccountLimitExceeded)
+        .value("k_EResultAccountActivityLimitExceeded", k_EResultAccountActivityLimitExceeded)
+        .value("k_EResultPhoneActivityLimitExceeded", k_EResultPhoneActivityLimitExceeded)
+        .value("k_EResultRefundToWallet", k_EResultRefundToWallet)
+        .value("k_EResultEmailSendFailure", k_EResultEmailSendFailure)
+        .value("k_EResultNotSettled", k_EResultNotSettled)
         .export_values()
         ;
 
@@ -1654,8 +1468,8 @@ BOOST_PYTHON_MODULE(_steam){
         ;
 
     { //::AvatarImageLoaded_t
-        typedef bp::class_< AvatarImageLoaded_t > AvatarImageLoaded_t_exposer_t;
-        AvatarImageLoaded_t_exposer_t AvatarImageLoaded_t_exposer = AvatarImageLoaded_t_exposer_t( "AvatarImageLoaded_t" );
+        typedef bp::class_< AvatarImageLoaded_t, boost::noncopyable > AvatarImageLoaded_t_exposer_t;
+        AvatarImageLoaded_t_exposer_t AvatarImageLoaded_t_exposer = AvatarImageLoaded_t_exposer_t( "AvatarImageLoaded_t", bp::no_init );
         bp::scope AvatarImageLoaded_t_scope( AvatarImageLoaded_t_exposer );
         bp::scope().attr("k_iCallback") = (int)AvatarImageLoaded_t::k_iCallback;
         AvatarImageLoaded_t_exposer.def_readwrite( "image", &AvatarImageLoaded_t::m_iImage );
@@ -1664,7 +1478,7 @@ BOOST_PYTHON_MODULE(_steam){
         AvatarImageLoaded_t_exposer.def_readwrite( "steamid", &AvatarImageLoaded_t::m_steamID );
     }
 
-    bp::class_< CSteamAPIContext >( "CSteamAPIContext", bp::no_init )    
+    bp::class_< CSteamAPIContext, boost::noncopyable >( "CSteamAPIContext", bp::no_init )    
         .def( bp::init< >() )    
         .def( 
             "SteamApps"
@@ -1994,8 +1808,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::ClanOfficerListResponse_t
-        typedef bp::class_< ClanOfficerListResponse_t > ClanOfficerListResponse_t_exposer_t;
-        ClanOfficerListResponse_t_exposer_t ClanOfficerListResponse_t_exposer = ClanOfficerListResponse_t_exposer_t( "ClanOfficerListResponse_t" );
+        typedef bp::class_< ClanOfficerListResponse_t, boost::noncopyable > ClanOfficerListResponse_t_exposer_t;
+        ClanOfficerListResponse_t_exposer_t ClanOfficerListResponse_t_exposer = ClanOfficerListResponse_t_exposer_t( "ClanOfficerListResponse_t", bp::no_init );
         bp::scope ClanOfficerListResponse_t_scope( ClanOfficerListResponse_t_exposer );
         bp::scope().attr("k_iCallback") = (int)ClanOfficerListResponse_t::k_iCallback;
         ClanOfficerListResponse_t_exposer.def_readwrite( "success", &ClanOfficerListResponse_t::m_bSuccess );
@@ -2004,16 +1818,16 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::DownloadClanActivityCountsResult_t
-        typedef bp::class_< DownloadClanActivityCountsResult_t > DownloadClanActivityCountsResult_t_exposer_t;
-        DownloadClanActivityCountsResult_t_exposer_t DownloadClanActivityCountsResult_t_exposer = DownloadClanActivityCountsResult_t_exposer_t( "DownloadClanActivityCountsResult_t" );
+        typedef bp::class_< DownloadClanActivityCountsResult_t, boost::noncopyable > DownloadClanActivityCountsResult_t_exposer_t;
+        DownloadClanActivityCountsResult_t_exposer_t DownloadClanActivityCountsResult_t_exposer = DownloadClanActivityCountsResult_t_exposer_t( "DownloadClanActivityCountsResult_t", bp::no_init );
         bp::scope DownloadClanActivityCountsResult_t_scope( DownloadClanActivityCountsResult_t_exposer );
         bp::scope().attr("k_iCallback") = (int)DownloadClanActivityCountsResult_t::k_iCallback;
         DownloadClanActivityCountsResult_t_exposer.def_readwrite( "success", &DownloadClanActivityCountsResult_t::m_bSuccess );
     }
 
     { //::FriendRichPresenceUpdate_t
-        typedef bp::class_< FriendRichPresenceUpdate_t > FriendRichPresenceUpdate_t_exposer_t;
-        FriendRichPresenceUpdate_t_exposer_t FriendRichPresenceUpdate_t_exposer = FriendRichPresenceUpdate_t_exposer_t( "FriendRichPresenceUpdate_t" );
+        typedef bp::class_< FriendRichPresenceUpdate_t, boost::noncopyable > FriendRichPresenceUpdate_t_exposer_t;
+        FriendRichPresenceUpdate_t_exposer_t FriendRichPresenceUpdate_t_exposer = FriendRichPresenceUpdate_t_exposer_t( "FriendRichPresenceUpdate_t", bp::no_init );
         bp::scope FriendRichPresenceUpdate_t_scope( FriendRichPresenceUpdate_t_exposer );
         bp::scope().attr("k_iCallback") = (int)FriendRichPresenceUpdate_t::k_iCallback;
         FriendRichPresenceUpdate_t_exposer.def_readwrite( "appid", &FriendRichPresenceUpdate_t::m_nAppID );
@@ -2021,8 +1835,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendsEnumerateFollowingList_t
-        typedef bp::class_< FriendsEnumerateFollowingList_t_wrapper > FriendsEnumerateFollowingList_t_exposer_t;
-        FriendsEnumerateFollowingList_t_exposer_t FriendsEnumerateFollowingList_t_exposer = FriendsEnumerateFollowingList_t_exposer_t( "FriendsEnumerateFollowingList_t" );
+        typedef bp::class_< FriendsEnumerateFollowingList_t_wrapper, boost::noncopyable > FriendsEnumerateFollowingList_t_exposer_t;
+        FriendsEnumerateFollowingList_t_exposer_t FriendsEnumerateFollowingList_t_exposer = FriendsEnumerateFollowingList_t_exposer_t( "FriendsEnumerateFollowingList_t", bp::no_init );
         bp::scope FriendsEnumerateFollowingList_t_scope( FriendsEnumerateFollowingList_t_exposer );
         bp::scope().attr("k_iCallback") = (int)FriendsEnumerateFollowingList_t::k_iCallback;
         FriendsEnumerateFollowingList_t_exposer.def_readwrite( "result", &FriendsEnumerateFollowingList_t::m_eResult );
@@ -2040,8 +1854,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendsGetFollowerCount_t
-        typedef bp::class_< FriendsGetFollowerCount_t > FriendsGetFollowerCount_t_exposer_t;
-        FriendsGetFollowerCount_t_exposer_t FriendsGetFollowerCount_t_exposer = FriendsGetFollowerCount_t_exposer_t( "FriendsGetFollowerCount_t" );
+        typedef bp::class_< FriendsGetFollowerCount_t, boost::noncopyable > FriendsGetFollowerCount_t_exposer_t;
+        FriendsGetFollowerCount_t_exposer_t FriendsGetFollowerCount_t_exposer = FriendsGetFollowerCount_t_exposer_t( "FriendsGetFollowerCount_t", bp::no_init );
         bp::scope FriendsGetFollowerCount_t_scope( FriendsGetFollowerCount_t_exposer );
         bp::scope().attr("k_iCallback") = (int)FriendsGetFollowerCount_t::k_iCallback;
         FriendsGetFollowerCount_t_exposer.def_readwrite( "result", &FriendsGetFollowerCount_t::m_eResult );
@@ -2050,8 +1864,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendsIsFollowing_t
-        typedef bp::class_< FriendsIsFollowing_t > FriendsIsFollowing_t_exposer_t;
-        FriendsIsFollowing_t_exposer_t FriendsIsFollowing_t_exposer = FriendsIsFollowing_t_exposer_t( "FriendsIsFollowing_t" );
+        typedef bp::class_< FriendsIsFollowing_t, boost::noncopyable > FriendsIsFollowing_t_exposer_t;
+        FriendsIsFollowing_t_exposer_t FriendsIsFollowing_t_exposer = FriendsIsFollowing_t_exposer_t( "FriendsIsFollowing_t", bp::no_init );
         bp::scope FriendsIsFollowing_t_scope( FriendsIsFollowing_t_exposer );
         bp::scope().attr("k_iCallback") = (int)FriendsIsFollowing_t::k_iCallback;
         FriendsIsFollowing_t_exposer.def_readwrite( "isfollowing", &FriendsIsFollowing_t::m_bIsFollowing );
@@ -2060,8 +1874,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedChatJoin_t
-        typedef bp::class_< GameConnectedChatJoin_t > GameConnectedChatJoin_t_exposer_t;
-        GameConnectedChatJoin_t_exposer_t GameConnectedChatJoin_t_exposer = GameConnectedChatJoin_t_exposer_t( "GameConnectedChatJoin_t" );
+        typedef bp::class_< GameConnectedChatJoin_t, boost::noncopyable > GameConnectedChatJoin_t_exposer_t;
+        GameConnectedChatJoin_t_exposer_t GameConnectedChatJoin_t_exposer = GameConnectedChatJoin_t_exposer_t( "GameConnectedChatJoin_t", bp::no_init );
         bp::scope GameConnectedChatJoin_t_scope( GameConnectedChatJoin_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameConnectedChatJoin_t::k_iCallback;
         GameConnectedChatJoin_t_exposer.def_readwrite( "steamidclanchat", &GameConnectedChatJoin_t::m_steamIDClanChat );
@@ -2069,8 +1883,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedChatLeave_t
-        typedef bp::class_< GameConnectedChatLeave_t > GameConnectedChatLeave_t_exposer_t;
-        GameConnectedChatLeave_t_exposer_t GameConnectedChatLeave_t_exposer = GameConnectedChatLeave_t_exposer_t( "GameConnectedChatLeave_t" );
+        typedef bp::class_< GameConnectedChatLeave_t, boost::noncopyable > GameConnectedChatLeave_t_exposer_t;
+        GameConnectedChatLeave_t_exposer_t GameConnectedChatLeave_t_exposer = GameConnectedChatLeave_t_exposer_t( "GameConnectedChatLeave_t", bp::no_init );
         bp::scope GameConnectedChatLeave_t_scope( GameConnectedChatLeave_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameConnectedChatLeave_t::k_iCallback;
         GameConnectedChatLeave_t_exposer.def_readwrite( "dropped", &GameConnectedChatLeave_t::m_bDropped );
@@ -2080,8 +1894,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedClanChatMsg_t
-        typedef bp::class_< GameConnectedClanChatMsg_t > GameConnectedClanChatMsg_t_exposer_t;
-        GameConnectedClanChatMsg_t_exposer_t GameConnectedClanChatMsg_t_exposer = GameConnectedClanChatMsg_t_exposer_t( "GameConnectedClanChatMsg_t" );
+        typedef bp::class_< GameConnectedClanChatMsg_t, boost::noncopyable > GameConnectedClanChatMsg_t_exposer_t;
+        GameConnectedClanChatMsg_t_exposer_t GameConnectedClanChatMsg_t_exposer = GameConnectedClanChatMsg_t_exposer_t( "GameConnectedClanChatMsg_t", bp::no_init );
         bp::scope GameConnectedClanChatMsg_t_scope( GameConnectedClanChatMsg_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameConnectedClanChatMsg_t::k_iCallback;
         GameConnectedClanChatMsg_t_exposer.def_readwrite( "messageid", &GameConnectedClanChatMsg_t::m_iMessageID );
@@ -2090,8 +1904,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedFriendChatMsg_t
-        typedef bp::class_< GameConnectedFriendChatMsg_t > GameConnectedFriendChatMsg_t_exposer_t;
-        GameConnectedFriendChatMsg_t_exposer_t GameConnectedFriendChatMsg_t_exposer = GameConnectedFriendChatMsg_t_exposer_t( "GameConnectedFriendChatMsg_t" );
+        typedef bp::class_< GameConnectedFriendChatMsg_t, boost::noncopyable > GameConnectedFriendChatMsg_t_exposer_t;
+        GameConnectedFriendChatMsg_t_exposer_t GameConnectedFriendChatMsg_t_exposer = GameConnectedFriendChatMsg_t_exposer_t( "GameConnectedFriendChatMsg_t", bp::no_init );
         bp::scope GameConnectedFriendChatMsg_t_scope( GameConnectedFriendChatMsg_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameConnectedFriendChatMsg_t::k_iCallback;
         GameConnectedFriendChatMsg_t_exposer.def_readwrite( "messageid", &GameConnectedFriendChatMsg_t::m_iMessageID );
@@ -2099,8 +1913,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameLobbyJoinRequested_t
-        typedef bp::class_< GameLobbyJoinRequested_t > GameLobbyJoinRequested_t_exposer_t;
-        GameLobbyJoinRequested_t_exposer_t GameLobbyJoinRequested_t_exposer = GameLobbyJoinRequested_t_exposer_t( "GameLobbyJoinRequested_t" );
+        typedef bp::class_< GameLobbyJoinRequested_t, boost::noncopyable > GameLobbyJoinRequested_t_exposer_t;
+        GameLobbyJoinRequested_t_exposer_t GameLobbyJoinRequested_t_exposer = GameLobbyJoinRequested_t_exposer_t( "GameLobbyJoinRequested_t", bp::no_init );
         bp::scope GameLobbyJoinRequested_t_scope( GameLobbyJoinRequested_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameLobbyJoinRequested_t::k_iCallback;
         GameLobbyJoinRequested_t_exposer.def_readwrite( "steamidfriend", &GameLobbyJoinRequested_t::m_steamIDFriend );
@@ -2108,16 +1922,16 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameOverlayActivated_t
-        typedef bp::class_< GameOverlayActivated_t > GameOverlayActivated_t_exposer_t;
-        GameOverlayActivated_t_exposer_t GameOverlayActivated_t_exposer = GameOverlayActivated_t_exposer_t( "GameOverlayActivated_t" );
+        typedef bp::class_< GameOverlayActivated_t, boost::noncopyable > GameOverlayActivated_t_exposer_t;
+        GameOverlayActivated_t_exposer_t GameOverlayActivated_t_exposer = GameOverlayActivated_t_exposer_t( "GameOverlayActivated_t", bp::no_init );
         bp::scope GameOverlayActivated_t_scope( GameOverlayActivated_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameOverlayActivated_t::k_iCallback;
         GameOverlayActivated_t_exposer.def_readwrite( "active", &GameOverlayActivated_t::m_bActive );
     }
 
     { //::GameRichPresenceJoinRequested_t
-        typedef bp::class_< GameRichPresenceJoinRequested_t_wrapper > GameRichPresenceJoinRequested_t_exposer_t;
-        GameRichPresenceJoinRequested_t_exposer_t GameRichPresenceJoinRequested_t_exposer = GameRichPresenceJoinRequested_t_exposer_t( "GameRichPresenceJoinRequested_t" );
+        typedef bp::class_< GameRichPresenceJoinRequested_t_wrapper, boost::noncopyable > GameRichPresenceJoinRequested_t_exposer_t;
+        GameRichPresenceJoinRequested_t_exposer_t GameRichPresenceJoinRequested_t_exposer = GameRichPresenceJoinRequested_t_exposer_t( "GameRichPresenceJoinRequested_t", bp::no_init );
         bp::scope GameRichPresenceJoinRequested_t_scope( GameRichPresenceJoinRequested_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameRichPresenceJoinRequested_t::k_iCallback;
         pyplusplus::containers::static_sized::register_array_1< char, 256 >( "__array_1_char_256" );
@@ -2133,8 +1947,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameServerChangeRequested_t
-        typedef bp::class_< GameServerChangeRequested_t_wrapper > GameServerChangeRequested_t_exposer_t;
-        GameServerChangeRequested_t_exposer_t GameServerChangeRequested_t_exposer = GameServerChangeRequested_t_exposer_t( "GameServerChangeRequested_t" );
+        typedef bp::class_< GameServerChangeRequested_t_wrapper, boost::noncopyable > GameServerChangeRequested_t_exposer_t;
+        GameServerChangeRequested_t_exposer_t GameServerChangeRequested_t_exposer = GameServerChangeRequested_t_exposer_t( "GameServerChangeRequested_t", bp::no_init );
         bp::scope GameServerChangeRequested_t_scope( GameServerChangeRequested_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameServerChangeRequested_t::k_iCallback;
         pyplusplus::containers::static_sized::register_array_1< char, 64 >( "__array_1_char_64" );
@@ -2189,6 +2003,9 @@ BOOST_PYTHON_MODULE(_steam){
             "BIsVACBanned"
             , (bool ( ::ISteamApps::* )(  ) )( &::ISteamApps::BIsVACBanned ) )    
         .def( 
+            "GetAppBuildId"
+            , (int ( ::ISteamApps::* )(  ) )( &::ISteamApps::GetAppBuildId ) )    
+        .def( 
             "GetAppInstallDir"
             , (::uint32 ( ::ISteamApps::* )( ::AppId_t,char *,::uint32 ) )( &::ISteamApps::GetAppInstallDir )
             , ( bp::arg("appID"), bp::arg("pchFolder"), bp::arg("cchFolderBufferSize") ) )    
@@ -2204,6 +2021,10 @@ BOOST_PYTHON_MODULE(_steam){
         .def( 
             "GetDLCCount"
             , (int ( ::ISteamApps::* )(  ) )( &::ISteamApps::GetDLCCount ) )    
+        .def( 
+            "GetDlcDownloadProgress"
+            , (bool ( ::ISteamApps::* )( ::AppId_t,::uint64 *,::uint64 * ) )( &::ISteamApps::GetDlcDownloadProgress )
+            , ( bp::arg("nAppID"), bp::arg("punBytesDownloaded"), bp::arg("punBytesTotal") ) )    
         .def( 
             "GetEarliestPurchaseUnixTime"
             , (::uint32 ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::GetEarliestPurchaseUnixTime )
@@ -2383,6 +2204,29 @@ BOOST_PYTHON_MODULE(_steam){
             "GetFriendRichPresenceKeyCount"
             , (int ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetFriendRichPresenceKeyCount )
             , ( bp::arg("steamIDFriend") ) )    
+        .def( 
+            "GetFriendSteamLevel"
+            , (int ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetFriendSteamLevel )
+            , ( bp::arg("steamIDFriend") ) )    
+        .def( 
+            "GetFriendsGroupCount"
+            , (int ( ::ISteamFriends::* )(  ) )( &::ISteamFriends::GetFriendsGroupCount ) )    
+        .def( 
+            "GetFriendsGroupIDByIndex"
+            , (::FriendsGroupID_t ( ::ISteamFriends::* )( int ) )( &::ISteamFriends::GetFriendsGroupIDByIndex )
+            , ( bp::arg("iFG") ) )    
+        .def( 
+            "GetFriendsGroupMembersCount"
+            , (int ( ::ISteamFriends::* )( ::FriendsGroupID_t ) )( &::ISteamFriends::GetFriendsGroupMembersCount )
+            , ( bp::arg("friendsGroupID") ) )    
+        .def( 
+            "GetFriendsGroupMembersList"
+            , (void ( ::ISteamFriends::* )( ::FriendsGroupID_t,::CSteamID *,int ) )( &::ISteamFriends::GetFriendsGroupMembersList )
+            , ( bp::arg("friendsGroupID"), bp::arg("pOutSteamIDMembers"), bp::arg("nMembersCount") ) )    
+        .def( 
+            "GetFriendsGroupName"
+            , (char const * ( ::ISteamFriends::* )( ::FriendsGroupID_t ) )( &::ISteamFriends::GetFriendsGroupName )
+            , ( bp::arg("friendsGroupID") ) )    
         .def( 
             "GetLargeFriendAvatar"
             , (int ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetLargeFriendAvatar )
@@ -2709,6 +2553,10 @@ BOOST_PYTHON_MODULE(_steam){
             , (::SteamAPICall_t ( ::ISteamUser::* )( void *,int ) )( &::ISteamUser::RequestEncryptedAppTicket )
             , ( bp::arg("pDataToInclude"), bp::arg("cbDataToInclude") ) )    
         .def( 
+            "RequestStoreAuthURL"
+            , (::SteamAPICall_t ( ::ISteamUser::* )( char const * ) )( &::ISteamUser::RequestStoreAuthURL )
+            , ( bp::arg("pchRedirectURL") ) )    
+        .def( 
             "StartVoiceRecording"
             , (void ( ::ISteamUser::* )(  ) )( &::ISteamUser::StartVoiceRecording ) )    
         .def( 
@@ -2964,6 +2812,10 @@ BOOST_PYTHON_MODULE(_steam){
             "RunFrame"
             , (void ( ::ISteamUtils::* )(  ) )( &::ISteamUtils::RunFrame ) )    
         .def( 
+            "SetOverlayNotificationInset"
+            , (void ( ::ISteamUtils::* )( int,int ) )( &::ISteamUtils::SetOverlayNotificationInset )
+            , ( bp::arg("nHorizontalInset"), bp::arg("nVerticalInset") ) )    
+        .def( 
             "SetOverlayNotificationPosition"
             , (void ( ::ISteamUtils::* )( ::ENotificationPosition ) )( &::ISteamUtils::SetOverlayNotificationPosition )
             , ( bp::arg("eNotificationPosition") ) )    
@@ -2973,8 +2825,8 @@ BOOST_PYTHON_MODULE(_steam){
             , ( bp::arg("eInputMode"), bp::arg("eLineInputMode"), bp::arg("pchDescription"), bp::arg("unCharMax"), bp::arg("pchExistingText") ) );
 
     { //::JoinClanChatRoomCompletionResult_t
-        typedef bp::class_< JoinClanChatRoomCompletionResult_t > JoinClanChatRoomCompletionResult_t_exposer_t;
-        JoinClanChatRoomCompletionResult_t_exposer_t JoinClanChatRoomCompletionResult_t_exposer = JoinClanChatRoomCompletionResult_t_exposer_t( "JoinClanChatRoomCompletionResult_t" );
+        typedef bp::class_< JoinClanChatRoomCompletionResult_t, boost::noncopyable > JoinClanChatRoomCompletionResult_t_exposer_t;
+        JoinClanChatRoomCompletionResult_t_exposer_t JoinClanChatRoomCompletionResult_t_exposer = JoinClanChatRoomCompletionResult_t_exposer_t( "JoinClanChatRoomCompletionResult_t", bp::no_init );
         bp::scope JoinClanChatRoomCompletionResult_t_scope( JoinClanChatRoomCompletionResult_t_exposer );
         bp::scope().attr("k_iCallback") = (int)JoinClanChatRoomCompletionResult_t::k_iCallback;
         JoinClanChatRoomCompletionResult_t_exposer.def_readwrite( "chatroomenterresponse", &JoinClanChatRoomCompletionResult_t::m_eChatRoomEnterResponse );
@@ -2982,8 +2834,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyChatMsg_t
-        typedef bp::class_< LobbyChatMsg_t > LobbyChatMsg_t_exposer_t;
-        LobbyChatMsg_t_exposer_t LobbyChatMsg_t_exposer = LobbyChatMsg_t_exposer_t( "LobbyChatMsg_t" );
+        typedef bp::class_< LobbyChatMsg_t, boost::noncopyable > LobbyChatMsg_t_exposer_t;
+        LobbyChatMsg_t_exposer_t LobbyChatMsg_t_exposer = LobbyChatMsg_t_exposer_t( "LobbyChatMsg_t", bp::no_init );
         bp::scope LobbyChatMsg_t_scope( LobbyChatMsg_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyChatMsg_t::k_iCallback;
         LobbyChatMsg_t_exposer.def_readwrite( "chatentrytype", &LobbyChatMsg_t::m_eChatEntryType );
@@ -2993,8 +2845,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyChatUpdate_t
-        typedef bp::class_< LobbyChatUpdate_t > LobbyChatUpdate_t_exposer_t;
-        LobbyChatUpdate_t_exposer_t LobbyChatUpdate_t_exposer = LobbyChatUpdate_t_exposer_t( "LobbyChatUpdate_t" );
+        typedef bp::class_< LobbyChatUpdate_t, boost::noncopyable > LobbyChatUpdate_t_exposer_t;
+        LobbyChatUpdate_t_exposer_t LobbyChatUpdate_t_exposer = LobbyChatUpdate_t_exposer_t( "LobbyChatUpdate_t", bp::no_init );
         bp::scope LobbyChatUpdate_t_scope( LobbyChatUpdate_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyChatUpdate_t::k_iCallback;
         LobbyChatUpdate_t_exposer.def_readwrite( "chatmemberstatechange", &LobbyChatUpdate_t::m_rgfChatMemberStateChange );
@@ -3004,8 +2856,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyCreated_t
-        typedef bp::class_< LobbyCreated_t > LobbyCreated_t_exposer_t;
-        LobbyCreated_t_exposer_t LobbyCreated_t_exposer = LobbyCreated_t_exposer_t( "LobbyCreated_t" );
+        typedef bp::class_< LobbyCreated_t, boost::noncopyable > LobbyCreated_t_exposer_t;
+        LobbyCreated_t_exposer_t LobbyCreated_t_exposer = LobbyCreated_t_exposer_t( "LobbyCreated_t", bp::no_init );
         bp::scope LobbyCreated_t_scope( LobbyCreated_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyCreated_t::k_iCallback;
         LobbyCreated_t_exposer.def_readwrite( "result", &LobbyCreated_t::m_eResult );
@@ -3013,8 +2865,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyDataUpdate_t
-        typedef bp::class_< LobbyDataUpdate_t > LobbyDataUpdate_t_exposer_t;
-        LobbyDataUpdate_t_exposer_t LobbyDataUpdate_t_exposer = LobbyDataUpdate_t_exposer_t( "LobbyDataUpdate_t" );
+        typedef bp::class_< LobbyDataUpdate_t, boost::noncopyable > LobbyDataUpdate_t_exposer_t;
+        LobbyDataUpdate_t_exposer_t LobbyDataUpdate_t_exposer = LobbyDataUpdate_t_exposer_t( "LobbyDataUpdate_t", bp::no_init );
         bp::scope LobbyDataUpdate_t_scope( LobbyDataUpdate_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyDataUpdate_t::k_iCallback;
         LobbyDataUpdate_t_exposer.def_readwrite( "success", &LobbyDataUpdate_t::m_bSuccess );
@@ -3023,8 +2875,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyEnter_t
-        typedef bp::class_< LobbyEnter_t > LobbyEnter_t_exposer_t;
-        LobbyEnter_t_exposer_t LobbyEnter_t_exposer = LobbyEnter_t_exposer_t( "LobbyEnter_t" );
+        typedef bp::class_< LobbyEnter_t, boost::noncopyable > LobbyEnter_t_exposer_t;
+        LobbyEnter_t_exposer_t LobbyEnter_t_exposer = LobbyEnter_t_exposer_t( "LobbyEnter_t", bp::no_init );
         bp::scope LobbyEnter_t_scope( LobbyEnter_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyEnter_t::k_iCallback;
         LobbyEnter_t_exposer.def_readwrite( "chatroomenterresponse", &LobbyEnter_t::m_EChatRoomEnterResponse );
@@ -3034,8 +2886,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyGameCreated_t
-        typedef bp::class_< LobbyGameCreated_t > LobbyGameCreated_t_exposer_t;
-        LobbyGameCreated_t_exposer_t LobbyGameCreated_t_exposer = LobbyGameCreated_t_exposer_t( "LobbyGameCreated_t" );
+        typedef bp::class_< LobbyGameCreated_t, boost::noncopyable > LobbyGameCreated_t_exposer_t;
+        LobbyGameCreated_t_exposer_t LobbyGameCreated_t_exposer = LobbyGameCreated_t_exposer_t( "LobbyGameCreated_t", bp::no_init );
         bp::scope LobbyGameCreated_t_scope( LobbyGameCreated_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyGameCreated_t::k_iCallback;
         LobbyGameCreated_t_exposer.def_readwrite( "steamidgameserver", &LobbyGameCreated_t::m_ulSteamIDGameServer );
@@ -3045,16 +2897,16 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyMatchList_t
-        typedef bp::class_< LobbyMatchList_t > LobbyMatchList_t_exposer_t;
-        LobbyMatchList_t_exposer_t LobbyMatchList_t_exposer = LobbyMatchList_t_exposer_t( "LobbyMatchList_t" );
+        typedef bp::class_< LobbyMatchList_t, boost::noncopyable > LobbyMatchList_t_exposer_t;
+        LobbyMatchList_t_exposer_t LobbyMatchList_t_exposer = LobbyMatchList_t_exposer_t( "LobbyMatchList_t", bp::no_init );
         bp::scope LobbyMatchList_t_scope( LobbyMatchList_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyMatchList_t::k_iCallback;
         LobbyMatchList_t_exposer.def_readwrite( "lobbiesmatching", &LobbyMatchList_t::m_nLobbiesMatching );
     }
 
     { //::NumberOfCurrentPlayers_t
-        typedef bp::class_< NumberOfCurrentPlayers_t > NumberOfCurrentPlayers_t_exposer_t;
-        NumberOfCurrentPlayers_t_exposer_t NumberOfCurrentPlayers_t_exposer = NumberOfCurrentPlayers_t_exposer_t( "NumberOfCurrentPlayers_t" );
+        typedef bp::class_< NumberOfCurrentPlayers_t, boost::noncopyable > NumberOfCurrentPlayers_t_exposer_t;
+        NumberOfCurrentPlayers_t_exposer_t NumberOfCurrentPlayers_t_exposer = NumberOfCurrentPlayers_t_exposer_t( "NumberOfCurrentPlayers_t", bp::no_init );
         bp::scope NumberOfCurrentPlayers_t_scope( NumberOfCurrentPlayers_t_exposer );
         bp::scope().attr("k_iCallback") = (int)NumberOfCurrentPlayers_t::k_iCallback;
         NumberOfCurrentPlayers_t_exposer.def_readwrite( "success", &NumberOfCurrentPlayers_t::m_bSuccess );
@@ -3062,8 +2914,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::PersonaStateChange_t
-        typedef bp::class_< PersonaStateChange_t > PersonaStateChange_t_exposer_t;
-        PersonaStateChange_t_exposer_t PersonaStateChange_t_exposer = PersonaStateChange_t_exposer_t( "PersonaStateChange_t" );
+        typedef bp::class_< PersonaStateChange_t, boost::noncopyable > PersonaStateChange_t_exposer_t;
+        PersonaStateChange_t_exposer_t PersonaStateChange_t_exposer = PersonaStateChange_t_exposer_t( "PersonaStateChange_t", bp::no_init );
         bp::scope PersonaStateChange_t_scope( PersonaStateChange_t_exposer );
         bp::scope().attr("k_iCallback") = (int)PersonaStateChange_t::k_iCallback;
         PersonaStateChange_t_exposer.def_readwrite( "changeflags", &PersonaStateChange_t::m_nChangeFlags );
@@ -3179,8 +3031,8 @@ BOOST_PYTHON_MODULE(_steam){
             , ( bp::arg("unIP"), bp::arg("usPort"), bp::arg("pRequestServersResponse") ) );
 
     { //::SetPersonaNameResponse_t
-        typedef bp::class_< SetPersonaNameResponse_t > SetPersonaNameResponse_t_exposer_t;
-        SetPersonaNameResponse_t_exposer_t SetPersonaNameResponse_t_exposer = SetPersonaNameResponse_t_exposer_t( "SetPersonaNameResponse_t" );
+        typedef bp::class_< SetPersonaNameResponse_t, boost::noncopyable > SetPersonaNameResponse_t_exposer_t;
+        SetPersonaNameResponse_t_exposer_t SetPersonaNameResponse_t_exposer = SetPersonaNameResponse_t_exposer_t( "SetPersonaNameResponse_t", bp::no_init );
         bp::scope SetPersonaNameResponse_t_scope( SetPersonaNameResponse_t_exposer );
         bp::scope().attr("k_iCallback") = (int)SetPersonaNameResponse_t::k_iCallback;
         SetPersonaNameResponse_t_exposer.def_readwrite( "localsuccess", &SetPersonaNameResponse_t::m_bLocalSuccess );
@@ -3250,7 +3102,7 @@ BOOST_PYTHON_MODULE(_steam){
 
     { //::servernetadr_t
         typedef bp::class_< servernetadr_t > servernetadr_exposer_t;
-        servernetadr_exposer_t servernetadr_exposer = servernetadr_exposer_t( "servernetadr" );
+        servernetadr_exposer_t servernetadr_exposer = servernetadr_exposer_t( "servernetadr", bp::init< >() );
         bp::scope servernetadr_scope( servernetadr_exposer );
         { //::servernetadr_t::GetConnectionAddressString
         
@@ -3424,7 +3276,7 @@ BOOST_PYTHON_MODULE(_steam){
     bp::scope().attr( "k_cchPersonaNameMax" ) = (int)k_cchPersonaNameMax;
 
     { //::PersonaStateChangeCallback
-        typedef bp::class_< PersonaStateChangeCallback_wrapper > PersonaStateChangeCallback_exposer_t;
+        typedef bp::class_< PersonaStateChangeCallback_wrapper, boost::noncopyable > PersonaStateChangeCallback_exposer_t;
         PersonaStateChangeCallback_exposer_t PersonaStateChangeCallback_exposer = PersonaStateChangeCallback_exposer_t( "PersonaStateChangeCallback", bp::init<>() );
         bp::scope PersonaStateChangeCallback_scope( PersonaStateChangeCallback_exposer );
         { //::PersonaStateChangeCallback::OnPersonaStateChange
@@ -3442,7 +3294,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameOverlayActivatedCallback
-        typedef bp::class_< GameOverlayActivatedCallback_wrapper > GameOverlayActivatedCallback_exposer_t;
+        typedef bp::class_< GameOverlayActivatedCallback_wrapper, boost::noncopyable > GameOverlayActivatedCallback_exposer_t;
         GameOverlayActivatedCallback_exposer_t GameOverlayActivatedCallback_exposer = GameOverlayActivatedCallback_exposer_t( "GameOverlayActivatedCallback", bp::init<>() );
         bp::scope GameOverlayActivatedCallback_scope( GameOverlayActivatedCallback_exposer );
         { //::GameOverlayActivatedCallback::OnGameOverlayActivated
@@ -3460,7 +3312,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameServerChangeRequestedCallback
-        typedef bp::class_< GameServerChangeRequestedCallback_wrapper > GameServerChangeRequestedCallback_exposer_t;
+        typedef bp::class_< GameServerChangeRequestedCallback_wrapper, boost::noncopyable > GameServerChangeRequestedCallback_exposer_t;
         GameServerChangeRequestedCallback_exposer_t GameServerChangeRequestedCallback_exposer = GameServerChangeRequestedCallback_exposer_t( "GameServerChangeRequestedCallback", bp::init<>() );
         bp::scope GameServerChangeRequestedCallback_scope( GameServerChangeRequestedCallback_exposer );
         { //::GameServerChangeRequestedCallback::OnGameServerChangeRequested
@@ -3478,7 +3330,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameLobbyJoinRequestedCallback
-        typedef bp::class_< GameLobbyJoinRequestedCallback_wrapper > GameLobbyJoinRequestedCallback_exposer_t;
+        typedef bp::class_< GameLobbyJoinRequestedCallback_wrapper, boost::noncopyable > GameLobbyJoinRequestedCallback_exposer_t;
         GameLobbyJoinRequestedCallback_exposer_t GameLobbyJoinRequestedCallback_exposer = GameLobbyJoinRequestedCallback_exposer_t( "GameLobbyJoinRequestedCallback", bp::init<>() );
         bp::scope GameLobbyJoinRequestedCallback_scope( GameLobbyJoinRequestedCallback_exposer );
         { //::GameLobbyJoinRequestedCallback::OnGameLobbyJoinRequested
@@ -3496,7 +3348,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::AvatarImageLoadedCallback
-        typedef bp::class_< AvatarImageLoadedCallback_wrapper > AvatarImageLoadedCallback_exposer_t;
+        typedef bp::class_< AvatarImageLoadedCallback_wrapper, boost::noncopyable > AvatarImageLoadedCallback_exposer_t;
         AvatarImageLoadedCallback_exposer_t AvatarImageLoadedCallback_exposer = AvatarImageLoadedCallback_exposer_t( "AvatarImageLoadedCallback", bp::init<>() );
         bp::scope AvatarImageLoadedCallback_scope( AvatarImageLoadedCallback_exposer );
         { //::AvatarImageLoadedCallback::OnAvatarImageLoaded
@@ -3514,7 +3366,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::ClanOfficerListResponseCallback
-        typedef bp::class_< ClanOfficerListResponseCallback_wrapper > ClanOfficerListResponseCallback_exposer_t;
+        typedef bp::class_< ClanOfficerListResponseCallback_wrapper, boost::noncopyable > ClanOfficerListResponseCallback_exposer_t;
         ClanOfficerListResponseCallback_exposer_t ClanOfficerListResponseCallback_exposer = ClanOfficerListResponseCallback_exposer_t( "ClanOfficerListResponseCallback", bp::init<>() );
         bp::scope ClanOfficerListResponseCallback_scope( ClanOfficerListResponseCallback_exposer );
         { //::ClanOfficerListResponseCallback::OnClanOfficerListResponse
@@ -3532,7 +3384,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendRichPresenceUpdateCallback
-        typedef bp::class_< FriendRichPresenceUpdateCallback_wrapper > FriendRichPresenceUpdateCallback_exposer_t;
+        typedef bp::class_< FriendRichPresenceUpdateCallback_wrapper, boost::noncopyable > FriendRichPresenceUpdateCallback_exposer_t;
         FriendRichPresenceUpdateCallback_exposer_t FriendRichPresenceUpdateCallback_exposer = FriendRichPresenceUpdateCallback_exposer_t( "FriendRichPresenceUpdateCallback", bp::init<>() );
         bp::scope FriendRichPresenceUpdateCallback_scope( FriendRichPresenceUpdateCallback_exposer );
         { //::FriendRichPresenceUpdateCallback::OnFriendRichPresenceUpdate
@@ -3550,7 +3402,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameRichPresenceJoinRequestedCallback
-        typedef bp::class_< GameRichPresenceJoinRequestedCallback_wrapper > GameRichPresenceJoinRequestedCallback_exposer_t;
+        typedef bp::class_< GameRichPresenceJoinRequestedCallback_wrapper, boost::noncopyable > GameRichPresenceJoinRequestedCallback_exposer_t;
         GameRichPresenceJoinRequestedCallback_exposer_t GameRichPresenceJoinRequestedCallback_exposer = GameRichPresenceJoinRequestedCallback_exposer_t( "GameRichPresenceJoinRequestedCallback", bp::init<>() );
         bp::scope GameRichPresenceJoinRequestedCallback_scope( GameRichPresenceJoinRequestedCallback_exposer );
         { //::GameRichPresenceJoinRequestedCallback::OnGameRichPresenceJoinRequested
@@ -3568,7 +3420,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedClanChatMsgCallback
-        typedef bp::class_< GameConnectedClanChatMsgCallback_wrapper > GameConnectedClanChatMsgCallback_exposer_t;
+        typedef bp::class_< GameConnectedClanChatMsgCallback_wrapper, boost::noncopyable > GameConnectedClanChatMsgCallback_exposer_t;
         GameConnectedClanChatMsgCallback_exposer_t GameConnectedClanChatMsgCallback_exposer = GameConnectedClanChatMsgCallback_exposer_t( "GameConnectedClanChatMsgCallback", bp::init<>() );
         bp::scope GameConnectedClanChatMsgCallback_scope( GameConnectedClanChatMsgCallback_exposer );
         { //::GameConnectedClanChatMsgCallback::OnGameConnectedClanChatMsg
@@ -3586,7 +3438,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedChatJoinCallback
-        typedef bp::class_< GameConnectedChatJoinCallback_wrapper > GameConnectedChatJoinCallback_exposer_t;
+        typedef bp::class_< GameConnectedChatJoinCallback_wrapper, boost::noncopyable > GameConnectedChatJoinCallback_exposer_t;
         GameConnectedChatJoinCallback_exposer_t GameConnectedChatJoinCallback_exposer = GameConnectedChatJoinCallback_exposer_t( "GameConnectedChatJoinCallback", bp::init<>() );
         bp::scope GameConnectedChatJoinCallback_scope( GameConnectedChatJoinCallback_exposer );
         { //::GameConnectedChatJoinCallback::OnGameConnectedChatJoin
@@ -3604,7 +3456,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedChatLeaveCallback
-        typedef bp::class_< GameConnectedChatLeaveCallback_wrapper > GameConnectedChatLeaveCallback_exposer_t;
+        typedef bp::class_< GameConnectedChatLeaveCallback_wrapper, boost::noncopyable > GameConnectedChatLeaveCallback_exposer_t;
         GameConnectedChatLeaveCallback_exposer_t GameConnectedChatLeaveCallback_exposer = GameConnectedChatLeaveCallback_exposer_t( "GameConnectedChatLeaveCallback", bp::init<>() );
         bp::scope GameConnectedChatLeaveCallback_scope( GameConnectedChatLeaveCallback_exposer );
         { //::GameConnectedChatLeaveCallback::OnGameConnectedChatLeave
@@ -3622,7 +3474,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::DownloadClanActivityCountsResultCallback
-        typedef bp::class_< DownloadClanActivityCountsResultCallback_wrapper > DownloadClanActivityCountsResultCallback_exposer_t;
+        typedef bp::class_< DownloadClanActivityCountsResultCallback_wrapper, boost::noncopyable > DownloadClanActivityCountsResultCallback_exposer_t;
         DownloadClanActivityCountsResultCallback_exposer_t DownloadClanActivityCountsResultCallback_exposer = DownloadClanActivityCountsResultCallback_exposer_t( "DownloadClanActivityCountsResultCallback", bp::init<>() );
         bp::scope DownloadClanActivityCountsResultCallback_scope( DownloadClanActivityCountsResultCallback_exposer );
         { //::DownloadClanActivityCountsResultCallback::OnDownloadClanActivityCountsResult
@@ -3640,7 +3492,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::JoinClanChatRoomCompletionResultCallback
-        typedef bp::class_< JoinClanChatRoomCompletionResultCallback_wrapper > JoinClanChatRoomCompletionResultCallback_exposer_t;
+        typedef bp::class_< JoinClanChatRoomCompletionResultCallback_wrapper, boost::noncopyable > JoinClanChatRoomCompletionResultCallback_exposer_t;
         JoinClanChatRoomCompletionResultCallback_exposer_t JoinClanChatRoomCompletionResultCallback_exposer = JoinClanChatRoomCompletionResultCallback_exposer_t( "JoinClanChatRoomCompletionResultCallback", bp::init<>() );
         bp::scope JoinClanChatRoomCompletionResultCallback_scope( JoinClanChatRoomCompletionResultCallback_exposer );
         { //::JoinClanChatRoomCompletionResultCallback::OnJoinClanChatRoomCompletionResult
@@ -3658,7 +3510,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedFriendChatMsgCallback
-        typedef bp::class_< GameConnectedFriendChatMsgCallback_wrapper > GameConnectedFriendChatMsgCallback_exposer_t;
+        typedef bp::class_< GameConnectedFriendChatMsgCallback_wrapper, boost::noncopyable > GameConnectedFriendChatMsgCallback_exposer_t;
         GameConnectedFriendChatMsgCallback_exposer_t GameConnectedFriendChatMsgCallback_exposer = GameConnectedFriendChatMsgCallback_exposer_t( "GameConnectedFriendChatMsgCallback", bp::init<>() );
         bp::scope GameConnectedFriendChatMsgCallback_scope( GameConnectedFriendChatMsgCallback_exposer );
         { //::GameConnectedFriendChatMsgCallback::OnGameConnectedFriendChatMsg
@@ -3676,7 +3528,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendsGetFollowerCountCallback
-        typedef bp::class_< FriendsGetFollowerCountCallback_wrapper > FriendsGetFollowerCountCallback_exposer_t;
+        typedef bp::class_< FriendsGetFollowerCountCallback_wrapper, boost::noncopyable > FriendsGetFollowerCountCallback_exposer_t;
         FriendsGetFollowerCountCallback_exposer_t FriendsGetFollowerCountCallback_exposer = FriendsGetFollowerCountCallback_exposer_t( "FriendsGetFollowerCountCallback", bp::init<>() );
         bp::scope FriendsGetFollowerCountCallback_scope( FriendsGetFollowerCountCallback_exposer );
         { //::FriendsGetFollowerCountCallback::OnFriendsGetFollowerCount
@@ -3694,7 +3546,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendsIsFollowingCallback
-        typedef bp::class_< FriendsIsFollowingCallback_wrapper > FriendsIsFollowingCallback_exposer_t;
+        typedef bp::class_< FriendsIsFollowingCallback_wrapper, boost::noncopyable > FriendsIsFollowingCallback_exposer_t;
         FriendsIsFollowingCallback_exposer_t FriendsIsFollowingCallback_exposer = FriendsIsFollowingCallback_exposer_t( "FriendsIsFollowingCallback", bp::init<>() );
         bp::scope FriendsIsFollowingCallback_scope( FriendsIsFollowingCallback_exposer );
         { //::FriendsIsFollowingCallback::OnFriendsIsFollowing
@@ -3712,7 +3564,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendsEnumerateFollowingListCallback
-        typedef bp::class_< FriendsEnumerateFollowingListCallback_wrapper > FriendsEnumerateFollowingListCallback_exposer_t;
+        typedef bp::class_< FriendsEnumerateFollowingListCallback_wrapper, boost::noncopyable > FriendsEnumerateFollowingListCallback_exposer_t;
         FriendsEnumerateFollowingListCallback_exposer_t FriendsEnumerateFollowingListCallback_exposer = FriendsEnumerateFollowingListCallback_exposer_t( "FriendsEnumerateFollowingListCallback", bp::init<>() );
         bp::scope FriendsEnumerateFollowingListCallback_scope( FriendsEnumerateFollowingListCallback_exposer );
         { //::FriendsEnumerateFollowingListCallback::OnFriendsEnumerateFollowingList
@@ -3730,7 +3582,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::SetPersonaNameResponseCallback
-        typedef bp::class_< SetPersonaNameResponseCallback_wrapper > SetPersonaNameResponseCallback_exposer_t;
+        typedef bp::class_< SetPersonaNameResponseCallback_wrapper, boost::noncopyable > SetPersonaNameResponseCallback_exposer_t;
         SetPersonaNameResponseCallback_exposer_t SetPersonaNameResponseCallback_exposer = SetPersonaNameResponseCallback_exposer_t( "SetPersonaNameResponseCallback", bp::init<>() );
         bp::scope SetPersonaNameResponseCallback_scope( SetPersonaNameResponseCallback_exposer );
         { //::SetPersonaNameResponseCallback::OnSetPersonaNameResponse
@@ -3748,7 +3600,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyMatchListCallResult
-        typedef bp::class_< LobbyMatchListCallResult_wrapper > LobbyMatchListCallResult_exposer_t;
+        typedef bp::class_< LobbyMatchListCallResult_wrapper, boost::noncopyable > LobbyMatchListCallResult_exposer_t;
         LobbyMatchListCallResult_exposer_t LobbyMatchListCallResult_exposer = LobbyMatchListCallResult_exposer_t( "LobbyMatchListCallResult", bp::init< SteamAPICall_t >(( bp::arg("steamapicall") )) );
         bp::scope LobbyMatchListCallResult_scope( LobbyMatchListCallResult_exposer );
         bp::implicitly_convertible< SteamAPICall_t, LobbyMatchListCallResult >();
@@ -3767,7 +3619,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyGameCreatedCallResult
-        typedef bp::class_< LobbyGameCreatedCallResult_wrapper > LobbyGameCreatedCallResult_exposer_t;
+        typedef bp::class_< LobbyGameCreatedCallResult_wrapper, boost::noncopyable > LobbyGameCreatedCallResult_exposer_t;
         LobbyGameCreatedCallResult_exposer_t LobbyGameCreatedCallResult_exposer = LobbyGameCreatedCallResult_exposer_t( "LobbyGameCreatedCallResult", bp::init< SteamAPICall_t >(( bp::arg("steamapicall") )) );
         bp::scope LobbyGameCreatedCallResult_scope( LobbyGameCreatedCallResult_exposer );
         bp::implicitly_convertible< SteamAPICall_t, LobbyGameCreatedCallResult >();
@@ -3786,7 +3638,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyCreatedCallResult
-        typedef bp::class_< LobbyCreatedCallResult_wrapper > LobbyCreatedCallResult_exposer_t;
+        typedef bp::class_< LobbyCreatedCallResult_wrapper, boost::noncopyable > LobbyCreatedCallResult_exposer_t;
         LobbyCreatedCallResult_exposer_t LobbyCreatedCallResult_exposer = LobbyCreatedCallResult_exposer_t( "LobbyCreatedCallResult", bp::init< SteamAPICall_t >(( bp::arg("steamapicall") )) );
         bp::scope LobbyCreatedCallResult_scope( LobbyCreatedCallResult_exposer );
         bp::implicitly_convertible< SteamAPICall_t, LobbyCreatedCallResult >();
@@ -3805,7 +3657,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyEnterCallResult
-        typedef bp::class_< LobbyEnterCallResult_wrapper > LobbyEnterCallResult_exposer_t;
+        typedef bp::class_< LobbyEnterCallResult_wrapper, boost::noncopyable > LobbyEnterCallResult_exposer_t;
         LobbyEnterCallResult_exposer_t LobbyEnterCallResult_exposer = LobbyEnterCallResult_exposer_t( "LobbyEnterCallResult", bp::init< SteamAPICall_t >(( bp::arg("steamapicall") )) );
         bp::scope LobbyEnterCallResult_scope( LobbyEnterCallResult_exposer );
         bp::implicitly_convertible< SteamAPICall_t, LobbyEnterCallResult >();
@@ -3824,7 +3676,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyChatUpdateCallback
-        typedef bp::class_< LobbyChatUpdateCallback_wrapper > LobbyChatUpdateCallback_exposer_t;
+        typedef bp::class_< LobbyChatUpdateCallback_wrapper, boost::noncopyable > LobbyChatUpdateCallback_exposer_t;
         LobbyChatUpdateCallback_exposer_t LobbyChatUpdateCallback_exposer = LobbyChatUpdateCallback_exposer_t( "LobbyChatUpdateCallback", bp::init<>() );
         bp::scope LobbyChatUpdateCallback_scope( LobbyChatUpdateCallback_exposer );
         { //::LobbyChatUpdateCallback::OnLobbyChatUpdate
@@ -3842,7 +3694,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyChatMsgCallback
-        typedef bp::class_< LobbyChatMsgCallback_wrapper > LobbyChatMsgCallback_exposer_t;
+        typedef bp::class_< LobbyChatMsgCallback_wrapper, boost::noncopyable > LobbyChatMsgCallback_exposer_t;
         LobbyChatMsgCallback_exposer_t LobbyChatMsgCallback_exposer = LobbyChatMsgCallback_exposer_t( "LobbyChatMsgCallback", bp::init<>() );
         bp::scope LobbyChatMsgCallback_scope( LobbyChatMsgCallback_exposer );
         { //::LobbyChatMsgCallback::OnLobbyChatMsg
@@ -3860,7 +3712,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyDataUpdateCallback
-        typedef bp::class_< LobbyDataUpdateCallback_wrapper > LobbyDataUpdateCallback_exposer_t;
+        typedef bp::class_< LobbyDataUpdateCallback_wrapper, boost::noncopyable > LobbyDataUpdateCallback_exposer_t;
         LobbyDataUpdateCallback_exposer_t LobbyDataUpdateCallback_exposer = LobbyDataUpdateCallback_exposer_t( "LobbyDataUpdateCallback", bp::init<>() );
         bp::scope LobbyDataUpdateCallback_scope( LobbyDataUpdateCallback_exposer );
         { //::LobbyDataUpdateCallback::OnLobbyDataUpdate
@@ -3878,7 +3730,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::NumberOfCurrentPlayersCallResult
-        typedef bp::class_< NumberOfCurrentPlayersCallResult_wrapper > NumberOfCurrentPlayersCallResult_exposer_t;
+        typedef bp::class_< NumberOfCurrentPlayersCallResult_wrapper, boost::noncopyable > NumberOfCurrentPlayersCallResult_exposer_t;
         NumberOfCurrentPlayersCallResult_exposer_t NumberOfCurrentPlayersCallResult_exposer = NumberOfCurrentPlayersCallResult_exposer_t( "NumberOfCurrentPlayersCallResult", bp::init< SteamAPICall_t >(( bp::arg("steamapicall") )) );
         bp::scope NumberOfCurrentPlayersCallResult_scope( NumberOfCurrentPlayersCallResult_exposer );
         bp::implicitly_convertible< SteamAPICall_t, NumberOfCurrentPlayersCallResult >();
@@ -3933,13 +3785,6 @@ namespace bp = boost::python;
 
 struct FriendsEnumerateFollowingList_t_wrapper : FriendsEnumerateFollowingList_t, bp::wrapper< FriendsEnumerateFollowingList_t > {
 
-    FriendsEnumerateFollowingList_t_wrapper(FriendsEnumerateFollowingList_t const & arg )
-    : FriendsEnumerateFollowingList_t( arg )
-      , bp::wrapper< FriendsEnumerateFollowingList_t >(){
-        // copy constructor
-        
-    }
-
     FriendsEnumerateFollowingList_t_wrapper()
     : FriendsEnumerateFollowingList_t()
       , bp::wrapper< FriendsEnumerateFollowingList_t >(){
@@ -3956,13 +3801,6 @@ struct FriendsEnumerateFollowingList_t_wrapper : FriendsEnumerateFollowingList_t
 
 struct GameRichPresenceJoinRequested_t_wrapper : GameRichPresenceJoinRequested_t, bp::wrapper< GameRichPresenceJoinRequested_t > {
 
-    GameRichPresenceJoinRequested_t_wrapper(GameRichPresenceJoinRequested_t const & arg )
-    : GameRichPresenceJoinRequested_t( arg )
-      , bp::wrapper< GameRichPresenceJoinRequested_t >(){
-        // copy constructor
-        
-    }
-
     GameRichPresenceJoinRequested_t_wrapper()
     : GameRichPresenceJoinRequested_t()
       , bp::wrapper< GameRichPresenceJoinRequested_t >(){
@@ -3978,13 +3816,6 @@ struct GameRichPresenceJoinRequested_t_wrapper : GameRichPresenceJoinRequested_t
 };
 
 struct GameServerChangeRequested_t_wrapper : GameServerChangeRequested_t, bp::wrapper< GameServerChangeRequested_t > {
-
-    GameServerChangeRequested_t_wrapper(GameServerChangeRequested_t const & arg )
-    : GameServerChangeRequested_t( arg )
-      , bp::wrapper< GameServerChangeRequested_t >(){
-        // copy constructor
-        
-    }
 
     GameServerChangeRequested_t_wrapper()
     : GameServerChangeRequested_t()
@@ -4307,13 +4138,6 @@ PY_STEAM_CALLBACK_WRAPPER( PersonaStateChange, PersonaStateChange_t );
 
 struct PersonaStateChangeCallback_wrapper : PersonaStateChangeCallback, bp::wrapper< PersonaStateChangeCallback > {
 
-    PersonaStateChangeCallback_wrapper(PersonaStateChangeCallback const & arg )
-    : PersonaStateChangeCallback( arg )
-      , bp::wrapper< PersonaStateChangeCallback >(){
-        // copy constructor
-        
-    }
-
     PersonaStateChangeCallback_wrapper()
     : PersonaStateChangeCallback()
       , bp::wrapper< PersonaStateChangeCallback >(){
@@ -4344,13 +4168,6 @@ struct PersonaStateChangeCallback_wrapper : PersonaStateChangeCallback, bp::wrap
 PY_STEAM_CALLBACK_WRAPPER( GameOverlayActivated, GameOverlayActivated_t );
 
 struct GameOverlayActivatedCallback_wrapper : GameOverlayActivatedCallback, bp::wrapper< GameOverlayActivatedCallback > {
-
-    GameOverlayActivatedCallback_wrapper(GameOverlayActivatedCallback const & arg )
-    : GameOverlayActivatedCallback( arg )
-      , bp::wrapper< GameOverlayActivatedCallback >(){
-        // copy constructor
-        
-    }
 
     GameOverlayActivatedCallback_wrapper()
     : GameOverlayActivatedCallback()
@@ -4383,13 +4200,6 @@ PY_STEAM_CALLBACK_WRAPPER( GameServerChangeRequested, GameServerChangeRequested_
 
 struct GameServerChangeRequestedCallback_wrapper : GameServerChangeRequestedCallback, bp::wrapper< GameServerChangeRequestedCallback > {
 
-    GameServerChangeRequestedCallback_wrapper(GameServerChangeRequestedCallback const & arg )
-    : GameServerChangeRequestedCallback( arg )
-      , bp::wrapper< GameServerChangeRequestedCallback >(){
-        // copy constructor
-        
-    }
-
     GameServerChangeRequestedCallback_wrapper()
     : GameServerChangeRequestedCallback()
       , bp::wrapper< GameServerChangeRequestedCallback >(){
@@ -4420,13 +4230,6 @@ struct GameServerChangeRequestedCallback_wrapper : GameServerChangeRequestedCall
 PY_STEAM_CALLBACK_WRAPPER( GameLobbyJoinRequested, GameLobbyJoinRequested_t );
 
 struct GameLobbyJoinRequestedCallback_wrapper : GameLobbyJoinRequestedCallback, bp::wrapper< GameLobbyJoinRequestedCallback > {
-
-    GameLobbyJoinRequestedCallback_wrapper(GameLobbyJoinRequestedCallback const & arg )
-    : GameLobbyJoinRequestedCallback( arg )
-      , bp::wrapper< GameLobbyJoinRequestedCallback >(){
-        // copy constructor
-        
-    }
 
     GameLobbyJoinRequestedCallback_wrapper()
     : GameLobbyJoinRequestedCallback()
@@ -4459,13 +4262,6 @@ PY_STEAM_CALLBACK_WRAPPER( AvatarImageLoaded, AvatarImageLoaded_t );
 
 struct AvatarImageLoadedCallback_wrapper : AvatarImageLoadedCallback, bp::wrapper< AvatarImageLoadedCallback > {
 
-    AvatarImageLoadedCallback_wrapper(AvatarImageLoadedCallback const & arg )
-    : AvatarImageLoadedCallback( arg )
-      , bp::wrapper< AvatarImageLoadedCallback >(){
-        // copy constructor
-        
-    }
-
     AvatarImageLoadedCallback_wrapper()
     : AvatarImageLoadedCallback()
       , bp::wrapper< AvatarImageLoadedCallback >(){
@@ -4496,13 +4292,6 @@ struct AvatarImageLoadedCallback_wrapper : AvatarImageLoadedCallback, bp::wrappe
 PY_STEAM_CALLBACK_WRAPPER( ClanOfficerListResponse, ClanOfficerListResponse_t );
 
 struct ClanOfficerListResponseCallback_wrapper : ClanOfficerListResponseCallback, bp::wrapper< ClanOfficerListResponseCallback > {
-
-    ClanOfficerListResponseCallback_wrapper(ClanOfficerListResponseCallback const & arg )
-    : ClanOfficerListResponseCallback( arg )
-      , bp::wrapper< ClanOfficerListResponseCallback >(){
-        // copy constructor
-        
-    }
 
     ClanOfficerListResponseCallback_wrapper()
     : ClanOfficerListResponseCallback()
@@ -4535,13 +4324,6 @@ PY_STEAM_CALLBACK_WRAPPER( FriendRichPresenceUpdate, FriendRichPresenceUpdate_t 
 
 struct FriendRichPresenceUpdateCallback_wrapper : FriendRichPresenceUpdateCallback, bp::wrapper< FriendRichPresenceUpdateCallback > {
 
-    FriendRichPresenceUpdateCallback_wrapper(FriendRichPresenceUpdateCallback const & arg )
-    : FriendRichPresenceUpdateCallback( arg )
-      , bp::wrapper< FriendRichPresenceUpdateCallback >(){
-        // copy constructor
-        
-    }
-
     FriendRichPresenceUpdateCallback_wrapper()
     : FriendRichPresenceUpdateCallback()
       , bp::wrapper< FriendRichPresenceUpdateCallback >(){
@@ -4572,13 +4354,6 @@ struct FriendRichPresenceUpdateCallback_wrapper : FriendRichPresenceUpdateCallba
 PY_STEAM_CALLBACK_WRAPPER( GameRichPresenceJoinRequested, GameRichPresenceJoinRequested_t );
 
 struct GameRichPresenceJoinRequestedCallback_wrapper : GameRichPresenceJoinRequestedCallback, bp::wrapper< GameRichPresenceJoinRequestedCallback > {
-
-    GameRichPresenceJoinRequestedCallback_wrapper(GameRichPresenceJoinRequestedCallback const & arg )
-    : GameRichPresenceJoinRequestedCallback( arg )
-      , bp::wrapper< GameRichPresenceJoinRequestedCallback >(){
-        // copy constructor
-        
-    }
 
     GameRichPresenceJoinRequestedCallback_wrapper()
     : GameRichPresenceJoinRequestedCallback()
@@ -4611,13 +4386,6 @@ PY_STEAM_CALLBACK_WRAPPER( GameConnectedClanChatMsg, GameConnectedClanChatMsg_t 
 
 struct GameConnectedClanChatMsgCallback_wrapper : GameConnectedClanChatMsgCallback, bp::wrapper< GameConnectedClanChatMsgCallback > {
 
-    GameConnectedClanChatMsgCallback_wrapper(GameConnectedClanChatMsgCallback const & arg )
-    : GameConnectedClanChatMsgCallback( arg )
-      , bp::wrapper< GameConnectedClanChatMsgCallback >(){
-        // copy constructor
-        
-    }
-
     GameConnectedClanChatMsgCallback_wrapper()
     : GameConnectedClanChatMsgCallback()
       , bp::wrapper< GameConnectedClanChatMsgCallback >(){
@@ -4648,13 +4416,6 @@ struct GameConnectedClanChatMsgCallback_wrapper : GameConnectedClanChatMsgCallba
 PY_STEAM_CALLBACK_WRAPPER( GameConnectedChatJoin, GameConnectedChatJoin_t );
 
 struct GameConnectedChatJoinCallback_wrapper : GameConnectedChatJoinCallback, bp::wrapper< GameConnectedChatJoinCallback > {
-
-    GameConnectedChatJoinCallback_wrapper(GameConnectedChatJoinCallback const & arg )
-    : GameConnectedChatJoinCallback( arg )
-      , bp::wrapper< GameConnectedChatJoinCallback >(){
-        // copy constructor
-        
-    }
 
     GameConnectedChatJoinCallback_wrapper()
     : GameConnectedChatJoinCallback()
@@ -4687,13 +4448,6 @@ PY_STEAM_CALLBACK_WRAPPER( GameConnectedChatLeave, GameConnectedChatLeave_t );
 
 struct GameConnectedChatLeaveCallback_wrapper : GameConnectedChatLeaveCallback, bp::wrapper< GameConnectedChatLeaveCallback > {
 
-    GameConnectedChatLeaveCallback_wrapper(GameConnectedChatLeaveCallback const & arg )
-    : GameConnectedChatLeaveCallback( arg )
-      , bp::wrapper< GameConnectedChatLeaveCallback >(){
-        // copy constructor
-        
-    }
-
     GameConnectedChatLeaveCallback_wrapper()
     : GameConnectedChatLeaveCallback()
       , bp::wrapper< GameConnectedChatLeaveCallback >(){
@@ -4724,13 +4478,6 @@ struct GameConnectedChatLeaveCallback_wrapper : GameConnectedChatLeaveCallback, 
 PY_STEAM_CALLBACK_WRAPPER( DownloadClanActivityCountsResult, DownloadClanActivityCountsResult_t );
 
 struct DownloadClanActivityCountsResultCallback_wrapper : DownloadClanActivityCountsResultCallback, bp::wrapper< DownloadClanActivityCountsResultCallback > {
-
-    DownloadClanActivityCountsResultCallback_wrapper(DownloadClanActivityCountsResultCallback const & arg )
-    : DownloadClanActivityCountsResultCallback( arg )
-      , bp::wrapper< DownloadClanActivityCountsResultCallback >(){
-        // copy constructor
-        
-    }
 
     DownloadClanActivityCountsResultCallback_wrapper()
     : DownloadClanActivityCountsResultCallback()
@@ -4763,13 +4510,6 @@ PY_STEAM_CALLBACK_WRAPPER( JoinClanChatRoomCompletionResult, JoinClanChatRoomCom
 
 struct JoinClanChatRoomCompletionResultCallback_wrapper : JoinClanChatRoomCompletionResultCallback, bp::wrapper< JoinClanChatRoomCompletionResultCallback > {
 
-    JoinClanChatRoomCompletionResultCallback_wrapper(JoinClanChatRoomCompletionResultCallback const & arg )
-    : JoinClanChatRoomCompletionResultCallback( arg )
-      , bp::wrapper< JoinClanChatRoomCompletionResultCallback >(){
-        // copy constructor
-        
-    }
-
     JoinClanChatRoomCompletionResultCallback_wrapper()
     : JoinClanChatRoomCompletionResultCallback()
       , bp::wrapper< JoinClanChatRoomCompletionResultCallback >(){
@@ -4800,13 +4540,6 @@ struct JoinClanChatRoomCompletionResultCallback_wrapper : JoinClanChatRoomComple
 PY_STEAM_CALLBACK_WRAPPER( GameConnectedFriendChatMsg, GameConnectedFriendChatMsg_t );
 
 struct GameConnectedFriendChatMsgCallback_wrapper : GameConnectedFriendChatMsgCallback, bp::wrapper< GameConnectedFriendChatMsgCallback > {
-
-    GameConnectedFriendChatMsgCallback_wrapper(GameConnectedFriendChatMsgCallback const & arg )
-    : GameConnectedFriendChatMsgCallback( arg )
-      , bp::wrapper< GameConnectedFriendChatMsgCallback >(){
-        // copy constructor
-        
-    }
 
     GameConnectedFriendChatMsgCallback_wrapper()
     : GameConnectedFriendChatMsgCallback()
@@ -4839,13 +4572,6 @@ PY_STEAM_CALLBACK_WRAPPER( FriendsGetFollowerCount, FriendsGetFollowerCount_t );
 
 struct FriendsGetFollowerCountCallback_wrapper : FriendsGetFollowerCountCallback, bp::wrapper< FriendsGetFollowerCountCallback > {
 
-    FriendsGetFollowerCountCallback_wrapper(FriendsGetFollowerCountCallback const & arg )
-    : FriendsGetFollowerCountCallback( arg )
-      , bp::wrapper< FriendsGetFollowerCountCallback >(){
-        // copy constructor
-        
-    }
-
     FriendsGetFollowerCountCallback_wrapper()
     : FriendsGetFollowerCountCallback()
       , bp::wrapper< FriendsGetFollowerCountCallback >(){
@@ -4876,13 +4602,6 @@ struct FriendsGetFollowerCountCallback_wrapper : FriendsGetFollowerCountCallback
 PY_STEAM_CALLBACK_WRAPPER( FriendsIsFollowing, FriendsIsFollowing_t );
 
 struct FriendsIsFollowingCallback_wrapper : FriendsIsFollowingCallback, bp::wrapper< FriendsIsFollowingCallback > {
-
-    FriendsIsFollowingCallback_wrapper(FriendsIsFollowingCallback const & arg )
-    : FriendsIsFollowingCallback( arg )
-      , bp::wrapper< FriendsIsFollowingCallback >(){
-        // copy constructor
-        
-    }
 
     FriendsIsFollowingCallback_wrapper()
     : FriendsIsFollowingCallback()
@@ -4915,13 +4634,6 @@ PY_STEAM_CALLBACK_WRAPPER( FriendsEnumerateFollowingList, FriendsEnumerateFollow
 
 struct FriendsEnumerateFollowingListCallback_wrapper : FriendsEnumerateFollowingListCallback, bp::wrapper< FriendsEnumerateFollowingListCallback > {
 
-    FriendsEnumerateFollowingListCallback_wrapper(FriendsEnumerateFollowingListCallback const & arg )
-    : FriendsEnumerateFollowingListCallback( arg )
-      , bp::wrapper< FriendsEnumerateFollowingListCallback >(){
-        // copy constructor
-        
-    }
-
     FriendsEnumerateFollowingListCallback_wrapper()
     : FriendsEnumerateFollowingListCallback()
       , bp::wrapper< FriendsEnumerateFollowingListCallback >(){
@@ -4952,13 +4664,6 @@ struct FriendsEnumerateFollowingListCallback_wrapper : FriendsEnumerateFollowing
 PY_STEAM_CALLBACK_WRAPPER( SetPersonaNameResponse, SetPersonaNameResponse_t );
 
 struct SetPersonaNameResponseCallback_wrapper : SetPersonaNameResponseCallback, bp::wrapper< SetPersonaNameResponseCallback > {
-
-    SetPersonaNameResponseCallback_wrapper(SetPersonaNameResponseCallback const & arg )
-    : SetPersonaNameResponseCallback( arg )
-      , bp::wrapper< SetPersonaNameResponseCallback >(){
-        // copy constructor
-        
-    }
 
     SetPersonaNameResponseCallback_wrapper()
     : SetPersonaNameResponseCallback()
@@ -4991,12 +4696,6 @@ PY_STEAM_CALLRESULT_WRAPPER( LobbyMatchList, LobbyMatchList_t );
 
 struct LobbyMatchListCallResult_wrapper : LobbyMatchListCallResult, bp::wrapper< LobbyMatchListCallResult > {
 
-    LobbyMatchListCallResult_wrapper(LobbyMatchListCallResult const & arg )
-    : LobbyMatchListCallResult( arg )
-      , bp::wrapper< LobbyMatchListCallResult >(){
-        // copy constructor
-    }
-
     LobbyMatchListCallResult_wrapper(::SteamAPICall_t steamapicall )
     : LobbyMatchListCallResult( steamapicall )
       , bp::wrapper< LobbyMatchListCallResult >(){
@@ -5026,12 +4725,6 @@ struct LobbyMatchListCallResult_wrapper : LobbyMatchListCallResult, bp::wrapper<
 PY_STEAM_CALLRESULT_WRAPPER( LobbyGameCreated, LobbyGameCreated_t );
 
 struct LobbyGameCreatedCallResult_wrapper : LobbyGameCreatedCallResult, bp::wrapper< LobbyGameCreatedCallResult > {
-
-    LobbyGameCreatedCallResult_wrapper(LobbyGameCreatedCallResult const & arg )
-    : LobbyGameCreatedCallResult( arg )
-      , bp::wrapper< LobbyGameCreatedCallResult >(){
-        // copy constructor
-    }
 
     LobbyGameCreatedCallResult_wrapper(::SteamAPICall_t steamapicall )
     : LobbyGameCreatedCallResult( steamapicall )
@@ -5063,12 +4756,6 @@ PY_STEAM_CALLRESULT_WRAPPER( LobbyCreated, LobbyCreated_t );
 
 struct LobbyCreatedCallResult_wrapper : LobbyCreatedCallResult, bp::wrapper< LobbyCreatedCallResult > {
 
-    LobbyCreatedCallResult_wrapper(LobbyCreatedCallResult const & arg )
-    : LobbyCreatedCallResult( arg )
-      , bp::wrapper< LobbyCreatedCallResult >(){
-        // copy constructor
-    }
-
     LobbyCreatedCallResult_wrapper(::SteamAPICall_t steamapicall )
     : LobbyCreatedCallResult( steamapicall )
       , bp::wrapper< LobbyCreatedCallResult >(){
@@ -5099,12 +4786,6 @@ PY_STEAM_CALLRESULT_WRAPPER( LobbyEnter, LobbyEnter_t );
 
 struct LobbyEnterCallResult_wrapper : LobbyEnterCallResult, bp::wrapper< LobbyEnterCallResult > {
 
-    LobbyEnterCallResult_wrapper(LobbyEnterCallResult const & arg )
-    : LobbyEnterCallResult( arg )
-      , bp::wrapper< LobbyEnterCallResult >(){
-        // copy constructor
-    }
-
     LobbyEnterCallResult_wrapper(::SteamAPICall_t steamapicall )
     : LobbyEnterCallResult( steamapicall )
       , bp::wrapper< LobbyEnterCallResult >(){
@@ -5134,13 +4815,6 @@ struct LobbyEnterCallResult_wrapper : LobbyEnterCallResult, bp::wrapper< LobbyEn
 PY_STEAM_CALLBACK_WRAPPER( LobbyChatUpdate, LobbyChatUpdate_t );
 
 struct LobbyChatUpdateCallback_wrapper : LobbyChatUpdateCallback, bp::wrapper< LobbyChatUpdateCallback > {
-
-    LobbyChatUpdateCallback_wrapper(LobbyChatUpdateCallback const & arg )
-    : LobbyChatUpdateCallback( arg )
-      , bp::wrapper< LobbyChatUpdateCallback >(){
-        // copy constructor
-        
-    }
 
     LobbyChatUpdateCallback_wrapper()
     : LobbyChatUpdateCallback()
@@ -5173,13 +4847,6 @@ PY_STEAM_CALLBACK_WRAPPER( LobbyChatMsg, LobbyChatMsg_t );
 
 struct LobbyChatMsgCallback_wrapper : LobbyChatMsgCallback, bp::wrapper< LobbyChatMsgCallback > {
 
-    LobbyChatMsgCallback_wrapper(LobbyChatMsgCallback const & arg )
-    : LobbyChatMsgCallback( arg )
-      , bp::wrapper< LobbyChatMsgCallback >(){
-        // copy constructor
-        
-    }
-
     LobbyChatMsgCallback_wrapper()
     : LobbyChatMsgCallback()
       , bp::wrapper< LobbyChatMsgCallback >(){
@@ -5211,13 +4878,6 @@ PY_STEAM_CALLBACK_WRAPPER( LobbyDataUpdate, LobbyDataUpdate_t );
 
 struct LobbyDataUpdateCallback_wrapper : LobbyDataUpdateCallback, bp::wrapper< LobbyDataUpdateCallback > {
 
-    LobbyDataUpdateCallback_wrapper(LobbyDataUpdateCallback const & arg )
-    : LobbyDataUpdateCallback( arg )
-      , bp::wrapper< LobbyDataUpdateCallback >(){
-        // copy constructor
-        
-    }
-
     LobbyDataUpdateCallback_wrapper()
     : LobbyDataUpdateCallback()
       , bp::wrapper< LobbyDataUpdateCallback >(){
@@ -5248,12 +4908,6 @@ struct LobbyDataUpdateCallback_wrapper : LobbyDataUpdateCallback, bp::wrapper< L
 PY_STEAM_CALLRESULT_WRAPPER( NumberOfCurrentPlayers, NumberOfCurrentPlayers_t );
 
 struct NumberOfCurrentPlayersCallResult_wrapper : NumberOfCurrentPlayersCallResult, bp::wrapper< NumberOfCurrentPlayersCallResult > {
-
-    NumberOfCurrentPlayersCallResult_wrapper(NumberOfCurrentPlayersCallResult const & arg )
-    : NumberOfCurrentPlayersCallResult( arg )
-      , bp::wrapper< NumberOfCurrentPlayersCallResult >(){
-        // copy constructor
-    }
 
     NumberOfCurrentPlayersCallResult_wrapper(::SteamAPICall_t steamapicall )
     : NumberOfCurrentPlayersCallResult( steamapicall )
@@ -5314,6 +4968,7 @@ BOOST_PYTHON_MODULE(_steam){
         .value("k_EChatEntryTypeHistoricalChat", k_EChatEntryTypeHistoricalChat)
         .value("k_EChatEntryTypeReserved1", k_EChatEntryTypeReserved1)
         .value("k_EChatEntryTypeReserved2", k_EChatEntryTypeReserved2)
+        .value("k_EChatEntryTypeLinkBlocked", k_EChatEntryTypeLinkBlocked)
         .export_values()
         ;
 
@@ -5526,6 +5181,17 @@ BOOST_PYTHON_MODULE(_steam){
         .value("k_EResultAccountLoginDeniedThrottle", k_EResultAccountLoginDeniedThrottle)
         .value("k_EResultTwoFactorCodeMismatch", k_EResultTwoFactorCodeMismatch)
         .value("k_EResultTwoFactorActivationCodeMismatch", k_EResultTwoFactorActivationCodeMismatch)
+        .value("k_EResultAccountAssociatedToMultiplePartners", k_EResultAccountAssociatedToMultiplePartners)
+        .value("k_EResultNotModified", k_EResultNotModified)
+        .value("k_EResultNoMobileDevice", k_EResultNoMobileDevice)
+        .value("k_EResultTimeNotSynced", k_EResultTimeNotSynced)
+        .value("k_EResultSmsCodeFailed", k_EResultSmsCodeFailed)
+        .value("k_EResultAccountLimitExceeded", k_EResultAccountLimitExceeded)
+        .value("k_EResultAccountActivityLimitExceeded", k_EResultAccountActivityLimitExceeded)
+        .value("k_EResultPhoneActivityLimitExceeded", k_EResultPhoneActivityLimitExceeded)
+        .value("k_EResultRefundToWallet", k_EResultRefundToWallet)
+        .value("k_EResultEmailSendFailure", k_EResultEmailSendFailure)
+        .value("k_EResultNotSettled", k_EResultNotSettled)
         .export_values()
         ;
 
@@ -5551,8 +5217,8 @@ BOOST_PYTHON_MODULE(_steam){
         ;
 
     { //::AvatarImageLoaded_t
-        typedef bp::class_< AvatarImageLoaded_t > AvatarImageLoaded_t_exposer_t;
-        AvatarImageLoaded_t_exposer_t AvatarImageLoaded_t_exposer = AvatarImageLoaded_t_exposer_t( "AvatarImageLoaded_t" );
+        typedef bp::class_< AvatarImageLoaded_t, boost::noncopyable > AvatarImageLoaded_t_exposer_t;
+        AvatarImageLoaded_t_exposer_t AvatarImageLoaded_t_exposer = AvatarImageLoaded_t_exposer_t( "AvatarImageLoaded_t", bp::no_init );
         bp::scope AvatarImageLoaded_t_scope( AvatarImageLoaded_t_exposer );
         bp::scope().attr("k_iCallback") = (int)AvatarImageLoaded_t::k_iCallback;
         AvatarImageLoaded_t_exposer.def_readwrite( "image", &AvatarImageLoaded_t::m_iImage );
@@ -5561,7 +5227,7 @@ BOOST_PYTHON_MODULE(_steam){
         AvatarImageLoaded_t_exposer.def_readwrite( "steamid", &AvatarImageLoaded_t::m_steamID );
     }
 
-    bp::class_< CSteamAPIContext >( "CSteamAPIContext", bp::no_init )    
+    bp::class_< CSteamAPIContext, boost::noncopyable >( "CSteamAPIContext", bp::no_init )    
         .def( bp::init< >() )    
         .def( 
             "SteamApps"
@@ -5588,7 +5254,7 @@ BOOST_PYTHON_MODULE(_steam){
             , (::ISteamUtils * ( ::CSteamAPIContext::* )(  ) )( &::CSteamAPIContext::SteamUtils )
             , bp::return_internal_reference< >() );
 
-    bp::class_< CSteamGameServerAPIContext >( "CSteamGameServerAPIContext", bp::no_init )    
+    bp::class_< CSteamGameServerAPIContext, boost::noncopyable >( "CSteamGameServerAPIContext", bp::no_init )    
         .def( bp::init< >() )    
         .def( 
             "SteamGameServer"
@@ -5898,8 +5564,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::ClanOfficerListResponse_t
-        typedef bp::class_< ClanOfficerListResponse_t > ClanOfficerListResponse_t_exposer_t;
-        ClanOfficerListResponse_t_exposer_t ClanOfficerListResponse_t_exposer = ClanOfficerListResponse_t_exposer_t( "ClanOfficerListResponse_t" );
+        typedef bp::class_< ClanOfficerListResponse_t, boost::noncopyable > ClanOfficerListResponse_t_exposer_t;
+        ClanOfficerListResponse_t_exposer_t ClanOfficerListResponse_t_exposer = ClanOfficerListResponse_t_exposer_t( "ClanOfficerListResponse_t", bp::no_init );
         bp::scope ClanOfficerListResponse_t_scope( ClanOfficerListResponse_t_exposer );
         bp::scope().attr("k_iCallback") = (int)ClanOfficerListResponse_t::k_iCallback;
         ClanOfficerListResponse_t_exposer.def_readwrite( "success", &ClanOfficerListResponse_t::m_bSuccess );
@@ -5908,16 +5574,16 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::DownloadClanActivityCountsResult_t
-        typedef bp::class_< DownloadClanActivityCountsResult_t > DownloadClanActivityCountsResult_t_exposer_t;
-        DownloadClanActivityCountsResult_t_exposer_t DownloadClanActivityCountsResult_t_exposer = DownloadClanActivityCountsResult_t_exposer_t( "DownloadClanActivityCountsResult_t" );
+        typedef bp::class_< DownloadClanActivityCountsResult_t, boost::noncopyable > DownloadClanActivityCountsResult_t_exposer_t;
+        DownloadClanActivityCountsResult_t_exposer_t DownloadClanActivityCountsResult_t_exposer = DownloadClanActivityCountsResult_t_exposer_t( "DownloadClanActivityCountsResult_t", bp::no_init );
         bp::scope DownloadClanActivityCountsResult_t_scope( DownloadClanActivityCountsResult_t_exposer );
         bp::scope().attr("k_iCallback") = (int)DownloadClanActivityCountsResult_t::k_iCallback;
         DownloadClanActivityCountsResult_t_exposer.def_readwrite( "success", &DownloadClanActivityCountsResult_t::m_bSuccess );
     }
 
     { //::FriendRichPresenceUpdate_t
-        typedef bp::class_< FriendRichPresenceUpdate_t > FriendRichPresenceUpdate_t_exposer_t;
-        FriendRichPresenceUpdate_t_exposer_t FriendRichPresenceUpdate_t_exposer = FriendRichPresenceUpdate_t_exposer_t( "FriendRichPresenceUpdate_t" );
+        typedef bp::class_< FriendRichPresenceUpdate_t, boost::noncopyable > FriendRichPresenceUpdate_t_exposer_t;
+        FriendRichPresenceUpdate_t_exposer_t FriendRichPresenceUpdate_t_exposer = FriendRichPresenceUpdate_t_exposer_t( "FriendRichPresenceUpdate_t", bp::no_init );
         bp::scope FriendRichPresenceUpdate_t_scope( FriendRichPresenceUpdate_t_exposer );
         bp::scope().attr("k_iCallback") = (int)FriendRichPresenceUpdate_t::k_iCallback;
         FriendRichPresenceUpdate_t_exposer.def_readwrite( "appid", &FriendRichPresenceUpdate_t::m_nAppID );
@@ -5925,8 +5591,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendsEnumerateFollowingList_t
-        typedef bp::class_< FriendsEnumerateFollowingList_t_wrapper > FriendsEnumerateFollowingList_t_exposer_t;
-        FriendsEnumerateFollowingList_t_exposer_t FriendsEnumerateFollowingList_t_exposer = FriendsEnumerateFollowingList_t_exposer_t( "FriendsEnumerateFollowingList_t" );
+        typedef bp::class_< FriendsEnumerateFollowingList_t_wrapper, boost::noncopyable > FriendsEnumerateFollowingList_t_exposer_t;
+        FriendsEnumerateFollowingList_t_exposer_t FriendsEnumerateFollowingList_t_exposer = FriendsEnumerateFollowingList_t_exposer_t( "FriendsEnumerateFollowingList_t", bp::no_init );
         bp::scope FriendsEnumerateFollowingList_t_scope( FriendsEnumerateFollowingList_t_exposer );
         bp::scope().attr("k_iCallback") = (int)FriendsEnumerateFollowingList_t::k_iCallback;
         FriendsEnumerateFollowingList_t_exposer.def_readwrite( "result", &FriendsEnumerateFollowingList_t::m_eResult );
@@ -5944,8 +5610,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendsGetFollowerCount_t
-        typedef bp::class_< FriendsGetFollowerCount_t > FriendsGetFollowerCount_t_exposer_t;
-        FriendsGetFollowerCount_t_exposer_t FriendsGetFollowerCount_t_exposer = FriendsGetFollowerCount_t_exposer_t( "FriendsGetFollowerCount_t" );
+        typedef bp::class_< FriendsGetFollowerCount_t, boost::noncopyable > FriendsGetFollowerCount_t_exposer_t;
+        FriendsGetFollowerCount_t_exposer_t FriendsGetFollowerCount_t_exposer = FriendsGetFollowerCount_t_exposer_t( "FriendsGetFollowerCount_t", bp::no_init );
         bp::scope FriendsGetFollowerCount_t_scope( FriendsGetFollowerCount_t_exposer );
         bp::scope().attr("k_iCallback") = (int)FriendsGetFollowerCount_t::k_iCallback;
         FriendsGetFollowerCount_t_exposer.def_readwrite( "result", &FriendsGetFollowerCount_t::m_eResult );
@@ -5954,8 +5620,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendsIsFollowing_t
-        typedef bp::class_< FriendsIsFollowing_t > FriendsIsFollowing_t_exposer_t;
-        FriendsIsFollowing_t_exposer_t FriendsIsFollowing_t_exposer = FriendsIsFollowing_t_exposer_t( "FriendsIsFollowing_t" );
+        typedef bp::class_< FriendsIsFollowing_t, boost::noncopyable > FriendsIsFollowing_t_exposer_t;
+        FriendsIsFollowing_t_exposer_t FriendsIsFollowing_t_exposer = FriendsIsFollowing_t_exposer_t( "FriendsIsFollowing_t", bp::no_init );
         bp::scope FriendsIsFollowing_t_scope( FriendsIsFollowing_t_exposer );
         bp::scope().attr("k_iCallback") = (int)FriendsIsFollowing_t::k_iCallback;
         FriendsIsFollowing_t_exposer.def_readwrite( "isfollowing", &FriendsIsFollowing_t::m_bIsFollowing );
@@ -5964,8 +5630,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedChatJoin_t
-        typedef bp::class_< GameConnectedChatJoin_t > GameConnectedChatJoin_t_exposer_t;
-        GameConnectedChatJoin_t_exposer_t GameConnectedChatJoin_t_exposer = GameConnectedChatJoin_t_exposer_t( "GameConnectedChatJoin_t" );
+        typedef bp::class_< GameConnectedChatJoin_t, boost::noncopyable > GameConnectedChatJoin_t_exposer_t;
+        GameConnectedChatJoin_t_exposer_t GameConnectedChatJoin_t_exposer = GameConnectedChatJoin_t_exposer_t( "GameConnectedChatJoin_t", bp::no_init );
         bp::scope GameConnectedChatJoin_t_scope( GameConnectedChatJoin_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameConnectedChatJoin_t::k_iCallback;
         GameConnectedChatJoin_t_exposer.def_readwrite( "steamidclanchat", &GameConnectedChatJoin_t::m_steamIDClanChat );
@@ -5973,8 +5639,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedChatLeave_t
-        typedef bp::class_< GameConnectedChatLeave_t > GameConnectedChatLeave_t_exposer_t;
-        GameConnectedChatLeave_t_exposer_t GameConnectedChatLeave_t_exposer = GameConnectedChatLeave_t_exposer_t( "GameConnectedChatLeave_t" );
+        typedef bp::class_< GameConnectedChatLeave_t, boost::noncopyable > GameConnectedChatLeave_t_exposer_t;
+        GameConnectedChatLeave_t_exposer_t GameConnectedChatLeave_t_exposer = GameConnectedChatLeave_t_exposer_t( "GameConnectedChatLeave_t", bp::no_init );
         bp::scope GameConnectedChatLeave_t_scope( GameConnectedChatLeave_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameConnectedChatLeave_t::k_iCallback;
         GameConnectedChatLeave_t_exposer.def_readwrite( "dropped", &GameConnectedChatLeave_t::m_bDropped );
@@ -5984,8 +5650,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedClanChatMsg_t
-        typedef bp::class_< GameConnectedClanChatMsg_t > GameConnectedClanChatMsg_t_exposer_t;
-        GameConnectedClanChatMsg_t_exposer_t GameConnectedClanChatMsg_t_exposer = GameConnectedClanChatMsg_t_exposer_t( "GameConnectedClanChatMsg_t" );
+        typedef bp::class_< GameConnectedClanChatMsg_t, boost::noncopyable > GameConnectedClanChatMsg_t_exposer_t;
+        GameConnectedClanChatMsg_t_exposer_t GameConnectedClanChatMsg_t_exposer = GameConnectedClanChatMsg_t_exposer_t( "GameConnectedClanChatMsg_t", bp::no_init );
         bp::scope GameConnectedClanChatMsg_t_scope( GameConnectedClanChatMsg_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameConnectedClanChatMsg_t::k_iCallback;
         GameConnectedClanChatMsg_t_exposer.def_readwrite( "messageid", &GameConnectedClanChatMsg_t::m_iMessageID );
@@ -5994,8 +5660,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedFriendChatMsg_t
-        typedef bp::class_< GameConnectedFriendChatMsg_t > GameConnectedFriendChatMsg_t_exposer_t;
-        GameConnectedFriendChatMsg_t_exposer_t GameConnectedFriendChatMsg_t_exposer = GameConnectedFriendChatMsg_t_exposer_t( "GameConnectedFriendChatMsg_t" );
+        typedef bp::class_< GameConnectedFriendChatMsg_t, boost::noncopyable > GameConnectedFriendChatMsg_t_exposer_t;
+        GameConnectedFriendChatMsg_t_exposer_t GameConnectedFriendChatMsg_t_exposer = GameConnectedFriendChatMsg_t_exposer_t( "GameConnectedFriendChatMsg_t", bp::no_init );
         bp::scope GameConnectedFriendChatMsg_t_scope( GameConnectedFriendChatMsg_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameConnectedFriendChatMsg_t::k_iCallback;
         GameConnectedFriendChatMsg_t_exposer.def_readwrite( "messageid", &GameConnectedFriendChatMsg_t::m_iMessageID );
@@ -6003,8 +5669,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameLobbyJoinRequested_t
-        typedef bp::class_< GameLobbyJoinRequested_t > GameLobbyJoinRequested_t_exposer_t;
-        GameLobbyJoinRequested_t_exposer_t GameLobbyJoinRequested_t_exposer = GameLobbyJoinRequested_t_exposer_t( "GameLobbyJoinRequested_t" );
+        typedef bp::class_< GameLobbyJoinRequested_t, boost::noncopyable > GameLobbyJoinRequested_t_exposer_t;
+        GameLobbyJoinRequested_t_exposer_t GameLobbyJoinRequested_t_exposer = GameLobbyJoinRequested_t_exposer_t( "GameLobbyJoinRequested_t", bp::no_init );
         bp::scope GameLobbyJoinRequested_t_scope( GameLobbyJoinRequested_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameLobbyJoinRequested_t::k_iCallback;
         GameLobbyJoinRequested_t_exposer.def_readwrite( "steamidfriend", &GameLobbyJoinRequested_t::m_steamIDFriend );
@@ -6012,16 +5678,16 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameOverlayActivated_t
-        typedef bp::class_< GameOverlayActivated_t > GameOverlayActivated_t_exposer_t;
-        GameOverlayActivated_t_exposer_t GameOverlayActivated_t_exposer = GameOverlayActivated_t_exposer_t( "GameOverlayActivated_t" );
+        typedef bp::class_< GameOverlayActivated_t, boost::noncopyable > GameOverlayActivated_t_exposer_t;
+        GameOverlayActivated_t_exposer_t GameOverlayActivated_t_exposer = GameOverlayActivated_t_exposer_t( "GameOverlayActivated_t", bp::no_init );
         bp::scope GameOverlayActivated_t_scope( GameOverlayActivated_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameOverlayActivated_t::k_iCallback;
         GameOverlayActivated_t_exposer.def_readwrite( "active", &GameOverlayActivated_t::m_bActive );
     }
 
     { //::GameRichPresenceJoinRequested_t
-        typedef bp::class_< GameRichPresenceJoinRequested_t_wrapper > GameRichPresenceJoinRequested_t_exposer_t;
-        GameRichPresenceJoinRequested_t_exposer_t GameRichPresenceJoinRequested_t_exposer = GameRichPresenceJoinRequested_t_exposer_t( "GameRichPresenceJoinRequested_t" );
+        typedef bp::class_< GameRichPresenceJoinRequested_t_wrapper, boost::noncopyable > GameRichPresenceJoinRequested_t_exposer_t;
+        GameRichPresenceJoinRequested_t_exposer_t GameRichPresenceJoinRequested_t_exposer = GameRichPresenceJoinRequested_t_exposer_t( "GameRichPresenceJoinRequested_t", bp::no_init );
         bp::scope GameRichPresenceJoinRequested_t_scope( GameRichPresenceJoinRequested_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameRichPresenceJoinRequested_t::k_iCallback;
         pyplusplus::containers::static_sized::register_array_1< char, 256 >( "__array_1_char_256" );
@@ -6037,8 +5703,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameServerChangeRequested_t
-        typedef bp::class_< GameServerChangeRequested_t_wrapper > GameServerChangeRequested_t_exposer_t;
-        GameServerChangeRequested_t_exposer_t GameServerChangeRequested_t_exposer = GameServerChangeRequested_t_exposer_t( "GameServerChangeRequested_t" );
+        typedef bp::class_< GameServerChangeRequested_t_wrapper, boost::noncopyable > GameServerChangeRequested_t_exposer_t;
+        GameServerChangeRequested_t_exposer_t GameServerChangeRequested_t_exposer = GameServerChangeRequested_t_exposer_t( "GameServerChangeRequested_t", bp::no_init );
         bp::scope GameServerChangeRequested_t_scope( GameServerChangeRequested_t_exposer );
         bp::scope().attr("k_iCallback") = (int)GameServerChangeRequested_t::k_iCallback;
         pyplusplus::containers::static_sized::register_array_1< char, 64 >( "__array_1_char_64" );
@@ -6093,6 +5759,9 @@ BOOST_PYTHON_MODULE(_steam){
             "BIsVACBanned"
             , (bool ( ::ISteamApps::* )(  ) )( &::ISteamApps::BIsVACBanned ) )    
         .def( 
+            "GetAppBuildId"
+            , (int ( ::ISteamApps::* )(  ) )( &::ISteamApps::GetAppBuildId ) )    
+        .def( 
             "GetAppInstallDir"
             , (::uint32 ( ::ISteamApps::* )( ::AppId_t,char *,::uint32 ) )( &::ISteamApps::GetAppInstallDir )
             , ( bp::arg("appID"), bp::arg("pchFolder"), bp::arg("cchFolderBufferSize") ) )    
@@ -6108,6 +5777,10 @@ BOOST_PYTHON_MODULE(_steam){
         .def( 
             "GetDLCCount"
             , (int ( ::ISteamApps::* )(  ) )( &::ISteamApps::GetDLCCount ) )    
+        .def( 
+            "GetDlcDownloadProgress"
+            , (bool ( ::ISteamApps::* )( ::AppId_t,::uint64 *,::uint64 * ) )( &::ISteamApps::GetDlcDownloadProgress )
+            , ( bp::arg("nAppID"), bp::arg("punBytesDownloaded"), bp::arg("punBytesTotal") ) )    
         .def( 
             "GetEarliestPurchaseUnixTime"
             , (::uint32 ( ::ISteamApps::* )( ::AppId_t ) )( &::ISteamApps::GetEarliestPurchaseUnixTime )
@@ -6287,6 +5960,29 @@ BOOST_PYTHON_MODULE(_steam){
             "GetFriendRichPresenceKeyCount"
             , (int ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetFriendRichPresenceKeyCount )
             , ( bp::arg("steamIDFriend") ) )    
+        .def( 
+            "GetFriendSteamLevel"
+            , (int ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetFriendSteamLevel )
+            , ( bp::arg("steamIDFriend") ) )    
+        .def( 
+            "GetFriendsGroupCount"
+            , (int ( ::ISteamFriends::* )(  ) )( &::ISteamFriends::GetFriendsGroupCount ) )    
+        .def( 
+            "GetFriendsGroupIDByIndex"
+            , (::FriendsGroupID_t ( ::ISteamFriends::* )( int ) )( &::ISteamFriends::GetFriendsGroupIDByIndex )
+            , ( bp::arg("iFG") ) )    
+        .def( 
+            "GetFriendsGroupMembersCount"
+            , (int ( ::ISteamFriends::* )( ::FriendsGroupID_t ) )( &::ISteamFriends::GetFriendsGroupMembersCount )
+            , ( bp::arg("friendsGroupID") ) )    
+        .def( 
+            "GetFriendsGroupMembersList"
+            , (void ( ::ISteamFriends::* )( ::FriendsGroupID_t,::CSteamID *,int ) )( &::ISteamFriends::GetFriendsGroupMembersList )
+            , ( bp::arg("friendsGroupID"), bp::arg("pOutSteamIDMembers"), bp::arg("nMembersCount") ) )    
+        .def( 
+            "GetFriendsGroupName"
+            , (char const * ( ::ISteamFriends::* )( ::FriendsGroupID_t ) )( &::ISteamFriends::GetFriendsGroupName )
+            , ( bp::arg("friendsGroupID") ) )    
         .def( 
             "GetLargeFriendAvatar"
             , (int ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetLargeFriendAvatar )
@@ -6779,6 +6475,10 @@ BOOST_PYTHON_MODULE(_steam){
             , (::SteamAPICall_t ( ::ISteamUser::* )( void *,int ) )( &::ISteamUser::RequestEncryptedAppTicket )
             , ( bp::arg("pDataToInclude"), bp::arg("cbDataToInclude") ) )    
         .def( 
+            "RequestStoreAuthURL"
+            , (::SteamAPICall_t ( ::ISteamUser::* )( char const * ) )( &::ISteamUser::RequestStoreAuthURL )
+            , ( bp::arg("pchRedirectURL") ) )    
+        .def( 
             "StartVoiceRecording"
             , (void ( ::ISteamUser::* )(  ) )( &::ISteamUser::StartVoiceRecording ) )    
         .def( 
@@ -7034,6 +6734,10 @@ BOOST_PYTHON_MODULE(_steam){
             "RunFrame"
             , (void ( ::ISteamUtils::* )(  ) )( &::ISteamUtils::RunFrame ) )    
         .def( 
+            "SetOverlayNotificationInset"
+            , (void ( ::ISteamUtils::* )( int,int ) )( &::ISteamUtils::SetOverlayNotificationInset )
+            , ( bp::arg("nHorizontalInset"), bp::arg("nVerticalInset") ) )    
+        .def( 
             "SetOverlayNotificationPosition"
             , (void ( ::ISteamUtils::* )( ::ENotificationPosition ) )( &::ISteamUtils::SetOverlayNotificationPosition )
             , ( bp::arg("eNotificationPosition") ) )    
@@ -7043,8 +6747,8 @@ BOOST_PYTHON_MODULE(_steam){
             , ( bp::arg("eInputMode"), bp::arg("eLineInputMode"), bp::arg("pchDescription"), bp::arg("unCharMax"), bp::arg("pchExistingText") ) );
 
     { //::JoinClanChatRoomCompletionResult_t
-        typedef bp::class_< JoinClanChatRoomCompletionResult_t > JoinClanChatRoomCompletionResult_t_exposer_t;
-        JoinClanChatRoomCompletionResult_t_exposer_t JoinClanChatRoomCompletionResult_t_exposer = JoinClanChatRoomCompletionResult_t_exposer_t( "JoinClanChatRoomCompletionResult_t" );
+        typedef bp::class_< JoinClanChatRoomCompletionResult_t, boost::noncopyable > JoinClanChatRoomCompletionResult_t_exposer_t;
+        JoinClanChatRoomCompletionResult_t_exposer_t JoinClanChatRoomCompletionResult_t_exposer = JoinClanChatRoomCompletionResult_t_exposer_t( "JoinClanChatRoomCompletionResult_t", bp::no_init );
         bp::scope JoinClanChatRoomCompletionResult_t_scope( JoinClanChatRoomCompletionResult_t_exposer );
         bp::scope().attr("k_iCallback") = (int)JoinClanChatRoomCompletionResult_t::k_iCallback;
         JoinClanChatRoomCompletionResult_t_exposer.def_readwrite( "chatroomenterresponse", &JoinClanChatRoomCompletionResult_t::m_eChatRoomEnterResponse );
@@ -7052,8 +6756,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyChatMsg_t
-        typedef bp::class_< LobbyChatMsg_t > LobbyChatMsg_t_exposer_t;
-        LobbyChatMsg_t_exposer_t LobbyChatMsg_t_exposer = LobbyChatMsg_t_exposer_t( "LobbyChatMsg_t" );
+        typedef bp::class_< LobbyChatMsg_t, boost::noncopyable > LobbyChatMsg_t_exposer_t;
+        LobbyChatMsg_t_exposer_t LobbyChatMsg_t_exposer = LobbyChatMsg_t_exposer_t( "LobbyChatMsg_t", bp::no_init );
         bp::scope LobbyChatMsg_t_scope( LobbyChatMsg_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyChatMsg_t::k_iCallback;
         LobbyChatMsg_t_exposer.def_readwrite( "chatentrytype", &LobbyChatMsg_t::m_eChatEntryType );
@@ -7063,8 +6767,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyChatUpdate_t
-        typedef bp::class_< LobbyChatUpdate_t > LobbyChatUpdate_t_exposer_t;
-        LobbyChatUpdate_t_exposer_t LobbyChatUpdate_t_exposer = LobbyChatUpdate_t_exposer_t( "LobbyChatUpdate_t" );
+        typedef bp::class_< LobbyChatUpdate_t, boost::noncopyable > LobbyChatUpdate_t_exposer_t;
+        LobbyChatUpdate_t_exposer_t LobbyChatUpdate_t_exposer = LobbyChatUpdate_t_exposer_t( "LobbyChatUpdate_t", bp::no_init );
         bp::scope LobbyChatUpdate_t_scope( LobbyChatUpdate_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyChatUpdate_t::k_iCallback;
         LobbyChatUpdate_t_exposer.def_readwrite( "chatmemberstatechange", &LobbyChatUpdate_t::m_rgfChatMemberStateChange );
@@ -7074,8 +6778,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyCreated_t
-        typedef bp::class_< LobbyCreated_t > LobbyCreated_t_exposer_t;
-        LobbyCreated_t_exposer_t LobbyCreated_t_exposer = LobbyCreated_t_exposer_t( "LobbyCreated_t" );
+        typedef bp::class_< LobbyCreated_t, boost::noncopyable > LobbyCreated_t_exposer_t;
+        LobbyCreated_t_exposer_t LobbyCreated_t_exposer = LobbyCreated_t_exposer_t( "LobbyCreated_t", bp::no_init );
         bp::scope LobbyCreated_t_scope( LobbyCreated_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyCreated_t::k_iCallback;
         LobbyCreated_t_exposer.def_readwrite( "result", &LobbyCreated_t::m_eResult );
@@ -7083,8 +6787,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyDataUpdate_t
-        typedef bp::class_< LobbyDataUpdate_t > LobbyDataUpdate_t_exposer_t;
-        LobbyDataUpdate_t_exposer_t LobbyDataUpdate_t_exposer = LobbyDataUpdate_t_exposer_t( "LobbyDataUpdate_t" );
+        typedef bp::class_< LobbyDataUpdate_t, boost::noncopyable > LobbyDataUpdate_t_exposer_t;
+        LobbyDataUpdate_t_exposer_t LobbyDataUpdate_t_exposer = LobbyDataUpdate_t_exposer_t( "LobbyDataUpdate_t", bp::no_init );
         bp::scope LobbyDataUpdate_t_scope( LobbyDataUpdate_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyDataUpdate_t::k_iCallback;
         LobbyDataUpdate_t_exposer.def_readwrite( "success", &LobbyDataUpdate_t::m_bSuccess );
@@ -7093,8 +6797,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyEnter_t
-        typedef bp::class_< LobbyEnter_t > LobbyEnter_t_exposer_t;
-        LobbyEnter_t_exposer_t LobbyEnter_t_exposer = LobbyEnter_t_exposer_t( "LobbyEnter_t" );
+        typedef bp::class_< LobbyEnter_t, boost::noncopyable > LobbyEnter_t_exposer_t;
+        LobbyEnter_t_exposer_t LobbyEnter_t_exposer = LobbyEnter_t_exposer_t( "LobbyEnter_t", bp::no_init );
         bp::scope LobbyEnter_t_scope( LobbyEnter_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyEnter_t::k_iCallback;
         LobbyEnter_t_exposer.def_readwrite( "chatroomenterresponse", &LobbyEnter_t::m_EChatRoomEnterResponse );
@@ -7104,8 +6808,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyGameCreated_t
-        typedef bp::class_< LobbyGameCreated_t > LobbyGameCreated_t_exposer_t;
-        LobbyGameCreated_t_exposer_t LobbyGameCreated_t_exposer = LobbyGameCreated_t_exposer_t( "LobbyGameCreated_t" );
+        typedef bp::class_< LobbyGameCreated_t, boost::noncopyable > LobbyGameCreated_t_exposer_t;
+        LobbyGameCreated_t_exposer_t LobbyGameCreated_t_exposer = LobbyGameCreated_t_exposer_t( "LobbyGameCreated_t", bp::no_init );
         bp::scope LobbyGameCreated_t_scope( LobbyGameCreated_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyGameCreated_t::k_iCallback;
         LobbyGameCreated_t_exposer.def_readwrite( "steamidgameserver", &LobbyGameCreated_t::m_ulSteamIDGameServer );
@@ -7115,16 +6819,16 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyMatchList_t
-        typedef bp::class_< LobbyMatchList_t > LobbyMatchList_t_exposer_t;
-        LobbyMatchList_t_exposer_t LobbyMatchList_t_exposer = LobbyMatchList_t_exposer_t( "LobbyMatchList_t" );
+        typedef bp::class_< LobbyMatchList_t, boost::noncopyable > LobbyMatchList_t_exposer_t;
+        LobbyMatchList_t_exposer_t LobbyMatchList_t_exposer = LobbyMatchList_t_exposer_t( "LobbyMatchList_t", bp::no_init );
         bp::scope LobbyMatchList_t_scope( LobbyMatchList_t_exposer );
         bp::scope().attr("k_iCallback") = (int)LobbyMatchList_t::k_iCallback;
         LobbyMatchList_t_exposer.def_readwrite( "lobbiesmatching", &LobbyMatchList_t::m_nLobbiesMatching );
     }
 
     { //::NumberOfCurrentPlayers_t
-        typedef bp::class_< NumberOfCurrentPlayers_t > NumberOfCurrentPlayers_t_exposer_t;
-        NumberOfCurrentPlayers_t_exposer_t NumberOfCurrentPlayers_t_exposer = NumberOfCurrentPlayers_t_exposer_t( "NumberOfCurrentPlayers_t" );
+        typedef bp::class_< NumberOfCurrentPlayers_t, boost::noncopyable > NumberOfCurrentPlayers_t_exposer_t;
+        NumberOfCurrentPlayers_t_exposer_t NumberOfCurrentPlayers_t_exposer = NumberOfCurrentPlayers_t_exposer_t( "NumberOfCurrentPlayers_t", bp::no_init );
         bp::scope NumberOfCurrentPlayers_t_scope( NumberOfCurrentPlayers_t_exposer );
         bp::scope().attr("k_iCallback") = (int)NumberOfCurrentPlayers_t::k_iCallback;
         NumberOfCurrentPlayers_t_exposer.def_readwrite( "success", &NumberOfCurrentPlayers_t::m_bSuccess );
@@ -7132,8 +6836,8 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::PersonaStateChange_t
-        typedef bp::class_< PersonaStateChange_t > PersonaStateChange_t_exposer_t;
-        PersonaStateChange_t_exposer_t PersonaStateChange_t_exposer = PersonaStateChange_t_exposer_t( "PersonaStateChange_t" );
+        typedef bp::class_< PersonaStateChange_t, boost::noncopyable > PersonaStateChange_t_exposer_t;
+        PersonaStateChange_t_exposer_t PersonaStateChange_t_exposer = PersonaStateChange_t_exposer_t( "PersonaStateChange_t", bp::no_init );
         bp::scope PersonaStateChange_t_scope( PersonaStateChange_t_exposer );
         bp::scope().attr("k_iCallback") = (int)PersonaStateChange_t::k_iCallback;
         PersonaStateChange_t_exposer.def_readwrite( "changeflags", &PersonaStateChange_t::m_nChangeFlags );
@@ -7249,8 +6953,8 @@ BOOST_PYTHON_MODULE(_steam){
             , ( bp::arg("unIP"), bp::arg("usPort"), bp::arg("pRequestServersResponse") ) );
 
     { //::SetPersonaNameResponse_t
-        typedef bp::class_< SetPersonaNameResponse_t > SetPersonaNameResponse_t_exposer_t;
-        SetPersonaNameResponse_t_exposer_t SetPersonaNameResponse_t_exposer = SetPersonaNameResponse_t_exposer_t( "SetPersonaNameResponse_t" );
+        typedef bp::class_< SetPersonaNameResponse_t, boost::noncopyable > SetPersonaNameResponse_t_exposer_t;
+        SetPersonaNameResponse_t_exposer_t SetPersonaNameResponse_t_exposer = SetPersonaNameResponse_t_exposer_t( "SetPersonaNameResponse_t", bp::no_init );
         bp::scope SetPersonaNameResponse_t_scope( SetPersonaNameResponse_t_exposer );
         bp::scope().attr("k_iCallback") = (int)SetPersonaNameResponse_t::k_iCallback;
         SetPersonaNameResponse_t_exposer.def_readwrite( "localsuccess", &SetPersonaNameResponse_t::m_bLocalSuccess );
@@ -7320,7 +7024,7 @@ BOOST_PYTHON_MODULE(_steam){
 
     { //::servernetadr_t
         typedef bp::class_< servernetadr_t > servernetadr_exposer_t;
-        servernetadr_exposer_t servernetadr_exposer = servernetadr_exposer_t( "servernetadr" );
+        servernetadr_exposer_t servernetadr_exposer = servernetadr_exposer_t( "servernetadr", bp::init< >() );
         bp::scope servernetadr_scope( servernetadr_exposer );
         { //::servernetadr_t::GetConnectionAddressString
         
@@ -7494,7 +7198,7 @@ BOOST_PYTHON_MODULE(_steam){
     bp::scope().attr( "k_cchPersonaNameMax" ) = (int)k_cchPersonaNameMax;
 
     { //::PersonaStateChangeCallback
-        typedef bp::class_< PersonaStateChangeCallback_wrapper > PersonaStateChangeCallback_exposer_t;
+        typedef bp::class_< PersonaStateChangeCallback_wrapper, boost::noncopyable > PersonaStateChangeCallback_exposer_t;
         PersonaStateChangeCallback_exposer_t PersonaStateChangeCallback_exposer = PersonaStateChangeCallback_exposer_t( "PersonaStateChangeCallback", bp::init<>() );
         bp::scope PersonaStateChangeCallback_scope( PersonaStateChangeCallback_exposer );
         { //::PersonaStateChangeCallback::OnPersonaStateChange
@@ -7512,7 +7216,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameOverlayActivatedCallback
-        typedef bp::class_< GameOverlayActivatedCallback_wrapper > GameOverlayActivatedCallback_exposer_t;
+        typedef bp::class_< GameOverlayActivatedCallback_wrapper, boost::noncopyable > GameOverlayActivatedCallback_exposer_t;
         GameOverlayActivatedCallback_exposer_t GameOverlayActivatedCallback_exposer = GameOverlayActivatedCallback_exposer_t( "GameOverlayActivatedCallback", bp::init<>() );
         bp::scope GameOverlayActivatedCallback_scope( GameOverlayActivatedCallback_exposer );
         { //::GameOverlayActivatedCallback::OnGameOverlayActivated
@@ -7530,7 +7234,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameServerChangeRequestedCallback
-        typedef bp::class_< GameServerChangeRequestedCallback_wrapper > GameServerChangeRequestedCallback_exposer_t;
+        typedef bp::class_< GameServerChangeRequestedCallback_wrapper, boost::noncopyable > GameServerChangeRequestedCallback_exposer_t;
         GameServerChangeRequestedCallback_exposer_t GameServerChangeRequestedCallback_exposer = GameServerChangeRequestedCallback_exposer_t( "GameServerChangeRequestedCallback", bp::init<>() );
         bp::scope GameServerChangeRequestedCallback_scope( GameServerChangeRequestedCallback_exposer );
         { //::GameServerChangeRequestedCallback::OnGameServerChangeRequested
@@ -7548,7 +7252,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameLobbyJoinRequestedCallback
-        typedef bp::class_< GameLobbyJoinRequestedCallback_wrapper > GameLobbyJoinRequestedCallback_exposer_t;
+        typedef bp::class_< GameLobbyJoinRequestedCallback_wrapper, boost::noncopyable > GameLobbyJoinRequestedCallback_exposer_t;
         GameLobbyJoinRequestedCallback_exposer_t GameLobbyJoinRequestedCallback_exposer = GameLobbyJoinRequestedCallback_exposer_t( "GameLobbyJoinRequestedCallback", bp::init<>() );
         bp::scope GameLobbyJoinRequestedCallback_scope( GameLobbyJoinRequestedCallback_exposer );
         { //::GameLobbyJoinRequestedCallback::OnGameLobbyJoinRequested
@@ -7566,7 +7270,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::AvatarImageLoadedCallback
-        typedef bp::class_< AvatarImageLoadedCallback_wrapper > AvatarImageLoadedCallback_exposer_t;
+        typedef bp::class_< AvatarImageLoadedCallback_wrapper, boost::noncopyable > AvatarImageLoadedCallback_exposer_t;
         AvatarImageLoadedCallback_exposer_t AvatarImageLoadedCallback_exposer = AvatarImageLoadedCallback_exposer_t( "AvatarImageLoadedCallback", bp::init<>() );
         bp::scope AvatarImageLoadedCallback_scope( AvatarImageLoadedCallback_exposer );
         { //::AvatarImageLoadedCallback::OnAvatarImageLoaded
@@ -7584,7 +7288,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::ClanOfficerListResponseCallback
-        typedef bp::class_< ClanOfficerListResponseCallback_wrapper > ClanOfficerListResponseCallback_exposer_t;
+        typedef bp::class_< ClanOfficerListResponseCallback_wrapper, boost::noncopyable > ClanOfficerListResponseCallback_exposer_t;
         ClanOfficerListResponseCallback_exposer_t ClanOfficerListResponseCallback_exposer = ClanOfficerListResponseCallback_exposer_t( "ClanOfficerListResponseCallback", bp::init<>() );
         bp::scope ClanOfficerListResponseCallback_scope( ClanOfficerListResponseCallback_exposer );
         { //::ClanOfficerListResponseCallback::OnClanOfficerListResponse
@@ -7602,7 +7306,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendRichPresenceUpdateCallback
-        typedef bp::class_< FriendRichPresenceUpdateCallback_wrapper > FriendRichPresenceUpdateCallback_exposer_t;
+        typedef bp::class_< FriendRichPresenceUpdateCallback_wrapper, boost::noncopyable > FriendRichPresenceUpdateCallback_exposer_t;
         FriendRichPresenceUpdateCallback_exposer_t FriendRichPresenceUpdateCallback_exposer = FriendRichPresenceUpdateCallback_exposer_t( "FriendRichPresenceUpdateCallback", bp::init<>() );
         bp::scope FriendRichPresenceUpdateCallback_scope( FriendRichPresenceUpdateCallback_exposer );
         { //::FriendRichPresenceUpdateCallback::OnFriendRichPresenceUpdate
@@ -7620,7 +7324,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameRichPresenceJoinRequestedCallback
-        typedef bp::class_< GameRichPresenceJoinRequestedCallback_wrapper > GameRichPresenceJoinRequestedCallback_exposer_t;
+        typedef bp::class_< GameRichPresenceJoinRequestedCallback_wrapper, boost::noncopyable > GameRichPresenceJoinRequestedCallback_exposer_t;
         GameRichPresenceJoinRequestedCallback_exposer_t GameRichPresenceJoinRequestedCallback_exposer = GameRichPresenceJoinRequestedCallback_exposer_t( "GameRichPresenceJoinRequestedCallback", bp::init<>() );
         bp::scope GameRichPresenceJoinRequestedCallback_scope( GameRichPresenceJoinRequestedCallback_exposer );
         { //::GameRichPresenceJoinRequestedCallback::OnGameRichPresenceJoinRequested
@@ -7638,7 +7342,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedClanChatMsgCallback
-        typedef bp::class_< GameConnectedClanChatMsgCallback_wrapper > GameConnectedClanChatMsgCallback_exposer_t;
+        typedef bp::class_< GameConnectedClanChatMsgCallback_wrapper, boost::noncopyable > GameConnectedClanChatMsgCallback_exposer_t;
         GameConnectedClanChatMsgCallback_exposer_t GameConnectedClanChatMsgCallback_exposer = GameConnectedClanChatMsgCallback_exposer_t( "GameConnectedClanChatMsgCallback", bp::init<>() );
         bp::scope GameConnectedClanChatMsgCallback_scope( GameConnectedClanChatMsgCallback_exposer );
         { //::GameConnectedClanChatMsgCallback::OnGameConnectedClanChatMsg
@@ -7656,7 +7360,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedChatJoinCallback
-        typedef bp::class_< GameConnectedChatJoinCallback_wrapper > GameConnectedChatJoinCallback_exposer_t;
+        typedef bp::class_< GameConnectedChatJoinCallback_wrapper, boost::noncopyable > GameConnectedChatJoinCallback_exposer_t;
         GameConnectedChatJoinCallback_exposer_t GameConnectedChatJoinCallback_exposer = GameConnectedChatJoinCallback_exposer_t( "GameConnectedChatJoinCallback", bp::init<>() );
         bp::scope GameConnectedChatJoinCallback_scope( GameConnectedChatJoinCallback_exposer );
         { //::GameConnectedChatJoinCallback::OnGameConnectedChatJoin
@@ -7674,7 +7378,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedChatLeaveCallback
-        typedef bp::class_< GameConnectedChatLeaveCallback_wrapper > GameConnectedChatLeaveCallback_exposer_t;
+        typedef bp::class_< GameConnectedChatLeaveCallback_wrapper, boost::noncopyable > GameConnectedChatLeaveCallback_exposer_t;
         GameConnectedChatLeaveCallback_exposer_t GameConnectedChatLeaveCallback_exposer = GameConnectedChatLeaveCallback_exposer_t( "GameConnectedChatLeaveCallback", bp::init<>() );
         bp::scope GameConnectedChatLeaveCallback_scope( GameConnectedChatLeaveCallback_exposer );
         { //::GameConnectedChatLeaveCallback::OnGameConnectedChatLeave
@@ -7692,7 +7396,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::DownloadClanActivityCountsResultCallback
-        typedef bp::class_< DownloadClanActivityCountsResultCallback_wrapper > DownloadClanActivityCountsResultCallback_exposer_t;
+        typedef bp::class_< DownloadClanActivityCountsResultCallback_wrapper, boost::noncopyable > DownloadClanActivityCountsResultCallback_exposer_t;
         DownloadClanActivityCountsResultCallback_exposer_t DownloadClanActivityCountsResultCallback_exposer = DownloadClanActivityCountsResultCallback_exposer_t( "DownloadClanActivityCountsResultCallback", bp::init<>() );
         bp::scope DownloadClanActivityCountsResultCallback_scope( DownloadClanActivityCountsResultCallback_exposer );
         { //::DownloadClanActivityCountsResultCallback::OnDownloadClanActivityCountsResult
@@ -7710,7 +7414,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::JoinClanChatRoomCompletionResultCallback
-        typedef bp::class_< JoinClanChatRoomCompletionResultCallback_wrapper > JoinClanChatRoomCompletionResultCallback_exposer_t;
+        typedef bp::class_< JoinClanChatRoomCompletionResultCallback_wrapper, boost::noncopyable > JoinClanChatRoomCompletionResultCallback_exposer_t;
         JoinClanChatRoomCompletionResultCallback_exposer_t JoinClanChatRoomCompletionResultCallback_exposer = JoinClanChatRoomCompletionResultCallback_exposer_t( "JoinClanChatRoomCompletionResultCallback", bp::init<>() );
         bp::scope JoinClanChatRoomCompletionResultCallback_scope( JoinClanChatRoomCompletionResultCallback_exposer );
         { //::JoinClanChatRoomCompletionResultCallback::OnJoinClanChatRoomCompletionResult
@@ -7728,7 +7432,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::GameConnectedFriendChatMsgCallback
-        typedef bp::class_< GameConnectedFriendChatMsgCallback_wrapper > GameConnectedFriendChatMsgCallback_exposer_t;
+        typedef bp::class_< GameConnectedFriendChatMsgCallback_wrapper, boost::noncopyable > GameConnectedFriendChatMsgCallback_exposer_t;
         GameConnectedFriendChatMsgCallback_exposer_t GameConnectedFriendChatMsgCallback_exposer = GameConnectedFriendChatMsgCallback_exposer_t( "GameConnectedFriendChatMsgCallback", bp::init<>() );
         bp::scope GameConnectedFriendChatMsgCallback_scope( GameConnectedFriendChatMsgCallback_exposer );
         { //::GameConnectedFriendChatMsgCallback::OnGameConnectedFriendChatMsg
@@ -7746,7 +7450,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendsGetFollowerCountCallback
-        typedef bp::class_< FriendsGetFollowerCountCallback_wrapper > FriendsGetFollowerCountCallback_exposer_t;
+        typedef bp::class_< FriendsGetFollowerCountCallback_wrapper, boost::noncopyable > FriendsGetFollowerCountCallback_exposer_t;
         FriendsGetFollowerCountCallback_exposer_t FriendsGetFollowerCountCallback_exposer = FriendsGetFollowerCountCallback_exposer_t( "FriendsGetFollowerCountCallback", bp::init<>() );
         bp::scope FriendsGetFollowerCountCallback_scope( FriendsGetFollowerCountCallback_exposer );
         { //::FriendsGetFollowerCountCallback::OnFriendsGetFollowerCount
@@ -7764,7 +7468,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendsIsFollowingCallback
-        typedef bp::class_< FriendsIsFollowingCallback_wrapper > FriendsIsFollowingCallback_exposer_t;
+        typedef bp::class_< FriendsIsFollowingCallback_wrapper, boost::noncopyable > FriendsIsFollowingCallback_exposer_t;
         FriendsIsFollowingCallback_exposer_t FriendsIsFollowingCallback_exposer = FriendsIsFollowingCallback_exposer_t( "FriendsIsFollowingCallback", bp::init<>() );
         bp::scope FriendsIsFollowingCallback_scope( FriendsIsFollowingCallback_exposer );
         { //::FriendsIsFollowingCallback::OnFriendsIsFollowing
@@ -7782,7 +7486,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::FriendsEnumerateFollowingListCallback
-        typedef bp::class_< FriendsEnumerateFollowingListCallback_wrapper > FriendsEnumerateFollowingListCallback_exposer_t;
+        typedef bp::class_< FriendsEnumerateFollowingListCallback_wrapper, boost::noncopyable > FriendsEnumerateFollowingListCallback_exposer_t;
         FriendsEnumerateFollowingListCallback_exposer_t FriendsEnumerateFollowingListCallback_exposer = FriendsEnumerateFollowingListCallback_exposer_t( "FriendsEnumerateFollowingListCallback", bp::init<>() );
         bp::scope FriendsEnumerateFollowingListCallback_scope( FriendsEnumerateFollowingListCallback_exposer );
         { //::FriendsEnumerateFollowingListCallback::OnFriendsEnumerateFollowingList
@@ -7800,7 +7504,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::SetPersonaNameResponseCallback
-        typedef bp::class_< SetPersonaNameResponseCallback_wrapper > SetPersonaNameResponseCallback_exposer_t;
+        typedef bp::class_< SetPersonaNameResponseCallback_wrapper, boost::noncopyable > SetPersonaNameResponseCallback_exposer_t;
         SetPersonaNameResponseCallback_exposer_t SetPersonaNameResponseCallback_exposer = SetPersonaNameResponseCallback_exposer_t( "SetPersonaNameResponseCallback", bp::init<>() );
         bp::scope SetPersonaNameResponseCallback_scope( SetPersonaNameResponseCallback_exposer );
         { //::SetPersonaNameResponseCallback::OnSetPersonaNameResponse
@@ -7818,7 +7522,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyMatchListCallResult
-        typedef bp::class_< LobbyMatchListCallResult_wrapper > LobbyMatchListCallResult_exposer_t;
+        typedef bp::class_< LobbyMatchListCallResult_wrapper, boost::noncopyable > LobbyMatchListCallResult_exposer_t;
         LobbyMatchListCallResult_exposer_t LobbyMatchListCallResult_exposer = LobbyMatchListCallResult_exposer_t( "LobbyMatchListCallResult", bp::init< SteamAPICall_t >(( bp::arg("steamapicall") )) );
         bp::scope LobbyMatchListCallResult_scope( LobbyMatchListCallResult_exposer );
         bp::implicitly_convertible< SteamAPICall_t, LobbyMatchListCallResult >();
@@ -7837,7 +7541,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyGameCreatedCallResult
-        typedef bp::class_< LobbyGameCreatedCallResult_wrapper > LobbyGameCreatedCallResult_exposer_t;
+        typedef bp::class_< LobbyGameCreatedCallResult_wrapper, boost::noncopyable > LobbyGameCreatedCallResult_exposer_t;
         LobbyGameCreatedCallResult_exposer_t LobbyGameCreatedCallResult_exposer = LobbyGameCreatedCallResult_exposer_t( "LobbyGameCreatedCallResult", bp::init< SteamAPICall_t >(( bp::arg("steamapicall") )) );
         bp::scope LobbyGameCreatedCallResult_scope( LobbyGameCreatedCallResult_exposer );
         bp::implicitly_convertible< SteamAPICall_t, LobbyGameCreatedCallResult >();
@@ -7856,7 +7560,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyCreatedCallResult
-        typedef bp::class_< LobbyCreatedCallResult_wrapper > LobbyCreatedCallResult_exposer_t;
+        typedef bp::class_< LobbyCreatedCallResult_wrapper, boost::noncopyable > LobbyCreatedCallResult_exposer_t;
         LobbyCreatedCallResult_exposer_t LobbyCreatedCallResult_exposer = LobbyCreatedCallResult_exposer_t( "LobbyCreatedCallResult", bp::init< SteamAPICall_t >(( bp::arg("steamapicall") )) );
         bp::scope LobbyCreatedCallResult_scope( LobbyCreatedCallResult_exposer );
         bp::implicitly_convertible< SteamAPICall_t, LobbyCreatedCallResult >();
@@ -7875,7 +7579,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyEnterCallResult
-        typedef bp::class_< LobbyEnterCallResult_wrapper > LobbyEnterCallResult_exposer_t;
+        typedef bp::class_< LobbyEnterCallResult_wrapper, boost::noncopyable > LobbyEnterCallResult_exposer_t;
         LobbyEnterCallResult_exposer_t LobbyEnterCallResult_exposer = LobbyEnterCallResult_exposer_t( "LobbyEnterCallResult", bp::init< SteamAPICall_t >(( bp::arg("steamapicall") )) );
         bp::scope LobbyEnterCallResult_scope( LobbyEnterCallResult_exposer );
         bp::implicitly_convertible< SteamAPICall_t, LobbyEnterCallResult >();
@@ -7894,7 +7598,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyChatUpdateCallback
-        typedef bp::class_< LobbyChatUpdateCallback_wrapper > LobbyChatUpdateCallback_exposer_t;
+        typedef bp::class_< LobbyChatUpdateCallback_wrapper, boost::noncopyable > LobbyChatUpdateCallback_exposer_t;
         LobbyChatUpdateCallback_exposer_t LobbyChatUpdateCallback_exposer = LobbyChatUpdateCallback_exposer_t( "LobbyChatUpdateCallback", bp::init<>() );
         bp::scope LobbyChatUpdateCallback_scope( LobbyChatUpdateCallback_exposer );
         { //::LobbyChatUpdateCallback::OnLobbyChatUpdate
@@ -7912,7 +7616,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyChatMsgCallback
-        typedef bp::class_< LobbyChatMsgCallback_wrapper > LobbyChatMsgCallback_exposer_t;
+        typedef bp::class_< LobbyChatMsgCallback_wrapper, boost::noncopyable > LobbyChatMsgCallback_exposer_t;
         LobbyChatMsgCallback_exposer_t LobbyChatMsgCallback_exposer = LobbyChatMsgCallback_exposer_t( "LobbyChatMsgCallback", bp::init<>() );
         bp::scope LobbyChatMsgCallback_scope( LobbyChatMsgCallback_exposer );
         { //::LobbyChatMsgCallback::OnLobbyChatMsg
@@ -7930,7 +7634,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::LobbyDataUpdateCallback
-        typedef bp::class_< LobbyDataUpdateCallback_wrapper > LobbyDataUpdateCallback_exposer_t;
+        typedef bp::class_< LobbyDataUpdateCallback_wrapper, boost::noncopyable > LobbyDataUpdateCallback_exposer_t;
         LobbyDataUpdateCallback_exposer_t LobbyDataUpdateCallback_exposer = LobbyDataUpdateCallback_exposer_t( "LobbyDataUpdateCallback", bp::init<>() );
         bp::scope LobbyDataUpdateCallback_scope( LobbyDataUpdateCallback_exposer );
         { //::LobbyDataUpdateCallback::OnLobbyDataUpdate
@@ -7948,7 +7652,7 @@ BOOST_PYTHON_MODULE(_steam){
     }
 
     { //::NumberOfCurrentPlayersCallResult
-        typedef bp::class_< NumberOfCurrentPlayersCallResult_wrapper > NumberOfCurrentPlayersCallResult_exposer_t;
+        typedef bp::class_< NumberOfCurrentPlayersCallResult_wrapper, boost::noncopyable > NumberOfCurrentPlayersCallResult_exposer_t;
         NumberOfCurrentPlayersCallResult_exposer_t NumberOfCurrentPlayersCallResult_exposer = NumberOfCurrentPlayersCallResult_exposer_t( "NumberOfCurrentPlayersCallResult", bp::init< SteamAPICall_t >(( bp::arg("steamapicall") )) );
         bp::scope NumberOfCurrentPlayersCallResult_scope( NumberOfCurrentPlayersCallResult_exposer );
         bp::implicitly_convertible< SteamAPICall_t, NumberOfCurrentPlayersCallResult >();

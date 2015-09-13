@@ -1558,6 +1558,9 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .value("ACT_MP_ATTACK_CROUCH_GRENADE_ITEM2", ACT_MP_ATTACK_CROUCH_GRENADE_ITEM2)
         .value("ACT_MP_ATTACK_SWIM_GRENADE_ITEM2", ACT_MP_ATTACK_SWIM_GRENADE_ITEM2)
         .value("ACT_MP_ATTACK_AIRWALK_GRENADE_ITEM2", ACT_MP_ATTACK_AIRWALK_GRENADE_ITEM2)
+        .value("ACT_MP_STAND_PASSTIME", ACT_MP_STAND_PASSTIME)
+        .value("ACT_MP_RUN_PASSTIME", ACT_MP_RUN_PASSTIME)
+        .value("ACT_MP_CROUCHWALK_PASSTIME", ACT_MP_CROUCHWALK_PASSTIME)
         .value("ACT_MP_GESTURE_FLINCH", ACT_MP_GESTURE_FLINCH)
         .value("ACT_MP_GESTURE_FLINCH_PRIMARY", ACT_MP_GESTURE_FLINCH_PRIMARY)
         .value("ACT_MP_GESTURE_FLINCH_SECONDARY", ACT_MP_GESTURE_FLINCH_SECONDARY)
@@ -1677,6 +1680,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .value("ACT_MP_DOUBLEJUMP_CROUCH_ITEM1", ACT_MP_DOUBLEJUMP_CROUCH_ITEM1)
         .value("ACT_MP_DOUBLEJUMP_CROUCH_ITEM2", ACT_MP_DOUBLEJUMP_CROUCH_ITEM2)
         .value("ACT_MP_DOUBLEJUMP_CROUCH_LOSERSTATE", ACT_MP_DOUBLEJUMP_CROUCH_LOSERSTATE)
+        .value("ACT_MP_DOUBLEJUMP_CROUCH_PASSTIME", ACT_MP_DOUBLEJUMP_CROUCH_PASSTIME)
         .value("ACT_MP_GESTURE_VC_HANDMOUTH", ACT_MP_GESTURE_VC_HANDMOUTH)
         .value("ACT_MP_GESTURE_VC_FINGERPOINT", ACT_MP_GESTURE_VC_FINGERPOINT)
         .value("ACT_MP_GESTURE_VC_FISTPUMP", ACT_MP_GESTURE_VC_FISTPUMP)
@@ -1728,6 +1732,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .value("ACT_MP_STUN_BEGIN", ACT_MP_STUN_BEGIN)
         .value("ACT_MP_STUN_MIDDLE", ACT_MP_STUN_MIDDLE)
         .value("ACT_MP_STUN_END", ACT_MP_STUN_END)
+        .value("ACT_MP_PASSTIME_THROW_BEGIN", ACT_MP_PASSTIME_THROW_BEGIN)
+        .value("ACT_MP_PASSTIME_THROW_MIDDLE", ACT_MP_PASSTIME_THROW_MIDDLE)
+        .value("ACT_MP_PASSTIME_THROW_END", ACT_MP_PASSTIME_THROW_END)
+        .value("ACT_MP_PASSTIME_THROW_CANCEL", ACT_MP_PASSTIME_THROW_CANCEL)
         .value("ACT_VM_UNUSABLE", ACT_VM_UNUSABLE)
         .value("ACT_VM_UNUSABLE_TO_USABLE", ACT_VM_UNUSABLE_TO_USABLE)
         .value("ACT_VM_USABLE_TO_UNUSABLE", ACT_VM_USABLE_TO_UNUSABLE)
@@ -1995,6 +2003,36 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .value("ACT_BOT_GESTURE_FLINCH", ACT_BOT_GESTURE_FLINCH)
         .value("ACT_BOT_PANIC_START", ACT_BOT_PANIC_START)
         .value("ACT_BOT_PANIC_END", ACT_BOT_PANIC_END)
+        .value("ACT_ENGINEER_REVOLVER_DRAW", ACT_ENGINEER_REVOLVER_DRAW)
+        .value("ACT_ENGINEER_REVOLVER_IDLE", ACT_ENGINEER_REVOLVER_IDLE)
+        .value("ACT_ENGINEER_REVOLVER_PRIMARYATTACK", ACT_ENGINEER_REVOLVER_PRIMARYATTACK)
+        .value("ACT_ENGINEER_REVOLVER_RELOAD", ACT_ENGINEER_REVOLVER_RELOAD)
+        .value("ACT_KART_IDLE", ACT_KART_IDLE)
+        .value("ACT_KART_ACTION_SHOOT", ACT_KART_ACTION_SHOOT)
+        .value("ACT_KART_ACTION_DASH", ACT_KART_ACTION_DASH)
+        .value("ACT_KART_JUMP_START", ACT_KART_JUMP_START)
+        .value("ACT_KART_JUMP_FLOAT", ACT_KART_JUMP_FLOAT)
+        .value("ACT_KART_JUMP_LAND", ACT_KART_JUMP_LAND)
+        .value("ACT_KART_IMPACT", ACT_KART_IMPACT)
+        .value("ACT_KART_IMPACT_BIG", ACT_KART_IMPACT_BIG)
+        .value("ACT_KART_GESTURE_POSITIVE", ACT_KART_GESTURE_POSITIVE)
+        .value("ACT_KART_GESTURE_NEGATIVE", ACT_KART_GESTURE_NEGATIVE)
+        .value("ACT_GRAPPLE_DRAW", ACT_GRAPPLE_DRAW)
+        .value("ACT_GRAPPLE_IDLE", ACT_GRAPPLE_IDLE)
+        .value("ACT_GRAPPLE_FIRE_START", ACT_GRAPPLE_FIRE_START)
+        .value("ACT_GRAPPLE_FIRE_IDLE", ACT_GRAPPLE_FIRE_IDLE)
+        .value("ACT_GRAPPLE_PULL_START", ACT_GRAPPLE_PULL_START)
+        .value("ACT_GRAPPLE_PULL_IDLE", ACT_GRAPPLE_PULL_IDLE)
+        .value("ACT_GRAPPLE_PULL_END", ACT_GRAPPLE_PULL_END)
+        .value("ACT_PRIMARY_VM_INSPECT_START", ACT_PRIMARY_VM_INSPECT_START)
+        .value("ACT_PRIMARY_VM_INSPECT_IDLE", ACT_PRIMARY_VM_INSPECT_IDLE)
+        .value("ACT_PRIMARY_VM_INSPECT_END", ACT_PRIMARY_VM_INSPECT_END)
+        .value("ACT_SECONDARY_VM_INSPECT_START", ACT_SECONDARY_VM_INSPECT_START)
+        .value("ACT_SECONDARY_VM_INSPECT_IDLE", ACT_SECONDARY_VM_INSPECT_IDLE)
+        .value("ACT_SECONDARY_VM_INSPECT_END", ACT_SECONDARY_VM_INSPECT_END)
+        .value("ACT_MELEE_VM_INSPECT_START", ACT_MELEE_VM_INSPECT_START)
+        .value("ACT_MELEE_VM_INSPECT_IDLE", ACT_MELEE_VM_INSPECT_IDLE)
+        .value("ACT_MELEE_VM_INSPECT_END", ACT_MELEE_VM_INSPECT_END)
         .value("LAST_SHARED_ACTIVITY", LAST_SHARED_ACTIVITY)
         .export_values()
         ;
@@ -2381,6 +2419,9 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             "GetDamageCustom"
             , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageCustom ) )    
         .def( 
+            "GetDamageForForceCalc"
+            , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageForForceCalc ) )    
+        .def( 
             "GetDamageForce"
             , (::Vector ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageForce ) )    
         .def( 
@@ -2459,6 +2500,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             "SetDamageCustom"
             , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamageCustom )
             , ( bp::arg("iDamageCustom") ) )    
+        .def( 
+            "SetDamageForForceCalc"
+            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::SetDamageForForceCalc )
+            , ( bp::arg("flDamage") ) )    
         .def( 
             "SetDamageForce"
             , (void ( ::CTakeDamageInfo::* )( ::Vector const & ) )( &::CTakeDamageInfo::SetDamageForce )
@@ -2623,6 +2668,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
     bp::class_< FireBulletsInfo_t_wrapper >( "FireBulletsInfo_t", bp::init< >() )    
         .def( bp::init< int, Vector const &, Vector const &, Vector const &, float, int, bp::optional< bool > >(( bp::arg("nShots"), bp::arg("vecSrc"), bp::arg("vecDir"), bp::arg("vecSpread"), bp::arg("flDistance"), bp::arg("nAmmoType"), bp::arg("bPrimaryAttack")=(bool)(true) )) )    
         .def_readwrite( "primaryattack", &FireBulletsInfo_t::m_bPrimaryAttack )    
+        .def_readwrite( "m_bUseServerRandomSeed", &FireBulletsInfo_t::m_bUseServerRandomSeed )    
         .def_readwrite( "damage", &FireBulletsInfo_t::m_flDamage )    
         .def_readwrite( "damageforcescale", &FireBulletsInfo_t::m_flDamageForceScale )    
         .def_readwrite( "distance", &FireBulletsInfo_t::m_flDistance )    
@@ -4683,6 +4729,9 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .value("ACT_MP_ATTACK_CROUCH_GRENADE_ITEM2", ACT_MP_ATTACK_CROUCH_GRENADE_ITEM2)
         .value("ACT_MP_ATTACK_SWIM_GRENADE_ITEM2", ACT_MP_ATTACK_SWIM_GRENADE_ITEM2)
         .value("ACT_MP_ATTACK_AIRWALK_GRENADE_ITEM2", ACT_MP_ATTACK_AIRWALK_GRENADE_ITEM2)
+        .value("ACT_MP_STAND_PASSTIME", ACT_MP_STAND_PASSTIME)
+        .value("ACT_MP_RUN_PASSTIME", ACT_MP_RUN_PASSTIME)
+        .value("ACT_MP_CROUCHWALK_PASSTIME", ACT_MP_CROUCHWALK_PASSTIME)
         .value("ACT_MP_GESTURE_FLINCH", ACT_MP_GESTURE_FLINCH)
         .value("ACT_MP_GESTURE_FLINCH_PRIMARY", ACT_MP_GESTURE_FLINCH_PRIMARY)
         .value("ACT_MP_GESTURE_FLINCH_SECONDARY", ACT_MP_GESTURE_FLINCH_SECONDARY)
@@ -4802,6 +4851,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .value("ACT_MP_DOUBLEJUMP_CROUCH_ITEM1", ACT_MP_DOUBLEJUMP_CROUCH_ITEM1)
         .value("ACT_MP_DOUBLEJUMP_CROUCH_ITEM2", ACT_MP_DOUBLEJUMP_CROUCH_ITEM2)
         .value("ACT_MP_DOUBLEJUMP_CROUCH_LOSERSTATE", ACT_MP_DOUBLEJUMP_CROUCH_LOSERSTATE)
+        .value("ACT_MP_DOUBLEJUMP_CROUCH_PASSTIME", ACT_MP_DOUBLEJUMP_CROUCH_PASSTIME)
         .value("ACT_MP_GESTURE_VC_HANDMOUTH", ACT_MP_GESTURE_VC_HANDMOUTH)
         .value("ACT_MP_GESTURE_VC_FINGERPOINT", ACT_MP_GESTURE_VC_FINGERPOINT)
         .value("ACT_MP_GESTURE_VC_FISTPUMP", ACT_MP_GESTURE_VC_FISTPUMP)
@@ -4853,6 +4903,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .value("ACT_MP_STUN_BEGIN", ACT_MP_STUN_BEGIN)
         .value("ACT_MP_STUN_MIDDLE", ACT_MP_STUN_MIDDLE)
         .value("ACT_MP_STUN_END", ACT_MP_STUN_END)
+        .value("ACT_MP_PASSTIME_THROW_BEGIN", ACT_MP_PASSTIME_THROW_BEGIN)
+        .value("ACT_MP_PASSTIME_THROW_MIDDLE", ACT_MP_PASSTIME_THROW_MIDDLE)
+        .value("ACT_MP_PASSTIME_THROW_END", ACT_MP_PASSTIME_THROW_END)
+        .value("ACT_MP_PASSTIME_THROW_CANCEL", ACT_MP_PASSTIME_THROW_CANCEL)
         .value("ACT_VM_UNUSABLE", ACT_VM_UNUSABLE)
         .value("ACT_VM_UNUSABLE_TO_USABLE", ACT_VM_UNUSABLE_TO_USABLE)
         .value("ACT_VM_USABLE_TO_UNUSABLE", ACT_VM_USABLE_TO_UNUSABLE)
@@ -5120,6 +5174,36 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .value("ACT_BOT_GESTURE_FLINCH", ACT_BOT_GESTURE_FLINCH)
         .value("ACT_BOT_PANIC_START", ACT_BOT_PANIC_START)
         .value("ACT_BOT_PANIC_END", ACT_BOT_PANIC_END)
+        .value("ACT_ENGINEER_REVOLVER_DRAW", ACT_ENGINEER_REVOLVER_DRAW)
+        .value("ACT_ENGINEER_REVOLVER_IDLE", ACT_ENGINEER_REVOLVER_IDLE)
+        .value("ACT_ENGINEER_REVOLVER_PRIMARYATTACK", ACT_ENGINEER_REVOLVER_PRIMARYATTACK)
+        .value("ACT_ENGINEER_REVOLVER_RELOAD", ACT_ENGINEER_REVOLVER_RELOAD)
+        .value("ACT_KART_IDLE", ACT_KART_IDLE)
+        .value("ACT_KART_ACTION_SHOOT", ACT_KART_ACTION_SHOOT)
+        .value("ACT_KART_ACTION_DASH", ACT_KART_ACTION_DASH)
+        .value("ACT_KART_JUMP_START", ACT_KART_JUMP_START)
+        .value("ACT_KART_JUMP_FLOAT", ACT_KART_JUMP_FLOAT)
+        .value("ACT_KART_JUMP_LAND", ACT_KART_JUMP_LAND)
+        .value("ACT_KART_IMPACT", ACT_KART_IMPACT)
+        .value("ACT_KART_IMPACT_BIG", ACT_KART_IMPACT_BIG)
+        .value("ACT_KART_GESTURE_POSITIVE", ACT_KART_GESTURE_POSITIVE)
+        .value("ACT_KART_GESTURE_NEGATIVE", ACT_KART_GESTURE_NEGATIVE)
+        .value("ACT_GRAPPLE_DRAW", ACT_GRAPPLE_DRAW)
+        .value("ACT_GRAPPLE_IDLE", ACT_GRAPPLE_IDLE)
+        .value("ACT_GRAPPLE_FIRE_START", ACT_GRAPPLE_FIRE_START)
+        .value("ACT_GRAPPLE_FIRE_IDLE", ACT_GRAPPLE_FIRE_IDLE)
+        .value("ACT_GRAPPLE_PULL_START", ACT_GRAPPLE_PULL_START)
+        .value("ACT_GRAPPLE_PULL_IDLE", ACT_GRAPPLE_PULL_IDLE)
+        .value("ACT_GRAPPLE_PULL_END", ACT_GRAPPLE_PULL_END)
+        .value("ACT_PRIMARY_VM_INSPECT_START", ACT_PRIMARY_VM_INSPECT_START)
+        .value("ACT_PRIMARY_VM_INSPECT_IDLE", ACT_PRIMARY_VM_INSPECT_IDLE)
+        .value("ACT_PRIMARY_VM_INSPECT_END", ACT_PRIMARY_VM_INSPECT_END)
+        .value("ACT_SECONDARY_VM_INSPECT_START", ACT_SECONDARY_VM_INSPECT_START)
+        .value("ACT_SECONDARY_VM_INSPECT_IDLE", ACT_SECONDARY_VM_INSPECT_IDLE)
+        .value("ACT_SECONDARY_VM_INSPECT_END", ACT_SECONDARY_VM_INSPECT_END)
+        .value("ACT_MELEE_VM_INSPECT_START", ACT_MELEE_VM_INSPECT_START)
+        .value("ACT_MELEE_VM_INSPECT_IDLE", ACT_MELEE_VM_INSPECT_IDLE)
+        .value("ACT_MELEE_VM_INSPECT_END", ACT_MELEE_VM_INSPECT_END)
         .value("LAST_SHARED_ACTIVITY", LAST_SHARED_ACTIVITY)
         .export_values()
         ;
@@ -5584,6 +5668,9 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             "GetDamageCustom"
             , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageCustom ) )    
         .def( 
+            "GetDamageForForceCalc"
+            , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageForForceCalc ) )    
+        .def( 
             "GetDamageForce"
             , (::Vector ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageForce ) )    
         .def( 
@@ -5662,6 +5749,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             "SetDamageCustom"
             , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamageCustom )
             , ( bp::arg("iDamageCustom") ) )    
+        .def( 
+            "SetDamageForForceCalc"
+            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::SetDamageForForceCalc )
+            , ( bp::arg("flDamage") ) )    
         .def( 
             "SetDamageForce"
             , (void ( ::CTakeDamageInfo::* )( ::Vector const & ) )( &::CTakeDamageInfo::SetDamageForce )
@@ -5872,6 +5963,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         CUserCmd_exposer.def_readwrite( "mousedx", &CUserCmd::mousedx );
         CUserCmd_exposer.def_readwrite( "mousedy", &CUserCmd::mousedy );
         CUserCmd_exposer.def_readwrite( "random_seed", &CUserCmd::random_seed );
+        CUserCmd_exposer.def_readwrite( "server_random_seed", &CUserCmd::server_random_seed );
         CUserCmd_exposer.def_readwrite( "sidemove", &CUserCmd::sidemove );
         CUserCmd_exposer.def_readwrite( "tick_count", &CUserCmd::tick_count );
         CUserCmd_exposer.def_readwrite( "upmove", &CUserCmd::upmove );
@@ -5883,6 +5975,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
     bp::class_< FireBulletsInfo_t_wrapper >( "FireBulletsInfo_t", bp::init< >() )    
         .def( bp::init< int, Vector const &, Vector const &, Vector const &, float, int, bp::optional< bool > >(( bp::arg("nShots"), bp::arg("vecSrc"), bp::arg("vecDir"), bp::arg("vecSpread"), bp::arg("flDistance"), bp::arg("nAmmoType"), bp::arg("bPrimaryAttack")=(bool)(true) )) )    
         .def_readwrite( "primaryattack", &FireBulletsInfo_t::m_bPrimaryAttack )    
+        .def_readwrite( "m_bUseServerRandomSeed", &FireBulletsInfo_t::m_bUseServerRandomSeed )    
         .def_readwrite( "damage", &FireBulletsInfo_t::m_flDamage )    
         .def_readwrite( "damageforcescale", &FireBulletsInfo_t::m_flDamageForceScale )    
         .def_readwrite( "distance", &FireBulletsInfo_t::m_flDistance )    

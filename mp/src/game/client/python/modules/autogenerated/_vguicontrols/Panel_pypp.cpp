@@ -240,6 +240,10 @@ struct Panel_wrapper : vgui::Panel, bp::wrapper< vgui::Panel > {
         vgui::Panel::OnChildAdded( child );
     }
 
+    void OnChildSettingsApplied( ::KeyValues * pInResourceData, ::vgui::Panel * pChild ){
+        vgui::Panel::OnChildSettingsApplied( pInResourceData, pChild );
+    }
+
     virtual void OnCommand( char const * command ) {
         PY_OVERRIDE_CHECK( vgui::Panel, OnCommand )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::Panel, OnCommand )
@@ -1145,6 +1149,7 @@ void register_Panel_class(){
             .value("PIN_CENTER_RIGHT", vgui::Panel::PIN_CENTER_RIGHT)
             .value("PIN_CENTER_BOTTOM", vgui::Panel::PIN_CENTER_BOTTOM)
             .value("PIN_CENTER_LEFT", vgui::Panel::PIN_CENTER_LEFT)
+            .value("PIN_LAST", vgui::Panel::PIN_LAST)
             .export_values()
             ;
         Panel_exposer.def( bp::init< vgui::Panel * >(( bp::arg("parent") )) );
@@ -2099,6 +2104,24 @@ void register_Panel_class(){
                 , GetWorldPositionCurrentFrame_function_type( &::vgui::Panel::GetWorldPositionCurrentFrame ) );
         
         }
+        { //::vgui::Panel::GetXPos
+        
+            typedef int ( ::vgui::Panel::*GetXPos_function_type )(  ) ;
+            
+            Panel_exposer.def( 
+                "GetXPos"
+                , GetXPos_function_type( &::vgui::Panel::GetXPos ) );
+        
+        }
+        { //::vgui::Panel::GetYPos
+        
+            typedef int ( ::vgui::Panel::*GetYPos_function_type )(  ) ;
+            
+            Panel_exposer.def( 
+                "GetYPos"
+                , GetYPos_function_type( &::vgui::Panel::GetYPos ) );
+        
+        }
         { //::vgui::Panel::GetZPos
         
             typedef int ( ::vgui::Panel::*GetZPos_function_type )(  ) ;
@@ -2656,6 +2679,16 @@ void register_Panel_class(){
                 , ( bp::arg("child") ) );
         
         }
+        { //::vgui::Panel::OnChildSettingsApplied
+        
+            typedef void ( Panel_wrapper::*OnChildSettingsApplied_function_type )( ::KeyValues *,::vgui::Panel * ) ;
+            
+            Panel_exposer.def( 
+                "OnChildSettingsApplied"
+                , OnChildSettingsApplied_function_type( &Panel_wrapper::OnChildSettingsApplied )
+                , ( bp::arg("pInResourceData"), bp::arg("pChild") ) );
+        
+        }
         { //::vgui::Panel::OnCommand
         
             typedef void ( ::vgui::Panel::*OnCommand_function_type )( char const * ) ;
@@ -2840,6 +2873,16 @@ void register_Panel_class(){
                 "OnMouseFocusTicked"
                 , OnMouseFocusTicked_function_type(&::vgui::Panel::OnMouseFocusTicked)
                 , default_OnMouseFocusTicked_function_type(&Panel_wrapper::default_OnMouseFocusTicked) );
+        
+        }
+        { //::vgui::Panel::OnMouseMismatchedRelease
+        
+            typedef void ( ::vgui::Panel::*OnMouseMismatchedRelease_function_type )( ::vgui::MouseCode,::vgui::Panel * ) ;
+            
+            Panel_exposer.def( 
+                "OnMouseMismatchedRelease"
+                , OnMouseMismatchedRelease_function_type( &::vgui::Panel::OnMouseMismatchedRelease )
+                , ( bp::arg("code"), bp::arg("pPressedPanel") ) );
         
         }
         { //::vgui::Panel::OnMousePressed

@@ -28,6 +28,47 @@
 
 namespace bp = boost::python;
 
+struct CStudioHdr_wrapper : CStudioHdr, bp::wrapper< CStudioHdr > {
+
+    struct CActivityToSequenceMapping_wrapper : CStudioHdr::CActivityToSequenceMapping, bp::wrapper< CStudioHdr::CActivityToSequenceMapping > {
+    
+        struct SequenceTuple_wrapper : CStudioHdr::CActivityToSequenceMapping::SequenceTuple, bp::wrapper< CStudioHdr::CActivityToSequenceMapping::SequenceTuple > {
+        
+            SequenceTuple_wrapper(CStudioHdr::CActivityToSequenceMapping::SequenceTuple const & arg )
+            : CStudioHdr::CActivityToSequenceMapping::SequenceTuple( arg )
+              , bp::wrapper< CStudioHdr::CActivityToSequenceMapping::SequenceTuple >(){
+                // copy constructor
+                
+            }
+        
+            SequenceTuple_wrapper()
+            : CStudioHdr::CActivityToSequenceMapping::SequenceTuple()
+              , bp::wrapper< CStudioHdr::CActivityToSequenceMapping::SequenceTuple >(){
+                // null constructor
+                
+            }
+        
+            static ::CUtlSymbol * get_pActivityModifiers(CStudioHdr::CActivityToSequenceMapping::SequenceTuple const & inst ){
+                return inst.pActivityModifiers;
+            }
+            
+            static void set_pActivityModifiers( CStudioHdr::CActivityToSequenceMapping::SequenceTuple & inst, ::CUtlSymbol * new_value ){ 
+                inst.pActivityModifiers = new_value;
+            }
+        
+        };
+    
+        CActivityToSequenceMapping_wrapper( )
+        : CStudioHdr::CActivityToSequenceMapping( )
+          , bp::wrapper< CStudioHdr::CActivityToSequenceMapping >(){
+            // null constructor
+        
+        }
+    
+    };
+
+};
+
 struct mstudioseqdesc_t_wrapper : mstudioseqdesc_t, bp::wrapper< mstudioseqdesc_t > {
 
     mstudioseqdesc_t_wrapper( )
@@ -57,9 +98,9 @@ struct mstudioseqdesc_t_wrapper : mstudioseqdesc_t, bp::wrapper< mstudioseqdesc_
         return pyplusplus::containers::static_sized::array_1_t< float, 2>( inst.paramstart );
     }
 
-    static pyplusplus::containers::static_sized::array_1_t< int, 7>
+    static pyplusplus::containers::static_sized::array_1_t< int, 5>
     pyplusplus_unused_wrapper( ::mstudioseqdesc_t & inst ){
-        return pyplusplus::containers::static_sized::array_1_t< int, 7>( inst.unused );
+        return pyplusplus::containers::static_sized::array_1_t< int, 5>( inst.unused );
     }
 
 };
@@ -113,16 +154,18 @@ BOOST_PYTHON_MODULE(_animation){
         .value("AE_WPN_UNHIDE", AE_WPN_UNHIDE)
         .value("AE_WPN_PLAYWPNSOUND", AE_WPN_PLAYWPNSOUND)
         .value("AE_RD_ROBOT_POP_PANELS_OFF", AE_RD_ROBOT_POP_PANELS_OFF)
+        .value("AE_TAUNT_ENABLE_MOVE", AE_TAUNT_ENABLE_MOVE)
+        .value("AE_TAUNT_DISABLE_MOVE", AE_TAUNT_DISABLE_MOVE)
         .value("LAST_SHARED_ANIMEVENT", LAST_SHARED_ANIMEVENT)
         .export_values()
         ;
 
     { //::CStudioHdr
-        typedef bp::class_< CStudioHdr, boost::noncopyable > CStudioHdr_exposer_t;
+        typedef bp::class_< CStudioHdr_wrapper, boost::noncopyable > CStudioHdr_exposer_t;
         CStudioHdr_exposer_t CStudioHdr_exposer = CStudioHdr_exposer_t( "CStudioHdr" );
         bp::scope CStudioHdr_scope( CStudioHdr_exposer );
         { //::CStudioHdr::CActivityToSequenceMapping
-            typedef bp::class_< CStudioHdr::CActivityToSequenceMapping, boost::noncopyable > CActivityToSequenceMapping_exposer_t;
+            typedef bp::class_< CStudioHdr_wrapper::CActivityToSequenceMapping_wrapper, boost::noncopyable > CActivityToSequenceMapping_exposer_t;
             CActivityToSequenceMapping_exposer_t CActivityToSequenceMapping_exposer = CActivityToSequenceMapping_exposer_t( "CActivityToSequenceMapping", bp::no_init );
             bp::scope CActivityToSequenceMapping_scope( CActivityToSequenceMapping_exposer );
             { //::CStudioHdr::CActivityToSequenceMapping::HashValueType
@@ -161,7 +204,11 @@ BOOST_PYTHON_MODULE(_animation){
                 HashValueType_exposer.def_readwrite( "startingIdx", &CStudioHdr::CActivityToSequenceMapping::HashValueType::startingIdx );
                 HashValueType_exposer.def_readwrite( "totalWeight", &CStudioHdr::CActivityToSequenceMapping::HashValueType::totalWeight );
             }
-            bp::class_< CStudioHdr::CActivityToSequenceMapping::SequenceTuple >( "SequenceTuple" )    
+            bp::class_< CStudioHdr_wrapper::CActivityToSequenceMapping_wrapper::SequenceTuple_wrapper >( "SequenceTuple" )    
+                .def_readwrite( "iNumActivityModifiers", &CStudioHdr::CActivityToSequenceMapping::SequenceTuple::iNumActivityModifiers )    
+                .add_property( "pActivityModifiers"
+                            , bp::make_function( (::CUtlSymbol * (*)( ::CStudioHdr::CActivityToSequenceMapping::SequenceTuple const & ))(&CStudioHdr_wrapper::CActivityToSequenceMapping_wrapper::SequenceTuple_wrapper::get_pActivityModifiers), bp::return_internal_reference< >() )
+                            , bp::make_function( (void (*)( ::CStudioHdr::CActivityToSequenceMapping::SequenceTuple &,::CUtlSymbol * ))(&CStudioHdr_wrapper::CActivityToSequenceMapping_wrapper::SequenceTuple_wrapper::set_pActivityModifiers), bp::with_custodian_and_ward_postcall< 1, 2 >() ) )    
                 .def_readwrite( "seqnum", &CStudioHdr::CActivityToSequenceMapping::SequenceTuple::seqnum )    
                 .def_readwrite( "weight", &CStudioHdr::CActivityToSequenceMapping::SequenceTuple::weight );
             CActivityToSequenceMapping_exposer.def( bp::init< >() );
@@ -456,6 +503,16 @@ BOOST_PYTHON_MODULE(_animation){
                 "SelectWeightedSequence"
                 , SelectWeightedSequence_function_type( &::CStudioHdr::SelectWeightedSequence )
                 , ( bp::arg("activity"), bp::arg("curSequence") ) );
+        
+        }
+        { //::CStudioHdr::SelectWeightedSequenceFromModifiers
+        
+            typedef int ( ::CStudioHdr::*SelectWeightedSequenceFromModifiers_function_type )( int,::CUtlSymbol *,int ) ;
+            
+            CStudioHdr_exposer.def( 
+                "SelectWeightedSequenceFromModifiers"
+                , SelectWeightedSequenceFromModifiers_function_type( &::CStudioHdr::SelectWeightedSequenceFromModifiers )
+                , ( bp::arg("activity"), bp::arg("pActivityModifiers"), bp::arg("iModifierCount") ) );
         
         }
         { //::CStudioHdr::SequencesAvailable
@@ -849,6 +906,7 @@ BOOST_PYTHON_MODULE(_animation){
         
         }
         mstudioseqdesc_t_exposer.def_readwrite( "activity", &mstudioseqdesc_t::activity );
+        mstudioseqdesc_t_exposer.def_readwrite( "activitymodifierindex", &mstudioseqdesc_t::activitymodifierindex );
         mstudioseqdesc_t_exposer.def_readwrite( "actweight", &mstudioseqdesc_t::actweight );
         mstudioseqdesc_t_exposer.def_readwrite( "animindexindex", &mstudioseqdesc_t::animindexindex );
         mstudioseqdesc_t_exposer.def_readwrite( "autolayerindex", &mstudioseqdesc_t::autolayerindex );
@@ -880,6 +938,7 @@ BOOST_PYTHON_MODULE(_animation){
         mstudioseqdesc_t_exposer.def_readwrite( "movementindex", &mstudioseqdesc_t::movementindex );
         mstudioseqdesc_t_exposer.def_readwrite( "nextseq", &mstudioseqdesc_t::nextseq );
         mstudioseqdesc_t_exposer.def_readwrite( "nodeflags", &mstudioseqdesc_t::nodeflags );
+        mstudioseqdesc_t_exposer.def_readwrite( "numactivitymodifiers", &mstudioseqdesc_t::numactivitymodifiers );
         mstudioseqdesc_t_exposer.def_readwrite( "numautolayers", &mstudioseqdesc_t::numautolayers );
         mstudioseqdesc_t_exposer.def_readwrite( "numblends", &mstudioseqdesc_t::numblends );
         mstudioseqdesc_t_exposer.def_readwrite( "numevents", &mstudioseqdesc_t::numevents );
@@ -915,10 +974,10 @@ BOOST_PYTHON_MODULE(_animation){
         mstudioseqdesc_t_exposer.def_readwrite( "posekeyindex", &mstudioseqdesc_t::posekeyindex );
         mstudioseqdesc_t_exposer.def_readwrite( "szactivitynameindex", &mstudioseqdesc_t::szactivitynameindex );
         mstudioseqdesc_t_exposer.def_readwrite( "szlabelindex", &mstudioseqdesc_t::szlabelindex );
-        pyplusplus::containers::static_sized::register_array_1< int, 7 >( "__array_1_int_7" );
-        { //mstudioseqdesc_t::unused [variable], type=int[7]
+        pyplusplus::containers::static_sized::register_array_1< int, 5 >( "__array_1_int_5" );
+        { //mstudioseqdesc_t::unused [variable], type=int[5]
         
-            typedef pyplusplus::containers::static_sized::array_1_t< int, 7> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
+            typedef pyplusplus::containers::static_sized::array_1_t< int, 5> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
             
             mstudioseqdesc_t_exposer.add_property( "unused"
                 , bp::make_function( array_wrapper_creator(&mstudioseqdesc_t_wrapper::pyplusplus_unused_wrapper)
@@ -1218,6 +1277,47 @@ BOOST_PYTHON_MODULE(_animation){
 
 namespace bp = boost::python;
 
+struct CStudioHdr_wrapper : CStudioHdr, bp::wrapper< CStudioHdr > {
+
+    struct CActivityToSequenceMapping_wrapper : CStudioHdr::CActivityToSequenceMapping, bp::wrapper< CStudioHdr::CActivityToSequenceMapping > {
+    
+        struct SequenceTuple_wrapper : CStudioHdr::CActivityToSequenceMapping::SequenceTuple, bp::wrapper< CStudioHdr::CActivityToSequenceMapping::SequenceTuple > {
+        
+            SequenceTuple_wrapper(CStudioHdr::CActivityToSequenceMapping::SequenceTuple const & arg )
+            : CStudioHdr::CActivityToSequenceMapping::SequenceTuple( arg )
+              , bp::wrapper< CStudioHdr::CActivityToSequenceMapping::SequenceTuple >(){
+                // copy constructor
+                
+            }
+        
+            SequenceTuple_wrapper()
+            : CStudioHdr::CActivityToSequenceMapping::SequenceTuple()
+              , bp::wrapper< CStudioHdr::CActivityToSequenceMapping::SequenceTuple >(){
+                // null constructor
+                
+            }
+        
+            static ::CUtlSymbol * get_pActivityModifiers(CStudioHdr::CActivityToSequenceMapping::SequenceTuple const & inst ){
+                return inst.pActivityModifiers;
+            }
+            
+            static void set_pActivityModifiers( CStudioHdr::CActivityToSequenceMapping::SequenceTuple & inst, ::CUtlSymbol * new_value ){ 
+                inst.pActivityModifiers = new_value;
+            }
+        
+        };
+    
+        CActivityToSequenceMapping_wrapper( )
+        : CStudioHdr::CActivityToSequenceMapping( )
+          , bp::wrapper< CStudioHdr::CActivityToSequenceMapping >(){
+            // null constructor
+        
+        }
+    
+    };
+
+};
+
 struct mstudioseqdesc_t_wrapper : mstudioseqdesc_t, bp::wrapper< mstudioseqdesc_t > {
 
     mstudioseqdesc_t_wrapper( )
@@ -1247,9 +1347,9 @@ struct mstudioseqdesc_t_wrapper : mstudioseqdesc_t, bp::wrapper< mstudioseqdesc_
         return pyplusplus::containers::static_sized::array_1_t< float, 2>( inst.paramstart );
     }
 
-    static pyplusplus::containers::static_sized::array_1_t< int, 7>
+    static pyplusplus::containers::static_sized::array_1_t< int, 5>
     pyplusplus_unused_wrapper( ::mstudioseqdesc_t & inst ){
-        return pyplusplus::containers::static_sized::array_1_t< int, 7>( inst.unused );
+        return pyplusplus::containers::static_sized::array_1_t< int, 5>( inst.unused );
     }
 
 };
@@ -1303,16 +1403,18 @@ BOOST_PYTHON_MODULE(_animation){
         .value("AE_WPN_UNHIDE", AE_WPN_UNHIDE)
         .value("AE_WPN_PLAYWPNSOUND", AE_WPN_PLAYWPNSOUND)
         .value("AE_RD_ROBOT_POP_PANELS_OFF", AE_RD_ROBOT_POP_PANELS_OFF)
+        .value("AE_TAUNT_ENABLE_MOVE", AE_TAUNT_ENABLE_MOVE)
+        .value("AE_TAUNT_DISABLE_MOVE", AE_TAUNT_DISABLE_MOVE)
         .value("LAST_SHARED_ANIMEVENT", LAST_SHARED_ANIMEVENT)
         .export_values()
         ;
 
     { //::CStudioHdr
-        typedef bp::class_< CStudioHdr, boost::noncopyable > CStudioHdr_exposer_t;
+        typedef bp::class_< CStudioHdr_wrapper, boost::noncopyable > CStudioHdr_exposer_t;
         CStudioHdr_exposer_t CStudioHdr_exposer = CStudioHdr_exposer_t( "CStudioHdr" );
         bp::scope CStudioHdr_scope( CStudioHdr_exposer );
         { //::CStudioHdr::CActivityToSequenceMapping
-            typedef bp::class_< CStudioHdr::CActivityToSequenceMapping, boost::noncopyable > CActivityToSequenceMapping_exposer_t;
+            typedef bp::class_< CStudioHdr_wrapper::CActivityToSequenceMapping_wrapper, boost::noncopyable > CActivityToSequenceMapping_exposer_t;
             CActivityToSequenceMapping_exposer_t CActivityToSequenceMapping_exposer = CActivityToSequenceMapping_exposer_t( "CActivityToSequenceMapping", bp::no_init );
             bp::scope CActivityToSequenceMapping_scope( CActivityToSequenceMapping_exposer );
             { //::CStudioHdr::CActivityToSequenceMapping::HashValueType
@@ -1351,7 +1453,11 @@ BOOST_PYTHON_MODULE(_animation){
                 HashValueType_exposer.def_readwrite( "startingIdx", &CStudioHdr::CActivityToSequenceMapping::HashValueType::startingIdx );
                 HashValueType_exposer.def_readwrite( "totalWeight", &CStudioHdr::CActivityToSequenceMapping::HashValueType::totalWeight );
             }
-            bp::class_< CStudioHdr::CActivityToSequenceMapping::SequenceTuple >( "SequenceTuple" )    
+            bp::class_< CStudioHdr_wrapper::CActivityToSequenceMapping_wrapper::SequenceTuple_wrapper >( "SequenceTuple" )    
+                .def_readwrite( "iNumActivityModifiers", &CStudioHdr::CActivityToSequenceMapping::SequenceTuple::iNumActivityModifiers )    
+                .add_property( "pActivityModifiers"
+                            , bp::make_function( (::CUtlSymbol * (*)( ::CStudioHdr::CActivityToSequenceMapping::SequenceTuple const & ))(&CStudioHdr_wrapper::CActivityToSequenceMapping_wrapper::SequenceTuple_wrapper::get_pActivityModifiers), bp::return_internal_reference< >() )
+                            , bp::make_function( (void (*)( ::CStudioHdr::CActivityToSequenceMapping::SequenceTuple &,::CUtlSymbol * ))(&CStudioHdr_wrapper::CActivityToSequenceMapping_wrapper::SequenceTuple_wrapper::set_pActivityModifiers), bp::with_custodian_and_ward_postcall< 1, 2 >() ) )    
                 .def_readwrite( "seqnum", &CStudioHdr::CActivityToSequenceMapping::SequenceTuple::seqnum )    
                 .def_readwrite( "weight", &CStudioHdr::CActivityToSequenceMapping::SequenceTuple::weight );
             CActivityToSequenceMapping_exposer.def( bp::init< >() );
@@ -1646,6 +1752,16 @@ BOOST_PYTHON_MODULE(_animation){
                 "SelectWeightedSequence"
                 , SelectWeightedSequence_function_type( &::CStudioHdr::SelectWeightedSequence )
                 , ( bp::arg("activity"), bp::arg("curSequence") ) );
+        
+        }
+        { //::CStudioHdr::SelectWeightedSequenceFromModifiers
+        
+            typedef int ( ::CStudioHdr::*SelectWeightedSequenceFromModifiers_function_type )( int,::CUtlSymbol *,int ) ;
+            
+            CStudioHdr_exposer.def( 
+                "SelectWeightedSequenceFromModifiers"
+                , SelectWeightedSequenceFromModifiers_function_type( &::CStudioHdr::SelectWeightedSequenceFromModifiers )
+                , ( bp::arg("activity"), bp::arg("pActivityModifiers"), bp::arg("iModifierCount") ) );
         
         }
         { //::CStudioHdr::SequencesAvailable
@@ -2039,6 +2155,7 @@ BOOST_PYTHON_MODULE(_animation){
         
         }
         mstudioseqdesc_t_exposer.def_readwrite( "activity", &mstudioseqdesc_t::activity );
+        mstudioseqdesc_t_exposer.def_readwrite( "activitymodifierindex", &mstudioseqdesc_t::activitymodifierindex );
         mstudioseqdesc_t_exposer.def_readwrite( "actweight", &mstudioseqdesc_t::actweight );
         mstudioseqdesc_t_exposer.def_readwrite( "animindexindex", &mstudioseqdesc_t::animindexindex );
         mstudioseqdesc_t_exposer.def_readwrite( "autolayerindex", &mstudioseqdesc_t::autolayerindex );
@@ -2070,6 +2187,7 @@ BOOST_PYTHON_MODULE(_animation){
         mstudioseqdesc_t_exposer.def_readwrite( "movementindex", &mstudioseqdesc_t::movementindex );
         mstudioseqdesc_t_exposer.def_readwrite( "nextseq", &mstudioseqdesc_t::nextseq );
         mstudioseqdesc_t_exposer.def_readwrite( "nodeflags", &mstudioseqdesc_t::nodeflags );
+        mstudioseqdesc_t_exposer.def_readwrite( "numactivitymodifiers", &mstudioseqdesc_t::numactivitymodifiers );
         mstudioseqdesc_t_exposer.def_readwrite( "numautolayers", &mstudioseqdesc_t::numautolayers );
         mstudioseqdesc_t_exposer.def_readwrite( "numblends", &mstudioseqdesc_t::numblends );
         mstudioseqdesc_t_exposer.def_readwrite( "numevents", &mstudioseqdesc_t::numevents );
@@ -2105,10 +2223,10 @@ BOOST_PYTHON_MODULE(_animation){
         mstudioseqdesc_t_exposer.def_readwrite( "posekeyindex", &mstudioseqdesc_t::posekeyindex );
         mstudioseqdesc_t_exposer.def_readwrite( "szactivitynameindex", &mstudioseqdesc_t::szactivitynameindex );
         mstudioseqdesc_t_exposer.def_readwrite( "szlabelindex", &mstudioseqdesc_t::szlabelindex );
-        pyplusplus::containers::static_sized::register_array_1< int, 7 >( "__array_1_int_7" );
-        { //mstudioseqdesc_t::unused [variable], type=int[7]
+        pyplusplus::containers::static_sized::register_array_1< int, 5 >( "__array_1_int_5" );
+        { //mstudioseqdesc_t::unused [variable], type=int[5]
         
-            typedef pyplusplus::containers::static_sized::array_1_t< int, 7> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
+            typedef pyplusplus::containers::static_sized::array_1_t< int, 5> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
             
             mstudioseqdesc_t_exposer.add_property( "unused"
                 , bp::make_function( array_wrapper_creator(&mstudioseqdesc_t_wrapper::pyplusplus_unused_wrapper)

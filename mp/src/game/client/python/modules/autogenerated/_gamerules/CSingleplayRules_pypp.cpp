@@ -568,6 +568,25 @@ struct C_SingleplayRules_wrapper : C_SingleplayRules, bp::wrapper< C_SingleplayR
         return C_GameRules::IsLocalPlayer( nEntIndex );
     }
 
+    virtual bool IsManualMapChangeOkay( char const * * pszReason ) {
+        PY_OVERRIDE_CHECK( C_GameRules, IsManualMapChangeOkay )
+        PY_OVERRIDE_LOG( _gamerules, C_GameRules, IsManualMapChangeOkay )
+        bp::override func_IsManualMapChangeOkay = this->get_override( "IsManualMapChangeOkay" );
+        if( func_IsManualMapChangeOkay.ptr() != Py_None )
+            try {
+                return func_IsManualMapChangeOkay( pszReason );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->C_GameRules::IsManualMapChangeOkay( pszReason );
+            }
+        else
+            return this->C_GameRules::IsManualMapChangeOkay( pszReason );
+    }
+    
+    bool default_IsManualMapChangeOkay( char const * * pszReason ) {
+        return C_GameRules::IsManualMapChangeOkay( pszReason );
+    }
+
     virtual void ModifySentChat( char * pBuf, int iBufSize ) {
         PY_OVERRIDE_CHECK( C_GameRules, ModifySentChat )
         PY_OVERRIDE_LOG( _gamerules, C_GameRules, ModifySentChat )
@@ -850,6 +869,11 @@ void register_CSingleplayRules_class(){
             , (bool ( ::C_GameRules::* )( int ) )(&::C_GameRules::IsLocalPlayer)
             , (bool ( C_SingleplayRules_wrapper::* )( int ) )(&C_SingleplayRules_wrapper::default_IsLocalPlayer)
             , ( bp::arg("nEntIndex") ) )    
+        .def( 
+            "IsManualMapChangeOkay"
+            , (bool ( ::C_GameRules::* )( char const * * ) )(&::C_GameRules::IsManualMapChangeOkay)
+            , (bool ( C_SingleplayRules_wrapper::* )( char const * * ) )(&C_SingleplayRules_wrapper::default_IsManualMapChangeOkay)
+            , ( bp::arg("pszReason") ) )    
         .def( 
             "ModifySentChat"
             , (void ( ::C_GameRules::* )( char *,int ) )(&::C_GameRules::ModifySentChat)

@@ -4554,6 +4554,18 @@ BOOST_PYTHON_MODULE(_utils){
     
     }
 
+    { //::UTIL_PlayerBySteamID
+    
+        typedef ::CBasePlayer * ( *UTIL_PlayerBySteamID_function_type )( ::CSteamID const & );
+        
+        bp::def( 
+            "UTIL_PlayerBySteamID"
+            , UTIL_PlayerBySteamID_function_type( &::UTIL_PlayerBySteamID )
+            , ( bp::arg("steamID") )
+            , bp::return_value_policy< bp::return_by_value >() );
+    
+    }
+
     { //::UTIL_PlayerByUserId
     
         typedef ::CBasePlayer * ( *UTIL_PlayerByUserId_function_type )( int );

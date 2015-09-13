@@ -174,11 +174,11 @@ $Project "Client (PySource)"
 		
 		$Folder	"Python"
 		{
-			$Folder	"Helpers"
-			{
-				$File	"$SRCDIR\game\shared\python\helpers\filesystem_init.cpp"
-				$File	"$SRCDIR\game\shared\python\helpers\filesystem_init.h"
-			}
+			//$Folder	"Helpers"
+			//{
+			//	$File	"$SRCDIR\game\shared\python\helpers\filesystem_init.cpp"
+			//	$File	"$SRCDIR\game\shared\python\helpers\filesystem_init.h"
+			//}
 			
 			$File	"$SRCDIR\game\shared\python\srcpy.cpp"
 			$File	"$SRCDIR\game\shared\python\srcpy.h"

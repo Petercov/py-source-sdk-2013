@@ -74,6 +74,8 @@ bool CSrcPython::InitStandAloneInterpreter()
 	if ( (filesystem = (IFileSystem *)fileSystemFactory(FILESYSTEM_INTERFACE_VERSION,NULL)) == NULL )
 		return 0;
 
+	// TODO: Probably do this from the actual Python process, so we don't need to do it in the game dll
+#if 0
 	char szFullModPath[MAX_PATH];
 	_fullpath( szFullModPath, "pysource", sizeof( szFullModPath ) );
 
@@ -82,6 +84,7 @@ bool CSrcPython::InitStandAloneInterpreter()
 	initInfo.m_pFileSystem = filesystem;
 	initInfo.m_pDirectoryName = szFullModPath;
 	FileSystem_LoadSearchPaths( initInfo );
+#endif // 0
 
 	/* Copied from srcpy.cpp */
 	// Change working directory	

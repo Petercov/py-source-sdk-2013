@@ -675,6 +675,9 @@ void register_CBaseTrigger_class(){
             , (void ( CBaseTrigger_wrapper::* )( ::CBaseEntity * ) )(&CBaseTrigger_wrapper::default_EndTouch)
             , ( bp::arg("pOther") ) )    
         .def( 
+            "EndTouchAll"
+            , (void ( ::CBaseTrigger::* )(  ) )( &::CBaseTrigger::EndTouchAll ) )    
+        .def( 
             "GetTouchedEntityOfType"
             , (::CBaseEntity * ( ::CBaseTrigger::* )( char const * ) )( &::CBaseTrigger::GetTouchedEntityOfType )
             , ( bp::arg("sClassName") )
@@ -731,6 +734,9 @@ void register_CBaseTrigger_class(){
             , (void ( ::CBaseTrigger::* )( ::CBaseEntity * ) )(&::CBaseTrigger::StartTouch)
             , (void ( CBaseTrigger_wrapper::* )( ::CBaseEntity * ) )(&CBaseTrigger_wrapper::default_StartTouch)
             , ( bp::arg("pOther") ) )    
+        .def( 
+            "StartTouchAll"
+            , (void ( ::CBaseTrigger::* )(  ) )( &::CBaseTrigger::StartTouchAll ) )    
         .def( 
             "TouchTest"
             , (void ( ::CBaseTrigger::* )(  ) )( &::CBaseTrigger::TouchTest ) )    

@@ -961,6 +961,25 @@ struct CMultiplayRules_wrapper : CMultiplayRules, bp::wrapper< CMultiplayRules >
         return CMultiplayRules::IsDeathmatch( );
     }
 
+    virtual bool IsManualMapChangeOkay( char const * * pszReason ) {
+        PY_OVERRIDE_CHECK( CMultiplayRules, IsManualMapChangeOkay )
+        PY_OVERRIDE_LOG( _gamerules, CMultiplayRules, IsManualMapChangeOkay )
+        bp::override func_IsManualMapChangeOkay = this->get_override( "IsManualMapChangeOkay" );
+        if( func_IsManualMapChangeOkay.ptr() != Py_None )
+            try {
+                return func_IsManualMapChangeOkay( pszReason );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CMultiplayRules::IsManualMapChangeOkay( pszReason );
+            }
+        else
+            return this->CMultiplayRules::IsManualMapChangeOkay( pszReason );
+    }
+    
+    bool default_IsManualMapChangeOkay( char const * * pszReason ) {
+        return CMultiplayRules::IsManualMapChangeOkay( pszReason );
+    }
+
     virtual bool IsMultiplayer(  ) {
         PY_OVERRIDE_CHECK( CMultiplayRules, IsMultiplayer )
         PY_OVERRIDE_LOG( _gamerules, CMultiplayRules, IsMultiplayer )
@@ -997,6 +1016,25 @@ struct CMultiplayRules_wrapper : CMultiplayRules, bp::wrapper< CMultiplayRules >
     
     int default_ItemShouldRespawn( ::CItem * pItem ) {
         return CMultiplayRules::ItemShouldRespawn( pItem );
+    }
+
+    virtual void LoadMapCycleFileIntoVector( char const * pszMapCycleFile, ::CUtlVector< char*, CUtlMemory< char*, int > > & mapList ) {
+        PY_OVERRIDE_CHECK( CMultiplayRules, LoadMapCycleFileIntoVector )
+        PY_OVERRIDE_LOG( _gamerules, CMultiplayRules, LoadMapCycleFileIntoVector )
+        bp::override func_LoadMapCycleFileIntoVector = this->get_override( "LoadMapCycleFileIntoVector" );
+        if( func_LoadMapCycleFileIntoVector.ptr() != Py_None )
+            try {
+                func_LoadMapCycleFileIntoVector( pszMapCycleFile, boost::ref(mapList) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CMultiplayRules::LoadMapCycleFileIntoVector( pszMapCycleFile, mapList );
+            }
+        else
+            this->CMultiplayRules::LoadMapCycleFileIntoVector( pszMapCycleFile, mapList );
+    }
+    
+    void default_LoadMapCycleFileIntoVector( char const * pszMapCycleFile, ::CUtlVector< char*, CUtlMemory< char*, int > > & mapList ) {
+        CMultiplayRules::LoadMapCycleFileIntoVector( pszMapCycleFile, mapList );
     }
 
     virtual bool PlayFootstepSounds( ::CBasePlayer * pl ) {
@@ -3068,6 +3106,18 @@ void register_CMultiplayRules_class(){
                 , IsLoadingBugBaitReport_function_type( &::CMultiplayRules::IsLoadingBugBaitReport ) );
         
         }
+        { //::CMultiplayRules::IsManualMapChangeOkay
+        
+            typedef bool ( ::CMultiplayRules::*IsManualMapChangeOkay_function_type )( char const * * ) ;
+            typedef bool ( CMultiplayRules_wrapper::*default_IsManualMapChangeOkay_function_type )( char const * * ) ;
+            
+            CMultiplayRules_exposer.def( 
+                "IsManualMapChangeOkay"
+                , IsManualMapChangeOkay_function_type(&::CMultiplayRules::IsManualMapChangeOkay)
+                , default_IsManualMapChangeOkay_function_type(&CMultiplayRules_wrapper::default_IsManualMapChangeOkay)
+                , ( bp::arg("pszReason") ) );
+        
+        }
         { //::CMultiplayRules::IsMapInMapCycle
         
             typedef bool ( ::CMultiplayRules::*IsMapInMapCycle_function_type )( char const * ) ;
@@ -3101,6 +3151,18 @@ void register_CMultiplayRules_class(){
                 , ( bp::arg("pItem") ) );
         
         }
+        { //::CMultiplayRules::LoadMapCycleFileIntoVector
+        
+            typedef void ( ::CMultiplayRules::*LoadMapCycleFileIntoVector_function_type )( char const *,::CUtlVector< char*, CUtlMemory< char*, int > > & ) ;
+            typedef void ( CMultiplayRules_wrapper::*default_LoadMapCycleFileIntoVector_function_type )( char const *,::CUtlVector< char*, CUtlMemory< char*, int > > & ) ;
+            
+            CMultiplayRules_exposer.def( 
+                "LoadMapCycleFileIntoVector"
+                , LoadMapCycleFileIntoVector_function_type(&::CMultiplayRules::LoadMapCycleFileIntoVector)
+                , default_LoadMapCycleFileIntoVector_function_type(&CMultiplayRules_wrapper::default_LoadMapCycleFileIntoVector)
+                , ( bp::arg("pszMapCycleFile"), bp::arg("mapList") ) );
+        
+        }
         { //::CMultiplayRules::LoadVoiceCommandScript
         
             typedef void ( ::CMultiplayRules::*LoadVoiceCommandScript_function_type )(  ) ;
@@ -3108,16 +3170,6 @@ void register_CMultiplayRules_class(){
             CMultiplayRules_exposer.def( 
                 "LoadVoiceCommandScript"
                 , LoadVoiceCommandScript_function_type( &::CMultiplayRules::LoadVoiceCommandScript ) );
-        
-        }
-        { //::CMultiplayRules::LoapMapCycleFileIntoVector
-        
-            typedef void ( *LoapMapCycleFileIntoVector_function_type )( char const *,::CUtlVector< char*, CUtlMemory< char*, int > > & );
-            
-            CMultiplayRules_exposer.def( 
-                "LoapMapCycleFileIntoVector"
-                , LoapMapCycleFileIntoVector_function_type( &::CMultiplayRules::LoapMapCycleFileIntoVector )
-                , ( bp::arg("pszMapCycleFile"), bp::arg("mapList") ) );
         
         }
         { //::CMultiplayRules::PlayFootstepSounds
@@ -3235,6 +3287,16 @@ void register_CMultiplayRules_class(){
                 "RandomPlayersSpeakConceptIfAllowed"
                 , RandomPlayersSpeakConceptIfAllowed_function_type( &::CMultiplayRules::RandomPlayersSpeakConceptIfAllowed )
                 , ( bp::arg("iConcept"), bp::arg("iNumRandomPlayer")=(int)(1), bp::arg("iTeam")=(int)(0), bp::arg("modifiers")=bp::object() ) );
+        
+        }
+        { //::CMultiplayRules::RawLoadMapCycleFileIntoVector
+        
+            typedef void ( *RawLoadMapCycleFileIntoVector_function_type )( char const *,::CUtlVector< char*, CUtlMemory< char*, int > > & );
+            
+            CMultiplayRules_exposer.def( 
+                "RawLoadMapCycleFileIntoVector"
+                , RawLoadMapCycleFileIntoVector_function_type( &::CMultiplayRules::RawLoadMapCycleFileIntoVector )
+                , ( bp::arg("pszMapCycleFile"), bp::arg("mapList") ) );
         
         }
         { //::CMultiplayRules::RefreshSkillData
@@ -4004,7 +4066,7 @@ void register_CMultiplayRules_class(){
         }
         CMultiplayRules_exposer.staticmethod( "DetermineMapCycleFilename" );
         CMultiplayRules_exposer.staticmethod( "FreeMapCycleFileVector" );
-        CMultiplayRules_exposer.staticmethod( "LoapMapCycleFileIntoVector" );
+        CMultiplayRules_exposer.staticmethod( "RawLoadMapCycleFileIntoVector" );
     }
 
 }

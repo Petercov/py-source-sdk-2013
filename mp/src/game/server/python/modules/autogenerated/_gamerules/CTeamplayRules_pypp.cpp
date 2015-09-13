@@ -600,23 +600,23 @@ struct CTeamplayRules_wrapper : CTeamplayRules, bp::wrapper< CTeamplayRules > {
         CTeamplayRules::SetSwitchTeams( bSwitch );
     }
 
-    virtual void SetWinningTeam( int team, int iWinReason, bool bForceMapReset=true, bool bSwitchTeams=false, bool bDontAddScore=false ) {
+    virtual void SetWinningTeam( int team, int iWinReason, bool bForceMapReset=true, bool bSwitchTeams=false, bool bDontAddScore=false, bool bFinal=false ) {
         PY_OVERRIDE_CHECK( CTeamplayRules, SetWinningTeam )
         PY_OVERRIDE_LOG( _gamerules, CTeamplayRules, SetWinningTeam )
         bp::override func_SetWinningTeam = this->get_override( "SetWinningTeam" );
         if( func_SetWinningTeam.ptr() != Py_None )
             try {
-                func_SetWinningTeam( team, iWinReason, bForceMapReset, bSwitchTeams, bDontAddScore );
+                func_SetWinningTeam( team, iWinReason, bForceMapReset, bSwitchTeams, bDontAddScore, bFinal );
             } catch(bp::error_already_set &) {
                 PyErr_Print();
-                this->CTeamplayRules::SetWinningTeam( team, iWinReason, bForceMapReset, bSwitchTeams, bDontAddScore );
+                this->CTeamplayRules::SetWinningTeam( team, iWinReason, bForceMapReset, bSwitchTeams, bDontAddScore, bFinal );
             }
         else
-            this->CTeamplayRules::SetWinningTeam( team, iWinReason, bForceMapReset, bSwitchTeams, bDontAddScore );
+            this->CTeamplayRules::SetWinningTeam( team, iWinReason, bForceMapReset, bSwitchTeams, bDontAddScore, bFinal );
     }
     
-    void default_SetWinningTeam( int team, int iWinReason, bool bForceMapReset=true, bool bSwitchTeams=false, bool bDontAddScore=false ) {
-        CTeamplayRules::SetWinningTeam( team, iWinReason, bForceMapReset, bSwitchTeams, bDontAddScore );
+    void default_SetWinningTeam( int team, int iWinReason, bool bForceMapReset=true, bool bSwitchTeams=false, bool bDontAddScore=false, bool bFinal=false ) {
+        CTeamplayRules::SetWinningTeam( team, iWinReason, bForceMapReset, bSwitchTeams, bDontAddScore, bFinal );
     }
 
     virtual bool ShouldAutoAim( ::CBasePlayer * pPlayer, ::edict_t * target ) {
@@ -2082,6 +2082,25 @@ struct CTeamplayRules_wrapper : CTeamplayRules, bp::wrapper< CTeamplayRules > {
         return CGameRules::IsHolidayActive( eHoliday );
     }
 
+    virtual bool IsManualMapChangeOkay( char const * * pszReason ) {
+        PY_OVERRIDE_CHECK( CMultiplayRules, IsManualMapChangeOkay )
+        PY_OVERRIDE_LOG( _gamerules, CMultiplayRules, IsManualMapChangeOkay )
+        bp::override func_IsManualMapChangeOkay = this->get_override( "IsManualMapChangeOkay" );
+        if( func_IsManualMapChangeOkay.ptr() != Py_None )
+            try {
+                return func_IsManualMapChangeOkay( pszReason );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                return this->CMultiplayRules::IsManualMapChangeOkay( pszReason );
+            }
+        else
+            return this->CMultiplayRules::IsManualMapChangeOkay( pszReason );
+    }
+    
+    bool default_IsManualMapChangeOkay( char const * * pszReason ) {
+        return CMultiplayRules::IsManualMapChangeOkay( pszReason );
+    }
+
     virtual bool IsMultiplayer(  ) {
         PY_OVERRIDE_CHECK( CMultiplayRules, IsMultiplayer )
         PY_OVERRIDE_LOG( _gamerules, CMultiplayRules, IsMultiplayer )
@@ -2175,6 +2194,25 @@ struct CTeamplayRules_wrapper : CTeamplayRules, bp::wrapper< CTeamplayRules > {
     
     void default_LevelShutdown(  ) {
         CGameRules::LevelShutdown( );
+    }
+
+    virtual void LoadMapCycleFileIntoVector( char const * pszMapCycleFile, ::CUtlVector< char*, CUtlMemory< char*, int > > & mapList ) {
+        PY_OVERRIDE_CHECK( CMultiplayRules, LoadMapCycleFileIntoVector )
+        PY_OVERRIDE_LOG( _gamerules, CMultiplayRules, LoadMapCycleFileIntoVector )
+        bp::override func_LoadMapCycleFileIntoVector = this->get_override( "LoadMapCycleFileIntoVector" );
+        if( func_LoadMapCycleFileIntoVector.ptr() != Py_None )
+            try {
+                func_LoadMapCycleFileIntoVector( pszMapCycleFile, boost::ref(mapList) );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CMultiplayRules::LoadMapCycleFileIntoVector( pszMapCycleFile, mapList );
+            }
+        else
+            this->CMultiplayRules::LoadMapCycleFileIntoVector( pszMapCycleFile, mapList );
+    }
+    
+    void default_LoadMapCycleFileIntoVector( char const * pszMapCycleFile, ::CUtlVector< char*, CUtlMemory< char*, int > > & mapList ) {
+        CMultiplayRules::LoadMapCycleFileIntoVector( pszMapCycleFile, mapList );
     }
 
     virtual void MarkAchievement( ::IRecipientFilter & filter, char const * pchAchievementName ) {
@@ -2861,9 +2899,9 @@ void register_CTeamplayRules_class(){
             , ( bp::arg("bSwitch") ) )    
         .def( 
             "SetWinningTeam"
-            , (void ( ::CTeamplayRules::* )( int,int,bool,bool,bool ) )(&::CTeamplayRules::SetWinningTeam)
-            , (void ( CTeamplayRules_wrapper::* )( int,int,bool,bool,bool ) )(&CTeamplayRules_wrapper::default_SetWinningTeam)
-            , ( bp::arg("team"), bp::arg("iWinReason"), bp::arg("bForceMapReset")=(bool)(true), bp::arg("bSwitchTeams")=(bool)(false), bp::arg("bDontAddScore")=(bool)(false) ) )    
+            , (void ( ::CTeamplayRules::* )( int,int,bool,bool,bool,bool ) )(&::CTeamplayRules::SetWinningTeam)
+            , (void ( CTeamplayRules_wrapper::* )( int,int,bool,bool,bool,bool ) )(&CTeamplayRules_wrapper::default_SetWinningTeam)
+            , ( bp::arg("team"), bp::arg("iWinReason"), bp::arg("bForceMapReset")=(bool)(true), bp::arg("bSwitchTeams")=(bool)(false), bp::arg("bDontAddScore")=(bool)(false), bp::arg("bFinal")=(bool)(false) ) )    
         .def( 
             "ShouldAutoAim"
             , (bool ( ::CTeamplayRules::* )( ::CBasePlayer *,::edict_t * ) )(&::CTeamplayRules::ShouldAutoAim)
@@ -3226,6 +3264,11 @@ void register_CTeamplayRules_class(){
             , (bool ( CTeamplayRules_wrapper::* )( int ) const)(&CTeamplayRules_wrapper::default_IsHolidayActive)
             , ( bp::arg("eHoliday") ) )    
         .def( 
+            "IsManualMapChangeOkay"
+            , (bool ( ::CMultiplayRules::* )( char const * * ) )(&::CMultiplayRules::IsManualMapChangeOkay)
+            , (bool ( CTeamplayRules_wrapper::* )( char const * * ) )(&CTeamplayRules_wrapper::default_IsManualMapChangeOkay)
+            , ( bp::arg("pszReason") ) )    
+        .def( 
             "IsMultiplayer"
             , (bool ( ::CMultiplayRules::* )(  ) )(&::CMultiplayRules::IsMultiplayer)
             , (bool ( CTeamplayRules_wrapper::* )(  ) )(&CTeamplayRules_wrapper::default_IsMultiplayer) )    
@@ -3248,6 +3291,11 @@ void register_CTeamplayRules_class(){
             "LevelShutdown"
             , (void ( ::CGameRules::* )(  ) )(&::CGameRules::LevelShutdown)
             , (void ( CTeamplayRules_wrapper::* )(  ) )(&CTeamplayRules_wrapper::default_LevelShutdown) )    
+        .def( 
+            "LoadMapCycleFileIntoVector"
+            , (void ( ::CMultiplayRules::* )( char const *,::CUtlVector< char*, CUtlMemory< char*, int > > & ) )(&::CMultiplayRules::LoadMapCycleFileIntoVector)
+            , (void ( CTeamplayRules_wrapper::* )( char const *,::CUtlVector< char*, CUtlMemory< char*, int > > & ) )(&CTeamplayRules_wrapper::default_LoadMapCycleFileIntoVector)
+            , ( bp::arg("pszMapCycleFile"), bp::arg("mapList") ) )    
         .def( 
             "MarkAchievement"
             , (void ( ::CGameRules::* )( ::IRecipientFilter &,char const * ) )(&::CGameRules::MarkAchievement)
