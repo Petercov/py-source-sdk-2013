@@ -409,25 +409,6 @@ struct RichText_wrapper : vgui::RichText, bp::wrapper< vgui::RichText > {
         vgui::RichText::SetFgColor( color );
     }
 
-    virtual void SetText( char const * text ) {
-        PY_OVERRIDE_CHECK( vgui::RichText, SetText )
-        PY_OVERRIDE_LOG( _vguicontrols, vgui::RichText, SetText )
-        bp::override func_SetText = this->get_override( "SetText" );
-        if( func_SetText.ptr() != Py_None )
-            try {
-                func_SetText( text );
-            } catch(bp::error_already_set &) {
-                PyErr_Print();
-                this->vgui::RichText::SetText( text );
-            }
-        else
-            this->vgui::RichText::SetText( text );
-    }
-    
-    void default_SetText( char const * text ) {
-        vgui::RichText::SetText( text );
-    }
-
     virtual void SetText( wchar_t const * text ) {
         PY_OVERRIDE_CHECK( vgui::RichText, SetText )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::RichText, SetText )
@@ -1172,10 +1153,6 @@ void register_RichText_class(){
             , ( bp::arg("text"), bp::arg("URLTextColor"), bp::arg("normalTextColor") ) )    
         .def( 
             "InsertString"
-            , (void ( ::vgui::RichText::* )( char const * ) )( &::vgui::RichText::InsertString )
-            , ( bp::arg("text") ) )    
-        .def( 
-            "InsertString"
             , (void ( ::vgui::RichText::* )( wchar_t const * ) )( &::vgui::RichText::InsertString )
             , ( bp::arg("wszText") ) )    
         .def( 
@@ -1299,11 +1276,6 @@ void register_RichText_class(){
             "SetPanelInteractive"
             , (void ( ::vgui::RichText::* )( bool ) )( &::vgui::RichText::SetPanelInteractive )
             , ( bp::arg("bInteractive") ) )    
-        .def( 
-            "SetText"
-            , (void ( ::vgui::RichText::* )( char const * ) )(&::vgui::RichText::SetText)
-            , (void ( RichText_wrapper::* )( char const * ) )(&RichText_wrapper::default_SetText)
-            , ( bp::arg("text") ) )    
         .def( 
             "SetText"
             , (void ( ::vgui::RichText::* )( wchar_t const * ) )(&::vgui::RichText::SetText)

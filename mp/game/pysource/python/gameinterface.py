@@ -17,7 +17,6 @@ def ConCommand(name, *args, **kwargs):
     PyShutdownConCommand(name)
     return __RealConCommand(name, *args, **kwargs)
     
-# Decorator
 def concommand(*args, **kwargs):
     """ Bind the function to a console command.
     
@@ -55,7 +54,6 @@ def concommand(*args, **kwargs):
         return method
     return createconcommand
 
-# Autocompletion class
 class AutoCompletion(object):
     """ Simple auto completion class for use with ConCommand.
     

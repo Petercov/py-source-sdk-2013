@@ -589,25 +589,6 @@ struct TextEntry_wrapper : vgui::TextEntry, bp::wrapper< vgui::TextEntry > {
         vgui::TextEntry::SetText( wszText );
     }
 
-    virtual void SetText( char const * text ) {
-        PY_OVERRIDE_CHECK( vgui::TextEntry, SetText )
-        PY_OVERRIDE_LOG( _vguicontrols, vgui::TextEntry, SetText )
-        bp::override func_SetText = this->get_override( "SetText" );
-        if( func_SetText.ptr() != Py_None )
-            try {
-                func_SetText( text );
-            } catch(bp::error_already_set &) {
-                PyErr_Print();
-                this->vgui::TextEntry::SetText( text );
-            }
-        else
-            this->vgui::TextEntry::SetText( text );
-    }
-    
-    void default_SetText( char const * text ) {
-        vgui::TextEntry::SetText( text );
-    }
-
     virtual void SetVerticalScrollbar( bool state ) {
         PY_OVERRIDE_CHECK( vgui::TextEntry, SetVerticalScrollbar )
         PY_OVERRIDE_LOG( _vguicontrols, vgui::TextEntry, SetVerticalScrollbar )
@@ -1370,10 +1351,6 @@ void register_TextEntry_class(){
             , ( bp::arg("ch") ) )    
         .def( 
             "InsertString"
-            , (void ( ::vgui::TextEntry::* )( char const * ) )( &::vgui::TextEntry::InsertString )
-            , ( bp::arg("text") ) )    
-        .def( 
-            "InsertString"
             , (void ( ::vgui::TextEntry::* )( wchar_t const * ) )( &::vgui::TextEntry::InsertString )
             , ( bp::arg("wszText") ) )    
         .def( 
@@ -1625,11 +1602,6 @@ void register_TextEntry_class(){
             , (void ( ::vgui::TextEntry::* )( wchar_t const * ) )(&::vgui::TextEntry::SetText)
             , (void ( TextEntry_wrapper::* )( wchar_t const * ) )(&TextEntry_wrapper::default_SetText)
             , ( bp::arg("wszText") ) )    
-        .def( 
-            "SetText"
-            , (void ( ::vgui::TextEntry::* )( char const * ) )(&::vgui::TextEntry::SetText)
-            , (void ( TextEntry_wrapper::* )( char const * ) )(&TextEntry_wrapper::default_SetText)
-            , ( bp::arg("text") ) )    
         .def( 
             "SetTextHidden"
             , (void ( ::vgui::TextEntry::* )( bool ) )( &::vgui::TextEntry::SetTextHidden )

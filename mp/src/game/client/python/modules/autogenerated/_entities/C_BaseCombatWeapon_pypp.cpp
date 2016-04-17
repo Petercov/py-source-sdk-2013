@@ -1030,10 +1030,6 @@ void register_C_BaseCombatWeapon_class(){
             "Ready"
             , (bool ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::Ready ) )    
         .def( 
-            "RecvProxy_WeaponState"
-            , (void (*)( ::CRecvProxyData const *,void *,void * ))( &::C_BaseCombatWeapon::RecvProxy_WeaponState )
-            , ( bp::arg("pData"), bp::arg("pStruct"), bp::arg("pOut") ) )    
-        .def( 
             "Redraw"
             , (void ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::Redraw ) )    
         .def( 
@@ -1296,7 +1292,6 @@ void register_C_BaseCombatWeapon_class(){
             , (void ( ::C_BaseAnimating::* )(  ) )(&::C_BaseAnimating::UpdateOnRemove)
             , (void ( C_BaseCombatWeapon_wrapper::* )(  ) )(&C_BaseCombatWeapon_wrapper::default_UpdateOnRemove) )    
         .staticmethod( "GetPyNetworkType" )    
-        .staticmethod( "RecvProxy_WeaponState" )    
         .add_property( "lifestate", &C_BaseCombatWeapon_wrapper::m_lifeState_Get, &C_BaseCombatWeapon_wrapper::m_lifeState_Set )    
         .add_property( "takedamage", &C_BaseCombatWeapon_wrapper::m_takedamage_Get, &C_BaseCombatWeapon_wrapper::m_takedamage_Set )    
         .add_property( "skin", &C_BaseCombatWeapon_wrapper::m_nSkin_Get, &C_BaseCombatWeapon_wrapper::m_nSkin_Set )    

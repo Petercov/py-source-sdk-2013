@@ -1847,7 +1847,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef pyplusplus::containers::static_sized::array_1_t< ::CSteamID, 50> ( *array_wrapper_creator )( ::FriendsEnumerateFollowingList_t & );
             
-            FriendsEnumerateFollowingList_t_exposer.add_property( "m_rgSteamID"
+            FriendsEnumerateFollowingList_t_exposer.add_property( "rgsteamid"
                 , bp::make_function( array_wrapper_creator(&FriendsEnumerateFollowingList_t_wrapper::pyplusplus_m_rgSteamID_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
@@ -1939,7 +1939,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 256> ( *array_wrapper_creator )( ::GameRichPresenceJoinRequested_t & );
             
-            GameRichPresenceJoinRequested_t_exposer.add_property( "m_rgchConnect"
+            GameRichPresenceJoinRequested_t_exposer.add_property( "rgchconnect"
                 , bp::make_function( array_wrapper_creator(&GameRichPresenceJoinRequested_t_wrapper::pyplusplus_m_rgchConnect_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
@@ -1956,7 +1956,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 64> ( *array_wrapper_creator )( ::GameServerChangeRequested_t & );
             
-            GameServerChangeRequested_t_exposer.add_property( "m_rgchPassword"
+            GameServerChangeRequested_t_exposer.add_property( "rgchpassword"
                 , bp::make_function( array_wrapper_creator(&GameServerChangeRequested_t_wrapper::pyplusplus_m_rgchPassword_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
@@ -1964,7 +1964,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 64> ( *array_wrapper_creator )( ::GameServerChangeRequested_t & );
             
-            GameServerChangeRequested_t_exposer.add_property( "m_rgchServer"
+            GameServerChangeRequested_t_exposer.add_property( "rgchserver"
                 , bp::make_function( array_wrapper_creator(&GameServerChangeRequested_t_wrapper::pyplusplus_m_rgchServer_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
@@ -2111,10 +2111,6 @@ BOOST_PYTHON_MODULE(_steam){
             , (int ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetClanChatMemberCount )
             , ( bp::arg("steamIDClan") ) )    
         .def( 
-            "GetClanChatMessage"
-            , (int ( ::ISteamFriends::* )( ::CSteamID,int,void *,int,::EChatEntryType *,::CSteamID * ) )( &::ISteamFriends::GetClanChatMessage )
-            , ( bp::arg("steamIDClanChat"), bp::arg("iMessage"), bp::arg("prgchText"), bp::arg("cchTextMax"), bp::arg("peChatEntryType"), bp::arg("psteamidChatter") ) )    
-        .def( 
             "GetClanCount"
             , (int ( ::ISteamFriends::* )(  ) )( &::ISteamFriends::GetClanCount ) )    
         .def( 
@@ -2172,10 +2168,6 @@ BOOST_PYTHON_MODULE(_steam){
             "GetFriendFromSourceByIndex"
             , (::CSteamID ( ::ISteamFriends::* )( ::CSteamID,int ) )( &::ISteamFriends::GetFriendFromSourceByIndex )
             , ( bp::arg("steamIDSource"), bp::arg("iFriend") ) )    
-        .def( 
-            "GetFriendMessage"
-            , (int ( ::ISteamFriends::* )( ::CSteamID,int,void *,int,::EChatEntryType * ) )( &::ISteamFriends::GetFriendMessage )
-            , ( bp::arg("steamIDFriend"), bp::arg("iMessageID"), bp::arg("pvData"), bp::arg("cubData"), bp::arg("peChatEntryType") ) )    
         .def( 
             "GetFriendPersonaName"
             , (char const * ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetFriendPersonaName )
@@ -2382,17 +2374,9 @@ BOOST_PYTHON_MODULE(_steam){
             , (::CSteamID ( ::ISteamMatchmaking::* )( int ) )( &::ISteamMatchmaking::GetLobbyByIndex )
             , ( bp::arg("iLobby") ) )    
         .def( 
-            "GetLobbyChatEntry"
-            , (int ( ::ISteamMatchmaking::* )( ::CSteamID,int,::CSteamID *,void *,int,::EChatEntryType * ) )( &::ISteamMatchmaking::GetLobbyChatEntry )
-            , ( bp::arg("steamIDLobby"), bp::arg("iChatID"), bp::arg("pSteamIDUser"), bp::arg("pvData"), bp::arg("cubData"), bp::arg("peChatEntryType") ) )    
-        .def( 
             "GetLobbyData"
             , (char const * ( ::ISteamMatchmaking::* )( ::CSteamID,char const * ) )( &::ISteamMatchmaking::GetLobbyData )
             , ( bp::arg("steamIDLobby"), bp::arg("pchKey") ) )    
-        .def( 
-            "GetLobbyDataByIndex"
-            , (bool ( ::ISteamMatchmaking::* )( ::CSteamID,int,char *,int,char *,int ) )( &::ISteamMatchmaking::GetLobbyDataByIndex )
-            , ( bp::arg("steamIDLobby"), bp::arg("iLobbyData"), bp::arg("pchKey"), bp::arg("cchKeyBufferSize"), bp::arg("pchValue"), bp::arg("cchValueBufferSize") ) )    
         .def( 
             "GetLobbyDataCount"
             , (int ( ::ISteamMatchmaking::* )( ::CSteamID ) )( &::ISteamMatchmaking::GetLobbyDataCount )
@@ -2445,10 +2429,6 @@ BOOST_PYTHON_MODULE(_steam){
             "RequestLobbyList"
             , (::SteamAPICall_t ( ::ISteamMatchmaking::* )(  ) )( &::ISteamMatchmaking::RequestLobbyList ) )    
         .def( 
-            "SendLobbyChatMsg"
-            , (bool ( ::ISteamMatchmaking::* )( ::CSteamID,void const *,int ) )( &::ISteamMatchmaking::SendLobbyChatMsg )
-            , ( bp::arg("steamIDLobby"), bp::arg("pvMsgBody"), bp::arg("cubMsgBody") ) )    
-        .def( 
             "SetLinkedLobby"
             , (bool ( ::ISteamMatchmaking::* )( ::CSteamID,::CSteamID ) )( &::ISteamMatchmaking::SetLinkedLobby )
             , ( bp::arg("steamIDLobby"), bp::arg("steamIDLobbyDependent") ) )    
@@ -2493,33 +2473,17 @@ BOOST_PYTHON_MODULE(_steam){
             "BLoggedOn"
             , (bool ( ::ISteamUser::* )(  ) )( &::ISteamUser::BLoggedOn ) )    
         .def( 
-            "BeginAuthSession"
-            , (::EBeginAuthSessionResult ( ::ISteamUser::* )( void const *,int,::CSteamID ) )( &::ISteamUser::BeginAuthSession )
-            , ( bp::arg("pAuthTicket"), bp::arg("cbAuthTicket"), bp::arg("steamID") ) )    
-        .def( 
             "CancelAuthTicket"
             , (void ( ::ISteamUser::* )( ::HAuthTicket ) )( &::ISteamUser::CancelAuthTicket )
             , ( bp::arg("hAuthTicket") ) )    
-        .def( 
-            "DecompressVoice"
-            , (::EVoiceResult ( ::ISteamUser::* )( void const *,::uint32,void *,::uint32,::uint32 *,::uint32 ) )( &::ISteamUser::DecompressVoice )
-            , ( bp::arg("pCompressed"), bp::arg("cbCompressed"), bp::arg("pDestBuffer"), bp::arg("cbDestBufferSize"), bp::arg("nBytesWritten"), bp::arg("nDesiredSampleRate") ) )    
         .def( 
             "EndAuthSession"
             , (void ( ::ISteamUser::* )( ::CSteamID ) )( &::ISteamUser::EndAuthSession )
             , ( bp::arg("steamID") ) )    
         .def( 
-            "GetAuthSessionTicket"
-            , (::HAuthTicket ( ::ISteamUser::* )( void *,int,::uint32 * ) )( &::ISteamUser::GetAuthSessionTicket )
-            , ( bp::arg("pTicket"), bp::arg("cbMaxTicket"), bp::arg("pcbTicket") ) )    
-        .def( 
             "GetAvailableVoice"
             , (::EVoiceResult ( ::ISteamUser::* )( ::uint32 *,::uint32 *,::uint32 ) )( &::ISteamUser::GetAvailableVoice )
             , ( bp::arg("pcbCompressed"), bp::arg("pcbUncompressed"), bp::arg("nUncompressedVoiceDesiredSampleRate") ) )    
-        .def( 
-            "GetEncryptedAppTicket"
-            , (bool ( ::ISteamUser::* )( void *,int,::uint32 * ) )( &::ISteamUser::GetEncryptedAppTicket )
-            , ( bp::arg("pTicket"), bp::arg("cbMaxTicket"), bp::arg("pcbTicket") ) )    
         .def( 
             "GetGameBadgeLevel"
             , (int ( ::ISteamUser::* )( int,bool ) )( &::ISteamUser::GetGameBadgeLevel )
@@ -2538,20 +2502,8 @@ BOOST_PYTHON_MODULE(_steam){
             , (bool ( ::ISteamUser::* )( char *,int ) )( &::ISteamUser::GetUserDataFolder )
             , ( bp::arg("pchBuffer"), bp::arg("cubBuffer") ) )    
         .def( 
-            "GetVoice"
-            , (::EVoiceResult ( ::ISteamUser::* )( bool,void *,::uint32,::uint32 *,bool,void *,::uint32,::uint32 *,::uint32 ) )( &::ISteamUser::GetVoice )
-            , ( bp::arg("bWantCompressed"), bp::arg("pDestBuffer"), bp::arg("cbDestBufferSize"), bp::arg("nBytesWritten"), bp::arg("bWantUncompressed"), bp::arg("pUncompressedDestBuffer"), bp::arg("cbUncompressedDestBufferSize"), bp::arg("nUncompressBytesWritten"), bp::arg("nUncompressedVoiceDesiredSampleRate") ) )    
-        .def( 
             "GetVoiceOptimalSampleRate"
             , (::uint32 ( ::ISteamUser::* )(  ) )( &::ISteamUser::GetVoiceOptimalSampleRate ) )    
-        .def( 
-            "InitiateGameConnection"
-            , (int ( ::ISteamUser::* )( void *,int,::CSteamID,::uint32,::uint16,bool ) )( &::ISteamUser::InitiateGameConnection )
-            , ( bp::arg("pAuthBlob"), bp::arg("cbMaxAuthBlob"), bp::arg("steamIDGameServer"), bp::arg("unIPServer"), bp::arg("usPortServer"), bp::arg("bSecure") ) )    
-        .def( 
-            "RequestEncryptedAppTicket"
-            , (::SteamAPICall_t ( ::ISteamUser::* )( void *,int ) )( &::ISteamUser::RequestEncryptedAppTicket )
-            , ( bp::arg("pDataToInclude"), bp::arg("cbDataToInclude") ) )    
         .def( 
             "RequestStoreAuthURL"
             , (::SteamAPICall_t ( ::ISteamUser::* )( char const * ) )( &::ISteamUser::RequestStoreAuthURL )
@@ -2756,10 +2708,6 @@ BOOST_PYTHON_MODULE(_steam){
             "GetAPICallFailureReason"
             , (::ESteamAPICallFailure ( ::ISteamUtils::* )( ::SteamAPICall_t ) )( &::ISteamUtils::GetAPICallFailureReason )
             , ( bp::arg("hSteamAPICall") ) )    
-        .def( 
-            "GetAPICallResult"
-            , (bool ( ::ISteamUtils::* )( ::SteamAPICall_t,void *,int,int,bool * ) )( &::ISteamUtils::GetAPICallResult )
-            , ( bp::arg("hSteamAPICall"), bp::arg("pCallback"), bp::arg("cubCallback"), bp::arg("iCallbackExpected"), bp::arg("pbFailed") ) )    
         .def( 
             "GetAppID"
             , (::uint32 ( ::ISteamUtils::* )(  ) )( &::ISteamUtils::GetAppID ) )    
@@ -5603,7 +5551,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef pyplusplus::containers::static_sized::array_1_t< ::CSteamID, 50> ( *array_wrapper_creator )( ::FriendsEnumerateFollowingList_t & );
             
-            FriendsEnumerateFollowingList_t_exposer.add_property( "m_rgSteamID"
+            FriendsEnumerateFollowingList_t_exposer.add_property( "rgsteamid"
                 , bp::make_function( array_wrapper_creator(&FriendsEnumerateFollowingList_t_wrapper::pyplusplus_m_rgSteamID_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
@@ -5695,7 +5643,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 256> ( *array_wrapper_creator )( ::GameRichPresenceJoinRequested_t & );
             
-            GameRichPresenceJoinRequested_t_exposer.add_property( "m_rgchConnect"
+            GameRichPresenceJoinRequested_t_exposer.add_property( "rgchconnect"
                 , bp::make_function( array_wrapper_creator(&GameRichPresenceJoinRequested_t_wrapper::pyplusplus_m_rgchConnect_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
@@ -5712,7 +5660,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 64> ( *array_wrapper_creator )( ::GameServerChangeRequested_t & );
             
-            GameServerChangeRequested_t_exposer.add_property( "m_rgchPassword"
+            GameServerChangeRequested_t_exposer.add_property( "rgchpassword"
                 , bp::make_function( array_wrapper_creator(&GameServerChangeRequested_t_wrapper::pyplusplus_m_rgchPassword_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
@@ -5720,7 +5668,7 @@ BOOST_PYTHON_MODULE(_steam){
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 64> ( *array_wrapper_creator )( ::GameServerChangeRequested_t & );
             
-            GameServerChangeRequested_t_exposer.add_property( "m_rgchServer"
+            GameServerChangeRequested_t_exposer.add_property( "rgchserver"
                 , bp::make_function( array_wrapper_creator(&GameServerChangeRequested_t_wrapper::pyplusplus_m_rgchServer_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
@@ -5867,10 +5815,6 @@ BOOST_PYTHON_MODULE(_steam){
             , (int ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetClanChatMemberCount )
             , ( bp::arg("steamIDClan") ) )    
         .def( 
-            "GetClanChatMessage"
-            , (int ( ::ISteamFriends::* )( ::CSteamID,int,void *,int,::EChatEntryType *,::CSteamID * ) )( &::ISteamFriends::GetClanChatMessage )
-            , ( bp::arg("steamIDClanChat"), bp::arg("iMessage"), bp::arg("prgchText"), bp::arg("cchTextMax"), bp::arg("peChatEntryType"), bp::arg("psteamidChatter") ) )    
-        .def( 
             "GetClanCount"
             , (int ( ::ISteamFriends::* )(  ) )( &::ISteamFriends::GetClanCount ) )    
         .def( 
@@ -5928,10 +5872,6 @@ BOOST_PYTHON_MODULE(_steam){
             "GetFriendFromSourceByIndex"
             , (::CSteamID ( ::ISteamFriends::* )( ::CSteamID,int ) )( &::ISteamFriends::GetFriendFromSourceByIndex )
             , ( bp::arg("steamIDSource"), bp::arg("iFriend") ) )    
-        .def( 
-            "GetFriendMessage"
-            , (int ( ::ISteamFriends::* )( ::CSteamID,int,void *,int,::EChatEntryType * ) )( &::ISteamFriends::GetFriendMessage )
-            , ( bp::arg("steamIDFriend"), bp::arg("iMessageID"), bp::arg("pvData"), bp::arg("cubData"), bp::arg("peChatEntryType") ) )    
         .def( 
             "GetFriendPersonaName"
             , (char const * ( ::ISteamFriends::* )( ::CSteamID ) )( &::ISteamFriends::GetFriendPersonaName )
@@ -6101,10 +6041,6 @@ BOOST_PYTHON_MODULE(_steam){
             , (bool ( ::ISteamGameServer::* )( ::CSteamID,char const *,::uint32 ) )( &::ISteamGameServer::BUpdateUserData )
             , ( bp::arg("steamIDUser"), bp::arg("pchPlayerName"), bp::arg("uScore") ) )    
         .def( 
-            "BeginAuthSession"
-            , (::EBeginAuthSessionResult ( ::ISteamGameServer::* )( void const *,int,::CSteamID ) )( &::ISteamGameServer::BeginAuthSession )
-            , ( bp::arg("pAuthTicket"), bp::arg("cbAuthTicket"), bp::arg("steamID") ) )    
-        .def( 
             "CancelAuthTicket"
             , (void ( ::ISteamGameServer::* )( ::HAuthTicket ) )( &::ISteamGameServer::CancelAuthTicket )
             , ( bp::arg("hAuthTicket") ) )    
@@ -6130,16 +6066,8 @@ BOOST_PYTHON_MODULE(_steam){
             "ForceHeartbeat"
             , (void ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::ForceHeartbeat ) )    
         .def( 
-            "GetAuthSessionTicket"
-            , (::HAuthTicket ( ::ISteamGameServer::* )( void *,int,::uint32 * ) )( &::ISteamGameServer::GetAuthSessionTicket )
-            , ( bp::arg("pTicket"), bp::arg("cbMaxTicket"), bp::arg("pcbTicket") ) )    
-        .def( 
             "GetGameplayStats"
             , (void ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::GetGameplayStats ) )    
-        .def( 
-            "GetNextOutgoingPacket"
-            , (int ( ::ISteamGameServer::* )( void *,int,::uint32 *,::uint16 * ) )( &::ISteamGameServer::GetNextOutgoingPacket )
-            , ( bp::arg("pOut"), bp::arg("cbMaxOut"), bp::arg("pNetAdr"), bp::arg("pPort") ) )    
         .def( 
             "GetPublicIP"
             , (::uint32 ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::GetPublicIP ) )    
@@ -6149,10 +6077,6 @@ BOOST_PYTHON_MODULE(_steam){
         .def( 
             "GetSteamID"
             , (::CSteamID ( ::ISteamGameServer::* )(  ) )( &::ISteamGameServer::GetSteamID ) )    
-        .def( 
-            "HandleIncomingPacket"
-            , (bool ( ::ISteamGameServer::* )( void const *,int,::uint32,::uint16 ) )( &::ISteamGameServer::HandleIncomingPacket )
-            , ( bp::arg("pData"), bp::arg("cbData"), bp::arg("srcIP"), bp::arg("srcPort") ) )    
         .def( 
             "InitGameServer"
             , (bool ( ::ISteamGameServer::* )( ::uint32,::uint16,::uint16,::uint32,::AppId_t,char const * ) )( &::ISteamGameServer::InitGameServer )
@@ -6171,10 +6095,6 @@ BOOST_PYTHON_MODULE(_steam){
             "RequestUserGroupStatus"
             , (bool ( ::ISteamGameServer::* )( ::CSteamID,::CSteamID ) )( &::ISteamGameServer::RequestUserGroupStatus )
             , ( bp::arg("steamIDUser"), bp::arg("steamIDGroup") ) )    
-        .def( 
-            "SendUserConnectAndAuthenticate"
-            , (bool ( ::ISteamGameServer::* )( ::uint32,void const *,::uint32,::CSteamID * ) )( &::ISteamGameServer::SendUserConnectAndAuthenticate )
-            , ( bp::arg("unIPClient"), bp::arg("pvAuthBlob"), bp::arg("cubAuthBlobSize"), bp::arg("pSteamIDUser") ) )    
         .def( 
             "SendUserDisconnect"
             , (void ( ::ISteamGameServer::* )( ::CSteamID ) )( &::ISteamGameServer::SendUserDisconnect )
@@ -6304,17 +6224,9 @@ BOOST_PYTHON_MODULE(_steam){
             , (::CSteamID ( ::ISteamMatchmaking::* )( int ) )( &::ISteamMatchmaking::GetLobbyByIndex )
             , ( bp::arg("iLobby") ) )    
         .def( 
-            "GetLobbyChatEntry"
-            , (int ( ::ISteamMatchmaking::* )( ::CSteamID,int,::CSteamID *,void *,int,::EChatEntryType * ) )( &::ISteamMatchmaking::GetLobbyChatEntry )
-            , ( bp::arg("steamIDLobby"), bp::arg("iChatID"), bp::arg("pSteamIDUser"), bp::arg("pvData"), bp::arg("cubData"), bp::arg("peChatEntryType") ) )    
-        .def( 
             "GetLobbyData"
             , (char const * ( ::ISteamMatchmaking::* )( ::CSteamID,char const * ) )( &::ISteamMatchmaking::GetLobbyData )
             , ( bp::arg("steamIDLobby"), bp::arg("pchKey") ) )    
-        .def( 
-            "GetLobbyDataByIndex"
-            , (bool ( ::ISteamMatchmaking::* )( ::CSteamID,int,char *,int,char *,int ) )( &::ISteamMatchmaking::GetLobbyDataByIndex )
-            , ( bp::arg("steamIDLobby"), bp::arg("iLobbyData"), bp::arg("pchKey"), bp::arg("cchKeyBufferSize"), bp::arg("pchValue"), bp::arg("cchValueBufferSize") ) )    
         .def( 
             "GetLobbyDataCount"
             , (int ( ::ISteamMatchmaking::* )( ::CSteamID ) )( &::ISteamMatchmaking::GetLobbyDataCount )
@@ -6367,10 +6279,6 @@ BOOST_PYTHON_MODULE(_steam){
             "RequestLobbyList"
             , (::SteamAPICall_t ( ::ISteamMatchmaking::* )(  ) )( &::ISteamMatchmaking::RequestLobbyList ) )    
         .def( 
-            "SendLobbyChatMsg"
-            , (bool ( ::ISteamMatchmaking::* )( ::CSteamID,void const *,int ) )( &::ISteamMatchmaking::SendLobbyChatMsg )
-            , ( bp::arg("steamIDLobby"), bp::arg("pvMsgBody"), bp::arg("cubMsgBody") ) )    
-        .def( 
             "SetLinkedLobby"
             , (bool ( ::ISteamMatchmaking::* )( ::CSteamID,::CSteamID ) )( &::ISteamMatchmaking::SetLinkedLobby )
             , ( bp::arg("steamIDLobby"), bp::arg("steamIDLobbyDependent") ) )    
@@ -6415,33 +6323,17 @@ BOOST_PYTHON_MODULE(_steam){
             "BLoggedOn"
             , (bool ( ::ISteamUser::* )(  ) )( &::ISteamUser::BLoggedOn ) )    
         .def( 
-            "BeginAuthSession"
-            , (::EBeginAuthSessionResult ( ::ISteamUser::* )( void const *,int,::CSteamID ) )( &::ISteamUser::BeginAuthSession )
-            , ( bp::arg("pAuthTicket"), bp::arg("cbAuthTicket"), bp::arg("steamID") ) )    
-        .def( 
             "CancelAuthTicket"
             , (void ( ::ISteamUser::* )( ::HAuthTicket ) )( &::ISteamUser::CancelAuthTicket )
             , ( bp::arg("hAuthTicket") ) )    
-        .def( 
-            "DecompressVoice"
-            , (::EVoiceResult ( ::ISteamUser::* )( void const *,::uint32,void *,::uint32,::uint32 *,::uint32 ) )( &::ISteamUser::DecompressVoice )
-            , ( bp::arg("pCompressed"), bp::arg("cbCompressed"), bp::arg("pDestBuffer"), bp::arg("cbDestBufferSize"), bp::arg("nBytesWritten"), bp::arg("nDesiredSampleRate") ) )    
         .def( 
             "EndAuthSession"
             , (void ( ::ISteamUser::* )( ::CSteamID ) )( &::ISteamUser::EndAuthSession )
             , ( bp::arg("steamID") ) )    
         .def( 
-            "GetAuthSessionTicket"
-            , (::HAuthTicket ( ::ISteamUser::* )( void *,int,::uint32 * ) )( &::ISteamUser::GetAuthSessionTicket )
-            , ( bp::arg("pTicket"), bp::arg("cbMaxTicket"), bp::arg("pcbTicket") ) )    
-        .def( 
             "GetAvailableVoice"
             , (::EVoiceResult ( ::ISteamUser::* )( ::uint32 *,::uint32 *,::uint32 ) )( &::ISteamUser::GetAvailableVoice )
             , ( bp::arg("pcbCompressed"), bp::arg("pcbUncompressed"), bp::arg("nUncompressedVoiceDesiredSampleRate") ) )    
-        .def( 
-            "GetEncryptedAppTicket"
-            , (bool ( ::ISteamUser::* )( void *,int,::uint32 * ) )( &::ISteamUser::GetEncryptedAppTicket )
-            , ( bp::arg("pTicket"), bp::arg("cbMaxTicket"), bp::arg("pcbTicket") ) )    
         .def( 
             "GetGameBadgeLevel"
             , (int ( ::ISteamUser::* )( int,bool ) )( &::ISteamUser::GetGameBadgeLevel )
@@ -6460,20 +6352,8 @@ BOOST_PYTHON_MODULE(_steam){
             , (bool ( ::ISteamUser::* )( char *,int ) )( &::ISteamUser::GetUserDataFolder )
             , ( bp::arg("pchBuffer"), bp::arg("cubBuffer") ) )    
         .def( 
-            "GetVoice"
-            , (::EVoiceResult ( ::ISteamUser::* )( bool,void *,::uint32,::uint32 *,bool,void *,::uint32,::uint32 *,::uint32 ) )( &::ISteamUser::GetVoice )
-            , ( bp::arg("bWantCompressed"), bp::arg("pDestBuffer"), bp::arg("cbDestBufferSize"), bp::arg("nBytesWritten"), bp::arg("bWantUncompressed"), bp::arg("pUncompressedDestBuffer"), bp::arg("cbUncompressedDestBufferSize"), bp::arg("nUncompressBytesWritten"), bp::arg("nUncompressedVoiceDesiredSampleRate") ) )    
-        .def( 
             "GetVoiceOptimalSampleRate"
             , (::uint32 ( ::ISteamUser::* )(  ) )( &::ISteamUser::GetVoiceOptimalSampleRate ) )    
-        .def( 
-            "InitiateGameConnection"
-            , (int ( ::ISteamUser::* )( void *,int,::CSteamID,::uint32,::uint16,bool ) )( &::ISteamUser::InitiateGameConnection )
-            , ( bp::arg("pAuthBlob"), bp::arg("cbMaxAuthBlob"), bp::arg("steamIDGameServer"), bp::arg("unIPServer"), bp::arg("usPortServer"), bp::arg("bSecure") ) )    
-        .def( 
-            "RequestEncryptedAppTicket"
-            , (::SteamAPICall_t ( ::ISteamUser::* )( void *,int ) )( &::ISteamUser::RequestEncryptedAppTicket )
-            , ( bp::arg("pDataToInclude"), bp::arg("cbDataToInclude") ) )    
         .def( 
             "RequestStoreAuthURL"
             , (::SteamAPICall_t ( ::ISteamUser::* )( char const * ) )( &::ISteamUser::RequestStoreAuthURL )
@@ -6678,10 +6558,6 @@ BOOST_PYTHON_MODULE(_steam){
             "GetAPICallFailureReason"
             , (::ESteamAPICallFailure ( ::ISteamUtils::* )( ::SteamAPICall_t ) )( &::ISteamUtils::GetAPICallFailureReason )
             , ( bp::arg("hSteamAPICall") ) )    
-        .def( 
-            "GetAPICallResult"
-            , (bool ( ::ISteamUtils::* )( ::SteamAPICall_t,void *,int,int,bool * ) )( &::ISteamUtils::GetAPICallResult )
-            , ( bp::arg("hSteamAPICall"), bp::arg("pCallback"), bp::arg("cubCallback"), bp::arg("iCallbackExpected"), bp::arg("pbFailed") ) )    
         .def( 
             "GetAppID"
             , (::uint32 ( ::ISteamUtils::* )(  ) )( &::ISteamUtils::GetAppID ) )    

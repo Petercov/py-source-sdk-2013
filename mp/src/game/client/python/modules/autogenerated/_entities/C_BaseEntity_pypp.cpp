@@ -3168,25 +3168,6 @@ void register_C_BaseEntity_class(){
                 , ( bp::arg("force")=(bool)(false) ) );
         
         }
-        { //::C_BaseEntity::NetworkStateChanged
-        
-            typedef void ( ::C_BaseEntity::*NetworkStateChanged_function_type )(  ) ;
-            
-            C_BaseEntity_exposer.def( 
-                "NetworkStateChanged"
-                , NetworkStateChanged_function_type( &::C_BaseEntity::NetworkStateChanged ) );
-        
-        }
-        { //::C_BaseEntity::NetworkStateChanged
-        
-            typedef void ( ::C_BaseEntity::*NetworkStateChanged_function_type )( void * ) ;
-            
-            C_BaseEntity_exposer.def( 
-                "NetworkStateChanged"
-                , NetworkStateChanged_function_type( &::C_BaseEntity::NetworkStateChanged )
-                , ( bp::arg("pVar") ) );
-        
-        }
         { //::C_BaseEntity::NetworkStateForceUpdate
         
             typedef void ( ::C_BaseEntity::*NetworkStateForceUpdate_function_type )(  ) ;
@@ -3822,16 +3803,6 @@ void register_C_BaseEntity_class(){
                 "RemoveSolidFlags"
                 , RemoveSolidFlags_function_type( &::C_BaseEntity::RemoveSolidFlags )
                 , ( bp::arg("nFlags") ) );
-        
-        }
-        { //::C_BaseEntity::RemoveVar
-        
-            typedef void ( ::C_BaseEntity::*RemoveVar_function_type )( void *,bool ) ;
-            
-            C_BaseEntity_exposer.def( 
-                "RemoveVar"
-                , RemoveVar_function_type( &::C_BaseEntity::RemoveVar )
-                , ( bp::arg("data"), bp::arg("bAssert")=(bool)(true) ) );
         
         }
         { //::C_BaseEntity::RenderableToWorldTransform

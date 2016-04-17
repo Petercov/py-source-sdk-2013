@@ -16,4 +16,16 @@ def __SteamMatchmakingModifier():
     return matchmaking
 steamapicontext.SteamMatchmaking = __SteamMatchmakingModifier
 
+# Add wrappers for a few UserStats functions
+__fnSteamUserStats = steamapicontext.SteamUserStats
+def __SteamUserStatsModifier():
+    # Add wrappers
+    userstats = __fnSteamUserStats()
+    if userstats:
+        userstats.GetStatFloat = PyGetStatFloat
+        userstats.GetStatInt = PyGetStatInt
+    return userstats
+steamapicontext.SteamUserStats = __SteamUserStatsModifier
+
+
 steamapicontext.SteamMatchmakingServers = SteamMatchmakingServers

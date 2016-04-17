@@ -3401,25 +3401,6 @@ void register_CBaseEntity_class(){
                 , ( bp::arg("nameStr") ) );
         
         }
-        { //::CBaseEntity::NetworkStateChanged
-        
-            typedef void ( ::CBaseEntity::*NetworkStateChanged_function_type )(  ) ;
-            
-            CBaseEntity_exposer.def( 
-                "NetworkStateChanged"
-                , NetworkStateChanged_function_type( &::CBaseEntity::NetworkStateChanged ) );
-        
-        }
-        { //::CBaseEntity::NetworkStateChanged
-        
-            typedef void ( ::CBaseEntity::*NetworkStateChanged_function_type )( void * ) ;
-            
-            CBaseEntity_exposer.def( 
-                "NetworkStateChanged"
-                , NetworkStateChanged_function_type( &::CBaseEntity::NetworkStateChanged )
-                , ( bp::arg("pVar") ) );
-        
-        }
         { //::CBaseEntity::NextMovePeer
         
             typedef ::CBaseEntity * ( ::CBaseEntity::*NextMovePeer_function_type )(  ) ;
@@ -3447,16 +3428,6 @@ void register_CBaseEntity_class(){
                 "OnControls"
                 , OnControls_function_type( &::CBaseEntity::OnControls )
                 , ( bp::arg("pControls") ) );
-        
-        }
-        { //::CBaseEntity::OnEntityEvent
-        
-            typedef void ( ::CBaseEntity::*OnEntityEvent_function_type )( ::EntityEvent_t,void * ) ;
-            
-            CBaseEntity_exposer.def( 
-                "OnEntityEvent"
-                , OnEntityEvent_function_type( &::CBaseEntity::OnEntityEvent )
-                , ( bp::arg("event"), bp::arg("pEventData") ) );
         
         }
         { //::CBaseEntity::OnRestore

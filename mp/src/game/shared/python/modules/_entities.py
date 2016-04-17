@@ -586,6 +586,8 @@ class Entities(SemiSharedModuleGenerator):
         mb.mem_funs('RemoveDataObjectType').exclude() # Don't care
         mb.mem_funs('HasDataObjectType').exclude() # Don't care
         
+        mb.mem_funs('NetworkStateChanged').exclude() # void * argument
+        
         if self.settings.branch == 'source2013':
             mb.mem_funs('GetHasAttributesInterfacePtr').exclude()
         
@@ -634,6 +636,7 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_funs('GetIClientEntity').exclude()
             cls.mem_funs('GetClientHandle').exclude()
             cls.mem_funs('RenderHandle').exclude()
+            cls.mem_funs('RemoveVar').exclude()
             
             cls.mem_funs('GetPVSNotifyInterface').exclude()
             cls.mem_funs('GetRenderClipPlane').exclude() # Pointer to 4 floats, requires manual conversion...
@@ -665,7 +668,9 @@ class Entities(SemiSharedModuleGenerator):
                 mb.mem_funs('AlphaProp').exclude()
                 
             # Not interested in Interpolation related functions
-            mb.mem_funs( lambda decl: 'Interp_' in decl.name ).exclude()
+            mb.mem_funs(lambda decl: decl.name.startswith('Interp_')).exclude()
+            # Not interested in RecvProxy functions
+            mb.mem_funs(lambda decl: decl.name.startswith('RecvProxy_')).exclude()
                 
             # Transform
             mb.mem_funs('GetShadowCastDistance').add_transformation(FT.output('pDist'))
@@ -748,6 +753,7 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_funs('MyNextBotPointer').exclude()
             mb.mem_funs('NotifySystemEvent').exclude()
             mb.mem_funs('Entity').exclude()
+            cls.mem_fun('OnEntityEvent').exclude()
             
             mb.mem_funs('PhysicsTestEntityPosition').exclude()  # Don't care  
             mb.mem_funs('PhysicsCheckRotateMove').exclude()     # Don't care  
@@ -757,6 +763,10 @@ class Entities(SemiSharedModuleGenerator):
             mb.mem_funs('GetGroundVelocityToApply').exclude() # Don't care
             mb.mem_funs('GetMaxHealth').exclude() # Use property maxhealth
             #mb.mem_funs('SetModelIndex').exclude()
+            
+            if self.settings.branch == 'swarm':
+                # Not interested in SendProxy_ functions
+                mb.mem_funs(lambda decl: decl.name.startswith('SendProxy_')).exclude()
             
             if self.settings.branch == 'swarm':
                 mb.mem_funs('GetEntityNameAsCStr').exclude() # Always use GetEntityName()
@@ -957,6 +967,8 @@ class Entities(SemiSharedModuleGenerator):
             cls.mem_fun('RemoveWeapon').exclude() # No definition
             cls.mem_fun('CauseDeath').exclude() # No definition
             cls.mem_fun('OnPursuedBy').exclude() # No INextBot definition
+            cls.mem_fun('DispatchInteraction').exclude() # void * argument
+            cls.mem_fun('HandleInteraction').exclude() # void * argument
             if self.settings.branch == 'swarm':
                 cls.mem_fun('GetEntitiesInFaction').exclude()
                 cls.mem_fun('GetFogTrigger').exclude()
