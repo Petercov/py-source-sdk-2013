@@ -29,3 +29,14 @@ steamapicontext.SteamUserStats = __SteamUserStatsModifier
 
 
 steamapicontext.SteamMatchmakingServers = SteamMatchmakingServers
+
+# Add wrappers for a few SteamUGC functions
+if hasattr(steamapicontext, 'SteamUGC'):
+    __fnSteamUGC = steamapicontext.SteamUGC
+    def __fnSteamUGCModifier():
+        # Add wrappers
+        steamugc = __fnSteamUGC()
+        if steamugc:
+            steamugc.GetItemInstallInfo = PyGetItemInstallInfo
+        return steamugc
+    steamapicontext.SteamUGC = __fnSteamUGCModifier

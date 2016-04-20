@@ -477,7 +477,7 @@ struct C_BaseProjectile_wrapper : C_BaseProjectile, bp::wrapper< C_BaseProjectil
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ClientClass* GetClientClass() {
-#if defined(_WIN32) // POSIX: TODO
+#if defined(_WIN32)
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return C_BaseProjectile::GetClientClass();
 #endif // _WIN32
@@ -522,9 +522,6 @@ void register_C_BaseProjectile_class(){
             "GetOriginalLauncher"
             , (::C_BaseEntity * ( ::C_BaseProjectile::* )(  ) const)( &::C_BaseProjectile::GetOriginalLauncher )
             , bp::return_value_policy< bp::return_by_value >() )    
-        .def( 
-            "GetPyNetworkType"
-            , (int (*)(  ))( &::C_BaseProjectile::GetPyNetworkType ) )    
         .def( 
             "IsDestroyable"
             , (bool ( ::C_BaseProjectile::* )(  ) )( &::C_BaseProjectile::IsDestroyable ) )    
@@ -636,7 +633,6 @@ void register_C_BaseProjectile_class(){
             "UpdateOnRemove"
             , (void ( ::C_BaseAnimating::* )(  ) )(&::C_BaseAnimating::UpdateOnRemove)
             , (void ( C_BaseProjectile_wrapper::* )(  ) )(&C_BaseProjectile_wrapper::default_UpdateOnRemove) )    
-        .staticmethod( "GetPyNetworkType" )    
         .add_property( "lifestate", &C_BaseProjectile_wrapper::m_lifeState_Get, &C_BaseProjectile_wrapper::m_lifeState_Set )    
         .add_property( "takedamage", &C_BaseProjectile_wrapper::m_takedamage_Get, &C_BaseProjectile_wrapper::m_takedamage_Set )    
         .add_property( "skin", &C_BaseProjectile_wrapper::m_nSkin_Get, &C_BaseProjectile_wrapper::m_nSkin_Set );

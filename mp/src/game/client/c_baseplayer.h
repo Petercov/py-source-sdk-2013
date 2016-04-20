@@ -79,7 +79,7 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-	DECLARE_PYCLIENTCLASS( C_BasePlayer, PN_BASEPLAYER );
+	DECLARE_PYCLIENTCLASS( C_BasePlayer );
 // =======================================
 // END PySource Additions
 // =======================================

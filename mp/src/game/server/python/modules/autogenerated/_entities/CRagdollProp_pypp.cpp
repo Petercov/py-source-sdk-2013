@@ -617,7 +617,7 @@ struct CRagdollProp_wrapper : CRagdollProp, bp::wrapper< CRagdollProp > {
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ServerClass* GetServerClass() {
-        PY_OVERRIDE_CHECK( CBaseAnimating, GetServerClass )
+        PY_OVERRIDE_CHECK( CRagdollProp, GetServerClass )
         if( PyObject_HasAttrString(GetPyInstance().ptr(), "pyServerClass") )
         {
             try
@@ -631,7 +631,7 @@ struct CRagdollProp_wrapper : CRagdollProp, bp::wrapper< CRagdollProp > {
                 PyErr_Print();
             }
         }
-        return CBaseAnimating::GetServerClass();
+        return CRagdollProp::GetServerClass();
     }
 
     static int m_lifeState_Get( CRagdollProp const & inst ) { return inst.m_lifeState.Get(); }

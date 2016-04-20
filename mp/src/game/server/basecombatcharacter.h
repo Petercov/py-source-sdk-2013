@@ -123,7 +123,7 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-	DECLARE_PYSERVERCLASS( CBaseCombatCharacter, PN_BASECOMBATCHARACTER );
+	DECLARE_PYSERVERCLASS( CBaseCombatCharacter );
 // =======================================
 // END PySource Additions
 // =======================================

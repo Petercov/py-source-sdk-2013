@@ -1,4 +1,4 @@
-//====== Copyright � Sandern Corporation, All rights reserved. ===========//
+//====== Copyright © Sandern Corporation, All rights reserved. ===========//
 //
 // Purpose: 
 //
@@ -42,17 +42,14 @@ namespace DT_BaseEntity
 class PyClientClassBase : public ClientClass
 {
 public:
-	PyClientClassBase( char *pNetworkName ) : ClientClass(pNetworkName, NULL, NULL, NULL), m_pNetworkedClass(NULL)
+	PyClientClassBase( char *pNetworkName, RecvTable *pRecvTable ) : ClientClass(pNetworkName, NULL, NULL, pRecvTable ), m_pNetworkedClass(NULL)
 	{
-		// Default send table to BaseEntity
-		m_pRecvTable = &(DT_BaseEntity::g_RecvTable);
 		m_pPyNext				= g_pPyClientClassHead;
 		g_pPyClientClassHead	= this;
 		m_bFree = true;
 	}
 
 	virtual void SetPyClass( boost::python::object cls_type ) {}
-	virtual void SetType( int iType ) {}
 	virtual void InitPyClass() {}
 
 public:
@@ -60,48 +57,45 @@ public:
 	bool m_bFree;
 	NetworkedClass *m_pNetworkedClass;
 	char m_strPyNetworkedClassName[512];
+	boost::python::object m_PyClass;
 };
 
-void SetupClientClassRecv( PyClientClassBase *p, int iType );
-void PyResetAllNetworkTables();
-IClientNetworkable *ClientClassFactory( int iType, boost::python::object cls_type, int entnum, int serialNum);
+C_BaseEntity *ClientClassFactory( boost::python::object cls_type, int entnum, int serialNum);
 void InitAllPythonEntities();
 void CheckEntities(PyClientClassBase *pCC, boost::python::object pyClass );
 
 // For each available free client class we need a unique class because of the static data
-// No way around this since stuff is called from the engine
-#define IMPLEMENT_PYCLIENTCLASS_SYSTEM( name, network_name )										\
+// No way around this since m_pCreateFn is called from the engine (must always be a static function pointer?)
+#define IMPLEMENT_PYCLIENTCLASS_SYSTEM( name, network_name, table, fallback_class_name )			\
 	class name : public PyClientClassBase															\
 	{																								\
 	public:																							\
-		name() : PyClientClassBase( #network_name )													\
+		name() : PyClientClassBase( #network_name, table )											\
 		{																							\
 			m_pCreateFn = PyClientClass_CreateObject;												\
 		}																							\
 		static IClientNetworkable* PyClientClass_CreateObject( int entnum, int serialNum );			\
 		virtual void SetPyClass( boost::python::object cls_type );									\
-		virtual void SetType( int iType );															\
 		virtual void InitPyClass();																	\
 	public:																							\
 		static boost::python::object m_PyClass;														\
-		static int m_iType;																			\
 	};																								\
-	boost::python::object name::m_PyClass;														\
-	int name::m_iType;																			\
+	boost::python::object name::m_PyClass;															\
 	IClientNetworkable* name::PyClientClass_CreateObject( int entnum, int serialNum )				\
 	{																								\
-		return ClientClassFactory(m_iType, m_PyClass, entnum, serialNum);							\
+		C_BaseEntity *pRet = ClientClassFactory(m_PyClass, entnum, serialNum);						\
+		if( !pRet )																					\
+		{																							\
+			pRet = new fallback_class_name;															\
+			pRet->Init( entnum, serialNum );														\
+		}																							\
+		return pRet;																				\
 	}																								\
-	void name::SetPyClass( boost::python::object cls_type )										\
+	void name::SetPyClass( boost::python::object cls_type )											\
 	{																								\
 		m_PyClass = cls_type;																		\
-		if( g_bDoNotInitPythonClasses == false)														\
-			InitPyClass();																			\
+		InitPyClass();																				\
 		CheckEntities(this, m_PyClass);																\
-	}																								\
-	void name::SetType( int iType )																\
-	{																								\
-		m_iType = iType;																			\
 	}																								\
 	void name::InitPyClass()																		\
 	{																								\
@@ -110,7 +104,7 @@ void CheckEntities(PyClientClassBase *pCC, boost::python::object pyClass );
 			return;																					\
 		SrcPySystem()->Run( meth );																	\
 	}																								\
-	name name##_object;																				\
+	name name##_object;
 
 // NetworkedClass is exposed to python and deals with getting a server/client class and cleaning up
 class NetworkedClass
@@ -128,10 +122,8 @@ public:
 };
 
 // Implement a networkable python class. Used to determine the right recv/send tables
-#define DECLARE_PYCLIENTCLASS( name, networkType )													\
-	DECLARE_PYCLASS( name )																			\
-	public:																							\
-	static int GetPyNetworkType() { return networkType; }
+#define DECLARE_PYCLIENTCLASS( name )																\
+	DECLARE_PYCLASS( name )
 
 #endif // ENABLE_PYTHON
 

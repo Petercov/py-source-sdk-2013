@@ -50,7 +50,7 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-	DECLARE_PYSERVERCLASS( CBaseFlex, PN_BASEFLEX );
+	DECLARE_PYSERVERCLASS( CBaseFlex );
 // =======================================
 // END PySource Additions
 // =======================================

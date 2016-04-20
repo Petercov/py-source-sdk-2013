@@ -85,8 +85,8 @@ def DetermineClsType(cls):
     return None
 
 def networked(cls):
-    ''' Makes the class networked, which can serve as a base for entities which don't need to be
-        networked. '''
+    """ Makes the class networked, which can serve as a base for entities which don't need to be
+        networked. """
     if 'networkinst' not in cls.__dict__:
         networkname = '%s.__%s' % (cls.__module__, cls.__name__)
         cls.networkinst = NetworkedClass(networkname, cls)
@@ -102,11 +102,11 @@ def entity( clsname,
             iconsprite='',
             cylinder=[],
             color='',
-            size = '',
+            size='',
             cppproperties='',
             nofgdentry=False):
-    ''' Decorator for turning a class into an entity.
-        The class entity must be derived from CBaseEntity.'''
+    """ Decorator for turning a class into an entity.
+        The class entity must be derived from CBaseEntity. """
     def wrapcls(cls):
         # FIXME: This creates a circular reference between the class and factory/network instance
         #        Although new factories will remove the old factories, it does not clean up nicely yet.

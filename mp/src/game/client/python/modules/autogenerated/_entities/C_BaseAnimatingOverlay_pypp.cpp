@@ -477,7 +477,7 @@ struct C_BaseAnimatingOverlay_wrapper : C_BaseAnimatingOverlay, bp::wrapper< C_B
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ClientClass* GetClientClass() {
-#if defined(_WIN32) // POSIX: TODO
+#if defined(_WIN32)
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return C_BaseAnimatingOverlay::GetClientClass();
 #endif // _WIN32
@@ -556,15 +556,6 @@ void register_C_BaseAnimatingOverlay_class(){
             C_BaseAnimatingOverlay_exposer.def( 
                 "GetNumAnimOverlays"
                 , GetNumAnimOverlays_function_type( &::C_BaseAnimatingOverlay::GetNumAnimOverlays ) );
-        
-        }
-        { //::C_BaseAnimatingOverlay::GetPyNetworkType
-        
-            typedef int ( *GetPyNetworkType_function_type )(  );
-            
-            C_BaseAnimatingOverlay_exposer.def( 
-                "GetPyNetworkType"
-                , GetPyNetworkType_function_type( &::C_BaseAnimatingOverlay::GetPyNetworkType ) );
         
         }
         { //::C_BaseAnimatingOverlay::GetRenderBounds
@@ -852,7 +843,6 @@ void register_C_BaseAnimatingOverlay_class(){
                 , default_UpdateOnRemove_function_type(&C_BaseAnimatingOverlay_wrapper::default_UpdateOnRemove) );
         
         }
-        C_BaseAnimatingOverlay_exposer.staticmethod( "GetPyNetworkType" );
         C_BaseAnimatingOverlay_exposer.add_property( "lifestate", &C_BaseAnimatingOverlay_wrapper::m_lifeState_Get, &C_BaseAnimatingOverlay_wrapper::m_lifeState_Set );
         C_BaseAnimatingOverlay_exposer.add_property( "takedamage", &C_BaseAnimatingOverlay_wrapper::m_takedamage_Get, &C_BaseAnimatingOverlay_wrapper::m_takedamage_Set );
         C_BaseAnimatingOverlay_exposer.add_property( "skin", &C_BaseAnimatingOverlay_wrapper::m_nSkin_Get, &C_BaseAnimatingOverlay_wrapper::m_nSkin_Set );

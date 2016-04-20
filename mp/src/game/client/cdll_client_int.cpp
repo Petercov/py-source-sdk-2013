@@ -1218,6 +1218,11 @@ void CHLClient::Shutdown( void )
 	IGameSystem::ShutdownAllSystems();
 	
 	gHUD.Shutdown();
+
+#ifdef ENABLE_PYTHON
+	SrcPySystem()->ShutdownInterpreter(); // before vgui, so we delete all python panels first
+#endif // ENABLE_PYTHON
+
 	VGui_Shutdown();
 	
 	ParticleMgr()->Term();

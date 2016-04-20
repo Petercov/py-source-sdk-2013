@@ -351,8 +351,9 @@ struct thinkfunc_t
 // PySource Additions
 // =======================================
 #ifdef ENABLE_PYTHON
+	string_t	m_iszPyThinkMethodName;
 	// MUST BE LAST
-	boost::python::object  m_pyThink; // If not Py_None and m_pfnThink != NULL, then call the python method
+	boost::python::object  m_pyThink;			// If not Py_None and m_pfnThink != NULL, then call the python method
 #endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
@@ -1835,7 +1836,7 @@ public:
 // =======================================
 #ifdef ENABLE_PYTHON
 public:
-	DECLARE_PYSERVERCLASS( CBaseEntity, PN_BASEENTITY );
+	DECLARE_PYSERVERCLASS( CBaseEntity );
 
 	// TODO/FIXME: Default placement versions of operator new, boost python seems to wants these...
 	inline void* operator new(std::size_t, void* __p) throw() { Assert(0); Error("CBaseEntity new\n");return __p; }
@@ -1875,13 +1876,20 @@ public:
 	// Allows sending an event on this Python entity
 	void							PySendEvent( IRecipientFilter &filter, int event, int data = 0 );
 
+protected:
+	bool		m_bPyManaged;
+
 private:
-	bool m_bPyDestroyed;
+
 	boost::python::object m_pyInstance;
 	boost::python::object m_pyHandle;
 	boost::python::object m_pyTouchMethod;
 	boost::python::object m_pyThink;
-
+	
+	// Save/restore for touch and think
+	string_t	m_iszPyTouchMethodName;
+	string_t	m_iszPyThinkMethodName;
+	
 public:
 	// This is the list of network vars in Python
 	CUtlVector<CPythonNetworkVarBase *> m_utlPyNetworkVars;

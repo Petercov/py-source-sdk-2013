@@ -500,7 +500,7 @@ struct C_BaseAnimating_wrapper : C_BaseAnimating, bp::wrapper< C_BaseAnimating >
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ClientClass* GetClientClass() {
-#if defined(_WIN32) // POSIX: TODO
+#if defined(_WIN32)
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return C_BaseAnimating::GetClientClass();
 #endif // _WIN32
@@ -1323,15 +1323,6 @@ void register_C_BaseAnimating_class(){
                 "GetPoseParameters"
                 , GetPoseParameters_function_type( &::C_BaseAnimating::GetPoseParameters )
                 , ( bp::arg("pStudioHdr"), bp::arg("poseParameter") ) );
-        
-        }
-        { //::C_BaseAnimating::GetPyNetworkType
-        
-            typedef int ( *GetPyNetworkType_function_type )(  );
-            
-            C_BaseAnimating_exposer.def( 
-                "GetPyNetworkType"
-                , GetPyNetworkType_function_type( &::C_BaseAnimating::GetPyNetworkType ) );
         
         }
         { //::C_BaseAnimating::GetRagdollInitBoneArrays
@@ -2669,7 +2660,6 @@ void register_C_BaseAnimating_class(){
                 , ( bp::arg("pOther") ) );
         
         }
-        C_BaseAnimating_exposer.staticmethod( "GetPyNetworkType" );
         C_BaseAnimating_exposer.staticmethod( "InitBoneSetupThreadPool" );
         C_BaseAnimating_exposer.staticmethod( "InvalidateBoneCaches" );
         C_BaseAnimating_exposer.staticmethod( "PopBoneAccess" );

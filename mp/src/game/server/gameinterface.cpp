@@ -1380,7 +1380,7 @@ void CServerGameDLL::Think( bool finalTick )
 	}
 
 #ifdef ENABLE_PYTHON
-	SrcPySystem()->UpdateRealtimeTickMethods();
+	SrcPySystem()->UpdateRealtime();
 #endif // ENABLE_PYTHON
 }
 
@@ -2701,14 +2701,6 @@ bool CServerGameClients::ClientConnect( edict_t *pEdict, const char *pszName, co
 // PySource Additions
 // =======================================
 #ifdef ENABLE_PYTHON
-	// The client must directly be informed about the python classes to avoid recv/send table mismatches
-	// NOTE: Usermessages don't work here. However it is possible to send client commands
-	// NOTE2: Dedicated servers send the message in the client active. They seem to check against CBaseEntity recv table.
-	if( (!engine->IsDedicatedServer() && ENTINDEX(pEdict) == 1) )
-	{
-		FullClientUpdatePyNetworkClsByEdict(pEdict);
-	}
-
 	// Make sure Python network variables are marked correctly for the new player
 	PyNetworkVarsResetClientTransmitBits( ENTINDEX(pEdict) - 1 );
 #endif // ENABLE_PYTHON

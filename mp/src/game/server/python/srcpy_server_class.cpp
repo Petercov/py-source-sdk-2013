@@ -14,8 +14,6 @@
 
 PyServerClass *g_pPyServerClassHead = NULL;
 
-bool g_SetupNetworkTablesOnHold = false;
-
 EXTERN_SEND_TABLE( DT_BaseEntity );
 EXTERN_SEND_TABLE( DT_BaseAnimating );
 EXTERN_SEND_TABLE( DT_BaseAnimatingOverlay );
@@ -34,78 +32,21 @@ namespace bp = boost::python;
 //-----------------------------------------------------------------------------
 // Purpose:
 //-----------------------------------------------------------------------------
-PyServerClass::PyServerClass(char *pNetworkName) : ServerClass(pNetworkName, NULL), m_pNetworkedClass(NULL)
+PyServerClass::PyServerClass( char *pNetworkName, SendTable *pTable ) : ServerClass( pNetworkName, pTable ), m_pNetworkedClass(NULL)
 {
-	m_pTable = &(DT_BaseEntity::g_SendTable); // Default
-
 	m_pPyNext				= g_pPyServerClassHead;
 	g_pPyServerClassHead	= this;
 	m_bFree = true;
 }
 
-void PyServerClass::SetupServerClass( int iType )
-{
-	m_iType = iType;
-
-	switch( m_iType )
-	{
-	case PN_NONE:
-	case PN_BASEENTITY:
-		m_pTable = &(DT_BaseEntity::g_SendTable);
-		break;
-	case PN_BASEANIMATING:
-		m_pTable = &(DT_BaseAnimating::g_SendTable);
-		break;
-	case PN_BASEANIMATINGOVERLAY:
-		m_pTable = &(DT_BaseAnimatingOverlay::g_SendTable);
-		break;
-	case PN_BASEFLEX:
-		m_pTable = &(DT_BaseFlex::g_SendTable);
-		break;
-	case PN_BASECOMBATCHARACTER:
-		m_pTable = &(DT_BaseCombatCharacter::g_SendTable);
-		break;
-	case PN_BASEPLAYER:
-		m_pTable = &(DT_BasePlayer::g_SendTable);
-		break;
-	case PN_BASEPROJECTILE:
-		m_pTable = &(DT_BaseProjectile::g_SendTable);
-		break;
-	case PN_BASEGRENADE:
-		m_pTable = &(DT_BaseGrenade::g_SendTable);
-		break;
-	case PN_BASECOMBATWEAPON:
-		m_pTable = &(DT_BaseCombatWeapon::g_SendTable);
-		break;
-	case PN_PLAYERRESOURCE:
-		m_pTable = &(DT_PlayerResource::g_SendTable);
-		break;
-	case PN_BREAKABLEPROP:
-		m_pTable = &(DT_BreakableProp::g_SendTable);
-		break;
-#if 0 // TODO
-	case PN_BASETOGGLE:
-		m_pTable = &(DT_BaseToggle::g_SendTable);
-		break;
-	case PN_BASETRIGGER:
-		m_pTable = &(DT_BaseTrigger::g_SendTable);
-		break;
-#endif // 0
-	default:
-		m_pTable = &(DT_BaseEntity::g_SendTable);
-		break;
-	}
-}
-
 static CUtlDict< const char*, unsigned short > m_ServerClassInfoDatabase;
 
-
-PyServerClass *FindFreePyServerClass()
+PyServerClass *FindFreePyServerClass( SendTable *pTable )
 {
 	PyServerClass *p = g_pPyServerClassHead;
 	while( p )
 	{
-		if( p->m_bFree )
+		if( p->m_bFree && p->m_pTable == pTable )
 		{
 			return p;
 		}
@@ -156,7 +97,9 @@ NetworkedClass::NetworkedClass( const char *pNetworkName, boost::python::object 
 	else
 	{
 		// Find a free server class and add it to the database
-		p = FindFreePyServerClass();
+		SendTable *pSendTable = boost::python::extract< SendTable *>( cls_type.attr("GetSendTable")() );
+
+		p = FindFreePyServerClass( pSendTable );
 		if( !p ) {
 			Warning("Couldn't create PyServerClass %s: Out of free PyServerClasses\n", pNetworkName);
 			return;
@@ -170,7 +113,8 @@ NetworkedClass::NetworkedClass( const char *pNetworkName, boost::python::object 
 	p->m_bFree = false;
 	p->m_pNetworkedClass = this;
 
-	SetupServerClass();
+	// Attach to the class
+	PyObject_SetAttrString( m_PyClass.ptr(), "pyServerClass", bp::object(bp::ptr((ServerClass *)m_pServerClass)).ptr() );
 }
 
 NetworkedClass::~NetworkedClass()
@@ -178,7 +122,6 @@ NetworkedClass::~NetworkedClass()
 	if( m_pServerClass )
 	{
 		m_pServerClass->m_bFree = true;
-		m_pServerClass->SetupServerClass(PN_NONE);
 
 		unsigned short lookup = m_ServerClassInfoDatabase.Find( m_pNetworkName );
 		if ( lookup != m_ServerClassInfoDatabase.InvalidIndex() )
@@ -187,34 +130,14 @@ NetworkedClass::~NetworkedClass()
 		}
 	}
 
-	free( (void *)m_pNetworkName );
+	if (m_pNetworkName) 
+	{
+		free( (void *)m_pNetworkName );
+	}
 	m_pNetworkName = NULL;
 }
 
 extern edict_t *g_pForceAttachEdict;
-
-void NetworkedClass::SetupServerClass()
-{
-	int iType = PN_NONE;
-	try 
-	{
-		iType = boost::python::call_method<int>(m_PyClass.ptr(), "GetPyNetworkType");
-		m_pServerClass->SetupServerClass( iType );
-		PyObject_SetAttrString(m_PyClass.ptr(), "pyServerClass", bp::object(bp::ptr((ServerClass *)m_pServerClass)).ptr());
-	} 
-	catch(bp::error_already_set &) 
-	{
-		PyErr_Print();
-	}
-
-	// Send message to all clients
-	CReliableBroadcastRecipientFilter filter;
-	UserMessageBegin(filter, "PyNetworkCls");
-	WRITE_BYTE(iType);
-	WRITE_STRING(m_pServerClass->GetName());
-	WRITE_STRING(m_pServerClass->m_pNetworkedClass->m_pNetworkName);
-	MessageEnd();
-}
 
 void FullClientUpdatePyNetworkCls( CBasePlayer *pPlayer )
 {
@@ -233,8 +156,6 @@ void FullClientUpdatePyNetworkClsByFilter( IRecipientFilter &filter )
 	if( !SrcPySystem()->IsPythonRunning() )
 		return;
 
-	Assert(g_SetupNetworkTablesOnHold == false);
-
 	// Send messages about each server class
 	PyServerClass *p = g_pPyServerClassHead;
 	while( p )
@@ -246,9 +167,8 @@ void FullClientUpdatePyNetworkClsByFilter( IRecipientFilter &filter )
 
 		// Send message
 		UserMessageBegin(filter, "PyNetworkCls");
-		WRITE_BYTE(p->m_iType);
-		WRITE_STRING(p->m_pNetworkName);
-		WRITE_STRING(p->m_pNetworkedClass->m_pNetworkName);
+		WRITE_WORD( p->m_ClassID );
+		WRITE_STRING( p->m_pNetworkedClass->m_pNetworkName );
 		MessageEnd();
 
 		p = p->m_pPyNext;
@@ -278,75 +198,9 @@ void FullClientUpdatePyNetworkClsByEdict( edict_t *pEdict )
 		}
 
 		// Send message
-		engine->ClientCommand( pEdict, "rpc %d %s %s\n", p->m_iType,
-			p->m_pNetworkName, p->m_pNetworkedClass->m_pNetworkName);
+		engine->ClientCommand( pEdict, "rpc %d %s\n", p->m_ClassID, p->m_pNetworkedClass->m_pNetworkName);
 		engine->ServerExecute(); // Send immediately to avoid an overflow when having too many
 
-		p = p->m_pPyNext;
-	}
-}
-
-CUtlVector<EntityInfoOnHold> g_SetupNetworkTablesOnHoldList;
-
-void SetupNetworkTablesOnHold()
-{
-	g_SetupNetworkTablesOnHold = true;
-}
-
-void AddSetupNetworkTablesOnHoldEnt( EntityInfoOnHold info )
-{
-	g_SetupNetworkTablesOnHoldList.AddToTail(info);
-}
-
-void SetupNetworkTables()
-{
-	// Setup all tables and update all clients
-	PyServerClass *p = g_pPyServerClassHead;
-	while( p )
-	{
-		if( p->m_pNetworkedClass )
-			p->m_pNetworkedClass->SetupServerClass();
-		p = p->m_pPyNext;
-	}
-}
-
-bool SetupNetworkTablesRelease()
-{
-	if( g_SetupNetworkTablesOnHold == false )
-		return false;
-	g_SetupNetworkTablesOnHold = false;
-
-	// Setup all tables and update all clients
-	PyServerClass *p = g_pPyServerClassHead;
-	while( p )
-	{
-		if( p->m_pNetworkedClass )
-			p->m_pNetworkedClass->SetupServerClass();
-		p = p->m_pPyNext;
-	}
-
-	// Release on hold
-	for( int i=0; i<g_SetupNetworkTablesOnHoldList.Count(); i++ )
-	{
-		EntityInfoOnHold info = (g_SetupNetworkTablesOnHoldList.Element(i));
-		info.ent->NetworkProp()->AttachEdict( info.edict );
-		info.ent->edict()->m_pNetworkable = info.ent->NetworkProp();
-		info.ent->SetTransmitState(FL_FULL_EDICT_CHANGED|FL_EDICT_DIRTY_PVS_INFORMATION);
-		info.ent->DispatchUpdateTransmitState();
-	}
-	g_SetupNetworkTablesOnHoldList.RemoveAll();
-	return true;
-}
-
-// Call on level shutdown
-// Server will tell us the new recv tables later
-// Level init requires us to be sure
-void PyResetAllNetworkTables()
-{
-	PyServerClass *p = g_pPyServerClassHead;
-	while( p )
-	{
-		p->SetupServerClass(PN_BASEENTITY);
 		p = p->m_pPyNext;
 	}
 }

@@ -16,12 +16,12 @@ class NetEntExample(CBaseEntity):
         return self.SetTransmitState(FL_EDICT_ALWAYS)
         
     def Spawn(self):
-        super(NetEntExample, self).Spawn()
+        super().Spawn()
         
         print('netent_example spawned on the %s!' % ('Client' if isclient else 'Server'))
         
     def OnDataChanged(self, type):
-        super(NetEntExample, self).OnDataChanged(type)
+        super().OnDataChanged(type)
         
         if type == DATA_UPDATE_CREATED:
             print('#%d: netent_example is created on the client' % (self.entindex()))

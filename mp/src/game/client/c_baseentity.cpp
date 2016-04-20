@@ -991,7 +991,7 @@ C_BaseEntity::~C_BaseEntity()
 // PySource Additions
 // =======================================
 #ifdef ENABLE_PYTHON
-	if( !m_bPyDestroyed )
+	if( m_bPyManaged == false )
 #endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
@@ -6612,7 +6612,7 @@ void C_BaseEntity::PyDeallocate(PyObject* self_, void *storage)
 //------------------------------------------------------------------------------
 void C_BaseEntity::DestroyPyInstance()
 {
-	m_bPyDestroyed = true;
+	m_bPyManaged = true;
 
 	// C_Baseentity destruction
 	Term();
@@ -6629,8 +6629,9 @@ void C_BaseEntity::DestroyPyInstance()
 	m_Particles.StopEmissionAndDestroyImmediately( NULL ); // TEMP
 
 	// Dereference py think functions
+	m_pyHandle = boost::python::object();
 	m_pyTouchMethod = boost::python::object();
-	SetPyThink(boost::python::object());
+	m_pyThink = boost::python::object();
 	int i;
 	for( i=0; i < m_aThinkFunctions.Count(); i++ )
 	{
@@ -6638,6 +6639,9 @@ void C_BaseEntity::DestroyPyInstance()
 			m_aThinkFunctions.Element(i).m_pyThink = boost::python::object();
 	}
 
+	// Store old class for debugging purposes. Rebind class to DeadEntity to prevent accidental access to methods.
+	// If refcount is 1, then no need to rebind, since nothing has a reference to it.
+	setattr(m_pyInstance, "__oldclass__", m_pyInstance.attr("__class__"));
 	setattr(m_pyInstance, "__class__",  _entities.attr("DeadEntity"));
 
 	// Add m_pyInstance to the delete list before dereferencing it
@@ -6657,7 +6661,7 @@ void C_BaseEntity::PyReceiveMessageInternal( int classID, bf_read &msg )
 	boost::python::list recvlist;
 	i = 0;
 	length = msg.ReadByte();
-	for( i=0; i<length; i++)
+	for( i = 0; i < length; i++)
 	{
 		try 
 		{
@@ -6666,7 +6670,6 @@ void C_BaseEntity::PyReceiveMessageInternal( int classID, bf_read &msg )
 		catch(boost::python::error_already_set &) 
 		{
 			PyErr_Print();
-			PyErr_Clear();
 			return;
 		}
 	}
@@ -6679,29 +6682,26 @@ void C_BaseEntity::PyReceiveMessageInternal( int classID, bf_read &msg )
 //------------------------------------------------------------------------------
 void C_BaseEntity::PyUpdateNetworkVar( const char *pName, boost::python::object data, bool callchanged, bool oncreated )
 {
-	// Set new var
 	try 
 	{
-		// Only set if changed.
-		if( hasattr( m_pyInstance, pName ) && getattr( m_pyInstance, pName ) == data )
-			return;
+		// Maybe compare here, but would give problems with EHANDLES, which might compare to None successfully.
+		// It would also indicate the data was send for nothing if the compare succeeds here.
+		//if( hasattr( m_pyInstance, pName ) && getattr( m_pyInstance, pName ) == data )
+		//	return;
 
 		setattr( m_pyInstance, pName, data );
 	} 
 	catch(boost::python::error_already_set &) 
 	{
 		PyErr_Print();
-		PyErr_Clear();
 		return;
 	}
 
 	if( !oncreated )
 	{
-		// Mark as data changed
 		AddDataChangeEvent( this, DATA_UPDATE_DATATABLE_CHANGED, &m_DataChangeEventRef );
 	}
 
-	// Dispatch changed callback if needed
 	if( callchanged )
 	{
 		PyNetworkVarChanged( pName );
@@ -6720,7 +6720,6 @@ void C_BaseEntity::PyNetworkVarChanged( const char *pName )
 	catch( boost::python::error_already_set & ) 
 	{
 		PyErr_Print();
-		PyErr_Clear();
 	}
 }
 #endif // ENABLE_PYTHON

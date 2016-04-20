@@ -23,7 +23,7 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-	DECLARE_PYSERVERCLASS( CPlayerResource, PN_PLAYERRESOURCE );
+	DECLARE_PYSERVERCLASS( CPlayerResource );
 // =======================================
 // END PySource Additions
 // =======================================

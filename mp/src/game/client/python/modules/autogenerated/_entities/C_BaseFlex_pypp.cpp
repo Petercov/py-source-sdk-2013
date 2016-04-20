@@ -477,7 +477,7 @@ struct C_BaseFlex_wrapper : C_BaseFlex, bp::wrapper< C_BaseFlex > {
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ClientClass* GetClientClass() {
-#if defined(_WIN32) // POSIX: TODO
+#if defined(_WIN32)
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return C_BaseFlex::GetClientClass();
 #endif // _WIN32
@@ -551,9 +551,6 @@ void register_C_BaseFlex_class(){
             "GetGlobalFlexControllerName"
             , (char const * (*)( int ))( &::C_BaseFlex::GetGlobalFlexControllerName )
             , ( bp::arg("idx") ) )    
-        .def( 
-            "GetPyNetworkType"
-            , (int (*)(  ))( &::C_BaseFlex::GetPyNetworkType ) )    
         .def( 
             "GetSoundSpatialization"
             , (bool ( ::C_BaseFlex::* )( ::SpatializationInfo_t & ) )( &::C_BaseFlex::GetSoundSpatialization )
@@ -721,7 +718,6 @@ void register_C_BaseFlex_class(){
             , (void ( C_BaseFlex_wrapper::* )(  ) )(&C_BaseFlex_wrapper::default_UpdateOnRemove) )    
         .staticmethod( "AddGlobalFlexController" )    
         .staticmethod( "GetGlobalFlexControllerName" )    
-        .staticmethod( "GetPyNetworkType" )    
         .staticmethod( "LinkToGlobalFlexControllers" )    
         .staticmethod( "RunFlexDelay" )    
         .staticmethod( "RunFlexRules" )    

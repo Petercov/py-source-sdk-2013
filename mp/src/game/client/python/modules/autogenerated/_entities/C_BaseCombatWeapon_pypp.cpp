@@ -515,7 +515,7 @@ struct C_BaseCombatWeapon_wrapper : C_BaseCombatWeapon, bp::wrapper< C_BaseComba
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ClientClass* GetClientClass() {
-#if defined(_WIN32) // POSIX: TODO
+#if defined(_WIN32)
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return C_BaseCombatWeapon::GetClientClass();
 #endif // _WIN32
@@ -792,9 +792,6 @@ void register_C_BaseCombatWeapon_class(){
         .def( 
             "GetPrintName"
             , (char const * ( ::C_BaseCombatWeapon::* )(  ) const)( &::C_BaseCombatWeapon::GetPrintName ) )    
-        .def( 
-            "GetPyNetworkType"
-            , (int (*)(  ))( &::C_BaseCombatWeapon::GetPyNetworkType ) )    
         .def( 
             "GetRandomBurst"
             , (int ( ::C_BaseCombatWeapon::* )(  ) )( &::C_BaseCombatWeapon::GetRandomBurst ) )    
@@ -1291,7 +1288,6 @@ void register_C_BaseCombatWeapon_class(){
             "UpdateOnRemove"
             , (void ( ::C_BaseAnimating::* )(  ) )(&::C_BaseAnimating::UpdateOnRemove)
             , (void ( C_BaseCombatWeapon_wrapper::* )(  ) )(&C_BaseCombatWeapon_wrapper::default_UpdateOnRemove) )    
-        .staticmethod( "GetPyNetworkType" )    
         .add_property( "lifestate", &C_BaseCombatWeapon_wrapper::m_lifeState_Get, &C_BaseCombatWeapon_wrapper::m_lifeState_Set )    
         .add_property( "takedamage", &C_BaseCombatWeapon_wrapper::m_takedamage_Get, &C_BaseCombatWeapon_wrapper::m_takedamage_Set )    
         .add_property( "skin", &C_BaseCombatWeapon_wrapper::m_nSkin_Get, &C_BaseCombatWeapon_wrapper::m_nSkin_Set )    

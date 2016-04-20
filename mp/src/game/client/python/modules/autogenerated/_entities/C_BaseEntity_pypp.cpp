@@ -509,7 +509,7 @@ struct C_BaseEntity_wrapper : C_BaseEntity, bp::wrapper< C_BaseEntity > {
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ClientClass* GetClientClass() {
-#if defined(_WIN32) // POSIX: TODO
+#if defined(_WIN32)
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return C_BaseEntity::GetClientClass();
 #endif // _WIN32
@@ -2021,15 +2021,6 @@ void register_C_BaseEntity_class(){
             C_BaseEntity_exposer.def( 
                 "GetHandle"
                 , GetHandle_function_type( &::C_BaseEntity::GetPyHandle ) );
-        
-        }
-        { //::C_BaseEntity::GetPyNetworkType
-        
-            typedef int ( *GetPyNetworkType_function_type )(  );
-            
-            C_BaseEntity_exposer.def( 
-                "GetPyNetworkType"
-                , GetPyNetworkType_function_type( &::C_BaseEntity::GetPyNetworkType ) );
         
         }
         { //::C_BaseEntity::GetPyThink
@@ -5216,7 +5207,6 @@ void register_C_BaseEntity_class(){
         C_BaseEntity_exposer.staticmethod( "GetParametersForSound" );
         C_BaseEntity_exposer.staticmethod( "GetPredictionPlayer" );
         C_BaseEntity_exposer.staticmethod( "GetPredictionRandomSeed" );
-        C_BaseEntity_exposer.staticmethod( "GetPyNetworkType" );
         C_BaseEntity_exposer.staticmethod( "GetSoundDuration" );
         C_BaseEntity_exposer.staticmethod( "GetTouchTrace" );
         C_BaseEntity_exposer.staticmethod( "Instance" );

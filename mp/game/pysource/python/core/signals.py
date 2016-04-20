@@ -5,6 +5,10 @@ from .dispatch import Signal
 from collections import defaultdict
 
 def FireSignalRobust(s, **kwargs):
+    """ Fires the signal directly with the provided arguments.
+    
+        Prints any exception as a warning.
+    """
     responses = s.send_robust(None, **kwargs)
     for r in responses:
         if isinstance(r[1], Exception):

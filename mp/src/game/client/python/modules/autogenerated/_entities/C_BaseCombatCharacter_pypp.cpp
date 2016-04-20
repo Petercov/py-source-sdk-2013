@@ -487,7 +487,7 @@ struct C_BaseCombatCharacter_wrapper : C_BaseCombatCharacter, bp::wrapper< C_Bas
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ClientClass* GetClientClass() {
-#if defined(_WIN32) // POSIX: TODO
+#if defined(_WIN32)
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return C_BaseCombatCharacter::GetClientClass();
 #endif // _WIN32
@@ -592,15 +592,6 @@ void register_C_BaseCombatCharacter_class(){
             C_BaseCombatCharacter_exposer.def( 
                 "GetNextAttack"
                 , GetNextAttack_function_type( &::C_BaseCombatCharacter::GetNextAttack ) );
-        
-        }
-        { //::C_BaseCombatCharacter::GetPyNetworkType
-        
-            typedef int ( *GetPyNetworkType_function_type )(  );
-            
-            C_BaseCombatCharacter_exposer.def( 
-                "GetPyNetworkType"
-                , GetPyNetworkType_function_type( &::C_BaseCombatCharacter::GetPyNetworkType ) );
         
         }
         { //::C_BaseCombatCharacter::GetWeapon
@@ -1106,7 +1097,6 @@ void register_C_BaseCombatCharacter_class(){
                 , default_UpdateOnRemove_function_type(&C_BaseCombatCharacter_wrapper::default_UpdateOnRemove) );
         
         }
-        C_BaseCombatCharacter_exposer.staticmethod( "GetPyNetworkType" );
         { //property "activeweapon"[fget=::C_BaseCombatCharacter::GetActiveWeapon]
         
             typedef ::C_BaseCombatWeapon * ( ::C_BaseCombatCharacter::*fget )(  ) const;

@@ -487,7 +487,7 @@ struct C_BasePlayer_wrapper : C_BasePlayer, bp::wrapper< C_BasePlayer > {
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ClientClass* GetClientClass() {
-#if defined(_WIN32) // POSIX: TODO
+#if defined(_WIN32)
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return C_BasePlayer::GetClientClass();
 #endif // _WIN32
@@ -720,9 +720,6 @@ void register_C_BasePlayer_class(){
             "GetPunchAngle"
             , (::QAngle const & ( ::C_BasePlayer::* )(  ) )( &::C_BasePlayer::GetPunchAngle )
             , bp::return_value_policy< bp::copy_const_reference >() )    
-        .def( 
-            "GetPyNetworkType"
-            , (int (*)(  ))( &::C_BasePlayer::GetPyNetworkType ) )    
         .def( 
             "GetRagdollInitBoneArrays"
             , (bool ( ::C_BasePlayer::* )( ::matrix3x4_t *,::matrix3x4_t *,::matrix3x4_t *,float ) )( &::C_BasePlayer::GetRagdollInitBoneArrays )
@@ -1210,7 +1207,6 @@ void register_C_BasePlayer_class(){
             , (void ( C_BasePlayer_wrapper::* )(  ) )(&C_BasePlayer_wrapper::default_UpdateOnRemove) )    
         .staticmethod( "GetLocalPlayer" )    
         .staticmethod( "GetOffset_m_Local" )    
-        .staticmethod( "GetPyNetworkType" )    
         .staticmethod( "LocalPlayerInFirstPersonView" )    
         .staticmethod( "ShouldDrawLocalPlayer" )    
         .add_property( "lifestate", &C_BasePlayer_wrapper::m_lifeState_Get, &C_BasePlayer_wrapper::m_lifeState_Set )    

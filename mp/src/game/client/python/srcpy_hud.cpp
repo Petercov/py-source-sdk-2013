@@ -44,7 +44,6 @@ CPyHudElementHelper::CPyHudElementHelper( boost::python::object hud )
 	}
 
 	// Add to the global HUD thing
-	//Msg("Adding python hud element %s\n", m_pHud->GetName());
 	m_pyHud = hud;
 	m_pHud->m_pyInstance = m_pyHud;
 	gHUD.AddHudElement( m_pHud );

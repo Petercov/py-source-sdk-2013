@@ -134,7 +134,7 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-	DECLARE_PYCLIENTCLASS( C_BaseFlex, PN_BASEFLEX );
+	DECLARE_PYCLIENTCLASS( C_BaseFlex );
 // =======================================
 // END PySource Additions
 // =======================================

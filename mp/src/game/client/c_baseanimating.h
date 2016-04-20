@@ -99,7 +99,7 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-	DECLARE_PYCLIENTCLASS( C_BaseAnimating, PN_BASEANIMATING );
+	DECLARE_PYCLIENTCLASS( C_BaseAnimating );
 // =======================================
 // END PySource Additions
 // =======================================

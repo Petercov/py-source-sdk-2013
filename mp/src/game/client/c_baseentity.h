@@ -1729,7 +1729,7 @@ protected:
 // =======================================
 #ifdef ENABLE_PYTHON
 public:
-	DECLARE_PYCLIENTCLASS( CBaseEntity, PN_BASEENTITY );
+	DECLARE_PYCLIENTCLASS( CBaseEntity );
 
 	// Memory allocators for python instances of entities
 	static void *PyAllocate( PyObject* self_, std::size_t holder_offset, std::size_t holder_size );
@@ -1768,8 +1768,10 @@ public:
 	void							PyTouch( ::CBaseEntity *pOther );
 
 private:
-	bool m_bPyDestroyed;
-	boost::python::object m_pyInstance;
+
+protected:
+	bool		m_bPyManaged;
+	boost::python::object m_pyInstance; // Holds a ref to the instance. Keeps the object always alive util Remove() is called.
 	boost::python::object m_pyHandle;
 	boost::python::object m_pyTouchMethod;
 	boost::python::object m_pyThink;

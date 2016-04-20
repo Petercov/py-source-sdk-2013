@@ -83,6 +83,46 @@ boost::python::object PyGetStatInt( const char *name )
 	return boost::python::object( stat );
 }
 
+boost::python::object PySteamUser_GetAuthSessionTicket()
+{
+	if( !steamapicontext->SteamUser() )
+	{
+		PyErr_SetString(PyExc_Exception, "No steam user API available!" );
+		throw boost::python::error_already_set(); 
+	}
+
+	char m_rgubTicket[1024];
+	uint32 unTokenLen = 0;
+	steamapicontext->SteamUser()->GetAuthSessionTicket( m_rgubTicket, sizeof( m_rgubTicket ), &unTokenLen );
+
+	return boost::python::object(
+		boost::python::handle<>(
+			PyByteArray_FromStringAndSize( m_rgubTicket, unTokenLen ) 
+		)
+	);
+}
+
+#ifndef CLIENT_DLL
+boost::python::object PyGameServer_GetAuthSessionTicket()
+{
+	if( !steamgameserverapicontext->SteamGameServer() )
+	{
+		PyErr_SetString(PyExc_Exception, "No steam game server API available!" );
+		throw boost::python::error_already_set(); 
+	}
+
+	char m_rgubTicket[1024];
+	uint32 unTokenLen = 0;
+	steamgameserverapicontext->SteamGameServer()->GetAuthSessionTicket( m_rgubTicket, sizeof( m_rgubTicket ), &unTokenLen );
+
+	return boost::python::object(
+		boost::python::handle<>(
+			PyByteArray_FromStringAndSize( m_rgubTicket, unTokenLen ) 
+		)
+	);
+}
+#endif // CLIENT_DLL
+
 #define STEAM_MM_SERVERS_VALID()	if( !steamapicontext->SteamMatchmakingServers() ) \
 	{ \
 		PyErr_SetString(PyExc_Exception, "No steam matchmaking servers API available!" ); \

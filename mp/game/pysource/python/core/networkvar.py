@@ -33,7 +33,7 @@ if isserver:
             
     class NetworkArray(NetworkArrayInternal):
         def __init__(self, ent, name, data=None, changedcallback=None, sendproxy=None):
-            if not data: 
+            if data is None:
                 data = list()
             super().__init__(ent, name, data, changedcallback=bool(changedcallback), sendproxy=sendproxy)
             setattr(ent, name, self)
@@ -64,7 +64,7 @@ if isserver:
             
     class NetworkSet(NetworkVarInternal):
         def __init__(self, ent, name, data=None, changedcallback=None, sendproxy=None):
-            if data == None: 
+            if data is None:
                 data = set()
             super().__init__(ent, name, data, changedcallback=bool(changedcallback), sendproxy=sendproxy)
             setattr(ent, name, self)
@@ -119,7 +119,7 @@ if isserver:
             
     class NetworkDict(NetworkDictInternal):
         def __init__(self, ent, name, data=None, changedcallback=None, sendproxy=None):
-            if data == None: 
+            if data is None:
                 data = dict()
             super().__init__(ent, name, data, changedcallback=bool(changedcallback), sendproxy=sendproxy)
             setattr(ent, name, self)
@@ -161,7 +161,7 @@ if isserver:
             if type(default) != types.FunctionType:
                 defaultvalue = default # Must rename!
                 default = lambda: defaultvalue
-            if data == None: 
+            if data is None:
                 data = defaultdict(default)
             elif type(data) != defaultdict:
                 origdata = data
@@ -172,77 +172,38 @@ if isserver:
 
 # CLIENT
 else:
-    # The client version is actually not needed
-    # It just creates the default variable, so if the network variable is not yet
-    # initialized on the client you will not get an attribute error
-    class NetworkVar(object):
-        def __init__(self, ent, name, data, changedcallback=None, sendproxy=None):
-            super().__init__()
-            setattr(ent, name, data)
-            
-            if changedcallback:
-                setattr(ent, '__%s__Changed' % (name), 
-                        getattr(ent, changedcallback))
-                        
-    class NetworkArray(object):
-        def __init__(self, ent, name, data=None, changedcallback=None, sendproxy=None):
-            if data == None: 
-                data = list()
-            super().__init__()
-            setattr(ent, name, data)
-            
-            if changedcallback:
-                setattr(ent, '__%s__Changed' % (name), 
-                        getattr(ent, changedcallback))
-                        
-    class NetworkSet(object):
-        def __init__(self, ent, name, data=None, changedcallback=None, sendproxy=None):
-            if data == None: 
-                data = set()
-            super().__init__()
-            setattr(ent, name, data)
-            
-            if changedcallback:
-                setattr(ent, '__%s__Changed' % (name), 
-                        getattr(ent, changedcallback))
-                        
-    class NetworkDict(object):
-        def __init__(self, ent, name, data=None, changedcallback=None, sendproxy=None):
-            if data == None: 
-                data = dict()
-            super().__init__()
-            setattr(ent, name, data)
-            
-            if changedcallback:
-                setattr(ent, '__%s__Changed' % (name), 
-                        getattr(ent, changedcallback))
-                        
-    class NetworkDefaultDict(NetworkDict):
-        def __init__(self, ent, name, data=None, changedcallback=None, default=None, sendproxy=None):
-            if type(default) != types.FunctionType:
-                defaultvalue = default # Must rename!
-                default = lambda: defaultvalue
-            if data == None: 
-                data = defaultdict(default)
-            if type(data) != defaultdict:
-                origdata = data
-                data = defaultdict(default)
-                data.update(origdata)
-            super().__init__(ent, name, data, changedcallback)
+    # NetworkVar has two purposes on the client:
+    # 1. Initialize the default value
+    # 2. Install the changed callback
+    NetworkVar = None
+    NetworkArray = None
+    NetworkSet = None
+    NetworkDict = None
+    NetworkDefaultDict = None
         
-        
-# Send/recv prop versions (really just wrappers around existing send/recv props)
-class NetworkVarProp(object):
-    def __init__(self, ent, name, propname):
-        super().__init__()
-        self.propname = propname
-        self.ent = ent
-        networkvarname = '_networkvar_%s' % (name)
-        setattr(ent, networkvarname, self)
-        SetupNetworkVar(ent.__class__, name, networkvarname)
-        
-    def Get(self):
-        return getattr(self.ent, self.propname)
-    def Set(self, value):
-        setattr(self.ent, self.propname, value)
-        
+
+def SetupNetworkVarProp(ent, name, propname):
+    """ Creates a property for a propname networked variable. Basically an alias
+        around a variable statically defined in C++.
+
+        Args:
+            ent (entity): instance of entity
+            name (str): name of field
+            propname (str): internal name of variable
+    """
+    cls = ent.__class__
+
+    # Skip if the property is already setup
+    try:
+        p = getattr(cls, name)
+        if type(p) == property:
+            return
+    except AttributeError:
+        pass
+
+    # Define the property
+    getter = lambda self: getattr(self, propname)
+    def setter(self, value):
+        setattr(self, propname, value)
+    p = property(getter, setter, None, '%s networkvar_prop property' % name)
+    setattr(cls, name, p)

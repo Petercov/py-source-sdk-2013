@@ -34,7 +34,7 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-	DECLARE_PYSERVERCLASS( CBaseAnimating, PN_BASEANIMATING );
+	DECLARE_PYSERVERCLASS( CBaseAnimating );
 // =======================================
 // END PySource Additions
 // =======================================

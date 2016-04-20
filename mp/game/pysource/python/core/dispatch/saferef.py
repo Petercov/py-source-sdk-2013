@@ -159,9 +159,6 @@ class BoundMethodWeakref(object):
         """Whether we are still a valid reference"""
         return self() is not None
 
-    def __nonzero__(self):      # Python 2 compatibility
-        return type(self).__bool__(self)
-
     def __eq__(self, other):
         """Compare with another reference"""
         if not isinstance(other, self.__class__):

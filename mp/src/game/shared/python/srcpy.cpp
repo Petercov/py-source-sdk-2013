@@ -48,7 +48,9 @@ namespace bp = boost::python;
 
 #if PY_VERSION_HEX >= 0x03000000
 // Stubs for Python
-const char *Py_GetBuildInfo(void) { return "SourcePy"; }
+// Py_GetBuildInfo is used by sys.version and platform.python_implementation depends the format. 
+// Don't care too much what it exactly contains.
+const char *Py_GetBuildInfo(void) { return "v3.4.3:374f501f4567, Oct 3 2015, 02:16:59"; }
 const char *_Py_hgversion(void) { return "1"; }
 const char *_Py_hgidentifier(void) { return "srcpy"; }
 #endif
@@ -263,11 +265,11 @@ bool CSrcPython::InitInterpreter( void )
 
 	if( !bEnabled )
 	{
-	#ifdef CLIENT_DLL
+#ifdef CLIENT_DLL
 		ConColorMsg( g_PythonColor, "CLIENT: " );
-	#else
+#else
 		ConColorMsg( g_PythonColor, "SERVER: " );
-	#endif // CLIENT_DLL
+#endif // CLIENT_DLL
 		ConColorMsg( g_PythonColor, "Python is disabled.\n" );
 		return true;
 	}
@@ -518,6 +520,10 @@ bool CSrcPython::PostInitInterpreter( bool bStandAloneInterpreter )
 //-----------------------------------------------------------------------------
 bool CSrcPython::PreShutdownInterpreter( bool bIsStandAlone )
 {
+	// Allows actions before shutting down in game code. Mainly needed to ensure
+	// match data is uploaded to server.
+	CallSignalNoArgs( Get("preshutdown", "core.signals", true) );
+
 	PyErr_Clear(); // Make sure it does not hold any references...
 	GarbageCollect();
 
@@ -532,11 +538,11 @@ bool CSrcPython::PreShutdownInterpreter( bool bIsStandAlone )
 		if( PyGameRules().ptr() != Py_None )
 		{
 			// Ingame: install default c++ gamerules
-	#ifdef CLIENT_DLL
+#ifdef CLIENT_DLL
 			if( GetClientWorldEntity() )
-	#else
+#else
 			if( GetWorldEntity() )
-	#endif // CLIENT_DLL
+#endif // CLIENT_DLL
 			{
 				PyInstallGameRules( boost::python::object() );
 			}
@@ -551,9 +557,9 @@ bool CSrcPython::PreShutdownInterpreter( bool bIsStandAlone )
 		m_methodTickList.Purge();
 		m_methodPerFrameList.Purge();
 
-	#ifdef CLIENT_DLL
+#ifdef CLIENT_DLL
 		py_delayed_data_update_list.Purge();
-	#endif // CLIENT_DLL
+#endif // CLIENT_DLL
 
 		// Disconnect redirecting stdout/stderr
 		sys.attr("stdout") = bp::object();
@@ -729,11 +735,6 @@ void CSrcPython::LevelInitPreEntity()
 
 	V_strncpy( m_LevelName, pLevelName, sizeof( m_LevelName ) );
 
-	// BEFORE creating the entities setup the network tables
-#ifndef CLIENT_DLL
-	SetupNetworkTables();
-#endif // CLIENT_DLL
-
 	// Send prelevelinit signal
 	try 
 	{
@@ -814,9 +815,6 @@ void CSrcPython::LevelShutdownPostEntity()
 		PyErr_Print();
 	}
 
-	// Reset all send/recv tables
-	PyResetAllNetworkTables();
-
 	// Clear all tick signals next times (level time based)
 	for( int i = m_methodTickList.Count() - 1; i >= 0; i--)
 	{
@@ -875,7 +873,7 @@ void CSrcPython::FrameUpdatePostEntityThink( void )
 
 	// On the server this is called from CServerGameDLL::Think
 #ifdef CLIENT_DLL
-	UpdateRealtimeTickMethods();
+	UpdateRealtime();
 #endif // CLIENT_DLL
 
 	// Update frame methods
@@ -909,13 +907,36 @@ void CSrcPython::FrameUpdatePostEntityThink( void )
 }
 
 //-----------------------------------------------------------------------------
-// Purpose: 
+// Purpose: None-game time based Update function.
+//			Update function is based on game time/frames, and does not run
+//			when the game is paused or not running at all.
 //-----------------------------------------------------------------------------
-void CSrcPython::UpdateRealtimeTickMethods()
+void CSrcPython::UpdateRealtime()
 {
 	if( !IsPythonRunning() )
 		return;
 
+	try 
+	{
+		// This is purely here to allow the Python interpreter run threads.
+		// If no other Python code runs, it will never check threads.
+		// This is mostly the case when in the main menu, where usually no
+		// server side Python code is running.
+		boost::python::exec("pass", mainnamespace, mainnamespace);
+	}
+	catch( bp::error_already_set & ) 
+	{
+		PyErr_Print();
+	}
+
+	UpdateRealtimeTickMethods();
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void CSrcPython::UpdateRealtimeTickMethods()
+{
 	// Update tick methods
 	int i;
 	for( i = m_methodTickList.Count() - 1; i >= 0 ; i-- )

@@ -27,7 +27,7 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-	DECLARE_PYCLIENTCLASS( C_BaseAnimatingOverlay, PN_BASEANIMATINGOVERLAY );
+	DECLARE_PYCLIENTCLASS( C_BaseAnimatingOverlay );
 // =======================================
 // END PySource Additions
 // =======================================

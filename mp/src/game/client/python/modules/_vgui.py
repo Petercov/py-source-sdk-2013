@@ -106,6 +106,9 @@ class VGUI(ClientModuleGenerator):
         mb.free_function('input').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object) 
         mb.free_function('input').rename('vgui_input')
         
+        mb.free_function('PyInput_GetCursorPos').include()
+        mb.free_function('PyInput_GetCursorPosition').include()
+        
         # ISystem
         cls = mb.class_('ISystem')
         cls.include()

@@ -5995,9 +5995,6 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
     bp::class_< ISave, boost::noncopyable >( "ISave", bp::no_init );
 
     bp::class_< NetworkedClass >( "NetworkedClass", bp::init< char const *, bp::api::object >(( bp::arg("pNetworkName"), bp::arg("cls_type") )) )    
-        .def( 
-            "SetupServerClass"
-            , (void ( ::NetworkedClass::* )(  ) )( &::NetworkedClass::SetupServerClass ) )    
         .def_readwrite( "m_PyClass", &NetworkedClass::m_PyClass );
 
     { //::solid_t
@@ -6078,6 +6075,10 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
             "Set"
             , (void ( ::PyOutputEvent::* )( ::variant_t ) )( &::PyOutputEvent::Set )
             , ( bp::arg("value") ) );
+
+    bp::class_< SendTable >( "SendTable", bp::no_init )    
+        .def( bp::init< >() )    
+        .def( bp::init< SendProp *, int, char const * >(( bp::arg("pProps"), bp::arg("nProps"), bp::arg("pNetTableName") )) );
 
     bp::class_< ServerClass >( "ServerClass", bp::no_init )    
         .def( 

@@ -238,15 +238,6 @@ class CBasePlayer : public CBaseCombatCharacter
 {
 public:
 	DECLARE_CLASS( CBasePlayer, CBaseCombatCharacter );
-
-// =======================================
-// PySource Additions
-// =======================================
-	DECLARE_PYSERVERCLASS( CBasePlayer, PN_BASEPLAYER );
-// =======================================
-// END PySource Additions
-// =======================================
-
 protected:
 	// HACK FOR BOTS
 	friend class CBotManager;
@@ -254,7 +245,14 @@ protected:
 public:
 	DECLARE_DATADESC();
 	DECLARE_SERVERCLASS();
-	
+// =======================================
+// PySource Additions
+// =======================================
+	DECLARE_PYSERVERCLASS( CBasePlayer );
+// =======================================
+// END PySource Additions
+// =======================================
+
 	CBasePlayer();
 	~CBasePlayer();
 

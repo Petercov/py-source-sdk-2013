@@ -457,7 +457,7 @@ CBaseEntity::~CBaseEntity( )
 // PySource Additions
 // =======================================
 #ifdef ENABLE_PYTHON
-	if( !m_bPyDestroyed )
+	if( m_bPyManaged == false )
 #endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
@@ -7673,6 +7673,9 @@ void CBaseEntity::PyDeallocate(PyObject* self_, void *storage)
 //------------------------------------------------------------------------------
 void CBaseEntity::DestroyPyInstance()
 {
+	// Used in destructor
+	m_bPyManaged = true;
+
 	// FIXME: This can't be called from UpdateOnRemove! There's at least one
 	// case where friction sounds are added between the call to UpdateOnRemove + ~CBaseEntity
 	PhysCleanupFrictionSounds( this );
@@ -7703,9 +7706,6 @@ void CBaseEntity::DestroyPyInstance()
 		gEntList.RemoveEntity( GetRefEHandle() );
 	}
 
-	// Python cleanup
-	m_bPyDestroyed = true;
-
 	// CLOSE NETWORKPROP (ensure client side is cleaned up)
 	m_Network.DestroyNetworkProperty();
 
@@ -7719,7 +7719,7 @@ void CBaseEntity::DestroyPyInstance()
 	// Dereference py think/touch functions
 	m_pyHandle = boost::python::object();
 	m_pyTouchMethod = boost::python::object();
-	SetPyThink(boost::python::object());
+	m_pyThink = boost::python::object();
 	int i;
 	for( i=0; i < m_aThinkFunctions.Count(); i++ )
 	{
@@ -7727,8 +7727,9 @@ void CBaseEntity::DestroyPyInstance()
 			m_aThinkFunctions.Element(i).m_pyThink = boost::python::object();
 	}
 
-	// Rebind the class, so we can't accidently access unbound methods of the class (some methods might
-	// be dangerous after deletion of the entity)
+	// Store old class for debugging purposes. Rebind class to DeadEntity to prevent accidental access to methods.
+	// If refcount is 1, then no need to rebind, since nothing has a reference to it.
+	setattr(m_pyInstance, "__oldclass__", m_pyInstance.attr("__class__"));
 	setattr(m_pyInstance, "__class__",  _entities.attr("DeadEntity"));
 
 	// Add m_pyInstance to the delete list before dereferencing it

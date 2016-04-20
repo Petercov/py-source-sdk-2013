@@ -33,7 +33,7 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-	DECLARE_PYCLIENTCLASS( C_BaseCombatCharacter, PN_BASECOMBATCHARACTER );
+	DECLARE_PYCLIENTCLASS( C_BaseCombatCharacter );
 // =======================================
 // END PySource Additions
 // =======================================

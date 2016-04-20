@@ -13,11 +13,11 @@ from utils import UTIL_StringToVector, UTIL_StringToAngle, UTIL_StringToColor
 import copy
 import weakref
 import ast
-from types import MethodType
 from collections import defaultdict
 import traceback
-from .networkvar import NetworkVar, NetworkArray, NetworkSet, NetworkDict, NetworkDefaultDict, NetworkVarProp
+from .networkvar import NetworkVar, NetworkArray, NetworkSet, NetworkDict, NetworkDefaultDict, SetupNetworkVarProp
 
+from _entities import PyHandle
 from _entitiesmisc import _fieldtypes as fieldtypes
 if isserver:
     from _entitiesmisc import COutputEvent, variant_t
@@ -49,8 +49,9 @@ class BaseField(object):
                        helpstring='',
                        nofgd=False,
                        cppimplemented=False,
-                       choices=None):
-        ''' Initializes the field.
+                       choices=None,
+                       save=True):
+        """ Initializes the field.
         
             Kwargs:
                value (object): the default value
@@ -65,9 +66,11 @@ class BaseField(object):
                nofgd (bool): prevents fgd entry from being generated for this field.
                cppimplemented (bool): if implemented in c++. In this case it won't set the attribute on the instances of the object.
                choices (list): List of choices to be displayed in Hammer or attribute editor. Each choice is a tuple of the value and display name.
-        '''
+               save (bool): Whether or not to save this field in single player
+        """
         super().__init__()
 
+        self.wrefsclasses = set()
         self.default = value
         self.keyname = keyname
         self.noreset = noreset or cppimplemented
@@ -81,14 +84,30 @@ class BaseField(object):
         self.nofgd = nofgd
         self.cppimplemented = cppimplemented
         self.choices = choices
+        self.save = save and not cppimplemented
         
         assert not self.propname or not self.clientchangecallback, 'Cannot mix propname and clientchangecallback'
         
     def Parse(self, cls, name):
-        """ Field parser method. To be used in the Meta Class or similar place to setup the fields on a class."""
+        """ Field parser method. To be used in the Meta Class or similar place to setup the fields on a class.
+
+            Args:
+                cls (object): Class on which the parse the field.
+                name (str): Name of field
+        """
         global fields
         self.name = name
         fields.append(weakref.ref(self))
+        
+        # Store the field instance and a weak class reference
+        setattr(cls, '__%s_fieldinfo' % name, self)
+        self.wrefsclasses.add(weakref.ref(cls))
+
+        # clientchangecallback is the real method, but entity code calls it by '__%s__Changed' % (name)
+        if isclient and self.clientchangecallback:
+            assert self.networked, 'clientchangecallback only makes sense for networked fields'
+            assert not self.propname, 'clientchangecallback is not supported for propname argument'
+            setattr(cls, '__%s__Changed' % name, getattr(cls, self.clientchangecallback))
         
         if not self.cppimplemented:
             # Set the default value to the class object
@@ -100,30 +119,39 @@ class BaseField(object):
                 delattr(cls, name)
             except AttributeError:
                 PrintWarning('Failed to delete attribute %s from cls %s\n' % (name, str(cls)))
-                
-        # Store the field instance and a weak class reference
-        setattr(cls, '__%s_fieldinfo' % (name), self)
-        self.clswref = weakref.ref(cls)
         
     def InitField(self, inst):
         """ Called if requiresinit is True and new instance is created.
-            Used to initialize dicts and lists correctly for an instance."""
+            Used to initialize dicts and lists correctly for an instance.
+
+            Args:
+                inst (object): instance of object
+        """
         if self.networked:
-            if not self.propname:
+            if self.propname:
+                SetupNetworkVarProp(inst, self.name, self.propname)
+            elif isserver:
+                # Client does not need to be setup, only create an alias during the one time parsing for the class for the changed callback
                 NetworkVar(inst, self.name, self.default, changedcallback=self.clientchangecallback, sendproxy=self.sendproxy)
-            else:
-                NetworkVarProp(inst, self.name, self.propname)
                 
     def GenerateFGDDefaultValue(self):
-        ''' Generates the default value for the fgd entry. 
+        """ Generates the default value for the fgd entry.
             The default is the value double quoted.
-        '''
-        return '"%s"' % (self.default)
+
+            Returns:
+                str: default value for fgd
+        """
+        return '"%s"' % self.default
             
     def GenerateFGDProperty(self):
-        ''' Generates the fgd entry for this field.'''
+        """ Generates the fgd entry for this field.
+
+            Returns:
+                str: fgd entry
+        """
+        displayname = self.displayname if self.displayname else self.keyname
         if self.choices:
-            entry = '%s(choices) : "%s" : %s : "%s" =\n\t[\n' % (self.keyname, self.displayname, self.GenerateFGDDefaultValue(), self.helpstring)
+            entry = '%s(choices) : "%s" : %s : "%s" =\n\t[\n' % (self.keyname, displayname, self.GenerateFGDDefaultValue(), self.helpstring)
             for value, choicename in self.choices:
                 value = str(int(value)) if self.fgdtype == 'integer' else '"%s"' % (value)
                 entry += '\t\t%s : "%s"\n' % (value, choicename)
@@ -131,12 +159,12 @@ class BaseField(object):
             return entry
         else:
             return '%(keyname)s(%(type)s)%(readonly)s: "%(displayname)s" : %(default)s : "%(helpstring)s"' % {
-                'keyname' : self.keyname,
-                'type' : self.fgdtype,
-                'default' : self.GenerateFGDDefaultValue(),
-                'readonly' : ' readonly' if self.fgdreadonly else '',
-                'displayname' : self.displayname if self.displayname else self.keyname,
-                'helpstring' : _escape_helpstring(self.helpstring),
+                'keyname': self.keyname,
+                'type': self.fgdtype,
+                'default': self.GenerateFGDDefaultValue(),
+                'readonly': ' readonly' if self.fgdreadonly else '',
+                'displayname': displayname,
+                'helpstring': _escape_helpstring(self.helpstring),
             }
                 
     def OnChangeOwnerNumber(self, inst, oldownernumber):
@@ -145,24 +173,32 @@ class BaseField(object):
     def Reset(self):
         """ Reset value to default. 
         
-        This is used in case the user changed a value with the attribute editor or
-        when the game changed values during a game (like increasing hp or dmg of units)."""
-        if self.clswref and not self.noreset:
-            self.Set(self.clswref(), self.default)
+            This is used in case the user changed a value with the attribute editor or
+            when the game changed values during a game (like increasing hp or dmg of units).
+        """
+        if self.noreset:
+            return
+        for clswref in self.wrefsclasses:
+            self.Set(clswref(), self.default)
         
     def Copy(self):
-        ''' Makes a copy of this field. This is used for creating fields in subclasses. '''
+        """ Makes a copy of this field. This is used for creating fields in subclasses. """
         cpy = copy.copy(self)
+        cpy.wrefsclasses = set()
         if type(cpy.choices) == list: 
             cpy.choices = list(cpy.choices)
         return cpy
         
     def Verify(self, value):
-        """ Verify user input. """
+        """ Verify user input.
+
+            Args:
+                value (str): value to verify
+        """
         try:
             self.ToValue(value)
         except:
-            errmsg = 'Value "%s" is not a valid "%s":\n%s' % (value, self.__class__.__name__, traceback.format_exc())
+            errmsg = '%s => Value "%s" is not a valid "%s":\n%s' % (self.name, value, self.__class__.__name__, traceback.format_exc())
             #errmsg = errmsg.encode('ascii', errors='ignore')
             raise ValueError(errmsg)
         
@@ -177,45 +213,69 @@ class BaseField(object):
         """ Convert value to string representation """
         return str(value)
 
+    def ToJSON(self, value):
+        """ Converts to JSON representation. Defaults using ToString.
+
+            Args:
+                value (object): Field value to convert.
+        """
+        return self.ToString(value)
+
+    def FromJSON(self, value):
+        """ Converts from JSON value to field value. Defaults to using ToValue
+
+            Args:
+                value (object): JSON value to convert.
+        """
+        return self.ToValue(value)
+
     # Getters/setters for user input
     def Get(self, clsorinst, allowdefault=False):
         if allowdefault:
             return getattr(clsorinst, self.name, self.default)
         return getattr(clsorinst, self.name)
         
-    def Set(self, clsorinst, value):
+    def Set(self, cls_or_inst, value):
+        # Keep track on which classes we make modifications.
+        # These are reset between maps.
+        if inspect.isclass(cls_or_inst):
+            if '__%s_fieldinfo' % (self.name) not in cls_or_inst.__dict__:
+                self.wrefsclasses.add(weakref.ref(cls_or_inst))
         self.Verify(value)
-        setattr(clsorinst, self.name, self.ToValue(value))
+        setattr(cls_or_inst, self.name, self.ToValue(value))
             
-    def WriteDefaultToSourceFile(self, cls):
-        # TODO: Needs finishing
-        return
+    def Save(self, instance, savehelper):
+        """ Saves data for single player.
         
-        filename = inspect.getsourcefile(cls)
-        sourcelines = inspect.getsourcelines(cls)
+            Args:
+                instance (object): the object for which the data is being written.
+                savehelper (PySaveHelper): Helper class exposing the possible save actions.
+        """
+        savehelper.WriteString(self.ToString(self.Get(instance)))
         
-        with open(filename, 'rb') as f:
-            content = f.readlines()
+    def Restore(self, instance, restorehelper):
+        """ Restores data for single player
         
-        with open(filename, 'wb') as fout: 
-            linenumber = 0
-            for line in sourcelines[0]:
-                splitted = line.split('=')
-                if splitted[0].rstrip().strip() == '__%s_fieldinfo' % (self.name):
-                    pass # Bla
-                    #content[sourcelines[1]+linenumber-1] = '%s=%s\n' % (self.default)
-                linenumber += 1
-            fout.writelines(content)
-    
+            Args:
+                instance (object): the object for which the data is being written.
+                restorehelper (PyRestoreHelper): Helper class exposing the possible restore actions.
+        """
+        self.Set(instance, restorehelper.ReadString())
+        
     #: The name of this field. This is also the attribute name on the class/instance of this field.
     name = None
-    #: A weak reference to the class object on which this field is defined
-    clswref = None
+    #: A weak references to the class objects on which this field is defined or used.
+    #: Derived classes may set a different field value through the attribute error, in which case
+    #: they get added to this list (sharing the same field instance).
+    wrefsclasses = None
+    #: Calls Init method on this field when instance on which this field is defined is created.
     requiresinit = False
     #: Do not show up in the attribute editor if True
     hidden = False 
     #: Never reset this value to the default
     noreset = False
+    #: Generic option to group types of fields in a map, accessible on classes by "field_by_group"
+    group = None
     #: Units only: call OnChangeOwnerNumber when an unit changes.
     callonchangeownernumber = False 
     
@@ -225,30 +285,37 @@ class BaseField(object):
         
 class GenericField(BaseField):
     """ Generic field which does not contain any functionality """
-    pass
+    def Restore(self, instance, restorehelper):
+        self.Set(instance, ast.literal_eval(restorehelper.ReadString()))
     
 class BooleanField(BaseField):
     """ The boolean field only accepts True or False as values (or 
         anything that evaluates to that)."""
     def __init__(self, value=False, **kwargs):
-        super(BooleanField, self).__init__(value=value, **kwargs)
+        super().__init__(value=value, **kwargs)
         
     def ToValue(self, value):
         # Hammer sends string "0" as False and "1" as True.
         # Also, in the attribute editor we might set it as "True" or "False"
         if type(value) == str:
-            return ast.literal_eval(value)
+            return bool(ast.literal_eval(value))
         # Fallback to evaluate as a boolean
         return bool(value)
         
+    def Save(self, instance, savehelper):
+        savehelper.WriteBoolean(getattr(instance, self.name))
+        
+    def Restore(self, instance, restorehelper):
+        self.Set(instance, restorehelper.ReadBoolean())
+        
     def GenerateFGDProperty(self):
         return '%(keyname)s(%(type)s)%(readonly)s: "%(displayname)s" : %(default)s : "%(helpstring)s" = \n\t[\n\t\t0 : "False"\n\t\t1 : "True"\n\t]' % {
-            'keyname' : self.keyname,
-            'type' : self.fgdtype,
-            'default' : str(int(self.default)),
-            'readonly' : ' readonly' if self.fgdreadonly else '',
-            'displayname' : self.displayname if self.displayname else self.keyname,
-            'helpstring' : _escape_helpstring(self.helpstring),
+            'keyname': self.keyname,
+            'type': self.fgdtype,
+            'default': str(int(self.default)),
+            'readonly': ' readonly' if self.fgdreadonly else '',
+            'displayname': self.displayname if self.displayname else self.keyname,
+            'helpstring': _escape_helpstring(self.helpstring),
         }
         
     fgdtype = 'choices'
@@ -266,6 +333,12 @@ class IntegerField(BaseField):
          # NOTE: integers are not wrapped in ""...
         return '%d' % (self.default)
         
+    def Save(self, instance, savehelper):
+        savehelper.WriteInteger(getattr(instance, self.name))
+        
+    def Restore(self, instance, restorehelper):
+        self.Set(instance, restorehelper.ReadInteger())
+        
     fgdtype = 'integer'
  
 class FloatField(BaseField):
@@ -275,6 +348,12 @@ class FloatField(BaseField):
         
     def ToValue(self, value):
         return float(value)
+        
+    def Save(self, instance, savehelper):
+        savehelper.WriteFloat(getattr(instance, self.name))
+        
+    def Restore(self, instance, restorehelper):
+        self.Set(instance, restorehelper.ReadFloat())
         
     fgdtype = 'float'
         
@@ -289,10 +368,10 @@ class StringField(BaseField):
     fgdtype = 'string'
     
 class LocalizedStringField(StringField):
-    ''' Localizes the string value. 
+    """ Localizes the string value.
         Note: localized value is unicode by default!
               Use the encoding argument to change it if needed (i.e. encoding='ascii')
-    '''
+    """
     def __init__(self, value='', encoding=None, **kwargs):
         super().__init__(value=value, **kwargs)
         
@@ -317,6 +396,13 @@ class LocalizedStringField(StringField):
             else:
                 localizedvalue = ''
         return localizedvalue if localizedvalue != None else ''
+        
+class EHandleField(BaseField):
+    def Save(self, instance, savehelper):
+        savehelper.WriteEHandle(PyHandle(getattr(instance, self.name)))
+        
+    def Restore(self, instance, restorehelper):
+        self.Set(instance, restorehelper.ReadEHandle())
     
 class TargetSrcField(StringField):
     fgdtype = 'target_source'
@@ -351,9 +437,15 @@ class VectorField(BaseField):
             return Vector(value)
         return UTIL_StringToVector(value)
         
+    def Save(self, instance, savehelper):
+        savehelper.WriteVector(getattr(instance, self.name))
+        
+    def Restore(self, instance, restorehelper):
+        self.Set(instance, restorehelper.ReadVector())
+        
     def InitField(self, inst):
-        if self.networked:
-            assert(not self.propname)
+        if self.networked and isserver:
+            assert not self.propname, 'VectorField does not support propname argument'
             NetworkVar(inst, self.name, Vector(self.default), 
                     changedcallback=self.clientchangecallback, sendproxy=self.sendproxy)
         else:
@@ -390,8 +482,8 @@ class QAngleField(BaseField):
         return UTIL_StringToAngle(value)
         
     def InitField(self, inst):
-        if self.networked:
-            assert(not self.propname)
+        if self.networked and isserver:
+            assert not self.propname, 'QAngleField does not support propname argument'
             NetworkVar(inst, self.name, QAngle(self.default)
                     , changedcallback=self.clientchangecallback, sendproxy=self.sendproxy)
         else:
@@ -413,6 +505,9 @@ class ColorField(BaseField):
             return Color(value)
         return UTIL_StringToColor(value)
         
+    def ToString(self, value):
+        return '%d %d %d %d' % (value.r(), value.g(), value.b(), value.a())
+        
     fgdtype = 'color255'
     
 class SetField(BaseField):
@@ -420,35 +515,45 @@ class SetField(BaseField):
         super().__init__(value=set(value), **kwargs)
         
     def InitField(self, inst):
-        if self.networked:
-            assert(not self.propname)
+        if self.networked and isserver:
+            assert not self.propname, 'SetField does not support propname argument'
             NetworkSet(inst, self.name, set(self.default)
                     , changedcallback=self.clientchangecallback, sendproxy=self.sendproxy)
         else:
             setattr(inst, self.name, set(self.default))
         
+    def ToString(self, value):
+        """ Convert value to string representation. 
+        
+            Set is represented as a list string, so ToValue can convert it back. 
+        """
+        return str(list(value))
+        
     def ToValue(self, rawvalue):
         """ Convert string to value.
             Will return the same value if already correct. """
         if type(rawvalue) == str:
-            return ast.literal_eval(rawvalue)
+            return set(ast.literal_eval(rawvalue))
         return set(rawvalue) # Create a copy of the set
         
     requiresinit = True
-        
+
+
 class ListField(BaseField):
     """ List field.
     
         NOTE: networked list fields do not implement all list methods!
     """
-    def __init__(self, value=list(), **kwargs):
+    def __init__(self, value=list(), restrict_type=None, **kwargs):
         super().__init__(value=list(value), **kwargs)
+
+        self.restrict_type = restrict_type
         
     def InitField(self, inst):
-        if self.networked:
-            assert(not self.propname)
-            NetworkArray(inst, self.name, list(self.default)
-                    , changedcallback=self.clientchangecallback, sendproxy=self.sendproxy)
+        if self.networked and isserver:
+            assert not self.propname, 'ListField does not support propname argument'
+            NetworkArray(inst, self.name, list(self.default),
+                         changedcallback=self.clientchangecallback, sendproxy=self.sendproxy)
         else:
             setattr(inst, self.name, list(self.default))
             
@@ -457,10 +562,46 @@ class ListField(BaseField):
             Will return the same value if already correct. """
         if type(rawvalue) == str:
             return ast.literal_eval(rawvalue)
-        return list(rawvalue) # Create a copy of the list
+        return list(rawvalue)  # Create a copy of the list
+
+    def ToJSON(self, value):
+        if not self.restrict_type:
+            return value
+        out_list = []
+        for v in value:
+            data = {}
+            fields = GetAllFields(v.__class__)
+            for f in fields:
+                data[f.name] = f.ToJSON(f.Get(v))
+            out_list.append(data)
+        return out_list
+
+    def FromJSON(self, value):
+        if not self.restrict_type:
+            return value
+        out_list = []
+        for v in value:
+            obj = self.restrict_type()
+            obj_fields = GetAllFields(self.restrict_type)
+            for f in obj_fields:
+                setattr(obj, f.name, f.FromJSON(v[f.name]))
+            out_list.append(obj)
+        return out_list
+            
+    # Take special care of networked lists, should only update the data!
+    def Save(self, instance, savehelper):
+        if not self.networked:
+            super().Save(instance, savehelper)
+            return
+        savehelper.WriteString(self.ToString(getattr(instance, self.name).data))
+
+    def Restore(self, instance, restorehelper):
+        data = self.ToValue(restorehelper.ReadString())
+        getattr(instance, self.name)[:] = data
             
     requiresinit = True
-    
+
+
 class DictField(BaseField):
     """ Dictionary field.
     
@@ -471,8 +612,8 @@ class DictField(BaseField):
         self.defaultvalue = default
         
     def InitField(self, inst):
-        if self.networked:
-            assert(not self.propname)
+        if self.networked and isserver:
+            assert not self.propname, 'DictField does not support propname argument'
             if self.defaultvalue is None:
                 NetworkDict(inst, self.name, dict(self.default),
                         changedcallback=self.clientchangecallback, sendproxy=self.sendproxy) 
@@ -488,9 +629,24 @@ class DictField(BaseField):
         if type(rawvalue) == str:
             return ast.literal_eval(rawvalue)
         return dict(rawvalue) # Create a copy of the dictionary
+
+    def ToJSON(self, value):
+        return value
+
+    # Take special care of networked dicts, should only update the data!
+    def Save(self, instance, savehelper):
+        if not self.networked:
+            super().Save(instance, savehelper)
+            return
+        data = dict(getattr(instance, self.name).data) # Create a copy as regular dict
+        savehelper.WriteString(self.ToString(data))
+    def Restore(self, instance, restorehelper):
+        data = self.ToValue(restorehelper.ReadString())
+        getattr(instance, self.name).update(data)
             
     requiresinit = True
-    
+
+
 class FlagsField(BaseField):
     def __init__(self, value=0, flags=[], *args, **kwargs):
         self.flags = flags
@@ -525,7 +681,46 @@ class FlagsField(BaseField):
             entry += '\t\t%d : "%s" : %d\n' % (value, flagname, 1 if defaultvalue else 0)
         entry += '\t]'
         return entry
-            
+
+
+class ObjectField(BaseField):
+    """ Defines an embedded object inside the object. This object can have fields again.
+        Mainly used for save/restoring objects.
+    """
+    def __init__(self, objectcls, *objectargs, **objectkwargs):
+        super().__init__(nofgd=True)
+        
+        self.objectcls = objectcls
+        self.objectargs = objectargs
+        self.objectkwargs = objectkwargs
+        
+    def Parse(self, cls, name):
+        super().Parse(cls, name)
+    
+        SetupClassFields(self.objectcls)
+        
+    def InitField(self, inst):
+        setattr(inst, self.name, self.objectcls(*self.objectargs, **self.objectkwargs))
+        
+    def Save(self, instance, savehelper):
+        """ Saves data for single player. """
+        savehelper.WriteFields(getattr(instance, self.name))
+        
+    def Restore(self, instance, restorehelper):
+        """ Restores data for single player """
+        restorehelper.ReadFields(getattr(instance, self.name))
+        
+    requiresinit = True
+
+
+class ActivityField(BaseField):
+    """ Defines an activity field, which can either be defined by the string name or by the Activity enum.
+
+        Activity variables should use these fields so they get reset between levels. This is important for
+        activities defined by string name, because the activity index may change between map changes.
+    """
+    group = 'activity'
+
 # Entity class only fields
 if isserver:
     class OutputEvent(COutputEvent):
@@ -535,24 +730,22 @@ if isserver:
             self.value = variant_t()
             
         variant_setters = {
-            fieldtypes.FIELD_VOID : lambda self, value: value,
-            fieldtypes.FIELD_INTEGER : variant_t.SetInt,
-            fieldtypes.FIELD_FLOAT : variant_t.SetFloat,
-            fieldtypes.FIELD_STRING : variant_t.SetString,
-            fieldtypes.FIELD_BOOLEAN : variant_t.SetBool,
-            fieldtypes.FIELD_VECTOR : variant_t.SetVector3D,
-            fieldtypes.FIELD_POSITION_VECTOR : variant_t.SetPositionVector3D,
-            fieldtypes.FIELD_EHANDLE : variant_t.SetEntity,
+            fieldtypes.FIELD_VOID: lambda self, value: value,
+            fieldtypes.FIELD_INTEGER: variant_t.SetInt,
+            fieldtypes.FIELD_FLOAT: variant_t.SetFloat,
+            fieldtypes.FIELD_STRING: variant_t.SetString,
+            fieldtypes.FIELD_BOOLEAN: variant_t.SetBool,
+            fieldtypes.FIELD_VECTOR: variant_t.SetVector3D,
+            fieldtypes.FIELD_POSITION_VECTOR: variant_t.SetPositionVector3D,
+            fieldtypes.FIELD_EHANDLE: variant_t.SetEntity,
         }
             
         def Set(self, value, activator=None, caller=None):
             try:
                 self.variant_setters[self.fieldtype](self.value, value)
             except KeyError:
-                PrintWarning("Unknown fieldtype %s in output field %s" % (self.fieldtype, self))
+                PrintWarning("Unknown fieldtype %s in output field %s\n" % (self.fieldtype, self))
             self.FireOutput(self.value, activator, caller)
-            
-
             
 output_fgdtypes = {
     fieldtypes.FIELD_VOID : 'void',
@@ -564,13 +757,22 @@ output_fgdtypes = {
     fieldtypes.FIELD_POSITION_VECTOR : 'void', # not used anywhere ?
     fieldtypes.FIELD_EHANDLE : 'target_destination',
 }
-            
+
+
 class OutputField(BaseField):
     """ Output field (entity only)"""
     def __init__(self, keyname, fieldtype=fieldtypes.FIELD_VOID, *args, **kwargs):
         super().__init__(keyname=keyname, noreset=True, *args, **kwargs)
         self.fieldtype = fieldtype
 
+    def Save(self, instance, savehelper):
+        """ Saves data for single player. """
+        savehelper.WriteOutputEvent(getattr(instance, self.name))
+        
+    def Restore(self, instance, restorehelper):
+        """ Restores data for single player """
+        restorehelper.ReadOutputEvent(getattr(instance, self.name))
+        
     if isserver:
         def InitField(self, inst):
             oe = OutputEvent(self.fieldtype)
@@ -605,41 +807,49 @@ class OutputField(BaseField):
 @receiver(postlevelshutdown)
 def ResetFields(sender, **kwargs):
     global fields
-    fields = list([f for f in fields if bool(f())]) # Remove None fields
+    fields = list([f for f in fields if bool(f())])  # Remove None fields
     for f in fields:
         try:
             f().Reset()
         except ValueError:
             traceback.print_exc()
 
+
 # Setup methods for fields
 def GetField(obj, name):
     return getattr(obj, '__%s_fieldinfo' % (name))
-    
+
+
 def ObjSetField(obj, name, field):
     setattr(obj, '__%s_fieldinfo' % (name), field)
-    
+
+
 def HasField(obj, name):
     return hasattr(obj, '__%s_fieldinfo' % (name))
-        
-def BuildFieldsMap(obj, fieldmap):
+
+
+def BuildFieldsMap(obj, fieldmap, includebases=True):
     for name, field in obj.__dict__.items():
         if not isinstance(field, BaseField):
             continue
         if name not in fieldmap.keys():
             fieldmap[name] = field
-    for b in obj.__bases__:
-        BuildFieldsMap(b, fieldmap)
+    if includebases:
+        for b in obj.__bases__:
+            BuildFieldsMap(b, fieldmap)
 
-def GetAllFields(obj):
+
+def GetAllFields(obj, includebases=True):
     fieldmap = {}
-    BuildFieldsMap(obj, fieldmap)
+    BuildFieldsMap(obj, fieldmap, includebases=includebases)
     return list(fieldmap.values())
-    
+
+
 class KeyValueLookupDict(dict):
     def get(self, key, default=None):
         key = key.lower()
         return dict.get(self, key, default)
+
 
 def SetupClassFields(cls, done=None):
     """ Searches for all fields.
@@ -650,11 +860,8 @@ def SetupClassFields(cls, done=None):
     # NOTE: we use cls.__dict__ here because we don't want 
     # to check __fieldsparsed from the bases. We want to know
     # if THIS class is parsed yet.
-    try:
-        if cls.__dict__['__fieldsparsed']:
-            return
-    except KeyError:
-        pass
+    if cls.__dict__.get('__fieldsparsed', False):
+        return
         
     # Set attribute to False
     # If we cannot do that, it is a builtin object
@@ -677,7 +884,7 @@ def SetupClassFields(cls, done=None):
     fields = {}
     keyfields = {}
     initfields = {}
-    ownernumberchangefields = {}
+    cls_fields_by_group = defaultdict(dict)
     for name, f in list(cls.__dict__.items()):
         field = None
         if isinstance(f, BaseField):
@@ -703,29 +910,27 @@ def SetupClassFields(cls, done=None):
                 keyfields[field.keyname.lower()] = field
             if field.requiresinit:
                 initfields[field.name] = field
-            if field.callonchangeownernumber:
-                ownernumberchangefields[field.name] = field
+
+            if field.group:
+                cls_fields_by_group[field.group][field.name] = field
          
     # Bind list of fields to the class         
     # Get base fields map. Merge from all bases!
     fieldsmap = {}
     for basecls in cls.__bases__:
-        try:
-            basefieldsmap = dict(getattr(basecls, 'fields'))
-            fieldsmap.update(basefieldsmap)
-        except:
-            pass
+        fieldsmap.update(getattr(basecls, 'fields', {}))
     fieldsmap.update(fields)
     cls.fields = fieldsmap
     
     # Setup keyvalues map
     keyvaluemap = KeyValueLookupDict()
     for basecls in cls.__bases__:
-        try:
-            basekeyvaluemap = KeyValueLookupDict(getattr(basecls, 'keyvaluemap'))
-            keyvaluemap.update(basekeyvaluemap)
-        except:
-            pass
+        basekeyvaluemap = getattr(basecls, 'keyvaluemap', None)
+        if not basekeyvaluemap:
+            continue
+
+        keyvaluemap.update(KeyValueLookupDict(basekeyvaluemap))
+
     keyvaluemap.update(keyfields)
     keyvaluemap = KeyValueLookupDict([x for x in list(keyvaluemap.items()) if not x[1].cppimplemented])
     cls.keyvaluemap = keyvaluemap
@@ -733,17 +938,24 @@ def SetupClassFields(cls, done=None):
     # Setup init map (entity only)
     fieldinitmap = {}
     for basecls in cls.__bases__:
-        try:
-            basefieldinitmap = dict(getattr(basecls, 'fieldinitmap'))
-            fieldinitmap.update(basefieldinitmap)
-        except:
-            pass
+        fieldinitmap.update(getattr(basecls, 'fieldinitmap', {}))
     fieldinitmap.update(initfields)
     cls.fieldinitmap = fieldinitmap
+
+    # Setup fields by group map
+    fields_by_group = defaultdict(dict)
+    for basecls in cls.__bases__:
+        base_fields_by_group = getattr(basecls, 'fields_by_group', {})
+        for key, value in base_fields_by_group.items():
+            fields_by_group[key].update(value)
+    for key, value in cls_fields_by_group.items():
+        fields_by_group[key].update(value)
+    cls.fields_by_group = fields_by_group
     
     # Mark this class as parsed
     setattr(cls, '__fieldsparsed', True)
-    
+
+
 # Input system
 def input(inputname, helpstring='', fieldtype=fieldtypes.FIELD_VOID):
     """ Use this decorator to turn a method into an input function.
@@ -760,14 +972,15 @@ def input(inputname, helpstring='', fieldtype=fieldtypes.FIELD_VOID):
         fn.fieldtype = fieldtype
         
         fn.fgdinputentry = 'input %(keyname)s(%(outputtype)s) : "%(helpstring)s"' % {
-                'keyname' : fn.inputname,
-                'outputtype' : output_fgdtypes[fn.fieldtype],
-                'helpstring' : _escape_helpstring(fn.helpstring)}
+                'keyname': fn.inputname,
+                'outputtype': output_fgdtypes[fn.fieldtype],
+                'helpstring': _escape_helpstring(fn.helpstring)}
         return fn
     return fnwrapper
-    
+
+
 def SetupInputMethods(cls):
-    if getattr(cls, '__inputmethodsparsed', False):
+    if cls.__dict__.get('__inputmethodsparsed', False):
         return
         
     # Set attribute to False
@@ -800,4 +1013,20 @@ def SetupInputMethods(cls):
     
     # Mark this class as parsed
     setattr(cls, '__inputmethodsparsed', True)
-    
+
+
+class SerializableObjectMetaclass(type):
+    def __new__(cls, name, bases, dct):
+        # Create the new cls
+        new_cls = type.__new__(cls, name, bases, dct)
+
+        # Parse all fields instances defined on the object
+        SetupClassFields(new_cls)
+
+        return new_cls
+
+
+class SerializableObject(object, metaclass=SerializableObjectMetaclass):
+    """ Defines a basic object with fields.
+        These fields are parsed one time through the metaclass. """
+    pass

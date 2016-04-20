@@ -25,10 +25,13 @@ messagesignals = defaultdict(lambda : Signal())
 def _DispatchMessage(messagename, msg):
     #print('Message name: %s -> %s (receivers: %s)' % (messagename, str(msg), messagesignals[messagename].receivers))
     responses = messagesignals[messagename].send_robust(None, msg=msg)
-    for r in responses:
-        if isinstance(r[1], Exception):
-            PrintWarning('%s (contents: %s): Error in receiver %s (module: %s): \n%s' % 
-                (messagename, str(msg), r[0], r[0].__module__, r[2]))
+    if responses:
+        for r in responses:
+            if isinstance(r[1], Exception):
+                PrintWarning('%s (contents: %s): Error in receiver %s (module: %s): \n%s' % 
+                    (messagename, str(msg), r[0], r[0].__module__, r[2]))
+    else:
+        PrintWarning('_DispatchMessage: no responses for user message %s!\n' % (messagename))
             
 def _MakeUserMessageName(func):
     return '%s__%s' % (func.__module__, func.__name__)

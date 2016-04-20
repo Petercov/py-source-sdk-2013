@@ -477,7 +477,7 @@ struct C_BreakableProp_wrapper : C_BreakableProp, bp::wrapper< C_BreakableProp >
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ClientClass* GetClientClass() {
-#if defined(_WIN32) // POSIX: TODO
+#if defined(_WIN32)
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return C_BreakableProp::GetClientClass();
 #endif // _WIN32
@@ -518,9 +518,6 @@ void register_C_BreakableProp_class(){
             "CopyFadeFrom"
             , (void ( ::C_BreakableProp::* )( ::C_BreakableProp * ) )( &::C_BreakableProp::CopyFadeFrom )
             , ( bp::arg("pSource") ) )    
-        .def( 
-            "GetPyNetworkType"
-            , (int (*)(  ))( &::C_BreakableProp::GetPyNetworkType ) )    
         .def( 
             "SetFadeMinMax"
             , (void ( ::C_BreakableProp::* )( float,float ) )( &::C_BreakableProp::SetFadeMinMax )
@@ -629,7 +626,6 @@ void register_C_BreakableProp_class(){
             "UpdateOnRemove"
             , (void ( ::C_BaseAnimating::* )(  ) )(&::C_BaseAnimating::UpdateOnRemove)
             , (void ( C_BreakableProp_wrapper::* )(  ) )(&C_BreakableProp_wrapper::default_UpdateOnRemove) )    
-        .staticmethod( "GetPyNetworkType" )    
         .add_property( "lifestate", &C_BreakableProp_wrapper::m_lifeState_Get, &C_BreakableProp_wrapper::m_lifeState_Set )    
         .add_property( "takedamage", &C_BreakableProp_wrapper::m_takedamage_Get, &C_BreakableProp_wrapper::m_takedamage_Set )    
         .add_property( "skin", &C_BreakableProp_wrapper::m_nSkin_Get, &C_BreakableProp_wrapper::m_nSkin_Set );

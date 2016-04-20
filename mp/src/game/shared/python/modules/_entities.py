@@ -8,8 +8,10 @@ from pygccxml.declarations import matcher, matchers, pointer_t, const_t, referen
 from pyplusplus import code_creators
 
 # Templates for client and server class
+# Special case: GetClientClass is called from different threads. Fallback to baseclass in this case.
+# For most cases this does not matter because the send tables will be the same anyway.
 tmpl_clientclass = '''virtual ClientClass* GetClientClass() {
-#if defined(_WIN32) // POSIX: TODO
+#if defined(_WIN32)
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return %(clsname)s::GetClientClass();
 #endif // _WIN32
@@ -392,7 +394,7 @@ class Entities(SemiSharedModuleGenerator):
         
     def FindNetworkClass(self, mb, cls):
         # Test current class
-        decl = cls.mem_funs('GetPyNetworkType', allow_empty=True)
+        decl = cls.mem_funs('GetClientClass' if self.isclient else 'GetServerClass', allow_empty=True)
         if decl:
             return cls
             
@@ -467,6 +469,7 @@ class Entities(SemiSharedModuleGenerator):
                 
             # Apply common rules
             cls.mem_funs('GetServerClass', allow_empty=True).exclude()
+            cls.mem_funs('GetSendTable', allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
             
             excludetypes = [
                 pointer_t(declarated_t(mb.class_('IServerVehicle'))),

@@ -2218,15 +2218,6 @@ void register_CBaseEntity_class(){
                 , GetHandle_function_type( &::CBaseEntity::GetPyHandle ) );
         
         }
-        { //::CBaseEntity::GetPyNetworkType
-        
-            typedef int ( *GetPyNetworkType_function_type )(  );
-            
-            CBaseEntity_exposer.def( 
-                "GetPyNetworkType"
-                , GetPyNetworkType_function_type( &::CBaseEntity::GetPyNetworkType ) );
-        
-        }
         { //::CBaseEntity::GetPyThink
         
             typedef ::boost::python::api::object ( ::CBaseEntity::*GetThink_function_type )(  ) ;
@@ -2272,6 +2263,16 @@ void register_CBaseEntity_class(){
                 "GetRootMoveParent"
                 , GetRootMoveParent_function_type( &::CBaseEntity::GetRootMoveParent )
                 , bp::return_value_policy< bp::return_by_value >() );
+        
+        }
+        { //::CBaseEntity::GetSendTable
+        
+            typedef ::SendTable * ( *GetSendTable_function_type )(  );
+            
+            CBaseEntity_exposer.def( 
+                "GetSendTable"
+                , GetSendTable_function_type( &::CBaseEntity::GetSendTable )
+                , bp::return_value_policy< bp::reference_existing_object >() );
         
         }
         { //::CBaseEntity::GetShadowCastDistance
@@ -5295,7 +5296,7 @@ void register_CBaseEntity_class(){
         CBaseEntity_exposer.staticmethod( "GetParametersForSound" );
         CBaseEntity_exposer.staticmethod( "GetPredictionPlayer" );
         CBaseEntity_exposer.staticmethod( "GetPredictionRandomSeed" );
-        CBaseEntity_exposer.staticmethod( "GetPyNetworkType" );
+        CBaseEntity_exposer.staticmethod( "GetSendTable" );
         CBaseEntity_exposer.staticmethod( "GetSoundDuration" );
         CBaseEntity_exposer.staticmethod( "GetTouchTrace" );
         CBaseEntity_exposer.staticmethod( "Instance" );

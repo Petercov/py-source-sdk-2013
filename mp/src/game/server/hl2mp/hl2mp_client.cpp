@@ -118,11 +118,7 @@ void ClientActive( edict_t *pEdict, bool bLoadGame )
 	if( SrcPySystem()->IsPythonRunning() )
 	{
 		// Give a full update of the networked python entities
-		// NOTE: Only dedicated servers and the listened host. Listened and clients are done in ClientConnect
-		if( engine->IsDedicatedServer() || ENTINDEX(pEdict) > 1 )
-		{
-			FullClientUpdatePyNetworkCls( pPlayer );
-		}
+		FullClientUpdatePyNetworkCls( pPlayer );
 
 		// Send clientactive signal
 #ifdef CLIENT_DLL

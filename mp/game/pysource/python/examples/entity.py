@@ -11,7 +11,7 @@ import random
 @entity('ent_example')
 class EntExample(CBaseEntity):
     def Spawn(self):
-        super(EntExample, self).Spawn()
+        super().Spawn()
         
         print('ent_example spawned!')
 
@@ -58,7 +58,7 @@ class CMyModelEntity(CBaseAnimating):
     def Precache(self):
         self.PrecacheModel(self.ENTITY_MODEL)
      
-        super(CMyModelEntity, self).Precache()
+        super().Precache()
     
     def MoveThink(self):
         # See if we should change direction again

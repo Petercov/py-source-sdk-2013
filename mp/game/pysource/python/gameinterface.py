@@ -4,6 +4,7 @@ if isclient:
     # List of aliases
     CRecipientFilter = C_RecipientFilter
 
+
 # Ensure old ConVars killed before creating a new ConVar
 # Do not use __RealConVar directly, otherwise it might result in an invalid ConVar when 
 # replacing the convar with a new one!
@@ -11,12 +12,14 @@ __RealConVar = ConVar
 def ConVar(name, *args, **kwargs):
     PyShutdownConVar(name)
     return __RealConVar(name, *args, **kwargs)
-    
+
+
 __RealConCommand = ConCommand
 def ConCommand(name, *args, **kwargs):
     PyShutdownConCommand(name)
     return __RealConCommand(name, *args, **kwargs)
-    
+
+
 def concommand(*args, **kwargs):
     """ Bind the function to a console command.
     
@@ -54,6 +57,7 @@ def concommand(*args, **kwargs):
         return method
     return createconcommand
 
+
 class AutoCompletion(object):
     """ Simple auto completion class for use with ConCommand.
     
@@ -82,3 +86,4 @@ class AutoCompletion(object):
         # Return keywords (with the command in front of each keyword)
         keywords = ['%s %s' % (command, keyword) for keyword in keywords]
         return sorted(keywords)
+

@@ -320,6 +320,9 @@ class Steam(SemiSharedModuleGenerator):
         cls.mem_fun('HandleIncomingPacket').exclude()
         cls.mem_fun('SendUserConnectAndAuthenticate').exclude()
         
+        mb.free_function('PyGameServer_GetAuthSessionTicket').include()
+        mb.free_function('PyGameServer_GetAuthSessionTicket').rename('GameServer_GetAuthSessionTicket')
+        
     def ParseServerOnly(self, mb):
         # Accessor class game server
         mb.add_registration_code( "bp::scope().attr( \"steamgameserverapicontext\" ) = boost::ref(steamgameserverapicontext);" )
@@ -430,6 +433,9 @@ class Steam(SemiSharedModuleGenerator):
         cls.mem_fun('InitiateGameConnection').exclude()
         cls.mem_fun('RequestEncryptedAppTicket').exclude()
         cls.mem_fun('BeginAuthSession').exclude()
+        
+        mb.free_function('PySteamUser_GetAuthSessionTicket').include()
+        mb.free_function('PySteamUser_GetAuthSessionTicket').rename('SteamUser_GetAuthSessionTicket')
         
         # Utils
         cls = mb.class_('ISteamUtils')

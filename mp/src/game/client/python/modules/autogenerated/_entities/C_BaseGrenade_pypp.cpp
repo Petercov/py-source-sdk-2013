@@ -496,7 +496,7 @@ struct C_BaseGrenade_wrapper : C_BaseGrenade, bp::wrapper< C_BaseGrenade > {
     virtual PyObject *GetPySelf() const { return bp::detail::wrapper_base_::get_owner(*this); }
 
     virtual ClientClass* GetClientClass() {
-#if defined(_WIN32) // POSIX: TODO
+#if defined(_WIN32)
         if( GetCurrentThreadId() != g_hPythonThreadID )
             return C_BaseGrenade::GetClientClass();
 #endif // _WIN32
@@ -641,15 +641,6 @@ void register_C_BaseGrenade_class(){
                 "GetOriginalThrower"
                 , GetOriginalThrower_function_type( &::C_BaseGrenade::GetOriginalThrower )
                 , bp::return_value_policy< bp::return_by_value >() );
-        
-        }
-        { //::C_BaseGrenade::GetPyNetworkType
-        
-            typedef int ( *GetPyNetworkType_function_type )(  );
-            
-            C_BaseGrenade_exposer.def( 
-                "GetPyNetworkType"
-                , GetPyNetworkType_function_type( &::C_BaseGrenade::GetPyNetworkType ) );
         
         }
         { //::C_BaseGrenade::GetShakeAmplitude
@@ -1002,7 +993,6 @@ void register_C_BaseGrenade_class(){
                 , default_UpdateOnRemove_function_type(&C_BaseGrenade_wrapper::default_UpdateOnRemove) );
         
         }
-        C_BaseGrenade_exposer.staticmethod( "GetPyNetworkType" );
         { //property "damage"[fget=::C_BaseGrenade::GetDamage, fset=::C_BaseGrenade::SetDamage]
         
             typedef float ( ::C_BaseGrenade::*fget )(  ) ;
