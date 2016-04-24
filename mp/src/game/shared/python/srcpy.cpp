@@ -9,12 +9,16 @@
 #include "srcpy.h"
 #include <filesystem.h>
 #include "icommandline.h"
+#ifdef SRCPY_MOD_GAMERULES
 #include "srcpy_gamerules.h"
+#endif // SRCPY_MOD_GAMERULES
+#ifdef SRCPY_MOD_ENTITIES
 #include "srcpy_networkvar.h"
+#endif // SRCPY_MOD_ENTITIES
 #include "gamestringpool.h"
 #include <utlbuffer.h>
 
-#if defined(CLIENT_DLL)
+#if defined(CLIENT_DLL) && defined(SRCPY_MOD_GAMEINTERFACE)
 #include "srcpy_usermessage.h"
 #endif // CLIENT_DLL
 
@@ -126,7 +130,7 @@ CSrcPython *SrcPySystem()
 // Prevent python classes from initializing
 bool g_bDoNotInitPythonClasses = true;
 
-#ifdef CLIENT_DLL
+#if defined(CLIENT_DLL) && defined(SRCPY_MOD_ENTITIES)
 extern void HookPyNetworkCls();
 #endif // CLIENT_DLL
 
@@ -207,7 +211,7 @@ void CSrcPython::Shutdown( void )
 	if( !m_bPythonRunning )
 		return;
 
-#ifdef CLIENT_DLL
+#if defined(CLIENT_DLL) && defined(SRCPY_MOD_MATERIALS)
 	PyShutdownProceduralMaterials();
 #endif // CLIENT_DLL
 
@@ -536,6 +540,7 @@ bool CSrcPython::PreShutdownInterpreter( bool bIsStandAlone )
 		// TODO: DestroyPyPanels();
 	#endif // CLIENT_DLL
 
+#ifdef SRCPY_MOD_GAMERULES
 		// Clear Python gamerules
 		if( PyGameRules().ptr() != Py_None )
 		{
@@ -553,13 +558,14 @@ bool CSrcPython::PreShutdownInterpreter( bool bIsStandAlone )
 				ClearPyGameRules();
 			}
 		}
+#endif // SRCPY_MOD_GAMERULES
 
 		// Make sure these lists don't hold references
 		m_deleteList.Purge();
 		m_methodTickList.Purge();
 		m_methodPerFrameList.Purge();
 
-#ifdef CLIENT_DLL
+#if defined(CLIENT_DLL) && defined(SRCPY_MOD_ENTITIES)
 		py_delayed_data_update_list.Purge();
 #endif // CLIENT_DLL
 
@@ -655,9 +661,13 @@ void CSrcPython::PostInit()
 
 	// Hook PyMessage
 #ifdef CLIENT_DLL
+#if defined(SRCPY_MOD_GAMEINTERFACE)
 	HookPyMessage();
+#endif // SRCPY_MOD_GAMEINTERFACE
+#if defined(SRCPY_MOD_ENTITIES)
 	HookPyNetworkCls();
 	HookPyNetworkVar();
+#endif // SRCPY_MOD_ENTITIES
 #endif // CLIENT_DLL
 
 	PostInitInterpreterActions();
@@ -898,7 +908,7 @@ void CSrcPython::FrameUpdatePostEntityThink( void )
 
 	m_activeMethod = bp::object();
 
-#ifdef CLIENT_DLL
+#if defined(CLIENT_DLL) && defined(SRCPY_MOD_MATERIALS)
 	PyUpdateProceduralMaterials();
 #endif // CLIENT_DLL
 
@@ -1339,7 +1349,7 @@ Vector CSrcPython::GetVector( const char *name, bp::object obj, Vector default_v
 //-----------------------------------------------------------------------------
 // 
 //-----------------------------------------------------------------------------
-#ifdef CLIENT_DLL
+#if defined(CLIENT_DLL) && defined(SRCPY_MOD_ENTITIES)
 void CSrcPython::AddToDelayedUpdateList( EHANDLE hEnt, char *name, bp::object data, bool callchanged )
 {
 	CSrcPython::py_delayed_data_update v;
@@ -1405,7 +1415,7 @@ void CSrcPython::PostProcessDelayedUpdates( CBaseEntity *pEntity )
 		}
 	}
 }
-#endif // CLIENT_DLL
+#endif // CLIENT_DLL && SRCPY_MOD_ENTITIES
 
 //-----------------------------------------------------------------------------
 // Purpose: 

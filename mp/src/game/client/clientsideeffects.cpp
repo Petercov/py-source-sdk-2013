@@ -97,7 +97,7 @@ void CClientSideEffect::Destroy( void )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_TE)
 //-----------------------------------------------------------------------------
 // Purpose: If we can delete this effect
 //-----------------------------------------------------------------------------
@@ -105,7 +105,7 @@ boost::python::object CClientSideEffect::GetPyInstance()
 {
 	return m_pyRef;
 }
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_TE
 // =======================================
 // END PySource Additions
 // =======================================
@@ -226,7 +226,7 @@ void CEffectsList::RemoveEffect( int effectIndex )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_TE)
 	if( pEffect->GetPyInstance().ptr() == Py_None ) // Python allocated entities should not be deleted 
 	{
 		delete pEffect;	//FIXME: Yes, no?
@@ -237,7 +237,7 @@ void CEffectsList::RemoveEffect( int effectIndex )
 	}
 #else
 	delete pEffect;	//FIXME: Yes, no?
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_TE
 // =======================================
 // END PySource Additions
 // =======================================

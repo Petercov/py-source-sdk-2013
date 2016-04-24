@@ -138,12 +138,12 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_GAMERULES)
 	virtual void InitGamerules() {}
 	virtual void ShutdownGamerules() {}
 
 	virtual PyObject *GetPySelf() const { return NULL; }
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_GAMERULES
 // =======================================
 // END PySource Additions
 // =======================================

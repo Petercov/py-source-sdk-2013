@@ -491,7 +491,7 @@ EHANDLE ReadEHANLE( bf_read &msg )
 	return h;
 }
 
-// Message handler for PyMessage
+// Message handler for PyNetworkVar
 // ================== Attributes ==================
 void __MsgFunc_PyNetworkVar( bf_read &msg )
 {

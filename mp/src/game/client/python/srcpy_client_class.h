@@ -16,9 +16,9 @@
 #pragma once
 #endif
 
-#ifndef ENABLE_PYTHON
+#if !defined(ENABLE_PYTHON) || !defined(SRCPY_MOD_ENTITIES)
 	#define IMPLEMENT_PYCLIENTCLASS_SYSTEM( name, network_name )
-	#define DECLARE_PYCLIENTCLASS( name, networkType )
+	#define DECLARE_PYCLIENTCLASS( name )
 	#define DECLARE_PYCLASS( name )
 #else
 

@@ -15,6 +15,8 @@ class GameInterface(SemiSharedModuleGenerator):
         '$SRCDIR\game\shared\python\srcpy_usermessage.cpp',
         '$SRCDIR\game\shared\python\srcpy_usermessage.h',
     ]
+
+    module_symbols = ['SRCPY_MOD_GAMEINTERFACE']
     
     files = [
         'cbase.h',

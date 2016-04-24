@@ -12,6 +12,8 @@ class GameRules(SemiSharedModuleGenerator):
         '$SRCDIR\game\shared\python\srcpy_gamerules.h',
     ]
 
+    module_symbols = ['SRCPY_MOD_GAMERULES']
+
     @property
     def files(self):
         files = [

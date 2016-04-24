@@ -152,7 +152,7 @@ const char *C_PlayerResource::GetPlayerName( int iIndex )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 boost::python::object C_PlayerResource::PyGetPlayerName( int index )
 {
 	const char *pPlayerName = GetPlayerName( index );
@@ -162,7 +162,7 @@ boost::python::object C_PlayerResource::PyGetPlayerName( int index )
 		)
 	);
 }
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

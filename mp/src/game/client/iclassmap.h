@@ -29,7 +29,7 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	virtual void			PyAdd( const char *mapname, const char *classname, int size, PyEntityFactory *factory ) = 0;
 	virtual void			PyRemove( const char *classname ) = 0;
 	virtual PyEntityFactory* PyGetFactory( const char *classname ) = 0;

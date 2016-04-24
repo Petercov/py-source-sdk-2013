@@ -189,7 +189,11 @@ class Entities(SemiSharedModuleGenerator):
         '$SRCDIR\game\shared\python\srcpy_networkvar.cpp',
         '$SRCDIR\game\shared\python\srcpy_networkvar.h',
         '$SRCDIR\game\shared\python\srcpy_scclasses.cpp',
+        '$SRCDIR\game\shared\python\srcpy_usermessage.cpp',
+        '$SRCDIR\game\shared\python\srcpy_usermessage.h',
     ]
+
+    module_symbols = ['SRCPY_MOD_ENTITIES']
 
     @property
     def files(self):

@@ -9,6 +9,8 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         '$SRCDIR\game\shared\python\srcpy_entities.cpp',
         '$SRCDIR\game\shared\python\srcpy_entities.h',
     ]
+
+    module_symbols = ['SRCPY_MOD_ENTITIES']
     
     files = [
         'cbase.h',

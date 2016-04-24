@@ -38,7 +38,7 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_TE)
 	friend class CEffectsList;
 
 	// Get python instance
@@ -47,7 +47,7 @@ public:
 protected:
 	// Python allocated?
 	boost::python::object	m_pyRef;
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_TE
 // =======================================
 // END PySource Additions
 // =======================================

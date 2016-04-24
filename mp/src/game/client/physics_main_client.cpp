@@ -346,7 +346,7 @@ void C_BaseEntity::PhysicsDispatchThink( BASEPTR thinkFunc )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -406,7 +406,7 @@ void C_BaseEntity::PhysicsPyDispatchThink( boost::python::object thinkFunc )
 		}
 	}
 }
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

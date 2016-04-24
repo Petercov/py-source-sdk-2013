@@ -12,6 +12,8 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
+
 PyServerClass *g_pPyServerClassHead = NULL;
 
 EXTERN_SEND_TABLE( DT_BaseEntity );
@@ -220,3 +222,5 @@ CON_COMMAND_F( print_py_serverclass_list, "Print server class list", 0)
 		p = p->m_pPyNext;
 	}
 }
+
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES

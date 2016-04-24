@@ -11,9 +11,9 @@
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	#include "srcpy_entities.h"
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -29,9 +29,9 @@ public:
 		mapname[ 0 ] = 0;
 		factory = 0;
 		size = -1;
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 		pyfactory = 0;
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 	}
 
 	char const *GetMapName() const
@@ -47,9 +47,9 @@ public:
 	DISPATCHFUNCTION	factory;
 	int					size;
 
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	PyEntityFactory		*pyfactory;
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 private:
 	char				mapname[ 40 ];
 };
@@ -65,12 +65,12 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	virtual void			PyAdd( const char *mapname, const char *classname, int size, PyEntityFactory *factory );
 	virtual void			PyRemove( const char *classname );
 	virtual PyEntityFactory* PyGetFactory( const char *classname );
 	virtual PyEntityFactory* PyGetFactoryByMapName( const char *classname );
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -135,7 +135,7 @@ C_BaseEntity *CClassMap::CreateEntity( const char *mapname )
 // =======================================
 // PySource Additions
 // =======================================
-#ifndef ENABLE_PYTHON
+#if !defined(ENABLE_PYTHON) || !defined(SRCPY_MOD_ENTITIES)
 		if ( !lookup->factory )
 		{
 #if defined( _DEBUG )
@@ -160,7 +160,7 @@ C_BaseEntity *CClassMap::CreateEntity( const char *mapname )
 			Msg( "No factory for %s/%s\n", lookup->GetMapName(), m_ClassDict.GetElementName( i ) );
 #endif
 		}
-#endif // ENABLE_PYTHON
+#endif // !ENABLE_PYTHON || !SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -192,7 +192,7 @@ int CClassMap::GetClassSize( const char *classname )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 void CClassMap::PyAdd( const char *mapname, const char *classname, int size, PyEntityFactory *factory )
 {
 	if( !factory )
@@ -245,7 +245,7 @@ PyEntityFactory* CClassMap::PyGetFactoryByMapName( const char *mapname )
 	}
 	return NULL;
 }
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

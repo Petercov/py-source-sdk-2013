@@ -19,10 +19,9 @@
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	#include "srcpy.h"
-	#include "srcpy_gamerules.h"
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_GAMERULES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -98,9 +97,9 @@ void C_World::Release()
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	g_bDoNotInitPythonClasses = true;
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -204,11 +203,11 @@ void C_World::Precache( void )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	// Python classes init
 	g_bDoNotInitPythonClasses = false;
 	InitAllPythonEntities();
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

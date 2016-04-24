@@ -12,6 +12,8 @@ class TE(SemiSharedModuleGenerator):
         '$SRCDIR\game\shared\python\srcpy_te.h',
     ]
 
+    module_symbols = ['SRCPY_MOD_TE']
+
     files = [
         'cbase.h',
         'effect_dispatch_data.h',
@@ -202,7 +204,7 @@ class TE(SemiSharedModuleGenerator):
         cls.include()
         cls.mem_funs().virtuality = 'not virtual' 
 
-        mb.add_registration_code( 'bp::scope().attr( "te" ) = boost::ref(te);' )
+        mb.add_registration_code('bp::scope().attr( "te" ) = boost::ref(te);')
          
         if self.isserver:
             self.ParseServer(mb)

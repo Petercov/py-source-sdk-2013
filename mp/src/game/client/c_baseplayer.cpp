@@ -739,7 +739,7 @@ const char * C_BasePlayer::GetPlayerName()
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 boost::python::object C_BasePlayer::PyGetPlayerName()
 {
 	const char *pPlayerName = GetPlayerName();

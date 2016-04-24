@@ -326,14 +326,14 @@ void CGlobalEntityList::CleanupDeleteList( void )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 		if( g_DeleteList[i]->GetBaseEntity()->GetPyInstance().ptr() != Py_None )
 		{
 			// Clear our py instance which keeps the entity alive for sure
 			g_DeleteList[i]->GetBaseEntity()->DestroyPyInstance();
 		}
 		else
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

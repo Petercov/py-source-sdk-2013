@@ -18,6 +18,9 @@ class ModuleGenerator(object):
     # Files that should be part of the generated vpc file.
     required_files = []
 
+    # Symbols added to vpc
+    module_symbols = []
+
     # Map some names
     dll_name = None
     path = 'specify a valid path'

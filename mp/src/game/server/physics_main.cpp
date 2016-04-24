@@ -979,7 +979,7 @@ void CBaseEntity::PhysicsDispatchThink( BASEPTR thinkFunc )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 //-----------------------------------------------------------------------------
 // Purpose: Python version of PhysicsDispatchThink. Only difference is the argument.
 //-----------------------------------------------------------------------------
@@ -1049,7 +1049,7 @@ void CBaseEntity::PhysicsPyDispatchThink( boost::python::object thinkFunc )
 
 	VPROF_EXIT_SCOPE();
 }
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

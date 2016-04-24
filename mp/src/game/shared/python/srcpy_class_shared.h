@@ -11,6 +11,8 @@
 #pragma once
 #endif
 
+#ifdef SRCPY_MOD_ENTITIES
+
 #include "srcpy_boostpython.h"
 
 boost::python::object CreatePyHandleHelper( const CBaseEntity *pEnt, const char *handlename );
@@ -26,6 +28,8 @@ boost::python::object CreatePyHandleHelper( const CBaseEntity *pEnt, const char 
 }
 
 #define DECLARE_PYCLASS( name ) DECLARE_PYCLASS_HELPER( name )
+
+#endif // SRCPY_MOD_ENTITIES
 
 #endif // SRCPY_CLASS_SHARED_H
 

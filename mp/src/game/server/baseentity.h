@@ -350,11 +350,11 @@ struct thinkfunc_t
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	string_t	m_iszPyThinkMethodName;
 	// MUST BE LAST
 	boost::python::object  m_pyThink;			// If not Py_None and m_pfnThink != NULL, then call the python method
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -1834,7 +1834,7 @@ public:
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 public:
 	DECLARE_PYSERVERCLASS( CBaseEntity );
 
@@ -1896,7 +1896,7 @@ public:
 
 	// This bit vector tells to who we may send data
 	CBitVec<ABSOLUTE_PLAYER_LIMIT> m_PyNetworkVarsPlayerTransmitBits;
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -2709,7 +2709,7 @@ inline void CBaseEntity::FireBullets( int cShots, const Vector &vecSrc,
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 inline boost::python::object CBaseEntity::GetPyInstance() const 
 { 
 	return m_pyInstance; 
@@ -2730,7 +2730,7 @@ inline boost::python::object CBaseEntity::GetPyThink()
 {
 	return m_pyThink; 
 }
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

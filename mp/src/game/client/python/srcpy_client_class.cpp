@@ -20,6 +20,8 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
+
 PyClientClassBase *g_pPyClientClassHead = NULL;
 
 namespace bp = boost::python;
@@ -337,3 +339,5 @@ CON_COMMAND_F( print_py_clientclass_list, "Print client class list", 0 )
 		p = p->m_pPyNext;
 	}
 }
+
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES

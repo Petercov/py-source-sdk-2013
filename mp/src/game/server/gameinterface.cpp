@@ -135,7 +135,9 @@ extern ConVar tf_mm_servermode;
 // =======================================
 #ifdef ENABLE_PYTHON
 #include "srcpy.h"
+#ifdef SRCPY_MOD_ENTITIES
 #include "srcpy_networkvar.h"
+#endif // SRCPY_MOD_ENTITIES
 #endif // ENABLE_PYTHON
 // =======================================
 // END PySource Additions
@@ -2538,12 +2540,12 @@ void CServerGameEnts::CheckTransmit( CCheckTransmitInfo *pInfo, const unsigned s
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 				// Python networkvars: mark player as transmit
 				int iClientIdx = ENTINDEX( pInfo->m_pClientEnt ) - 1; // Client index is 0 based
 				pEnt->GetBaseEntity()->m_PyNetworkVarsPlayerTransmitBits.Set( iClientIdx );
 				PyNetworkVarsUpdateClient(pEnt->GetBaseEntity(), iClientIdx );
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -2700,10 +2702,10 @@ bool CServerGameClients::ClientConnect( edict_t *pEdict, const char *pszName, co
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	// Make sure Python network variables are marked correctly for the new player
 	PyNetworkVarsResetClientTransmitBits( ENTINDEX(pEdict) - 1 );
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

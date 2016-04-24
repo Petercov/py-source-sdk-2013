@@ -11,6 +11,8 @@ class Materials(SemiSharedModuleGenerator):
         '$SRCDIR\game\shared\python\srcpy_materials.h',
     ]
 
+    module_symbols = ['SRCPY_MOD_MATERIALS']
+
     files = [
         'cbase.h',
         'materialsystem/imaterial.h',

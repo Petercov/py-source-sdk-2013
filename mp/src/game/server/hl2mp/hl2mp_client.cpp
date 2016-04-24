@@ -113,7 +113,7 @@ void ClientActive( edict_t *pEdict, bool bLoadGame )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	if( SrcPySystem()->IsPythonRunning() )
 	{
 		// Give a full update of the networked python entities
@@ -144,7 +144,7 @@ void ClientActive( edict_t *pEdict, bool bLoadGame )
 			PyErr_Print();
 		}
 	}
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

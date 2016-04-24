@@ -10,9 +10,9 @@
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_GAMERULES)
 #include "srcpy_gamerules.h"
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_GAMERULES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -42,12 +42,12 @@ void CGameRulesRegister::CreateGameRules()
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_GAMERULES)
 	// Add Gamerules as game system here.
 	// Basically we don't do this automatically to prevent 
 	// non cleaned up gamerules from being still registered
 	IGameSystem::Add( g_pGameRules );
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_GAMERULES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -80,11 +80,11 @@ CGameRulesRegister* CGameRulesRegister::FindByName( const char *pName )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_GAMERULES)
 		if( PyGameRules().ptr() != Py_None )
 			ClearPyGameRules();		// Python managed	
 		else 
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_GAMERULES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -144,11 +144,11 @@ CGameRulesRegister* CGameRulesRegister::FindByName( const char *pName )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_GAMERULES)
 		if( PyGameRules().ptr() != Py_None )
 			ClearPyGameRules();	
 		else
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_GAMERULES
 // =======================================
 // END PySource Additions
 // =======================================

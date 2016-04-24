@@ -12,6 +12,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
+#ifdef SRCPY_MOD_ENTITIES
 boost::python::object CreatePyHandleHelper( const CBaseEntity *pEnt, const char *handlename )
 {	
 	boost::python::object clshandle;
@@ -52,4 +53,4 @@ boost::python::object CreatePyHandleHelper( const CBaseEntity *pEnt, const char 
 	}																							
 	return boost::python::object();											
 }
- 
+#endif // SRCPY_MOD_ENTITIES

@@ -41,19 +41,19 @@
 #include "inetchannelinfo.h"
 #include "proto_version.h"
 
-// memdbgon must be the last include file in a .cpp file!!!
-#include "tier0/memdbgon.h"
-
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 #include "srcpy.h"
 #include "srcpy_usermessage.h"
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
+
+// memdbgon must be the last include file in a .cpp file!!!
+#include "tier0/memdbgon.h"
 
 #ifdef INTERPOLATEDVAR_PARANOID_MEASUREMENT
 	int g_nInterpolatedVarsChanged = 0;
@@ -990,9 +990,9 @@ C_BaseEntity::~C_BaseEntity()
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	if( m_bPyManaged == false )
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -1118,7 +1118,7 @@ bool C_BaseEntity::Init( int entnum, int iSerialNum )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	if( SrcPySystem()->IsPythonRunning() )
 		m_pyHandle = CreatePyHandle();
 
@@ -1154,7 +1154,7 @@ bool C_BaseEntity::Init( int entnum, int iSerialNum )
 			}
 		}
 	}
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -1210,7 +1210,7 @@ bool C_BaseEntity::InitializeAsClientEntityByIndex( int iIndex, RenderGroup_t re
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	// If we are a python entity, then grab our reference
 	if( GetPySelf() )
 	{
@@ -1224,7 +1224,7 @@ bool C_BaseEntity::InitializeAsClientEntityByIndex( int iIndex, RenderGroup_t re
 	// Create handle for python
 	if( SrcPySystem()->IsPythonRunning() )
 		m_pyHandle = CreatePyHandle();
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -1330,13 +1330,13 @@ void C_BaseEntity::Release()
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	if( m_pyInstance.ptr() != Py_None )
 	{
 		DestroyPyInstance();	
 	}
 	else
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -1565,10 +1565,10 @@ void C_BaseEntity::ReceiveMessage( int classID, bf_read &msg )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 		case BASEENTITY_MSG_PYTHON: PyReceiveMessageInternal(classID, msg); 
 											break;
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -3388,12 +3388,12 @@ void C_BaseEntity::OnPreDataChanged( DataUpdateType_t type )
 // PySource Additions
 // =======================================
 	// Ensures Python networked variables are processed on client creation of this entity
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	if ( type == DATA_UPDATE_CREATED && GetPySelf() != NULL )
 	{
 		SrcPySystem()->PreProcessDelayedUpdates( this );
 	}
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -3415,12 +3415,12 @@ void C_BaseEntity::OnDataChanged( DataUpdateType_t type )
 // PySource Additions
 // =======================================
 	// Ensures Python networked variables are processed on client creation of this entity
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 		if ( GetPySelf() != NULL )
 		{
 			SrcPySystem()->PostProcessDelayedUpdates( this );
 		}
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -6591,7 +6591,7 @@ int C_BaseEntity::GetCreationTick() const
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 void *C_BaseEntity::PyAllocate(PyObject* self_, std::size_t holder_offset, std::size_t holder_size)
 {
 	Assert( holder_size != 0 );				
@@ -6722,7 +6722,7 @@ void C_BaseEntity::PyNetworkVarChanged( const char *pName )
 		PyErr_Print();
 	}
 }
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

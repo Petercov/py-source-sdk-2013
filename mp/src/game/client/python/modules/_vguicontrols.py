@@ -109,6 +109,8 @@ class VGUIControls(ClientModuleGenerator):
         ClientReqFile('$SRCDIR\game\client\python\srcpy_vgui.h'),
     ]
 
+    module_symbols = ['SRCPY_MOD_VGUI']
+
     files = [
         'cbase.h',
         

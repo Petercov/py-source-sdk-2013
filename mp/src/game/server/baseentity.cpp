@@ -70,12 +70,12 @@
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 #include "srcpy.h"
 #include "srcpy_networkvar.h"
 #include "srcpy_usermessage.h"
 #include "srcpy_entities.h"
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -456,9 +456,9 @@ CBaseEntity::~CBaseEntity( )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	if( m_bPyManaged == false )
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -537,7 +537,7 @@ void CBaseEntity::PostConstructor( const char *szClassname )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	// In case this is not created through a factory in python, retrieve the reference here.
 	if( GetPySelf() && m_pyInstance.ptr() == Py_None )
 	{
@@ -584,7 +584,7 @@ void CBaseEntity::PostConstructor( const char *szClassname )
 			}
 		}
 	}
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -3720,12 +3720,12 @@ void CBaseEntity::SetTransmit( CCheckTransmitInfo *pInfo, bool bAlways )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	// Python networkvars: mark player as transmit
 	int iClientIdx = ENTINDEX( pInfo->m_pClientEnt ) - 1; // Client index is 0 based
 	m_PyNetworkVarsPlayerTransmitBits.Set( iClientIdx );
 	PyNetworkVarsUpdateClient( this, iClientIdx );
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -4062,7 +4062,7 @@ bool CBaseEntity::AcceptInput( const char *szInputName, CBaseEntity *pActivator,
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	// Check Python input map
 	if( m_pyInstance.ptr() != Py_None )
 	{
@@ -4136,7 +4136,7 @@ bool CBaseEntity::AcceptInput( const char *szInputName, CBaseEntity *pActivator,
 			PyErr_Print();
 		}
 	}
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -7654,7 +7654,7 @@ static ConCommand ent_orient("ent_orient", CC_Ent_Orient, "Orient the specified 
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 void *CBaseEntity::PyAllocate(PyObject* self_, std::size_t holder_offset, std::size_t holder_size)
 {
 	// call into engine to get memory
@@ -7792,7 +7792,7 @@ void CBaseEntity::PySendEvent( IRecipientFilter &filter, int event, int data )
 {
 	::PySendEvent( filter, this, event, data );
 }
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

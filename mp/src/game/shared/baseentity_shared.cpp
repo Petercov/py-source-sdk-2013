@@ -55,16 +55,6 @@ ConVar hl2_episodic( "hl2_episodic", "0", FCVAR_REPLICATED );
 
 #include "rumble_shared.h"
 
-// =======================================
-// PySource Additions
-// =======================================
-#ifdef ENABLE_PYTHON
-#include "srcpy_boostpython.h"
-#endif // ENABLE_PYTHON
-// =======================================
-// END PySource Additions
-// =======================================
-
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -504,7 +494,7 @@ bool CBaseEntity::KeyValue( const char *szKeyName, const char *szValue )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	// Check Python keyvalues map
 	if( m_pyInstance.ptr() != Py_None )
 	{
@@ -534,7 +524,7 @@ bool CBaseEntity::KeyValue( const char *szKeyName, const char *szValue )
 			PyErr_Print();
 		}
 	}
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -793,11 +783,11 @@ int CBaseEntity::RegisterThinkContext( const char *szContext )
 
 	// Make a new think func
 	thinkfunc_t sNewFunc;
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	Q_memset( &sNewFunc, 0, sizeof( sNewFunc ) - sizeof( boost::python::object ) );	//  m_pyThink is last in struct. DON'T SET TO NULL!
 #else
 	Q_memset( &sNewFunc, 0, sizeof( sNewFunc ) );
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 	sNewFunc.m_pfnThink = NULL;
 	sNewFunc.m_nNextThinkTick = 0;
 	sNewFunc.m_iszContext = AllocPooledString(szContext);
@@ -825,9 +815,9 @@ BASEPTR	CBaseEntity::ThinkSet( BASEPTR func, float thinkTime, const char *szCont
 	if ( !szContext )
 	{
 		m_pfnThink = func;
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 		m_pyThink = boost::python::object();
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 #if !defined( CLIENT_DLL )
 #ifdef _DEBUG
 		FunctionCheck( *(reinterpret_cast<void **>(&m_pfnThink)), "BaseThinkFunc" ); 
@@ -844,9 +834,9 @@ BASEPTR	CBaseEntity::ThinkSet( BASEPTR func, float thinkTime, const char *szCont
 	}
 
 	m_aThinkFunctions[ iIndex ].m_pfnThink = func;
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	m_aThinkFunctions[ iIndex ].m_pyThink = boost::python::object();
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 #if !defined( CLIENT_DLL )
 #ifdef _DEBUG
 	FunctionCheck( *(reinterpret_cast<void **>(&m_aThinkFunctions[ iIndex ].m_pfnThink)), szContext ); 
@@ -2635,7 +2625,7 @@ bool CBaseEntity::IsToolRecording() const
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
@@ -2737,7 +2727,7 @@ void CBaseEntity::PyTouch( ::CBaseEntity *pOther )
 		PyErr_Clear();
 	}
 }
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

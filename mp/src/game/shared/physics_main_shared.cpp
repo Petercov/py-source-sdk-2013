@@ -1931,14 +1931,14 @@ bool CBaseEntity::PhysicsRunThink( thinkmethods_t thinkMethod )
 // =======================================
 // PySource Additions
 // =======================================
-#ifndef ENABLE_PYTHON
+#if !defined(ENABLE_PYTHON) || !defined(SRCPY_MOD_ENTITIES)
 		bAlive = PhysicsRunSpecificThink( i, m_aThinkFunctions[i].m_pfnThink );
 #else
 		if( m_aThinkFunctions[i].m_pfnThink )
 			bAlive = PhysicsRunSpecificThink( i, m_aThinkFunctions[i].m_pfnThink );
 		else if( m_aThinkFunctions[i].m_pyThink.ptr() != Py_None )
 			bAlive = PhysicsPyRunSpecificThink( i, m_aThinkFunctions[i].m_pyThink );
-#endif // ENABLE_PYTHON
+#endif // !ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -2138,7 +2138,7 @@ bool CBaseEntity::PhysicsRunSpecificThink( int nContextIndex, BASEPTR thinkFunc 
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 //-----------------------------------------------------------------------------
 // Purpose: Almost the same as above, but only with a reference to a python method
 //-----------------------------------------------------------------------------
@@ -2173,7 +2173,7 @@ bool CBaseEntity::PhysicsPyRunSpecificThink( int nContextIndex, boost::python::o
 	// Return whether entity is still valid
 	return ( !IsMarkedForDeletion() );
 }
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

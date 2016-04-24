@@ -67,6 +67,7 @@ extern unsigned int g_hPythonThreadID;
 #define PY_OVERRIDE_LOG( modulename, clsname, methodname ) // empty
 #endif
 
+#if defined(SRCPY_MOD_ENTITIES)
 //-----------------------------------------------------------------------------
 // Helper for converting IHandleEntity arguments to bp objects
 //-----------------------------------------------------------------------------
@@ -75,6 +76,7 @@ inline boost::python::object PyEntityFromEntityHandle( IHandleEntity *pHandleEnt
 	CBaseEntity *pEnt = EntityFromEntityHandle( pHandleEntity );
 	return pEnt ? pEnt->GetPyHandle() : boost::python::object();
 }
+#endif // SRCPY_MOD_ENTITIES
 
 //-----------------------------------------------------------------------------
 // Global variables to some commonly used modules. This way you don't need to import
@@ -394,7 +396,7 @@ public:
 	boost::python::list GetRegisteredPerFrameMethods();
 	bool IsPerFrameMethodRegistered( boost::python::object method );
 
-#ifdef CLIENT_DLL
+#if defined(CLIENT_DLL) && defined(SRCPY_MOD_ENTITIES)
 public:
 	typedef struct py_delayed_data_update {
 		EHANDLE hEnt;
@@ -404,10 +406,9 @@ public:
 	} py_delayed_data_update;
 
 	void AddToDelayedUpdateList( EHANDLE hEnt, char *name, boost::python::object data, bool callchanged=false );
-	void CleanupDelayedUpdateList(); // TODO: Remove?
 	void PreProcessDelayedUpdates( CBaseEntity *pEntity );
 	void PostProcessDelayedUpdates( CBaseEntity *pEntity );
-#endif // CLIENT_DLL
+#endif // CLIENT_DLL && SRCPY_MOD_ENTITIES
 
 protected:
 	void UpdateRealtimeTickMethods();
@@ -424,10 +425,10 @@ private:
 	// Delete list
 	CUtlVector< boost::python::object > m_deleteList;
 
-#ifdef CLIENT_DLL
+#if defined(CLIENT_DLL) && defined(SRCPY_MOD_ENTITIES)
 	// Delete list
 	CUtlVector< py_delayed_data_update > py_delayed_data_update_list;
-#endif // CLIENT_DLL
+#endif // CLIENT_DLL && SRCPY_MOD_ENTITIES
 
 	// Tick and Frame registered methods
 	typedef struct py_tick_methods {

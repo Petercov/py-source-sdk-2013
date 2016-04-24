@@ -169,10 +169,10 @@ struct thinkfunc_t
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 	// MUST BE LAST
 	boost::python::object  m_pyThink; // If not Py_None and m_pfnThink != NULL, then call the python method
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -1727,7 +1727,7 @@ protected:
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 public:
 	DECLARE_PYCLIENTCLASS( CBaseEntity );
 
@@ -1775,7 +1775,7 @@ protected:
 	boost::python::object m_pyHandle;
 	boost::python::object m_pyTouchMethod;
 	boost::python::object m_pyThink;
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================
@@ -2291,7 +2291,7 @@ C_BaseEntity *CreateEntityByName( const char *className );
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_ENTITIES)
 inline boost::python::object C_BaseEntity::GetPyInstance() const 
 { 
 	return m_pyInstance; 
@@ -2312,7 +2312,7 @@ inline boost::python::object CBaseEntity::GetPyThink()
 {
 	return m_pyThink; 
 }
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_ENTITIES
 // =======================================
 // END PySource Additions
 // =======================================

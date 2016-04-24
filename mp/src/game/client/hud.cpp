@@ -506,11 +506,11 @@ void CHud::Shutdown( void )
 // =======================================
 // PySource Additions
 // =======================================
-#ifdef ENABLE_PYTHON
+#if defined(ENABLE_PYTHON) && defined(SRCPY_MOD_VGUI)
 		if( m_HudList.Tail()->m_pyInstance.ptr() != Py_None ) {
 			continue; // Do not delete python panels!
 		}
-#endif // ENABLE_PYTHON
+#endif // ENABLE_PYTHON && SRCPY_MOD_VGUI
 // =======================================
 // PySource Additions
 // =======================================
