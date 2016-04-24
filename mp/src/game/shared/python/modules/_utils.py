@@ -9,6 +9,11 @@ from srcpy.matchers import calldef_withtypes
 class Utils(SemiSharedModuleGenerator):
     module_name = '_utils'
 
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_util.cpp',
+        '$SRCDIR\game\shared\python\srcpy_util.h',
+    ]
+
     files = [
         'cbase.h',
         'srcpy_util.h',
@@ -301,4 +306,3 @@ class Utils(SemiSharedModuleGenerator):
       
         # Finally apply common rules to all includes functions and classes, etc.
         self.ApplyCommonRules(mb)
-        

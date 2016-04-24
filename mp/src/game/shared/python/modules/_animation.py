@@ -3,6 +3,11 @@ from pyplusplus.module_builder import call_policies
 
 class Animation(SemiSharedModuleGenerator):
     module_name = '_animation'
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_animation.cpp',
+        '$SRCDIR\game\shared\python\srcpy_animation.h',
+    ]
     
     files = [
         'bone_setup.h',

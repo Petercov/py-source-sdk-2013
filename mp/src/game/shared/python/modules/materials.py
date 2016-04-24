@@ -6,6 +6,11 @@ from pygccxml.declarations import matchers
 class Materials(SemiSharedModuleGenerator):
     module_name = 'materials'
 
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_materials.cpp',
+        '$SRCDIR\game\shared\python\srcpy_materials.h',
+    ]
+
     files = [
         'cbase.h',
         'materialsystem/imaterial.h',
@@ -49,4 +54,3 @@ class Materials(SemiSharedModuleGenerator):
         
         # Remove any protected function 
         mb.calldefs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
-    

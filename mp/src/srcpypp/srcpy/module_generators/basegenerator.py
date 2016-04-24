@@ -2,18 +2,22 @@ import os
 
 from .. src_module_builder import src_module_builder_t
 from pyplusplus import code_creators
-from pyplusplus.module_builder import call_policies
-from pygccxml.declarations import matchers, pointer_t, reference_t, declarated_t
+
 
 class ModuleGenerator(object):
-    settings = None # Contains ref to settings during Parse()
+    # Contains ref to settings during Parse()
+    settings = None
     
     # Settings
     module_name = None
     split = False
 
+    # Files to be included in the generated module file.
     files = []
-    
+
+    # Files that should be part of the generated vpc file.
+    required_files = []
+
     # Map some names
     dll_name = None
     path = 'specify a valid path'
@@ -23,6 +27,7 @@ class ModuleGenerator(object):
     symbols = []
     vpcdir = None
     srcdir = None
+    mb = None
     
     def GetFiles(self):
         return self.files, []
@@ -37,7 +42,7 @@ class ModuleGenerator(object):
         
     # Parse method. Implement this.
     def Parse(self, mb):
-        assert(0)
+        assert 0, 'Must implement parse function'
         
     # Create builder
     def CreateBuilder(self, files, parseonlyfiles):
@@ -46,8 +51,8 @@ class ModuleGenerator(object):
         return mb
             
     def FinalOutput(self, mb):
-        ''' Finalizes the output after generation of the bindings.
-            Writes output to file.'''
+        """ Finalizes the output after generation of the bindings.
+            Writes output to file."""
         # Set pydocstring options
         mb.add_registration_code('bp::docstring_options doc_options( true, true, false );', tail=False)
     
@@ -58,22 +63,23 @@ class ModuleGenerator(object):
         # Add precompiled header + other general required stuff and write away
         self.AddAdditionalCode(mb)      
         if self.split:
-            written_files = mb.split_module(os.path.join(self.path, self.module_name), on_unused_file_found=lambda file: print('Unused file: %s' % (file)))
+            written_files = mb.split_module(os.path.join(self.path, self.module_name),
+                                            on_unused_file_found=lambda file: print('Unused file: %s' % file))
         else:
             mb.write_module(os.path.join(os.path.abspath(self.path), self.module_name+'.cpp'))
             
     def PostCodeCreation(self, mb):
-        ''' Allows modifying mb.code_creator just after the code creation. '''
+        """ Allows modifying mb.code_creator just after the code creation. """
         pass
         
     # Adds precompiled header + other default includes
     def AddAdditionalCode(self, mb):
-        mb.code_creator.user_defined_directories.append( os.path.abspath('.') )
-        header = code_creators.include_t( 'cbase.h' )
-        mb.code_creator.adopt_creator( header, 0 )
-        header = code_creators.include_t( 'srcpy.h' )
-        mb.code_creator.adopt_include( header )
-        header = code_creators.include_t( 'tier0/memdbgon.h' )
+        mb.code_creator.user_defined_directories.append(os.path.abspath('.'))
+        header = code_creators.include_t('cbase.h')
+        mb.code_creator.adopt_creator(header, 0)
+        header = code_creators.include_t('srcpy.h')
+        mb.code_creator.adopt_include(header)
+        header = code_creators.include_t('tier0/memdbgon.h')
         mb.code_creator.adopt_include(header)
         
     def IncludeVarAndRename(self, varname, newvarname):
@@ -90,8 +96,8 @@ class ModuleGenerator(object):
         else:
             cls.add_property(propertyname, cls.member_function( getter ))
             
-    def IncludeEmptyClass(self, mb, clsname, no_init=True, removevirtual=True):
-        c = mb.class_(clsname)
+    def IncludeEmptyClass(self, mb, cls_name, no_init=True, removevirtual=True):
+        c = mb.class_(cls_name)
         c.include()
         c.no_init = no_init
         if removevirtual:
@@ -107,11 +113,11 @@ class ModuleGenerator(object):
         return c
         
     def SetupProperty(self, cls, pyname, gettername, settername=None, excludesetget=True):
-        ''' Shortcut for adding a property and exluding the getter/setter functions. '''
+        """ Shortcut for adding a property and exluding the getter/setter functions. """
         cls = self.mb.class_(cls) if type(cls) == str else cls
         
         getter = cls.mem_fun(gettername)
-        setter = cls.mem_fun(settername) if settername != None else None
+        setter = cls.mem_fun(settername) if settername is not None else None
         
         if excludesetget:
             getter.exclude()
@@ -119,4 +125,3 @@ class ModuleGenerator(object):
                 setter.exclude()
         
         cls.add_property(pyname, getter, setter)
-            

@@ -109,7 +109,12 @@ callresult_reg_tmpl = '''{ //::%(name)sCallResult
 class Steam(SemiSharedModuleGenerator):
     module_name = '_steam'
     steamsdkversion = (1, 15)
-    
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_steam.cpp',
+        '$SRCDIR\game\shared\python\srcpy_steam.h',
+    ]
+
     @property
     def files(self):
         files = [

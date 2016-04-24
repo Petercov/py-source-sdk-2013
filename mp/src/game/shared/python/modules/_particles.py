@@ -1,11 +1,14 @@
 from srcpy.module_generators import SemiSharedModuleGenerator
 from pyplusplus.module_builder import call_policies
-from pyplusplus import function_transformers as FT
-from pyplusplus import code_creators
 
 class Particles(SemiSharedModuleGenerator):
     module_name = '_particles'
-    
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_particles.cpp',
+        '$SRCDIR\game\shared\python\srcpy_particles.h',
+    ]
+
     files = [
         '$tier1/utlvector.h',
         '$tier1/UtlSortVector.h',
@@ -201,4 +204,3 @@ class Particles(SemiSharedModuleGenerator):
         #if self.isclient:
             #header = code_creators.include_t( 'srcpy_particles_converters.h' )
             #mb.code_creator.adopt_include(header)   
-    

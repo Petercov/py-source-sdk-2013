@@ -1,14 +1,20 @@
 from srcpy.module_generators import SemiSharedModuleGenerator
 from srcpy.matchers import calldef_withtypes
 
-from pygccxml import declarations 
 from pyplusplus.module_builder import call_policies
-from pyplusplus import function_transformers as FT
 from pyplusplus import code_creators
 from pygccxml.declarations import matchers, pointer_t, reference_t, declarated_t
 
 class GameInterface(SemiSharedModuleGenerator):
     module_name = '_gameinterface'
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_gameinterface.cpp',
+        '$SRCDIR\game\shared\python\srcpy_gameinterface.h',
+        '$SRCDIR\game\shared\python\srcpy_gameinterface_converters.h',
+        '$SRCDIR\game\shared\python\srcpy_usermessage.cpp',
+        '$SRCDIR\game\shared\python\srcpy_usermessage.h',
+    ]
     
     files = [
         'cbase.h',
@@ -44,10 +50,10 @@ class GameInterface(SemiSharedModuleGenerator):
         mb.decls().exclude() 
         
         # POSIX compiler model_t fix ( ok to do? maybe find another fix )
-        mb.add_declaration_code( '#ifdef POSIX\r\n' + \
-                             'typedef struct model_t {};\r\n' + \
+        mb.add_declaration_code('#ifdef POSIX\r\n' +
+                             'typedef struct model_t {};\r\n' +
                              '#endif // POSIX\r\n'
-                           )
+                                )
                            
         # Filesystem functions
         mb.free_function('PyGetModPath').include()
@@ -399,4 +405,3 @@ class GameInterface(SemiSharedModuleGenerator):
         header = code_creators.include_t( 'srcpy_gameinterface_converters.h' )
         mb.code_creator.adopt_include(header)
         super(GameInterface, self).AddAdditionalCode(mb)
-        

@@ -1,11 +1,30 @@
 import os
 import re
+import functools
 
 from . basegenerator import ModuleGenerator
 from .. src_module_builder import src_module_builder_t
 from .. matchers import MatcherTestInheritClass
 from pyplusplus.module_builder import call_policies
 from pygccxml.declarations import matchers, pointer_t, reference_t, const_t, declarated_t, void_t, compound_t
+
+
+class ReqFile(object):
+    def __init__(self, dll_type, path):
+        self.dll_type = dll_type
+        self.path = path
+
+    def __call__(self, is_client):
+        if self.dll_type == 'shared':
+            return self.path
+        if self.dll_type == 'client' and not is_client:
+            return None
+        if self.dll_type == 'server' and is_client:
+            return None
+        return self.path
+
+ClientReqFile = functools.partial(ReqFile, 'client')
+ServerReqFile = functools.partial(ReqFile, 'server')
 
 class SourceModuleGenerator(ModuleGenerator):
     # Choices: client, server, semi_shared and pure_shared
@@ -44,17 +63,7 @@ class SourceModuleGenerator(ModuleGenerator):
         mb = src_module_builder_t(files, self.includes, self.symbols, is_client=self.isclient)
         mb.parseonlyfiles = parseonlyfiles
         return mb
-        
-    def GetFilenames(self):
-        path = rm.path
-        if not rm.split:
-            outfilename = '%s.cpp' % (rm.module_name)
-            return [os.path.relpath(os.path.join(path, outfilename), os.path.join(rm.servervpcdir, rm.serversrcpath))]
-        else:
-            files = os.listdir(os.path.join(rm.path, rm.module_name))
-            files = filter(lambda f: f.endswith('.cpp') or f.endswith('.hpp'), files)
-            return map(lambda f: os.path.join(path, rm.module_name, f), files)
-    
+
     def GetFiles(self):
         parsefiles = list(self.files)
         
@@ -94,7 +103,7 @@ class SourceModuleGenerator(ModuleGenerator):
         return files, parseonlyfiles
         
     def PostCodeCreation(self, mb):
-        ''' Allows modifying mb.code_creator just after the code creation. '''
+        """ Allows modifying mb.code_creator just after the code creation. """
         parseonlyfiles = list(mb.parseonlyfiles)
         
         # Remove boost\python.hpp header. This is already included by srcpy.h
@@ -128,10 +137,10 @@ class SourceModuleGenerator(ModuleGenerator):
     def AddNetworkVarProperty(self, exposename, varname, ctype, clsname):
         cls = self.mb.class_(clsname) if (type(clsname) == str) else clsname
         args = {
-            'varname' : varname,
-            'type' : ctype,
-            'exposename' : exposename,
-            'clsname' : cls.name,
+            'varname': varname,
+            'type': ctype,
+            'exposename': exposename,
+            'clsname': cls.name,
         }
         if not self.isclient:
             cls.add_wrapper_code('static %(type)s %(varname)s_Get( %(clsname)s const & inst ) { return inst.%(varname)s.Get(); }' % args)

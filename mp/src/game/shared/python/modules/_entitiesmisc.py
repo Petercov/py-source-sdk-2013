@@ -1,10 +1,14 @@
 from srcpy.module_generators import SemiSharedModuleGenerator
 from pyplusplus.module_builder import call_policies
 from pygccxml.declarations import matchers
-from pyplusplus import code_creators
 
 class EntitiesMisc(SemiSharedModuleGenerator):
     module_name = '_entitiesmisc'
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_entities.cpp',
+        '$SRCDIR\game\shared\python\srcpy_entities.h',
+    ]
     
     files = [
         'cbase.h',
@@ -513,4 +517,3 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         
         # Finally apply common rules to all includes functions and classes, etc.
         self.ApplyCommonRules(mb)
-        

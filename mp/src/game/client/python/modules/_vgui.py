@@ -1,4 +1,4 @@
-from srcpy.module_generators import ClientModuleGenerator
+from srcpy.module_generators import ClientModuleGenerator, ClientReqFile
 
 from pyplusplus import function_transformers as FT
 from pyplusplus.module_builder import call_policies
@@ -6,7 +6,14 @@ from pygccxml.declarations import matchers
 
 class VGUI(ClientModuleGenerator):
     module_name = '_vgui'
-    
+
+    required_files = [
+        ClientReqFile('$SRCDIR\game\client\python\srcpy_hud.cpp'),
+        ClientReqFile('$SRCDIR\game\client\python\srcpy_hud.h'),
+        ClientReqFile('$SRCDIR\game\client\python\srcpy_vgui.cpp'),
+        ClientReqFile('$SRCDIR\game\client\python\srcpy_vgui.h'),
+    ]
+
     files = [
         'cbase.h',
         
@@ -296,5 +303,3 @@ class VGUI(ClientModuleGenerator):
         mb.calldefs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
         
         self.ApplyCommonRules(mb)
-        
-        

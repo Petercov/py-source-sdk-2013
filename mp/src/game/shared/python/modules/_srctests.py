@@ -1,8 +1,12 @@
 from srcpy.module_generators import SemiSharedModuleGenerator
-from pyplusplus.module_builder import call_policies
 
 class _SrcTests(SemiSharedModuleGenerator):
     module_name = '_srctests'
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_tests.cpp',
+        '$SRCDIR\game\shared\python\srcpy_tests.h',
+    ]
 
     files = [
         'cbase.h',
@@ -15,4 +19,3 @@ class _SrcTests(SemiSharedModuleGenerator):
 
         mb.free_function('SrcPyTest_EntityArg').include()
         mb.free_function('SrcPyTest_ExtractEntityArg').include()
-        

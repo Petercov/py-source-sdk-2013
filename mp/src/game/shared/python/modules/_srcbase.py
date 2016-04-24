@@ -1,10 +1,14 @@
 from srcpy.module_generators import SharedModuleGenerator
 from pyplusplus import code_creators
-from pyplusplus import function_transformers as FT
-from pyplusplus.module_builder import call_policies
+
 
 class SrcBase(SharedModuleGenerator):
     module_name = '_srcbase'
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_base.cpp',
+        '$SRCDIR\game\shared\python\srcpy_base.h',
+    ]
     
     files = [
         'cbase.h',
@@ -300,8 +304,7 @@ class SrcBase(SharedModuleGenerator):
         mb.add_registration_code( "bp::scope().attr( \"HIDEHUD_BITCOUNT\" ) = (int)HIDEHUD_BITCOUNT;" )
         
     def AddAdditionalCode(self, mb):
-        header = code_creators.include_t( 'coordsize.h' )
+        header = code_creators.include_t('coordsize.h')
         mb.code_creator.adopt_include(header)
         
         super(SrcBase, self).AddAdditionalCode(mb)
-

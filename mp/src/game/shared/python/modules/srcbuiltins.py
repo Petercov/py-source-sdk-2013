@@ -5,6 +5,12 @@ from pyplusplus.module_builder import call_policies
 
 class SrcBuiltins(SharedModuleGenerator):
     module_name = 'srcbuiltins'
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_srcbuiltins.cpp',
+        '$SRCDIR\game\shared\python\srcpy_srcbuiltins.h',
+        '$SRCDIR\game\shared\python\srcpy_srcbuiltins_converters.h',
+    ]
     
     files = [
         'cbase.h',

@@ -1,13 +1,16 @@
 from srcpy.module_generators import SemiSharedModuleGenerator
 
 from pyplusplus.module_builder import call_policies
-from pyplusplus import function_transformers as FT
 from pyplusplus import code_creators
-from pygccxml.declarations import matcher, matchers, pointer_t, const_t, reference_t, declarated_t, char_t
 
 class Physics(SemiSharedModuleGenerator):
     module_name = '_physics'
-    
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_physics.cpp',
+        '$SRCDIR\game\shared\python\srcpy_physics.h',
+    ]
+
     files = [
         'cbase.h',
         'srcpy_physics.h',
@@ -149,5 +152,3 @@ class Physics(SemiSharedModuleGenerator):
         header = code_creators.include_t( 'srcpy_physics_converters.h' )
         mb.code_creator.adopt_include(header)
         super(Physics, self).AddAdditionalCode(mb)
-        
-            

@@ -2,12 +2,16 @@ from srcpy.module_generators import SemiSharedModuleGenerator
 from srcpy.matchers import calldef_withtypes
 
 from pyplusplus.module_builder import call_policies
-from pyplusplus import function_transformers as FT
 from pygccxml.declarations import matchers, pointer_t, const_t, reference_t, declarated_t
 
 class TE(SemiSharedModuleGenerator):
     module_name = '_te'
-    
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_te.cpp',
+        '$SRCDIR\game\shared\python\srcpy_te.h',
+    ]
+
     files = [
         'cbase.h',
         'effect_dispatch_data.h',
@@ -203,4 +207,4 @@ class TE(SemiSharedModuleGenerator):
         if self.isserver:
             self.ParseServer(mb)
         else:
-            self.ParseClient(mb) 
+            self.ParseClient(mb)

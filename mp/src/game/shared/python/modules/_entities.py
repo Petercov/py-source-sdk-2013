@@ -3,9 +3,7 @@ from srcpy.matchers import calldef_withtypes
 
 from pyplusplus import function_transformers as FT
 from pyplusplus.module_builder import call_policies
-from pyplusplus import messages
 from pygccxml.declarations import matcher, matchers, pointer_t, const_t, reference_t, declarated_t, char_t
-from pyplusplus import code_creators
 
 # Templates for client and server class
 # Special case: GetClientClass is called from different threads. Fallback to baseclass in this case.
@@ -184,7 +182,15 @@ struct %(convert_from_py_name)s
 class Entities(SemiSharedModuleGenerator):
     module_name = '_entities'
     split = True
-    
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_entities.cpp',
+        '$SRCDIR\game\shared\python\srcpy_entities.h',
+        '$SRCDIR\game\shared\python\srcpy_networkvar.cpp',
+        '$SRCDIR\game\shared\python\srcpy_networkvar.h',
+        '$SRCDIR\game\shared\python\srcpy_scclasses.cpp',
+    ]
+
     @property
     def files(self):
         return filter(None, [

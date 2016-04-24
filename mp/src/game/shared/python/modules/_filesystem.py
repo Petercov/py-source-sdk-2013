@@ -1,10 +1,13 @@
 from srcpy.module_generators import SharedModuleGenerator
-from pyplusplus import code_creators, function_transformers as FT
-from pyplusplus.module_builder import call_policies
 
 class SrcFilesystem(SharedModuleGenerator):
     module_name = '_filesystem'
-    
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_filesystem.cpp',
+        '$SRCDIR\game\shared\python\srcpy_filesystem.h',
+    ]
+
     files = [
         'filesystem.h',
         'srcpy_filesystem.h',
@@ -22,5 +25,3 @@ class SrcFilesystem(SharedModuleGenerator):
             if decl.name.startswith('PyFS_'):
                 decl.include()
                 decl.rename(decl.name.split('PyFS_')[1])
-        
-

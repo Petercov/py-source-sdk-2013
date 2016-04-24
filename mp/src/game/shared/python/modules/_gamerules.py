@@ -1,13 +1,17 @@
 from srcpy.module_generators import SemiSharedModuleGenerator
 
 from pyplusplus.module_builder import call_policies
-from pyplusplus import function_transformers as FT
 from pygccxml.declarations import matchers
 
 class GameRules(SemiSharedModuleGenerator):
     module_name = '_gamerules'
     split = True
-    
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_gamerules.cpp',
+        '$SRCDIR\game\shared\python\srcpy_gamerules.h',
+    ]
+
     @property
     def files(self):
         files = [
@@ -119,4 +123,3 @@ class GameRules(SemiSharedModuleGenerator):
         
         # Finally apply common rules to all includes functions and classes, etc.
         self.ApplyCommonRules(mb)
-    

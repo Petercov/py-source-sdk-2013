@@ -1,12 +1,15 @@
 from srcpy.module_generators import SemiSharedModuleGenerator
 from pyplusplus.module_builder import call_policies
-from pyplusplus import function_transformers as FT
-from pyplusplus import code_creators
 from pygccxml.declarations import matchers
 
 class Sound(SemiSharedModuleGenerator):
     module_name = '_sound'
-    
+
+    required_files = [
+        '$SRCDIR\game\shared\python\srcpy_sound.cpp',
+        '$SRCDIR\game\shared\python\srcpy_sound.h',
+    ]
+
     files = [
         'wchar.h',
         'string_t.h',
@@ -82,6 +85,3 @@ class Sound(SemiSharedModuleGenerator):
         mb.add_registration_code( "bp::scope().attr( \"PITCH_HIGH\" ) = PITCH_HIGH;" )        
         
         #mb.add_registration_code( "bp::scope().attr( \"soundengine\" ) = boost::ref(pysoundengine);" )   
-
-
-    

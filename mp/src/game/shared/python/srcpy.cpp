@@ -9,12 +9,14 @@
 #include "srcpy.h"
 #include <filesystem.h>
 #include "icommandline.h"
-#include "srcpy_usermessage.h"
 #include "srcpy_gamerules.h"
-#include "srcpy_entities.h"
 #include "srcpy_networkvar.h"
 #include "gamestringpool.h"
 #include <utlbuffer.h>
+
+#if defined(CLIENT_DLL)
+#include "srcpy_usermessage.h"
+#endif // CLIENT_DLL
 
 #ifdef CLIENT_DLL
 #include "networkstringtable_clientdll.h"

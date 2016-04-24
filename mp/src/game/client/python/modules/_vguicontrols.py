@@ -1,8 +1,7 @@
-from srcpy.module_generators import ClientModuleGenerator
+from srcpy.module_generators import ClientModuleGenerator, ClientReqFile
 from srcpy.matchers import calldef_withtypes, MatcherTestInheritClass
 
 from pygccxml.declarations import matcher, matchers, pointer_t, const_t, reference_t, declarated_t, char_t, int_t, wchar_t
-from pyplusplus.code_creators import calldef
 from pyplusplus import function_transformers as FT
 from pyplusplus.module_builder import call_policies
 
@@ -102,7 +101,14 @@ vguihandle_template = '''{ //::%(handlename)s
 class VGUIControls(ClientModuleGenerator):
     module_name = '_vguicontrols'
     split = True
-    
+
+    required_files = [
+        ClientReqFile('$SRCDIR\game\client\python\srcpy_hud.cpp'),
+        ClientReqFile('$SRCDIR\game\client\python\srcpy_hud.h'),
+        ClientReqFile('$SRCDIR\game\client\python\srcpy_vgui.cpp'),
+        ClientReqFile('$SRCDIR\game\client\python\srcpy_vgui.h'),
+    ]
+
     files = [
         'cbase.h',
         
@@ -746,4 +752,3 @@ class VGUIControls(ClientModuleGenerator):
         self.ParseImageClasses(mb)
         
         self.ApplyCommonRules(mb)
-        

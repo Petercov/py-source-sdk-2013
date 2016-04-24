@@ -32,7 +32,6 @@
 // PySource Additions
 // =======================================
 #include "srcpy.h"
-#include "srcpy_entities.h"
 // =======================================
 // END PySource Additions
 // =======================================

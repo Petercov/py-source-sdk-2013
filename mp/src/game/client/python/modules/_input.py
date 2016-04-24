@@ -2,8 +2,8 @@ from srcpy.module_generators import ClientModuleGenerator
 
 from pyplusplus.module_builder import call_policies
 from pyplusplus import function_transformers as FT
-from pyplusplus import code_creators
 from pygccxml.declarations import matchers
+
 
 class Input(ClientModuleGenerator):
     module_name = '_input'
