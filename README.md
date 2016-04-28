@@ -10,10 +10,10 @@ of what is possible (most game code of the mod is written in Python!).
 Please let me know if you have any issues. Pull requests are welcome too!
 
 ## Quick-start
-Currently tested on Windows (VS2013 Community) and OSX (XCode 6.1) only:
+Currently tested on Windows (VS2013 Community Update 5) and OSX (XCode 7.3) only:
 
 1. Run [mp/src/createpysourceprojects](mp/src/createpysourceprojects) 
-2. Open games.sln or games.xproj and compile
+2. Open games.sln or games.xproj and compile. For OSX, you might need to change the projects sdk.
 3. Start mp/game/PySource and load a map
 4. Test Python by entering one of the following commands:
 
@@ -70,6 +70,18 @@ Try set a breakpoint in ''examples/commands.py'' to verify debugging works.
 ## Generating new modules
 PySource makes use of gccxml, pygccxml and pyplusplus to generate Boost Python bindings.
 You can find instructions in [mp/src/srcpypp](mp/src/srcpypp).
+
+### Disabling modules.
+Open [mp/src/srcpypp/settings.py](mp/src/srcpypp/settings.py) and uncomment the unwanted modules.
+Then run in the same folder:
+
+        python generatemods.py -a
+
+An updated vpc file will be generated, so after this step you need to rebuild your project files.
+
+Most of the modules can be disabled, but the example modules will fail to import.
+Also the srcbuiltins module exposes Msg and Warning functions to Python, which is used
+to redirect stdout and stderr.
 
 ## List of binding modules
 - [_animation](mp/src/game/shared/python/modules/_animation.py): Exposed functions from - [animation.h](mp/src/game/shared/animation.h)
