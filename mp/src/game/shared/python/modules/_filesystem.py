@@ -6,7 +6,10 @@ class SrcFilesystem(SharedModuleGenerator):
     required_files = [
         '$SRCDIR\game\shared\python\srcpy_filesystem.cpp',
         '$SRCDIR\game\shared\python\srcpy_filesystem.h',
+        '$SRCDIR\game\shared\python\srcpy_importlib.h',
     ]
+
+    module_symbols = ['SRCPY_MOD_FILESYSTEM']
 
     files = [
         'filesystem.h',

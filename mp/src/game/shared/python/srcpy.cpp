@@ -35,8 +35,9 @@
 #include <winlite.h>
 #endif // WIN32
 
-//#include "../python/importlib.h" // Original
+#ifdef SRCPY_MOD_FILESYSTEM
 #include "srcpy_importlib.h" // Custom importlib for loading from vpk files
+#endif // SRCPY_MOD_FILESYSTEM
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -69,12 +70,14 @@ extern "C"
 	const char *PyWin_DLLVersionString = dllVersionBuffer;
 #endif // WIN32
 	
+#ifdef SRCPY_MOD_FILESYSTEM
 	// Custom frozen modules
 	static const struct _frozen _PyImport_FrozenModules[] = {
 		/* importlib */
 		{"_frozen_importlib", _Py_M__importlib, (int)sizeof(_Py_M__importlib)},
 		{0, 0, 0} /* sentinel */
 	};
+#endif // SRCPY_MOD_FILESYSTEM
 }
 
 
@@ -188,7 +191,9 @@ CSrcPython::CSrcPython()
 #endif // CLIENT_DLL
 	AppendSharedModules();
 
+#ifdef SRCPY_MOD_FILESYSTEM
 	PyImport_FrozenModules = _PyImport_FrozenModules;
+#endif // SRCPY_MOD_FILESYSTEM
 
 #ifdef CLIENT_DLL
 	DevMsg( "CLIENT: " );
@@ -453,10 +458,16 @@ bool CSrcPython::PostInitInterpreter( bool bStandAloneInterpreter )
 	srcbuiltins = Import("srcbuiltins");
 	if( !bStandAloneInterpreter )
 	{
-		sys.attr("stdout") = srcbuiltins.attr("SrcPyStdOut")();
-		sys.attr("stderr") = srcbuiltins.attr("SrcPyStdErr")();
-		sys.attr("__stdout__") = sys.attr("stdout");
-		sys.attr("__stderr__") = sys.attr("stderr");
+		try {
+			sys.attr("stdout") = srcbuiltins.attr("SrcPyStdOut")();
+			sys.attr("stderr") = srcbuiltins.attr("SrcPyStdErr")();
+			sys.attr("__stdout__") = sys.attr("stdout");
+			sys.attr("__stderr__") = sys.attr("stderr");
+		} 
+		catch( bp::error_already_set & ) 
+		{
+			PyErr_Print();
+		}
 	}
 
 	weakref = Import("weakref");

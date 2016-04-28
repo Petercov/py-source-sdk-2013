@@ -11,8 +11,8 @@ $Configuration
 {
 	$Compiler
 	{
-		$PreprocessorDefinitions			"$BASE;SRCPY_MOD_GAMEINTERFACE;SRCPY_MOD_MATERIALS;SRCPY_MOD_ENTITIES;SRCPY_MOD_TE;SRCPY_MOD_VGUI;SRCPY_MOD_GAMERULES"
-		// Suppress this pointless warning using the undocumented /ignore linker switch
+		$PreprocessorDefinitions			"$BASE;SRCPY_MOD_GAMERULES;SRCPY_MOD_TE;SRCPY_MOD_VGUI;SRCPY_MOD_GAMEINTERFACE;SRCPY_MOD_MATERIALS;SRCPY_MOD_ENTITIES;SRCPY_MOD_FILESYSTEM"
+		// Suppress warnings (https://msdn.microsoft.com/en-us/library/thxezb7y.aspx)
 		// C4510: '<unnamed-tag>' : default constructor could not be generated
 		// C4610: struct '<unnamed-tag>' can never be instantiated - user defined constructor required
 		// Caused by including header pyhash.h...
@@ -43,6 +43,7 @@ $Project
 			$File	"$SRCDIR\game\shared\python\srcpy_gameinterface_converters.h"
 			$File	"$SRCDIR\game\shared\python\srcpy_gamerules.cpp"
 			$File	"$SRCDIR\game\shared\python\srcpy_gamerules.h"
+			$File	"$SRCDIR\game\shared\python\srcpy_importlib.h"
 			$File	"$SRCDIR\game\shared\python\srcpy_materials.cpp"
 			$File	"$SRCDIR\game\shared\python\srcpy_materials.h"
 			$File	"$SRCDIR\game\shared\python\srcpy_networkvar.cpp"
