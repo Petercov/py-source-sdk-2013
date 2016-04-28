@@ -1,5 +1,11 @@
 # Files to ignore when considering what GIT should commit.
 
+# Too big commit...
+mp/src/lib/public/mathlib.lib
+mp/src/lib/public/raytrace.lib
+mp/src/lib/public/tier1.lib
+mp/src/lib/public/vgui_controls.lib
+
 # Visual Studio 
 *.suo
 *.user
