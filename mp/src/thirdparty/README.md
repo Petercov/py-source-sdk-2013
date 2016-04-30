@@ -1,3 +1,11 @@
+* Python library custom modifications
+A number of modifications have been made to the Python library:
+1. in Python/pythonrun.c, stdio has been disabled when running as a game.
+2. in Modules/main.c, Py_IgnoreEnvironmentFlag has been disabled. Currently it really depends on the PYTHONHOME and PYTHONPATH env variables.
+3. in Modules/main.c, after Py_Initialize it calls into the game dll for post initialization
+4. in Modules/python.c, modified to load the server dll containing the Python library. Will be split off into a separate project later.
+5. create_lib_pak.py creates a packed version of the library. It also patches the standard library with custom importlib and pkgutil (using source filesystem).
+
 * Compiling Python 3.4 static library
 Python 3.4 must be compiled as static library. Instructions per Platform vary a bit.
 

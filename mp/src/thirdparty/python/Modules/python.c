@@ -31,7 +31,7 @@ wmain(int argc, wchar_t **argv)
 	_fullpath( szFullPath, "..\\..\\bin\\", sizeof( szFullPath ) );
 	_fullpath( szFullPath2, "..\\..\\", sizeof( szFullPath2 ) );
 
-	_snprintf( szBuffer, sizeof( szBuffer ), "PATH=%s%s\\..\\..;%s%s\\..\\..\\bin;C:\\Steam\\SteamApps\\common\\Source SDK Base 2013 Multiplayer\\bin;%s;", driveLetter, directory, driveLetter, directory, pPath );
+	_snprintf( szBuffer, sizeof( szBuffer ), "PATH=%s%s\\..\\..;%s%s\\..\\..\\bin;%s", driveLetter, directory, driveLetter, directory, pPath );
 	szBuffer[sizeof( szBuffer ) - 1] = '\0';
 	assert( len < sizeof( szBuffer ) );
 	_putenv( szBuffer );
@@ -55,10 +55,6 @@ wmain(int argc, wchar_t **argv)
 
 	HINSTANCE server = LoadLibraryEx( "server.dll", NULL, LOAD_WITH_ALTERED_SEARCH_PATH );
 	SrcPyMain_t main = (SrcPyMain_t)GetProcAddress( server, "SrcPy_Main" );
-	if( !main )
-	{
-		return -1;
-	}
 	return main(argc, argv);
 }
 #else
