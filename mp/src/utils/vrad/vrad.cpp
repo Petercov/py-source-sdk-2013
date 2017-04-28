@@ -2554,8 +2554,7 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 			if ( ++i < argc )
 			{
 				luxeldensity = (float)atof (argv[i]);
-				if (luxeldensity > 1.0)
-					luxeldensity = 1.0 / luxeldensity;
+				Msg("Scaling Luxels by %f\n", luxeldensity);
 			}
 			else
 			{
