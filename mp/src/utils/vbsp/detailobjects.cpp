@@ -562,9 +562,9 @@ static void AddDetailSpriteToLump( const Vector &vecOrigin, const QAngle &vecAng
 	// Insert an element into the object dictionary if it aint there...
 	int i = s_DetailObjectLump.AddToTail( );
 
-	if (i >= 65535)
+	if (i >= 524279)
 	{
-		Error( "Error! Too many detail props emitted on this map! (64K max!)n" );
+		Error( "Error! Too many detail props emitted on this map! (524279 max!)n" );
 	}
 
 	DetailObjectLump_t& objectLump = s_DetailObjectLump[i];
