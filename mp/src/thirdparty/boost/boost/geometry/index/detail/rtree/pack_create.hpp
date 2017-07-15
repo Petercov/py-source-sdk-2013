@@ -2,7 +2,7 @@
 //
 // R-tree initial packing
 //
-// Copyright (c) 2011-2015 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2017 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -13,6 +13,7 @@
 
 #include <boost/geometry/algorithms/expand.hpp>
 #include <boost/geometry/index/detail/algorithms/bounds.hpp>
+#include <boost/geometry/index/detail/algorithms/nth_element.hpp>
 
 #include <boost/geometry/algorithms/detail/expand_by_epsilon.hpp>
 
@@ -67,7 +68,7 @@ struct nth_element_and_half_boxes
     {
         if ( I == dim_index )
         {
-            std::nth_element(first, median, last, point_entries_comparer<I>());
+            index::detail::nth_element(first, median, last, point_entries_comparer<I>());
 
             geometry::convert(box, left);
             geometry::convert(box, right);
@@ -200,6 +201,13 @@ private:
         {}
 
         template <typename Indexable>
+        explicit expandable_box(Indexable const& indexable)
+            : m_initialized(true)
+        {
+            detail::bounds(indexable, m_box);
+        }
+
+        template <typename Indexable>
         void expand(Indexable const& indexable)
         {
             if ( !m_initialized )
@@ -260,9 +268,12 @@ private:
 
             // reserve space for values
             rtree::elements(l).reserve(values_count);                                                       // MAY THROW (A)
+
             // calculate values box and copy values
-            expandable_box<Box> elements_box;
-            for ( ; first != last ; ++first )
+            //   initialize the box explicitly to avoid GCC-4.4 uninitialized variable warnings with O2
+            expandable_box<Box> elements_box(translator(*(first->second)));
+            rtree::elements(l).push_back(*(first->second));                                                 // MAY THROW (A?,C)
+            for ( ++first ; first != last ; ++first )
             {
                 // NOTE: push_back() must be called at the end in order to support move_iterator.
                 //       The iterator is dereferenced 2x (no temporary reference) to support

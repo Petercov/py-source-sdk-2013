@@ -45,10 +45,8 @@ private:
 public:
     typedef traitsT traits_type;
 
-    basic_segmented_stack( std::size_t size = traits_type::default_size() ) :
+    basic_segmented_stack( std::size_t size = traits_type::default_size() ) BOOST_NOEXCEPT_OR_NOTHROW :
         size_( size) {
-        BOOST_ASSERT( traits_type::minimum_size() <= size_);
-        BOOST_ASSERT( traits_type::is_unbounded() || ( traits_type::maximum_size() >= size_) );
     }
 
     stack_context allocate() {
@@ -65,7 +63,7 @@ public:
         return sctx;
     }
 
-    void deallocate( stack_context & sctx) {
+    void deallocate( stack_context & sctx) BOOST_NOEXCEPT_OR_NOTHROW {
         __splitstack_releasecontext( sctx.segments_ctx);
     }
 };
