@@ -3173,6 +3173,26 @@ BOOST_PYTHON_MODULE(_vgui){
     
     }
 
+    { //::PyInput_GetCursorPos
+    
+        typedef ::boost::python::tuple ( *PyInput_GetCursorPos_function_type )(  );
+        
+        bp::def( 
+            "PyInput_GetCursorPos"
+            , PyInput_GetCursorPos_function_type( &::PyInput_GetCursorPos ) );
+    
+    }
+
+    { //::PyInput_GetCursorPosition
+    
+        typedef ::boost::python::tuple ( *PyInput_GetCursorPosition_function_type )(  );
+        
+        bp::def( 
+            "PyInput_GetCursorPosition"
+            , PyInput_GetCursorPosition_function_type( &::PyInput_GetCursorPosition ) );
+    
+    }
+
     { //::PyIsGameUIVisible
     
         typedef bool ( *IsGameUIVisible_function_type )(  );

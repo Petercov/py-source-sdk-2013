@@ -11,7 +11,7 @@ $Configuration
 {
 	$Compiler
 	{
-		$PreprocessorDefinitions			"$BASE;SRCPY_MOD_GAMERULES;SRCPY_MOD_TE;SRCPY_MOD_VGUI;SRCPY_MOD_GAMEINTERFACE;SRCPY_MOD_MATERIALS;SRCPY_MOD_ENTITIES;SRCPY_MOD_FILESYSTEM"
+		$PreprocessorDefinitions			"$BASE;SRCPY_MOD_ENTITIES;SRCPY_MOD_FILESYSTEM;SRCPY_MOD_GAMEINTERFACE;SRCPY_MOD_GAMERULES;SRCPY_MOD_MATERIALS;SRCPY_MOD_TE;SRCPY_MOD_VGUI"
 		// Suppress warnings (https://msdn.microsoft.com/en-us/library/thxezb7y.aspx)
 		// C4510: '<unnamed-tag>' : default constructor could not be generated
 		// C4610: struct '<unnamed-tag>' can never be instantiated - user defined constructor required
