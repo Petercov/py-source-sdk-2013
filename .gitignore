@@ -24,7 +24,19 @@ ipch
 *.opensdf
 *.idb
 *.vcxproj
+*.vcxproj.filters
 *.sln
+*.pdb
+UpgradeLog.htm
+*.VC.db
+*.VC.opendb
+*.ipdb
+*.iobj
+
+Release
+Debug
+Release_mod_*
+Debug_mod_*
 
 # OSX/Linux build products
 *.mak
@@ -35,6 +47,13 @@ obj*/
 !utils/smdlexp/smdlexp.mak
 
 # Specific Source build products
+vscript/languages/squirrel/vsquirrel/init_nut.h
+*.vpc_crc
+*.vpc.sentinel
+*.vpc_cache
+**/_vpc_/
+*_nut.h
+
 client.pdb
 client.dll
 client.lib
@@ -60,6 +79,7 @@ config.cfg
 # Python
 *.pyc
 *.pdb
+__pycache__
 
 # shader files
 *.tmp
