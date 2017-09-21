@@ -236,9 +236,10 @@ def ParseVPC(vpcpath, macros, curnode=None):
                 macros[macrokey] = macrovalue
             elif curkey.lower() == '$macrorequired':
                 # MacroRequired is an assert check on the macros dict
-                macrokey = curvalue.split()[0] # IDK about remaining values
+                values = curvalue.split()
+                macrokey = values[0]
                 macrokey = re.sub(r'^"|"$|""', '', macrokey)
-                assert macrokey in macros, 'Macro "%s" is not defined (in %s)!' % (macrokey, curnode.vpcpath)
+                assert len(values) > 1 or macrokey in macros, 'Macro "%s" is not defined (in %s)!' % (macrokey, curnode.vpcpath)
             
     return curnode
                 
