@@ -28,41 +28,41 @@ class Animation(SemiSharedModuleGenerator):
         cls.include()
         cls.calldefs('CStudioHdr').exclude()
         #cls.no_init = True
-        cls.mem_funs('pszName').rename('name')
+        cls.member_functions('pszName').rename('name')
         
-        cls.mem_fun('pSeqdesc').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
-        cls.mem_fun('pSeqdesc').rename('Seqdesc')
+        cls.member_function('pSeqdesc').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+        cls.member_function('pSeqdesc').rename('Seqdesc')
         
         # Excludes
-        cls.mem_fun('Init').exclude()
+        cls.member_function('Init').exclude()
         if self.settings.branch == 'swarm':
-            cls.mem_fun('FindMapping').exclude()
-        cls.mem_fun('GetSequences').exclude()
-        cls.mem_fun('BoneFlexDriver').exclude()
-        cls.mem_fun('GetBoneTableSortedByName').exclude()
-        cls.mem_fun('GetRenderHdr').exclude()
-        cls.mem_fun('GetVirtualModel').exclude()
-        cls.mem_fun('pAnimStudioHdr').exclude()
-        cls.mem_fun('pAnimdesc').exclude()
-        cls.mem_fun('pBodypart').exclude()
-        cls.mem_fun('pBone').exclude()
-        cls.mem_fun('pBonecontroller').exclude()
-        cls.mem_fun('pFlexRule').exclude()
-        cls.mem_fun('pFlexcontroller').exclude()
-        cls.mem_fun('pFlexcontrollerUI').exclude()
-        cls.mem_fun('pFlexdesc').exclude()
-        cls.mem_fun('pHitbox').exclude()
-        cls.mem_fun('pHitboxSet').exclude()
-        cls.mem_fun('pIKChain').exclude()
-        cls.mem_fun('pLinearBones').exclude()
-        cls.mem_fun('pSeqStudioHdr').exclude()
-        #cls.mem_fun('pSeqdesc').exclude()
-        cls.mem_fun('pszNodeName').exclude()
-        cls.mem_fun('pszSurfaceProp').exclude()
-        cls.mem_fun('SetSequenceActivity').exclude() # Declared, but no def
-        cls.mem_fun('IsSequenceLooping').exclude() # Declared, but no def
-        cls.mem_fun('GetSequenceCycleRate').exclude() # Declared, but no def
-        cls.mem_fun('GetSequenceActivity').exclude() # Declared, but no def
+            cls.member_function('FindMapping').exclude()
+        cls.member_function('GetSequences').exclude()
+        cls.member_function('BoneFlexDriver').exclude()
+        cls.member_function('GetBoneTableSortedByName').exclude()
+        cls.member_function('GetRenderHdr').exclude()
+        cls.member_function('GetVirtualModel').exclude()
+        cls.member_function('pAnimStudioHdr').exclude()
+        cls.member_function('pAnimdesc').exclude()
+        cls.member_function('pBodypart').exclude()
+        cls.member_function('pBone').exclude()
+        cls.member_function('pBonecontroller').exclude()
+        cls.member_function('pFlexRule').exclude()
+        cls.member_function('pFlexcontroller').exclude()
+        cls.member_function('pFlexcontrollerUI').exclude()
+        cls.member_function('pFlexdesc').exclude()
+        cls.member_function('pHitbox').exclude()
+        cls.member_function('pHitboxSet').exclude()
+        cls.member_function('pIKChain').exclude()
+        cls.member_function('pLinearBones').exclude()
+        cls.member_function('pSeqStudioHdr').exclude()
+        #cls.member_function('pSeqdesc').exclude()
+        cls.member_function('pszNodeName').exclude()
+        cls.member_function('pszSurfaceProp').exclude()
+        cls.member_function('SetSequenceActivity').exclude() # Declared, but no def
+        cls.member_function('IsSequenceLooping').exclude() # Declared, but no def
+        cls.member_function('GetSequenceCycleRate').exclude() # Declared, but no def
+        cls.member_function('GetSequenceActivity').exclude() # Declared, but no def
         
         # mstudioseqdesc_t
         cls = mb.class_('mstudioseqdesc_t')
@@ -70,17 +70,17 @@ class Animation(SemiSharedModuleGenerator):
         cls.no_init = True
         
         # Excludes
-        cls.mem_fun('GetBaseMap').exclude()
-        cls.var('m_DataMap').exclude()
-        cls.mem_fun('pActivityModifier').exclude()
-        cls.mem_fun('pAutolayer').exclude()
-        cls.mem_fun('pBoneweight').exclude()
-        cls.mem_fun('pEvent').exclude()
-        cls.mem_fun('pIKLock').exclude()
-        cls.mem_fun('pPoseKey').exclude()
-        cls.mem_fun('pStudiohdr').exclude()
-        cls.mem_fun('pszActivityName').exclude()
-        cls.mem_fun('pszLabel').exclude()
+        cls.member_function('GetBaseMap').exclude()
+        cls.variable('m_DataMap').exclude()
+        cls.member_function('pActivityModifier').exclude()
+        cls.member_function('pAutolayer').exclude()
+        cls.member_function('pBoneweight').exclude()
+        cls.member_function('pEvent').exclude()
+        cls.member_function('pIKLock').exclude()
+        cls.member_function('pPoseKey').exclude()
+        cls.member_function('pStudiohdr').exclude()
+        cls.member_function('pszActivityName').exclude()
+        cls.member_function('pszLabel').exclude()
         
         mb.free_function('Py_GetSeqdescActivityName').include()
         mb.free_function('Py_GetSeqdescActivityName').rename('GetSeqdescActivityName')
@@ -119,4 +119,4 @@ class Animation(SemiSharedModuleGenerator):
         mb.free_function('VerifySequenceIndex').include()
         
         # Enums
-        mb.enum('Animevent').include()
+        mb.enumeration('Animevent').include()

@@ -215,66 +215,66 @@ class VGUIControls(ClientModuleGenerator):
         # IBorder
         cls = mb.class_('IBorder')
         cls.include()
-        cls.mem_funs('ApplySchemeSettings').include()    
-        cls.mem_funs('Paint').virtuality = 'pure virtual'
-        cls.mem_funs('ApplySchemeSettings').virtuality = 'pure virtual'
+        cls.member_functions('ApplySchemeSettings').include()    
+        cls.member_functions('Paint').virtuality = 'pure virtual'
+        cls.member_functions('ApplySchemeSettings').virtuality = 'pure virtual'
 
         # IImage
         cls = mb.class_('IImage')
         cls.include()  
-        cls.mem_funs( 'GetContentSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-        cls.mem_funs( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-        cls.mem_funs('Paint').virtuality = 'pure virtual'
+        cls.member_functions( 'GetContentSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.member_functions( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.member_functions('Paint').virtuality = 'pure virtual'
         
         # Image
         cls = mb.class_('Image')
         cls.include()
-        #cls.mem_funs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
+        #cls.member_functions( matchers.access_type_matcher_t( 'protected' ) ).exclude()
         cls.no_init = True
         #cls.calldefs().virtuality = 'not virtual' 
         cls.calldefs('Image').exclude()
-        cls.mem_funs( 'Paint' ).exclude()
+        cls.member_functions( 'Paint' ).exclude()
         cls.add_wrapper_code( 'virtual void Paint() {}' )    # Stub for wrapper class. Otherwise it will complain.
-        cls.mem_funs( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-        cls.mem_funs( 'GetContentSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.member_functions( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.member_functions( 'GetContentSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
         
         # FIXME: Py++ is giving problems on some functions
-        cls.mem_funs('SetPos').virtuality = 'not virtual'
-        #cls.mem_funs('GetPos').virtuality = 'not virtual'
-        #cls.mem_funs('GetSize').virtuality = 'not virtual'
-        #cls.mem_funs('GetContentSize').virtuality = 'not virtual'
-        cls.mem_funs('SetColor').virtuality = 'not virtual'
-        cls.mem_funs('SetBkColor').virtuality = 'not virtual'
-        cls.mem_funs('GetColor').virtuality = 'not virtual'
+        cls.member_functions('SetPos').virtuality = 'not virtual'
+        #cls.member_functions('GetPos').virtuality = 'not virtual'
+        #cls.member_functions('GetSize').virtuality = 'not virtual'
+        #cls.member_functions('GetContentSize').virtuality = 'not virtual'
+        cls.member_functions('SetColor').virtuality = 'not virtual'
+        cls.member_functions('SetBkColor').virtuality = 'not virtual'
+        cls.member_functions('GetColor').virtuality = 'not virtual'
         
-        cls.mem_funs('SetSize').virtuality = 'not virtual' 
-        cls.mem_funs('DrawSetColor').virtuality = 'not virtual' 
-        cls.mem_funs('DrawSetColor').virtuality = 'not virtual' 
-        cls.mem_funs('DrawFilledRect').virtuality = 'not virtual' 
-        cls.mem_funs('DrawOutlinedRect').virtuality = 'not virtual' 
-        cls.mem_funs('DrawLine').virtuality = 'not virtual' 
-        cls.mem_funs('DrawPolyLine').virtuality = 'not virtual' 
-        cls.mem_funs('DrawSetTextFont').virtuality = 'not virtual' 
-        cls.mem_funs('DrawSetTextColor').virtuality = 'not virtual' 
-        cls.mem_funs('DrawSetTextPos').virtuality = 'not virtual' 
-        cls.mem_funs('DrawPrintText').virtuality = 'not virtual' 
-        cls.mem_funs('DrawPrintText').virtuality = 'not virtual' 
-        cls.mem_funs('DrawPrintChar').virtuality = 'not virtual' 
-        cls.mem_funs('DrawPrintChar').virtuality = 'not virtual' 
-        cls.mem_funs('DrawSetTexture').virtuality = 'not virtual' 
-        cls.mem_funs('DrawTexturedRect').virtuality = 'not virtual' 
+        cls.member_functions('SetSize').virtuality = 'not virtual' 
+        cls.member_functions('DrawSetColor').virtuality = 'not virtual' 
+        cls.member_functions('DrawSetColor').virtuality = 'not virtual' 
+        cls.member_functions('DrawFilledRect').virtuality = 'not virtual' 
+        cls.member_functions('DrawOutlinedRect').virtuality = 'not virtual' 
+        cls.member_functions('DrawLine').virtuality = 'not virtual' 
+        cls.member_functions('DrawPolyLine').virtuality = 'not virtual' 
+        cls.member_functions('DrawSetTextFont').virtuality = 'not virtual' 
+        cls.member_functions('DrawSetTextColor').virtuality = 'not virtual' 
+        cls.member_functions('DrawSetTextPos').virtuality = 'not virtual' 
+        cls.member_functions('DrawPrintText').virtuality = 'not virtual' 
+        cls.member_functions('DrawPrintText').virtuality = 'not virtual' 
+        cls.member_functions('DrawPrintChar').virtuality = 'not virtual' 
+        cls.member_functions('DrawPrintChar').virtuality = 'not virtual' 
+        cls.member_functions('DrawSetTexture').virtuality = 'not virtual' 
+        cls.member_functions('DrawTexturedRect').virtuality = 'not virtual' 
         
         # TextImage
         cls = mb.class_('TextImage')
         cls.include()
         cls.calldefs().virtuality = 'not virtual' 
-        cls.mem_funs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
+        cls.member_functions( matchers.access_type_matcher_t( 'protected' ) ).exclude()
         #cls.calldefs('SetText', calldef_withtypes([pointer_t(const_t(declarated_t(wchar_t())))])).exclude()
-        cls.mem_funs( 'GetContentSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-        cls.mem_funs( 'GetDrawWidth' ).add_transformation( FT.output('width') )
-        cls.mem_funs( 'SizeText' ).exclude()     # DECLARATION ONLY
+        cls.member_functions( 'GetContentSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.member_functions( 'GetDrawWidth' ).add_transformation( FT.output('width') )
+        cls.member_functions( 'SizeText' ).exclude()     # DECLARATION ONLY
         
-        cls.mem_funs('GetText').exclude()
+        cls.member_functions('GetText').exclude()
         cls.add_wrapper_code(
             'boost::python::object GetText() {\r\n' + \
             '    char buf[1025];\r\n' + \
@@ -293,35 +293,35 @@ class VGUIControls(ClientModuleGenerator):
         cls.include()
         cls.calldefs().virtuality = 'not virtual' 
         if self.settings.branch == 'source2013':
-            cls.mem_fun('SetBitmap').exclude()
-        #cls.mem_funs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
+            cls.member_function('SetBitmap').exclude()
+        #cls.member_functions( matchers.access_type_matcher_t( 'protected' ) ).exclude()
         
         cls.calldefs('GetColor', calldef_withtypes([reference_t(declarated_t(int_t()))])).add_transformation(FT.output('r'), FT.output('g'), FT.output('b'), FT.output('a'))
-        cls.mem_funs( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.member_functions( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
         
         # CAvatarImage
         cls = mb.class_('CAvatarImage')
         cls.include()
         cls.calldefs().virtuality = 'not virtual' 
-        cls.mem_funs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
+        cls.member_functions( matchers.access_type_matcher_t( 'protected' ) ).exclude()
         cls.rename('AvatarImage')
-        cls.mem_funs( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-        cls.mem_funs( 'GetContentSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-        cls.mem_funs( 'InitFromRGBA' ).exclude()
+        cls.member_functions( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.member_functions( 'GetContentSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.member_functions( 'InitFromRGBA' ).exclude()
         
-        mb.enum('EAvatarSize').include()
+        mb.enumeration('EAvatarSize').include()
     
     def ParsePanelHandles(self, mb):
         # Base handle for Panels
         mb.class_('PyBaseVGUIHandle').include()
-        mb.class_('PyBaseVGUIHandle').mem_funs().exclude()
+        mb.class_('PyBaseVGUIHandle').member_functions().exclude()
 
     def ParsePanels(self, mb):
         # Panels
         cls = mb.class_('DeadPanel')
         cls.include()
-        cls.mem_funs('NonZero', allow_empty=True).rename('__nonzero__')
-        cls.mem_funs('Bool', allow_empty=True).rename('__bool__')
+        cls.member_functions('NonZero', allow_empty=True).rename('__nonzero__')
+        cls.member_functions('Bool', allow_empty=True).rename('__bool__')
         
         # For each panel sub class we take some default actions
         for cls_name in self.panel_cls_list:
@@ -332,10 +332,10 @@ class VGUIControls(ClientModuleGenerator):
             cls.no_init = False
             
             # Be selective about we need to override
-            cls.mem_funs().virtuality = 'not virtual' 
+            cls.member_functions().virtuality = 'not virtual' 
             
             #if cls_name not in ['AnimationController', 'Frame', 'ScrollBar', 'CBaseMinimap']:
-            #    cls.mem_funs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
+            #    cls.member_functions( matchers.access_type_matcher_t( 'protected' ) ).exclude()
             
             # By default exclude any subclass. These classes are likely controlled intern by the panel
             if cls.classes(allow_empty=True):
@@ -386,31 +386,31 @@ class VGUIControls(ClientModuleGenerator):
         # Used by converters + special method added in the wrapper
         # Don't include here
         if not self.novguilib:
-            mb.mem_funs('GetPySelf').exclude()
-            mb.mem_funs('PyDestroyPanel').exclude()
+            mb.member_functions('GetPySelf').exclude()
+            mb.member_functions('PyDestroyPanel').exclude()
             
         # Exclude message stuff. Maybe look into wrapping this in a nice way
-        mb.mem_funs( 'AddToMap' ).exclude()
-        mb.mem_funs( 'ChainToMap' ).exclude()
-        mb.mem_funs( 'GetMessageMap' ).exclude()
-        mb.mem_funs( 'AddToAnimationMap' ).exclude()
-        mb.mem_funs( 'ChainToAnimationMap' ).exclude()
-        mb.mem_funs( 'GetAnimMap' ).exclude()
-        mb.mem_funs( 'KB_AddToMap' ).exclude()
-        mb.mem_funs( 'KB_ChainToMap' ).exclude()
-        mb.mem_funs( 'KB_AddBoundKey' ).exclude()
-        mb.mem_funs( 'GetKBMap' ).exclude()
-        mb.mem_funs( lambda decl: 'GetVar_' in decl.name ).exclude()
+        mb.member_functions( 'AddToMap' ).exclude()
+        mb.member_functions( 'ChainToMap' ).exclude()
+        mb.member_functions( 'GetMessageMap' ).exclude()
+        mb.member_functions( 'AddToAnimationMap' ).exclude()
+        mb.member_functions( 'ChainToAnimationMap' ).exclude()
+        mb.member_functions( 'GetAnimMap' ).exclude()
+        mb.member_functions( 'KB_AddToMap' ).exclude()
+        mb.member_functions( 'KB_ChainToMap' ).exclude()
+        mb.member_functions( 'KB_AddBoundKey' ).exclude()
+        mb.member_functions( 'GetKBMap' ).exclude()
+        mb.member_functions( lambda decl: 'GetVar_' in decl.name ).exclude()
         
         mb.classes( lambda decl: 'PanelMessageFunc_' in decl.name ).exclude()
         mb.classes( lambda decl: '_Register' in decl.name ).exclude()
         mb.classes( lambda decl: 'PanelAnimationVar_' in decl.name ).exclude()
-        mb.vars( lambda decl: '_register' in decl.name ).exclude()
-        mb.vars( lambda decl: 'm_Register' in decl.name ).exclude()
+        mb.variables( lambda decl: '_register' in decl.name ).exclude()
+        mb.variables( lambda decl: 'm_Register' in decl.name ).exclude()
         
         # Don't need the following:
         menu = mb.class_('Menu')
-        keybindindcontexthandle = mb.enum('KeyBindingContextHandle_t')
+        keybindindcontexthandle = mb.enumeration('KeyBindingContextHandle_t')
         excludetypes = [
             pointer_t(const_t(declarated_t(menu))),
             pointer_t(declarated_t(menu)),
@@ -422,169 +422,169 @@ class VGUIControls(ClientModuleGenerator):
         
     def ParsePanel(self, mb):
         # List of functions that should be overridable
-        mb.mem_funs('SetVisible').virtuality = 'virtual'
-        mb.mem_funs('SetParent').virtuality = 'virtual'
-        mb.mem_funs('SetEnabled').virtuality = 'virtual'
+        mb.member_functions('SetVisible').virtuality = 'virtual'
+        mb.member_functions('SetParent').virtuality = 'virtual'
+        mb.member_functions('SetEnabled').virtuality = 'virtual'
         
-        mb.mem_funs('SetBgColor').virtuality = 'virtual'
-        mb.mem_funs('SetFgColor').virtuality = 'virtual'
-        mb.mem_funs('SetCursor').virtuality = 'virtual'
+        mb.member_functions('SetBgColor').virtuality = 'virtual'
+        mb.member_functions('SetFgColor').virtuality = 'virtual'
+        mb.member_functions('SetCursor').virtuality = 'virtual'
         
-        mb.mem_funs('InvalidateLayout').virtuality = 'virtual'
+        mb.member_functions('InvalidateLayout').virtuality = 'virtual'
         
-        mb.mem_funs('SetBorder').virtuality = 'virtual'
-        mb.mem_funs('SetPaintBorderEnabled').virtuality = 'virtual'
-        mb.mem_funs('SetPaintBackgroundEnabled').virtuality = 'virtual'
-        mb.mem_funs('SetPaintEnabled').virtuality = 'virtual'
-        mb.mem_funs('SetPaintBackgroundType').virtuality = 'virtual'
-        mb.mem_funs('SetScheme').virtuality = 'virtual'
+        mb.member_functions('SetBorder').virtuality = 'virtual'
+        mb.member_functions('SetPaintBorderEnabled').virtuality = 'virtual'
+        mb.member_functions('SetPaintBackgroundEnabled').virtuality = 'virtual'
+        mb.member_functions('SetPaintEnabled').virtuality = 'virtual'
+        mb.member_functions('SetPaintBackgroundType').virtuality = 'virtual'
+        mb.member_functions('SetScheme').virtuality = 'virtual'
         
-        mb.mem_funs('ApplySchemeSettings').virtuality = 'virtual'
-        mb.mem_funs('OnCommand').virtuality = 'virtual'
-        mb.mem_funs('OnMouseCaptureLost').virtuality = 'virtual'
-        mb.mem_funs('OnSetFocus').virtuality = 'virtual'
-        mb.mem_funs('OnKillFocus').virtuality = 'virtual'
-        mb.mem_funs('OnDelete').virtuality = 'virtual'
-        mb.mem_funs('OnThink').virtuality = 'virtual'
-        mb.mem_funs('OnChildAdded').virtuality = 'virtual'
-        mb.mem_funs('OnSizeChanged').virtuality = 'virtual'
-        mb.mem_funs('OnTick').virtuality = 'virtual'
+        mb.member_functions('ApplySchemeSettings').virtuality = 'virtual'
+        mb.member_functions('OnCommand').virtuality = 'virtual'
+        mb.member_functions('OnMouseCaptureLost').virtuality = 'virtual'
+        mb.member_functions('OnSetFocus').virtuality = 'virtual'
+        mb.member_functions('OnKillFocus').virtuality = 'virtual'
+        mb.member_functions('OnDelete').virtuality = 'virtual'
+        mb.member_functions('OnThink').virtuality = 'virtual'
+        mb.member_functions('OnChildAdded').virtuality = 'virtual'
+        mb.member_functions('OnSizeChanged').virtuality = 'virtual'
+        mb.member_functions('OnTick').virtuality = 'virtual'
         
-        mb.mem_funs('OnCursorMoved').virtuality = 'virtual'
-        mb.mem_funs('OnCursorEntered').virtuality = 'virtual'
-        mb.mem_funs('OnCursorExited').virtuality = 'virtual'
-        mb.mem_funs('OnMousePressed').virtuality = 'virtual'
-        mb.mem_funs('OnMouseDoublePressed').virtuality = 'virtual'
-        mb.mem_funs('OnMouseReleased').virtuality = 'virtual'
-        mb.mem_funs('OnMouseWheeled').virtuality = 'virtual'
-        mb.mem_funs('OnMouseTriplePressed').virtuality = 'virtual'
+        mb.member_functions('OnCursorMoved').virtuality = 'virtual'
+        mb.member_functions('OnCursorEntered').virtuality = 'virtual'
+        mb.member_functions('OnCursorExited').virtuality = 'virtual'
+        mb.member_functions('OnMousePressed').virtuality = 'virtual'
+        mb.member_functions('OnMouseDoublePressed').virtuality = 'virtual'
+        mb.member_functions('OnMouseReleased').virtuality = 'virtual'
+        mb.member_functions('OnMouseWheeled').virtuality = 'virtual'
+        mb.member_functions('OnMouseTriplePressed').virtuality = 'virtual'
         
-        mb.mem_funs('OnKeyCodePressed').virtuality = 'virtual'
-        mb.mem_funs('OnKeyCodeTyped').virtuality = 'virtual'
-        mb.mem_funs('OnKeyCodeReleased').virtuality = 'virtual'
-        mb.mem_funs('OnKeyFocusTicked').virtuality = 'virtual'
-        mb.mem_funs('OnMouseFocusTicked').virtuality = 'virtual'
+        mb.member_functions('OnKeyCodePressed').virtuality = 'virtual'
+        mb.member_functions('OnKeyCodeTyped').virtuality = 'virtual'
+        mb.member_functions('OnKeyCodeReleased').virtuality = 'virtual'
+        mb.member_functions('OnKeyFocusTicked').virtuality = 'virtual'
+        mb.member_functions('OnMouseFocusTicked').virtuality = 'virtual'
         
-        mb.mem_funs('PaintBackground').virtuality = 'virtual'
-        mb.mem_funs('Paint').virtuality = 'virtual'
-        #mb.mem_funs('PaintBorder').virtuality = 'virtual' # TODO: Don't believe we are ever interested in painting borders in python
-        mb.mem_funs('PaintBuildOverlay').virtuality = 'virtual'
-        mb.mem_funs('PostChildPaint').virtuality = 'virtual'
-        mb.mem_funs('PerformLayout').virtuality = 'virtual'
+        mb.member_functions('PaintBackground').virtuality = 'virtual'
+        mb.member_functions('Paint').virtuality = 'virtual'
+        #mb.member_functions('PaintBorder').virtuality = 'virtual' # TODO: Don't believe we are ever interested in painting borders in python
+        mb.member_functions('PaintBuildOverlay').virtuality = 'virtual'
+        mb.member_functions('PostChildPaint').virtuality = 'virtual'
+        mb.member_functions('PerformLayout').virtuality = 'virtual'
         
-        mb.mem_funs('SetMouseInputEnabled').virtuality = 'virtual'
-        mb.mem_funs('SetKeyBoardInputEnabled').virtuality = 'virtual'
+        mb.member_functions('SetMouseInputEnabled').virtuality = 'virtual'
+        mb.member_functions('SetKeyBoardInputEnabled').virtuality = 'virtual'
         
-        mb.mem_funs('SetDragEnabled').virtuality = 'virtual'
+        mb.member_functions('SetDragEnabled').virtuality = 'virtual'
         
-        mb.mem_funs('OnRequestFocus').virtuality = 'virtual'
-        mb.mem_funs('OnScreenSizeChanged').virtuality = 'virtual'
+        mb.member_functions('OnRequestFocus').virtuality = 'virtual'
+        mb.member_functions('OnScreenSizeChanged').virtuality = 'virtual'
 
         # Transformations
-        mb.mem_funs( 'GetPos' ).add_transformation( FT.output('x'), FT.output('y') )
-        mb.class_('Panel').mem_funs( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-        mb.class_('Panel').mem_funs( 'GetBounds' ).add_transformation( FT.output('x'), FT.output('y'), FT.output('wide'), FT.output('tall') )
-        mb.mem_funs( 'GetMinimumSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-        mb.mem_funs( 'LocalToScreen' ).add_transformation( FT.inout('x'), FT.inout('y') )
-        mb.mem_funs( 'ScreenToLocal' ).add_transformation( FT.inout('x'), FT.inout('y') )
-        mb.mem_funs( 'ParentLocalToScreen' ).add_transformation( FT.inout('x'), FT.inout('y') )
-        mb.mem_funs( 'GetInset' ).add_transformation( FT.output('left'), FT.output('top'), FT.output('right'), FT.output('bottom') )
-        mb.mem_funs( 'GetPaintSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-        mb.mem_funs( 'GetClipRect' ).add_transformation( FT.output('x0'), FT.output('y0'), FT.output('x1'), FT.output('y1') )
-        mb.mem_funs( 'GetPinOffset' ).add_transformation( FT.output('dx'), FT.output('dy') )
-        mb.mem_funs( 'GetResizeOffset' ).add_transformation( FT.output('dx'), FT.output('dy') )
-        mb.mem_funs( 'GetCornerTextureSize' ).add_transformation( FT.output('w'), FT.output('h') )    
+        mb.member_functions( 'GetPos' ).add_transformation( FT.output('x'), FT.output('y') )
+        mb.class_('Panel').member_functions( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        mb.class_('Panel').member_functions( 'GetBounds' ).add_transformation( FT.output('x'), FT.output('y'), FT.output('wide'), FT.output('tall') )
+        mb.member_functions( 'GetMinimumSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        mb.member_functions( 'LocalToScreen' ).add_transformation( FT.inout('x'), FT.inout('y') )
+        mb.member_functions( 'ScreenToLocal' ).add_transformation( FT.inout('x'), FT.inout('y') )
+        mb.member_functions( 'ParentLocalToScreen' ).add_transformation( FT.inout('x'), FT.inout('y') )
+        mb.member_functions( 'GetInset' ).add_transformation( FT.output('left'), FT.output('top'), FT.output('right'), FT.output('bottom') )
+        mb.member_functions( 'GetPaintSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        mb.member_functions( 'GetClipRect' ).add_transformation( FT.output('x0'), FT.output('y0'), FT.output('x1'), FT.output('y1') )
+        mb.member_functions( 'GetPinOffset' ).add_transformation( FT.output('dx'), FT.output('dy') )
+        mb.member_functions( 'GetResizeOffset' ).add_transformation( FT.output('dx'), FT.output('dy') )
+        mb.member_functions( 'GetCornerTextureSize' ).add_transformation( FT.output('w'), FT.output('h') )    
         
         # Exclude list
-        mb.mem_funs('QueryInterface').exclude()
+        mb.member_functions('QueryInterface').exclude()
         
         # We don't care about build mode, since we can easily reload modules in python
         # We also don't want the user to be able to call methods like Delete.
-        mb.mem_funs('IsBuildModeEditable').exclude()
-        mb.mem_funs('SetBuildModeEditable').exclude()
-        mb.mem_funs('IsBuildModeDeletable').exclude()
-        mb.mem_funs('SetBuildModeDeletable').exclude()
-        mb.mem_funs('IsBuildModeActive').exclude()
-        #mb.mem_funs('SetAutoDelete').exclude()
-        #mb.mem_funs('IsAutoDeleteSet').exclude()
-        mb.mem_funs('OnDelete').exclude()
-        mb.mem_funs('MarkForDeletion').exclude()
-        mb.mem_funs('SetBuildGroup').exclude()
-        mb.mem_funs('IsBuildGroupEnabled').exclude()
-        mb.mem_funs('CreateControlByName').exclude()
+        mb.member_functions('IsBuildModeEditable').exclude()
+        mb.member_functions('SetBuildModeEditable').exclude()
+        mb.member_functions('IsBuildModeDeletable').exclude()
+        mb.member_functions('SetBuildModeDeletable').exclude()
+        mb.member_functions('IsBuildModeActive').exclude()
+        #mb.member_functions('SetAutoDelete').exclude()
+        #mb.member_functions('IsAutoDeleteSet').exclude()
+        mb.member_functions('OnDelete').exclude()
+        mb.member_functions('MarkForDeletion').exclude()
+        mb.member_functions('SetBuildGroup').exclude()
+        mb.member_functions('IsBuildGroupEnabled').exclude()
+        mb.member_functions('CreateControlByName').exclude()
         
-        mb.mem_funs('LoadKeyBindings').exclude()
-        mb.mem_funs('SaveKeyBindingsToBuffer').exclude()
-        mb.mem_funs('LookupBoundKeys').exclude()
-        mb.mem_funs('OnKeyTyped').exclude()
-        mb.mem_funs('HasHotkey').exclude()
+        mb.member_functions('LoadKeyBindings').exclude()
+        mb.member_functions('SaveKeyBindingsToBuffer').exclude()
+        mb.member_functions('LookupBoundKeys').exclude()
+        mb.member_functions('OnKeyTyped').exclude()
+        mb.member_functions('HasHotkey').exclude()
 
-        mb.mem_funs('GetDragData').exclude()
+        mb.member_functions('GetDragData').exclude()
         if self.settings.branch == 'swarm':
-            mb.mem_funs('GetDragFailCursor').exclude()
-        mb.mem_funs('GetDropCursor').exclude()
-        mb.mem_funs('GetDropTarget').exclude()
-        mb.mem_funs('IsDroppable').exclude()
-        mb.mem_funs('OnPanelDropped').exclude()
-        mb.mem_funs('OnPanelEnteredDroppablePanel').exclude()
-        mb.mem_funs('OnPanelExitedDroppablePanel').exclude()
-        mb.mem_funs('OnDragFailed').exclude()
-        mb.mem_funs('OnDropContextHoverHide').exclude()
-        mb.mem_funs('OnDropContextHoverShow').exclude()
-        mb.mem_funs('OnDroppablePanelPaint').exclude()
-        mb.mem_funs('OnGetAdditionalDragPanels').exclude()
-        mb.mem_funs('OnDragFailed').exclude()
+            mb.member_functions('GetDragFailCursor').exclude()
+        mb.member_functions('GetDropCursor').exclude()
+        mb.member_functions('GetDropTarget').exclude()
+        mb.member_functions('IsDroppable').exclude()
+        mb.member_functions('OnPanelDropped').exclude()
+        mb.member_functions('OnPanelEnteredDroppablePanel').exclude()
+        mb.member_functions('OnPanelExitedDroppablePanel').exclude()
+        mb.member_functions('OnDragFailed').exclude()
+        mb.member_functions('OnDropContextHoverHide').exclude()
+        mb.member_functions('OnDropContextHoverShow').exclude()
+        mb.member_functions('OnDroppablePanelPaint').exclude()
+        mb.member_functions('OnGetAdditionalDragPanels').exclude()
+        mb.member_functions('OnDragFailed').exclude()
         
-        mb.vars('m_PanelMap').exclude()
-        mb.vars('m_MessageMap').exclude()
-        mb.mem_funs('GetPanelMap').exclude()
+        mb.variables('m_PanelMap').exclude()
+        mb.variables('m_MessageMap').exclude()
+        mb.member_functions('GetPanelMap').exclude()
         if self.settings.branch == 'source2013':
-            mb.mem_funs('GetChildren').exclude()
+            mb.member_functions('GetChildren').exclude()
        
         # Must use return_by_value. Then the converter will be used to wrap the vgui element in a safe handle
-        mb.mem_funs( 'GetChild' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'GetBorder' ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
+        mb.member_functions( 'GetChild' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'GetBorder' ).call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
         if self.settings.branch == 'source2007':
-            mb.mem_funs('GetBorderAtIndex').call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
-        mb.mem_funs( 'GetParent' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'FindSiblingByName' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'FindChildByName' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'HasHotkey' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'GetPanelWithKeyBindings' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'LookupBinding' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'LookupBindingByKeyCode' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'LookupDefaultKey' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'LookupMapForBinding' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'GetTooltip' ).call_policies = call_policies.return_internal_reference()  
-        mb.mem_funs( 'GetDragDropInfo' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'GetDragPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'GetPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'FindPanelAnimationEntry' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'FindDropTargetPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions('GetBorderAtIndex').call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
+        mb.member_functions( 'GetParent' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'FindSiblingByName' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'FindChildByName' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'HasHotkey' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'GetPanelWithKeyBindings' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'LookupBinding' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'LookupBindingByKeyCode' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'LookupDefaultKey' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'LookupMapForBinding' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'GetTooltip' ).call_policies = call_policies.return_internal_reference()  
+        mb.member_functions( 'GetDragDropInfo' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'GetDragPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'GetPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'FindPanelAnimationEntry' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'FindDropTargetPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         
         if self.settings.branch == 'swarm':
-            mb.mem_funs( 'GetNavDown' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'GetNavDownPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'GetNavLeft' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'GetNavLeftPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'GetNavRight' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'GetNavRightPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'GetNavUp' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'GetNavUpPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'NavigateDown' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'NavigateLeft' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'NavigateRight' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'NavigateTo' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'NavigateUp' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'SetNavDown' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'SetNavLeft' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'SetNavRight' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            mb.mem_funs( 'SetNavUp' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'GetNavDown' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'GetNavDownPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'GetNavLeft' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'GetNavLeftPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'GetNavRight' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'GetNavRightPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'GetNavUp' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'GetNavUpPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'NavigateDown' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'NavigateLeft' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'NavigateRight' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'NavigateTo' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'NavigateUp' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'SetNavDown' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'SetNavLeft' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'SetNavRight' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            mb.member_functions( 'SetNavUp' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
 
             # Exclude
-            mb.mem_funs('OnUnserialized').exclude()
-            mb.mem_funs('GetSizer').exclude()
-            mb.mem_funs('GetUnpackStructure').exclude()
+            mb.member_functions('OnUnserialized').exclude()
+            mb.member_functions('GetSizer').exclude()
+            mb.member_functions('GetUnpackStructure').exclude()
             
         if self.settings.branch == 'swarm':
             # Tooltip class
@@ -604,55 +604,55 @@ class VGUIControls(ClientModuleGenerator):
         ]
         mb.calldefs(calldef_withtypes(excludetypes), allow_empty=True).exclude()
         
-        mb.mem_funs( 'GetDialogVariables' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'GetDialogVariables' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
     def ParseFrame(self, mb):
         # List of overridables
-        mb.mem_funs('SetTitle').virtuality = 'virtual'
-        mb.mem_funs('Activate').virtuality = 'virtual'
-        mb.mem_funs('ActivateMinimized').virtuality = 'virtual'
-        mb.mem_funs('Close').virtuality = 'virtual'
-        mb.mem_funs('CloseModal').virtuality = 'virtual'
-        mb.mem_funs('SetMoveable').virtuality = 'virtual'
-        mb.mem_funs('SetSizeable').virtuality = 'virtual'
-        mb.mem_funs('SetMenuButtonVisible').virtuality = 'virtual'
-        mb.mem_funs('SetMinimizeButtonVisible').virtuality = 'virtual'
-        mb.mem_funs('SetMaximizeButtonVisible').virtuality = 'virtual'
-        mb.mem_funs('SetMinimizeToSysTrayButtonVisible').virtuality = 'virtual'
-        mb.mem_funs('SetCloseButtonVisible').virtuality = 'virtual'
-        mb.mem_funs('FlashWindow').virtuality = 'virtual'
-        mb.mem_funs('FlashWindowStop').virtuality = 'virtual'
-        mb.mem_funs('SetTitleBarVisible').virtuality = 'virtual'
-        mb.mem_funs('SetClipToParent').virtuality = 'virtual'
-        mb.mem_funs('SetSmallCaption').virtuality = 'virtual'
-        mb.mem_funs('DoModal').virtuality = 'virtual'
-        mb.mem_funs('OnClose').virtuality = 'virtual'
-        mb.mem_funs('OnFinishedClose').virtuality = 'virtual'
-        mb.mem_funs('OnMinimize').virtuality = 'virtual'
-        mb.mem_funs('OnMinimizeToSysTray').virtuality = 'virtual'
-        mb.mem_funs('OnCloseFrameButtonPressed').virtuality = 'virtual'
-        mb.mem_funs('GetDefaultScreenPosition').virtuality = 'virtual'
-        mb.mem_funs('OnCloseFrameButtonPressed').virtuality = 'virtual'
-        mb.mem_funs('OnCloseFrameButtonPressed').virtuality = 'virtual'
-        mb.mem_funs('OnCloseFrameButtonPressed').virtuality = 'virtual'
-        mb.mem_funs('OnCloseFrameButtonPressed').virtuality = 'virtual'
-        mb.mem_funs('OnCloseFrameButtonPressed').virtuality = 'virtual'
-        mb.mem_funs('OnCloseFrameButtonPressed').virtuality = 'virtual'
+        mb.member_functions('SetTitle').virtuality = 'virtual'
+        mb.member_functions('Activate').virtuality = 'virtual'
+        mb.member_functions('ActivateMinimized').virtuality = 'virtual'
+        mb.member_functions('Close').virtuality = 'virtual'
+        mb.member_functions('CloseModal').virtuality = 'virtual'
+        mb.member_functions('SetMoveable').virtuality = 'virtual'
+        mb.member_functions('SetSizeable').virtuality = 'virtual'
+        mb.member_functions('SetMenuButtonVisible').virtuality = 'virtual'
+        mb.member_functions('SetMinimizeButtonVisible').virtuality = 'virtual'
+        mb.member_functions('SetMaximizeButtonVisible').virtuality = 'virtual'
+        mb.member_functions('SetMinimizeToSysTrayButtonVisible').virtuality = 'virtual'
+        mb.member_functions('SetCloseButtonVisible').virtuality = 'virtual'
+        mb.member_functions('FlashWindow').virtuality = 'virtual'
+        mb.member_functions('FlashWindowStop').virtuality = 'virtual'
+        mb.member_functions('SetTitleBarVisible').virtuality = 'virtual'
+        mb.member_functions('SetClipToParent').virtuality = 'virtual'
+        mb.member_functions('SetSmallCaption').virtuality = 'virtual'
+        mb.member_functions('DoModal').virtuality = 'virtual'
+        mb.member_functions('OnClose').virtuality = 'virtual'
+        mb.member_functions('OnFinishedClose').virtuality = 'virtual'
+        mb.member_functions('OnMinimize').virtuality = 'virtual'
+        mb.member_functions('OnMinimizeToSysTray').virtuality = 'virtual'
+        mb.member_functions('OnCloseFrameButtonPressed').virtuality = 'virtual'
+        mb.member_functions('GetDefaultScreenPosition').virtuality = 'virtual'
+        mb.member_functions('OnCloseFrameButtonPressed').virtuality = 'virtual'
+        mb.member_functions('OnCloseFrameButtonPressed').virtuality = 'virtual'
+        mb.member_functions('OnCloseFrameButtonPressed').virtuality = 'virtual'
+        mb.member_functions('OnCloseFrameButtonPressed').virtuality = 'virtual'
+        mb.member_functions('OnCloseFrameButtonPressed').virtuality = 'virtual'
+        mb.member_functions('OnCloseFrameButtonPressed').virtuality = 'virtual'
         
-        mb.mem_funs('SetDeleteSelfOnClose').exclude()
-        mb.mem_funs('GetSysMenu').exclude()
+        mb.member_functions('SetDeleteSelfOnClose').exclude()
+        mb.member_functions('GetSysMenu').exclude()
         
-        mb.mem_funs( 'GetDefaultScreenPosition' ).add_transformation( FT.output('x'), FT.output('y'), FT.output('wide'), FT.output('tall') ) 
-        mb.mem_funs( 'GetClientArea' ).add_transformation( FT.output('x'), FT.output('y'), FT.output('wide'), FT.output('tall') ) 
+        mb.member_functions( 'GetDefaultScreenPosition' ).add_transformation( FT.output('x'), FT.output('y'), FT.output('wide'), FT.output('tall') ) 
+        mb.member_functions( 'GetClientArea' ).add_transformation( FT.output('x'), FT.output('y'), FT.output('wide'), FT.output('tall') ) 
 
     def ScrollBar(self, mb):
-        mb.mem_funs( 'GetButton' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        mb.mem_funs( 'GetSlider' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'GetButton' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions( 'GetSlider' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
-        mb.mem_funs( 'GetRange' ).add_transformation( FT.output('min'), FT.output('max') ) 
+        mb.member_functions( 'GetRange' ).add_transformation( FT.output('min'), FT.output('max') ) 
 
         # ScrollBarSlider
-        mb.mem_funs( 'GetNobPos' ).add_transformation( FT.output('min'), FT.output('max') ) 
+        mb.member_functions( 'GetNobPos' ).add_transformation( FT.output('min'), FT.output('max') ) 
     
     def ParseAnimationController(self, mb):
         # Make empty, don't care
@@ -662,25 +662,25 @@ class VGUIControls(ClientModuleGenerator):
     
     def ParseTextEntry(self, mb):
         # List of overridables
-        mb.mem_funs('SetText').virtuality = 'virtual'
-        mb.mem_funs('MoveCursor').virtuality = 'virtual'
-        mb.mem_funs('SetDisabledBgColor').virtuality = 'virtual'
-        mb.mem_funs('SetMultiline').virtuality = 'virtual'
-        mb.mem_funs('SetVerticalScrollbar').virtuality = 'virtual'
+        mb.member_functions('SetText').virtuality = 'virtual'
+        mb.member_functions('MoveCursor').virtuality = 'virtual'
+        mb.member_functions('SetDisabledBgColor').virtuality = 'virtual'
+        mb.member_functions('SetMultiline').virtuality = 'virtual'
+        mb.member_functions('SetVerticalScrollbar').virtuality = 'virtual'
 
         #
-        mb.mem_funs('GetEditMenu').exclude()        # Exclude for now, add back later when we found out call policies.
+        mb.member_functions('GetEditMenu').exclude()        # Exclude for now, add back later when we found out call policies.
         
-        mb.mem_funs( 'GetSelectedRange' ).add_transformation( FT.output('cx0'), FT.output('cx1') )   
-        mb.mem_funs( 'CursorToPixelSpace' ).add_transformation( FT.inout('cx'), FT.inout('cy') ) 
-        mb.mem_funs( 'AddAnotherLine' ).add_transformation( FT.output('cx'), FT.output('cy') ) 
-        mb.mem_funs( 'GetStartDrawIndex' ).add_transformation( FT.output('lineBreakIndexIndex') )
+        mb.member_functions( 'GetSelectedRange' ).add_transformation( FT.output('cx0'), FT.output('cx1') )   
+        mb.member_functions( 'CursorToPixelSpace' ).add_transformation( FT.inout('cx'), FT.inout('cy') ) 
+        mb.member_functions( 'AddAnotherLine' ).add_transformation( FT.output('cx'), FT.output('cy') ) 
+        mb.member_functions( 'GetStartDrawIndex' ).add_transformation( FT.output('lineBreakIndexIndex') )
         
         charstrexcludetypes = [pointer_t(const_t(declarated_t(char_t())))]
         
         # Wrap GetText manual
         cls = mb.class_('TextEntry')
-        cls.mem_funs('GetText').exclude()
+        cls.member_functions('GetText').exclude()
         cls.add_wrapper_code(
             'boost::python::object GetText() {\r\n' + \
             '    const char *buf = (const char *)malloc( (GetTextLength()+1)*sizeof(char) );\r\n' + \
@@ -705,7 +705,7 @@ class VGUIControls(ClientModuleGenerator):
         cls.calldefs(name='SetText', function=calldef_withtypes(charstrexcludetypes)).exclude()
         cls.calldefs(name='InsertString', function=calldef_withtypes(charstrexcludetypes)).exclude()
         if self.settings.branch == 'swarm':
-            mb.mem_funs('GetScrollBar').exclude()
+            mb.member_functions('GetScrollBar').exclude()
         
     def TestBasePanel(self, cls):
         basepanelcls = self.basepanelcls
@@ -733,7 +733,7 @@ class VGUIControls(ClientModuleGenerator):
         #self.ParseMisc(mb)
         
         # Should already be included, but is for some reason not...
-        mb.mem_funs('SetControlEnabled').include()
+        mb.member_functions('SetControlEnabled').include()
         
         # Anything that returns a Panel should be returned by Value to call the right converter
         testinherit = MatcherTestInheritClass(mb.class_('Panel'))

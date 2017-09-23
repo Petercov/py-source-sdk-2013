@@ -79,8 +79,8 @@ class GameInterface(SemiSharedModuleGenerator):
         cls = mb.class_('PyConVar')
         cls.include()
         cls.rename('ConVar')
-        cls.mem_funs().virtuality = 'not virtual'
-        cls.mem_fun('Shutdown').exclude()
+        cls.member_functions().virtuality = 'not virtual'
+        cls.member_function('Shutdown').exclude()
         
         mb.free_function('PyShutdownConVar').include()
         mb.free_function('PyShutdownConCommand').include()
@@ -150,14 +150,14 @@ class GameInterface(SemiSharedModuleGenerator):
 
         # ConVarRef
         mb.class_('ConVarRef').include()
-        mb.mem_funs('GetLinkedConVar').exclude()
+        mb.member_functions('GetLinkedConVar').exclude()
         
         # CCommand
         cls = mb.class_('CCommand')
         cls.include()
-        cls.mem_funs('Tokenize').exclude()
-        cls.mem_funs('ArgV').exclude()
-        cls.mem_funs('DefaultBreakSet').exclude()
+        cls.member_functions('Tokenize').exclude()
+        cls.member_functions('ArgV').exclude()
+        cls.member_functions('DefaultBreakSet').exclude()
         
         cls.add_registration_code(
          '''def( 
@@ -168,12 +168,12 @@ class GameInterface(SemiSharedModuleGenerator):
         cls = mb.class_('PyConCommand')
         cls.include()
         cls.rename('ConCommand')
-        cls.var('m_pyCommandCallback').exclude()         # Must be excluded, or else things get broken without errors/warnings!
-        cls.mem_funs('Dispatch').exclude()               # Must be excluded, or else things get broken without errors/warnings!
-        cls.mem_funs('AutoCompleteSuggest').exclude()
+        cls.variable('m_pyCommandCallback').exclude()         # Must be excluded, or else things get broken without errors/warnings!
+        cls.member_functions('Dispatch').exclude()               # Must be excluded, or else things get broken without errors/warnings!
+        cls.member_functions('AutoCompleteSuggest').exclude()
         
         # Virtuality screws up ConCommand. 
-        cls.mem_funs().virtuality = 'not virtual' 
+        cls.member_functions().virtuality = 'not virtual' 
         
         # Sending messages
         if self.isserver:
@@ -182,16 +182,16 @@ class GameInterface(SemiSharedModuleGenerator):
             
         # filters
         mb.class_('IRecipientFilter').include()
-        mb.class_('IRecipientFilter').mem_funs().virtuality = 'not virtual' 
+        mb.class_('IRecipientFilter').member_functions().virtuality = 'not virtual' 
         if self.isserver:
             mb.class_('CRecipientFilter').include()
-            mb.class_('CRecipientFilter').mem_funs().virtuality = 'not virtual' 
+            mb.class_('CRecipientFilter').member_functions().virtuality = 'not virtual' 
         else:
             mb.class_('C_RecipientFilter').include()
-            mb.class_('C_RecipientFilter').mem_funs().virtuality = 'not virtual' 
+            mb.class_('C_RecipientFilter').member_functions().virtuality = 'not virtual' 
             
             mb.class_('CLocalPlayerFilter').include()
-            #mb.class_('CLocalPlayerFilter').mem_funs().virtuality = 'not virtual' 
+            #mb.class_('CLocalPlayerFilter').member_functions().virtuality = 'not virtual' 
             
         # Shared filters
         mb.class_('CSingleUserRecipientFilter').include()
@@ -204,14 +204,14 @@ class GameInterface(SemiSharedModuleGenerator):
         # Gameevents
         mb.class_('PyGameEventListener').include()
         mb.class_('PyGameEventListener').rename('GameEventListener')
-        mb.class_('PyGameEventListener').mem_fun('PyFireGameEvent').rename('FireGameEvent')
+        mb.class_('PyGameEventListener').member_function('PyFireGameEvent').rename('FireGameEvent')
         mb.class_('PyGameEventListener').add_registration_code('def( "ListenForGameEvent", (void ( ::PyGameEventListener::* )( char const * ) )( &::PyGameEventListener::ListenForGameEvent ), bp::arg("name") ) ')
         mb.class_('PyGameEventListener').add_registration_code('def( "StopListeningForAllEvents", (void ( ::PyGameEventListener::* )() )( &::PyGameEventListener::StopListeningForAllEvents ) ) ')
         
         mb.class_('PyGameEvent').include()
         mb.class_('PyGameEvent').rename('GameEvent')
-        mb.class_('PyGameEvent').mem_fun('Init').exclude()
-        mb.class_('PyGameEvent').mem_fun('GetEvent').exclude()
+        mb.class_('PyGameEvent').member_function('Init').exclude()
+        mb.class_('PyGameEvent').member_function('GetEvent').exclude()
         
         if self.isserver:
             mb.free_function('PyFireGameEvent').include()
@@ -233,12 +233,12 @@ class GameInterface(SemiSharedModuleGenerator):
             cls = mb.class_('dheader_t')
         cls.include()
         if self.settings.branch == 'swarm':
-            cls.var('m_nVersion').rename('version')
-        cls.var('mapRevision').rename('maprevision')
+            cls.variable('m_nVersion').rename('version')
+        cls.variable('mapRevision').rename('maprevision')
         
         mb.class_('lump_t').include()
-        mb.mem_funs('GetBaseMap').exclude()
-        mb.vars('m_DataMap').exclude()
+        mb.member_functions('GetBaseMap').exclude()
+        mb.variables('m_DataMap').exclude()
         
         # Content mounting
         mb.free_function('PyAddSearchPath').include()
@@ -248,25 +248,25 @@ class GameInterface(SemiSharedModuleGenerator):
         mb.free_function('PyGetSearchPath').include()
         mb.free_function('PyGetSearchPath').rename('GetSearchPath')
         
-        mb.enum('SearchPathAdd_t').include()
-        mb.enum('FilesystemMountRetval_t').include()
+        mb.enumeration('SearchPathAdd_t').include()
+        mb.enumeration('FilesystemMountRetval_t').include()
         
         # GameSystem
         mb.class_('CBaseGameSystem').include()
         mb.class_('CBaseGameSystemPerFrame').include()
         mb.class_('CAutoGameSystem').include()
         mb.class_('CAutoGameSystemPerFrame').include()
-        mb.mem_funs('IsPerFrame').virtuality = 'not virtual' 
-        mb.mem_funs('SafeRemoveIfDesired').virtuality = 'not virtual'
+        mb.member_functions('IsPerFrame').virtuality = 'not virtual' 
+        mb.member_functions('SafeRemoveIfDesired').virtuality = 'not virtual'
         mb.class_('CAutoGameSystem').rename('AutoGameSystem')
         mb.class_('CAutoGameSystemPerFrame').rename('AutoGameSystemPerFrame')
         
         cls = mb.class_('IGameSystem')
         cls.include()
-        cls.mem_funs().virtuality = 'not virtual' 
+        cls.member_functions().virtuality = 'not virtual' 
         if self.isserver:
-            cls.mem_funs('RunCommandPlayer').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-            cls.mem_funs('RunCommandUserCmd').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            cls.member_functions('RunCommandPlayer').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            cls.member_functions('RunCommandUserCmd').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
             
         # Engine
         if self.isserver:
@@ -277,13 +277,13 @@ class GameInterface(SemiSharedModuleGenerator):
             cls = mb.class_('PyVEngineClient')
             cls.rename('VEngineClient')
             cls.include()
-            cls.mem_funs('LoadModel').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            cls.member_functions('LoadModel').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         mb.add_registration_code( "bp::scope().attr( \"engine\" ) = boost::ref(pyengine);" )   
         
         # Command line access
         cls = mb.class_('ICommandLine')
         cls.include()
-        cls.mem_funs().virtuality = 'not virtual'
+        cls.member_functions().virtuality = 'not virtual'
         
         if self.settings.branch == 'swarm':
             mb.free_function('CommandLine').include()
@@ -297,8 +297,8 @@ class GameInterface(SemiSharedModuleGenerator):
         cls = mb.class_('PyVModelInfo')
         cls.rename('VModelInfo')
         cls.include()
-        cls.mem_funs('GetModel').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-        cls.mem_funs('FindOrLoadModel').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        cls.member_functions('GetModel').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        cls.member_functions('FindOrLoadModel').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         mb.add_registration_code( "bp::scope().attr( \"modelinfo\" ) = boost::ref(pymodelinfo);" )   
         
         if self.isserver:
@@ -307,7 +307,7 @@ class GameInterface(SemiSharedModuleGenerator):
             
             cls = mb.class_('IMapEntityFilter')
             cls.include()
-            cls.mem_fun('CreateNextEntity').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            cls.member_function('CreateNextEntity').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
             
             mb.class_('CMapEntityRef').include()
             mb.free_function('PyGetMapEntityRef').include()
@@ -320,24 +320,24 @@ class GameInterface(SemiSharedModuleGenerator):
             # Edicts
             cls = mb.class_('edict_t')
             cls.include()
-            cls.mem_fun('GetCollideable').exclude()
+            cls.member_function('GetCollideable').exclude()
             
             # Event queue
             mb.free_function('ServiceEventQueue').include()
             
             cls = mb.class_('CServerGameDLL')
             cls.include()
-            cls.mem_funs().virtuality = 'not virtual'
-            cls.mem_fun('SaveReadFields').exclude()
-            cls.mem_fun('SaveWriteFields').exclude()
+            cls.member_functions().virtuality = 'not virtual'
+            cls.member_function('SaveReadFields').exclude()
+            cls.member_function('SaveWriteFields').exclude()
             
             if self.settings.branch == 'swarm':
-                cls.mem_fun('FindLaunchOptionByValue').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+                cls.member_function('FindLaunchOptionByValue').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
             if self.settings.branch == 'source2013':
-                cls.mem_fun('GetServerGCLobby').exclude()
-            cls.mem_fun('GetAllServerClasses').exclude()
-            cls.mem_fun('GetStandardSendProxies').exclude()
-            cls.mem_fun('SaveInit').exclude()
+                cls.member_function('GetServerGCLobby').exclude()
+            cls.member_function('GetAllServerClasses').exclude()
+            cls.member_function('GetStandardSendProxies').exclude()
+            cls.member_function('SaveInit').exclude()
             
             mb.add_declaration_code('extern CServerGameDLL g_ServerGameDLL;')
             mb.add_registration_code("bp::scope().attr( \"servergamedll\" ) = boost::ref(g_ServerGameDLL);")
@@ -345,10 +345,10 @@ class GameInterface(SemiSharedModuleGenerator):
         if self.isclient:
             cls = mb.class_('CClientSteamContext')
             cls.include()
-            cls.mem_fun('InstallCallback').exclude()
-            cls.mem_fun('RemoveCallback').exclude()
-            cls.mem_fun('Activate').exclude()
-            cls.mem_fun('Shutdown').exclude()
+            cls.member_function('InstallCallback').exclude()
+            cls.member_function('RemoveCallback').exclude()
+            cls.member_function('Activate').exclude()
+            cls.member_function('Shutdown').exclude()
             
             mb.free_function('ClientSteamContext').include()
             mb.free_function('ClientSteamContext').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
@@ -359,7 +359,7 @@ class GameInterface(SemiSharedModuleGenerator):
         cls.rename('model_t')
         cls.calldefs('wrap_model_t').exclude()
         cls.no_init = True
-        cls.vars('pModel').exclude()
+        cls.variables('pModel').exclude()
 
         mb.add_registration_code( "ptr_model_t_to_wrap_model_t();" )
         mb.add_registration_code( "const_ptr_model_t_to_wrap_model_t();" )

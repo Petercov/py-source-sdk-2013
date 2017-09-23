@@ -27,17 +27,17 @@ class Physics(SemiSharedModuleGenerator):
         cls.rename('PhysicsObject')
         cls.include()
         cls.calldefs().virtuality = 'not virtual'   
-        cls.mem_funs('Cmp').rename('__cmp__')
-        cls.mem_funs('NonZero').rename('__nonzero__')
-        cls.mem_funs('Bool').rename('__bool__')
+        cls.member_functions('Cmp').rename('__cmp__')
+        cls.member_functions('NonZero').rename('__nonzero__')
+        cls.member_functions('Bool').rename('__bool__')
         
-        cls.mem_fun('CheckValid').exclude()
-        cls.mem_funs('GetPySelf').exclude()  
+        cls.member_function('CheckValid').exclude()
+        cls.member_functions('GetPySelf').exclude()  
         cls.add_wrapper_code('virtual PyObject *GetPySelf() const { return boost::python::detail::wrapper_base_::get_owner(*this); }')
         
-        cls.mem_funs('SetEntity').exclude()
-        cls.mem_funs('GetVPhysicsObject').exclude()
-        cls.mem_funs('InitFromPhysicsObject').exclude()
+        cls.member_functions('SetEntity').exclude()
+        cls.member_functions('GetVPhysicsObject').exclude()
+        cls.member_functions('InitFromPhysicsObject').exclude()
         
         mb.add_registration_code( "ptr_IPhysicsObject_to_PyPhysicsObject();" )
         mb.add_registration_code( "const_ptr_IPhysicsObject_to_PyPhysicsObject();" )
@@ -48,10 +48,10 @@ class Physics(SemiSharedModuleGenerator):
         cls.rename('PhysicsShadowController')
         cls.include()
         cls.calldefs().virtuality = 'not virtual'   
-        cls.mem_fun('CheckValid').exclude()
-        cls.mem_funs('Cmp').rename('__cmp__')
-        cls.mem_funs('NonZero').rename('__nonzero__')
-        cls.mem_funs('Bool').rename('__bool__')
+        cls.member_function('CheckValid').exclude()
+        cls.member_functions('Cmp').rename('__cmp__')
+        cls.member_functions('NonZero').rename('__nonzero__')
+        cls.member_functions('Bool').rename('__bool__')
         
     def ParsePhysicCollision(self, mb):
         cls = mb.class_('PyPhysicsCollision')
@@ -102,20 +102,20 @@ class Physics(SemiSharedModuleGenerator):
         cls.include()
         cls.no_init = True
         cls.calldefs().virtuality = 'not virtual' 
-        cls.mem_funs('GetCollisionModel').call_policies = call_policies.return_value_policy( call_policies.return_by_value )  
-        cls.mem_funs('GetRootParentToWorldTransform').call_policies = call_policies.return_value_policy( call_policies.return_by_value )  
-        cls.mem_funs('GetOuter').call_policies = call_policies.return_value_policy( call_policies.return_by_value )  
+        cls.member_functions('GetCollisionModel').call_policies = call_policies.return_value_policy( call_policies.return_by_value )  
+        cls.member_functions('GetRootParentToWorldTransform').call_policies = call_policies.return_value_policy( call_policies.return_by_value )  
+        cls.member_functions('GetOuter').call_policies = call_policies.return_value_policy( call_policies.return_by_value )  
 
-        mb.mem_funs('GetEntityHandle').exclude()
-        mb.mem_funs('GetIClientUnknown').exclude()
-        mb.mem_funs('GetBaseMap').exclude()
-        mb.mem_funs('GetDataDescMap').exclude()
-        #mb.mem_funs('Init').exclude()
+        mb.member_functions('GetEntityHandle').exclude()
+        mb.member_functions('GetIClientUnknown').exclude()
+        mb.member_functions('GetBaseMap').exclude()
+        mb.member_functions('GetDataDescMap').exclude()
+        #mb.member_functions('Init').exclude()
         if self.isclient:
-            mb.mem_funs('GetPredDescMap').exclude()
-            mb.vars('m_PredMap').exclude()
+            mb.member_functions('GetPredDescMap').exclude()
+            mb.variables('m_PredMap').exclude()
             
-        mb.enum('SurroundingBoundsType_t').include()
+        mb.enumeration('SurroundingBoundsType_t').include()
             
         # PyPhysicsSurfaceProps
         mb.class_('surfacedata_t').include()

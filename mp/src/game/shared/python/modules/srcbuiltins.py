@@ -24,41 +24,41 @@ class SrcBuiltins(SharedModuleGenerator):
         cls.no_init = True # Destructor is private + new operator is overloaded = problems. Write a wrapper class
         cls.rename('RealKeyValues')
         cls.calldefs('KeyValues').exclude() # No constructors   
-        cls.mem_opers('=').exclude() # Breaks debug mode and don't really need it
-        mb.enum('types_t').include()
+        cls.member_operators('=').exclude() # Breaks debug mode and don't really need it
+        mb.enumeration('types_t').include()
         
         # Wrapper class that should be used as KeyValues in python
         cls = mb.class_('PyKeyValues')
         cls.include()
         cls.rename('KeyValues')
-        cls.mem_opers('=').exclude() # Breaks debug mode and don't really need it
+        cls.member_operators('=').exclude() # Breaks debug mode and don't really need it
         cls.add_registration_code('g_PyKeyValuesType = (PyTypeObject *)KeyValues_exposer.ptr();', False)
 
-        #mb.mem_funs('GetRawKeyValues').exclude()
-        mb.mem_funs('GetRawKeyValues').call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
-        mb.mem_funs('GetRawKeyValues').rename('__GetRawKeyValues')
+        #mb.member_functions('GetRawKeyValues').exclude()
+        mb.member_functions('GetRawKeyValues').call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
+        mb.member_functions('GetRawKeyValues').rename('__GetRawKeyValues')
         
         # Call policies <- by value means use the converter
-        mb.mem_funs('MakeCopy').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
-        mb.mem_funs('CreateNewKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
-        mb.mem_funs('FindKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
-        mb.mem_funs('GetFirstSubKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
-        mb.mem_funs('GetNextKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
-        mb.mem_funs('GetFirstTrueSubKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
-        mb.mem_funs('GetNextTrueSubKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
-        mb.mem_funs('GetFirstValue').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
-        mb.mem_funs('CreateKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
-        mb.mem_funs('GetNextValue').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions('MakeCopy').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+        mb.member_functions('CreateNewKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+        mb.member_functions('FindKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+        mb.member_functions('GetFirstSubKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+        mb.member_functions('GetNextKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+        mb.member_functions('GetFirstTrueSubKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+        mb.member_functions('GetNextTrueSubKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+        mb.member_functions('GetFirstValue').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+        mb.member_functions('CreateKey').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+        mb.member_functions('GetNextValue').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         if self.settings.branch == 'swarm':
-            mb.mem_funs('FromString').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
+            mb.member_functions('FromString').call_policies = call_policies.return_value_policy(call_policies.return_by_value)  
         
         mb.free_function('KeyValuesDumpAsDevMsg').include()
         
         # Exclude vars we don't need
-        mb.vars('m_sValue').exclude()
-        mb.vars('m_wsValue').exclude()
-        mb.vars('m_pValue').exclude()
-        mb.vars('m_Color').exclude()
+        mb.variables('m_sValue').exclude()
+        mb.variables('m_wsValue').exclude()
+        mb.variables('m_pValue').exclude()
+        mb.variables('m_Color').exclude()
         
         # Add converter
         mb.add_registration_code( "ptr_keyvalues_to_py_keyvalues();" )
@@ -95,12 +95,12 @@ class SrcBuiltins(SharedModuleGenerator):
         # Include classes for redirecting output (replace stdout and stderr)
         cls = mb.class_('SrcPyStdOut')
         cls.include()
-        cls.mem_fun('encoding').exclude()
-        cls.add_property('encoding', cls.mem_fun('encoding'))
+        cls.member_function('encoding').exclude()
+        cls.add_property('encoding', cls.member_function('encoding'))
         cls = mb.class_('SrcPyStdErr')
         cls.include()
-        cls.mem_fun('encoding').exclude()
-        cls.add_property('encoding', cls.mem_fun('encoding'))
+        cls.member_function('encoding').exclude()
+        cls.add_property('encoding', cls.member_function('encoding'))
         
         # Debug logging
         mb.free_function('PyCOM_TimestampedLog').include()
@@ -120,13 +120,13 @@ class SrcBuiltins(SharedModuleGenerator):
         # Color classes
         cls = mb.class_('Color')
         cls.include()
-        cls.mem_funs('GetColor').add_transformation( FT.output('_r'), FT.output('_g'), FT.output('_b'), FT.output('_a') )
-        cls.mem_opers('=').exclude() # Breaks debug mode and don't really need it
+        cls.member_functions('GetColor').add_transformation( FT.output('_r'), FT.output('_g'), FT.output('_b'), FT.output('_a') )
+        cls.member_operators('=').exclude() # Breaks debug mode and don't really need it
         
         cls = mb.class_('color32_s')
         cls.include()
         cls.rename('color32')
-        cls.mem_funs(allow_empty=True).exclude()
+        cls.member_functions(allow_empty=True).exclude()
         
         if self.settings.branch == 'swarm':
             # Used by GetRenderColor in Swarm branch
@@ -138,7 +138,7 @@ class SrcBuiltins(SharedModuleGenerator):
         # Global Vars Class
         mb.class_('CGlobalVarsBase').include()
         mb.class_('CGlobalVars').include()
-        mb.vars('pSaveData').exclude()
+        mb.variables('pSaveData').exclude()
         
         # Useful free functions
         mb.free_function('IsSolid').include()

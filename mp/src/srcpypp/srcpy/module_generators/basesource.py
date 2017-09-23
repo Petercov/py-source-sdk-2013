@@ -6,7 +6,7 @@ from . basegenerator import ModuleGenerator
 from .. src_module_builder import src_module_builder_t
 from .. matchers import MatcherTestInheritClass
 from pyplusplus.module_builder import call_policies
-from pygccxml.declarations import matchers, pointer_t, reference_t, const_t, declarated_t, void_t, compound_t
+from pygccxml.declarations import calldef_matcher_t, matchers, pointer_t, reference_t, const_t, declarated_t, void_t, compound_t
 
 
 class ReqFile(object):
@@ -153,7 +153,7 @@ class SourceModuleGenerator(ModuleGenerator):
     # Applies common rules to code
     def ApplyCommonRules(self, mb):
         # Common function added for getting the "PyObject" of an entity
-        mb.mem_funs('GetPySelf').exclude()
+        mb.member_functions('GetPySelf').exclude()
         
         ihandleentity = mb.class_('IHandleEntity')
         
@@ -178,16 +178,16 @@ class SourceModuleGenerator(ModuleGenerator):
         
         # Anything returning KeyValues should be returned by value so it calls the converter
         keyvalues = mb.class_('KeyValues')
-        mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(keyvalues))), allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-        mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(const_t(declarated_t(keyvalues)))), allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        mb.calldefs(calldef_matcher_t(return_type=pointer_t(declarated_t(keyvalues))), allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        mb.calldefs(calldef_matcher_t(return_type=pointer_t(const_t(declarated_t(keyvalues)))), allow_empty=True).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         
         # Anything returning a void pointer is excluded by default
-        mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(declarated_t(void_t()))), allow_empty=True).exclude()
-        mb.calldefs(matchers.calldef_matcher_t(return_type=pointer_t(const_t(declarated_t(void_t())))), allow_empty=True).exclude()
+        mb.calldefs(calldef_matcher_t(return_type=pointer_t(declarated_t(void_t()))), allow_empty=True).exclude()
+        mb.calldefs(calldef_matcher_t(return_type=pointer_t(const_t(declarated_t(void_t())))), allow_empty=True).exclude()
         
     def PythonfyVariables(self, cls):
         ''' Removes prefixes from variable names and lower cases the variable. '''
-        for var in cls.vars(allow_empty=True):
+        for var in cls.variables(allow_empty=True):
             varname = var.name
             varname = re.sub('^(m_ul|m_un|m_us|m_n|m_e|m_E|m_i|m_b|m_c|m_rgf|m_sz|m_v)', '', varname)
             varname = re.sub('^(m_)', '', varname)

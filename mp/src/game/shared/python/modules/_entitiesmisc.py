@@ -54,12 +54,12 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         # Creating a client class
         cls =  mb.class_('NetworkedClass')
         cls.include()
-        cls.vars('m_pClientClass').exclude()
+        cls.variables('m_pClientClass').exclude()
         
         cls = self.IncludeEmptyClass(mb, 'ClientClass')
         cls.no_init = True
         cls.calldefs('ClientClass').exclude()
-        cls.mem_fun('GetName').include() # For debugging purposes
+        cls.member_function('GetName').include() # For debugging purposes
         
         # Client Entity List
         cls = mb.class_('CClientEntityList')
@@ -67,21 +67,21 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         cls.calldefs().virtuality = 'not virtual'
         cls.no_init = True
 
-        cls.mem_funs().exclude()
+        cls.member_functions().exclude()
         
-        cls.mem_fun('NumberOfEntities').include()
-        cls.mem_fun('GetHighestEntityIndex').include()
-        cls.mem_fun('GetBaseEntity').include()
-        cls.mem_fun('GetBaseEntity').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_fun('GetBaseEntityFromHandle').include()
-        cls.mem_fun('GetBaseEntityFromHandle').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_fun('EntIndexToHandle').include()
-        cls.mem_fun('HandleToEntIndex').include()
-        cls.mem_fun('IsHandleValid').include()
-        cls.mem_fun('FirstBaseEntity').include()
-        cls.mem_fun('FirstBaseEntity').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_fun('NextBaseEntity').include()
-        cls.mem_fun('NextBaseEntity').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_function('NumberOfEntities').include()
+        cls.member_function('GetHighestEntityIndex').include()
+        cls.member_function('GetBaseEntity').include()
+        cls.member_function('GetBaseEntity').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_function('GetBaseEntityFromHandle').include()
+        cls.member_function('GetBaseEntityFromHandle').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_function('EntIndexToHandle').include()
+        cls.member_function('HandleToEntIndex').include()
+        cls.member_function('IsHandleValid').include()
+        cls.member_function('FirstBaseEntity').include()
+        cls.member_function('FirstBaseEntity').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_function('NextBaseEntity').include()
+        cls.member_function('NextBaseEntity').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
 
         mb.free_function('ClientEntityList').include()
         mb.free_function('ClientEntityList').call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
@@ -100,9 +100,9 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         # Client only structs
         cls = mb.class_('SpatializationInfo_t')
         cls.include()
-        cls.var('pOrigin').exclude()
-        cls.var('pAngles').exclude()
-        cls.var('pflRadius').exclude()
+        cls.variable('pOrigin').exclude()
+        cls.variable('pAngles').exclude()
+        cls.variable('pflRadius').exclude()
         
     def ParseServerEntityRelated(self, mb):
         # PyEntityFactory    
@@ -116,12 +116,12 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         # Creating a server class
         cls = mb.class_('NetworkedClass')
         cls.include()
-        cls.vars('m_pServerClass').exclude()
+        cls.variables('m_pServerClass').exclude()
         
         cls = self.IncludeEmptyClass(mb, 'ServerClass')
         cls.no_init = True
         cls.calldefs('ServerClass').exclude()
-        cls.mem_fun('GetName').include() # For debugging purposes
+        cls.member_function('GetName').include() # For debugging purposes
         
         self.IncludeEmptyClass(mb, 'SendTable')
 
@@ -130,31 +130,31 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         cls.include()
         cls.no_init = True
         cls.calldefs().exclude()
-        cls.vars().exclude()
-        cls.mem_fun('NetworkStateChanged').include()
+        cls.variables().exclude()
+        cls.member_function('NetworkStateChanged').include()
         
         cls = mb.class_('CPythonNetworkVar')
         cls.include()
         cls.rename('NetworkVarInternal') 
-        cls.mem_funs('Str').rename('__str__')
-        cls.mem_funs('NetworkVarsUpdateClient').exclude()
+        cls.member_functions('Str').rename('__str__')
+        cls.member_functions('NetworkVarsUpdateClient').exclude()
 
         cls = mb.class_('CPythonNetworkArray')
         cls.include()
         cls.rename('NetworkArrayInternal') 
-        cls.mem_funs('NetworkVarsUpdateClient').exclude()
-        cls.mem_funs('GetItem').rename('__getitem__')
-        cls.mem_funs('SetItem').rename('__setitem__')
-        cls.mem_funs('DelItem').rename('__delitem__')
-        cls.mem_funs('Str').rename('__str__')
+        cls.member_functions('NetworkVarsUpdateClient').exclude()
+        cls.member_functions('GetItem').rename('__getitem__')
+        cls.member_functions('SetItem').rename('__setitem__')
+        cls.member_functions('DelItem').rename('__delitem__')
+        cls.member_functions('Str').rename('__str__')
         
         cls = mb.class_('CPythonNetworkDict')
         cls.include()
         cls.rename('NetworkDictInternal') 
-        cls.mem_funs('NetworkVarsUpdateClient').exclude()
-        cls.mem_funs('GetItem').rename('__getitem__')
-        cls.mem_funs('SetItem').rename('__setitem__')
-        cls.mem_funs('Str').rename('__str__')
+        cls.member_functions('NetworkVarsUpdateClient').exclude()
+        cls.member_functions('GetItem').rename('__getitem__')
+        cls.member_functions('SetItem').rename('__setitem__')
+        cls.member_functions('Str').rename('__str__')
         
         # Send proxies for python network variables
         cls = mb.class_('CPythonSendProxyBase')
@@ -167,64 +167,64 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         # Event queue
         cls = mb.class_('CEventQueue')
         cls.include()
-        mb.vars('g_EventQueue').include()
-        cls.mem_funs('Init').exclude()
-        cls.mem_funs('Restore').exclude()
-        cls.mem_funs('Save').exclude()
-        cls.mem_funs('ValidateQueue').exclude()
-        cls.mem_funs('GetBaseMap').exclude()    
+        mb.variables('g_EventQueue').include()
+        cls.member_functions('Init').exclude()
+        cls.member_functions('Restore').exclude()
+        cls.member_functions('Save').exclude()
+        cls.member_functions('ValidateQueue').exclude()
+        cls.member_functions('GetBaseMap').exclude()    
         
         # Global entity list
         cls = mb.class_('IEntityFindFilter')
         cls.include()
-        cls.mem_funs('GetFilterResult').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('GetFilterResult').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
         cls = mb.class_('CGlobalEntityList')
         cls.include()
         cls.calldefs().virtuality = 'not virtual'
         cls.no_init = True
-        cls.mem_funs('GetServerNetworkable').exclude()
-        cls.mem_funs('GetBaseNetworkable').exclude()
-        cls.mem_funs('GetBaseEntity').exclude()
-        cls.mem_funs('GetEdict').exclude()    
-        cls.mem_funs('AddToDeleteList').exclude()
-        #cls.mem_funs('CleanupDeleteList').exclude() # Keep
-        #cls.mem_funs('ResetDeleteList').exclude() # Keep
-        cls.mem_funs('Clear').exclude()
-        cls.mem_funs('NotifyCreateEntity').exclude()
-        cls.mem_funs('NotifySpawn').exclude()
-        cls.mem_funs('NotifyRemoveEntity').exclude()
-        cls.mem_funs('AddListenerEntity').exclude() # Would require some kind of python version
-        cls.mem_funs('RemoveListenerEntity').exclude()
-        cls.mem_funs('IsEntityPtr').exclude() # void pointer
+        cls.member_functions('GetServerNetworkable').exclude()
+        cls.member_functions('GetBaseNetworkable').exclude()
+        cls.member_functions('GetBaseEntity').exclude()
+        cls.member_functions('GetEdict').exclude()    
+        cls.member_functions('AddToDeleteList').exclude()
+        #cls.member_functions('CleanupDeleteList').exclude() # Keep
+        #cls.member_functions('ResetDeleteList').exclude() # Keep
+        cls.member_functions('Clear').exclude()
+        cls.member_functions('NotifyCreateEntity').exclude()
+        cls.member_functions('NotifySpawn').exclude()
+        cls.member_functions('NotifyRemoveEntity').exclude()
+        cls.member_functions('AddListenerEntity').exclude() # Would require some kind of python version
+        cls.member_functions('RemoveListenerEntity').exclude()
+        cls.member_functions('IsEntityPtr').exclude() # void pointer
         
-        cls.mem_funs('NextEnt').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FirstEnt').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityByClassname').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityByName').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityInSphere').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityByTarget').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityByModel').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityByNameNearest').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityByNameWithin').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityByClassnameNearest').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityByClassnameWithin').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityGeneric').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityGenericWithin').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityGenericNearest').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityNearestFacing').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityClassNearestFacing').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('FindEntityProcedural').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('NextEnt').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FirstEnt').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityByClassname').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityByName').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityInSphere').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityByTarget').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityByModel').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityByNameNearest').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityByNameWithin').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityByClassnameNearest').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityByClassnameWithin').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityGeneric').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityGenericWithin').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityGenericNearest').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityNearestFacing').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityClassNearestFacing').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('FindEntityProcedural').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
 
         if self.settings.branch == 'swarm':
-            cls.mem_funs('FindEntityByClassnameFast').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-            cls.mem_funs('FindEntityByClassnameNearest2D').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-            cls.mem_funs('FindEntityByClassnameNearestFast').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-            cls.mem_funs('FindEntityByNameFast').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-            cls.mem_funs('FindEntityByOutputTarget').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+            cls.member_functions('FindEntityByClassnameFast').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+            cls.member_functions('FindEntityByClassnameNearest2D').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+            cls.member_functions('FindEntityByClassnameNearestFast').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+            cls.member_functions('FindEntityByNameFast').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+            cls.member_functions('FindEntityByOutputTarget').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
 
-        mb.vars('gEntList').include()
-        mb.vars('gEntList').rename('entlist')
+        mb.variables('gEntList').include()
+        mb.variables('gEntList').rename('entlist')
         
         # Respawning the player using a python entity class
         mb.free_function('PyRespawnPlayer').include()
@@ -237,13 +237,13 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         # Entity input/output
         cls = mb.class_('CBaseEntityOutput')
         cls.include()
-        cls.mem_funs('GetBaseMap').exclude()
-        cls.mem_funs('Save').exclude()
-        cls.mem_funs('Restore').exclude()
+        cls.member_functions('GetBaseMap').exclude()
+        cls.member_functions('Save').exclude()
+        cls.member_functions('Restore').exclude()
         
         if self.settings.branch == 'swarm':
-            cls.mem_funs('GetActionForTarget').exclude()
-            cls.mem_funs('GetFirstAction').exclude()
+            cls.member_functions('GetActionForTarget').exclude()
+            cls.member_functions('GetFirstAction').exclude()
             
         # Note: PyOutputEvent covers all the other types
         # There is no need for COutputInt, COutputFloat, etc.
@@ -254,35 +254,35 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         # Inputdata_t and variant_t
         cls = mb.class_('inputdata_t')
         cls.include()
-        cls.var('pActivator').getter_call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.var('pCaller').getter_call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.var('nOutputID').rename('outputid')
-        cls.var('pActivator').rename('activator')
-        cls.var('pCaller').rename('caller')
+        cls.variable('pActivator').getter_call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.variable('pCaller').getter_call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.variable('nOutputID').rename('outputid')
+        cls.variable('pActivator').rename('activator')
+        cls.variable('pCaller').rename('caller')
         
         cls = mb.class_('variant_t')
         cls.include()
-        cls.vars( lambda decl: 'm_Save' in decl.name ).exclude()
-        cls.vars('vecVal').exclude()
-        cls.mem_fun('Entity').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.variables( lambda decl: 'm_Save' in decl.name ).exclude()
+        cls.variables('vecVal').exclude()
+        cls.member_function('Entity').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
-        cls.mem_fun('Entity').exclude()
+        cls.member_function('Entity').exclude()
         cls.add_wrapper_code(   'static bp::object PyEntity( variant_t &inst )\r\n' + \
                                 '{\r\n' + \
                                 '   return inst.Entity() ? inst.Entity()->GetPyHandle() : bp::object();\r\n' + \
                                 '}\r\n' )
         cls.add_registration_code( 'def("Entity", &::variant_t_wrapper::PyEntity)')
         
-        cls.mem_fun('Set').exclude() # void * argument
-        cls.mem_fun('SetOther').exclude() # void * argument
+        cls.member_function('Set').exclude() # void * argument
+        cls.member_function('SetOther').exclude() # void * argument
         
         # Collision
         cls = mb.class_('vcollisionevent_t')
         cls.include()
-        cls.vars('pObjects').exclude()
+        cls.variables('pObjects').exclude()
         
         # Wrap internal data functions
-        cls.vars('pInternalData').exclude()
+        cls.variables('pInternalData').exclude()
         cls.add_wrapper_code(   'static void GetSurfaceNormal( vcollisionevent_t &inst, Vector &out )\r\n' + \
                                 '{\r\n' + \
                                 '   inst.pInternalData->GetSurfaceNormal(out);\r\n' + \
@@ -301,8 +301,8 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         
         cls = mb.class_('gamevcollisionevent_t')
         cls.include()
-        cls.mem_funs('Init').exclude()
-        cls.vars('pEntities').exclude()
+        cls.member_functions('Init').exclude()
+        cls.variables('pEntities').exclude()
         
         cls.add_wrapper_code(   'static bp::object GetEnt( gamevcollisionevent_t &inst, int index )\r\n' + \
                                 '{\r\n' + \
@@ -337,14 +337,14 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         cls.include()
         cls.calldefs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
         
-        cls.mem_funs('GetInflictor').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-        cls.mem_funs('GetWeapon').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-        cls.mem_funs('GetAttacker').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        cls.member_functions('GetInflictor').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        cls.member_functions('GetWeapon').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        cls.member_functions('GetAttacker').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         
         cls = mb.class_('CMultiDamage')
         cls.include()
         cls.calldefs( matchers.access_type_matcher_t( 'protected' ) ).exclude()
-        cls.mem_funs('GetTarget').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        cls.member_functions('GetTarget').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         
         mb.free_functions('ClearMultiDamage').include()
         mb.free_functions('ApplyMultiDamage').include()
@@ -358,22 +358,22 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         # FireBulletsInfo_t
         cls = mb.class_('FireBulletsInfo_t')
         cls.include()
-        cls.var('m_iShots').rename('shots')
-        cls.var('m_vecSrc').rename('vecsrc')
-        cls.var('m_vecDirShooting').rename('vecdirshooting')
-        cls.var('m_vecSpread').rename('vecspread')
-        cls.var('m_flDistance').rename('distance')
-        cls.var('m_iAmmoType').rename('ammotype')
-        cls.var('m_iTracerFreq').rename('tracerfreq')
-        cls.var('m_nFlags').rename('flags')
-        cls.var('m_flDamageForceScale').rename('damageforcescale')
-        cls.var('m_pAttacker').rename('attacker')
-        cls.var('m_pAdditionalIgnoreEnt').rename('additionalignoreent')
-        cls.var('m_bPrimaryAttack').rename('primaryattack')
-        cls.var('m_flDamage').rename('damage')
-        cls.var('m_iPlayerDamage' if self.settings.branch == 'source2013' else 'm_flPlayerDamage').rename('playerdamage')
+        cls.variable('m_iShots').rename('shots')
+        cls.variable('m_vecSrc').rename('vecsrc')
+        cls.variable('m_vecDirShooting').rename('vecdirshooting')
+        cls.variable('m_vecSpread').rename('vecspread')
+        cls.variable('m_flDistance').rename('distance')
+        cls.variable('m_iAmmoType').rename('ammotype')
+        cls.variable('m_iTracerFreq').rename('tracerfreq')
+        cls.variable('m_nFlags').rename('flags')
+        cls.variable('m_flDamageForceScale').rename('damageforcescale')
+        cls.variable('m_pAttacker').rename('attacker')
+        cls.variable('m_pAdditionalIgnoreEnt').rename('additionalignoreent')
+        cls.variable('m_bPrimaryAttack').rename('primaryattack')
+        cls.variable('m_flDamage').rename('damage')
+        cls.variable('m_iPlayerDamage' if self.settings.branch == 'source2013' else 'm_flPlayerDamage').rename('playerdamage')
         
-        mb.enum('FireBulletsFlags_t').include()
+        mb.enumeration('FireBulletsFlags_t').include()
         
         # CShotManipulator
         cls = mb.class_('CShotManipulator')
@@ -410,27 +410,27 @@ class EntitiesMisc(SemiSharedModuleGenerator):
         mb.free_functions('PrecacheGibsForModel').include()
     
         # Enums
-        mb.enums('MoveType_t').include()
-        mb.enums('SolidType_t').include()
-        mb.enums('SolidFlags_t').include()
-        mb.enums('Collision_Group_t').include()
-        mb.enums('RenderMode_t').include()
-        mb.enums('RenderFx_t').include()
+        mb.enumerations('MoveType_t').include()
+        mb.enumerations('SolidType_t').include()
+        mb.enumerations('SolidFlags_t').include()
+        mb.enumerations('Collision_Group_t').include()
+        mb.enumerations('RenderMode_t').include()
+        mb.enumerations('RenderFx_t').include()
         
         if self.isclient:
-            mb.enums('ShadowType_t').include()
-            mb.enums('RenderGroup_t').include()
-            mb.enums('DataUpdateType_t').include()
-            mb.enums('CollideType_t').include()
-            mb.enums('ShouldTransmitState_t').include()
-            mb.enums('OverrideType_t').include()
+            mb.enumerations('ShadowType_t').include()
+            mb.enumerations('RenderGroup_t').include()
+            mb.enumerations('DataUpdateType_t').include()
+            mb.enumerations('CollideType_t').include()
+            mb.enumerations('ShouldTransmitState_t').include()
+            mb.enumerations('OverrideType_t').include()
         else:
-            mb.enums('EntityEvent_t').include()
-            mb.enums('Class_T').include()
-        mb.enums('_fieldtypes').include()
+            mb.enumerations('EntityEvent_t').include()
+            mb.enumerations('Class_T').include()
+        mb.enumerations('_fieldtypes').include()
             
-        mb.enums('USE_TYPE').include()
-        mb.enums('Activity').include()
+        mb.enumerations('USE_TYPE').include()
+        mb.enumerations('Activity').include()
         
         # Anim event
         cls = mb.class_('animevent_t')

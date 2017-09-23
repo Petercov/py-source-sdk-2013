@@ -2,7 +2,7 @@ from srcpy.module_generators import SharedModuleGenerator
 from pyplusplus import function_transformers as FT
 from pyplusplus.module_builder import call_policies
 from pyplusplus import messages
-from pygccxml.declarations import matchers, pointer_t, reference_t, declarated_t, const_t, float_t, cpptypes
+from pygccxml.declarations import calldef_matcher_t, matchers, pointer_t, reference_t, declarated_t, const_t, float_t, cpptypes
 from srcpy.matchers import calldef_withtypes
 
 class VMath(SharedModuleGenerator):
@@ -52,7 +52,7 @@ class VMath(SharedModuleGenerator):
         # Classes
         cls = mb.class_('Vector')
         cls.include()
-        cls.mem_opers('=').exclude() # Breaks debug mode and don't really need it
+        cls.member_operators('=').exclude() # Breaks debug mode and don't really need it
 
         cls.add_wrapper_code( getitem_wrapper % {'cls_name' : 'Vector', 'nitems' : '2' } )
         cls.add_registration_code( getitem_reg % {'cls_name':'Vector'}, False)
@@ -61,7 +61,7 @@ class VMath(SharedModuleGenerator):
         
         cls = mb.class_('Vector2D')
         cls.include()
-        cls.mem_opers('=').exclude() # Breaks debug mode and don't really need it
+        cls.member_operators('=').exclude() # Breaks debug mode and don't really need it
         
         cls.add_wrapper_code( getitem_wrapper % {'cls_name' : 'Vector2D', 'nitems' : '1' } )
         cls.add_registration_code( getitem_reg % {'cls_name':'Vector2D'}, False)
@@ -70,7 +70,7 @@ class VMath(SharedModuleGenerator):
         
         cls = mb.class_('QAngle')
         cls.include()
-        cls.mem_opers('=').exclude() # Breaks debug mode and don't really need it
+        cls.member_operators('=').exclude() # Breaks debug mode and don't really need it
 
         cls.add_wrapper_code( getitem_wrapper % {'cls_name' : 'QAngle', 'nitems' : '2' } )
         cls.add_registration_code( getitem_reg % {'cls_name':'QAngle'}, False)
@@ -79,13 +79,13 @@ class VMath(SharedModuleGenerator):
         
         cls = mb.class_('Quaternion')
         cls.include()
-        cls.mem_opers('=').exclude() # Breaks debug mode and don't really need it
+        cls.member_operators('=').exclude() # Breaks debug mode and don't really need it
         
         mb.free_function('QAngleToAngularImpulse').include()
         mb.free_function('AngularImpulseToQAngle').include()
         
         # Call policies
-        mb.mem_funs('AsVector2D').call_policies = call_policies.return_internal_reference()
+        mb.member_functions('AsVector2D').call_policies = call_policies.return_internal_reference()
 
         # Transform functions that take pointers as arguments
         mb.free_functions('SolveInverseQuadraticMonotonic').add_transformation( FT.output('a'), FT.output('b'), FT.output('c') )
@@ -102,24 +102,24 @@ class VMath(SharedModuleGenerator):
         
         # cplane_t
         mb.class_('cplane_t').include()
-        mb.class_('cplane_t').var('pad').exclude()
+        mb.class_('cplane_t').variable('pad').exclude()
         
         # matrix3x4_t
         mb.class_('matrix3x4_t').include()
-        mb.class_('matrix3x4_t').mem_opers().exclude()    
+        mb.class_('matrix3x4_t').member_operators().exclude()    
         
         # -----
         # Add custom item access functions to the Vector class
-        mb.global_ns.mem_opers('[]').exclude()
+        mb.global_ns.member_operators('[]').exclude()
         
         mb.class_('Vector').add_registration_code( 'def( bp::init< const Vector & >(( bp::arg("vOther") )) )')
         mb.class_('QAngle').add_registration_code( 'def( bp::init< const QAngle & >(( bp::arg("vOther") )) )')
         
         # Vars
-        mb.vars('vec3_origin').include()
-        mb.vars('vec3_angle').include()
-        mb.vars('vec3_invalid').include()
-        mb.vars('nanmask').include()
+        mb.variables('vec3_origin').include()
+        mb.variables('vec3_angle').include()
+        mb.variables('vec3_invalid').include()
+        mb.variables('nanmask').include()
         
         # Mathlib.h functions
         mb.free_function('RandomAngularImpulse').include()
@@ -375,14 +375,14 @@ class VMath(SharedModuleGenerator):
         # VMatrix
         cls = mb.class_('VMatrix')
         cls.include()
-        cls.mem_opers('=').exclude() # Breaks debug mode and don't really need it
-        cls.mem_opers('[]').exclude()
-        cls.mem_funs('Base').exclude()
-        cls.vars('m').exclude()
+        cls.member_operators('=').exclude() # Breaks debug mode and don't really need it
+        cls.member_operators('[]').exclude()
+        cls.member_functions('Base').exclude()
+        cls.variables('m').exclude()
         
         if self.settings.branch == 'swarm':
-            cls.mem_fun('As3x4', matchers.calldef_matcher_t(return_type=reference_t(declarated_t(mb.class_('matrix3x4_t'))))).exclude()
-        cls.mem_fun('GetTranslation', matchers.calldef_matcher_t(return_type=reference_t(declarated_t(mb.class_('Vector'))))).exclude()
+            cls.member_function('As3x4', calldef_matcher_t(return_type=reference_t(declarated_t(mb.class_('matrix3x4_t'))))).exclude()
+        cls.member_function('GetTranslation', calldef_matcher_t(return_type=reference_t(declarated_t(mb.class_('Vector'))))).exclude()
         
         cls.add_wrapper_code( str_vmatrix_wrapper % {'cls_name':'VMatrix'} )
         cls.add_registration_code( str_reg % {'cls_name':'VMatrix'}, False)
@@ -407,16 +407,16 @@ class VMath(SharedModuleGenerator):
 
         # Exclude
         if self.settings.branch not in ['swarm', 'source2013']:
-            mb.vars('pfVectorNormalizeFast').exclude()
-            mb.vars('pfVectorNormalize').exclude()
-            mb.vars('pfInvRSquared').exclude()
-        mb.vars('m_flMatVal').exclude()
-        mb.vars('quat_identity').exclude() # <- Does not even exist except for a declaration?
+            mb.variables('pfVectorNormalizeFast').exclude()
+            mb.variables('pfVectorNormalize').exclude()
+            mb.variables('pfInvRSquared').exclude()
+        mb.variables('m_flMatVal').exclude()
+        mb.variables('quat_identity').exclude() # <- Does not even exist except for a declaration?
         
         # Exclude some functions
-        mb.mem_funs('Base').exclude()           # Base gives a pointer to the address of the data. Not very python like.
+        mb.member_functions('Base').exclude()           # Base gives a pointer to the address of the data. Not very python like.
         mb.free_functions( 'AllocTempVector' ).exclude()
-        mb.class_('Vector2D').mem_funs('Cross').exclude() # Declaration only?
+        mb.class_('Vector2D').member_functions('Cross').exclude() # Declaration only?
         mb.free_function('ConcatRotations').exclude() # Declaration only?  
         
         # Remove any protected function 

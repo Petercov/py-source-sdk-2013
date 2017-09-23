@@ -34,10 +34,10 @@ class Particles(SemiSharedModuleGenerator):
         cls = mb.class_('PyDBaseLight')
         cls.include()
         cls.rename('DBaseLight')
-        cls.mem_funs().exclude()
-        cls.mem_funs('GetColor').call_policies = call_policies.return_internal_reference() 
-        cls.mem_funs('GetDirection').call_policies = call_policies.return_internal_reference() 
-        cls.mem_funs('GetOrigin').call_policies = call_policies.return_internal_reference() 
+        cls.member_functions().exclude()
+        cls.member_functions('GetColor').call_policies = call_policies.return_internal_reference() 
+        cls.member_functions('GetDirection').call_policies = call_policies.return_internal_reference() 
+        cls.member_functions('GetOrigin').call_policies = call_policies.return_internal_reference() 
         cls.add_property( 'origin' , cls.member_function( 'GetOrigin' ), cls.member_function( 'SetOrigin' ) )
         cls.add_property( 'color' , cls.member_function( 'GetColor' ), cls.member_function( 'SetColor' ) )
         cls.add_property( 'die' , cls.member_function( 'GetDie' ), cls.member_function( 'SetDie' ) )
@@ -59,89 +59,89 @@ class Particles(SemiSharedModuleGenerator):
         # Base particle
         cls = mb.class_('Particle')
         cls.include()
-        cls.vars('m_Pos').rename('pos')
-        cls.var('m_pNext').exclude()
-        cls.var('m_pPrev').exclude()
-        cls.var('m_pSubTexture').exclude()
+        cls.variables('m_Pos').rename('pos')
+        cls.variable('m_pNext').exclude()
+        cls.variable('m_pPrev').exclude()
+        cls.variable('m_pSubTexture').exclude()
         
         # Simple particle
         mb.class_('SimpleParticle').include()
-        mb.class_('SimpleParticle').vars('m_flDieTime').rename('dietime')
-        mb.class_('SimpleParticle').vars('m_flLifetime').rename('lifetime')
-        mb.class_('SimpleParticle').vars('m_flRoll').rename('roll')
-        mb.class_('SimpleParticle').vars('m_flRollDelta').rename('rolldelta')
-        mb.class_('SimpleParticle').vars('m_iFlags').rename('flags')
-        mb.class_('SimpleParticle').vars('m_uchColor').rename('color')
-        mb.class_('SimpleParticle').vars('m_uchEndAlpha').rename('endalpha')
-        mb.class_('SimpleParticle').vars('m_uchEndSize').rename('endsize')
-        mb.class_('SimpleParticle').vars('m_uchStartAlpha').rename('startalpha')
-        mb.class_('SimpleParticle').vars('m_uchStartSize').rename('startsize')
-        mb.class_('SimpleParticle').vars('m_vecVelocity').rename('velocity')
-        mb.enum('SimpleParticleFlag_t').include()
+        mb.class_('SimpleParticle').variables('m_flDieTime').rename('dietime')
+        mb.class_('SimpleParticle').variables('m_flLifetime').rename('lifetime')
+        mb.class_('SimpleParticle').variables('m_flRoll').rename('roll')
+        mb.class_('SimpleParticle').variables('m_flRollDelta').rename('rolldelta')
+        mb.class_('SimpleParticle').variables('m_iFlags').rename('flags')
+        mb.class_('SimpleParticle').variables('m_uchColor').rename('color')
+        mb.class_('SimpleParticle').variables('m_uchEndAlpha').rename('endalpha')
+        mb.class_('SimpleParticle').variables('m_uchEndSize').rename('endsize')
+        mb.class_('SimpleParticle').variables('m_uchStartAlpha').rename('startalpha')
+        mb.class_('SimpleParticle').variables('m_uchStartSize').rename('startsize')
+        mb.class_('SimpleParticle').variables('m_vecVelocity').rename('velocity')
+        mb.enumeration('SimpleParticleFlag_t').include()
         
         # Textures
         cls = mb.class_('CParticleSubTexture')
         cls.include()
         cls.no_init = True
         cls.calldefs().exclude()
-        cls.vars().exclude()
+        cls.variables().exclude()
         
         cls = mb.class_('CParticleSubTextureGroup')
         cls.include()
         cls.no_init = True
         cls.calldefs().exclude()
-        cls.vars().exclude()
+        cls.variables().exclude()
         
         # CParticleCollection
         cls = mb.class_('CParticleCollection')
         cls.include()
         cls.no_init = True
-        cls.mem_funs().virtuality = 'not virtual'
-        cls.vars().exclude()
+        cls.member_functions().virtuality = 'not virtual'
+        cls.variables().exclude()
         cls.calldefs().exclude()
         
-        cls.mem_fun('IsValid').include()
+        cls.member_function('IsValid').include()
         
         # CNewParticleEffect
         cls = mb.class_('CNewParticleEffect')
         cls.include()
         cls.no_init = True
-        cls.mem_funs().virtuality = 'not virtual'
+        cls.member_functions().virtuality = 'not virtual'
         
-        cls.mem_fun('IsReleased').exclude()
-        cls.mem_funs('AddParticle').exclude()
-        cls.mem_funs('GetPMaterial').call_policies = call_policies.return_internal_reference() 
-        cls.mem_funs('ReplaceWith').exclude()
-        cls.vars('m_pNext').exclude()
-        cls.vars('m_pPrev').exclude()
+        cls.member_function('IsReleased').exclude()
+        cls.member_functions('AddParticle').exclude()
+        cls.member_functions('GetPMaterial').call_policies = call_policies.return_internal_reference() 
+        cls.member_functions('ReplaceWith').exclude()
+        cls.variables('m_pNext').exclude()
+        cls.variables('m_pPrev').exclude()
 
-        cls.mem_funs('GetOwner').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        cls.member_functions('GetOwner').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         
         if self.settings.branch == 'swarm':
-            cls.mem_funs('Create').call_policies = call_policies.return_internal_reference()
-            cls.mem_funs('CreateOrAggregate').call_policies = call_policies.return_internal_reference()
-            cls.mem_funs('CreateOrAggregatePrecached').call_policies = call_policies.return_internal_reference()
+            cls.member_functions('Create').call_policies = call_policies.return_internal_reference()
+            cls.member_functions('CreateOrAggregate').call_policies = call_policies.return_internal_reference()
+            cls.member_functions('CreateOrAggregatePrecached').call_policies = call_policies.return_internal_reference()
         else:
-            cls.mem_funs('Create').exclude() # TODO/FIXME
+            cls.member_functions('Create').exclude() # TODO/FIXME
 
         #mb.class_('CNewParticleEffectHandle').include()
-        #mb.class_('CNewParticleEffectHandle').mem_funs('GetParticleEffect').exclude()
+        #mb.class_('CNewParticleEffectHandle').member_functions('GetParticleEffect').exclude()
         
         # ParticleManager
         cls =  mb.class_('CParticleMgr')
         cls.include()
         cls.calldefs('CParticleMgr').exclude()
         cls.no_init = True
-        cls.mem_funs('GetPMaterial').call_policies = call_policies.return_internal_reference() 
-        cls.mem_funs('AllocParticle').exclude()
-        cls.mem_funs('CreateEffect').exclude()
-        cls.mem_funs('GetModelView').exclude()
-        cls.mem_funs('PMaterialToIMaterial').exclude()
+        cls.member_functions('GetPMaterial').call_policies = call_policies.return_internal_reference() 
+        cls.member_functions('AllocParticle').exclude()
+        cls.member_functions('CreateEffect').exclude()
+        cls.member_functions('GetModelView').exclude()
+        cls.member_functions('PMaterialToIMaterial').exclude()
         
         if self.settings.branch == 'swarm':
-            cls.mem_funs('CreateNonDrawingEffect').call_policies = call_policies.return_internal_reference()
-            cls.mem_funs('FirstNewEffect').call_policies = call_policies.return_internal_reference()
-            cls.mem_funs('NextNewEffect').call_policies = call_policies.return_internal_reference()
+            cls.member_functions('CreateNonDrawingEffect').call_policies = call_policies.return_internal_reference()
+            cls.member_functions('FirstNewEffect').call_policies = call_policies.return_internal_reference()
+            cls.member_functions('NextNewEffect').call_policies = call_policies.return_internal_reference()
 
         mb.free_function('ParticleMgr').include()
         mb.free_function('ParticleMgr').call_policies = call_policies.return_value_policy( call_policies.reference_existing_object )
@@ -154,25 +154,25 @@ class Particles(SemiSharedModuleGenerator):
 
         cls = mb.class_('CParticleProperty')
         cls.include()
-        cls.mem_funs('Create').call_policies = call_policies.return_internal_reference() 
-        cls.mem_funs('GetParticleEffectFromIdx').call_policies = call_policies.return_internal_reference()
-        mb.mem_funs('GetOuter').call_policies = call_policies.return_value_policy( call_policies.return_by_value ) 
-        mb.mem_funs('GetBaseMap').exclude()
-        mb.mem_funs('GetDataDescMap').exclude()
-        mb.mem_funs('GetPredDescMap').exclude()
+        cls.member_functions('Create').call_policies = call_policies.return_internal_reference() 
+        cls.member_functions('GetParticleEffectFromIdx').call_policies = call_policies.return_internal_reference()
+        mb.member_functions('GetOuter').call_policies = call_policies.return_value_policy( call_policies.return_by_value ) 
+        mb.member_functions('GetBaseMap').exclude()
+        mb.member_functions('GetDataDescMap').exclude()
+        mb.member_functions('GetPredDescMap').exclude()
         if self.settings.branch == 'swarm':
-            mb.mem_funs('CreatePrecached').exclude()
+            mb.member_functions('CreatePrecached').exclude()
         
         # Frequently used materials with particles
-        #mb.vars('g_Mat_Fleck_Wood').include()
-        #mb.vars('g_Mat_Fleck_Cement').include()
-        #mb.vars('g_Mat_Fleck_Antlion').include()
-        #mb.vars('g_Mat_Fleck_Tile').include()
-        #mb.vars('g_Mat_DustPuff').include()
-        #mb.vars('g_Mat_BloodPuff').include()
-        #mb.vars('g_Mat_Fleck_Glass').include()
-        #mb.vars('g_Mat_SMG_Muzzleflash').include()
-        #mb.vars('g_Mat_Combine_Muzzleflash').include()
+        #mb.variables('g_Mat_Fleck_Wood').include()
+        #mb.variables('g_Mat_Fleck_Cement').include()
+        #mb.variables('g_Mat_Fleck_Antlion').include()
+        #mb.variables('g_Mat_Fleck_Tile').include()
+        #mb.variables('g_Mat_DustPuff').include()
+        #mb.variables('g_Mat_BloodPuff').include()
+        #mb.variables('g_Mat_Fleck_Glass').include()
+        #mb.variables('g_Mat_SMG_Muzzleflash').include()
+        #mb.variables('g_Mat_Combine_Muzzleflash').include()
         
         #mb.add_registration_code( "ptr_newparticleeffect_to_handle();" )
         #mb.add_registration_code( "handle_to_newparticleeffect();" )      
@@ -181,7 +181,7 @@ class Particles(SemiSharedModuleGenerator):
         # Exclude everything by default
         mb.decls().exclude()
         
-        mb.enums('ParticleAttachment_t').include()
+        mb.enumerations('ParticleAttachment_t').include()
         
         mb.free_functions('GetAttachTypeFromString').include()
         mb.free_functions('PrecacheParticleSystem').include()

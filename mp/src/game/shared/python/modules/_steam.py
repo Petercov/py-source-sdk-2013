@@ -1,11 +1,10 @@
 import re
 
 from srcpy.module_generators import SemiSharedModuleGenerator
-from srcpy.matchers import calldef_withtypes
 
 from pyplusplus import function_transformers as FT
 from pyplusplus.module_builder import call_policies
-from pygccxml.declarations import matchers, pointer_t, const_t, declarated_t, char_t
+from pygccxml.declarations import calldef_matcher_t, pointer_t, const_t, declarated_t, char_t
 
 # Templates for the most common callback cases
 callback_wrapper_tmpl = '''struct %(name)sCallback_wrapper : %(name)sCallback, bp::wrapper< %(name)sCallback > {
@@ -132,7 +131,7 @@ class Steam(SemiSharedModuleGenerator):
         
     def PythonfyVariables(self, cls):
         ''' Removes prefixes from variable names and lower cases the variable. '''
-        for var in cls.vars(allow_empty=True):
+        for var in cls.variables(allow_empty=True):
             varname = var.name
             varname = re.sub('^(m_ul|m_un|m_us|m_n|m_e|m_E|m_i|m_b|m_c|m_rgf|m_sz)', '', varname)
             varname = re.sub('^(m_)', '', varname)
@@ -174,9 +173,9 @@ class Steam(SemiSharedModuleGenerator):
         cls.include()
         cls.no_init = True
         cls.noncopyable = True
-        cls.mem_funs().virtuality = 'not virtual'
+        cls.member_functions().virtuality = 'not virtual'
         
-        cls.mem_fun('GetCurrentBetaName').exclude()
+        cls.member_function('GetCurrentBetaName').exclude()
         mb.add_declaration_code('''static bp::tuple GetCurrentBetaName_44cfc773ce5b4e98b34b5a2219de76ad( ::ISteamApps & inst ){
     char buf[1024];
     bool rv = inst.GetCurrentBetaName( buf, sizeof(buf) );
@@ -192,14 +191,14 @@ class Steam(SemiSharedModuleGenerator):
         cls.include()
         cls.no_init = True
         cls.noncopyable = True
-        cls.mem_funs().virtuality = 'not virtual'
-        cls.mem_fun('GetFriendGamePlayed').exclude()
-        cls.mem_fun('GetClanChatMessage').exclude()
-        cls.mem_fun('GetFriendMessage').exclude()
+        cls.member_functions().virtuality = 'not virtual'
+        cls.member_function('GetFriendGamePlayed').exclude()
+        cls.member_function('GetClanChatMessage').exclude()
+        cls.member_function('GetFriendMessage').exclude()
         
-        mb.enum('EFriendRelationship').include()
-        mb.enum('EPersonaState').include()
-        mb.enum('EPersonaChange').include()
+        mb.enumeration('EFriendRelationship').include()
+        mb.enumeration('EPersonaState').include()
+        mb.enumeration('EPersonaChange').include()
         mb.add_registration_code( "bp::scope().attr( \"k_cchPersonaNameMax\" ) = (int)k_cchPersonaNameMax;" )
         
         self.AddSteamCallback('PersonaStateChange', 'PersonaStateChange_t')
@@ -227,18 +226,18 @@ class Steam(SemiSharedModuleGenerator):
         cls.include()
         cls.no_init = True
         cls.noncopyable = True
-        cls.mem_funs().virtuality = 'not virtual'
-        cls.mem_funs('GetLobbyGameServer').add_transformation(FT.output('punGameServerIP'), FT.output('punGameServerPort'), FT.output('psteamIDGameServer'))
+        cls.member_functions().virtuality = 'not virtual'
+        cls.member_functions('GetLobbyGameServer').add_transformation(FT.output('punGameServerIP'), FT.output('punGameServerPort'), FT.output('psteamIDGameServer'))
         
-        cls.mem_fun('GetLobbyDataByIndex').exclude()
-        cls.mem_fun('SendLobbyChatMsg').exclude()
-        cls.mem_fun('GetLobbyChatEntry').exclude()
+        cls.member_function('GetLobbyDataByIndex').exclude()
+        cls.member_function('SendLobbyChatMsg').exclude()
+        cls.member_function('GetLobbyChatEntry').exclude()
         
         mb.free_function('PyGetLobbyDataByIndex').include()
         mb.free_function('PySendLobbyChatMsg').include()
         mb.free_function('PyGetLobbyChatEntry').include()
         
-        mb.var('k_uAPICallInvalid').include()
+        mb.variable('k_uAPICallInvalid').include()
         
         self.AddSteamCallResult('LobbyMatchList', 'LobbyMatchList_t')
         self.AddSteamCallResult('LobbyGameCreated', 'LobbyGameCreated_t')
@@ -257,18 +256,18 @@ class Steam(SemiSharedModuleGenerator):
         cls = mb.class_('PySteamMatchmakingServerListResponse')
         cls.include()
         cls.rename('SteamMatchmakingServerListResponse')
-        cls.mem_fun('PyServerResponded').rename('ServerResponded')
-        cls.mem_fun('PyServerFailedToRespond').rename('ServerFailedToRespond')
-        cls.mem_fun('PyRefreshComplete').rename('RefreshComplete')
+        cls.member_function('PyServerResponded').rename('ServerResponded')
+        cls.member_function('PyServerFailedToRespond').rename('ServerFailedToRespond')
+        cls.member_function('PyRefreshComplete').rename('RefreshComplete')
         
         cls = mb.class_('gameserveritem_t')
         cls.include()
-        cls.mem_fun('SetName').exclude()
+        cls.member_function('SetName').exclude()
         self.PythonfyVariables(cls)
-        cls.var('m_szGameDir').exclude()
-        cls.var('m_szMap').exclude()
-        cls.var('m_szGameDescription').exclude()
-        cls.var('m_szGameTags').exclude()
+        cls.variable('m_szGameDir').exclude()
+        cls.variable('m_szMap').exclude()
+        cls.variable('m_szGameDescription').exclude()
+        cls.variable('m_szGameTags').exclude()
         
         cls = mb.class_('pygameserveritem_t')
         cls.include()
@@ -295,17 +294,17 @@ class Steam(SemiSharedModuleGenerator):
         cls.rename('SteamMatchmakingRulesResponse')
         
         # Enums
-        mb.enums('ELobbyType').include()
-        mb.enums('ELobbyComparison').include()
-        mb.enums('ELobbyDistanceFilter').include()
-        mb.enums('EMatchMakingServerResponse').include()
+        mb.enumerations('ELobbyType').include()
+        mb.enumerations('ELobbyComparison').include()
+        mb.enumerations('ELobbyDistanceFilter').include()
+        mb.enumerations('EMatchMakingServerResponse').include()
         
     def ParseUserStats(self, mb):
         cls = mb.class_('ISteamUserStats')
         cls.include()
         cls.no_init = True
         cls.noncopyable = True
-        cls.mem_funs().virtuality = 'not virtual'
+        cls.member_functions().virtuality = 'not virtual'
         
         self.AddSteamCallResult('NumberOfCurrentPlayers', 'NumberOfCurrentPlayers_t')
         
@@ -317,13 +316,13 @@ class Steam(SemiSharedModuleGenerator):
         cls.include()
         cls.no_init = True
         cls.noncopyable = True
-        cls.mem_funs().virtuality = 'not virtual'
+        cls.member_functions().virtuality = 'not virtual'
         
-        cls.mem_fun('BeginAuthSession').exclude()
-        cls.mem_fun('GetAuthSessionTicket').exclude()
-        cls.mem_fun('GetNextOutgoingPacket').exclude()
-        cls.mem_fun('HandleIncomingPacket').exclude()
-        cls.mem_fun('SendUserConnectAndAuthenticate').exclude()
+        cls.member_function('BeginAuthSession').exclude()
+        cls.member_function('GetAuthSessionTicket').exclude()
+        cls.member_function('GetNextOutgoingPacket').exclude()
+        cls.member_function('HandleIncomingPacket').exclude()
+        cls.member_function('SendUserConnectAndAuthenticate').exclude()
         
         mb.free_function('PyGameServer_GetAuthSessionTicket').include()
         mb.free_function('PyGameServer_GetAuthSessionTicket').rename('GameServer_GetAuthSessionTicket')
@@ -335,17 +334,17 @@ class Steam(SemiSharedModuleGenerator):
         cls.include()
         cls.no_init = True
         cls.noncopyable = True
-        cls.mem_fun('Init').exclude()
-        cls.mem_fun('Clear').exclude()
-        cls.mem_fun('SteamGameServerUtils').exclude()
-        cls.mem_fun('SteamGameServerNetworking').exclude()
-        cls.mem_fun('SteamGameServerStats').exclude()
+        cls.member_function('Init').exclude()
+        cls.member_function('Clear').exclude()
+        cls.member_function('SteamGameServerUtils').exclude()
+        cls.member_function('SteamGameServerNetworking').exclude()
+        cls.member_function('SteamGameServerStats').exclude()
         
         if self.steamsdkversion > (1, 16):
-            cls.mem_fun('SteamHTTP').exclude()
-            cls.mem_fun('SteamUGC').exclude()
+            cls.member_function('SteamHTTP').exclude()
+            cls.member_function('SteamUGC').exclude()
             
-        cls.mem_funs('SteamGameServer').call_policies = call_policies.return_internal_reference()
+        cls.member_functions('SteamGameServer').call_policies = call_policies.return_internal_reference()
     
         self.ParseGameServer(mb)
 
@@ -363,21 +362,21 @@ class Steam(SemiSharedModuleGenerator):
         cls = mb.class_('CSteamID')
         cls.include()
         constpchararg = pointer_t(const_t(declarated_t(char_t())))
-        cls.constructors(matchers.calldef_matcher_t(arg_types=[constpchararg, None])).exclude()
-        cls.mem_funs('Render').exclude()
-        cls.mem_funs('SetFromStringStrict').exclude()
-        cls.mem_funs('SetFromString').exclude() # No definition...
-        cls.mem_funs('SetFromSteam2String').exclude() # No definition...
-        cls.mem_funs('BValidExternalSteamID').exclude() # No definition...
+        cls.constructors(calldef_matcher_t(arg_types=[constpchararg, None])).exclude()
+        cls.member_functions('Render').exclude()
+        cls.member_functions('SetFromStringStrict').exclude()
+        cls.member_functions('SetFromString').exclude() # No definition...
+        cls.member_functions('SetFromSteam2String').exclude() # No definition...
+        cls.member_functions('BValidExternalSteamID').exclude() # No definition...
         
-        mb.enum('EResult').include()
-        mb.enum('EDenyReason').include()
-        mb.enum('EUniverse').include()
-        mb.enum('EAccountType').include()
-        mb.enum('ESteamUserStatType').include()
-        mb.enum('EChatEntryType').include()
-        mb.enum('EChatRoomEnterResponse').include()
-        mb.enum('EChatMemberStateChange').include()
+        mb.enumeration('EResult').include()
+        mb.enumeration('EDenyReason').include()
+        mb.enumeration('EUniverse').include()
+        mb.enumeration('EAccountType').include()
+        mb.enumeration('ESteamUserStatType').include()
+        mb.enumeration('EChatEntryType').include()
+        mb.enumeration('EChatRoomEnterResponse').include()
+        mb.enumeration('EChatMemberStateChange').include()
         
         # Generic API functions
         mb.free_function('SteamAPI_RunCallbacks').include()
@@ -388,35 +387,35 @@ class Steam(SemiSharedModuleGenerator):
         cls.include()
         cls.no_init = True
         cls.noncopyable = True
-        cls.mem_fun('Init').exclude()
-        cls.mem_fun('Clear').exclude()
+        cls.member_function('Init').exclude()
+        cls.member_function('Clear').exclude()
         
         if self.steamsdkversion > (1, 11):
-            cls.mem_fun('SteamHTTP').exclude()
+            cls.member_function('SteamHTTP').exclude()
         if self.steamsdkversion > (1, 15):
-            cls.mem_fun('SteamScreenshots').exclude()
+            cls.member_function('SteamScreenshots').exclude()
         if self.steamsdkversion > (1, 20):
-            cls.mem_fun('SteamUnifiedMessages').exclude()
+            cls.member_function('SteamUnifiedMessages').exclude()
             
-        cls.mem_fun('SteamMatchmakingServers').exclude() # Full python class wrapper
+        cls.member_function('SteamMatchmakingServers').exclude() # Full python class wrapper
 
-        cls.mem_fun('SteamNetworking').exclude()
-        cls.mem_fun('SteamRemoteStorage').exclude()
+        cls.member_function('SteamNetworking').exclude()
+        cls.member_function('SteamRemoteStorage').exclude()
         if self.steamsdkversion > (1, 16):
-            cls.mem_fun('SteamAppList').exclude()
-            cls.mem_fun('SteamController').exclude()
-            cls.mem_fun('SteamMusic').exclude()
-            cls.mem_fun('SteamMusicRemote').exclude()
-            cls.mem_fun('SteamUGC').exclude() 
-            cls.mem_fun('SteamHTMLSurface').exclude()
+            cls.member_function('SteamAppList').exclude()
+            cls.member_function('SteamController').exclude()
+            cls.member_function('SteamMusic').exclude()
+            cls.member_function('SteamMusicRemote').exclude()
+            cls.member_function('SteamUGC').exclude() 
+            cls.member_function('SteamHTMLSurface').exclude()
             
-        cls.mem_funs('SteamApps').call_policies = call_policies.return_internal_reference()
-        cls.mem_funs('SteamFriends').call_policies = call_policies.return_internal_reference()
-        cls.mem_funs('SteamUtils').call_policies = call_policies.return_internal_reference()
-        cls.mem_funs('SteamMatchmaking').call_policies = call_policies.return_internal_reference()
-        cls.mem_funs('SteamMatchmakingServers').call_policies = call_policies.return_internal_reference()
-        cls.mem_funs('SteamUser').call_policies = call_policies.return_internal_reference()
-        cls.mem_funs('SteamUserStats').call_policies = call_policies.return_internal_reference()
+        cls.member_functions('SteamApps').call_policies = call_policies.return_internal_reference()
+        cls.member_functions('SteamFriends').call_policies = call_policies.return_internal_reference()
+        cls.member_functions('SteamUtils').call_policies = call_policies.return_internal_reference()
+        cls.member_functions('SteamMatchmaking').call_policies = call_policies.return_internal_reference()
+        cls.member_functions('SteamMatchmakingServers').call_policies = call_policies.return_internal_reference()
+        cls.member_functions('SteamUser').call_policies = call_policies.return_internal_reference()
+        cls.member_functions('SteamUserStats').call_policies = call_policies.return_internal_reference()
         
         mb.add_registration_code( "bp::scope().attr( \"QUERY_PORT_NOT_INITIALIZED\" ) = (int)QUERY_PORT_NOT_INITIALIZED;" )
         mb.add_registration_code( "bp::scope().attr( \"QUERY_PORT_ERROR\" ) = (int)QUERY_PORT_ERROR;" )
@@ -429,15 +428,15 @@ class Steam(SemiSharedModuleGenerator):
         cls.include()
         cls.no_init = True
         cls.noncopyable = True
-        cls.mem_funs().virtuality = 'not virtual'
+        cls.member_functions().virtuality = 'not virtual'
         
-        cls.mem_fun('DecompressVoice').exclude()
-        cls.mem_fun('GetAuthSessionTicket').exclude()
-        cls.mem_fun('GetEncryptedAppTicket').exclude()
-        cls.mem_fun('GetVoice').exclude()
-        cls.mem_fun('InitiateGameConnection').exclude()
-        cls.mem_fun('RequestEncryptedAppTicket').exclude()
-        cls.mem_fun('BeginAuthSession').exclude()
+        cls.member_function('DecompressVoice').exclude()
+        cls.member_function('GetAuthSessionTicket').exclude()
+        cls.member_function('GetEncryptedAppTicket').exclude()
+        cls.member_function('GetVoice').exclude()
+        cls.member_function('InitiateGameConnection').exclude()
+        cls.member_function('RequestEncryptedAppTicket').exclude()
+        cls.member_function('BeginAuthSession').exclude()
         
         mb.free_function('PySteamUser_GetAuthSessionTicket').include()
         mb.free_function('PySteamUser_GetAuthSessionTicket').rename('SteamUser_GetAuthSessionTicket')
@@ -447,16 +446,16 @@ class Steam(SemiSharedModuleGenerator):
         cls.include()
         cls.no_init = True
         cls.noncopyable = True
-        cls.mem_funs().virtuality = 'not virtual'
-        cls.mem_fun('GetImageRGBA').exclude()
-        cls.mem_fun('GetImageSize').exclude()
-        cls.mem_fun('GetAPICallResult').exclude()
+        cls.member_functions().virtuality = 'not virtual'
+        cls.member_function('GetImageRGBA').exclude()
+        cls.member_function('GetImageSize').exclude()
+        cls.member_function('GetAPICallResult').exclude()
         
         self.ParseMatchmaking(mb)
         self.ParseUserStats(mb)
         
-        #mb.class_('ISteamUtils').mem_funs('GetImageSize').add_transformation( FT.output('pnWidth'), FT.output('pnHeight'))
-        #mb.class_('ISteamUtils').mem_funs('GetCSERIPPort').add_transformation( FT.output('unIP'), FT.output('usPort'))
+        #mb.class_('ISteamUtils').member_functions('GetImageSize').add_transformation( FT.output('pnWidth'), FT.output('pnHeight'))
+        #mb.class_('ISteamUtils').member_functions('GetCSERIPPort').add_transformation( FT.output('unIP'), FT.output('usPort'))
         
         if self.isserver:
             self.ParseServerOnly(mb)

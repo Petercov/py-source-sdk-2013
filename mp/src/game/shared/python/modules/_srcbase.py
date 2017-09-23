@@ -27,7 +27,7 @@ class SrcBase(SharedModuleGenerator):
         cls = mb.class_('PyUtlRBTree')
         cls.include()
         cls.rename('UtlRBTree')
-        cls.mem_opers('=').exclude() # Breaks debug mode and don't really need it
+        cls.member_operators('=').exclude() # Breaks debug mode and don't really need it
         
         # CUtlFlags
         mb.class_('PyUtlFlags').include()

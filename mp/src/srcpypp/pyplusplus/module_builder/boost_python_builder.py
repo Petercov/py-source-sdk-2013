@@ -306,6 +306,12 @@ class builder_t(module_builder.module_builder_t):
                 value = str( value )
             self.add_registration_code( tmpl % dict( name=name, value=value) )
 
+    def get_module( self ):
+        self.__merge_user_code()
+        return self.code_creator.create()
+
+    def merge_user_code(self):
+        self.__merge_user_code()
 
     def __merge_user_code( self ):
         for code in self.__declarations_code_tail:

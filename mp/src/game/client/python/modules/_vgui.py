@@ -48,21 +48,21 @@ class VGUI(ClientModuleGenerator):
         
         cls = mb.class_('ISchemeManager')
         cls.include()
-        cls.mem_funs().virtuality = 'not virtual' 
-        cls.mem_funs( 'GetImage' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
-        cls.mem_funs( 'GetIScheme' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
-        #cls.mem_funs( 'GetBorder' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+        cls.member_functions().virtuality = 'not virtual' 
+        cls.member_functions( 'GetImage' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+        cls.member_functions( 'GetIScheme' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+        #cls.member_functions( 'GetBorder' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
         
         if self.settings.branch == 'swarm':
-            cls.mem_funs('GetSurface').exclude()
+            cls.member_functions('GetSurface').exclude()
         
         # IScheme
         cls = mb.class_('IScheme')
         cls.include()
-        cls.mem_funs().virtuality = 'not virtual' 
-        cls.mem_funs('GetBorder').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+        cls.member_functions().virtuality = 'not virtual' 
+        cls.member_functions('GetBorder').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
         if self.settings.branch == 'source2013':
-            cls.mem_funs('GetBorderAtIndex').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+            cls.member_functions('GetBorderAtIndex').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
 
         if self.settings.branch == 'swarm':
             cls.class_('fontalias_t').exclude()
@@ -71,25 +71,25 @@ class VGUI(ClientModuleGenerator):
         cls = mb.class_('PyLocalize')
         cls.rename('Localize')
         cls.include()
-        cls.mem_fun('Find').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_fun('GetValueByIndex').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_function('Find').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_function('GetValueByIndex').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         if self.settings.branch == 'swarm':
-            mb.var('INVALID_STRING_INDEX').include()
+            mb.variable('INVALID_STRING_INDEX').include()
         
-        #mb.var('g_pylocalize').include()
-        #mb.var('g_pylocalize').rename('localize')
+        #mb.variable('g_pylocalize').include()
+        #mb.variable('g_pylocalize').rename('localize')
         mb.add_registration_code( "bp::scope().attr( \"localize\" ) = boost::ref(g_pylocalize);" )
         
         # IPanel
         cls = mb.class_('CWrapIPanel')
         cls.include()
         cls.rename('IPanel')    
-        cls.mem_funs( 'GetPos' ).add_transformation( FT.output('x'), FT.output('y') )
-        cls.mem_funs( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-        cls.mem_funs( 'GetAbsPos' ).add_transformation( FT.output('x'), FT.output('y') )
+        cls.member_functions( 'GetPos' ).add_transformation( FT.output('x'), FT.output('y') )
+        cls.member_functions( 'GetSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.member_functions( 'GetAbsPos' ).add_transformation( FT.output('x'), FT.output('y') )
         if self.settings.branch == 'swarm':
-            cls.mem_funs( 'Plat' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-        cls.mem_funs( 'GetPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+            cls.member_functions( 'Plat' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        cls.member_functions( 'GetPanel' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         
         mb.free_function('wrapipanel').include()
         mb.free_function( 'wrapipanel' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object) 
@@ -98,16 +98,16 @@ class VGUI(ClientModuleGenerator):
         # VGUI Input
         cls = mb.class_('IInput')
         cls.include()
-        cls.mem_funs().virtuality = 'not virtual' 
-        #cls.mem_funs('GetCursorPos').add_transformation( FT.output('x'), FT.output('y') )
-        #cls.mem_funs('GetCursorPosition').add_transformation( FT.output('x'), FT.output('y') )
-        #cls.mem_funs('GetIMEWindow').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_fun('GetIMEWindow').exclude()
-        cls.mem_fun('SetIMEWindow').exclude()
-        cls.mem_fun('GetIMEConversionModes').exclude()
-        cls.mem_fun('GetIMELanguageList').exclude()
-        cls.mem_fun('GetIMELanguageShortCode').exclude()
-        cls.mem_fun('GetIMESentenceModes').exclude()
+        cls.member_functions().virtuality = 'not virtual' 
+        #cls.member_functions('GetCursorPos').add_transformation( FT.output('x'), FT.output('y') )
+        #cls.member_functions('GetCursorPosition').add_transformation( FT.output('x'), FT.output('y') )
+        #cls.member_functions('GetIMEWindow').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_function('GetIMEWindow').exclude()
+        cls.member_function('SetIMEWindow').exclude()
+        cls.member_function('GetIMEConversionModes').exclude()
+        cls.member_function('GetIMELanguageList').exclude()
+        cls.member_function('GetIMELanguageShortCode').exclude()
+        cls.member_function('GetIMESentenceModes').exclude()
         
         cls.classes().exclude()
         
@@ -121,16 +121,16 @@ class VGUI(ClientModuleGenerator):
         # ISystem
         cls = mb.class_('ISystem')
         cls.include()
-        cls.mem_funs().virtuality = 'not virtual' 
-        cls.mem_funs('GetUserConfigFileData').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('GetRegistryInteger').add_transformation(FT.output('value'))
+        cls.member_functions().virtuality = 'not virtual' 
+        cls.member_functions('GetUserConfigFileData').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('GetRegistryInteger').add_transformation(FT.output('value'))
         
         # Exclude registry modification functions, likely not needed from Python
-        cls.mem_funs('SetRegistryInteger').exclude()
-        cls.mem_funs('SetRegistryString').exclude()
-        cls.mem_funs('DeleteRegistryKey').exclude()
+        cls.member_functions('SetRegistryInteger').exclude()
+        cls.member_functions('SetRegistryString').exclude()
+        cls.member_functions('DeleteRegistryKey').exclude()
         
-        cls.mem_fun('SetClipboardImage').exclude()
+        cls.member_function('SetClipboardImage').exclude()
         
         # Properly wrap getting a registery string
         mb.add_declaration_code('''static boost::python::tuple GetRegistryString_cc10e70c5f6b49d5963b27442c970b19( ::vgui::ISystem & inst, char const * key ){
@@ -139,7 +139,7 @@ class VGUI(ClientModuleGenerator):
     return bp::make_tuple( result, value2 );
 }
         ''')
-        cls.mem_funs('GetRegistryString').exclude()
+        cls.member_functions('GetRegistryString').exclude()
         cls.add_registration_code('''def( 
             "GetRegistryString"
             , (boost::python::tuple (*)( ::vgui::ISystem &,char const * ))( &GetRegistryString_cc10e70c5f6b49d5963b27442c970b19 )
@@ -154,7 +154,7 @@ class VGUI(ClientModuleGenerator):
         # IClientMode
         cls = mb.class_( 'IClientMode' )
         cls.include()
-        cls.mem_funs().virtuality = 'not virtual' 
+        cls.member_functions().virtuality = 'not virtual' 
         
         if self.settings.branch == 'swarm':
             mb.add_declaration_code( "IClientMode *wrap_GetClientMode( void )\r\n{\r\n\treturn GetClientMode();\r\n}\r\n" )
@@ -162,17 +162,17 @@ class VGUI(ClientModuleGenerator):
             
         if self.settings.branch == 'source2013':
             # TODO: Returns wchar_t *. Get a converter.
-            cls.mem_fun('GetMapName').exclude()
-            cls.mem_fun('GetServerName').exclude()
+            cls.member_function('GetMapName').exclude()
+            cls.member_function('GetServerName').exclude()
         
-        cls.mem_funs( 'GetViewport' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
-        cls.mem_funs( 'GetViewportAnimationController' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
-        cls.mem_funs( 'GetMessagePanel' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
-        cls.mem_funs( 'AdjustEngineViewport' ).add_transformation( FT.output('x'), FT.output('y'), FT.output('width'), FT.output('height') )
-        cls.mem_funs( 'ActivateInGameVGuiContext' ).include()  # Not safe, but IClientMode should not be overridden.
+        cls.member_functions( 'GetViewport' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+        cls.member_functions( 'GetViewportAnimationController' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+        cls.member_functions( 'GetMessagePanel' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+        cls.member_functions( 'AdjustEngineViewport' ).add_transformation( FT.output('x'), FT.output('y'), FT.output('width'), FT.output('height') )
+        cls.member_functions( 'ActivateInGameVGuiContext' ).include()  # Not safe, but IClientMode should not be overridden.
         
         if self.settings.branch == 'swarm':
-            cls.mem_funs( 'GetPanelFromViewport' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+            cls.member_functions( 'GetPanelFromViewport' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
         
     def ParseISurface(self, mb):
         cls = mb.class_('CWrapSurface')
@@ -182,26 +182,26 @@ class VGUI(ClientModuleGenerator):
         mb.free_function( 'wrapsurface' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object) 
         mb.free_function( 'wrapsurface' ).rename('surface')    
         
-        mb.enum('CursorCode').include()
-        mb.enum('FontDrawType_t').include()
+        mb.enumeration('CursorCode').include()
+        mb.enumeration('FontDrawType_t').include()
         if self.settings.branch == 'swarm':
             mb.class_('FontVertex_t').include()
         else:
             mb.class_('Vertex_t').include()
         mb.class_('IntRect').include()
         
-        cls.mem_funs( 'DrawGetTextPos' ).add_transformation( FT.output('x'), FT.output('y') )
-        cls.mem_funs( 'DrawGetTextureSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-        cls.mem_funs( 'GetScreenSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
-        cls.mem_funs( 'GetCharABCwide' ).add_transformation( FT.output('a'), FT.output('b'), FT.output('c') )
-        cls.mem_funs( 'GetWorkspaceBounds' ).add_transformation( FT.output('x'), FT.output('y'), FT.output('wide'), FT.output('tall') )
-        cls.mem_funs( 'GetAbsoluteWindowBounds' ).add_transformation( FT.output('x'), FT.output('y'), FT.output('wide'), FT.output('tall') )
-        cls.mem_funs( 'GetProportionalBase' ).add_transformation( FT.output('width'), FT.output('height') )
-        cls.mem_funs( 'SurfaceGetCursorPos' ).add_transformation( FT.output('x'), FT.output('y') )
+        cls.member_functions( 'DrawGetTextPos' ).add_transformation( FT.output('x'), FT.output('y') )
+        cls.member_functions( 'DrawGetTextureSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.member_functions( 'GetScreenSize' ).add_transformation( FT.output('wide'), FT.output('tall') )
+        cls.member_functions( 'GetCharABCwide' ).add_transformation( FT.output('a'), FT.output('b'), FT.output('c') )
+        cls.member_functions( 'GetWorkspaceBounds' ).add_transformation( FT.output('x'), FT.output('y'), FT.output('wide'), FT.output('tall') )
+        cls.member_functions( 'GetAbsoluteWindowBounds' ).add_transformation( FT.output('x'), FT.output('y'), FT.output('wide'), FT.output('tall') )
+        cls.member_functions( 'GetProportionalBase' ).add_transformation( FT.output('width'), FT.output('height') )
+        cls.member_functions( 'SurfaceGetCursorPos' ).add_transformation( FT.output('x'), FT.output('y') )
         
-        cls.mem_funs( 'CreateHTMLWindow' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object) 
-        cls.mem_funs( 'DrawGetTextureMatInfoFactory' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object) 
-        cls.mem_funs( 'GetIconImageForFullPath' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object) 
+        cls.member_functions( 'CreateHTMLWindow' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object) 
+        cls.member_functions( 'DrawGetTextureMatInfoFactory' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object) 
+        cls.member_functions( 'GetIconImageForFullPath' ).call_policies = call_policies.return_value_policy(call_policies.reference_existing_object) 
     
     def ParseHUD(self, mb):
         # CHud
@@ -212,56 +212,56 @@ class VGUI(ClientModuleGenerator):
             mb.free_function('GetHud').include()
             mb.free_function('GetHud').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
         else:
-            mb.vars('gHUD').include()
+            mb.variables('gHUD').include()
         
-        cls.mem_funs( 'FindElement' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        cls.member_functions( 'FindElement' ).call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         if self.settings.branch != 'swarm': # ASW should use HudIcons() / CHudIcons
-            #cls.mem_funs( 'GetIcon' ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
-            #cls.mem_funs( 'AddUnsearchableHudIconToList' ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object ) 
-            #cls.mem_funs( 'AddSearchableHudIconToList' ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
+            #cls.member_functions( 'GetIcon' ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
+            #cls.member_functions( 'AddUnsearchableHudIconToList' ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object ) 
+            #cls.member_functions( 'AddSearchableHudIconToList' ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object )
             # The HUD only cleans up when you close the game, so internal references should't be a problem.
-            cls.mem_funs( 'GetIcon' ).call_policies = call_policies.return_internal_reference()
-            cls.mem_funs( 'AddUnsearchableHudIconToList' ).call_policies = call_policies.return_internal_reference()
-            cls.mem_funs( 'AddSearchableHudIconToList' ).call_policies = call_policies.return_internal_reference()
-        cls.vars('m_HudList').exclude()
+            cls.member_functions( 'GetIcon' ).call_policies = call_policies.return_internal_reference()
+            cls.member_functions( 'AddUnsearchableHudIconToList' ).call_policies = call_policies.return_internal_reference()
+            cls.member_functions( 'AddSearchableHudIconToList' ).call_policies = call_policies.return_internal_reference()
+        cls.variables('m_HudList').exclude()
         
         if self.settings.branch == 'swarm':
-            cls.mem_funs('GetHudList').exclude()
-            cls.mem_funs('GetHudPanelList').exclude()
+            cls.member_functions('GetHudList').exclude()
+            cls.member_functions('GetHudPanelList').exclude()
             
         cls = mb.class_('CHudElement')
         cls.include()
-        cls.mem_funs('GetName').exclude()
-        cls.vars('m_pyInstance').exclude()
-        cls.mem_funs('SetActive').virtuality = 'not virtual' 
-        cls.mem_funs('IsActive').virtuality = 'not virtual'
-        cls.mem_funs('ShouldDraw').virtuality = 'not virtual' # TODO: What if we need better control in Python?
-        cls.mem_funs('ProcessInput').virtuality = 'not virtual' # TODO: Do we ever need this in Python?
+        cls.member_functions('GetName').exclude()
+        cls.variables('m_pyInstance').exclude()
+        cls.member_functions('SetActive').virtuality = 'not virtual' 
+        cls.member_functions('IsActive').virtuality = 'not virtual'
+        cls.member_functions('ShouldDraw').virtuality = 'not virtual' # TODO: What if we need better control in Python?
+        cls.member_functions('ProcessInput').virtuality = 'not virtual' # TODO: Do we ever need this in Python?
         
         cls = mb.class_('CPyHudElementHelper')
         cls.include()
         cls.rename('CHudElementHelper')
-        cls.mem_funs('GetNext').exclude()
+        cls.member_functions('GetNext').exclude()
 
         # HudIcons
         if self.settings.branch == 'swarm':
             cls = mb.class_('CHudIcons')
             cls.include()
             # FIXME
-            cls.mem_funs( 'GetIcon' ).call_policies = call_policies.return_internal_reference()
-            #cls.mem_funs('GetIcon').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
-            #cls.mem_funs('GetIcon' ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object ) 
-            cls.mem_funs('AddUnsearchableHudIconToList').exclude()
-            cls.mem_funs('AddSearchableHudIconToList').exclude()
-            #cls.mem_funs('AddUnsearchableHudIconToList').call_policies = call_policies.return_value_policy( call_policies.manage_new_object ) 
-            #cls.mem_funs('AddSearchableHudIconToList').call_policies = call_policies.return_value_policy( call_policies.manage_new_object ) 
+            cls.member_functions( 'GetIcon' ).call_policies = call_policies.return_internal_reference()
+            #cls.member_functions('GetIcon').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)
+            #cls.member_functions('GetIcon' ).call_policies = call_policies.return_value_policy( call_policies.manage_new_object ) 
+            cls.member_functions('AddUnsearchableHudIconToList').exclude()
+            cls.member_functions('AddSearchableHudIconToList').exclude()
+            #cls.member_functions('AddUnsearchableHudIconToList').call_policies = call_policies.return_value_policy( call_policies.manage_new_object ) 
+            #cls.member_functions('AddSearchableHudIconToList').call_policies = call_policies.return_value_policy( call_policies.manage_new_object ) 
             mb.free_function('HudIcons').include()
             mb.free_function('HudIcons').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object) 
             
         # CHudTexture
         cls = mb.class_('CHudTexture')
         cls.include()
-        cls.vars().exclude()
+        cls.variables().exclude()
         
     def ParseMisc(self, mb):
         # Include some empty classes
@@ -283,10 +283,10 @@ class VGUI(ClientModuleGenerator):
         mb.free_function('PyGetPanel').include()
         mb.free_function('PyGetPanel').rename('GetPanel')
         #mb.free_function('PyGetPanel').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
-        mb.enum('VGuiPanel_t').include()
+        mb.enumeration('VGuiPanel_t').include()
         
         # Message map types
-        mb.enum('DataType_t').include()
+        mb.enumeration('DataType_t').include()
 
         # Some defines
         mb.add_registration_code( "bp::scope().attr( \"INVALID_FONT\" ) = (int)0;" )

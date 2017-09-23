@@ -33,20 +33,20 @@ class TE(SemiSharedModuleGenerator):
     ]
     
     def ParseServer(self, mb):
-        mb.class_('CEffectData').vars('m_nEntIndex').exclude()
+        mb.class_('CEffectData').variables('m_nEntIndex').exclude()
         
         mb.free_function('CreateConcussiveBlast').include()
         
     def ParseClient(self, mb):
         # Don't care
-        mb.class_('CEffectData').mem_funs().exclude()
-        mb.class_('CEffectData').vars('m_hEntity').exclude()
+        mb.class_('CEffectData').member_functions().exclude()
+        mb.class_('CEffectData').variables('m_hEntity').exclude()
         
         # Registering new effects
         cls = mb.class_('PyClientEffectRegistration')
         cls.include()
         cls.rename('ClientEffectRegistration')
-        cls.vars().exclude()
+        cls.variables().exclude()
         
         # Functions to do some effects
         mb.free_functions('FX_AddQuad').include()
@@ -86,9 +86,9 @@ class TE(SemiSharedModuleGenerator):
         # Temp Ents
         cls = mb.class_('CTempEnts')
         cls.include()
-        cls.mem_funs().virtuality = 'not virtual' 
+        cls.member_functions().virtuality = 'not virtual' 
         cls.calldefs(matchers.access_type_matcher_t( 'protected' ), allow_empty=True).exclude()
-        cls.mem_fun('RicochetSprite').exclude() # Exclude because of model_t
+        cls.member_function('RicochetSprite').exclude() # Exclude because of model_t
 
         mb.add_registration_code( 'bp::scope().attr( "tempents" ) = boost::ref(tempents);' )
         
@@ -104,9 +104,9 @@ class TE(SemiSharedModuleGenerator):
         cls = mb.class_('PyClientSideEffect')
         cls.include()
         cls.rename('ClientSideEffect')
-        cls.mem_funs().virtuality = 'not virtual' 
-        cls.mem_funs('AddToEffectList').exclude()
-        cls.mem_funs('Draw').virtuality = 'virtual'
+        cls.member_functions().virtuality = 'not virtual' 
+        cls.member_functions('AddToEffectList').exclude()
+        cls.member_functions('Draw').virtuality = 'virtual'
         
         mb.free_function('AddToClientEffectList').include()
         
@@ -115,34 +115,34 @@ class TE(SemiSharedModuleGenerator):
         cls.include()
         cls.rename('MeshVertex')
         
-        cls.var('m_hEnt').exclude()
-        cls.mem_funs('GetEnt').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.variable('m_hEnt').exclude()
+        cls.member_functions('GetEnt').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         self.SetupProperty(cls, 'ent', 'GetEnt', 'SetEnt')
                          
         cls = mb.class_('PyMeshBuilder')
         cls.include()
         cls.rename('MeshBuilder')
-        cls.mem_funs().virtuality = 'not virtual' 
+        cls.member_functions().virtuality = 'not virtual' 
         
         cls = mb.class_('PyMeshRallyLine')
         cls.include()
         cls.rename('MeshRallyLine')
-        cls.mem_funs().virtuality = 'not virtual'
-        cls.mem_funs('GetEnt1').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
-        cls.mem_funs('GetEnt2').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions().virtuality = 'not virtual'
+        cls.member_functions('GetEnt1').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.member_functions('GetEnt2').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         self.SetupProperty(cls, 'ent1', 'GetEnt1', 'SetEnt1')
         self.SetupProperty(cls, 'ent2', 'GetEnt2', 'SetEnt2')
         
-        mb.enum('MaterialPrimitiveType_t').include()
+        mb.enumeration('MaterialPrimitiveType_t').include()
         
         # FX Envelope + strider fx
         cls = mb.class_('C_EnvelopeFX')
         cls.include()
-        cls.mem_funs().virtuality = 'not virtual' 
+        cls.member_functions().virtuality = 'not virtual' 
         
         #cls = mb.class_('C_StriderFX')
         #cls.include()
-        #cls.mem_funs().virtuality = 'not virtual' 
+        #cls.member_functions().virtuality = 'not virtual' 
         
         # Constants
         mb.add_registration_code( "bp::scope().attr( \"FTENT_NONE\" ) = (int)FTENT_NONE;" )
@@ -184,25 +184,25 @@ class TE(SemiSharedModuleGenerator):
         
         # Data for DispatchEffect
         mb.class_('CEffectData').include()
-        mb.class_('CEffectData').vars('m_vOrigin').rename('origin')
-        mb.class_('CEffectData').vars('m_vStart').rename('start')
-        mb.class_('CEffectData').vars('m_vNormal').rename('normal')
-        mb.class_('CEffectData').vars('m_vAngles').rename('angles')
-        mb.class_('CEffectData').vars('m_fFlags').rename('flags')
-        mb.class_('CEffectData').vars('m_flScale').rename('scale')
-        mb.class_('CEffectData').vars('m_flMagnitude').rename('magnitude')
-        mb.class_('CEffectData').vars('m_flRadius').rename('radius')
-        mb.class_('CEffectData').vars('m_nAttachmentIndex').rename('attachmentindex')
-        mb.class_('CEffectData').vars('m_nSurfaceProp').rename('surfaceprop')
-        mb.class_('CEffectData').vars('m_nMaterial').rename('material')
-        mb.class_('CEffectData').vars('m_nDamageType').rename('damagetype')
-        mb.class_('CEffectData').vars('m_nHitBox').rename('hitbox')
-        mb.class_('CEffectData').vars('m_nColor').rename('color')
+        mb.class_('CEffectData').variables('m_vOrigin').rename('origin')
+        mb.class_('CEffectData').variables('m_vStart').rename('start')
+        mb.class_('CEffectData').variables('m_vNormal').rename('normal')
+        mb.class_('CEffectData').variables('m_vAngles').rename('angles')
+        mb.class_('CEffectData').variables('m_fFlags').rename('flags')
+        mb.class_('CEffectData').variables('m_flScale').rename('scale')
+        mb.class_('CEffectData').variables('m_flMagnitude').rename('magnitude')
+        mb.class_('CEffectData').variables('m_flRadius').rename('radius')
+        mb.class_('CEffectData').variables('m_nAttachmentIndex').rename('attachmentindex')
+        mb.class_('CEffectData').variables('m_nSurfaceProp').rename('surfaceprop')
+        mb.class_('CEffectData').variables('m_nMaterial').rename('material')
+        mb.class_('CEffectData').variables('m_nDamageType').rename('damagetype')
+        mb.class_('CEffectData').variables('m_nHitBox').rename('hitbox')
+        mb.class_('CEffectData').variables('m_nColor').rename('color')
         
         # ITempEntsSystem
         cls = mb.class_('ITempEntsSystem')
         cls.include()
-        cls.mem_funs().virtuality = 'not virtual' 
+        cls.member_functions().virtuality = 'not virtual' 
 
         mb.add_registration_code('bp::scope().attr( "te" ) = boost::ref(te);')
          

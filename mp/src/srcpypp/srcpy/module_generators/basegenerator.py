@@ -86,14 +86,14 @@ class ModuleGenerator(object):
         mb.code_creator.adopt_include(header)
         
     def IncludeVarAndRename(self, varname, newvarname):
-        v = self.mb.vars(varname)
+        v = self.mb.variables(varname)
         v.include()
         v.rename(newvarname)
         
     def AddProperty(self, cls, propertyname, getter, setter=''):
-        cls.mem_funs(getter).exclude()
+        cls.member_functions(getter).exclude()
         if setter: 
-            cls.mem_funs(setter).exclude()
+            cls.member_functions(setter).exclude()
         if setter:
             cls.add_property(propertyname, cls.member_function( getter ), cls.member_function( setter ))
         else:
@@ -104,23 +104,23 @@ class ModuleGenerator(object):
         c.include()
         c.no_init = no_init
         if removevirtual:
-            c.mem_funs(allow_empty=True).virtuality = 'not virtual' 
+            c.member_functions(allow_empty=True).virtuality = 'not virtual' 
         if c.classes(allow_empty=True):
             c.classes(allow_empty=True).exclude()
-        if c.mem_funs(allow_empty=True):
-            c.mem_funs(allow_empty=True).exclude()
-        if c.vars(allow_empty=True):
-            c.vars(allow_empty=True).exclude()
-        if c.enums(allow_empty=True):
-            c.enums(allow_empty=True).exclude()  
+        if c.member_functions(allow_empty=True):
+            c.member_functions(allow_empty=True).exclude()
+        if c.variables(allow_empty=True):
+            c.variables(allow_empty=True).exclude()
+        if c.enumerations(allow_empty=True):
+            c.enumerations(allow_empty=True).exclude()  
         return c
         
     def SetupProperty(self, cls, pyname, gettername, settername=None, excludesetget=True):
         """ Shortcut for adding a property and exluding the getter/setter functions. """
         cls = self.mb.class_(cls) if type(cls) == str else cls
         
-        getter = cls.mem_fun(gettername)
-        setter = cls.mem_fun(settername) if settername is not None else None
+        getter = cls.member_function(gettername)
+        setter = cls.member_function(settername) if settername is not None else None
         
         if excludesetget:
             getter.exclude()

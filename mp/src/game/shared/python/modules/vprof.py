@@ -15,19 +15,19 @@ class VProf(SemiSharedModuleGenerator):
         
         mb.class_('CVProfile').include()
         
-        mb.mem_funs('GetRoot').exclude()
-        mb.mem_funs('FindNode').exclude()
-        mb.mem_funs('GetBudgetGroupColor').exclude()
-        mb.mem_funs('RegisterNumBudgetGroupsChangedCallBack').exclude()
-        mb.mem_funs('FindOrCreateCounter').exclude()
-        mb.mem_funs('GetCounterNameAndValue').exclude()
+        mb.member_functions('GetRoot').exclude()
+        mb.member_functions('FindNode').exclude()
+        mb.member_functions('GetBudgetGroupColor').exclude()
+        mb.member_functions('RegisterNumBudgetGroupsChangedCallBack').exclude()
+        mb.member_functions('FindOrCreateCounter').exclude()
+        mb.member_functions('GetCounterNameAndValue').exclude()
         if self.settings.branch == 'source2013':
-                mb.mem_funs('GetCurrentNode').exclude()
-        mb.vars('m_pNumBudgetGroupsChangedCallBack').exclude()
-        mb.vars('m_pName').exclude()
+                mb.member_functions('GetCurrentNode').exclude()
+        mb.variables('m_pNumBudgetGroupsChangedCallBack').exclude()
+        mb.variables('m_pName').exclude()
         
-        mb.vars('g_VProfCurrentProfile').include()
-        mb.vars('g_VProfCurrentProfile').rename('vprofcurrentprofilee')
+        mb.variables('g_VProfCurrentProfile').include()
+        mb.variables('g_VProfCurrentProfile').rename('vprofcurrentprofilee')
         
         # Remove any protected function 
         mb.calldefs( matchers.access_type_matcher_t( 'protected' ) ).exclude()    

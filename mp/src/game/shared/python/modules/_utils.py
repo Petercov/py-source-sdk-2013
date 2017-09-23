@@ -140,7 +140,7 @@ class Utils(SemiSharedModuleGenerator):
 
     def RecursiveFindDecl(self, cls, fnname):
         try:
-            return cls.mem_fun('ShouldHitEntity')
+            return cls.member_function('ShouldHitEntity')
         except pygccxml.declarations.matcher.declaration_not_found_t:
             for b in cls.bases:
                 ret = self.RecursiveFindDecl(b.related_class, fnname)
@@ -151,8 +151,8 @@ class Utils(SemiSharedModuleGenerator):
     def SetupTraceFilter(self, mb, clsname):
         cls = mb.class_(clsname)
         cls.include()
-        cls.mem_funs(allow_empty=True).virtuality = 'not virtual'
-        cls.mem_funs('ShouldHitEntity', allow_empty=True).virtuality = 'virtual'
+        cls.member_functions(allow_empty=True).virtuality = 'not virtual'
+        cls.member_functions('ShouldHitEntity', allow_empty=True).virtuality = 'virtual'
             
     def Parse(self, mb):
         # Exclude everything by default
@@ -174,7 +174,7 @@ class Utils(SemiSharedModuleGenerator):
         mb.free_functions('UTIL_PyEntitiesAlongRay').rename('UTIL_EntitiesAlongRay')
 
         # Enums
-        mb.enum('ShakeCommand_t').include()
+        mb.enumeration('ShakeCommand_t').include()
         
         # Call policies
         mb.free_functions('UTIL_PlayerByIndex').call_policies = call_policies.return_value_policy( call_policies.return_by_value ) 
@@ -199,18 +199,18 @@ class Utils(SemiSharedModuleGenerator):
         cls = mb.class_('CGameTrace')
         cls.include()
         cls.rename('trace_t')
-        cls.var('m_pEnt').rename('ent')
-        cls.var('m_pEnt').getter_call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        cls.variable('m_pEnt').rename('ent')
+        cls.variable('m_pEnt').getter_call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
         cls = mb.class_('PyRay_t')
         cls.include()
         cls.rename('Ray_t')
-        cls.vars('m_Start').rename('start')
-        cls.vars('m_Delta').rename('delta')
-        cls.vars('m_StartOffset').rename('startoffset')
-        cls.vars('m_Extents').rename('extents')
-        cls.vars('m_IsRay').rename('isray')
-        cls.vars('m_IsSwept').rename('isswept')
+        cls.variables('m_Start').rename('start')
+        cls.variables('m_Delta').rename('delta')
+        cls.variables('m_StartOffset').rename('startoffset')
+        cls.variables('m_Extents').rename('extents')
+        cls.variables('m_IsRay').rename('isray')
+        cls.variables('m_IsSwept').rename('isswept')
         
         # //--------------------------------------------------------------------------------------------------------------------------------
         # Trace Filters
@@ -243,7 +243,7 @@ class Utils(SemiSharedModuleGenerator):
         mb.class_('CTraceFilterSimple').rename('CTraceFilterSimpleInternal')
         mb.class_('CPyTraceFilterSimple').rename('CTraceFilterSimple')
         
-        mb.mem_funs('GetPassEntity').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
+        mb.member_functions('GetPassEntity').call_policies = call_policies.return_value_policy(call_policies.return_by_value) 
         
         mb.class_('csurface_t').include()
         
@@ -271,7 +271,7 @@ class Utils(SemiSharedModuleGenerator):
         mb.free_functions('IsOBBIntersectingOBB').include()
         mb.free_functions('IsPointInCone').include()
         mb.free_functions('IntersectTriangleWithPlaneBarycentric').include()
-        mb.enum('QuadBarycentricRetval_t').include()
+        mb.enumeration('QuadBarycentricRetval_t').include()
         mb.free_functions('PointInQuadToBarycentric').include()
         mb.free_functions('PointInQuadFromBarycentric').include()
         mb.free_functions('TexCoordInQuadFromBarycentric').include()

@@ -54,7 +54,7 @@ class GameRules(SemiSharedModuleGenerator):
             
             if not baseonly:
                 # Used internally
-                cls.mem_funs('GetPySelf', allow_empty=True).exclude()
+                cls.member_functions('GetPySelf', allow_empty=True).exclude()
                 cls.add_wrapper_code(
                     'virtual PyObject *GetPySelf() const { return boost::python::detail::wrapper_base_::get_owner(*this); }'
                 )
@@ -64,43 +64,43 @@ class GameRules(SemiSharedModuleGenerator):
             # Always use server class name
             cls.rename(gamerulename)
             
-        mb.mem_funs('ShouldCollide').virtuality = 'not virtual'
-        mb.mem_funs('GetAmmoDamage').virtuality = 'not virtual' # Just modify the ammo table when needed...
+        mb.member_functions('ShouldCollide').virtuality = 'not virtual'
+        mb.member_functions('GetAmmoDamage').virtuality = 'not virtual' # Just modify the ammo table when needed...
         
-        mb.mem_funs('NetworkStateChanged').exclude()
+        mb.member_functions('NetworkStateChanged').exclude()
         
         if self.isserver:
             if self.settings.branch == 'source2013':
-                mb.mem_fun('TacticalMissionManagerFactory').exclude()
+                mb.member_function('TacticalMissionManagerFactory').exclude()
             if self.settings.branch == 'swarm':
-                mb.mem_funs('DoFindClientInPVS').exclude()
+                mb.member_functions('DoFindClientInPVS').exclude()
                 
-                mb.mem_funs('IsTopDown').virtuality = 'not virtual'
-                mb.mem_funs('ForceSplitScreenPlayersOnToSameTeam').virtuality = 'not virtual'
+                mb.member_functions('IsTopDown').virtuality = 'not virtual'
+                mb.member_functions('ForceSplitScreenPlayersOnToSameTeam').virtuality = 'not virtual'
 
             # Excludes
-            mb.mem_funs('VoiceCommand').exclude()
+            mb.member_functions('VoiceCommand').exclude()
             
             # Remove virtuality from  or include some unneeded functions (would just slow down things)
-            mb.mem_funs('FrameUpdatePostEntityThink').virtuality = 'not virtual' # Calls Think
-            mb.mem_funs('EndGameFrame').virtuality = 'not virtual'
-            mb.mem_funs('FAllowFlashlight', lambda d: d.virtuality == 'virtual').virtuality = 'not virtual'
+            mb.member_functions('FrameUpdatePostEntityThink').virtuality = 'not virtual' # Calls Think
+            mb.member_functions('EndGameFrame').virtuality = 'not virtual'
+            mb.member_functions('FAllowFlashlight', lambda d: d.virtuality == 'virtual').virtuality = 'not virtual'
 
         if 'HL2MP' in self.symbols:
-            mb.mem_funs('GetHL2MPViewVectors').exclude()
+            mb.member_functions('GetHL2MPViewVectors').exclude()
             
             if self.isclient:
-                mb.mem_funs('RestartGame').exclude()
-                mb.mem_funs('CheckAllPlayersReady').exclude()
-                mb.mem_funs('CheckRestartGame').exclude()
-                mb.mem_funs('CleanUpMap').exclude()
+                mb.member_functions('RestartGame').exclude()
+                mb.member_functions('CheckAllPlayersReady').exclude()
+                mb.member_functions('CheckRestartGame').exclude()
+                mb.member_functions('CleanUpMap').exclude()
             
         # Temp excludes
-        mb.mem_funs('GetEncryptionKey').exclude()
-        mb.mem_funs('GetViewVectors').exclude()
+        mb.member_functions('GetEncryptionKey').exclude()
+        mb.member_functions('GetViewVectors').exclude()
 
         # Call policies
-        mb.mem_funs('GetNextBestWeapon').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
+        mb.member_functions('GetNextBestWeapon').call_policies = call_policies.return_value_policy(call_policies.return_by_value)
         
         # Rename PyGameRules to just GameRules
         mb.free_function('PyGameRules').include()
@@ -113,9 +113,9 @@ class GameRules(SemiSharedModuleGenerator):
         # CAmmoDef
         cls = mb.class_('CAmmoDef')
         cls.include()
-        cls.mem_fun('GetAmmoOfIndex').exclude()
-        cls.var('m_AmmoType').exclude()
-        cls.var('m_nAmmoIndex').rename('ammoindex')
+        cls.member_function('GetAmmoOfIndex').exclude()
+        cls.variable('m_AmmoType').exclude()
+        cls.variable('m_nAmmoIndex').rename('ammoindex')
         
         mb.free_function('GetAmmoDef').include()
         mb.free_function('GetAmmoDef').call_policies = call_policies.return_value_policy(call_policies.reference_existing_object)

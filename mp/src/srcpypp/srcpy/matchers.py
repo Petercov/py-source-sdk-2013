@@ -30,7 +30,7 @@ class calldef_withtypes(matchers.custom_matcher_t):
                     return True
         
                 for arg in decl.arguments:
-                    if self.__compare_types( t, arg.type ):
+                    if self.__compare_types( t, arg.decl_type ):
                         return True
         
         return False
