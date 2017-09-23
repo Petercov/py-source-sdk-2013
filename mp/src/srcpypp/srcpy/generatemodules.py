@@ -114,6 +114,19 @@ def ParseModules(settings, specificmodule=None, appendfileonly=False):
             specificmodule (str): Parse a single specific module.
             appendfileonly (bool): Only generate the append file.
     """
+    # Ensure generation folders exist
+    srcpath = settings.srcpath
+    client_path = os.path.join(srcpath, settings.client_path)
+    server_path = os.path.join(srcpath, settings.server_path)
+    shared_path = os.path.join(srcpath, settings.shared_path)
+
+    if not os.path.isdir(client_path):
+        os.mkdir(client_path)
+    if not os.path.isdir(server_path):
+        os.mkdir(server_path)
+    if not os.path.isdir(shared_path):
+        os.mkdir(shared_path)
+
     # Keep a list of the append names
     client_modules = []
     server_modules = []
@@ -125,9 +138,8 @@ def ParseModules(settings, specificmodule=None, appendfileonly=False):
     shared_file_names = []
 
     # Add search paths and create list of modules to be parsed/exposed
-    src_path = settings.srcpath
     for path in settings.searchpaths:
-        sys.path.append(os.path.join(src_path, path))
+        sys.path.append(os.path.join(srcpath, path))
     
     module_instances = RegisterModules(settings)
     
@@ -221,10 +233,9 @@ def ParseModules(settings, specificmodule=None, appendfileonly=False):
     os.chdir(srcpyppdir)
 
     # Generate new append files if needed (add modules to Python on initialization)
-    srcpath = settings.srcpath
-    client_append_file = GenerateAppendFile(os.path.join(srcpath, settings.client_path), client_modules, 'client')
-    server_append_file = GenerateAppendFile(os.path.join(srcpath, settings.server_path), server_modules, 'server')
-    shared_append_file = GenerateAppendFile(os.path.join(srcpath, settings.shared_path), shared_modules, 'shared')
+    client_append_file = GenerateAppendFile(client_path, client_modules, 'client')
+    server_append_file = GenerateAppendFile(server_path, server_modules, 'server')
+    shared_append_file = GenerateAppendFile(shared_path, shared_modules, 'shared')
     
     # Add append files for autoupdatevxproj setting if specified
     client_file_names.append(client_append_file.split(settings.srcpath)[1][1:])
