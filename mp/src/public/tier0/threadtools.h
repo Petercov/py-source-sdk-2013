@@ -885,7 +885,7 @@ template <> struct CAutoLockTypeDeducer<sizeof(CAlignedThreadFastMutex)> {	typed
 #define AUTO_LOCK_( type, mutex ) \
 	CAutoLockT< type > UNIQUE_ID( static_cast<const type &>( mutex ) )
 
-#if defined(GNUC)
+#if defined(GNUC) && !defined(PYPP_GENERATION)
 
 template<typename T> T strip_cv_quals_for_mutex(T&);
 template<typename T> T strip_cv_quals_for_mutex(const T&);
