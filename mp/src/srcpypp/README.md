@@ -4,7 +4,7 @@ On Windows you can use [Bash on Ubuntu on Windows](https://msdn.microsoft.com/en
 
 The following dependencies need to be installed on Ubuntu:
 
-        sudo apt-get install gcc-4.7 gcc-4.7-multilib g++-4.7 g++-4.7-multilib
+        sudo apt-get install castxml gcc-4.7 gcc-4.7-multilib g++-4.7 g++-4.7-multilib
 
 All modules can be parsed by running:
 
