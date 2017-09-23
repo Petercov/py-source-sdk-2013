@@ -1,5 +1,10 @@
 ## Usage
-The modules can be generated using generatemods.py. 
+The modules can be generated using generatemods.py. Generation requires a unix like environment. 
+On Windows you can use [Bash on Ubuntu on Windows](https://msdn.microsoft.com/en-us/commandline/wsl/about).
+
+The following dependencies need to be installed on Ubuntu:
+
+        sudo apt-get install gcc-4.7 gcc-4.7-multilib g++-4.7 g++-4.7-multilib
 
 All modules can be parsed by running:
 
@@ -19,24 +24,11 @@ To create a new module you must do two things:
 
 2. Open settings.py and add the new binding code to the module list.
 
-## Updating GCCXML library
-1. Go to https://github.com/gccxml/gccxml and clone latest
-2. Use CMake to generate project files and build
-3. Update Support folder
-	- Create a virtual machine containing a 32 bit installation of a linux distribution (e.g. Ubuntu)
-	- Install GCC and G++
-	- Copy usr/lib and usr/include to the Support folder when parsing on other platforms than Linux
+## Updating PyGCCXML library
+Merge changes from https://github.com/gccxml/pygccxml
 
 ## Updating PyPlusPlus library
 Merge changes from https://bitbucket.org/ompl/pyplusplus
-
-## Updating src_module_builder Settings
-1. Open srcpy/src_module_builder.py
-2. Update include paths
-	- `gcc -print-prog-name=cc1plus` -v
-	- `gcc -print-prog-name=cc1` -v
-3. Update symbols gccxml_gcc_options file
-	- gcc -dM -E - < /dev/null
 
 ## Modifying importlib/_bootstrap.py
 Contains modified importlib._bootstrap, to allow loading modules from vpk files. This module must be frozen and included in the server/client dlls.
