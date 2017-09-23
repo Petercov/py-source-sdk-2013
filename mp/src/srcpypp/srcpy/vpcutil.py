@@ -252,7 +252,7 @@ if __name__ == '__main__':
         
         # Conditions
         'WIN32' : '',
-        'VS2010' : '',
+        'VS2015' : '',
         'WINDOWS' : '',
     }
     

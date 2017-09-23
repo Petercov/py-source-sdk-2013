@@ -46,12 +46,10 @@ class function_transformation_t:
     @property
     def alias( self ):
         if None is self.__alias:
-            # Unclear to me why we would mangle the name here...
-            # Disabled, if another name is needed the user just needs to rename!
-            #if self.__function.overloads:
-            #    self.__alias = self.unique_name
-            #else:
-            self.__alias = self.__function.alias
+            if self.__function.overloads:
+                self.__alias = self.unique_name
+            else:
+                self.__alias = self.__function.alias
         return self.__alias
 
     @property

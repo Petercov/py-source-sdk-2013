@@ -14,21 +14,19 @@ from pygccxml import declarations
 decls_traits = ( declarations.class_traits
                  , declarations.enum_traits 
                  , declarations.class_declaration_traits )
-                 
-i_depend_on_them = declarations.dependency_info_t.i_depend_on_them
 
-def get_decl_dependencies(decl):    
+def get_decl_dependencies(declaration):    
     dependencies = set()
-    for dependency in i_depend_on_them( decl ):
+    for dependency in declarations.get_dependencies_from_decl( declaration ):
         for traits in decls_traits:
             if traits.is_my_case( dependency ):
                 dd = traits.get_declaration( dependency )
                 dependencies.add( dd )
     return dependencies
 
-def get_parent_classes( decl ):
+def get_parent_classes( declaration ):
     classes = set()
-    parent = decl.parent
+    parent = declaration.parent
     while True:
         if isinstance( parent, declarations.namespace_t ):
             break

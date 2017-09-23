@@ -150,9 +150,9 @@ class calldef_wrapper_t( code_creator.code_creator_t
     def override_identifier(self):
         return algorithm.create_identifier( self, '::boost::python::override' )
 
-    def function_call_args( self, callpython=True ):
+    def function_call_args( self ):
         arg_utils = calldef_utils.argument_utils_t( self.declaration, algorithm.make_id_creator( self ) )
-        return arg_utils.call_args(callpython=callpython)
+        return arg_utils.call_args()
 
     def args_declaration( self ):
         arg_utils = calldef_utils.argument_utils_t( self.declaration, algorithm.make_id_creator( self ) )
@@ -360,18 +360,13 @@ class mem_fun_pv_wrapper_t( calldef_wrapper_t ):
         precall_code = self.declaration.override_precall_code
         if precall_code:
             template.append( os.linesep.join( precall_code ) )
-
         template.append( '%(override)s func_%(alias)s = this->get_override( "%(alias)s" );' )
-        template.append( 'try {')
         if self.declaration.return_type \
            and auto_ptr_traits.is_smart_pointer( self.declaration.return_type ):
-            template.append( self.indent('boost::python::object %(alias)s_result = func_%(alias)s( %(args)s );') )
-            template.append( self.indent('return boost::python::extract< %(return_type)s >( %(alias)s_result );') )
+            template.append( 'boost::python::object %(alias)s_result = func_%(alias)s( %(args)s );' )
+            template.append( 'return boost::python::extract< %(return_type)s >( %(alias)s_result );' )
         else:
-            template.append( self.indent('%(return_)sfunc_%(alias)s( %(args)s );'))
-        template.append( '} catch(bp::error_already_set &) {')
-        template.append( self.indent( 'throw boost::python::error_already_set();' ) )
-        template.append( '}')
+            template.append( '%(return_)sfunc_%(alias)s( %(args)s );')
         template = os.linesep.join( template )
 
         return_ = ''
@@ -456,7 +451,7 @@ class mem_fun_v_wrapper_t( calldef_wrapper_t ):
         return declarations.member_function_type_t(
                 return_type=self.declaration.return_type
                 , class_inst=declarations.dummy_type_t( self.parent.full_name )
-                , arguments_types=[arg.type for arg in self.declaration.arguments]
+                , arguments_types=[arg.decl_type for arg in self.declaration.arguments]
                 , has_const=self.declaration.has_const )
 
     def create_declaration(self, name, has_virtual=True):
@@ -484,31 +479,14 @@ class mem_fun_v_wrapper_t( calldef_wrapper_t ):
         precall_code = self.declaration.override_precall_code
         if precall_code:
             template.append( os.linesep.join( precall_code ) )
-            
-        try:
-            modulename = self.top_parent.body.name
-        except AttributeError:
-            modulename = '<unknown module>'
-
-        # Add debug code
-        # Thread check since we don't offer thread safe calls
-        template.append( 'PY_OVERRIDE_CHECK( %(wrapped_class)s, %(name)s )' )
-        # Logging of all overrides if the convar is turned on. Calling overrides is expensive if we are doing it too frequently.
-        template.append( 'PY_OVERRIDE_LOG( %(modulename)s, %(wrapped_class)s, %(name)s )' )
-        
-        # BUG: Comparing directly gives problems
-        template.append( '%(override)s func_%(alias)s = this->get_override( "%(alias)s" );' )
-        template.append( 'if( func_%(alias)s.ptr() != Py_None )' )
-        #template.append( 'if( %(override)s func_%(alias)s = this->get_override( "%(alias)s" ) )' )
-        template.append( self.indent('try {' ) )
-        template.append( self.indent(self.indent('%(return_)sfunc_%(alias)s( %(args)s );' ) ) )
-        template.append( self.indent('} catch(bp::error_already_set &) {') )
-        template.append( self.indent(self.indent('PyErr_Print();')) )
-        template.append( self.indent(self.indent('%(return_)sthis->%(wrapped_class)s::%(name)s( %(cppargs)s );') ) )
-        template.append( self.indent( '}' ) )    
-        template.append( 'else' )
-        template.append( self.indent('%(return_)sthis->%(wrapped_class)s::%(name)s( %(cppargs)s );') )
-        
+        template.append( 'if( %(override)s func_%(alias)s = this->get_override( "%(alias)s" ) )' )
+        template.append( self.indent('%(return_)sfunc_%(alias)s( %(args)s );') )
+        template.append( 'else{' )
+        native_precall_code = self.declaration.override_native_precall_code
+        if native_precall_code:
+            template.append( self.indent( os.linesep.join( native_precall_code ) ) )
+        template.append( self.indent('%(return_)sthis->%(wrapped_class)s::%(name)s( %(args)s );') )
+        template.append( '}' )
         template = os.linesep.join( template )
 
         return_ = ''
@@ -521,15 +499,12 @@ class mem_fun_v_wrapper_t( calldef_wrapper_t ):
             , 'alias' : self.declaration.alias
             , 'return_' : return_
             , 'args' : self.function_call_args()
-            , 'cppargs' : self.function_call_args(callpython=False)
             , 'wrapped_class' : self.wrapped_class_identifier()
-            , 'MsgInt' : '%d'
-            , 'modulename' : modulename
         }
 
     def create_default_body(self):
         function_call = declarations.call_invocation.join( self.declaration.partial_name
-                                                           , [ self.function_call_args(callpython=False) ] )
+                                                           , [ self.function_call_args() ] )
         body = self.wrapped_class_identifier() + '::' + function_call + ';'
         if not declarations.is_void( self.declaration.return_type ):
             body = 'return ' + body
@@ -587,7 +562,7 @@ class mem_fun_protected_wrapper_t( calldef_wrapper_t ):
         return declarations.member_function_type_t(
                 return_type=self.declaration.return_type
                 , class_inst=declarations.dummy_type_t( self.parent.full_name )
-                , arguments_types=[arg.type for arg in self.declaration.arguments]
+                , arguments_types=[arg.decl_type for arg in self.declaration.arguments]
                 , has_const=self.declaration.has_const )
 
     def create_declaration(self, name):
@@ -615,7 +590,7 @@ class mem_fun_protected_wrapper_t( calldef_wrapper_t ):
         return tmpl % {
             'name' : self.declaration.partial_name
             , 'return_' : return_
-            , 'args' : self.function_call_args(callpython=False)
+            , 'args' : self.function_call_args()
             , 'wrapped_class' : self.wrapped_class_identifier()
         }
 
@@ -658,7 +633,7 @@ class mem_fun_protected_s_wrapper_t( calldef_wrapper_t ):
     def function_type(self):
         return declarations.free_function_type_t(
                 return_type=self.declaration.return_type
-                , arguments_types=[arg.type for arg in self.declaration.arguments] )
+                , arguments_types=[arg.decl_type for arg in self.declaration.arguments] )
 
     def create_declaration(self, name):
         template = 'static %(return_type)s %(name)s( %(args)s )%(throw)s'
@@ -680,7 +655,7 @@ class mem_fun_protected_s_wrapper_t( calldef_wrapper_t ):
         return tmpl % {
             'name' : self.declaration.name
             , 'return_' : return_
-            , 'args' : self.function_call_args(callpython=False)
+            , 'args' : self.function_call_args()
             , 'wrapped_class' : self.wrapped_class_identifier()
         }
 
@@ -725,7 +700,7 @@ class mem_fun_protected_v_wrapper_t( calldef_wrapper_t ):
         return declarations.member_function_type_t(
                 return_type=self.declaration.return_type
                 , class_inst=declarations.dummy_type_t( self.parent.full_name )
-                , arguments_types=[arg.type for arg in self.declaration.arguments]
+                , arguments_types=[arg.decl_type for arg in self.declaration.arguments]
                 , has_const=self.declaration.has_const )
 
     def create_declaration(self, name):
@@ -749,31 +724,15 @@ class mem_fun_protected_v_wrapper_t( calldef_wrapper_t ):
         precall_code = self.declaration.override_precall_code
         if precall_code:
             template.append( os.linesep.join( precall_code ) )
-            
-        try:
-            modulename = self.top_parent.body.name
-        except AttributeError:
-            modulename = '<unknown module>'
-            
-        # Add debug code
-        # Thread check since we don't offer thread safe calls
-        template.append( 'PY_OVERRIDE_CHECK( %(wrapped_class)s, %(name)s )' )
-        # Logging of all overrides if the convar is turned on. Calling overrides is expensive if we are doing it too frequently.
-        template.append( 'PY_OVERRIDE_LOG( %(modulename)s, %(wrapped_class)s, %(name)s )' )
-        
-        # BUG: Comparing directly gives problems
-        template.append( '%(override)s func_%(alias)s = this->get_override( "%(alias)s" );' )
-        template.append( 'if( func_%(alias)s.ptr() != Py_None )' )
-        #template.append( 'if( %(override)s func_%(alias)s = this->get_override( "%(alias)s" ) )' )
-        template.append( self.indent('try {' ) )
-        template.append( self.indent(self.indent('%(return_)sfunc_%(alias)s( %(args)s );' ) ) )
-        template.append( self.indent('} catch(bp::error_already_set &) {') )
-        template.append( self.indent(self.indent('PyErr_Print();')) )
-        template.append( self.indent(self.indent('%(return_)sthis->%(wrapped_class)s::%(name)s( %(cppargs)s );') ) )
-        template.append( self.indent( '}' ) )    
-        template.append( 'else' )
-        template.append( self.indent('%(return_)sthis->%(wrapped_class)s::%(name)s( %(cppargs)s );') )
-        
+
+        template.append( 'if( %(override)s func_%(alias)s = this->get_override( "%(alias)s" ) )' )
+        template.append( self.indent('%(return_)sfunc_%(alias)s( %(args)s );') )
+        template.append( 'else{' )
+        native_precall_code = self.declaration.override_native_precall_code
+        if native_precall_code:
+            template.append( self.indent( os.linesep.join( native_precall_code ) ) )
+        template.append( self.indent('%(return_)sthis->%(wrapped_class)s::%(name)s( %(args)s );') )
+        template.append( '}' )
         template = os.linesep.join( template )
 
         return_ = ''
@@ -787,8 +746,6 @@ class mem_fun_protected_v_wrapper_t( calldef_wrapper_t ):
             , 'return_' : return_
             , 'args' : self.function_call_args()
             , 'wrapped_class' : self.wrapped_class_identifier()
-            , 'cppargs' : self.function_call_args(callpython=False)
-            , 'modulename' : modulename
         }
 
     def create_function(self):
@@ -800,7 +757,7 @@ class mem_fun_protected_v_wrapper_t( calldef_wrapper_t ):
 
     def create_default_body(self):
         function_call = declarations.call_invocation.join( self.declaration.partial_name
-                                                           , [ self.function_call_args(callpython=False) ] )
+                                                           , [ self.function_call_args() ] )
         body = self.wrapped_class_identifier() + '::' + function_call + ';'
         if not declarations.is_void( self.declaration.return_type ):
             body = 'return ' + body
@@ -851,7 +808,7 @@ class mem_fun_protected_pv_wrapper_t( calldef_wrapper_t ):
         return declarations.member_function_type_t(
                 return_type=self.declaration.return_type
                 , class_inst=declarations.dummy_type_t( self.parent.full_name )
-                , arguments_types=[arg.type for arg in self.declaration.arguments]
+                , arguments_types=[arg.decl_type for arg in self.declaration.arguments]
                 , has_const=self.declaration.has_const )
 
     def create_declaration(self):
@@ -911,7 +868,7 @@ class mem_fun_private_v_wrapper_t( calldef_wrapper_t ):
         return declarations.member_function_type_t(
                 return_type=self.declaration.return_type
                 , class_inst=declarations.dummy_type_t( self.parent.full_name )
-                , arguments_types=[arg.type for arg in self.declaration.arguments]
+                , arguments_types=[arg.decl_type for arg in self.declaration.arguments]
                 , has_const=self.declaration.has_const )
 
     def create_declaration(self):
@@ -970,7 +927,7 @@ class constructor_t( calldef_t ):
         calldef_t.__init__( self, function=constructor, wrapper=wrapper )
 
     def _create_arg_code( self, arg ):
-        temp = arg.type
+        temp = arg.decl_type
         if declarations.is_const( temp ):
             #By David Abrahams:
             #Function parameters declared consts are ignored by C++
@@ -1068,7 +1025,7 @@ class constructor_wrapper_t( calldef_wrapper_t ):
         answer = [ algorithm.create_identifier( self, self.parent.declaration.decl_string ) ]
         answer.append( '( ' )
         arg_utils = calldef_utils.argument_utils_t( self.declaration, algorithm.make_id_creator( self ) )
-        params = arg_utils.call_args(callpython=False)
+        params = arg_utils.call_args()
         answer.append( params )
         if params:
             answer.append(' ')
@@ -1079,7 +1036,7 @@ class constructor_wrapper_t( calldef_wrapper_t ):
         answer = [ self._create_declaration() ]
         answer.append( ': ' + self._create_constructor_call() )
         answer.append( '  , ' +  self.parent.boost_wrapper_identifier + '(){' )
-        if( self.declaration.is_copy_constructor ):
+        if( declarations.is_copy_constructor(self.declaration) ):
             answer.append( self.indent( '// copy constructor' ) )
         elif not self.declaration.arguments:
             answer.append( self.indent( '// null constructor' ) )
@@ -1197,14 +1154,14 @@ class operator_t( registration_based.registration_based_t
         assert not declarations.is_unary_operator( self.declaration )
         decompose_type = declarations.decompose_type
         parent_decl_string = self.parent.declaration.decl_string
-        arg0 = decompose_type( self.declaration.arguments[0].type )[-1].decl_string
+        arg0 = decompose_type( self.declaration.arguments[0].decl_type )[-1].decl_string
         if isinstance( self.declaration, declarations.member_operator_t ):
             if parent_decl_string == arg0:
                 return self.SELF_POSITION.BOTH
             else:
                 return self.SELF_POSITION.FIRST #may be wrong in case ++, --, but any way boost.python does not expose them
         #now we deal with non global operators
-        arg1 = decompose_type( self.declaration.arguments[1].type )[-1].decl_string
+        arg1 = decompose_type( self.declaration.arguments[1].decl_type )[-1].decl_string
         if arg0 == arg1:
             assert parent_decl_string == arg0 #in this case I have bug in module creator
             return operator_t.SELF_POSITION.BOTH
@@ -1228,12 +1185,12 @@ class operator_t( registration_based.registration_based_t
             answer[0] = self_identifier
             type_ = None
             if len( self.declaration.arguments ) == 2:
-                type_ = self.declaration.arguments[1].type
+                type_ = self.declaration.arguments[1].decl_type
             else:
-                type_ = self.declaration.arguments[0].type
+                type_ = self.declaration.arguments[0].decl_type
             answer[2] = self._call_type_constructor( type_ )
         elif self_position == self.SELF_POSITION.SECOND:
-            answer[0] = self._call_type_constructor(self.declaration.arguments[0].type )
+            answer[0] = self._call_type_constructor(self.declaration.arguments[0].decl_type )
             answer[2] = self_identifier
         else:
             answer[0] = self_identifier
@@ -1331,7 +1288,7 @@ class casting_constructor_t( registration_based.registration_based_t
     def _create_impl(self):
         implicitly_convertible = algorithm.create_identifier( self, '::boost::python::implicitly_convertible' )
         from_arg = algorithm.create_identifier( self
-                                                ,  self.declaration.arguments[0].type.partial_decl_string)
+                                                ,  self.declaration.arguments[0].decl_type.partial_decl_string)
 
         to_name = declarations.full_name( self.declaration.parent, with_defaults=False )
         to_arg = algorithm.create_identifier( self, to_name )

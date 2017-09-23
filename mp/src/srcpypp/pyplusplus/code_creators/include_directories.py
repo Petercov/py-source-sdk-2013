@@ -20,9 +20,7 @@ class include_directories_t(instruction.instruction_t):
 
     @staticmethod
     def normalize( path ):
-		# NOTE: Don't change the case! This will give problems if generated on Windows and then used on Linux
-        return os.path.normpath( path )
-        # Original: return os.path.normpath( os.path.normcase( path ) )
+        return os.path.normpath( os.path.normcase( path ) )
 
     def _get_user_defined(self):
         self._user_defined = list(map( self.normalize, self._user_defined ))

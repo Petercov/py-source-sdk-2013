@@ -46,19 +46,19 @@ class class_organizer_t(object):
         i_depend_on_them = set( [ full_name( base.related_class ) for base in class_.bases ] )
         #class depends on all classes that used in function as argument
         # types and those arguments have default value
-        calldefs = [decl for decl in declarations.make_flatten( class_ ) if isinstance( decl, declarations.calldef_t )]
+        calldefs = [declaration for declaration in declarations.make_flatten( class_ ) if isinstance( declaration, declarations.calldef_t )]
         for calldef in calldefs:
             for arg in calldef.arguments:
-                if declarations.is_enum( arg.type ):
-                    top_class_inst = self.__get_top_class_inst( declarations.enum_declaration( arg.type ) )
+                if declarations.is_enum( arg.decl_type ):
+                    top_class_inst = self.__get_top_class_inst( declarations.enum_declaration( arg.decl_type ) )
                     if top_class_inst:
                         i_depend_on_them.add( full_name( top_class_inst ) )
                     continue
                 if not arg.default_value:
                     continue
-                if declarations.is_pointer( arg.type ) and arg.default_value == 0:
+                if declarations.is_pointer( arg.decl_type ) and arg.default_value == 0:
                     continue
-                base_type = declarations.base_type( arg.type )
+                base_type = declarations.base_type( arg.decl_type )
                 if not isinstance( base_type, declarations.declarated_t ):
                     continue
                 top_class_inst = self.__get_top_class_inst( base_type.declaration )
@@ -66,11 +66,11 @@ class class_organizer_t(object):
                     i_depend_on_them.add( full_name( top_class_inst ) )
 
         if self.__include_vars:
-            vars = [decl for decl in declarations.make_flatten( class_ ) if isinstance( decl, declarations.variable_t )]
+            vars = [declaration for declaration in declarations.make_flatten( class_ ) if isinstance( declaration, declarations.variable_t )]
             for var in vars:
-                if declarations.is_pointer( var.type ):
+                if declarations.is_pointer( var.decl_type ):
                     continue
-                base_type = declarations.base_type( var.type )
+                base_type = declarations.base_type( var.decl_type )
                 if not isinstance( base_type, declarations.declarated_t ):
                     continue
                 top_class_inst = self.__get_top_class_inst( base_type.declaration )
@@ -85,8 +85,8 @@ class class_organizer_t(object):
         i_depend_on_them.sort()
         return i_depend_on_them
 
-    def __get_top_class_inst( self, decl ):
-        curr = decl
+    def __get_top_class_inst( self, declaration ):
+        curr = declaration
         while isinstance( curr.parent, declarations.class_t ):
             curr = curr.parent
         if isinstance( curr, declarations.class_t ):
@@ -191,7 +191,7 @@ class calldef_organizer_t( object ):
         return decl_wrappers.algorithm.registration_order.is_related( t1, t2 )
 
     def cmp_calldefs( self, f1, f2 ):
-        result = self.cmp_args_types( f1.required_args[-1].type, f2.required_args[-1].type )
+        result = self.cmp_args_types( f1.required_args[-1].decl_type, f2.required_args[-1].decl_type )
         if None is result:
             result = self.cmp_calldefs_fallback( f1, f2 )
         return result
@@ -233,10 +233,10 @@ def sort( decls ):
     ordered = sort_classes( classes )
 
     ids = set( [ id( inst ) for inst in ordered ] )
-    for decl in decls:
-        if id( decl ) not in ids:
-            ids.add( id(decl) )
-            ordered.append( decl )
+    for declaration in decls:
+        if id( declaration ) not in ids:
+            ids.add( id(declaration) )
+            ordered.append( declaration )
     #type should be exported before it can be used.
     variables = []
     enums = []

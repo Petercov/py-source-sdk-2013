@@ -27,9 +27,7 @@ class virtual_mem_fun:
     override = Template( os.linesep.join([
           'virtual $return_type $function_name( $arg_declarations )$constness $throw{'
         , '    namespace bpl = boost::python;'
-        , '    bpl::override $py_function_var = this->get_override( "$function_alias" );'
-        , '    if( $py_function_var.ptr() != Py_None ) {'
-        #, '    if( bpl::override $py_function_var = this->get_override( "$function_alias" ) ){'
+        , '    if( bpl::override $py_function_var = this->get_override( "$function_alias" ) ){'
         , '        $declare_py_variables'
         , '        $py_pre_call'
         , '        ${save_py_result}bpl::call<bpl::object>( $py_function_var.ptr()$py_arg_expressions );'
@@ -61,9 +59,7 @@ class pure_virtual_mem_fun:
     override = Template( os.linesep.join([
           'virtual $return_type $function_name( $arg_declarations )$constness $throw{'
         , '    namespace bpl = boost::python;'
-        , '    bpl::override $py_function_var = this->get_override( "$function_alias" );'
-        , '    if( $py_function_var.ptr() != Py_None ) {'
-        #, '    if( bpl::override $py_function_var = this->get_override( "$function_alias" ) ){'
+        , '    if( bpl::override $py_function_var = this->get_override( "$function_alias" ) ){'
         , '        $declare_py_variables'
         , '        $py_pre_call'
         , '        ${save_py_result}bpl::call<bpl::object>( $py_function_var.ptr()$py_arg_expressions );'

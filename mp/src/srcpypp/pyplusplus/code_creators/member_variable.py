@@ -65,8 +65,6 @@ class member_variable_t( member_variable_base_t ):
         #according to David Abrahams:
         #http://mail.python.org/pipermail/c++-sig/2003-January/003276.html
         call_pol = call_policies.return_internal_reference().create( self )
-        if self.declaration.getter_call_policies:
-            call_pol = self.declaration.getter_call_policies.create( self )
         make_function = algorithm.create_identifier( self, '::boost::python::make_function' )
 
         answer.append( '%(mk_func)s( (%(getter_type)s)(&%(wfname)s), %(call_pol)s )'
@@ -79,9 +77,7 @@ class member_variable_t( member_variable_base_t ):
         if self.wrapper.has_setter:
             answer.append( self.PARAM_SEPARATOR )
             call_pol = ''
-            if self.declaration.setter_call_policies:
-                call_pol = self.declaration.setter_call_policies.create( self )
-            elif not self.declaration.type_qualifiers.has_static:
+            if not self.declaration.type_qualifiers.has_static:
                 call_pol = ", " + call_policies.with_custodian_and_ward_postcall( 1, 2 ).create(self)
             answer.append( '%(mk_func)s( (%(setter_type)s)(&%(wfname)s)%(call_pol)s )'
                        % { 'mk_func' : make_function
@@ -161,7 +157,7 @@ class member_variable_t( member_variable_base_t ):
                     , os.linesep + self.indent( self.PARAM_SEPARATOR, 4 ) )
 
     def _create_impl( self ):
-        if declarations.is_pointer( self.declaration.type ):
+        if declarations.is_pointer( self.declaration.decl_type ):
             return self._generate_for_pointer()
         elif self.declaration.apply_smart_ptr_wa or self.declaration.use_make_functions:
             return self._generate_using_functions()
@@ -226,7 +222,7 @@ class member_variable_wrapper_t( code_creator.code_creator_t
             arguments_types=[ self.inst_arg_type(True) ]
 
         return declarations.free_function_type_t.create_decl_string(
-                return_type=self.declaration.type
+                return_type=self.declaration.decl_type
                 , arguments_types=arguments_types
                 , with_defaults=False)
     getter_type = property( _get_getter_type )
@@ -237,9 +233,9 @@ class member_variable_wrapper_t( code_creator.code_creator_t
 
     def _get_setter_type(self):
         if self.declaration.type_qualifiers.has_static:
-            arguments_types=[ self.declaration.type ]
+            arguments_types=[ self.declaration.decl_type ]
         else:
-            arguments_types=[ self.inst_arg_type(False), self.declaration.type  ]
+            arguments_types=[ self.inst_arg_type(False), self.declaration.decl_type  ]
 
         return declarations.free_function_type_t.create_decl_string(
                 return_type=declarations.void_t()
@@ -248,14 +244,14 @@ class member_variable_wrapper_t( code_creator.code_creator_t
     setter_type = property( _get_setter_type )
 
     def _get_has_setter( self ):
-        return not declarations.is_const( self.declaration.type )
+        return not declarations.is_const( self.declaration.decl_type )
     has_setter = property( _get_has_setter )
 
     def _create_impl(self):
         answer = []
         if self.declaration.type_qualifiers.has_static:
             substitutions = {
-                'type' : self.declaration.type.decl_string
+                'type' : self.declaration.decl_type.decl_string
                 , 'name' : self.declaration.name
                 , 'cls_type' : declarations.full_name( self.declaration.parent )
             }
@@ -264,12 +260,12 @@ class member_variable_wrapper_t( code_creator.code_creator_t
                 answer.append( self.MV_STATIC_SET_TEMPLATE % substitutions )
         else:
             answer.append( self.MV_GET_TEMPLATE % {
-                'type' : self.declaration.type.decl_string
+                'type' : self.declaration.decl_type.decl_string
                 , 'name' : self.declaration.name
                 , 'cls_type' : self.inst_arg_type( has_const=True ) })
             if self.has_setter:
                 answer.append( self.MV_SET_TEMPLATE % {
-                'type' : self.declaration.type.decl_string
+                'type' : self.declaration.decl_type.decl_string
                 , 'name' : self.declaration.name
                 , 'cls_type' : self.inst_arg_type( has_const=False ) })
         return os.linesep.join( answer )
@@ -303,7 +299,7 @@ class bit_field_t( member_variable_base_t ):
                        % { 'mk_func' : make_function
                            , 'setter_type' : self.wrapper.setter_type
                            , 'wfname' : self.wrapper.setter_full_name } )
-                           
+
         if self.documentation:
             answer.append( self.PARAM_SEPARATOR )
             answer.append( self.documentation )
@@ -355,7 +351,7 @@ class bit_field_wrapper_t( code_creator.code_creator_t
 
     def _get_getter_type(self):
         return declarations.free_function_type_t.create_decl_string(
-                return_type=self.declaration.type
+                return_type=self.declaration.decl_type
                 , arguments_types=[ self.inst_arg_type(True) ]
                 , with_defaults=False)
     getter_type = property( _get_getter_type )
@@ -367,23 +363,23 @@ class bit_field_wrapper_t( code_creator.code_creator_t
     def _get_setter_type(self):
         return declarations.free_function_type_t.create_decl_string(
                 return_type=declarations.void_t()
-                , arguments_types=[ self.inst_arg_type(False), self.declaration.type  ]
+                , arguments_types=[ self.inst_arg_type(False), self.declaration.decl_type  ]
                 , with_defaults=False)
     setter_type = property( _get_setter_type )
 
     def _get_has_setter( self ):
-        return not declarations.is_const( self.declaration.type )
+        return not declarations.is_const( self.declaration.decl_type )
     has_setter = property( _get_has_setter )
 
     def _create_impl(self):
         answer = []
         answer.append( self.GET_TEMPLATE % {
-            'type' : self.declaration.type.decl_string
+            'type' : self.declaration.decl_type.decl_string
             , 'name' : self.declaration.name
             , 'cls_type' : self.inst_arg_type( has_const=True ) })
         if self.has_setter:
             answer.append( self.SET_TEMPLATE % {
-            'type' : self.declaration.type.decl_string
+            'type' : self.declaration.decl_type.decl_string
             , 'name' : self.declaration.name
             , 'cls_type' : self.inst_arg_type( has_const=False ) })
         return os.linesep.join( answer )
@@ -412,7 +408,7 @@ class array_mv_t( member_variable_base_t ):
                 doc = self.documentation
             answer.append( self.parent.class_var_name + '.add_property' )
         answer.append( '( ' )
-        answer.append('"%s"' % self.alias )
+        answer.append('"%s"' % self.declaration.name )
         answer.append( os.linesep + self.indent( self.PARAM_SEPARATOR ) )
         temp = [ algorithm.create_identifier( self, "::boost::python::make_function" ) ]
         temp.append( '( ' )
@@ -431,7 +427,7 @@ class array_mv_t( member_variable_base_t ):
 
     def _create_impl( self ):
         answer = []
-        answer.append( '{ //%s, type=%s' % ( self.declaration, self.declaration.type ) )
+        answer.append( '{ //%s, type=%s' % ( self.declaration, self.declaration.decl_type ) )
         answer.append( os.linesep * 2 )
         answer.append( self.indent( self._create_body() ) )
         answer.append( os.linesep )
@@ -453,21 +449,25 @@ class array_mv_wrapper_t( code_creator.code_creator_t
     def wrapper_type( self ):
         tmpl = "%(namespace)s::%(constness)sarray_1_t< %(item_type)s, %(array_size)d>"
 
+        item_type = declarations.array_item_type(self.declaration.decl_type)
+        is_noncopyable = not declarations.is_fundamental(item_type) and \
+            declarations.is_noncopyable(item_type)
+
         constness = ''
-        if declarations.is_const( self.declaration.type ):
+        if declarations.is_const(self.declaration.decl_type) or is_noncopyable:
             constness = 'const_'
         result = tmpl % {
                 'namespace' : code_repository.array_1.namespace
               , 'constness' : constness
-              , 'item_type' : declarations.array_item_type( self.declaration.type ).decl_string
-              , 'array_size': declarations.array_size( self.declaration.type )
+              , 'item_type' : declarations.array_item_type( self.declaration.decl_type ).decl_string
+              , 'array_size': declarations.array_size( self.declaration.decl_type )
         }
         return declarations.dummy_type_t( result )
 
     @property
     def wrapped_class_type( self ):
         wrapped_cls_type = declarations.declarated_t( self.declaration.parent )
-        if declarations.is_const( self.declaration.type ):
+        if declarations.is_const( self.declaration.decl_type ):
             wrapped_cls_type = declarations.const_t( wrapped_cls_type )
         return declarations.reference_t( wrapped_cls_type )
 
@@ -488,7 +488,7 @@ class array_mv_wrapper_t( code_creator.code_creator_t
     def wrapper_creator_full_name(self):
         return '::'.join( [self.parent.full_name, self.wrapper_creator_name] )
 
-    def _create_impl( self ):        
+    def _create_impl( self ):
         tmpl = [ "static %(wrapper_type)s" ]
         if self.declaration.type_qualifiers.has_static:
             tmpl.append( "%(wrapper_creator_name)s(){" )
@@ -497,9 +497,9 @@ class array_mv_wrapper_t( code_creator.code_creator_t
             tmpl.append( "%(wrapper_creator_name)s( %(wrapped_class_type)s inst ){" )
             tmpl.append( self.indent( "return %(wrapper_type)s( inst.%(mem_var_ref)s );" ) )
         tmpl.append( "}" )
-        
+
         tmpl = os.linesep.join( tmpl )
-        
+
         return tmpl % {
                 'wrapper_type' : self.wrapper_type.decl_string
               , 'parent_class_type' : self.parent.declaration.partial_decl_string
@@ -599,12 +599,12 @@ class mem_var_ref_wrapper_t( code_creator.code_creator_t
         return declarations.declarated_t( self.declaration.parent )
 
     def _get_exported_var_type( self ):
-        type_ = declarations.remove_reference( self.declaration.type )
+        type_ = declarations.remove_reference( self.declaration.decl_type )
         type_ = declarations.remove_const( type_ )
         if python_traits.is_immutable( type_ ):
             return type_
         else:
-            return self.declaration.type
+            return self.declaration.decl_type
 
     def _get_getter_type(self):
         return declarations.free_function_type_t(
@@ -624,24 +624,24 @@ class mem_var_ref_wrapper_t( code_creator.code_creator_t
     setter_type = property( _get_setter_type )
 
     def _get_has_setter( self ):
-        if declarations.is_const( declarations.remove_reference( self.declaration.type ) ):
+        if declarations.is_const( declarations.remove_reference( self.declaration.decl_type ) ):
             return False
         elif python_traits.is_immutable( self._get_exported_var_type() ):
             return True
         else:
             pass
 
-        no_ref = declarations.remove_reference( self.declaration.type )
+        no_ref = declarations.remove_reference( self.declaration.decl_type )
         no_const = declarations.remove_const( no_ref )
         base_type = declarations.remove_alias( no_const )
         if not isinstance( base_type, declarations.declarated_t ):
             return True #TODO ????
-        decl = base_type.declaration
-        if decl.is_abstract:
+        declaration = base_type.declaration
+        if declaration.is_abstract:
             return False
-        if declarations.has_destructor( decl ) and not declarations.has_public_destructor( decl ):
+        if declarations.has_destructor( declaration ) and not declarations.has_public_destructor( declaration ):
             return False
-        if not declarations.has_copy_constructor(decl):
+        if not declarations.has_copy_constructor(declaration):
             return False
         return True
     has_setter = property( _get_has_setter )
@@ -673,8 +673,8 @@ class member_variable_addressof_t( member_variable_base_t ):
         member_variable_base_t.__init__( self, variable=variable, wrapper=wrapper )
 
     def has_setter( self ) :
-        return declarations.is_pointer( self.declaration.type ) \
-               and not declarations.is_const( self.declaration.type )
+        return declarations.is_pointer( self.declaration.decl_type ) \
+               and not declarations.is_const( self.declaration.decl_type )
 
     def _create_m_var( self ):
         param_sep = self.PARAM_SEPARATOR
@@ -722,7 +722,7 @@ class fields_definition_t(code_creator.code_creator_t, declaration_based.declara
         declaration_based.declaration_based_t.__init__( self, class_ )
 
     def has_unnamed_type( self, var ):
-        type_ = declarations.remove_pointer( var.type )
+        type_ = declarations.remove_pointer( var.decl_type )
         #~ type_ = declarations.remove_declarated( type_ )
         if declarations.class_traits.is_my_case( type_ ):
             cls = declarations.class_traits.get_declaration( type_ )
@@ -755,7 +755,7 @@ class fields_definition_t(code_creator.code_creator_t, declaration_based.declara
             vars.sort( key=lambda d: d.location.line )
             for v in vars:
                 tmp = None
-                type_as_str = ctypes_formatter.as_ctype( v.type, self.top_parent.treat_char_ptr_as_binary_data )
+                type_as_str = ctypes_formatter.as_ctype( v.decl_type, self.top_parent.treat_char_ptr_as_binary_data )
                 if v.bits != None:
                     tmp = '("%(name)s", %(type)s, %(bits)d),' \
                           % dict( name=v.alias, type=type_as_str, bits=v.bits )

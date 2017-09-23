@@ -1,13 +1,13 @@
-# Copyright 2004-2008 Roman Yakovenko.
-# Distributed under the Boost Software License, Version 1.0. (See
-# accompanying file LICENSE_1_0.txt or copy at
-# http://www.boost.org/LICENSE_1_0.txt)
+# Copyright 2014-2017 Insight Software Consortium.
+# Copyright 2004-2009 Roman Yakovenko.
+# Distributed under the Boost Software License, Version 1.0.
+# See http://www.boost.org/LICENSE_1_0.txt
 
 """
-free function invocation parser
+Free function invocation parser
 
-The parser is able to extract function name and list of arguments from a function
-invocation statement. For example, for the following code
+The parser is able to extract function name and list of arguments from a
+function invocation statement. For example, for the following code
 
 .. code-block:: c++
 
@@ -21,62 +21,77 @@ the parser will extract
 
 from . import pattern_parser
 
-__THE_PARSER = pattern_parser.parser_t( '(', ')', ',' )
+__THE_PARSER = pattern_parser.parser_t('(', ')', ',')
 
-def is_call_invocation( decl_string ):
+
+def is_call_invocation(declaration_string):
     """
-    returns True if `decl_string` is function invocation and False otherwise
+    Returns True if `declaration_string` is a function invocation.
 
-    :param decl_string: string that should be checked for pattern presence
-    :type decl_string: str
+    :param declaration_string: string that should be checked for pattern.
+    :type declaration_string: str
 
     :rtype: bool
-    """
-    global __THE_PARSER
-    return __THE_PARSER.has_pattern( decl_string )
 
-def name( decl_string ):
     """
-    returns name of function
+    return __THE_PARSER.has_pattern(declaration_string)
 
-    :type decl_string: str
+
+def name(declaration_string):
+    """
+    Returns the name of a function.
+
+    :type declaration_string: str
     :rtype: str
-    """
-    global __THE_PARSER
-    return __THE_PARSER.name( decl_string )
 
-def args( decl_string ):
     """
-    returns list of function arguments
+    return __THE_PARSER.name(declaration_string)
 
-    :type decl_string: str
+
+def args(declaration_string):
+    """
+    Returns list of function arguments
+
+    :type declaration_string: str
     :rtype: [str]
+
     """
-    global __THE_PARSER
-    return __THE_PARSER.args( decl_string )
+    return __THE_PARSER.args(declaration_string)
+
 
 NOT_FOUND = __THE_PARSER.NOT_FOUND
-def find_args( text, start=None ):
+
+
+def find_args(text, start=None):
     """
-    finds arguments within function invocation.
+    Finds arguments within function invocation.
 
     :type text: str
-    :rtype: [ arguments ] or :data:NOT_FOUND if arguments could not be found
+    :rtype: [ arguments ] or :data:NOT_FOUND if arguments could not be found.
+
     """
-    global __THE_PARSER
-    return __THE_PARSER.find_args( text, start )
+    return __THE_PARSER.find_args(text, start)
 
-def split( decl_string ):
-    """returns (name, [arguments] )"""
-    global __THE_PARSER
-    return __THE_PARSER.split( decl_string )
 
-def split_recursive( decl_string ):
-    """returns [(name, [arguments])]"""
-    global __THE_PARSER
-    return __THE_PARSER.split_recursive( decl_string )
+def split(declaration_string):
+    """
+    Returns (name, [arguments] )
 
-def join( name, args, arg_separator=None ):
-    """returns name( argument_1, argument_2, ..., argument_n )"""
-    global __THE_PARSER
-    return __THE_PARSER.join( name, args, arg_separator )
+    """
+    return __THE_PARSER.split(declaration_string)
+
+
+def split_recursive(declaration_string):
+    """
+    Returns [(name, [arguments])].
+
+    """
+    return __THE_PARSER.split_recursive(declaration_string)
+
+
+def join(name_, args_, arg_separator=None):
+    """
+    Returns name( argument_1, argument_2, ..., argument_n ).
+
+    """
+    return __THE_PARSER.join(name_, args_, arg_separator)

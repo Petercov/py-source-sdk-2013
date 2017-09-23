@@ -3,7 +3,6 @@
 # accompanying file LICENSE_1_0.txt or copy at
 # http://www.boost.org/LICENSE_1_0.txt)
 
-import os
 import sys
 
 from pyplusplus import _logging_
@@ -42,17 +41,17 @@ class module_builder_t(object):
         """
         self.global_ns.init_optimizer()
 
-    def print_declarations(self, decl=None, detailed=True, recursive=True, writer=sys.stdout.write):
+    def print_declarations(self, declaration=None, detailed=True, recursive=True, writer=sys.stdout.write):
         """
         This function will print detailed description of all declarations or
         some specific one.
 
-        :param decl: optional, if passed, then only it will be printed
-        :type decl: instance of :class:`decl_wrappers.decl_wrapper_t` class
+        :param declaration: optional, if passed, then only it will be printed
+        :type declaration: instance of :class:`decl_wrappers.decl_wrapper_t` class
         """
-        if None is decl:
-            decl = self.global_ns
-        decl_wrappers.print_declarations( decl, detailed, recursive, writer )
+        if None is declaration:
+            declaration = self.global_ns
+        decl_wrappers.print_declarations( declaration, detailed, recursive, writer )
 
     #select decl(s) interfaces
     def decl( self, name=None, function=None, header_dir=None, header_file=None, recursive=None ):
@@ -89,21 +88,21 @@ class module_builder_t(object):
                                        , recursive=recursive
                                        , allow_empty=allow_empty)
 
-    def variable( self, name=None, function=None, type=None, header_dir=None, header_file=None, recursive=None ):
+    def variable( self, name=None, function=None, decl_type=None, header_dir=None, header_file=None, recursive=None ):
         """Please see :class:`decl_wrappers.scopedef_t` class documentation"""
         return self.global_ns.variable( name=name
                                         , function=function
-                                        , type=type
+                                        , decl_type=decl_type
                                         , header_dir=header_dir
                                         , header_file=header_file
                                         , recursive=recursive)
     var = variable
 
-    def variables( self, name=None, function=None, type=None, header_dir=None, header_file=None, recursive=None, allow_empty=None ):
+    def variables( self, name=None, function=None, decl_type=None, header_dir=None, header_file=None, recursive=None, allow_empty=None ):
         """Please see :class:`decl_wrappers.scopedef_t` class documentation"""
         return self.global_ns.variables( name=name
                                          , function=function
-                                         , type=type
+                                         , decl_type=decl_type
                                          , header_dir=header_dir
                                          , header_file=header_file
                                          , recursive=recursive
@@ -149,7 +148,7 @@ class module_builder_t(object):
                                          , arg_types=arg_types
                                          , header_dir=header_dir
                                          , header_file=header_file
-                                         , recursive=recursive 
+                                         , recursive=recursive
                                          , allow_empty=allow_empty )
 
     def member_function( self, name=None, function=None, return_type=None, arg_types=None, header_dir=None, header_file=None, recursive=None ):
@@ -267,11 +266,12 @@ class module_builder_t(object):
                                          , function=function
                                          , recursive=recursive )
 
-    def namespaces( self, name=None, function=None, recursive=None ):
+    def namespaces( self, name=None, function=None, recursive=None, allow_empty=None ):
         """Please see :class:`decl_wrappers.namespace_t` class documentation"""
         return self.global_ns.namespaces( name=name
                                           , function=function
-                                          , recursive=recursive)
+                                          , recursive=recursive
+                                          , allow_empty=allow_empty )
 
     def free_function( self, name=None, function=None, return_type=None, arg_types=None, header_dir=None, header_file=None, recursive=None ):
         """Please see :class:`decl_wrappers.namespace_t` class documentation"""
@@ -318,20 +318,3 @@ class module_builder_t(object):
                                               , header_file=header_file
                                               , recursive=recursive
                                               , allow_empty=allow_empty )
-                                              
-    def typedef( self, name=None, function=None, header_dir=None, header_file=None, recursive=None ):
-        """Please see :class:`decl_wrappers.namespace_t` class documentation"""
-        return self.global_ns.typedef( name=name
-                                  , function=function
-                                  , header_dir=header_dir
-                                  , header_file=header_file
-                                  , recursive=recursive)
-
-    def typedefs( self, name=None, function=None, header_dir=None, header_file=None, recursive=None, allow_empty=None ):
-        """Please see :class:`decl_wrappers.namespace_t` class documentation"""
-        return self.global_ns.typedefs( name=name
-                                    , function=function
-                                    , header_dir=header_dir
-                                    , header_file=header_file
-                                    , recursive=recursive
-                                    , allow_empty=allow_empty)

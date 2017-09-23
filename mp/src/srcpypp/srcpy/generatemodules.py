@@ -134,6 +134,14 @@ def ParseModules(settings, specificmodule=None, appendfileonly=False):
     # Parse vpc files
     macros = {
         'GAMENAME': 'pysource',
+        #'OUTDLLEXT': '.dll',
+        #'_DLL_EXT': '.dll',
+        #'PLATFORM': 'WIN32=1',
+
+        #'WIN32': '',
+        #'WINDOWS': '',
+        'PYSOURCE': '',
+
         'OUTDLLEXT': '.so',
         '_DLL_EXT': '.so',
         'PLATFORM': 'POSIX=1',

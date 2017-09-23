@@ -19,8 +19,8 @@ class multiple_files_t(writer.writer_t):
     This class implements classic strategy of dividing classes to files
     one class in one header + source files.
     """
-    HEADER_EXT = '_pypp.hpp'
-    SOURCE_EXT = '_pypp.cpp'
+    HEADER_EXT = '.pypp.hpp'
+    SOURCE_EXT = '.pypp.cpp'
 
     def __init__(self, extmodule, directory_path, write_main=True, files_sum_repository=None, encoding='ascii'):
         """
@@ -157,7 +157,7 @@ class multiple_files_t(writer.writer_t):
             decls_logger = _logging_.loggers.declarations
             if not messages.filter_disabled_msgs([messages.W1042], code_creator.declaration.disabled_messages ):
                 return #user disabled property warning
-            decls_logger.warn( "%s;%s" % ( code_creator.declaration, messages.W1042 ) )
+            decls_logger.warning( "%s;%s" % ( code_creator.declaration, messages.W1042 ) )
 
     def create_include_code( self, creators, head_headers=None, tail_headers=None ):
         answer = []
@@ -359,21 +359,21 @@ class multiple_files_t(writer.writer_t):
         """
         enums_creators = [x for x in self.extmodule.body.creators if isinstance(x, code_creators.enum_t )]
 
-        self.split_creators( enums_creators, '_enumerations', '%s_register_enumerations' % (self.extmodule.body.name), 0 )
+        self.split_creators( enums_creators, '_enumerations', 'register_enumerations', 0 )
 
     def split_global_variables( self ):
         """Write all global variables into a separate .h/.cpp file.
         """
         creators = [x for x in self.extmodule.body.creators if isinstance(x, code_creators.global_variable_t )]
         creators.extend( [x for x in self.extmodule.body.creators if isinstance(x, code_creators.unnamed_enum_t )] )
-        self.split_creators( creators, '_global_variables', '%s_register_global_variables' % (self.extmodule.body.name), -1 )
+        self.split_creators( creators, '_global_variables', 'register_global_variables', -1 )
 
     def split_free_functions( self ):
         """Write all free functions into a separate .h/.cpp file.
         """
         free_functions = ( code_creators.free_function_t, code_creators.free_fun_overloads_t )
         creators = [x for x in self.extmodule.body.creators if isinstance(x, free_functions )]
-        self.split_creators( creators, '_free_functions', '%s_register_free_functions' % (self.extmodule.body.name), -1 )
+        self.split_creators( creators, '_free_functions', 'register_free_functions', -1 )
 
     def write(self):
         """
@@ -402,6 +402,6 @@ class multiple_files_t(writer.writer_t):
             self.include_creators.sort( key=lambda ic: ic.header )
             for creator in self.include_creators:
                 self.extmodule.adopt_include( creator )
-            main_cpp = os.path.join( self.directory_path, self.extmodule.body.name + '_main.cpp' )
+            main_cpp = os.path.join( self.directory_path, self.extmodule.body.name + '.main.cpp' )
             self.write_file( main_cpp, self.extmodule.create() + os.linesep )
         self.files_sum_repository.save_values()

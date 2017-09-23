@@ -119,7 +119,7 @@ class property_recognizer_i(object):
         return ( getters, setters )
 
     def class_accessors( self, cls ):
-        return self.__get_accessors( cls.mem_funs( recursive=False, allow_empty=True ) ) 
+        return self.__get_accessors( cls.member_functions( recursive=False, allow_empty=True ) ) 
     
     def base_classes( self, cls ):
         base_clss = []
@@ -134,7 +134,7 @@ class property_recognizer_i(object):
     def inherited_accessors( self, cls ):
         mem_funs = []
         for base_cls in self.base_classes( cls ):
-            mem_funs.extend( base_cls.mem_funs( recursive=False, allow_empty=True ) )
+            mem_funs.extend( base_cls.member_functions( recursive=False, allow_empty=True ) )
         return self.__get_accessors( mem_funs )
 
 
@@ -213,7 +213,7 @@ class name_based_recognizer_t( property_recognizer_i ):
     def check_type_compatibility( self, fget, fset ):
         #algorithms allows "const" differences between types
         t1 = fget.return_type
-        t2 = fset.arguments[0].type
+        t2 = fset.arguments[0].decl_type
 
         if declarations.is_same( t1, t2 ):
             return True
@@ -264,23 +264,23 @@ class properties_finder_t:
         logger = _logging_.loggers.declarations
         if not messages.filter_disabled_msgs([messages.W1041], property_.fget.parent.disabled_messages ):
             return #user disabled property warning        
-        logger.warn( "%s;%s" % ( property_.fget.parent, messages.W1041 % property_ ) )
+        logger.warning( "%s;%s" % ( property_.fget.parent, messages.W1041 % property_ ) )
         
     def __is_legal_property( self, property_ ):
         """property is legal if it does not hide other declarations"""
-        def is_relevant( decl ):
+        def is_relevant( declaration ):
             irrelevant_classes = ( declarations.constructor_t
                                    , declarations.destructor_t
                                    , declarations.typedef_t )
                                     
-            if isinstance( decl, irrelevant_classes ):
+            if isinstance( declaration, irrelevant_classes ):
                 return False
-            if decl.ignore:
+            if declaration.ignore:
                 return False
-            if decl.alias != property_.name:
+            if declaration.alias != property_.name:
                 return False
             if self.exclude_accessors \
-               and ( decl is property_.fget or decl is property_.fset ):
+               and ( declaration is property_.fget or declaration is property_.fset ):
                 return False
             return True
 

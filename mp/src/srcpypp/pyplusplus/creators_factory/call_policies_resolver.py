@@ -15,7 +15,7 @@ class resolver_t( object ):
     def __init__( self ):
         object.__init__( self )
 
-    def __call__(self, decl, hint=None):
+    def __call__(self, declaration, hint=None):
         raise NotImplementedError()
 
 class default_policy_resolver_t(resolver_t):
@@ -42,7 +42,7 @@ class default_policy_resolver_t(resolver_t):
             return self._resolve_by_type( calldef.return_type )
         else:
             for arg in calldef.arguments:
-                if not self._resolve_by_type( arg.type ):
+                if not self._resolve_by_type( arg.decl_type ):
                     return None
             return decl_wrappers.default_call_policies()
 
@@ -138,10 +138,10 @@ class variable_accessors_resolver_t( resolver_t ):
 
         assert hint in ( 'get', 'set' )
         
-        if not declarations.is_reference( variable.type ):
+        if not declarations.is_reference( variable.decl_type ):
             return None
         
-        no_ref = declarations.remove_reference( variable.type )
+        no_ref = declarations.remove_reference( variable.decl_type )
         base_type = declarations.remove_const( no_ref )
         if python_traits.is_immutable( base_type ):
             #the relevant code creator will generate code, that will return this member variable
@@ -152,16 +152,16 @@ class variable_accessors_resolver_t( resolver_t ):
             return None
         
         base_type = declarations.remove_alias( base_type )
-        decl = base_type.declaration
+        declaration = base_type.declaration
         
-        if declarations.is_class_declaration( decl ):
+        if declarations.is_class_declaration( declaration ):
             return None
         
-        if decl.is_abstract:
+        if declaration.is_abstract:
             return None
-        if declarations.has_destructor( decl ) and not declarations.has_public_destructor( decl ): 
+        if declarations.has_destructor( declaration ) and not declarations.has_public_destructor( declaration ): 
             return None
-        if not declarations.has_copy_constructor(decl):
+        if not declarations.has_copy_constructor(declaration):
             return None
         if hint == 'get':
             #if we rich this line, it means that we are able to create an obect using
