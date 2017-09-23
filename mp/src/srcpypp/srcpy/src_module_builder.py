@@ -29,18 +29,7 @@ usymbols = [
     'PROTECTED_THINGS_ENABLE',
 ]
 
-# cflags
-ARCH = 'x86_64'
-ARCH_CFLAGS = '-mtune=i686 -march=pentium3 -mmmx -m32 '
-BASE_CFLAGS = '-Wall -Wextra -Wshadow -Wno-invalid-offsetof -fno-strict-aliasing -Wno-unknown-pragmas \
--Wno-unused-parameter -Wno-unused-value -Wno-missing-field-initializers -Wno-sign-compare -Wno-reorder \
--Wno-invalid-offsetof -Wno-float-equal -Werror=return-type -fdiagnostics-show-option -Wformat \
--Wformat-security -fpermissive '
-SHLIBEXT = 'so'
-SHLIBCFLAGS = '-fPIC '
-SHLIBLDFLAGS = '-shared -Wl,-Map,$@_map.txt -Wl '
-default_cflags = BASE_CFLAGS
-
+cflags='-arch=i386 -m32 -std=c++11 -msse -mmmx -pipe -w -fpermissive -fPIC'
 
 # NOTE: module_builder_t == builder_t
 class src_module_builder_t(module_builder.module_builder_t):
@@ -64,13 +53,15 @@ class src_module_builder_t(module_builder.module_builder_t):
         self.definedsymbols = symbols
         self.includes = includepaths
 
-        xml_generator_config = parser.xml_generator_configuration_t( xml_generator_path='castxml'
+        xml_generator_config = parser.xml_generator_configuration_t( xml_generator_path='/usr/bin/castxml'
                                          , working_directory='.'
                                          , include_paths=includepaths
                                          , define_symbols=symbols
                                          , undefine_symbols=usymbols
                                          , start_with_declarations=None
                                          #, ignore_gccxml_output=False
+                                         , cflags=cflags
+                                         , compiler_path='gcc-4.7'
                                          , xml_generator='castxml'
                                          )
         
@@ -81,4 +72,5 @@ class src_module_builder_t(module_builder.module_builder_t):
                     , cache=None
                     , optimize_queries=True
                     , encoding='ascii'
+                    , compilation_mode=parser.COMPILATION_MODE.ALL_AT_ONCE
                     )

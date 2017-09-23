@@ -147,7 +147,7 @@ class source_reader_t(object):
 
             if std_flag:
                 cmd.append(
-                    '"(" ' + self.__config.compiler_path + std_flag + '")"')
+                    '"(" ' + self.__config.compiler_path + std_flag + ' -m32 -msse -mmmx -pipe -w -fpermissive -fPIC ")"')
             else:
                 cmd.append(self.__config.compiler_path)
 

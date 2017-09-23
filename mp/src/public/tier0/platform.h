@@ -406,13 +406,15 @@ typedef void * HINSTANCE;
 #undef offsetof
 #define offsetof( type, var ) __builtin_offsetof( type, var )
 #else
-#ifdef GNUC
+#if defined(GNUC) && !defined(PYPP_GENERATION)
 #undef offsetof
-//#define offsetof( type, var ) __builtin_offsetof( type, var ) 
+#define offsetof( type, var ) __builtin_offsetof( type, var ) 
 #define offsetof(s,m)	(size_t)&(((s *)0)->m)
 #else
+#if !defined(PYPP_GENERATION)
 #undef offsetof
 #define offsetof(s,m)	(size_t)&(((s *)0)->m)
+#endif
 #endif
 #endif 
 
