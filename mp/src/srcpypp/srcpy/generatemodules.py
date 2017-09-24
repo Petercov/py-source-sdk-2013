@@ -115,7 +115,7 @@ def ParseModules(settings, specificmodule=None, appendfileonly=False):
             appendfileonly (bool): Only generate the append file.
     """
     # Ensure generation folders exist
-    srcpath = settings.srcpath
+    srcpath = os.path.normpath(settings.srcpath)
     client_path = os.path.join(srcpath, settings.client_path)
     server_path = os.path.join(srcpath, settings.server_path)
     shared_path = os.path.join(srcpath, settings.shared_path)
@@ -200,8 +200,8 @@ def ParseModules(settings, specificmodule=None, appendfileonly=False):
         rm.clientincludes = clientincludes
         rm.serversymbols = serversymbols
         rm.clientsymbols = clientsymbols
-        rm.serversrcdir = servervpc.macros['SRCDIR']
-        rm.clientsrcdir = clientvpc.macros['SRCDIR']
+        rm.serversrcdir = os.path.normpath(servervpc.macros['SRCDIR'].replace("\\","/"))
+        rm.clientsrcdir = os.path.normpath(clientvpc.macros['SRCDIR'].replace("\\","/"))
 
         # Check if we should parse this module
         if not appendfileonly and (not specificmodule or specificmodule == rm.module_name):
