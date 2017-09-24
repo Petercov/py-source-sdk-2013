@@ -238,176 +238,176 @@ BOOST_PYTHON_MODULE(_input){
         .def( bp::init< >() )    
         .def( 
             "AccumulateMouse"
-            , (void ( ::CInput::* )(  ) )( &::CInput::AccumulateMouse ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::AccumulateMouse ) )    
         .def( 
             "ActivateMouse"
-            , (void ( ::CInput::* )(  ) )( &::CInput::ActivateMouse ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::ActivateMouse ) )    
         .def( 
             "AddIKGroundContactInfo"
-            , (void ( ::CInput::* )( int,float,float ) )( &::CInput::AddIKGroundContactInfo )
+            , (void ( ::CInput::* )( int,float,float ))( &::CInput::AddIKGroundContactInfo )
             , ( bp::arg("entindex"), bp::arg("minheight"), bp::arg("maxheight") ) )    
         .def( 
             "CAM_CameraThirdThink"
-            , (void ( ::CInput::* )(  ) )( &::CInput::CAM_CameraThirdThink ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::CAM_CameraThirdThink ) )    
         .def( 
             "CAM_CapPitch"
-            , (float ( ::CInput::* )( float ) const)( &::CInput::CAM_CapPitch )
+            , (float ( ::CInput::* )( float )const)( &::CInput::CAM_CapPitch )
             , ( bp::arg("fVal") ) )    
         .def( 
             "CAM_CapYaw"
-            , (float ( ::CInput::* )( float ) const)( &::CInput::CAM_CapYaw )
+            , (float ( ::CInput::* )( float )const)( &::CInput::CAM_CapYaw )
             , ( bp::arg("fVal") ) )    
         .def( 
             "CAM_EndDistance"
-            , (void ( ::CInput::* )(  ) )( &::CInput::CAM_EndDistance ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::CAM_EndDistance ) )    
         .def( 
             "CAM_EndMouseMove"
-            , (void ( ::CInput::* )(  ) )( &::CInput::CAM_EndMouseMove ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::CAM_EndMouseMove ) )    
         .def( 
             "CAM_InterceptingMouse"
-            , (int ( ::CInput::* )(  ) )( &::CInput::CAM_InterceptingMouse ) )    
+            , (int ( ::CInput::* )(  ))( &::CInput::CAM_InterceptingMouse ) )    
         .def( 
             "CAM_IsOrthographic"
-            , (bool ( ::CInput::* )(  ) const)( &::CInput::CAM_IsOrthographic ) )    
+            , (bool ( ::CInput::* )(  )const)( &::CInput::CAM_IsOrthographic ) )    
         .def( 
             "CAM_IsThirdPerson"
-            , (int ( ::CInput::* )(  ) )( &::CInput::CAM_IsThirdPerson ) )    
+            , (int ( ::CInput::* )(  ))( &::CInput::CAM_IsThirdPerson ) )    
         .def( 
             "CAM_OrthographicSize"
             , (boost::python::tuple (*)( ::CInput const & ))( &CAM_OrthographicSize_8e8117cefaa05e9e21a2c25c96813d09 )
             , ( bp::arg("inst") ) )    
         .def( 
             "CAM_SetCameraThirdData"
-            , (void ( ::CInput::* )( ::CameraThirdData_t *,::QAngle const & ) )( &::CInput::CAM_SetCameraThirdData )
+            , (void ( ::CInput::* )( ::CameraThirdData_t *,::QAngle const & ))( &::CInput::CAM_SetCameraThirdData )
             , ( bp::arg("pCameraData"), bp::arg("vecCameraOffset") ) )    
         .def( 
             "CAM_StartDistance"
-            , (void ( ::CInput::* )(  ) )( &::CInput::CAM_StartDistance ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::CAM_StartDistance ) )    
         .def( 
             "CAM_StartMouseMove"
-            , (void ( ::CInput::* )(  ) )( &::CInput::CAM_StartMouseMove ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::CAM_StartMouseMove ) )    
         .def( 
             "CAM_Think"
-            , (void ( ::CInput::* )(  ) )( &::CInput::CAM_Think ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::CAM_Think ) )    
         .def( 
             "CAM_ToFirstPerson"
-            , (void ( ::CInput::* )(  ) )( &::CInput::CAM_ToFirstPerson ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::CAM_ToFirstPerson ) )    
         .def( 
             "CAM_ToOrthographic"
-            , (void ( ::CInput::* )(  ) )( &::CInput::CAM_ToOrthographic ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::CAM_ToOrthographic ) )    
         .def( 
             "CAM_ToThirdPerson"
-            , (void ( ::CInput::* )(  ) )( &::CInput::CAM_ToThirdPerson ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::CAM_ToThirdPerson ) )    
         .def( 
             "ClearInputButton"
-            , (void ( ::CInput::* )( int ) )( &::CInput::ClearInputButton )
+            , (void ( ::CInput::* )( int ))( &::CInput::ClearInputButton )
             , ( bp::arg("bits") ) )    
         .def( 
             "ClearStates"
-            , (void ( ::CInput::* )(  ) )( &::CInput::ClearStates ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::ClearStates ) )    
         .def( 
             "ControllerCommands"
-            , (void ( ::CInput::* )(  ) )( &::CInput::ControllerCommands ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::ControllerCommands ) )    
         .def( 
             "CreateMove"
-            , (void ( ::CInput::* )( int,float,bool ) )( &::CInput::CreateMove )
+            , (void ( ::CInput::* )( int,float,bool ))( &::CInput::CreateMove )
             , ( bp::arg("sequence_number"), bp::arg("input_sample_frametime"), bp::arg("active") ) )    
         .def( 
             "DeactivateMouse"
-            , (void ( ::CInput::* )(  ) )( &::CInput::DeactivateMouse ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::DeactivateMouse ) )    
         .def( 
             "DecodeUserCmdFromBuffer"
-            , (void ( ::CInput::* )( ::bf_read &,int ) )( &::CInput::DecodeUserCmdFromBuffer )
+            , (void ( ::CInput::* )( ::bf_read &,int ))( &::CInput::DecodeUserCmdFromBuffer )
             , ( bp::arg("buf"), bp::arg("slot") ) )    
         .def( 
             "EnableJoystickMode"
-            , (bool ( ::CInput::* )(  ) )( &::CInput::EnableJoystickMode ) )    
+            , (bool ( ::CInput::* )(  ))( &::CInput::EnableJoystickMode ) )    
         .def( 
             "EncodeUserCmdToBuffer"
-            , (void ( ::CInput::* )( ::bf_write &,int ) )( &::CInput::EncodeUserCmdToBuffer )
+            , (void ( ::CInput::* )( ::bf_write &,int ))( &::CInput::EncodeUserCmdToBuffer )
             , ( bp::arg("buf"), bp::arg("slot") ) )    
         .def( 
             "ExtraMouseSample"
-            , (void ( ::CInput::* )( float,bool ) )( &::CInput::ExtraMouseSample )
+            , (void ( ::CInput::* )( float,bool ))( &::CInput::ExtraMouseSample )
             , ( bp::arg("frametime"), bp::arg("active") ) )    
         .def( 
             "FindKey"
-            , (::kbutton_t * ( ::CInput::* )( char const * ) )( &::CInput::FindKey )
+            , (::kbutton_t * ( ::CInput::* )( char const * ))( &::CInput::FindKey )
             , ( bp::arg("name") )
             , bp::return_value_policy< bp::manage_new_object >() )    
         .def( 
             "GetButtonBits"
-            , (int ( ::CInput::* )( int ) )( &::CInput::GetButtonBits )
+            , (int ( ::CInput::* )( int ))( &::CInput::GetButtonBits )
             , ( bp::arg("arg0") ) )    
         .def( 
             "GetFullscreenMousePos"
-            , (void ( ::CInput::* )( int *,int *,int *,int * ) )( &::CInput::GetFullscreenMousePos )
+            , (void ( ::CInput::* )( int *,int *,int *,int * ))( &::CInput::GetFullscreenMousePos )
             , ( bp::arg("mx"), bp::arg("my"), bp::arg("unclampedx")=bp::object(), bp::arg("unclampedy")=bp::object() ) )    
         .def( 
             "GetLastForwardMove"
-            , (float ( ::CInput::* )(  ) )( &::CInput::GetLastForwardMove ) )    
+            , (float ( ::CInput::* )(  ))( &::CInput::GetLastForwardMove ) )    
         .def( 
             "GetLookSpring"
-            , (float ( ::CInput::* )(  ) )( &::CInput::GetLookSpring ) )    
+            , (float ( ::CInput::* )(  ))( &::CInput::GetLookSpring ) )    
         .def( 
             "GetUserCmd"
-            , (::CUserCmd * ( ::CInput::* )( int ) )( &::CInput::GetUserCmd )
+            , (::CUserCmd * ( ::CInput::* )( int ))( &::CInput::GetUserCmd )
             , ( bp::arg("sequence_number") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "IN_SetSampleTime"
-            , (void ( ::CInput::* )( float ) )( &::CInput::IN_SetSampleTime )
+            , (void ( ::CInput::* )( float ))( &::CInput::IN_SetSampleTime )
             , ( bp::arg("frametime") ) )    
         .def( 
             "Init_All"
-            , (void ( ::CInput::* )(  ) )( &::CInput::Init_All ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::Init_All ) )    
         .def( 
             "Joystick_Advanced"
-            , (void ( ::CInput::* )(  ) )( &::CInput::Joystick_Advanced ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::Joystick_Advanced ) )    
         .def( 
             "Joystick_GetForward"
-            , (float ( ::CInput::* )(  ) )( &::CInput::Joystick_GetForward ) )    
+            , (float ( ::CInput::* )(  ))( &::CInput::Joystick_GetForward ) )    
         .def( 
             "Joystick_GetPitch"
-            , (float ( ::CInput::* )(  ) )( &::CInput::Joystick_GetPitch ) )    
+            , (float ( ::CInput::* )(  ))( &::CInput::Joystick_GetPitch ) )    
         .def( 
             "Joystick_GetSide"
-            , (float ( ::CInput::* )(  ) )( &::CInput::Joystick_GetSide ) )    
+            , (float ( ::CInput::* )(  ))( &::CInput::Joystick_GetSide ) )    
         .def( 
             "Joystick_GetYaw"
-            , (float ( ::CInput::* )(  ) )( &::CInput::Joystick_GetYaw ) )    
+            , (float ( ::CInput::* )(  ))( &::CInput::Joystick_GetYaw ) )    
         .def( 
             "Joystick_SetSampleTime"
-            , (void ( ::CInput::* )( float ) )( &::CInput::Joystick_SetSampleTime )
+            , (void ( ::CInput::* )( float ))( &::CInput::Joystick_SetSampleTime )
             , ( bp::arg("frametime") ) )    
         .def( 
             "KeyEvent"
-            , (int ( ::CInput::* )( int,::ButtonCode_t,char const * ) )( &::CInput::KeyEvent )
+            , (int ( ::CInput::* )( int,::ButtonCode_t,char const * ))( &::CInput::KeyEvent )
             , ( bp::arg("down"), bp::arg("keynum"), bp::arg("pszCurrentBinding") ) )    
         .def( 
             "KeyState"
-            , (float ( ::CInput::* )( ::kbutton_t * ) )( &::CInput::KeyState )
+            , (float ( ::CInput::* )( ::kbutton_t * ))( &::CInput::KeyState )
             , ( bp::arg("key") ) )    
         .def( 
             "LevelInit"
-            , (void ( ::CInput::* )(  ) )( &::CInput::LevelInit ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::LevelInit ) )    
         .def( 
             "MakeWeaponSelection"
-            , (void ( ::CInput::* )( ::C_BaseCombatWeapon * ) )( &::CInput::MakeWeaponSelection )
+            , (void ( ::CInput::* )( ::C_BaseCombatWeapon * ))( &::CInput::MakeWeaponSelection )
             , ( bp::arg("weapon") ) )    
         .def( 
             "ResetMouse"
-            , (void ( ::CInput::* )(  ) )( &::CInput::ResetMouse ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::ResetMouse ) )    
         .def( 
             "SetFullscreenMousePos"
-            , (void ( ::CInput::* )( int,int ) )( &::CInput::SetFullscreenMousePos )
+            , (void ( ::CInput::* )( int,int ))( &::CInput::SetFullscreenMousePos )
             , ( bp::arg("mx"), bp::arg("my") ) )    
         .def( 
             "Shutdown_All"
-            , (void ( ::CInput::* )(  ) )( &::CInput::Shutdown_All ) )    
+            , (void ( ::CInput::* )(  ))( &::CInput::Shutdown_All ) )    
         .def( 
             "WriteUsercmdDeltaToBuffer"
-            , (bool ( ::CInput::* )( ::bf_write *,int,int,bool ) )( &::CInput::WriteUsercmdDeltaToBuffer )
+            , (bool ( ::CInput::* )( ::bf_write *,int,int,bool ))( &::CInput::WriteUsercmdDeltaToBuffer )
             , ( bp::arg("buf"), bp::arg("from"), bp::arg("to"), bp::arg("isnewcommand") ) );
 
     bp::def( "input", wrap_Input, bp::return_value_policy<bp::reference_existing_object>() );
@@ -417,7 +417,7 @@ BOOST_PYTHON_MODULE(_input){
         kbutton_t_exposer_t kbutton_t_exposer = kbutton_t_exposer_t( "kbutton_t" );
         bp::scope kbutton_t_scope( kbutton_t_exposer );
         pyplusplus::containers::static_sized::register_array_1< int, 2 >( "__array_1_int_2" );
-        { //kbutton_t::down [variable], type=int[2]
+        { //kbutton_t::down [variable], type=int [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< int, 2> ( *array_wrapper_creator )( ::kbutton_t & );
             

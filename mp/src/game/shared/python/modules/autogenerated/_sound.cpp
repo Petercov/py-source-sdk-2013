@@ -123,85 +123,85 @@ BOOST_PYTHON_MODULE(_sound){
     bp::class_< CSoundEnvelopeControllerHandle >( "CSoundEnvelopeController", bp::no_init )    
         .def( 
             "CheckLoopingSoundsForPlayer"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::C_BasePlayer * ) )( &::CSoundEnvelopeControllerHandle::CheckLoopingSoundsForPlayer )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::C_BasePlayer * ))( &::CSoundEnvelopeControllerHandle::CheckLoopingSoundsForPlayer )
             , ( bp::arg("pPlayer") ) )    
         .def( 
             "CommandAdd"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,::soundcommands_t,float,float ) )( &::CSoundEnvelopeControllerHandle::CommandAdd )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,::soundcommands_t,float,float ))( &::CSoundEnvelopeControllerHandle::CommandAdd )
             , ( bp::arg("pSound"), bp::arg("executeDeltaTime"), bp::arg("command"), bp::arg("commandTime"), bp::arg("value") ) )    
         .def( 
             "CommandClear"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ) )( &::CSoundEnvelopeControllerHandle::CommandClear )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ))( &::CSoundEnvelopeControllerHandle::CommandClear )
             , ( bp::arg("pSound") ) )    
         .def( 
             "GetController"
             , (::CSoundEnvelopeControllerHandle (*)(  ))( &::CSoundEnvelopeControllerHandle::GetController ) )    
         .def( 
             "Play"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,float,float ) )( &::CSoundEnvelopeControllerHandle::Play )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,float,float ))( &::CSoundEnvelopeControllerHandle::Play )
             , ( bp::arg("pSound"), bp::arg("volume"), bp::arg("pitch"), bp::arg("flStartTime")=0 ) )    
         .def( 
             "Shutdown"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ) )( &::CSoundEnvelopeControllerHandle::Shutdown )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ))( &::CSoundEnvelopeControllerHandle::Shutdown )
             , ( bp::arg("pSound") ) )    
         .def( 
             "SoundChangePitch"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,float ) )( &::CSoundEnvelopeControllerHandle::SoundChangePitch )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,float ))( &::CSoundEnvelopeControllerHandle::SoundChangePitch )
             , ( bp::arg("pSound"), bp::arg("pitchTarget"), bp::arg("deltaTime") ) )    
         .def( 
             "SoundChangeVolume"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,float ) )( &::CSoundEnvelopeControllerHandle::SoundChangeVolume )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,float ))( &::CSoundEnvelopeControllerHandle::SoundChangeVolume )
             , ( bp::arg("pSound"), bp::arg("volumeTarget"), bp::arg("deltaTime") ) )    
         .def( 
             "SoundCreate"
-            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,char const * ) )( &::CSoundEnvelopeControllerHandle::SoundCreate )
+            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,char const * ))( &::CSoundEnvelopeControllerHandle::SoundCreate )
             , ( bp::arg("filter"), bp::arg("nEntIndex"), bp::arg("pSoundName") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "SoundCreate"
-            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,int,char const *,float ) )( &::CSoundEnvelopeControllerHandle::SoundCreate )
+            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,int,char const *,float ))( &::CSoundEnvelopeControllerHandle::SoundCreate )
             , ( bp::arg("filter"), bp::arg("nEntIndex"), bp::arg("channel"), bp::arg("pSoundName"), bp::arg("attenuation") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "SoundCreate"
-            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,int,char const *,::soundlevel_t ) )( &::CSoundEnvelopeControllerHandle::SoundCreate )
+            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,int,char const *,::soundlevel_t ))( &::CSoundEnvelopeControllerHandle::SoundCreate )
             , ( bp::arg("filter"), bp::arg("nEntIndex"), bp::arg("channel"), bp::arg("pSoundName"), bp::arg("soundlevel") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "SoundCreate"
-            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,::EmitSound_t const & ) )( &::CSoundEnvelopeControllerHandle::SoundCreate )
+            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,::EmitSound_t const & ))( &::CSoundEnvelopeControllerHandle::SoundCreate )
             , ( bp::arg("filter"), bp::arg("nEntIndex"), bp::arg("es") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "SoundDestroy"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ) )( &::CSoundEnvelopeControllerHandle::SoundDestroy )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ))( &::CSoundEnvelopeControllerHandle::SoundDestroy )
             , ( bp::arg("pSound") ) )    
         .def( 
             "SoundFadeOut"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,bool ) )( &::CSoundEnvelopeControllerHandle::SoundFadeOut )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,bool ))( &::CSoundEnvelopeControllerHandle::SoundFadeOut )
             , ( bp::arg("pSound"), bp::arg("deltaTime"), bp::arg("destroyOnFadeout")=(bool)(false) ) )    
         .def( 
             "SoundGetName"
-            , (::string_t ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ) )( &::CSoundEnvelopeControllerHandle::SoundGetName )
+            , (::string_t ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ))( &::CSoundEnvelopeControllerHandle::SoundGetName )
             , ( bp::arg("pSound") ) )    
         .def( 
             "SoundGetPitch"
-            , (float ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ) )( &::CSoundEnvelopeControllerHandle::SoundGetPitch )
+            , (float ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ))( &::CSoundEnvelopeControllerHandle::SoundGetPitch )
             , ( bp::arg("pSound") ) )    
         .def( 
             "SoundGetVolume"
-            , (float ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ) )( &::CSoundEnvelopeControllerHandle::SoundGetVolume )
+            , (float ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ))( &::CSoundEnvelopeControllerHandle::SoundGetVolume )
             , ( bp::arg("pSound") ) )    
         .def( 
             "SoundSetCloseCaptionDuration"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float ) )( &::CSoundEnvelopeControllerHandle::SoundSetCloseCaptionDuration )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float ))( &::CSoundEnvelopeControllerHandle::SoundSetCloseCaptionDuration )
             , ( bp::arg("pSound"), bp::arg("flDuration") ) )    
         .def( 
             "SystemReset"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )(  ) )( &::CSoundEnvelopeControllerHandle::SystemReset ) )    
+            , (void ( ::CSoundEnvelopeControllerHandle::* )(  ))( &::CSoundEnvelopeControllerHandle::SystemReset ) )    
         .def( 
             "SystemUpdate"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )(  ) )( &::CSoundEnvelopeControllerHandle::SystemUpdate ) )    
+            , (void ( ::CSoundEnvelopeControllerHandle::* )(  ))( &::CSoundEnvelopeControllerHandle::SystemUpdate ) )    
         .staticmethod( "GetController" );
 
     { //::CSoundParameters
@@ -217,7 +217,7 @@ BOOST_PYTHON_MODULE(_sound){
         CSoundParameters_exposer.def_readwrite( "play_to_owner_only", &CSoundParameters::play_to_owner_only );
         CSoundParameters_exposer.def_readwrite( "soundlevel", &CSoundParameters::soundlevel );
         pyplusplus::containers::static_sized::register_array_1< char, 128 >( "__array_1_char_128" );
-        { //CSoundParameters::soundname [variable], type=char[128]
+        { //CSoundParameters::soundname [variable], type=char [128]
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 128> ( *array_wrapper_creator )( ::CSoundParameters & );
             
@@ -265,17 +265,17 @@ BOOST_PYTHON_MODULE(_sound){
         bp::scope EngineSound_scope( EngineSound_exposer );
         { //::PyEngineSound::EmitAmbientSound
         
-            typedef void ( ::PyEngineSound::*EmitAmbientSound_function_type )( char const *,float,int,int,float ) ;
+            typedef void ( ::PyEngineSound::*EmitAmbientSound_function_type)( char const *,float,int,int,float ) ;
             
             EngineSound_exposer.def( 
                 "EmitAmbientSound"
                 , EmitAmbientSound_function_type( &::PyEngineSound::EmitAmbientSound )
-                , ( bp::arg("pSample"), bp::arg("flVolume"), bp::arg("iPitch")=(int)(100), bp::arg("flags")=(int)(0), bp::arg("soundtime")=0.0f ) );
+                , ( bp::arg("pSample"), bp::arg("flVolume"), bp::arg("iPitch")=(int)(100), bp::arg("flags")=(int)(0), bp::arg("soundtime")=0.F ) );
         
         }
         { //::PyEngineSound::GetDistGainFromSoundLevel
         
-            typedef float ( ::PyEngineSound::*GetDistGainFromSoundLevel_function_type )( ::soundlevel_t,float ) ;
+            typedef float ( ::PyEngineSound::*GetDistGainFromSoundLevel_function_type)( ::soundlevel_t,float ) ;
             
             EngineSound_exposer.def( 
                 "GetDistGainFromSoundLevel"
@@ -285,7 +285,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::GetGuidForLastSoundEmitted
         
-            typedef int ( ::PyEngineSound::*GetGuidForLastSoundEmitted_function_type )(  ) ;
+            typedef int ( ::PyEngineSound::*GetGuidForLastSoundEmitted_function_type)(  ) ;
             
             EngineSound_exposer.def( 
                 "GetGuidForLastSoundEmitted"
@@ -294,7 +294,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::GetSoundDuration
         
-            typedef float ( ::PyEngineSound::*GetSoundDuration_function_type )( char const * ) ;
+            typedef float ( ::PyEngineSound::*GetSoundDuration_function_type)( char const * ) ;
             
             EngineSound_exposer.def( 
                 "GetSoundDuration"
@@ -304,7 +304,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::IsSoundPrecached
         
-            typedef bool ( ::PyEngineSound::*IsSoundPrecached_function_type )( char const * ) ;
+            typedef bool ( ::PyEngineSound::*IsSoundPrecached_function_type)( char const * ) ;
             
             EngineSound_exposer.def( 
                 "IsSoundPrecached"
@@ -314,7 +314,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::IsSoundStillPlaying
         
-            typedef bool ( ::PyEngineSound::*IsSoundStillPlaying_function_type )( int ) ;
+            typedef bool ( ::PyEngineSound::*IsSoundStillPlaying_function_type)( int ) ;
             
             EngineSound_exposer.def( 
                 "IsSoundStillPlaying"
@@ -324,7 +324,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::NotifyBeginMoviePlayback
         
-            typedef void ( ::PyEngineSound::*NotifyBeginMoviePlayback_function_type )(  ) ;
+            typedef void ( ::PyEngineSound::*NotifyBeginMoviePlayback_function_type)(  ) ;
             
             EngineSound_exposer.def( 
                 "NotifyBeginMoviePlayback"
@@ -333,7 +333,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::NotifyEndMoviePlayback
         
-            typedef void ( ::PyEngineSound::*NotifyEndMoviePlayback_function_type )(  ) ;
+            typedef void ( ::PyEngineSound::*NotifyEndMoviePlayback_function_type)(  ) ;
             
             EngineSound_exposer.def( 
                 "NotifyEndMoviePlayback"
@@ -342,7 +342,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::PrecacheSentenceGroup
         
-            typedef void ( ::PyEngineSound::*PrecacheSentenceGroup_function_type )( char const * ) ;
+            typedef void ( ::PyEngineSound::*PrecacheSentenceGroup_function_type)( char const * ) ;
             
             EngineSound_exposer.def( 
                 "PrecacheSentenceGroup"
@@ -352,7 +352,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::PrecacheSound
         
-            typedef bool ( ::PyEngineSound::*PrecacheSound_function_type )( char const *,bool,bool ) ;
+            typedef bool ( ::PyEngineSound::*PrecacheSound_function_type)( char const *,bool,bool ) ;
             
             EngineSound_exposer.def( 
                 "PrecacheSound"
@@ -362,7 +362,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::PrefetchSound
         
-            typedef void ( ::PyEngineSound::*PrefetchSound_function_type )( char const * ) ;
+            typedef void ( ::PyEngineSound::*PrefetchSound_function_type)( char const * ) ;
             
             EngineSound_exposer.def( 
                 "PrefetchSound"
@@ -372,7 +372,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::SetPlayerDSP
         
-            typedef void ( ::PyEngineSound::*SetPlayerDSP_function_type )( ::IRecipientFilter &,int,bool ) ;
+            typedef void ( ::PyEngineSound::*SetPlayerDSP_function_type)( ::IRecipientFilter &,int,bool ) ;
             
             EngineSound_exposer.def( 
                 "SetPlayerDSP"
@@ -382,7 +382,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::SetRoomType
         
-            typedef void ( ::PyEngineSound::*SetRoomType_function_type )( ::IRecipientFilter &,int ) ;
+            typedef void ( ::PyEngineSound::*SetRoomType_function_type)( ::IRecipientFilter &,int ) ;
             
             EngineSound_exposer.def( 
                 "SetRoomType"
@@ -392,7 +392,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::SetVolumeByGuid
         
-            typedef void ( ::PyEngineSound::*SetVolumeByGuid_function_type )( int,float ) ;
+            typedef void ( ::PyEngineSound::*SetVolumeByGuid_function_type)( int,float ) ;
             
             EngineSound_exposer.def( 
                 "SetVolumeByGuid"
@@ -402,7 +402,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::StopAllSounds
         
-            typedef void ( ::PyEngineSound::*StopAllSounds_function_type )( bool ) ;
+            typedef void ( ::PyEngineSound::*StopAllSounds_function_type)( bool ) ;
             
             EngineSound_exposer.def( 
                 "StopAllSounds"
@@ -412,7 +412,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::StopSound
         
-            typedef void ( ::PyEngineSound::*StopSound_function_type )( int,int,char const * ) ;
+            typedef void ( ::PyEngineSound::*StopSound_function_type)( int,int,char const * ) ;
             
             EngineSound_exposer.def( 
                 "StopSound"
@@ -422,7 +422,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::StopSoundByGuid
         
-            typedef void ( ::PyEngineSound::*StopSoundByGuid_function_type )( int ) ;
+            typedef void ( ::PyEngineSound::*StopSoundByGuid_function_type)( int ) ;
             
             EngineSound_exposer.def( 
                 "StopSoundByGuid"
@@ -555,85 +555,85 @@ BOOST_PYTHON_MODULE(_sound){
     bp::class_< CSoundEnvelopeControllerHandle >( "CSoundEnvelopeController", bp::no_init )    
         .def( 
             "CheckLoopingSoundsForPlayer"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CBasePlayer * ) )( &::CSoundEnvelopeControllerHandle::CheckLoopingSoundsForPlayer )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CBasePlayer * ))( &::CSoundEnvelopeControllerHandle::CheckLoopingSoundsForPlayer )
             , ( bp::arg("pPlayer") ) )    
         .def( 
             "CommandAdd"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,::soundcommands_t,float,float ) )( &::CSoundEnvelopeControllerHandle::CommandAdd )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,::soundcommands_t,float,float ))( &::CSoundEnvelopeControllerHandle::CommandAdd )
             , ( bp::arg("pSound"), bp::arg("executeDeltaTime"), bp::arg("command"), bp::arg("commandTime"), bp::arg("value") ) )    
         .def( 
             "CommandClear"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ) )( &::CSoundEnvelopeControllerHandle::CommandClear )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ))( &::CSoundEnvelopeControllerHandle::CommandClear )
             , ( bp::arg("pSound") ) )    
         .def( 
             "GetController"
             , (::CSoundEnvelopeControllerHandle (*)(  ))( &::CSoundEnvelopeControllerHandle::GetController ) )    
         .def( 
             "Play"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,float,float ) )( &::CSoundEnvelopeControllerHandle::Play )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,float,float ))( &::CSoundEnvelopeControllerHandle::Play )
             , ( bp::arg("pSound"), bp::arg("volume"), bp::arg("pitch"), bp::arg("flStartTime")=0 ) )    
         .def( 
             "Shutdown"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ) )( &::CSoundEnvelopeControllerHandle::Shutdown )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ))( &::CSoundEnvelopeControllerHandle::Shutdown )
             , ( bp::arg("pSound") ) )    
         .def( 
             "SoundChangePitch"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,float ) )( &::CSoundEnvelopeControllerHandle::SoundChangePitch )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,float ))( &::CSoundEnvelopeControllerHandle::SoundChangePitch )
             , ( bp::arg("pSound"), bp::arg("pitchTarget"), bp::arg("deltaTime") ) )    
         .def( 
             "SoundChangeVolume"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,float ) )( &::CSoundEnvelopeControllerHandle::SoundChangeVolume )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,float ))( &::CSoundEnvelopeControllerHandle::SoundChangeVolume )
             , ( bp::arg("pSound"), bp::arg("volumeTarget"), bp::arg("deltaTime") ) )    
         .def( 
             "SoundCreate"
-            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,char const * ) )( &::CSoundEnvelopeControllerHandle::SoundCreate )
+            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,char const * ))( &::CSoundEnvelopeControllerHandle::SoundCreate )
             , ( bp::arg("filter"), bp::arg("nEntIndex"), bp::arg("pSoundName") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "SoundCreate"
-            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,int,char const *,float ) )( &::CSoundEnvelopeControllerHandle::SoundCreate )
+            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,int,char const *,float ))( &::CSoundEnvelopeControllerHandle::SoundCreate )
             , ( bp::arg("filter"), bp::arg("nEntIndex"), bp::arg("channel"), bp::arg("pSoundName"), bp::arg("attenuation") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "SoundCreate"
-            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,int,char const *,::soundlevel_t ) )( &::CSoundEnvelopeControllerHandle::SoundCreate )
+            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,int,char const *,::soundlevel_t ))( &::CSoundEnvelopeControllerHandle::SoundCreate )
             , ( bp::arg("filter"), bp::arg("nEntIndex"), bp::arg("channel"), bp::arg("pSoundName"), bp::arg("soundlevel") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "SoundCreate"
-            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,::EmitSound_t const & ) )( &::CSoundEnvelopeControllerHandle::SoundCreate )
+            , (::CSoundPatchHandle ( ::CSoundEnvelopeControllerHandle::* )( ::IRecipientFilter &,int,::EmitSound_t const & ))( &::CSoundEnvelopeControllerHandle::SoundCreate )
             , ( bp::arg("filter"), bp::arg("nEntIndex"), bp::arg("es") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "SoundDestroy"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ) )( &::CSoundEnvelopeControllerHandle::SoundDestroy )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ))( &::CSoundEnvelopeControllerHandle::SoundDestroy )
             , ( bp::arg("pSound") ) )    
         .def( 
             "SoundFadeOut"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,bool ) )( &::CSoundEnvelopeControllerHandle::SoundFadeOut )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float,bool ))( &::CSoundEnvelopeControllerHandle::SoundFadeOut )
             , ( bp::arg("pSound"), bp::arg("deltaTime"), bp::arg("destroyOnFadeout")=(bool)(false) ) )    
         .def( 
             "SoundGetName"
-            , (::string_t ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ) )( &::CSoundEnvelopeControllerHandle::SoundGetName )
+            , (::string_t ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ))( &::CSoundEnvelopeControllerHandle::SoundGetName )
             , ( bp::arg("pSound") ) )    
         .def( 
             "SoundGetPitch"
-            , (float ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ) )( &::CSoundEnvelopeControllerHandle::SoundGetPitch )
+            , (float ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ))( &::CSoundEnvelopeControllerHandle::SoundGetPitch )
             , ( bp::arg("pSound") ) )    
         .def( 
             "SoundGetVolume"
-            , (float ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ) )( &::CSoundEnvelopeControllerHandle::SoundGetVolume )
+            , (float ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle * ))( &::CSoundEnvelopeControllerHandle::SoundGetVolume )
             , ( bp::arg("pSound") ) )    
         .def( 
             "SoundSetCloseCaptionDuration"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float ) )( &::CSoundEnvelopeControllerHandle::SoundSetCloseCaptionDuration )
+            , (void ( ::CSoundEnvelopeControllerHandle::* )( ::CSoundPatchHandle *,float ))( &::CSoundEnvelopeControllerHandle::SoundSetCloseCaptionDuration )
             , ( bp::arg("pSound"), bp::arg("flDuration") ) )    
         .def( 
             "SystemReset"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )(  ) )( &::CSoundEnvelopeControllerHandle::SystemReset ) )    
+            , (void ( ::CSoundEnvelopeControllerHandle::* )(  ))( &::CSoundEnvelopeControllerHandle::SystemReset ) )    
         .def( 
             "SystemUpdate"
-            , (void ( ::CSoundEnvelopeControllerHandle::* )(  ) )( &::CSoundEnvelopeControllerHandle::SystemUpdate ) )    
+            , (void ( ::CSoundEnvelopeControllerHandle::* )(  ))( &::CSoundEnvelopeControllerHandle::SystemUpdate ) )    
         .staticmethod( "GetController" );
 
     { //::CSoundParameters
@@ -649,7 +649,7 @@ BOOST_PYTHON_MODULE(_sound){
         CSoundParameters_exposer.def_readwrite( "play_to_owner_only", &CSoundParameters::play_to_owner_only );
         CSoundParameters_exposer.def_readwrite( "soundlevel", &CSoundParameters::soundlevel );
         pyplusplus::containers::static_sized::register_array_1< char, 128 >( "__array_1_char_128" );
-        { //CSoundParameters::soundname [variable], type=char[128]
+        { //CSoundParameters::soundname [variable], type=char [128]
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 128> ( *array_wrapper_creator )( ::CSoundParameters & );
             
@@ -697,7 +697,7 @@ BOOST_PYTHON_MODULE(_sound){
         bp::scope EngineSound_scope( EngineSound_exposer );
         { //::PyEngineSound::GetDistGainFromSoundLevel
         
-            typedef float ( ::PyEngineSound::*GetDistGainFromSoundLevel_function_type )( ::soundlevel_t,float ) ;
+            typedef float ( ::PyEngineSound::*GetDistGainFromSoundLevel_function_type)( ::soundlevel_t,float ) ;
             
             EngineSound_exposer.def( 
                 "GetDistGainFromSoundLevel"
@@ -707,7 +707,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::GetSoundDuration
         
-            typedef float ( ::PyEngineSound::*GetSoundDuration_function_type )( char const * ) ;
+            typedef float ( ::PyEngineSound::*GetSoundDuration_function_type)( char const * ) ;
             
             EngineSound_exposer.def( 
                 "GetSoundDuration"
@@ -717,7 +717,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::IsSoundPrecached
         
-            typedef bool ( ::PyEngineSound::*IsSoundPrecached_function_type )( char const * ) ;
+            typedef bool ( ::PyEngineSound::*IsSoundPrecached_function_type)( char const * ) ;
             
             EngineSound_exposer.def( 
                 "IsSoundPrecached"
@@ -727,7 +727,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::NotifyBeginMoviePlayback
         
-            typedef void ( ::PyEngineSound::*NotifyBeginMoviePlayback_function_type )(  ) ;
+            typedef void ( ::PyEngineSound::*NotifyBeginMoviePlayback_function_type)(  ) ;
             
             EngineSound_exposer.def( 
                 "NotifyBeginMoviePlayback"
@@ -736,7 +736,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::NotifyEndMoviePlayback
         
-            typedef void ( ::PyEngineSound::*NotifyEndMoviePlayback_function_type )(  ) ;
+            typedef void ( ::PyEngineSound::*NotifyEndMoviePlayback_function_type)(  ) ;
             
             EngineSound_exposer.def( 
                 "NotifyEndMoviePlayback"
@@ -745,7 +745,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::PrecacheSentenceGroup
         
-            typedef void ( ::PyEngineSound::*PrecacheSentenceGroup_function_type )( char const * ) ;
+            typedef void ( ::PyEngineSound::*PrecacheSentenceGroup_function_type)( char const * ) ;
             
             EngineSound_exposer.def( 
                 "PrecacheSentenceGroup"
@@ -755,7 +755,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::PrecacheSound
         
-            typedef bool ( ::PyEngineSound::*PrecacheSound_function_type )( char const *,bool,bool ) ;
+            typedef bool ( ::PyEngineSound::*PrecacheSound_function_type)( char const *,bool,bool ) ;
             
             EngineSound_exposer.def( 
                 "PrecacheSound"
@@ -765,7 +765,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::PrefetchSound
         
-            typedef void ( ::PyEngineSound::*PrefetchSound_function_type )( char const * ) ;
+            typedef void ( ::PyEngineSound::*PrefetchSound_function_type)( char const * ) ;
             
             EngineSound_exposer.def( 
                 "PrefetchSound"
@@ -775,7 +775,7 @@ BOOST_PYTHON_MODULE(_sound){
         }
         { //::PyEngineSound::StopSound
         
-            typedef void ( ::PyEngineSound::*StopSound_function_type )( int,int,char const * ) ;
+            typedef void ( ::PyEngineSound::*StopSound_function_type)( int,int,char const * ) ;
             
             EngineSound_exposer.def( 
                 "StopSound"

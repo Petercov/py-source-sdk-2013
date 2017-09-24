@@ -2270,7 +2270,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         CClientEntityList_exposer.def( bp::init< >() );
         { //::CClientEntityList::EntIndexToHandle
         
-            typedef ::ClientEntityHandle_t ( ::CClientEntityList::*EntIndexToHandle_function_type )( int ) ;
+            typedef ::ClientEntityHandle_t ( ::CClientEntityList::*EntIndexToHandle_function_type)( int ) ;
             
             CClientEntityList_exposer.def( 
                 "EntIndexToHandle"
@@ -2280,7 +2280,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CClientEntityList::FirstBaseEntity
         
-            typedef ::C_BaseEntity * ( ::CClientEntityList::*FirstBaseEntity_function_type )(  ) const;
+            typedef ::C_BaseEntity * ( ::CClientEntityList::*FirstBaseEntity_function_type)(  ) const;
             
             CClientEntityList_exposer.def( 
                 "FirstBaseEntity"
@@ -2290,7 +2290,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CClientEntityList::GetBaseEntity
         
-            typedef ::C_BaseEntity * ( ::CClientEntityList::*GetBaseEntity_function_type )( int ) ;
+            typedef ::C_BaseEntity * ( ::CClientEntityList::*GetBaseEntity_function_type)( int ) ;
             
             CClientEntityList_exposer.def( 
                 "GetBaseEntity"
@@ -2301,7 +2301,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CClientEntityList::GetBaseEntityFromHandle
         
-            typedef ::C_BaseEntity * ( ::CClientEntityList::*GetBaseEntityFromHandle_function_type )( ::ClientEntityHandle_t ) ;
+            typedef ::C_BaseEntity * ( ::CClientEntityList::*GetBaseEntityFromHandle_function_type)( ::ClientEntityHandle_t ) ;
             
             CClientEntityList_exposer.def( 
                 "GetBaseEntityFromHandle"
@@ -2312,7 +2312,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CClientEntityList::GetHighestEntityIndex
         
-            typedef int ( ::CClientEntityList::*GetHighestEntityIndex_function_type )(  ) ;
+            typedef int ( ::CClientEntityList::*GetHighestEntityIndex_function_type)(  ) ;
             
             CClientEntityList_exposer.def( 
                 "GetHighestEntityIndex"
@@ -2321,7 +2321,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CClientEntityList::HandleToEntIndex
         
-            typedef int ( ::CClientEntityList::*HandleToEntIndex_function_type )( ::ClientEntityHandle_t ) ;
+            typedef int ( ::CClientEntityList::*HandleToEntIndex_function_type)( ::ClientEntityHandle_t ) ;
             
             CClientEntityList_exposer.def( 
                 "HandleToEntIndex"
@@ -2331,7 +2331,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CClientEntityList::IsHandleValid
         
-            typedef bool ( ::CClientEntityList::*IsHandleValid_function_type )( ::ClientEntityHandle_t ) const;
+            typedef bool ( ::CClientEntityList::*IsHandleValid_function_type)( ::ClientEntityHandle_t ) const;
             
             CClientEntityList_exposer.def( 
                 "IsHandleValid"
@@ -2341,7 +2341,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CClientEntityList::NextBaseEntity
         
-            typedef ::C_BaseEntity * ( ::CClientEntityList::*NextBaseEntity_function_type )( ::C_BaseEntity * ) const;
+            typedef ::C_BaseEntity * ( ::CClientEntityList::*NextBaseEntity_function_type)( ::C_BaseEntity * ) const;
             
             CClientEntityList_exposer.def( 
                 "NextBaseEntity"
@@ -2352,7 +2352,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CClientEntityList::NumberOfEntities
         
-            typedef int ( ::CClientEntityList::*NumberOfEntities_function_type )( bool ) ;
+            typedef int ( ::CClientEntityList::*NumberOfEntities_function_type)( bool ) ;
             
             CClientEntityList_exposer.def( 
                 "NumberOfEntities"
@@ -2370,205 +2370,205 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .def( bp::init< C_BaseEntity *, C_BaseEntity *, C_BaseEntity *, Vector const &, Vector const &, float, int, bp::optional< int, Vector * > >(( bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("pWeapon"), bp::arg("damageForce"), bp::arg("damagePosition"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType")=(int)(0), bp::arg("reportedPosition")=bp::object() )) )    
         .def( 
             "AddDamage"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::AddDamage )
+            , (void ( ::CTakeDamageInfo::* )( float ))( &::CTakeDamageInfo::AddDamage )
             , ( bp::arg("flAddAmount") ) )    
         .def( 
             "AddDamageType"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::AddDamageType )
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::AddDamageType )
             , ( bp::arg("bitsDamageType") ) )    
         .def( 
             "AdjustPlayerDamageInflictedForSkillLevel"
-            , (void ( ::CTakeDamageInfo::* )(  ) )( &::CTakeDamageInfo::AdjustPlayerDamageInflictedForSkillLevel ) )    
+            , (void ( ::CTakeDamageInfo::* )(  ))( &::CTakeDamageInfo::AdjustPlayerDamageInflictedForSkillLevel ) )    
         .def( 
             "AdjustPlayerDamageTakenForSkillLevel"
-            , (void ( ::CTakeDamageInfo::* )(  ) )( &::CTakeDamageInfo::AdjustPlayerDamageTakenForSkillLevel ) )    
+            , (void ( ::CTakeDamageInfo::* )(  ))( &::CTakeDamageInfo::AdjustPlayerDamageTakenForSkillLevel ) )    
         .def( 
             "BaseDamageIsValid"
-            , (bool ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::BaseDamageIsValid ) )    
+            , (bool ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::BaseDamageIsValid ) )    
         .def( 
             "CopyDamageToBaseDamage"
-            , (void ( ::CTakeDamageInfo::* )(  ) )( &::CTakeDamageInfo::CopyDamageToBaseDamage ) )    
+            , (void ( ::CTakeDamageInfo::* )(  ))( &::CTakeDamageInfo::CopyDamageToBaseDamage ) )    
         .def( 
             "DebugGetDamageTypeString"
             , (void (*)( unsigned int,char *,int ))( &::CTakeDamageInfo::DebugGetDamageTypeString )
             , ( bp::arg("DamageType"), bp::arg("outbuf"), bp::arg("outbuflength") ) )    
         .def( 
             "GetAmmoName"
-            , (char const * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetAmmoName ) )    
+            , (char const * ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetAmmoName ) )    
         .def( 
             "GetAmmoType"
-            , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetAmmoType ) )    
+            , (int ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetAmmoType ) )    
         .def( 
             "GetAttacker"
-            , (::C_BaseEntity * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetAttacker )
+            , (::C_BaseEntity * ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetAttacker )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetBaseDamage"
-            , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetBaseDamage ) )    
+            , (float ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetBaseDamage ) )    
         .def( 
             "GetDamage"
-            , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamage ) )    
+            , (float ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamage ) )    
         .def( 
             "GetDamageBonus"
-            , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageBonus ) )    
+            , (float ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageBonus ) )    
         .def( 
             "GetDamageBonusProvider"
-            , (::C_BaseEntity * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageBonusProvider )
+            , (::C_BaseEntity * ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageBonusProvider )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetDamageCustom"
-            , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageCustom ) )    
+            , (int ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageCustom ) )    
         .def( 
             "GetDamageForForceCalc"
-            , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageForForceCalc ) )    
+            , (float ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageForForceCalc ) )    
         .def( 
             "GetDamageForce"
-            , (::Vector ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageForce ) )    
+            , (::Vector ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageForce ) )    
         .def( 
             "GetDamagePosition"
-            , (::Vector ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamagePosition ) )    
+            , (::Vector ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamagePosition ) )    
         .def( 
             "GetDamageStats"
-            , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageStats ) )    
+            , (int ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageStats ) )    
         .def( 
             "GetDamageType"
-            , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageType ) )    
+            , (int ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageType ) )    
         .def( 
             "GetDamagedOtherPlayers"
-            , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamagedOtherPlayers ) )    
+            , (int ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamagedOtherPlayers ) )    
         .def( 
             "GetInflictor"
-            , (::C_BaseEntity * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetInflictor )
+            , (::C_BaseEntity * ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetInflictor )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetMaxDamage"
-            , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetMaxDamage ) )    
+            , (float ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetMaxDamage ) )    
         .def( 
             "GetPlayerPenetrationCount"
-            , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetPlayerPenetrationCount ) )    
+            , (int ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetPlayerPenetrationCount ) )    
         .def( 
             "GetReportedPosition"
-            , (::Vector ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetReportedPosition ) )    
+            , (::Vector ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetReportedPosition ) )    
         .def( 
             "GetWeapon"
-            , (::C_BaseEntity * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetWeapon )
+            , (::C_BaseEntity * ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetWeapon )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "IsForceFriendlyFire"
-            , (bool ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::IsForceFriendlyFire ) )    
+            , (bool ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::IsForceFriendlyFire ) )    
         .def( 
             "ScaleDamage"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::ScaleDamage )
+            , (void ( ::CTakeDamageInfo::* )( float ))( &::CTakeDamageInfo::ScaleDamage )
             , ( bp::arg("flScaleAmount") ) )    
         .def( 
             "ScaleDamageForce"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::ScaleDamageForce )
+            , (void ( ::CTakeDamageInfo::* )( float ))( &::CTakeDamageInfo::ScaleDamageForce )
             , ( bp::arg("flScaleAmount") ) )    
         .def( 
             "Set"
-            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity *,::C_BaseEntity *,float,int,int ) )( &::CTakeDamageInfo::Set )
+            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity *,::C_BaseEntity *,float,int,int ))( &::CTakeDamageInfo::Set )
             , ( bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType")=(int)(0) ) )    
         .def( 
             "Set"
-            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity *,::C_BaseEntity *,::C_BaseEntity *,float,int,int ) )( &::CTakeDamageInfo::Set )
+            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity *,::C_BaseEntity *,::C_BaseEntity *,float,int,int ))( &::CTakeDamageInfo::Set )
             , ( bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("pWeapon"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType")=(int)(0) ) )    
         .def( 
             "Set"
-            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity *,::C_BaseEntity *,::Vector const &,::Vector const &,float,int,int,::Vector * ) )( &::CTakeDamageInfo::Set )
+            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity *,::C_BaseEntity *,::Vector const &,::Vector const &,float,int,int,::Vector * ))( &::CTakeDamageInfo::Set )
             , ( bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("damageForce"), bp::arg("damagePosition"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType")=(int)(0), bp::arg("reportedPosition")=bp::object() ) )    
         .def( 
             "Set"
-            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity *,::C_BaseEntity *,::C_BaseEntity *,::Vector const &,::Vector const &,float,int,int,::Vector * ) )( &::CTakeDamageInfo::Set )
+            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity *,::C_BaseEntity *,::C_BaseEntity *,::Vector const &,::Vector const &,float,int,int,::Vector * ))( &::CTakeDamageInfo::Set )
             , ( bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("pWeapon"), bp::arg("damageForce"), bp::arg("damagePosition"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType")=(int)(0), bp::arg("reportedPosition")=bp::object() ) )    
         .def( 
             "SetAmmoType"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetAmmoType )
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::SetAmmoType )
             , ( bp::arg("iAmmoType") ) )    
         .def( 
             "SetAttacker"
-            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity * ) )( &::CTakeDamageInfo::SetAttacker )
+            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity * ))( &::CTakeDamageInfo::SetAttacker )
             , ( bp::arg("pAttacker") ) )    
         .def( 
             "SetDamage"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::SetDamage )
+            , (void ( ::CTakeDamageInfo::* )( float ))( &::CTakeDamageInfo::SetDamage )
             , ( bp::arg("flDamage") ) )    
         .def( 
             "SetDamageBonus"
-            , (void ( ::CTakeDamageInfo::* )( float,::C_BaseEntity * ) )( &::CTakeDamageInfo::SetDamageBonus )
+            , (void ( ::CTakeDamageInfo::* )( float,::C_BaseEntity * ))( &::CTakeDamageInfo::SetDamageBonus )
             , ( bp::arg("flBonus"), bp::arg("pProvider")=bp::object() ) )    
         .def( 
             "SetDamageCustom"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamageCustom )
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::SetDamageCustom )
             , ( bp::arg("iDamageCustom") ) )    
         .def( 
             "SetDamageForForceCalc"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::SetDamageForForceCalc )
-            , ( bp::arg("flDamage") ) )    
+            , (void ( ::CTakeDamageInfo::* )( float const ))( &::CTakeDamageInfo::SetDamageForForceCalc )
+            , ( bp::arg("flScaleAmount") ) )    
         .def( 
             "SetDamageForce"
-            , (void ( ::CTakeDamageInfo::* )( ::Vector const & ) )( &::CTakeDamageInfo::SetDamageForce )
+            , (void ( ::CTakeDamageInfo::* )( ::Vector const & ))( &::CTakeDamageInfo::SetDamageForce )
             , ( bp::arg("damageForce") ) )    
         .def( 
             "SetDamagePosition"
-            , (void ( ::CTakeDamageInfo::* )( ::Vector const & ) )( &::CTakeDamageInfo::SetDamagePosition )
+            , (void ( ::CTakeDamageInfo::* )( ::Vector const & ))( &::CTakeDamageInfo::SetDamagePosition )
             , ( bp::arg("damagePosition") ) )    
         .def( 
             "SetDamageStats"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamageStats )
-            , ( bp::arg("iDamageCustom") ) )    
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::SetDamageStats )
+            , ( bp::arg("iDamageStats") ) )    
         .def( 
             "SetDamageType"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamageType )
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::SetDamageType )
             , ( bp::arg("bitsDamageType") ) )    
         .def( 
             "SetDamagedOtherPlayers"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamagedOtherPlayers )
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::SetDamagedOtherPlayers )
             , ( bp::arg("iVal") ) )    
         .def( 
             "SetForceFriendlyFire"
-            , (void ( ::CTakeDamageInfo::* )( bool ) )( &::CTakeDamageInfo::SetForceFriendlyFire )
+            , (void ( ::CTakeDamageInfo::* )( bool ))( &::CTakeDamageInfo::SetForceFriendlyFire )
             , ( bp::arg("bValue") ) )    
         .def( 
             "SetInflictor"
-            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity * ) )( &::CTakeDamageInfo::SetInflictor )
+            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity * ))( &::CTakeDamageInfo::SetInflictor )
             , ( bp::arg("pInflictor") ) )    
         .def( 
             "SetMaxDamage"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::SetMaxDamage )
+            , (void ( ::CTakeDamageInfo::* )( float ))( &::CTakeDamageInfo::SetMaxDamage )
             , ( bp::arg("flMaxDamage") ) )    
         .def( 
             "SetPlayerPenetrationCount"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetPlayerPenetrationCount )
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::SetPlayerPenetrationCount )
             , ( bp::arg("iPlayerPenetrationCount") ) )    
         .def( 
             "SetReportedPosition"
-            , (void ( ::CTakeDamageInfo::* )( ::Vector const & ) )( &::CTakeDamageInfo::SetReportedPosition )
+            , (void ( ::CTakeDamageInfo::* )( ::Vector const & ))( &::CTakeDamageInfo::SetReportedPosition )
             , ( bp::arg("reportedPosition") ) )    
         .def( 
             "SetWeapon"
-            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity * ) )( &::CTakeDamageInfo::SetWeapon )
+            , (void ( ::CTakeDamageInfo::* )( ::C_BaseEntity * ))( &::CTakeDamageInfo::SetWeapon )
             , ( bp::arg("pWeapon") ) )    
         .def( 
             "SubtractDamage"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::SubtractDamage )
+            , (void ( ::CTakeDamageInfo::* )( float ))( &::CTakeDamageInfo::SubtractDamage )
             , ( bp::arg("flSubtractAmount") ) )    
         .staticmethod( "DebugGetDamageTypeString" );
 
     bp::class_< CMultiDamage, bp::bases< CTakeDamageInfo > >( "CMultiDamage", bp::init< >() )    
         .def( 
             "GetTarget"
-            , (::C_BaseEntity * ( ::CMultiDamage::* )(  ) const)( &::CMultiDamage::GetTarget )
+            , (::C_BaseEntity * ( ::CMultiDamage::* )(  )const)( &::CMultiDamage::GetTarget )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "Init"
-            , (void ( ::CMultiDamage::* )( ::C_BaseEntity *,::C_BaseEntity *,::C_BaseEntity *,::C_BaseEntity *,::Vector const &,::Vector const &,::Vector const &,float,int,int ) )( &::CMultiDamage::Init )
+            , (void ( ::CMultiDamage::* )( ::C_BaseEntity *,::C_BaseEntity *,::C_BaseEntity *,::C_BaseEntity *,::Vector const &,::Vector const &,::Vector const &,float,int,int ))( &::CMultiDamage::Init )
             , ( bp::arg("pTarget"), bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("pWeapon"), bp::arg("damageForce"), bp::arg("damagePosition"), bp::arg("reportedPosition"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType") ) )    
         .def( 
             "IsClear"
-            , (bool ( ::CMultiDamage::* )(  ) )( &::CMultiDamage::IsClear ) )    
+            , (bool ( ::CMultiDamage::* )(  ))( &::CMultiDamage::IsClear ) )    
         .def( 
             "SetTarget"
-            , (void ( ::CMultiDamage::* )( ::C_BaseEntity * ) )( &::CMultiDamage::SetTarget )
+            , (void ( ::CMultiDamage::* )( ::C_BaseEntity * ))( &::CMultiDamage::SetTarget )
             , ( bp::arg("pTarget") ) );
 
     { //::CShotManipulator
@@ -2578,18 +2578,18 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         bp::implicitly_convertible< Vector const &, CShotManipulator >();
         { //::CShotManipulator::ApplySpread
         
-            typedef ::Vector const & ( ::CShotManipulator::*ApplySpread_function_type )( ::Vector const &,float ) ;
+            typedef ::Vector const & ( ::CShotManipulator::*ApplySpread_function_type)( ::Vector const &,float ) ;
             
             CShotManipulator_exposer.def( 
                 "ApplySpread"
                 , ApplySpread_function_type( &::CShotManipulator::ApplySpread )
-                , ( bp::arg("vecSpread"), bp::arg("bias")=1.0e+0 )
+                , ( bp::arg("vecSpread"), bp::arg("bias")=1. )
                 , bp::return_value_policy< bp::copy_const_reference >() );
         
         }
         { //::CShotManipulator::GetResult
         
-            typedef ::Vector const & ( ::CShotManipulator::*GetResult_function_type )(  ) ;
+            typedef ::Vector const & ( ::CShotManipulator::*GetResult_function_type)(  ) ;
             
             CShotManipulator_exposer.def( 
                 "GetResult"
@@ -2599,7 +2599,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CShotManipulator::GetRightVector
         
-            typedef ::Vector const & ( ::CShotManipulator::*GetRightVector_function_type )(  ) ;
+            typedef ::Vector const & ( ::CShotManipulator::*GetRightVector_function_type)(  ) ;
             
             CShotManipulator_exposer.def( 
                 "GetRightVector"
@@ -2609,7 +2609,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CShotManipulator::GetShotDirection
         
-            typedef ::Vector const & ( ::CShotManipulator::*GetShotDirection_function_type )(  ) ;
+            typedef ::Vector const & ( ::CShotManipulator::*GetShotDirection_function_type)(  ) ;
             
             CShotManipulator_exposer.def( 
                 "GetShotDirection"
@@ -2619,7 +2619,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CShotManipulator::GetUpVector
         
-            typedef ::Vector const & ( ::CShotManipulator::*GetUpVector_function_type )(  ) ;
+            typedef ::Vector const & ( ::CShotManipulator::*GetUpVector_function_type)(  ) ;
             
             CShotManipulator_exposer.def( 
                 "GetUpVector"
@@ -2629,7 +2629,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CShotManipulator::SetShootDir
         
-            typedef void ( ::CShotManipulator::*SetShootDir_function_type )( ::Vector const & ) ;
+            typedef void ( ::CShotManipulator::*SetShootDir_function_type)( ::Vector const & ) ;
             
             CShotManipulator_exposer.def( 
                 "SetShootDir"
@@ -2663,7 +2663,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
     bp::class_< ClientClass >( "ClientClass", bp::no_init )    
         .def( 
             "GetName"
-            , (char const * ( ::ClientClass::* )(  ) )( &::ClientClass::GetName ) );
+            , (char const * ( ::ClientClass::* )(  ))( &::ClientClass::GetName ) );
 
     bp::class_< FireBulletsInfo_t_wrapper >( "FireBulletsInfo_t", bp::init< >() )    
         .def( bp::init< int, Vector const &, Vector const &, Vector const &, float, int, bp::optional< bool > >(( bp::arg("nShots"), bp::arg("vecSrc"), bp::arg("vecDir"), bp::arg("vecSpread"), bp::arg("flDistance"), bp::arg("nAmmoType"), bp::arg("bPrimaryAttack")=(bool)(true) )) )    
@@ -2694,7 +2694,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
     bp::class_< NetworkedClass >( "NetworkedClass", bp::init< char const *, bp::api::object, bp::optional< char const * > >(( bp::arg("pNetworkName"), bp::arg("cls_type"), bp::arg("pClientModuleName")=bp::object() )) )    
         .def( 
             "AttachClientClass"
-            , (void ( ::NetworkedClass::* )( ::PyClientClassBase * ) )( &::NetworkedClass::AttachClientClass )
+            , (void ( ::NetworkedClass::* )( ::PyClientClassBase * ))( &::NetworkedClass::AttachClientClass )
             , ( bp::arg("pClientClass") ) )    
         .def_readwrite( "m_pyClass", &NetworkedClass::m_pyClass );
 
@@ -2754,7 +2754,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         solid_t_exposer.def_readwrite( "index", &solid_t::index );
         solid_t_exposer.def_readwrite( "massCenterOverride", &solid_t::massCenterOverride );
         pyplusplus::containers::static_sized::register_array_1< char, 512 >( "__array_1_char_512" );
-        { //solid_t::name [variable], type=char[512]
+        { //solid_t::name [variable], type=char [512]
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 512> ( *array_wrapper_creator )( ::solid_t & );
             
@@ -2763,7 +2763,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
         solid_t_exposer.def_readwrite( "params", &solid_t::params );
-        { //solid_t::parent [variable], type=char[512]
+        { //solid_t::parent [variable], type=char [512]
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 512> ( *array_wrapper_creator )( ::solid_t & );
             
@@ -2771,7 +2771,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
                 , bp::make_function( array_wrapper_creator(&solid_t_wrapper::pyplusplus_parent_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
-        { //solid_t::surfaceprop [variable], type=char[512]
+        { //solid_t::surfaceprop [variable], type=char [512]
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 512> ( *array_wrapper_creator )( ::solid_t & );
             
@@ -2809,7 +2809,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         bp::def( 
             "CalculateBulletDamageForce"
             , CalculateBulletDamageForce_function_type( &::CalculateBulletDamageForce )
-            , ( bp::arg("info"), bp::arg("iBulletType"), bp::arg("vecBulletDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1.0e+0 ) );
+            , ( bp::arg("info"), bp::arg("iBulletType"), bp::arg("vecBulletDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1. ) );
     
     }
 
@@ -2820,7 +2820,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         bp::def( 
             "CalculateExplosiveDamageForce"
             , CalculateExplosiveDamageForce_function_type( &::CalculateExplosiveDamageForce )
-            , ( bp::arg("info"), bp::arg("vecDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1.0e+0 ) );
+            , ( bp::arg("info"), bp::arg("vecDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1. ) );
     
     }
 
@@ -2831,7 +2831,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         bp::def( 
             "CalculateMeleeDamageForce"
             , CalculateMeleeDamageForce_function_type( &::CalculateMeleeDamageForce )
-            , ( bp::arg("info"), bp::arg("vecMeleeDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1.0e+0 ) );
+            , ( bp::arg("info"), bp::arg("vecMeleeDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1. ) );
     
     }
 
@@ -2885,7 +2885,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         bp::def( 
             "GuessDamageForce"
             , GuessDamageForce_function_type( &::GuessDamageForce )
-            , ( bp::arg("info"), bp::arg("vecForceDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1.0e+0 ) );
+            , ( bp::arg("info"), bp::arg("vecForceDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1. ) );
     
     }
 
@@ -2913,23 +2913,23 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
 
     { //::PropBreakableCreateAll
     
-        typedef void ( *PropBreakableCreateAll_function_type )( int,::IPhysicsObject *,::Vector const &,::QAngle const &,::Vector const &,::AngularImpulse const &,float,float,int,::C_BaseEntity *,bool );
-        
-        bp::def( 
-            "PropBreakableCreateAll"
-            , PropBreakableCreateAll_function_type( &::PropBreakableCreateAll )
-            , ( bp::arg("modelindex"), bp::arg("pPhysics"), bp::arg("origin"), bp::arg("angles"), bp::arg("velocity"), bp::arg("angularVelocity"), bp::arg("impactEnergyScale"), bp::arg("burstScale"), bp::arg("collisionGroup"), bp::arg("pEntity")=bp::object(), bp::arg("defaultLocation")=(bool)(true) ) );
-    
-    }
-
-    { //::PropBreakableCreateAll
-    
         typedef void ( *PropBreakableCreateAll_function_type )( int,::IPhysicsObject *,::breakablepropparams_t const &,::C_BaseEntity *,int,bool,bool );
         
         bp::def( 
             "PropBreakableCreateAll"
             , PropBreakableCreateAll_function_type( &::PropBreakableCreateAll )
             , ( bp::arg("modelindex"), bp::arg("pPhysics"), bp::arg("params"), bp::arg("pEntity"), bp::arg("iPrecomputedBreakableCount"), bp::arg("bIgnoreGibLImit"), bp::arg("defaultLocation")=(bool)(true) ) );
+    
+    }
+
+    { //::PropBreakableCreateAll
+    
+        typedef void ( *PropBreakableCreateAll_function_type )( int,::IPhysicsObject *,::Vector const &,::QAngle const &,::Vector const &,::AngularImpulse const &,float,float,int,::C_BaseEntity *,bool );
+        
+        bp::def( 
+            "PropBreakableCreateAll"
+            , PropBreakableCreateAll_function_type( &::PropBreakableCreateAll )
+            , ( bp::arg("modelindex"), bp::arg("pPhysics"), bp::arg("origin"), bp::arg("angles"), bp::arg("velocity"), bp::arg("angularVelocity"), bp::arg("impactEnergyScale"), bp::arg("burstScale"), bp::arg("collisionGroup"), bp::arg("pEntity")=bp::object(), bp::arg("defaultLocation")=(bool)(true) ) );
     
     }
 
@@ -5416,197 +5416,197 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .def( bp::init< >() )    
         .def( 
             "AddEventAction"
-            , (void ( ::CBaseEntityOutput::* )( ::CEventAction * ) )( &::CBaseEntityOutput::AddEventAction )
+            , (void ( ::CBaseEntityOutput::* )( ::CEventAction * ))( &::CBaseEntityOutput::AddEventAction )
             , ( bp::arg("pEventAction") ) )    
         .def( 
             "DeleteAllElements"
-            , (void ( ::CBaseEntityOutput::* )(  ) )( &::CBaseEntityOutput::DeleteAllElements ) )    
+            , (void ( ::CBaseEntityOutput::* )(  ))( &::CBaseEntityOutput::DeleteAllElements ) )    
         .def( 
             "FireOutput"
-            , (void ( ::CBaseEntityOutput::* )( ::variant_t,::CBaseEntity *,::CBaseEntity *,float ) )( &::CBaseEntityOutput::FireOutput )
+            , (void ( ::CBaseEntityOutput::* )( ::variant_t,::CBaseEntity *,::CBaseEntity *,float ))( &::CBaseEntityOutput::FireOutput )
             , ( bp::arg("Value"), bp::arg("pActivator"), bp::arg("pCaller"), bp::arg("fDelay")=0 ) )    
         .def( 
             "GetMaxDelay"
-            , (float ( ::CBaseEntityOutput::* )(  ) )( &::CBaseEntityOutput::GetMaxDelay ) )    
+            , (float ( ::CBaseEntityOutput::* )(  ))( &::CBaseEntityOutput::GetMaxDelay ) )    
         .def( 
             "NumberOfElements"
-            , (int ( ::CBaseEntityOutput::* )(  ) )( &::CBaseEntityOutput::NumberOfElements ) )    
+            , (int ( ::CBaseEntityOutput::* )(  ))( &::CBaseEntityOutput::NumberOfElements ) )    
         .def( 
             "ParseEventAction"
-            , (void ( ::CBaseEntityOutput::* )( char const * ) )( &::CBaseEntityOutput::ParseEventAction )
+            , (void ( ::CBaseEntityOutput::* )( char const * ))( &::CBaseEntityOutput::ParseEventAction )
             , ( bp::arg("EventData") ) )    
         .def( 
             "ValueFieldType"
-            , (::fieldtype_t ( ::CBaseEntityOutput::* )(  ) )( &::CBaseEntityOutput::ValueFieldType ) );
+            , (::fieldtype_t ( ::CBaseEntityOutput::* )(  ))( &::CBaseEntityOutput::ValueFieldType ) );
 
     bp::class_< CEventQueue >( "CEventQueue", bp::init< >() )    
         .def( 
             "AddEvent"
-            , (void ( ::CEventQueue::* )( char const *,char const *,::variant_t,float,::CBaseEntity *,::CBaseEntity *,int ) )( &::CEventQueue::AddEvent )
+            , (void ( ::CEventQueue::* )( char const *,char const *,::variant_t,float,::CBaseEntity *,::CBaseEntity *,int ))( &::CEventQueue::AddEvent )
             , ( bp::arg("target"), bp::arg("action"), bp::arg("Value"), bp::arg("fireDelay"), bp::arg("pActivator"), bp::arg("pCaller"), bp::arg("outputID")=(int)(0) ) )    
         .def( 
             "AddEvent"
-            , (void ( ::CEventQueue::* )( ::CBaseEntity *,char const *,float,::CBaseEntity *,::CBaseEntity *,int ) )( &::CEventQueue::AddEvent )
+            , (void ( ::CEventQueue::* )( ::CBaseEntity *,char const *,float,::CBaseEntity *,::CBaseEntity *,int ))( &::CEventQueue::AddEvent )
             , ( bp::arg("target"), bp::arg("action"), bp::arg("fireDelay"), bp::arg("pActivator"), bp::arg("pCaller"), bp::arg("outputID")=(int)(0) ) )    
         .def( 
             "AddEvent"
-            , (void ( ::CEventQueue::* )( ::CBaseEntity *,char const *,::variant_t,float,::CBaseEntity *,::CBaseEntity *,int ) )( &::CEventQueue::AddEvent )
+            , (void ( ::CEventQueue::* )( ::CBaseEntity *,char const *,::variant_t,float,::CBaseEntity *,::CBaseEntity *,int ))( &::CEventQueue::AddEvent )
             , ( bp::arg("target"), bp::arg("action"), bp::arg("Value"), bp::arg("fireDelay"), bp::arg("pActivator"), bp::arg("pCaller"), bp::arg("outputID")=(int)(0) ) )    
         .def( 
             "CancelEventOn"
-            , (void ( ::CEventQueue::* )( ::CBaseEntity *,char const * ) )( &::CEventQueue::CancelEventOn )
+            , (void ( ::CEventQueue::* )( ::CBaseEntity *,char const * ))( &::CEventQueue::CancelEventOn )
             , ( bp::arg("pTarget"), bp::arg("sInputName") ) )    
         .def( 
             "CancelEvents"
-            , (void ( ::CEventQueue::* )( ::CBaseEntity * ) )( &::CEventQueue::CancelEvents )
+            , (void ( ::CEventQueue::* )( ::CBaseEntity * ))( &::CEventQueue::CancelEvents )
             , ( bp::arg("pCaller") ) )    
         .def( 
             "Clear"
-            , (void ( ::CEventQueue::* )(  ) )( &::CEventQueue::Clear ) )    
+            , (void ( ::CEventQueue::* )(  ))( &::CEventQueue::Clear ) )    
         .def( 
             "Dump"
-            , (void ( ::CEventQueue::* )(  ) )( &::CEventQueue::Dump ) )    
+            , (void ( ::CEventQueue::* )(  ))( &::CEventQueue::Dump ) )    
         .def( 
             "HasEventPending"
-            , (bool ( ::CEventQueue::* )( ::CBaseEntity *,char const * ) )( &::CEventQueue::HasEventPending )
+            , (bool ( ::CEventQueue::* )( ::CBaseEntity *,char const * ))( &::CEventQueue::HasEventPending )
             , ( bp::arg("pTarget"), bp::arg("sInputName") ) )    
         .def( 
             "ServiceEvents"
-            , (void ( ::CEventQueue::* )(  ) )( &::CEventQueue::ServiceEvents ) );
+            , (void ( ::CEventQueue::* )(  ))( &::CEventQueue::ServiceEvents ) );
 
     bp::class_< IEntityFindFilter_wrapper, boost::noncopyable >( "IEntityFindFilter" )    
         .def( 
             "GetFilterResult"
-            , bp::pure_virtual( (::CBaseEntity * ( ::IEntityFindFilter::* )(  ) )(&::IEntityFindFilter::GetFilterResult) )
+            , bp::pure_virtual( (::CBaseEntity * ( ::IEntityFindFilter::* )(  ))(&::IEntityFindFilter::GetFilterResult) )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "ShouldFindEntity"
-            , bp::pure_virtual( (bool ( ::IEntityFindFilter::* )( ::CBaseEntity * ) )(&::IEntityFindFilter::ShouldFindEntity) )
+            , bp::pure_virtual( (bool ( ::IEntityFindFilter::* )( ::CBaseEntity * ))(&::IEntityFindFilter::ShouldFindEntity) )
             , ( bp::arg("pEntity") ) );
 
     bp::class_< CGlobalEntityList_wrapper, boost::noncopyable >( "CGlobalEntityList", bp::no_init )    
         .def( bp::init< >() )    
         .def( 
             "CleanupDeleteList"
-            , (void ( ::CGlobalEntityList::* )(  ) )( &::CGlobalEntityList::CleanupDeleteList ) )    
+            , (void ( ::CGlobalEntityList::* )(  ))( &::CGlobalEntityList::CleanupDeleteList ) )    
         .def( 
             "FindEntityByClassname"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const * ) )( &::CGlobalEntityList::FindEntityByClassname )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const * ))( &::CGlobalEntityList::FindEntityByClassname )
             , ( bp::arg("pStartEntity"), bp::arg("szName") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityByClassnameNearest"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( char const *,::Vector const &,float ) )( &::CGlobalEntityList::FindEntityByClassnameNearest )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( char const *,::Vector const &,float ))( &::CGlobalEntityList::FindEntityByClassnameNearest )
             , ( bp::arg("szName"), bp::arg("vecSrc"), bp::arg("flRadius") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityByClassnameWithin"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const *,::Vector const &,float ) )( &::CGlobalEntityList::FindEntityByClassnameWithin )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const *,::Vector const &,float ))( &::CGlobalEntityList::FindEntityByClassnameWithin )
             , ( bp::arg("pStartEntity"), bp::arg("szName"), bp::arg("vecSrc"), bp::arg("flRadius") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityByClassnameWithin"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const *,::Vector const &,::Vector const & ) )( &::CGlobalEntityList::FindEntityByClassnameWithin )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const *,::Vector const &,::Vector const & ))( &::CGlobalEntityList::FindEntityByClassnameWithin )
             , ( bp::arg("pStartEntity"), bp::arg("szName"), bp::arg("vecMins"), bp::arg("vecMaxs") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityByModel"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const * ) )( &::CGlobalEntityList::FindEntityByModel )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const * ))( &::CGlobalEntityList::FindEntityByModel )
             , ( bp::arg("pStartEntity"), bp::arg("szModelName") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityByName"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const *,::CBaseEntity *,::CBaseEntity *,::CBaseEntity *,::IEntityFindFilter * ) )( &::CGlobalEntityList::FindEntityByName )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const *,::CBaseEntity *,::CBaseEntity *,::CBaseEntity *,::IEntityFindFilter * ))( &::CGlobalEntityList::FindEntityByName )
             , ( bp::arg("pStartEntity"), bp::arg("szName"), bp::arg("pSearchingEntity")=bp::object(), bp::arg("pActivator")=bp::object(), bp::arg("pCaller")=bp::object(), bp::arg("pFilter")=bp::object() )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityByName"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,::string_t,::CBaseEntity *,::CBaseEntity *,::CBaseEntity *,::IEntityFindFilter * ) )( &::CGlobalEntityList::FindEntityByName )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,::string_t,::CBaseEntity *,::CBaseEntity *,::CBaseEntity *,::IEntityFindFilter * ))( &::CGlobalEntityList::FindEntityByName )
             , ( bp::arg("pStartEntity"), bp::arg("iszName"), bp::arg("pSearchingEntity")=bp::object(), bp::arg("pActivator")=bp::object(), bp::arg("pCaller")=bp::object(), bp::arg("pFilter")=bp::object() )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityByNameNearest"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( char const *,::Vector const &,float,::CBaseEntity *,::CBaseEntity *,::CBaseEntity * ) )( &::CGlobalEntityList::FindEntityByNameNearest )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( char const *,::Vector const &,float,::CBaseEntity *,::CBaseEntity *,::CBaseEntity * ))( &::CGlobalEntityList::FindEntityByNameNearest )
             , ( bp::arg("szName"), bp::arg("vecSrc"), bp::arg("flRadius"), bp::arg("pSearchingEntity")=bp::object(), bp::arg("pActivator")=bp::object(), bp::arg("pCaller")=bp::object() )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityByNameWithin"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const *,::Vector const &,float,::CBaseEntity *,::CBaseEntity *,::CBaseEntity * ) )( &::CGlobalEntityList::FindEntityByNameWithin )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const *,::Vector const &,float,::CBaseEntity *,::CBaseEntity *,::CBaseEntity * ))( &::CGlobalEntityList::FindEntityByNameWithin )
             , ( bp::arg("pStartEntity"), bp::arg("szName"), bp::arg("vecSrc"), bp::arg("flRadius"), bp::arg("pSearchingEntity")=bp::object(), bp::arg("pActivator")=bp::object(), bp::arg("pCaller")=bp::object() )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityByTarget"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const * ) )( &::CGlobalEntityList::FindEntityByTarget )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const * ))( &::CGlobalEntityList::FindEntityByTarget )
             , ( bp::arg("pStartEntity"), bp::arg("szName") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityClassNearestFacing"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::Vector const &,::Vector const &,float,char * ) )( &::CGlobalEntityList::FindEntityClassNearestFacing )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::Vector const &,::Vector const &,float,char * ))( &::CGlobalEntityList::FindEntityClassNearestFacing )
             , ( bp::arg("origin"), bp::arg("facing"), bp::arg("threshold"), bp::arg("classname") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityGeneric"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const *,::CBaseEntity *,::CBaseEntity *,::CBaseEntity * ) )( &::CGlobalEntityList::FindEntityGeneric )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const *,::CBaseEntity *,::CBaseEntity *,::CBaseEntity * ))( &::CGlobalEntityList::FindEntityGeneric )
             , ( bp::arg("pStartEntity"), bp::arg("szName"), bp::arg("pSearchingEntity")=bp::object(), bp::arg("pActivator")=bp::object(), bp::arg("pCaller")=bp::object() )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityGenericNearest"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( char const *,::Vector const &,float,::CBaseEntity *,::CBaseEntity *,::CBaseEntity * ) )( &::CGlobalEntityList::FindEntityGenericNearest )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( char const *,::Vector const &,float,::CBaseEntity *,::CBaseEntity *,::CBaseEntity * ))( &::CGlobalEntityList::FindEntityGenericNearest )
             , ( bp::arg("szName"), bp::arg("vecSrc"), bp::arg("flRadius"), bp::arg("pSearchingEntity")=bp::object(), bp::arg("pActivator")=bp::object(), bp::arg("pCaller")=bp::object() )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityGenericWithin"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const *,::Vector const &,float,::CBaseEntity *,::CBaseEntity *,::CBaseEntity * ) )( &::CGlobalEntityList::FindEntityGenericWithin )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,char const *,::Vector const &,float,::CBaseEntity *,::CBaseEntity *,::CBaseEntity * ))( &::CGlobalEntityList::FindEntityGenericWithin )
             , ( bp::arg("pStartEntity"), bp::arg("szName"), bp::arg("vecSrc"), bp::arg("flRadius"), bp::arg("pSearchingEntity")=bp::object(), bp::arg("pActivator")=bp::object(), bp::arg("pCaller")=bp::object() )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityInSphere"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,::Vector const &,float ) )( &::CGlobalEntityList::FindEntityInSphere )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity *,::Vector const &,float ))( &::CGlobalEntityList::FindEntityInSphere )
             , ( bp::arg("pStartEntity"), bp::arg("vecCenter"), bp::arg("flRadius") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityNearestFacing"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::Vector const &,::Vector const &,float ) )( &::CGlobalEntityList::FindEntityNearestFacing )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::Vector const &,::Vector const &,float ))( &::CGlobalEntityList::FindEntityNearestFacing )
             , ( bp::arg("origin"), bp::arg("facing"), bp::arg("threshold") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindEntityProcedural"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( char const *,::CBaseEntity *,::CBaseEntity *,::CBaseEntity * ) )( &::CGlobalEntityList::FindEntityProcedural )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( char const *,::CBaseEntity *,::CBaseEntity *,::CBaseEntity * ))( &::CGlobalEntityList::FindEntityProcedural )
             , ( bp::arg("szName"), bp::arg("pSearchingEntity")=bp::object(), bp::arg("pActivator")=bp::object(), bp::arg("pCaller")=bp::object() )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FirstEnt"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )(  ) )( &::CGlobalEntityList::FirstEnt )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )(  ))( &::CGlobalEntityList::FirstEnt )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "IsClearingEntities"
-            , (bool ( ::CGlobalEntityList::* )(  ) )( &::CGlobalEntityList::IsClearingEntities ) )    
+            , (bool ( ::CGlobalEntityList::* )(  ))( &::CGlobalEntityList::IsClearingEntities ) )    
         .def( 
             "NextEnt"
-            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity * ) )( &::CGlobalEntityList::NextEnt )
+            , (::CBaseEntity * ( ::CGlobalEntityList::* )( ::CBaseEntity * ))( &::CGlobalEntityList::NextEnt )
             , ( bp::arg("pCurrentEnt") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "NumberOfEdicts"
-            , (int ( ::CGlobalEntityList::* )(  ) )( &::CGlobalEntityList::NumberOfEdicts ) )    
+            , (int ( ::CGlobalEntityList::* )(  ))( &::CGlobalEntityList::NumberOfEdicts ) )    
         .def( 
             "NumberOfEntities"
-            , (int ( ::CGlobalEntityList::* )(  ) )( &::CGlobalEntityList::NumberOfEntities ) )    
+            , (int ( ::CGlobalEntityList::* )(  ))( &::CGlobalEntityList::NumberOfEntities ) )    
         .def( 
             "OnAddEntity"
-            , (void ( CGlobalEntityList_wrapper::* )( ::IHandleEntity *,::CBaseHandle ) )(&CGlobalEntityList_wrapper::OnAddEntity)
+            , (void ( CGlobalEntityList_wrapper::* )( ::IHandleEntity *,::CBaseHandle ))(&CGlobalEntityList_wrapper::OnAddEntity)
             , ( bp::arg("pEnt"), bp::arg("handle") ) )    
         .def( 
             "OnRemoveEntity"
-            , (void ( CGlobalEntityList_wrapper::* )( ::IHandleEntity *,::CBaseHandle ) )(&CGlobalEntityList_wrapper::OnRemoveEntity)
+            , (void ( CGlobalEntityList_wrapper::* )( ::IHandleEntity *,::CBaseHandle ))(&CGlobalEntityList_wrapper::OnRemoveEntity)
             , ( bp::arg("pEnt"), bp::arg("handle") ) )    
         .def( 
             "ReportEntityFlagsChanged"
-            , (void ( ::CGlobalEntityList::* )( ::CBaseEntity *,unsigned int,unsigned int ) )( &::CGlobalEntityList::ReportEntityFlagsChanged )
+            , (void ( ::CGlobalEntityList::* )( ::CBaseEntity *,unsigned int,unsigned int ))( &::CGlobalEntityList::ReportEntityFlagsChanged )
             , ( bp::arg("pEntity"), bp::arg("flagsOld"), bp::arg("flagsNow") ) )    
         .def( 
             "ResetDeleteList"
-            , (int ( ::CGlobalEntityList::* )(  ) )( &::CGlobalEntityList::ResetDeleteList ) );
+            , (int ( ::CGlobalEntityList::* )(  ))( &::CGlobalEntityList::ResetDeleteList ) );
 
     bp::class_< CTakeDamageInfo >( "CTakeDamageInfo", bp::init< >() )    
         .def( bp::init< CBaseEntity *, CBaseEntity *, float, int, bp::optional< int > >(( bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType")=(int)(0) )) )    
@@ -5615,267 +5615,267 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         .def( bp::init< CBaseEntity *, CBaseEntity *, CBaseEntity *, Vector const &, Vector const &, float, int, bp::optional< int, Vector * > >(( bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("pWeapon"), bp::arg("damageForce"), bp::arg("damagePosition"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType")=(int)(0), bp::arg("reportedPosition")=bp::object() )) )    
         .def( 
             "AddDamage"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::AddDamage )
+            , (void ( ::CTakeDamageInfo::* )( float ))( &::CTakeDamageInfo::AddDamage )
             , ( bp::arg("flAddAmount") ) )    
         .def( 
             "AddDamageType"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::AddDamageType )
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::AddDamageType )
             , ( bp::arg("bitsDamageType") ) )    
         .def( 
             "AdjustPlayerDamageInflictedForSkillLevel"
-            , (void ( ::CTakeDamageInfo::* )(  ) )( &::CTakeDamageInfo::AdjustPlayerDamageInflictedForSkillLevel ) )    
+            , (void ( ::CTakeDamageInfo::* )(  ))( &::CTakeDamageInfo::AdjustPlayerDamageInflictedForSkillLevel ) )    
         .def( 
             "AdjustPlayerDamageTakenForSkillLevel"
-            , (void ( ::CTakeDamageInfo::* )(  ) )( &::CTakeDamageInfo::AdjustPlayerDamageTakenForSkillLevel ) )    
+            , (void ( ::CTakeDamageInfo::* )(  ))( &::CTakeDamageInfo::AdjustPlayerDamageTakenForSkillLevel ) )    
         .def( 
             "BaseDamageIsValid"
-            , (bool ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::BaseDamageIsValid ) )    
+            , (bool ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::BaseDamageIsValid ) )    
         .def( 
             "CopyDamageToBaseDamage"
-            , (void ( ::CTakeDamageInfo::* )(  ) )( &::CTakeDamageInfo::CopyDamageToBaseDamage ) )    
+            , (void ( ::CTakeDamageInfo::* )(  ))( &::CTakeDamageInfo::CopyDamageToBaseDamage ) )    
         .def( 
             "DebugGetDamageTypeString"
             , (void (*)( unsigned int,char *,int ))( &::CTakeDamageInfo::DebugGetDamageTypeString )
             , ( bp::arg("DamageType"), bp::arg("outbuf"), bp::arg("outbuflength") ) )    
         .def( 
             "GetAmmoName"
-            , (char const * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetAmmoName ) )    
+            , (char const * ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetAmmoName ) )    
         .def( 
             "GetAmmoType"
-            , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetAmmoType ) )    
+            , (int ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetAmmoType ) )    
         .def( 
             "GetAttacker"
-            , (::CBaseEntity * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetAttacker )
+            , (::CBaseEntity * ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetAttacker )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetBaseDamage"
-            , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetBaseDamage ) )    
+            , (float ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetBaseDamage ) )    
         .def( 
             "GetDamage"
-            , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamage ) )    
+            , (float ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamage ) )    
         .def( 
             "GetDamageBonus"
-            , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageBonus ) )    
+            , (float ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageBonus ) )    
         .def( 
             "GetDamageBonusProvider"
-            , (::CBaseEntity * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageBonusProvider )
+            , (::CBaseEntity * ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageBonusProvider )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetDamageCustom"
-            , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageCustom ) )    
+            , (int ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageCustom ) )    
         .def( 
             "GetDamageForForceCalc"
-            , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageForForceCalc ) )    
+            , (float ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageForForceCalc ) )    
         .def( 
             "GetDamageForce"
-            , (::Vector ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageForce ) )    
+            , (::Vector ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageForce ) )    
         .def( 
             "GetDamagePosition"
-            , (::Vector ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamagePosition ) )    
+            , (::Vector ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamagePosition ) )    
         .def( 
             "GetDamageStats"
-            , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageStats ) )    
+            , (int ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageStats ) )    
         .def( 
             "GetDamageType"
-            , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamageType ) )    
+            , (int ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamageType ) )    
         .def( 
             "GetDamagedOtherPlayers"
-            , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetDamagedOtherPlayers ) )    
+            , (int ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetDamagedOtherPlayers ) )    
         .def( 
             "GetInflictor"
-            , (::CBaseEntity * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetInflictor )
+            , (::CBaseEntity * ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetInflictor )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetMaxDamage"
-            , (float ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetMaxDamage ) )    
+            , (float ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetMaxDamage ) )    
         .def( 
             "GetPlayerPenetrationCount"
-            , (int ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetPlayerPenetrationCount ) )    
+            , (int ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetPlayerPenetrationCount ) )    
         .def( 
             "GetReportedPosition"
-            , (::Vector ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetReportedPosition ) )    
+            , (::Vector ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetReportedPosition ) )    
         .def( 
             "GetWeapon"
-            , (::CBaseEntity * ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::GetWeapon )
+            , (::CBaseEntity * ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::GetWeapon )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "IsForceFriendlyFire"
-            , (bool ( ::CTakeDamageInfo::* )(  ) const)( &::CTakeDamageInfo::IsForceFriendlyFire ) )    
+            , (bool ( ::CTakeDamageInfo::* )(  )const)( &::CTakeDamageInfo::IsForceFriendlyFire ) )    
         .def( 
             "ScaleDamage"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::ScaleDamage )
+            , (void ( ::CTakeDamageInfo::* )( float ))( &::CTakeDamageInfo::ScaleDamage )
             , ( bp::arg("flScaleAmount") ) )    
         .def( 
             "ScaleDamageForce"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::ScaleDamageForce )
+            , (void ( ::CTakeDamageInfo::* )( float ))( &::CTakeDamageInfo::ScaleDamageForce )
             , ( bp::arg("flScaleAmount") ) )    
         .def( 
             "Set"
-            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity *,::CBaseEntity *,float,int,int ) )( &::CTakeDamageInfo::Set )
+            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity *,::CBaseEntity *,float,int,int ))( &::CTakeDamageInfo::Set )
             , ( bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType")=(int)(0) ) )    
         .def( 
             "Set"
-            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity *,::CBaseEntity *,::CBaseEntity *,float,int,int ) )( &::CTakeDamageInfo::Set )
+            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity *,::CBaseEntity *,::CBaseEntity *,float,int,int ))( &::CTakeDamageInfo::Set )
             , ( bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("pWeapon"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType")=(int)(0) ) )    
         .def( 
             "Set"
-            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity *,::CBaseEntity *,::Vector const &,::Vector const &,float,int,int,::Vector * ) )( &::CTakeDamageInfo::Set )
+            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity *,::CBaseEntity *,::Vector const &,::Vector const &,float,int,int,::Vector * ))( &::CTakeDamageInfo::Set )
             , ( bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("damageForce"), bp::arg("damagePosition"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType")=(int)(0), bp::arg("reportedPosition")=bp::object() ) )    
         .def( 
             "Set"
-            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity *,::CBaseEntity *,::CBaseEntity *,::Vector const &,::Vector const &,float,int,int,::Vector * ) )( &::CTakeDamageInfo::Set )
+            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity *,::CBaseEntity *,::CBaseEntity *,::Vector const &,::Vector const &,float,int,int,::Vector * ))( &::CTakeDamageInfo::Set )
             , ( bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("pWeapon"), bp::arg("damageForce"), bp::arg("damagePosition"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType")=(int)(0), bp::arg("reportedPosition")=bp::object() ) )    
         .def( 
             "SetAmmoType"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetAmmoType )
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::SetAmmoType )
             , ( bp::arg("iAmmoType") ) )    
         .def( 
             "SetAttacker"
-            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity * ) )( &::CTakeDamageInfo::SetAttacker )
+            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity * ))( &::CTakeDamageInfo::SetAttacker )
             , ( bp::arg("pAttacker") ) )    
         .def( 
             "SetDamage"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::SetDamage )
+            , (void ( ::CTakeDamageInfo::* )( float ))( &::CTakeDamageInfo::SetDamage )
             , ( bp::arg("flDamage") ) )    
         .def( 
             "SetDamageBonus"
-            , (void ( ::CTakeDamageInfo::* )( float,::CBaseEntity * ) )( &::CTakeDamageInfo::SetDamageBonus )
+            , (void ( ::CTakeDamageInfo::* )( float,::CBaseEntity * ))( &::CTakeDamageInfo::SetDamageBonus )
             , ( bp::arg("flBonus"), bp::arg("pProvider")=bp::object() ) )    
         .def( 
             "SetDamageCustom"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamageCustom )
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::SetDamageCustom )
             , ( bp::arg("iDamageCustom") ) )    
         .def( 
             "SetDamageForForceCalc"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::SetDamageForForceCalc )
-            , ( bp::arg("flDamage") ) )    
+            , (void ( ::CTakeDamageInfo::* )( float const ))( &::CTakeDamageInfo::SetDamageForForceCalc )
+            , ( bp::arg("flScaleAmount") ) )    
         .def( 
             "SetDamageForce"
-            , (void ( ::CTakeDamageInfo::* )( ::Vector const & ) )( &::CTakeDamageInfo::SetDamageForce )
+            , (void ( ::CTakeDamageInfo::* )( ::Vector const & ))( &::CTakeDamageInfo::SetDamageForce )
             , ( bp::arg("damageForce") ) )    
         .def( 
             "SetDamagePosition"
-            , (void ( ::CTakeDamageInfo::* )( ::Vector const & ) )( &::CTakeDamageInfo::SetDamagePosition )
+            , (void ( ::CTakeDamageInfo::* )( ::Vector const & ))( &::CTakeDamageInfo::SetDamagePosition )
             , ( bp::arg("damagePosition") ) )    
         .def( 
             "SetDamageStats"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamageStats )
-            , ( bp::arg("iDamageCustom") ) )    
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::SetDamageStats )
+            , ( bp::arg("iDamageStats") ) )    
         .def( 
             "SetDamageType"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamageType )
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::SetDamageType )
             , ( bp::arg("bitsDamageType") ) )    
         .def( 
             "SetDamagedOtherPlayers"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetDamagedOtherPlayers )
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::SetDamagedOtherPlayers )
             , ( bp::arg("iVal") ) )    
         .def( 
             "SetForceFriendlyFire"
-            , (void ( ::CTakeDamageInfo::* )( bool ) )( &::CTakeDamageInfo::SetForceFriendlyFire )
+            , (void ( ::CTakeDamageInfo::* )( bool ))( &::CTakeDamageInfo::SetForceFriendlyFire )
             , ( bp::arg("bValue") ) )    
         .def( 
             "SetInflictor"
-            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity * ) )( &::CTakeDamageInfo::SetInflictor )
+            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity * ))( &::CTakeDamageInfo::SetInflictor )
             , ( bp::arg("pInflictor") ) )    
         .def( 
             "SetMaxDamage"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::SetMaxDamage )
+            , (void ( ::CTakeDamageInfo::* )( float ))( &::CTakeDamageInfo::SetMaxDamage )
             , ( bp::arg("flMaxDamage") ) )    
         .def( 
             "SetPlayerPenetrationCount"
-            , (void ( ::CTakeDamageInfo::* )( int ) )( &::CTakeDamageInfo::SetPlayerPenetrationCount )
+            , (void ( ::CTakeDamageInfo::* )( int ))( &::CTakeDamageInfo::SetPlayerPenetrationCount )
             , ( bp::arg("iPlayerPenetrationCount") ) )    
         .def( 
             "SetReportedPosition"
-            , (void ( ::CTakeDamageInfo::* )( ::Vector const & ) )( &::CTakeDamageInfo::SetReportedPosition )
+            , (void ( ::CTakeDamageInfo::* )( ::Vector const & ))( &::CTakeDamageInfo::SetReportedPosition )
             , ( bp::arg("reportedPosition") ) )    
         .def( 
             "SetWeapon"
-            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity * ) )( &::CTakeDamageInfo::SetWeapon )
+            , (void ( ::CTakeDamageInfo::* )( ::CBaseEntity * ))( &::CTakeDamageInfo::SetWeapon )
             , ( bp::arg("pWeapon") ) )    
         .def( 
             "SubtractDamage"
-            , (void ( ::CTakeDamageInfo::* )( float ) )( &::CTakeDamageInfo::SubtractDamage )
+            , (void ( ::CTakeDamageInfo::* )( float ))( &::CTakeDamageInfo::SubtractDamage )
             , ( bp::arg("flSubtractAmount") ) )    
         .staticmethod( "DebugGetDamageTypeString" );
 
     bp::class_< CMultiDamage, bp::bases< CTakeDamageInfo > >( "CMultiDamage", bp::init< >() )    
         .def( 
             "GetTarget"
-            , (::CBaseEntity * ( ::CMultiDamage::* )(  ) const)( &::CMultiDamage::GetTarget )
+            , (::CBaseEntity * ( ::CMultiDamage::* )(  )const)( &::CMultiDamage::GetTarget )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "Init"
-            , (void ( ::CMultiDamage::* )( ::CBaseEntity *,::CBaseEntity *,::CBaseEntity *,::CBaseEntity *,::Vector const &,::Vector const &,::Vector const &,float,int,int ) )( &::CMultiDamage::Init )
+            , (void ( ::CMultiDamage::* )( ::CBaseEntity *,::CBaseEntity *,::CBaseEntity *,::CBaseEntity *,::Vector const &,::Vector const &,::Vector const &,float,int,int ))( &::CMultiDamage::Init )
             , ( bp::arg("pTarget"), bp::arg("pInflictor"), bp::arg("pAttacker"), bp::arg("pWeapon"), bp::arg("damageForce"), bp::arg("damagePosition"), bp::arg("reportedPosition"), bp::arg("flDamage"), bp::arg("bitsDamageType"), bp::arg("iKillType") ) )    
         .def( 
             "IsClear"
-            , (bool ( ::CMultiDamage::* )(  ) )( &::CMultiDamage::IsClear ) )    
+            , (bool ( ::CMultiDamage::* )(  ))( &::CMultiDamage::IsClear ) )    
         .def( 
             "SetTarget"
-            , (void ( ::CMultiDamage::* )( ::CBaseEntity * ) )( &::CMultiDamage::SetTarget )
+            , (void ( ::CMultiDamage::* )( ::CBaseEntity * ))( &::CMultiDamage::SetTarget )
             , ( bp::arg("pTarget") ) );
 
     bp::class_< CPythonNetworkVarBase >( "CPythonNetworkVarBase", bp::no_init )    
         .def( 
             "NetworkStateChanged"
-            , (void ( ::CPythonNetworkVarBase::* )(  ) )( &::CPythonNetworkVarBase::NetworkStateChanged ) );
+            , (void ( ::CPythonNetworkVarBase::* )(  ))( &::CPythonNetworkVarBase::NetworkStateChanged ) );
 
-    bp::class_< CPythonNetworkArray, bp::bases< CPythonNetworkVarBase > >( "NetworkArrayInternal", bp::init< bp::api::object, char const *, bp::optional< bp::list, bool, bool, bp::api::object > >(( bp::arg("self"), bp::arg("name"), bp::arg("data")=boost::python::list(), bp::arg("initstatechanged")=(bool)(false), bp::arg("changedcallback")=(bool)(false), bp::arg("sendproxy")=boost::python::api::object() )) )    
+    bp::class_< CPythonNetworkArray, bp::bases< CPythonNetworkVarBase > >( "NetworkArrayInternal", bp::init< bp::api::object, char const *, bp::optional< bp::list, bool, bool, bp::api::object > >(( bp::arg("self"), bp::arg("name"), bp::arg("data")=boost::python::list(), bp::arg("initstatechanged")=(bool)(false), bp::arg("changedcallback")=(bool)(false), bp::arg("sendproxy")=boost::python::object() )) )    
         .def( 
             "__delitem__"
-            , (void ( ::CPythonNetworkArray::* )( ::boost::python::api::object ) )( &::CPythonNetworkArray::DelItem )
+            , (void ( ::CPythonNetworkArray::* )( ::boost::python::api::object ))( &::CPythonNetworkArray::DelItem )
             , ( bp::arg("key") ) )    
         .def( 
             "__getitem__"
-            , (::boost::python::api::object ( ::CPythonNetworkArray::* )( ::boost::python::api::object ) )( &::CPythonNetworkArray::GetItem )
+            , (::boost::python::api::object ( ::CPythonNetworkArray::* )( ::boost::python::api::object ))( &::CPythonNetworkArray::GetItem )
             , ( bp::arg("key") ) )    
         .def( 
             "Set"
-            , (void ( ::CPythonNetworkArray::* )( ::boost::python::list ) )( &::CPythonNetworkArray::Set )
+            , (void ( ::CPythonNetworkArray::* )( ::boost::python::list ))( &::CPythonNetworkArray::Set )
             , ( bp::arg("data") ) )    
         .def( 
             "__setitem__"
-            , (void ( ::CPythonNetworkArray::* )( ::boost::python::api::object,::boost::python::api::object ) )( &::CPythonNetworkArray::SetItem )
+            , (void ( ::CPythonNetworkArray::* )( ::boost::python::api::object,::boost::python::api::object ))( &::CPythonNetworkArray::SetItem )
             , ( bp::arg("key"), bp::arg("data") ) )    
         .def( 
             "__str__"
-            , (::boost::python::api::object ( ::CPythonNetworkArray::* )(  ) )( &::CPythonNetworkArray::Str ) );
+            , (::boost::python::api::object ( ::CPythonNetworkArray::* )(  ))( &::CPythonNetworkArray::Str ) );
 
-    bp::class_< CPythonNetworkDict, bp::bases< CPythonNetworkVarBase > >( "NetworkDictInternal", bp::init< bp::api::object, char const *, bp::optional< bp::dict, bool, bool, bp::api::object > >(( bp::arg("self"), bp::arg("name"), bp::arg("data")=boost::python::dict(), bp::arg("initstatechanged")=(bool)(false), bp::arg("changedcallback")=(bool)(false), bp::arg("sendproxy")=boost::python::api::object() )) )    
+    bp::class_< CPythonNetworkDict, bp::bases< CPythonNetworkVarBase > >( "NetworkDictInternal", bp::init< bp::api::object, char const *, bp::optional< bp::dict, bool, bool, bp::api::object > >(( bp::arg("self"), bp::arg("name"), bp::arg("data")=boost::python::dict(), bp::arg("initstatechanged")=(bool)(false), bp::arg("changedcallback")=(bool)(false), bp::arg("sendproxy")=boost::python::object() )) )    
         .def( 
             "__getitem__"
-            , (::boost::python::api::object ( ::CPythonNetworkDict::* )( ::boost::python::api::object ) )( &::CPythonNetworkDict::GetItem )
+            , (::boost::python::api::object ( ::CPythonNetworkDict::* )( ::boost::python::api::object ))( &::CPythonNetworkDict::GetItem )
             , ( bp::arg("key") ) )    
         .def( 
             "Set"
-            , (void ( ::CPythonNetworkDict::* )( ::boost::python::dict ) )( &::CPythonNetworkDict::Set )
+            , (void ( ::CPythonNetworkDict::* )( ::boost::python::dict ))( &::CPythonNetworkDict::Set )
             , ( bp::arg("data") ) )    
         .def( 
             "__setitem__"
-            , (void ( ::CPythonNetworkDict::* )( ::boost::python::api::object,::boost::python::api::object ) )( &::CPythonNetworkDict::SetItem )
+            , (void ( ::CPythonNetworkDict::* )( ::boost::python::api::object,::boost::python::api::object ))( &::CPythonNetworkDict::SetItem )
             , ( bp::arg("key"), bp::arg("data") ) )    
         .def( 
             "__str__"
-            , (::boost::python::api::object ( ::CPythonNetworkDict::* )(  ) )( &::CPythonNetworkDict::Str ) );
+            , (::boost::python::api::object ( ::CPythonNetworkDict::* )(  ))( &::CPythonNetworkDict::Str ) );
 
-    bp::class_< CPythonNetworkVar, bp::bases< CPythonNetworkVarBase > >( "NetworkVarInternal", bp::init< bp::api::object, char const *, bp::optional< bp::api::object, bool, bool, bp::api::object > >(( bp::arg("self"), bp::arg("name"), bp::arg("data")=boost::python::api::object(), bp::arg("initstatechanged")=(bool)(false), bp::arg("changedcallback")=(bool)(false), bp::arg("sendproxy")=boost::python::api::object() )) )    
+    bp::class_< CPythonNetworkVar, bp::bases< CPythonNetworkVarBase > >( "NetworkVarInternal", bp::init< bp::api::object, char const *, bp::optional< bp::api::object, bool, bool, bp::api::object > >(( bp::arg("self"), bp::arg("name"), bp::arg("data")=boost::python::object(), bp::arg("initstatechanged")=(bool)(false), bp::arg("changedcallback")=(bool)(false), bp::arg("sendproxy")=boost::python::object() )) )    
         .def( 
             "Get"
-            , (::boost::python::api::object ( ::CPythonNetworkVar::* )(  ) )( &::CPythonNetworkVar::Get ) )    
+            , (::boost::python::api::object ( ::CPythonNetworkVar::* )(  ))( &::CPythonNetworkVar::Get ) )    
         .def( 
             "Set"
-            , (void ( ::CPythonNetworkVar::* )( ::boost::python::api::object ) )( &::CPythonNetworkVar::Set )
+            , (void ( ::CPythonNetworkVar::* )( ::boost::python::api::object ))( &::CPythonNetworkVar::Set )
             , ( bp::arg("data") ) )    
         .def( 
             "__str__"
-            , (::boost::python::api::object ( ::CPythonNetworkVar::* )(  ) )( &::CPythonNetworkVar::Str ) );
+            , (::boost::python::api::object ( ::CPythonNetworkVar::* )(  ))( &::CPythonNetworkVar::Str ) );
 
     bp::class_< CPythonSendProxyBase_wrapper >( "SendProxyBase" )    
         .def( 
             "ShouldSend"
-            , (bool ( ::CPythonSendProxyBase::* )( ::CBaseEntity *,int ) )(&::CPythonSendProxyBase::ShouldSend)
-            , (bool ( CPythonSendProxyBase_wrapper::* )( ::CBaseEntity *,int ) )(&CPythonSendProxyBase_wrapper::default_ShouldSend)
+            , (bool ( ::CPythonSendProxyBase::* )( ::CBaseEntity *,int ))(&::CPythonSendProxyBase::ShouldSend)
+            , (bool ( CPythonSendProxyBase_wrapper::* )( ::CBaseEntity *,int ))(&CPythonSendProxyBase_wrapper::default_ShouldSend)
             , ( bp::arg("pEnt"), bp::arg("iClient") ) );
 
     { //::CShotManipulator
@@ -5885,18 +5885,18 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         bp::implicitly_convertible< Vector const &, CShotManipulator >();
         { //::CShotManipulator::ApplySpread
         
-            typedef ::Vector const & ( ::CShotManipulator::*ApplySpread_function_type )( ::Vector const &,float ) ;
+            typedef ::Vector const & ( ::CShotManipulator::*ApplySpread_function_type)( ::Vector const &,float ) ;
             
             CShotManipulator_exposer.def( 
                 "ApplySpread"
                 , ApplySpread_function_type( &::CShotManipulator::ApplySpread )
-                , ( bp::arg("vecSpread"), bp::arg("bias")=1.0e+0 )
+                , ( bp::arg("vecSpread"), bp::arg("bias")=1. )
                 , bp::return_value_policy< bp::copy_const_reference >() );
         
         }
         { //::CShotManipulator::GetResult
         
-            typedef ::Vector const & ( ::CShotManipulator::*GetResult_function_type )(  ) ;
+            typedef ::Vector const & ( ::CShotManipulator::*GetResult_function_type)(  ) ;
             
             CShotManipulator_exposer.def( 
                 "GetResult"
@@ -5906,7 +5906,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CShotManipulator::GetRightVector
         
-            typedef ::Vector const & ( ::CShotManipulator::*GetRightVector_function_type )(  ) ;
+            typedef ::Vector const & ( ::CShotManipulator::*GetRightVector_function_type)(  ) ;
             
             CShotManipulator_exposer.def( 
                 "GetRightVector"
@@ -5916,7 +5916,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CShotManipulator::GetShotDirection
         
-            typedef ::Vector const & ( ::CShotManipulator::*GetShotDirection_function_type )(  ) ;
+            typedef ::Vector const & ( ::CShotManipulator::*GetShotDirection_function_type)(  ) ;
             
             CShotManipulator_exposer.def( 
                 "GetShotDirection"
@@ -5926,7 +5926,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CShotManipulator::GetUpVector
         
-            typedef ::Vector const & ( ::CShotManipulator::*GetUpVector_function_type )(  ) ;
+            typedef ::Vector const & ( ::CShotManipulator::*GetUpVector_function_type)(  ) ;
             
             CShotManipulator_exposer.def( 
                 "GetUpVector"
@@ -5936,7 +5936,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         }
         { //::CShotManipulator::SetShootDir
         
-            typedef void ( ::CShotManipulator::*SetShootDir_function_type )( ::Vector const & ) ;
+            typedef void ( ::CShotManipulator::*SetShootDir_function_type)( ::Vector const & ) ;
             
             CShotManipulator_exposer.def( 
                 "SetShootDir"
@@ -6004,7 +6004,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         solid_t_exposer.def_readwrite( "index", &solid_t::index );
         solid_t_exposer.def_readwrite( "massCenterOverride", &solid_t::massCenterOverride );
         pyplusplus::containers::static_sized::register_array_1< char, 512 >( "__array_1_char_512" );
-        { //solid_t::name [variable], type=char[512]
+        { //solid_t::name [variable], type=char [512]
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 512> ( *array_wrapper_creator )( ::solid_t & );
             
@@ -6013,7 +6013,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
         solid_t_exposer.def_readwrite( "params", &solid_t::params );
-        { //solid_t::parent [variable], type=char[512]
+        { //solid_t::parent [variable], type=char [512]
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 512> ( *array_wrapper_creator )( ::solid_t & );
             
@@ -6021,7 +6021,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
                 , bp::make_function( array_wrapper_creator(&solid_t_wrapper::pyplusplus_parent_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
-        { //solid_t::surfaceprop [variable], type=char[512]
+        { //solid_t::surfaceprop [variable], type=char [512]
         
             typedef pyplusplus::containers::static_sized::array_1_t< char, 512> ( *array_wrapper_creator )( ::solid_t & );
             
@@ -6034,29 +6034,29 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
     bp::class_< PyBoneFollowerManager, boost::noncopyable >( "BoneFollowerManager" )    
         .def( 
             "AddBoneFollower"
-            , (void ( ::PyBoneFollowerManager::* )( ::CBaseAnimating *,char const *,::solid_t * ) )( &::PyBoneFollowerManager::AddBoneFollower )
+            , (void ( ::PyBoneFollowerManager::* )( ::CBaseAnimating *,char const *,::solid_t * ))( &::PyBoneFollowerManager::AddBoneFollower )
             , ( bp::arg("pParentEntity"), bp::arg("pFollowerBoneName"), bp::arg("pSolid")=bp::object() ) )    
         .def( 
             "DestroyBoneFollowers"
-            , (void ( ::PyBoneFollowerManager::* )(  ) )( &::PyBoneFollowerManager::DestroyBoneFollowers ) )    
+            , (void ( ::PyBoneFollowerManager::* )(  ))( &::PyBoneFollowerManager::DestroyBoneFollowers ) )    
         .def( 
             "GetBoneFollower"
-            , (::pyphysfollower_t ( ::PyBoneFollowerManager::* )( int ) )( &::PyBoneFollowerManager::GetBoneFollower )
+            , (::pyphysfollower_t ( ::PyBoneFollowerManager::* )( int ))( &::PyBoneFollowerManager::GetBoneFollower )
             , ( bp::arg("iFollowerIndex") ) )    
         .def( 
             "GetBoneFollowerIndex"
-            , (int ( ::PyBoneFollowerManager::* )( ::CBoneFollower * ) )( &::PyBoneFollowerManager::GetBoneFollowerIndex )
+            , (int ( ::PyBoneFollowerManager::* )( ::CBoneFollower * ))( &::PyBoneFollowerManager::GetBoneFollowerIndex )
             , ( bp::arg("pFollower") ) )    
         .def( 
             "GetNumBoneFollowers"
-            , (int ( ::PyBoneFollowerManager::* )(  ) const)( &::PyBoneFollowerManager::GetNumBoneFollowers ) )    
+            , (int ( ::PyBoneFollowerManager::* )(  )const)( &::PyBoneFollowerManager::GetNumBoneFollowers ) )    
         .def( 
             "InitBoneFollowers"
-            , (void ( ::PyBoneFollowerManager::* )( ::CBaseAnimating *,::boost::python::list ) )( &::PyBoneFollowerManager::InitBoneFollowers )
+            , (void ( ::PyBoneFollowerManager::* )( ::CBaseAnimating *,::boost::python::list ))( &::PyBoneFollowerManager::InitBoneFollowers )
             , ( bp::arg("pParentEntity"), bp::arg("followerbonenames") ) )    
         .def( 
             "UpdateBoneFollowers"
-            , (void ( ::PyBoneFollowerManager::* )( ::CBaseAnimating * ) )( &::PyBoneFollowerManager::UpdateBoneFollowers )
+            , (void ( ::PyBoneFollowerManager::* )( ::CBaseAnimating * ))( &::PyBoneFollowerManager::UpdateBoneFollowers )
             , ( bp::arg("pParentEntity") ) );
 
     bp::class_< PyEntityFactory >( "EntityFactory", bp::no_init )    
@@ -6065,15 +6065,15 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
     bp::class_< PyOutputEvent, bp::bases< CBaseEntityOutput >, boost::noncopyable >( "COutputEvent", bp::init< >() )    
         .def( 
             "FireOutput"
-            , (void ( ::PyOutputEvent::* )( ::CBaseEntity *,::CBaseEntity *,float ) )( &::PyOutputEvent::FireOutput )
+            , (void ( ::PyOutputEvent::* )( ::CBaseEntity *,::CBaseEntity *,float ))( &::PyOutputEvent::FireOutput )
             , ( bp::arg("pActivator"), bp::arg("pCaller"), bp::arg("fDelay")=0 ) )    
         .def( 
             "FireOutput"
-            , (void ( ::PyOutputEvent::* )( ::variant_t,::CBaseEntity *,::CBaseEntity *,float ) )( &::PyOutputEvent::FireOutput )
+            , (void ( ::PyOutputEvent::* )( ::variant_t,::CBaseEntity *,::CBaseEntity *,float ))( &::PyOutputEvent::FireOutput )
             , ( bp::arg("Value"), bp::arg("pActivator"), bp::arg("pCaller"), bp::arg("fDelay")=0 ) )    
         .def( 
             "Set"
-            , (void ( ::PyOutputEvent::* )( ::variant_t ) )( &::PyOutputEvent::Set )
+            , (void ( ::PyOutputEvent::* )( ::variant_t ))( &::PyOutputEvent::Set )
             , ( bp::arg("value") ) );
 
     bp::class_< SendTable >( "SendTable", bp::no_init )    
@@ -6083,7 +6083,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
     bp::class_< ServerClass >( "ServerClass", bp::no_init )    
         .def( 
             "GetName"
-            , (char const * ( ::ServerClass::* )(  ) )( &::ServerClass::GetName ) );
+            , (char const * ( ::ServerClass::* )(  ))( &::ServerClass::GetName ) );
 
     bp::class_< animevent_t_wrapper >( "animevent_t" )    
         .def_readwrite( "cycle", &animevent_t::cycle )    
@@ -6127,7 +6127,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         vcollisionevent_t_exposer.def_readwrite( "isCollision", &vcollisionevent_t::isCollision );
         vcollisionevent_t_exposer.def_readwrite( "isShadowCollision", &vcollisionevent_t::isShadowCollision );
         pyplusplus::containers::static_sized::register_array_1< int, 2 >( "__array_1_int_2" );
-        { //vcollisionevent_t::surfaceProps [variable], type=int[2]
+        { //vcollisionevent_t::surfaceProps [variable], type=int [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< int, 2> ( *array_wrapper_creator )( ::vcollisionevent_t & );
             
@@ -6145,7 +6145,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         gamevcollisionevent_t_exposer_t gamevcollisionevent_t_exposer = gamevcollisionevent_t_exposer_t( "gamevcollisionevent_t" );
         bp::scope gamevcollisionevent_t_scope( gamevcollisionevent_t_exposer );
         pyplusplus::containers::static_sized::register_array_1< ::Vector, 2, bp::return_internal_reference< > >( "__array_1__scope_Vector_2" );
-        { //gamevcollisionevent_t::postVelocity [variable], type=Vector[2]
+        { //gamevcollisionevent_t::postVelocity [variable], type=Vector [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< ::Vector, 2> ( *array_wrapper_creator )( ::gamevcollisionevent_t & );
             
@@ -6154,7 +6154,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
         pyplusplus::containers::static_sized::register_array_1< ::Vector, 2, bp::return_internal_reference< > >( "__array_1__scope_Vector_2" );
-        { //gamevcollisionevent_t::preAngularVelocity [variable], type=AngularImpulse[2]
+        { //gamevcollisionevent_t::preAngularVelocity [variable], type=AngularImpulse [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< ::Vector, 2> ( *array_wrapper_creator )( ::gamevcollisionevent_t & );
             
@@ -6162,7 +6162,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
                 , bp::make_function( array_wrapper_creator(&gamevcollisionevent_t_wrapper::pyplusplus_preAngularVelocity_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
-        { //gamevcollisionevent_t::preVelocity [variable], type=Vector[2]
+        { //gamevcollisionevent_t::preVelocity [variable], type=Vector [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< ::Vector, 2> ( *array_wrapper_creator )( ::gamevcollisionevent_t & );
             
@@ -6190,71 +6190,71 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
     bp::class_< variant_t_wrapper >( "variant_t", bp::init< >() )    
         .def( 
             "Bool"
-            , (bool ( ::variant_t::* )(  ) const)( &::variant_t::Bool ) )    
+            , (bool ( ::variant_t::* )(  )const)( &::variant_t::Bool ) )    
         .def( 
             "Color32"
-            , (::color32 ( ::variant_t::* )(  ) const)( &::variant_t::Color32 ) )    
+            , (::color32 ( ::variant_t::* )(  )const)( &::variant_t::Color32 ) )    
         .def( 
             "Convert"
-            , (bool ( ::variant_t::* )( ::fieldtype_t ) )( &::variant_t::Convert )
+            , (bool ( ::variant_t::* )( ::fieldtype_t ))( &::variant_t::Convert )
             , ( bp::arg("newType") ) )    
         .def( 
             "FieldType"
-            , (::fieldtype_t ( ::variant_t::* )(  ) )( &::variant_t::FieldType ) )    
+            , (::fieldtype_t ( ::variant_t::* )(  ))( &::variant_t::FieldType ) )    
         .def( 
             "Float"
-            , (float ( ::variant_t::* )(  ) const)( &::variant_t::Float ) )    
+            , (float ( ::variant_t::* )(  )const)( &::variant_t::Float ) )    
         .def( 
             "Int"
-            , (int ( ::variant_t::* )(  ) const)( &::variant_t::Int ) )    
+            , (int ( ::variant_t::* )(  )const)( &::variant_t::Int ) )    
         .def( 
             "SetBool"
-            , (void ( ::variant_t::* )( bool ) )( &::variant_t::SetBool )
+            , (void ( ::variant_t::* )( bool ))( &::variant_t::SetBool )
             , ( bp::arg("b") ) )    
         .def( 
             "SetColor32"
-            , (void ( ::variant_t::* )( ::color32 ) )( &::variant_t::SetColor32 )
+            , (void ( ::variant_t::* )( ::color32 ))( &::variant_t::SetColor32 )
             , ( bp::arg("val") ) )    
         .def( 
             "SetColor32"
-            , (void ( ::variant_t::* )( int,int,int,int ) )( &::variant_t::SetColor32 )
+            , (void ( ::variant_t::* )( int,int,int,int ))( &::variant_t::SetColor32 )
             , ( bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a") ) )    
         .def( 
             "SetEntity"
-            , (void ( ::variant_t::* )( ::CBaseEntity * ) )( &::variant_t::SetEntity )
+            , (void ( ::variant_t::* )( ::CBaseEntity * ))( &::variant_t::SetEntity )
             , ( bp::arg("val") ) )    
         .def( 
             "SetFloat"
-            , (void ( ::variant_t::* )( float ) )( &::variant_t::SetFloat )
+            , (void ( ::variant_t::* )( float ))( &::variant_t::SetFloat )
             , ( bp::arg("val") ) )    
         .def( 
             "SetInt"
-            , (void ( ::variant_t::* )( int ) )( &::variant_t::SetInt )
+            , (void ( ::variant_t::* )( int ))( &::variant_t::SetInt )
             , ( bp::arg("val") ) )    
         .def( 
             "SetPositionVector3D"
-            , (void ( ::variant_t::* )( ::Vector const & ) )( &::variant_t::SetPositionVector3D )
+            , (void ( ::variant_t::* )( ::Vector const & ))( &::variant_t::SetPositionVector3D )
             , ( bp::arg("val") ) )    
         .def( 
             "SetString"
-            , (void ( ::variant_t::* )( ::string_t ) )( &::variant_t::SetString )
+            , (void ( ::variant_t::* )( ::string_t ))( &::variant_t::SetString )
             , ( bp::arg("str") ) )    
         .def( 
             "SetVector3D"
-            , (void ( ::variant_t::* )( ::Vector const & ) )( &::variant_t::SetVector3D )
+            , (void ( ::variant_t::* )( ::Vector const & ))( &::variant_t::SetVector3D )
             , ( bp::arg("val") ) )    
         .def( 
             "String"
-            , (char const * ( ::variant_t::* )(  ) const)( &::variant_t::String ) )    
+            , (char const * ( ::variant_t::* )(  )const)( &::variant_t::String ) )    
         .def( 
             "StringID"
-            , (::string_t ( ::variant_t::* )(  ) const)( &::variant_t::StringID ) )    
+            , (::string_t ( ::variant_t::* )(  )const)( &::variant_t::StringID ) )    
         .def( 
             "ToString"
-            , (char const * ( variant_t_wrapper::* )(  ) const)(&variant_t_wrapper::ToString) )    
+            , (char const * ( variant_t_wrapper::* )(  )const)(&variant_t_wrapper::ToString) )    
         .def( 
             "Vector3D"
-            , (void ( ::variant_t::* )( ::Vector & ) const)( &::variant_t::Vector3D )
+            , (void ( ::variant_t::* )( ::Vector & )const)( &::variant_t::Vector3D )
             , ( bp::arg("vec") ) )    
         .def("Entity", &::variant_t_wrapper::PyEntity);
 
@@ -6286,7 +6286,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         bp::def( 
             "CalculateBulletDamageForce"
             , CalculateBulletDamageForce_function_type( &::CalculateBulletDamageForce )
-            , ( bp::arg("info"), bp::arg("iBulletType"), bp::arg("vecBulletDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1.0e+0 ) );
+            , ( bp::arg("info"), bp::arg("iBulletType"), bp::arg("vecBulletDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1. ) );
     
     }
 
@@ -6297,7 +6297,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         bp::def( 
             "CalculateExplosiveDamageForce"
             , CalculateExplosiveDamageForce_function_type( &::CalculateExplosiveDamageForce )
-            , ( bp::arg("info"), bp::arg("vecDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1.0e+0 ) );
+            , ( bp::arg("info"), bp::arg("vecDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1. ) );
     
     }
 
@@ -6308,7 +6308,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         bp::def( 
             "CalculateMeleeDamageForce"
             , CalculateMeleeDamageForce_function_type( &::CalculateMeleeDamageForce )
-            , ( bp::arg("info"), bp::arg("vecMeleeDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1.0e+0 ) );
+            , ( bp::arg("info"), bp::arg("vecMeleeDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1. ) );
     
     }
 
@@ -6407,7 +6407,7 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
         bp::def( 
             "GuessDamageForce"
             , GuessDamageForce_function_type( &::GuessDamageForce )
-            , ( bp::arg("info"), bp::arg("vecForceDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1.0e+0 ) );
+            , ( bp::arg("info"), bp::arg("vecForceDir"), bp::arg("vecForceOrigin"), bp::arg("flScale")=1. ) );
     
     }
 
@@ -6435,23 +6435,23 @@ BOOST_PYTHON_MODULE(_entitiesmisc){
 
     { //::PropBreakableCreateAll
     
-        typedef void ( *PropBreakableCreateAll_function_type )( int,::IPhysicsObject *,::Vector const &,::QAngle const &,::Vector const &,::AngularImpulse const &,float,float,int,::CBaseEntity *,bool );
-        
-        bp::def( 
-            "PropBreakableCreateAll"
-            , PropBreakableCreateAll_function_type( &::PropBreakableCreateAll )
-            , ( bp::arg("modelindex"), bp::arg("pPhysics"), bp::arg("origin"), bp::arg("angles"), bp::arg("velocity"), bp::arg("angularVelocity"), bp::arg("impactEnergyScale"), bp::arg("burstScale"), bp::arg("collisionGroup"), bp::arg("pEntity")=bp::object(), bp::arg("defaultLocation")=(bool)(true) ) );
-    
-    }
-
-    { //::PropBreakableCreateAll
-    
         typedef void ( *PropBreakableCreateAll_function_type )( int,::IPhysicsObject *,::breakablepropparams_t const &,::CBaseEntity *,int,bool,bool );
         
         bp::def( 
             "PropBreakableCreateAll"
             , PropBreakableCreateAll_function_type( &::PropBreakableCreateAll )
             , ( bp::arg("modelindex"), bp::arg("pPhysics"), bp::arg("params"), bp::arg("pEntity"), bp::arg("iPrecomputedBreakableCount"), bp::arg("bIgnoreGibLImit"), bp::arg("defaultLocation")=(bool)(true) ) );
+    
+    }
+
+    { //::PropBreakableCreateAll
+    
+        typedef void ( *PropBreakableCreateAll_function_type )( int,::IPhysicsObject *,::Vector const &,::QAngle const &,::Vector const &,::AngularImpulse const &,float,float,int,::CBaseEntity *,bool );
+        
+        bp::def( 
+            "PropBreakableCreateAll"
+            , PropBreakableCreateAll_function_type( &::PropBreakableCreateAll )
+            , ( bp::arg("modelindex"), bp::arg("pPhysics"), bp::arg("origin"), bp::arg("angles"), bp::arg("velocity"), bp::arg("angularVelocity"), bp::arg("impactEnergyScale"), bp::arg("burstScale"), bp::arg("collisionGroup"), bp::arg("pEntity")=bp::object(), bp::arg("defaultLocation")=(bool)(true) ) );
     
     }
 

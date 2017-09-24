@@ -633,19 +633,19 @@ BOOST_PYTHON_MODULE(_utils){
     bp::class_< CBaseTrace, boost::noncopyable >( "CBaseTrace", bp::init< >() )    
         .def( 
             "IsDispSurface"
-            , (bool ( ::CBaseTrace::* )(  ) )( &::CBaseTrace::IsDispSurface ) )    
+            , (bool ( ::CBaseTrace::* )(  ))( &::CBaseTrace::IsDispSurface ) )    
         .def( 
             "IsDispSurfaceBuildable"
-            , (bool ( ::CBaseTrace::* )(  ) )( &::CBaseTrace::IsDispSurfaceBuildable ) )    
+            , (bool ( ::CBaseTrace::* )(  ))( &::CBaseTrace::IsDispSurfaceBuildable ) )    
         .def( 
             "IsDispSurfaceProp1"
-            , (bool ( ::CBaseTrace::* )(  ) )( &::CBaseTrace::IsDispSurfaceProp1 ) )    
+            , (bool ( ::CBaseTrace::* )(  ))( &::CBaseTrace::IsDispSurfaceProp1 ) )    
         .def( 
             "IsDispSurfaceProp2"
-            , (bool ( ::CBaseTrace::* )(  ) )( &::CBaseTrace::IsDispSurfaceProp2 ) )    
+            , (bool ( ::CBaseTrace::* )(  ))( &::CBaseTrace::IsDispSurfaceProp2 ) )    
         .def( 
             "IsDispSurfaceWalkable"
-            , (bool ( ::CBaseTrace::* )(  ) )( &::CBaseTrace::IsDispSurfaceWalkable ) )    
+            , (bool ( ::CBaseTrace::* )(  ))( &::CBaseTrace::IsDispSurfaceWalkable ) )    
         .def_readwrite( "allsolid", &CBaseTrace::allsolid )    
         .def_readwrite( "contents", &CBaseTrace::contents )    
         .def_readwrite( "dispFlags", &CBaseTrace::dispFlags )    
@@ -658,16 +658,16 @@ BOOST_PYTHON_MODULE(_utils){
     bp::class_< CGameTrace_wrapper, bp::bases< CBaseTrace >, boost::noncopyable >( "trace_t", bp::init< >() )    
         .def( 
             "DidHit"
-            , (bool ( ::CGameTrace::* )(  ) const)( &::CGameTrace::DidHit ) )    
+            , (bool ( ::CGameTrace::* )(  )const)( &::CGameTrace::DidHit ) )    
         .def( 
             "DidHitNonWorldEntity"
-            , (bool ( ::CGameTrace::* )(  ) const)( &::CGameTrace::DidHitNonWorldEntity ) )    
+            , (bool ( ::CGameTrace::* )(  )const)( &::CGameTrace::DidHitNonWorldEntity ) )    
         .def( 
             "DidHitWorld"
-            , (bool ( ::CGameTrace::* )(  ) const)( &::CGameTrace::DidHitWorld ) )    
+            , (bool ( ::CGameTrace::* )(  )const)( &::CGameTrace::DidHitWorld ) )    
         .def( 
             "GetEntityIndex"
-            , (int ( ::CGameTrace::* )(  ) const)( &::CGameTrace::GetEntityIndex ) )    
+            , (int ( ::CGameTrace::* )(  )const)( &::CGameTrace::GetEntityIndex ) )    
         .def_readwrite( "fractionleftsolid", &CGameTrace::fractionleftsolid )    
         .def_readwrite( "hitbox", &CGameTrace::hitbox )    
         .def_readwrite( "hitgroup", &CGameTrace::hitgroup )    
@@ -682,105 +682,105 @@ BOOST_PYTHON_MODULE(_utils){
     bp::class_< CTraceFilter_wrapper, bp::bases< ITraceFilter >, boost::noncopyable >( "CTraceFilter" )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilter::* )(  ) const)( &::CTraceFilter::GetTraceType ) )    
+            , (::TraceType_t ( ::CTraceFilter::* )(  )const)( &::CTraceFilter::GetTraceType ) )    
         .def( 
             "ShouldHitEntity"
-            , bp::pure_virtual( (bool ( ::ITraceFilter::* )( ::IHandleEntity *,int ) )(&::ITraceFilter::ShouldHitEntity) )
+            , bp::pure_virtual( (bool ( ::ITraceFilter::* )( ::IHandleEntity *,int ))(&::ITraceFilter::ShouldHitEntity) )
             , ( bp::arg("pEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterSimple_wrapper, bp::bases< CTraceFilter > >( "CTraceFilterSimpleInternal", bp::no_init )    
         .def( 
             "GetPassEntity"
-            , (::IHandleEntity const * ( ::CTraceFilterSimple::* )(  ) )( &::CTraceFilterSimple::GetPassEntity )
+            , (::IHandleEntity const * ( ::CTraceFilterSimple::* )(  ))( &::CTraceFilterSimple::GetPassEntity )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "SetCollisionGroup"
-            , (void ( ::CTraceFilterSimple::* )( int ) )( &::CTraceFilterSimple::SetCollisionGroup )
+            , (void ( ::CTraceFilterSimple::* )( int ))( &::CTraceFilterSimple::SetCollisionGroup )
             , ( bp::arg("iCollisionGroup") ) )    
         .def( 
             "SetPassEntity"
-            , (void ( ::CTraceFilterSimple::* )( ::IHandleEntity const * ) )( &::CTraceFilterSimple::SetPassEntity )
+            , (void ( ::CTraceFilterSimple::* )( ::IHandleEntity const * ))( &::CTraceFilterSimple::SetPassEntity )
             , ( bp::arg("pPassEntity") ) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterSimple::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSimple::ShouldHitEntity)
-            , (bool ( CTraceFilterSimple_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSimple_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterSimple::* )( ::IHandleEntity *,int ))(&::CTraceFilterSimple::ShouldHitEntity)
+            , (bool ( CTraceFilterSimple_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterSimple_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CPyTraceFilterSimple_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterSimple", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterSimple::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSimple::ShouldHitEntity)
-            , (bool ( CPyTraceFilterSimple_wrapper::* )( ::IHandleEntity *,int ) )(&CPyTraceFilterSimple_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterSimple::* )( ::IHandleEntity *,int ))(&::CTraceFilterSimple::ShouldHitEntity)
+            , (bool ( CPyTraceFilterSimple_wrapper::* )( ::IHandleEntity *,int ))(&CPyTraceFilterSimple_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterChain_wrapper, bp::bases< CTraceFilter > >( "CTraceFilterChain", bp::init< ITraceFilter *, ITraceFilter * >(( bp::arg("pTraceFilter1"), bp::arg("pTraceFilter2") )) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterChain::* )( ::IHandleEntity *,int ) )(&::CTraceFilterChain::ShouldHitEntity)
-            , (bool ( CTraceFilterChain_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterChain_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterChain::* )( ::IHandleEntity *,int ))(&::CTraceFilterChain::ShouldHitEntity)
+            , (bool ( CTraceFilterChain_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterChain_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterEntitiesOnly_wrapper, bp::bases< ITraceFilter >, boost::noncopyable >( "CTraceFilterEntitiesOnly" )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterEntitiesOnly::* )(  ) const)( &::CTraceFilterEntitiesOnly::GetTraceType ) )    
+            , (::TraceType_t ( ::CTraceFilterEntitiesOnly::* )(  )const)( &::CTraceFilterEntitiesOnly::GetTraceType ) )    
         .def( 
             "ShouldHitEntity"
-            , bp::pure_virtual( (bool ( ::ITraceFilter::* )( ::IHandleEntity *,int ) )(&::ITraceFilter::ShouldHitEntity) )
+            , bp::pure_virtual( (bool ( ::ITraceFilter::* )( ::IHandleEntity *,int ))(&::ITraceFilter::ShouldHitEntity) )
             , ( bp::arg("pEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterHitAll_wrapper, bp::bases< CTraceFilter > >( "CTraceFilterHitAll" )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterHitAll::* )( ::IHandleEntity *,int ) )(&::CTraceFilterHitAll::ShouldHitEntity)
-            , (bool ( CTraceFilterHitAll_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterHitAll_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterHitAll::* )( ::IHandleEntity *,int ))(&::CTraceFilterHitAll::ShouldHitEntity)
+            , (bool ( CTraceFilterHitAll_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterHitAll_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pServerEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterSkipTwoEntities_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterSkipTwoEntities", bp::init< IHandleEntity const *, IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("passentity2"), bp::arg("collisionGroup") )) )    
         .def( 
             "SetPassEntity2"
-            , (void ( ::CTraceFilterSkipTwoEntities::* )( ::IHandleEntity const * ) )( &::CTraceFilterSkipTwoEntities::SetPassEntity2 )
+            , (void ( ::CTraceFilterSkipTwoEntities::* )( ::IHandleEntity const * ))( &::CTraceFilterSkipTwoEntities::SetPassEntity2 )
             , ( bp::arg("pPassEntity2") ) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterSkipTwoEntities::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSkipTwoEntities::ShouldHitEntity)
-            , (bool ( CTraceFilterSkipTwoEntities_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSkipTwoEntities_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterSkipTwoEntities::* )( ::IHandleEntity *,int ))(&::CTraceFilterSkipTwoEntities::ShouldHitEntity)
+            , (bool ( CTraceFilterSkipTwoEntities_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterSkipTwoEntities_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterLOS_wrapper, bp::bases< CTraceFilterSkipTwoEntities > >( "CTraceFilterLOS", bp::init< IHandleEntity *, int, bp::optional< IHandleEntity * > >(( bp::arg("pHandleEntity"), bp::arg("collisionGroup"), bp::arg("pHandleEntity2")=bp::object() )) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterLOS::* )( ::IHandleEntity *,int ) )(&::CTraceFilterLOS::ShouldHitEntity)
-            , (bool ( CTraceFilterLOS_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterLOS_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterLOS::* )( ::IHandleEntity *,int ))(&::CTraceFilterLOS::ShouldHitEntity)
+            , (bool ( CTraceFilterLOS_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterLOS_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterNoNPCsOrPlayer_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterNoNPCsOrPlayer", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterNoNPCsOrPlayer::* )( ::IHandleEntity *,int ) )(&::CTraceFilterNoNPCsOrPlayer::ShouldHitEntity)
-            , (bool ( CTraceFilterNoNPCsOrPlayer_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterNoNPCsOrPlayer_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterNoNPCsOrPlayer::* )( ::IHandleEntity *,int ))(&::CTraceFilterNoNPCsOrPlayer::ShouldHitEntity)
+            , (bool ( CTraceFilterNoNPCsOrPlayer_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterNoNPCsOrPlayer_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterOnlyNPCsAndPlayer_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterOnlyNPCsAndPlayer", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterOnlyNPCsAndPlayer::* )(  ) const)( &::CTraceFilterOnlyNPCsAndPlayer::GetTraceType ) )    
+            , (::TraceType_t ( ::CTraceFilterOnlyNPCsAndPlayer::* )(  )const)( &::CTraceFilterOnlyNPCsAndPlayer::GetTraceType ) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterOnlyNPCsAndPlayer::* )( ::IHandleEntity *,int ) )(&::CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity)
-            , (bool ( CTraceFilterOnlyNPCsAndPlayer_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterOnlyNPCsAndPlayer_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterOnlyNPCsAndPlayer::* )( ::IHandleEntity *,int ))(&::CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity)
+            , (bool ( CTraceFilterOnlyNPCsAndPlayer_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterOnlyNPCsAndPlayer_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterSimpleClassnameList_wrapper, bp::bases< CTraceFilterSimple >, boost::noncopyable >( "CTraceFilterSimpleClassnameList", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
         .def( 
             "AddClassnameToIgnore"
-            , (void ( ::CTraceFilterSimpleClassnameList::* )( char const * ) )( &::CTraceFilterSimpleClassnameList::AddClassnameToIgnore )
+            , (void ( ::CTraceFilterSimpleClassnameList::* )( char const * ))( &::CTraceFilterSimpleClassnameList::AddClassnameToIgnore )
             , ( bp::arg("pchClassname") ) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterSimpleClassnameList::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSimpleClassnameList::ShouldHitEntity)
-            , (bool ( CTraceFilterSimpleClassnameList_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSimpleClassnameList_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterSimpleClassnameList::* )( ::IHandleEntity *,int ))(&::CTraceFilterSimpleClassnameList::ShouldHitEntity)
+            , (bool ( CTraceFilterSimpleClassnameList_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterSimpleClassnameList_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     { //::CTraceFilterSimpleList
@@ -790,7 +790,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::implicitly_convertible< int, CTraceFilterSimpleList >();
         { //::CTraceFilterSimpleList::AddEntityToIgnore
         
-            typedef void ( ::CTraceFilterSimpleList::*AddEntityToIgnore_function_type )( ::IHandleEntity * ) ;
+            typedef void ( ::CTraceFilterSimpleList::*AddEntityToIgnore_function_type)( ::IHandleEntity * ) ;
             
             CTraceFilterSimpleList_exposer.def( 
                 "AddEntityToIgnore"
@@ -800,8 +800,8 @@ BOOST_PYTHON_MODULE(_utils){
         }
         { //::CTraceFilterSimpleList::ShouldHitEntity
         
-            typedef bool ( ::CTraceFilterSimpleList::*ShouldHitEntity_function_type )( ::IHandleEntity *,int ) ;
-            typedef bool ( CTraceFilterSimpleList_wrapper::*default_ShouldHitEntity_function_type )( ::IHandleEntity *,int ) ;
+            typedef bool ( ::CTraceFilterSimpleList::*ShouldHitEntity_function_type)( ::IHandleEntity *,int ) ;
+            typedef bool ( CTraceFilterSimpleList_wrapper::*default_ShouldHitEntity_function_type)( ::IHandleEntity *,int ) ;
             
             CTraceFilterSimpleList_exposer.def( 
                 "ShouldHitEntity"
@@ -815,35 +815,35 @@ BOOST_PYTHON_MODULE(_utils){
     bp::class_< CTraceFilterSkipClassname_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterSkipClassname", bp::init< IHandleEntity const *, char const *, int >(( bp::arg("passentity"), bp::arg("pchClassname"), bp::arg("collisionGroup") )) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterSkipClassname::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSkipClassname::ShouldHitEntity)
-            , (bool ( CTraceFilterSkipClassname_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSkipClassname_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterSkipClassname::* )( ::IHandleEntity *,int ))(&::CTraceFilterSkipClassname::ShouldHitEntity)
+            , (bool ( CTraceFilterSkipClassname_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterSkipClassname_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterSkipTwoClassnames_wrapper, bp::bases< CTraceFilterSkipClassname > >( "CTraceFilterSkipTwoClassnames", bp::init< IHandleEntity const *, char const *, char const *, int >(( bp::arg("passentity"), bp::arg("pchClassname"), bp::arg("pchClassname2"), bp::arg("collisionGroup") )) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterSkipTwoClassnames::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSkipTwoClassnames::ShouldHitEntity)
-            , (bool ( CTraceFilterSkipTwoClassnames_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSkipTwoClassnames_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterSkipTwoClassnames::* )( ::IHandleEntity *,int ))(&::CTraceFilterSkipTwoClassnames::ShouldHitEntity)
+            , (bool ( CTraceFilterSkipTwoClassnames_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterSkipTwoClassnames_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterWorldAndPropsOnly_wrapper, bp::bases< ITraceFilter > >( "CTraceFilterWorldAndPropsOnly" )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterWorldAndPropsOnly::* )(  ) const)( &::CTraceFilterWorldAndPropsOnly::GetTraceType ) )    
+            , (::TraceType_t ( ::CTraceFilterWorldAndPropsOnly::* )(  )const)( &::CTraceFilterWorldAndPropsOnly::GetTraceType ) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterWorldAndPropsOnly::* )( ::IHandleEntity *,int ) )(&::CTraceFilterWorldAndPropsOnly::ShouldHitEntity)
-            , (bool ( CTraceFilterWorldAndPropsOnly_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterWorldAndPropsOnly_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterWorldAndPropsOnly::* )( ::IHandleEntity *,int ))(&::CTraceFilterWorldAndPropsOnly::ShouldHitEntity)
+            , (bool ( CTraceFilterWorldAndPropsOnly_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterWorldAndPropsOnly_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pServerEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterWorldOnly_wrapper, bp::bases< ITraceFilter > >( "CTraceFilterWorldOnly" )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterWorldOnly::* )(  ) const)( &::CTraceFilterWorldOnly::GetTraceType ) )    
+            , (::TraceType_t ( ::CTraceFilterWorldOnly::* )(  )const)( &::CTraceFilterWorldOnly::GetTraceType ) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterWorldOnly::* )( ::IHandleEntity *,int ) )(&::CTraceFilterWorldOnly::ShouldHitEntity)
-            , (bool ( CTraceFilterWorldOnly_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterWorldOnly_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterWorldOnly::* )( ::IHandleEntity *,int ))(&::CTraceFilterWorldOnly::ShouldHitEntity)
+            , (bool ( CTraceFilterWorldOnly_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterWorldOnly_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pServerEntity"), bp::arg("contentsMask") ) );
 
     { //::PyRay_t
@@ -854,7 +854,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::implicitly_convertible< Ray_t const &, PyRay_t >();
         { //::PyRay_t::Init
         
-            typedef void ( ::PyRay_t::*Init_function_type )( ::Vector const &,::Vector const & ) ;
+            typedef void ( ::PyRay_t::*Init_function_type)( ::Vector const &,::Vector const & ) ;
             
             Ray_t_exposer.def( 
                 "Init"
@@ -864,7 +864,7 @@ BOOST_PYTHON_MODULE(_utils){
         }
         { //::PyRay_t::Init
         
-            typedef void ( ::PyRay_t::*Init_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const & ) ;
+            typedef void ( ::PyRay_t::*Init_function_type)( ::Vector const &,::Vector const &,::Vector const &,::Vector const & ) ;
             
             Ray_t_exposer.def( 
                 "Init"
@@ -874,7 +874,7 @@ BOOST_PYTHON_MODULE(_utils){
         }
         { //::PyRay_t::InvDelta
         
-            typedef ::Vector ( ::PyRay_t::*InvDelta_function_type )(  ) const;
+            typedef ::Vector ( ::PyRay_t::*InvDelta_function_type)(  ) const;
             
             Ray_t_exposer.def( 
                 "InvDelta"
@@ -883,7 +883,7 @@ BOOST_PYTHON_MODULE(_utils){
         }
         { //::PyRay_t::ToRay
         
-            typedef ::Ray_t ( ::PyRay_t::*ToRay_function_type )(  ) const;
+            typedef ::Ray_t ( ::PyRay_t::*ToRay_function_type)(  ) const;
             
             Ray_t_exposer.def( 
                 "ToRay"
@@ -915,7 +915,7 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::ComputePointFromBarycentric
     
-        typedef void ( *ComputePointFromBarycentric_function_type )( ::Vector2D const &,::Vector2D const &,::Vector2D const &,float,float,::Vector2D & );
+        typedef void ( *ComputePointFromBarycentric_function_type )( ::Vector const &,::Vector const &,::Vector const &,float,float,::Vector & );
         
         bp::def( 
             "ComputePointFromBarycentric"
@@ -926,7 +926,7 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::ComputePointFromBarycentric
     
-        typedef void ( *ComputePointFromBarycentric_function_type )( ::Vector const &,::Vector const &,::Vector const &,float,float,::Vector & );
+        typedef void ( *ComputePointFromBarycentric_function_type )( ::Vector2D const &,::Vector2D const &,::Vector2D const &,float,float,::Vector2D & );
         
         bp::def( 
             "ComputePointFromBarycentric"
@@ -1003,12 +1003,12 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::IntersectRayWithBox
     
-        typedef bool ( *IntersectRayWithBox_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float,::BoxTraceInfo_t * );
+        typedef bool ( *IntersectRayWithBox_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float,::CBaseTrace *,float * );
         
         bp::def( 
             "IntersectRayWithBox"
             , IntersectRayWithBox_function_type( &::IntersectRayWithBox )
-            , ( bp::arg("vecRayStart"), bp::arg("vecRayDelta"), bp::arg("boxMins"), bp::arg("boxMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
+            , ( bp::arg("rayStart"), bp::arg("rayDelta"), bp::arg("boxMins"), bp::arg("boxMaxs"), bp::arg("epsilon"), bp::arg("pTrace"), bp::arg("pFractionLeftSolid")=bp::object() ) );
     
     }
 
@@ -1025,45 +1025,23 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::IntersectRayWithBox
     
-        typedef bool ( *IntersectRayWithBox_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float,::CBaseTrace *,float * );
+        typedef bool ( *IntersectRayWithBox_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float,::BoxTraceInfo_t * );
         
         bp::def( 
             "IntersectRayWithBox"
             , IntersectRayWithBox_function_type( &::IntersectRayWithBox )
-            , ( bp::arg("rayStart"), bp::arg("rayDelta"), bp::arg("boxMins"), bp::arg("boxMaxs"), bp::arg("epsilon"), bp::arg("pTrace"), bp::arg("pFractionLeftSolid")=bp::object() ) );
+            , ( bp::arg("vecRayStart"), bp::arg("vecRayDelta"), bp::arg("boxMins"), bp::arg("boxMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
     
     }
 
     { //::IntersectRayWithOBB
     
-        typedef bool ( *IntersectRayWithOBB_function_type )( ::Vector const &,::Vector const &,::matrix3x4_t const &,::Vector const &,::Vector const &,float,::BoxTraceInfo_t * );
+        typedef bool ( *IntersectRayWithOBB_function_type )( ::Vector const &,::Vector const &,::matrix3x4_t const &,::Vector const &,::Vector const &,float,::CBaseTrace * );
         
         bp::def( 
             "IntersectRayWithOBB"
             , IntersectRayWithOBB_function_type( &::IntersectRayWithOBB )
             , ( bp::arg("vecRayStart"), bp::arg("vecRayDelta"), bp::arg("matOBBToWorld"), bp::arg("vecOBBMins"), bp::arg("vecOBBMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
-    
-    }
-
-    { //::IntersectRayWithOBB
-    
-        typedef bool ( *IntersectRayWithOBB_function_type )( ::Ray_t const &,::matrix3x4_t const &,::Vector const &,::Vector const &,float,::CBaseTrace * );
-        
-        bp::def( 
-            "IntersectRayWithOBB"
-            , IntersectRayWithOBB_function_type( &::IntersectRayWithOBB )
-            , ( bp::arg("ray"), bp::arg("matOBBToWorld"), bp::arg("vecOBBMins"), bp::arg("vecOBBMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
-    
-    }
-
-    { //::IntersectRayWithOBB
-    
-        typedef bool ( *IntersectRayWithOBB_function_type )( ::Ray_t const &,::Vector const &,::QAngle const &,::Vector const &,::Vector const &,float,::CBaseTrace * );
-        
-        bp::def( 
-            "IntersectRayWithOBB"
-            , IntersectRayWithOBB_function_type( &::IntersectRayWithOBB )
-            , ( bp::arg("ray"), bp::arg("vecBoxOrigin"), bp::arg("angBoxRotation"), bp::arg("vecOBBMins"), bp::arg("vecOBBMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
     
     }
 
@@ -1080,7 +1058,29 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::IntersectRayWithOBB
     
-        typedef bool ( *IntersectRayWithOBB_function_type )( ::Vector const &,::Vector const &,::matrix3x4_t const &,::Vector const &,::Vector const &,float,::CBaseTrace * );
+        typedef bool ( *IntersectRayWithOBB_function_type )( ::Ray_t const &,::Vector const &,::QAngle const &,::Vector const &,::Vector const &,float,::CBaseTrace * );
+        
+        bp::def( 
+            "IntersectRayWithOBB"
+            , IntersectRayWithOBB_function_type( &::IntersectRayWithOBB )
+            , ( bp::arg("ray"), bp::arg("vecBoxOrigin"), bp::arg("angBoxRotation"), bp::arg("vecOBBMins"), bp::arg("vecOBBMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
+    
+    }
+
+    { //::IntersectRayWithOBB
+    
+        typedef bool ( *IntersectRayWithOBB_function_type )( ::Ray_t const &,::matrix3x4_t const &,::Vector const &,::Vector const &,float,::CBaseTrace * );
+        
+        bp::def( 
+            "IntersectRayWithOBB"
+            , IntersectRayWithOBB_function_type( &::IntersectRayWithOBB )
+            , ( bp::arg("ray"), bp::arg("matOBBToWorld"), bp::arg("vecOBBMins"), bp::arg("vecOBBMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
+    
+    }
+
+    { //::IntersectRayWithOBB
+    
+        typedef bool ( *IntersectRayWithOBB_function_type )( ::Vector const &,::Vector const &,::matrix3x4_t const &,::Vector const &,::Vector const &,float,::BoxTraceInfo_t * );
         
         bp::def( 
             "IntersectRayWithOBB"
@@ -1091,12 +1091,12 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::IntersectRayWithPlane
     
-        typedef float ( *IntersectRayWithPlane_function_type )( ::Vector const &,::Vector const &,::Vector const &,float );
+        typedef float ( *IntersectRayWithPlane_function_type )( ::Ray_t const &,::cplane_t const & );
         
         bp::def( 
             "IntersectRayWithPlane"
             , IntersectRayWithPlane_function_type( &::IntersectRayWithPlane )
-            , ( bp::arg("org"), bp::arg("dir"), bp::arg("normal"), bp::arg("dist") ) );
+            , ( bp::arg("ray"), bp::arg("plane") ) );
     
     }
 
@@ -1113,12 +1113,12 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::IntersectRayWithPlane
     
-        typedef float ( *IntersectRayWithPlane_function_type )( ::Ray_t const &,::cplane_t const & );
+        typedef float ( *IntersectRayWithPlane_function_type )( ::Vector const &,::Vector const &,::Vector const &,float );
         
         bp::def( 
             "IntersectRayWithPlane"
             , IntersectRayWithPlane_function_type( &::IntersectRayWithPlane )
-            , ( bp::arg("ray"), bp::arg("plane") ) );
+            , ( bp::arg("org"), bp::arg("dir"), bp::arg("normal"), bp::arg("dist") ) );
     
     }
 
@@ -1179,12 +1179,12 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::IsBoxIntersectingRay
     
-        typedef bool ( *IsBoxIntersectingRay_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,::Vector const &,float );
+        typedef bool ( *IsBoxIntersectingRay_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float );
         
         bp::def( 
             "IsBoxIntersectingRay"
             , IsBoxIntersectingRay_function_type( &::IsBoxIntersectingRay )
-            , ( bp::arg("boxMin"), bp::arg("boxMax"), bp::arg("origin"), bp::arg("delta"), bp::arg("invDelta"), bp::arg("flTolerance")=0.0f ) );
+            , ( bp::arg("boxMin"), bp::arg("boxMax"), bp::arg("origin"), bp::arg("delta"), bp::arg("flTolerance")=0.F ) );
     
     }
 
@@ -1195,18 +1195,18 @@ BOOST_PYTHON_MODULE(_utils){
         bp::def( 
             "IsBoxIntersectingRay"
             , IsBoxIntersectingRay_function_type( &::IsBoxIntersectingRay )
-            , ( bp::arg("boxMin"), bp::arg("boxMax"), bp::arg("ray"), bp::arg("flTolerance")=0.0f ) );
+            , ( bp::arg("boxMin"), bp::arg("boxMax"), bp::arg("ray"), bp::arg("flTolerance")=0.F ) );
     
     }
 
     { //::IsBoxIntersectingRay
     
-        typedef bool ( *IsBoxIntersectingRay_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float );
+        typedef bool ( *IsBoxIntersectingRay_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,::Vector const &,float );
         
         bp::def( 
             "IsBoxIntersectingRay"
             , IsBoxIntersectingRay_function_type( &::IsBoxIntersectingRay )
-            , ( bp::arg("boxMin"), bp::arg("boxMax"), bp::arg("origin"), bp::arg("delta"), bp::arg("flTolerance")=0.0f ) );
+            , ( bp::arg("boxMin"), bp::arg("boxMax"), bp::arg("origin"), bp::arg("delta"), bp::arg("invDelta"), bp::arg("flTolerance")=0.F ) );
     
     }
 
@@ -1261,7 +1261,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::def( 
             "IsOBBIntersectingOBB"
             , IsOBBIntersectingOBB_function_type( &::IsOBBIntersectingOBB )
-            , ( bp::arg("vecOrigin1"), bp::arg("vecAngles1"), bp::arg("boxMin1"), bp::arg("boxMax1"), bp::arg("vecOrigin2"), bp::arg("vecAngles2"), bp::arg("boxMin2"), bp::arg("boxMax2"), bp::arg("flTolerance")=0.0f ) );
+            , ( bp::arg("vecOrigin1"), bp::arg("vecAngles1"), bp::arg("boxMin1"), bp::arg("boxMax1"), bp::arg("vecOrigin2"), bp::arg("vecAngles2"), bp::arg("boxMin2"), bp::arg("boxMax2"), bp::arg("flTolerance")=0.F ) );
     
     }
 
@@ -1305,7 +1305,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::def( 
             "IsRayIntersectingSphere"
             , IsRayIntersectingSphere_function_type( &::IsRayIntersectingSphere )
-            , ( bp::arg("vecRayOrigin"), bp::arg("vecRayDelta"), bp::arg("vecSphereCenter"), bp::arg("flRadius"), bp::arg("flTolerance")=0.0f ) );
+            , ( bp::arg("vecRayOrigin"), bp::arg("vecRayDelta"), bp::arg("vecSphereCenter"), bp::arg("flRadius"), bp::arg("flTolerance")=0.F ) );
     
     }
 
@@ -1595,7 +1595,7 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_ComputeStringWidth
     
-        typedef int ( *UTIL_ComputeStringWidth_function_type )( ::vgui::HFont &,wchar_t const * );
+        typedef int ( *UTIL_ComputeStringWidth_function_type )( ::vgui::HFont &,char const * );
         
         bp::def( 
             "UTIL_ComputeStringWidth"
@@ -1606,7 +1606,7 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_ComputeStringWidth
     
-        typedef int ( *UTIL_ComputeStringWidth_function_type )( ::vgui::HFont &,char const * );
+        typedef int ( *UTIL_ComputeStringWidth_function_type )( ::vgui::HFont &,wchar_t const * );
         
         bp::def( 
             "UTIL_ComputeStringWidth"
@@ -1644,7 +1644,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::def( 
             "UTIL_EmitAmbientSound"
             , UTIL_EmitAmbientSound_function_type( &::UTIL_EmitAmbientSound )
-            , ( bp::arg("entindex"), bp::arg("vecOrigin"), bp::arg("samp"), bp::arg("vol"), bp::arg("soundlevel"), bp::arg("fFlags"), bp::arg("pitch"), bp::arg("soundtime")=0.0f, bp::arg("duration")=bp::object() ) );
+            , ( bp::arg("entindex"), bp::arg("vecOrigin"), bp::arg("samp"), bp::arg("vol"), bp::arg("soundlevel"), bp::arg("fFlags"), bp::arg("pitch"), bp::arg("soundtime")=0.F, bp::arg("duration")=bp::object() ) );
     
     }
 
@@ -1880,23 +1880,23 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_PyTraceRay
     
-        typedef void ( *UTIL_TraceRay_function_type )( ::PyRay_t const &,unsigned int,::ITraceFilter &,::trace_t * );
-        
-        bp::def( 
-            "UTIL_TraceRay"
-            , UTIL_TraceRay_function_type( &::UTIL_PyTraceRay )
-            , ( bp::arg("ray"), bp::arg("mask"), bp::arg("traceFilter"), bp::arg("ptr") ) );
-    
-    }
-
-    { //::UTIL_PyTraceRay
-    
         typedef void ( *UTIL_TraceRay_function_type )( ::PyRay_t const &,unsigned int,::C_BaseEntity const *,int,::trace_t * );
         
         bp::def( 
             "UTIL_TraceRay"
             , UTIL_TraceRay_function_type( &::UTIL_PyTraceRay )
             , ( bp::arg("ray"), bp::arg("mask"), bp::arg("ignore"), bp::arg("collisionGroup"), bp::arg("ptr") ) );
+    
+    }
+
+    { //::UTIL_PyTraceRay
+    
+        typedef void ( *UTIL_TraceRay_function_type )( ::PyRay_t const &,unsigned int,::ITraceFilter &,::trace_t * );
+        
+        bp::def( 
+            "UTIL_TraceRay"
+            , UTIL_TraceRay_function_type( &::UTIL_PyTraceRay )
+            , ( bp::arg("ray"), bp::arg("mask"), bp::arg("traceFilter"), bp::arg("ptr") ) );
     
     }
 
@@ -2034,12 +2034,12 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_TraceEntity
     
-        typedef void ( *UTIL_TraceEntity_function_type )( ::C_BaseEntity *,::Vector const &,::Vector const &,unsigned int,::IHandleEntity const *,int,::trace_t * );
+        typedef void ( *UTIL_TraceEntity_function_type )( ::C_BaseEntity *,::Vector const &,::Vector const &,unsigned int,::trace_t * );
         
         bp::def( 
             "UTIL_TraceEntity"
             , UTIL_TraceEntity_function_type( &::UTIL_TraceEntity )
-            , ( bp::arg("pEntity"), bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("ignore"), bp::arg("collisionGroup"), bp::arg("ptr") ) );
+            , ( bp::arg("pEntity"), bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("ptr") ) );
     
     }
 
@@ -2056,23 +2056,12 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_TraceEntity
     
-        typedef void ( *UTIL_TraceEntity_function_type )( ::C_BaseEntity *,::Vector const &,::Vector const &,unsigned int,::trace_t * );
+        typedef void ( *UTIL_TraceEntity_function_type )( ::C_BaseEntity *,::Vector const &,::Vector const &,unsigned int,::IHandleEntity const *,int,::trace_t * );
         
         bp::def( 
             "UTIL_TraceEntity"
             , UTIL_TraceEntity_function_type( &::UTIL_TraceEntity )
-            , ( bp::arg("pEntity"), bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("ptr") ) );
-    
-    }
-
-    { //::UTIL_TraceHull
-    
-        typedef void ( *UTIL_TraceHull_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,unsigned int,::ITraceFilter *,::trace_t * );
-        
-        bp::def( 
-            "UTIL_TraceHull"
-            , UTIL_TraceHull_function_type( &::UTIL_TraceHull )
-            , ( bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("hullMin"), bp::arg("hullMax"), bp::arg("mask"), bp::arg("pFilter"), bp::arg("ptr") ) );
+            , ( bp::arg("pEntity"), bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("ignore"), bp::arg("collisionGroup"), bp::arg("ptr") ) );
     
     }
 
@@ -2087,14 +2076,14 @@ BOOST_PYTHON_MODULE(_utils){
     
     }
 
-    { //::UTIL_TraceLine
+    { //::UTIL_TraceHull
     
-        typedef void ( *UTIL_TraceLine_function_type )( ::Vector const &,::Vector const &,unsigned int,::ITraceFilter *,::trace_t * );
+        typedef void ( *UTIL_TraceHull_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,unsigned int,::ITraceFilter *,::trace_t * );
         
         bp::def( 
-            "UTIL_TraceLine"
-            , UTIL_TraceLine_function_type( &::UTIL_TraceLine )
-            , ( bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("pFilter"), bp::arg("ptr") ) );
+            "UTIL_TraceHull"
+            , UTIL_TraceHull_function_type( &::UTIL_TraceHull )
+            , ( bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("hullMin"), bp::arg("hullMax"), bp::arg("mask"), bp::arg("pFilter"), bp::arg("ptr") ) );
     
     }
 
@@ -2106,6 +2095,17 @@ BOOST_PYTHON_MODULE(_utils){
             "UTIL_TraceLine"
             , UTIL_TraceLine_function_type( &::UTIL_TraceLine )
             , ( bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("ignore"), bp::arg("collisionGroup"), bp::arg("ptr") ) );
+    
+    }
+
+    { //::UTIL_TraceLine
+    
+        typedef void ( *UTIL_TraceLine_function_type )( ::Vector const &,::Vector const &,unsigned int,::ITraceFilter *,::trace_t * );
+        
+        bp::def( 
+            "UTIL_TraceLine"
+            , UTIL_TraceLine_function_type( &::UTIL_TraceLine )
+            , ( bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("pFilter"), bp::arg("ptr") ) );
     
     }
 
@@ -2127,18 +2127,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::def( 
             "UTIL_Tracer"
             , UTIL_Tracer_function_type( &::UTIL_Tracer )
-            , ( bp::arg("vecStart"), bp::arg("vecEnd"), bp::arg("iEntIndex")=(int)(0), bp::arg("iAttachment")=(int)(-0x000000001), bp::arg("flVelocity")=0, bp::arg("bWhiz")=(bool)(false), bp::arg("pCustomTracerName")=bp::object(), bp::arg("iParticleID")=(int)(0) ) );
-    
-    }
-
-    { //::UTIL_VecToPitch
-    
-        typedef float ( *UTIL_VecToPitch_function_type )( ::matrix3x4_t const &,::Vector const & );
-        
-        bp::def( 
-            "UTIL_VecToPitch"
-            , UTIL_VecToPitch_function_type( &::UTIL_VecToPitch )
-            , ( bp::arg("matrix"), bp::arg("vec") ) );
+            , ( bp::arg("vecStart"), bp::arg("vecEnd"), bp::arg("iEntIndex")=(int)(0), bp::arg("iAttachment")=(int)(-1), bp::arg("flVelocity")=0, bp::arg("bWhiz")=(bool)(false), bp::arg("pCustomTracerName")=bp::object(), bp::arg("iParticleID")=(int)(0) ) );
     
     }
 
@@ -2153,13 +2142,13 @@ BOOST_PYTHON_MODULE(_utils){
     
     }
 
-    { //::UTIL_VecToYaw
+    { //::UTIL_VecToPitch
     
-        typedef float ( *UTIL_VecToYaw_function_type )( ::matrix3x4_t const &,::Vector const & );
+        typedef float ( *UTIL_VecToPitch_function_type )( ::matrix3x4_t const &,::Vector const & );
         
         bp::def( 
-            "UTIL_VecToYaw"
-            , UTIL_VecToYaw_function_type( &::UTIL_VecToYaw )
+            "UTIL_VecToPitch"
+            , UTIL_VecToPitch_function_type( &::UTIL_VecToPitch )
             , ( bp::arg("matrix"), bp::arg("vec") ) );
     
     }
@@ -2172,6 +2161,17 @@ BOOST_PYTHON_MODULE(_utils){
             "UTIL_VecToYaw"
             , UTIL_VecToYaw_function_type( &::UTIL_VecToYaw )
             , ( bp::arg("vec") ) );
+    
+    }
+
+    { //::UTIL_VecToYaw
+    
+        typedef float ( *UTIL_VecToYaw_function_type )( ::matrix3x4_t const &,::Vector const & );
+        
+        bp::def( 
+            "UTIL_VecToYaw"
+            , UTIL_VecToYaw_function_type( &::UTIL_VecToYaw )
+            , ( bp::arg("matrix"), bp::arg("vec") ) );
     
     }
 
@@ -2862,19 +2862,19 @@ BOOST_PYTHON_MODULE(_utils){
     bp::class_< CBaseTrace, boost::noncopyable >( "CBaseTrace", bp::init< >() )    
         .def( 
             "IsDispSurface"
-            , (bool ( ::CBaseTrace::* )(  ) )( &::CBaseTrace::IsDispSurface ) )    
+            , (bool ( ::CBaseTrace::* )(  ))( &::CBaseTrace::IsDispSurface ) )    
         .def( 
             "IsDispSurfaceBuildable"
-            , (bool ( ::CBaseTrace::* )(  ) )( &::CBaseTrace::IsDispSurfaceBuildable ) )    
+            , (bool ( ::CBaseTrace::* )(  ))( &::CBaseTrace::IsDispSurfaceBuildable ) )    
         .def( 
             "IsDispSurfaceProp1"
-            , (bool ( ::CBaseTrace::* )(  ) )( &::CBaseTrace::IsDispSurfaceProp1 ) )    
+            , (bool ( ::CBaseTrace::* )(  ))( &::CBaseTrace::IsDispSurfaceProp1 ) )    
         .def( 
             "IsDispSurfaceProp2"
-            , (bool ( ::CBaseTrace::* )(  ) )( &::CBaseTrace::IsDispSurfaceProp2 ) )    
+            , (bool ( ::CBaseTrace::* )(  ))( &::CBaseTrace::IsDispSurfaceProp2 ) )    
         .def( 
             "IsDispSurfaceWalkable"
-            , (bool ( ::CBaseTrace::* )(  ) )( &::CBaseTrace::IsDispSurfaceWalkable ) )    
+            , (bool ( ::CBaseTrace::* )(  ))( &::CBaseTrace::IsDispSurfaceWalkable ) )    
         .def_readwrite( "allsolid", &CBaseTrace::allsolid )    
         .def_readwrite( "contents", &CBaseTrace::contents )    
         .def_readwrite( "dispFlags", &CBaseTrace::dispFlags )    
@@ -2887,16 +2887,16 @@ BOOST_PYTHON_MODULE(_utils){
     bp::class_< CGameTrace_wrapper, bp::bases< CBaseTrace >, boost::noncopyable >( "trace_t", bp::init< >() )    
         .def( 
             "DidHit"
-            , (bool ( ::CGameTrace::* )(  ) const)( &::CGameTrace::DidHit ) )    
+            , (bool ( ::CGameTrace::* )(  )const)( &::CGameTrace::DidHit ) )    
         .def( 
             "DidHitNonWorldEntity"
-            , (bool ( ::CGameTrace::* )(  ) const)( &::CGameTrace::DidHitNonWorldEntity ) )    
+            , (bool ( ::CGameTrace::* )(  )const)( &::CGameTrace::DidHitNonWorldEntity ) )    
         .def( 
             "DidHitWorld"
-            , (bool ( ::CGameTrace::* )(  ) const)( &::CGameTrace::DidHitWorld ) )    
+            , (bool ( ::CGameTrace::* )(  )const)( &::CGameTrace::DidHitWorld ) )    
         .def( 
             "GetEntityIndex"
-            , (int ( ::CGameTrace::* )(  ) const)( &::CGameTrace::GetEntityIndex ) )    
+            , (int ( ::CGameTrace::* )(  )const)( &::CGameTrace::GetEntityIndex ) )    
         .def_readwrite( "fractionleftsolid", &CGameTrace::fractionleftsolid )    
         .def_readwrite( "hitbox", &CGameTrace::hitbox )    
         .def_readwrite( "hitgroup", &CGameTrace::hitgroup )    
@@ -2911,84 +2911,84 @@ BOOST_PYTHON_MODULE(_utils){
     bp::class_< CTraceFilter_wrapper, bp::bases< ITraceFilter >, boost::noncopyable >( "CTraceFilter" )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilter::* )(  ) const)( &::CTraceFilter::GetTraceType ) )    
+            , (::TraceType_t ( ::CTraceFilter::* )(  )const)( &::CTraceFilter::GetTraceType ) )    
         .def( 
             "ShouldHitEntity"
-            , bp::pure_virtual( (bool ( ::ITraceFilter::* )( ::IHandleEntity *,int ) )(&::ITraceFilter::ShouldHitEntity) )
+            , bp::pure_virtual( (bool ( ::ITraceFilter::* )( ::IHandleEntity *,int ))(&::ITraceFilter::ShouldHitEntity) )
             , ( bp::arg("pEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterSimple_wrapper, bp::bases< CTraceFilter > >( "CTraceFilterSimpleInternal", bp::no_init )    
         .def( 
             "GetPassEntity"
-            , (::IHandleEntity const * ( ::CTraceFilterSimple::* )(  ) )( &::CTraceFilterSimple::GetPassEntity )
+            , (::IHandleEntity const * ( ::CTraceFilterSimple::* )(  ))( &::CTraceFilterSimple::GetPassEntity )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "SetCollisionGroup"
-            , (void ( ::CTraceFilterSimple::* )( int ) )( &::CTraceFilterSimple::SetCollisionGroup )
+            , (void ( ::CTraceFilterSimple::* )( int ))( &::CTraceFilterSimple::SetCollisionGroup )
             , ( bp::arg("iCollisionGroup") ) )    
         .def( 
             "SetPassEntity"
-            , (void ( ::CTraceFilterSimple::* )( ::IHandleEntity const * ) )( &::CTraceFilterSimple::SetPassEntity )
+            , (void ( ::CTraceFilterSimple::* )( ::IHandleEntity const * ))( &::CTraceFilterSimple::SetPassEntity )
             , ( bp::arg("pPassEntity") ) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterSimple::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSimple::ShouldHitEntity)
-            , (bool ( CTraceFilterSimple_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSimple_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterSimple::* )( ::IHandleEntity *,int ))(&::CTraceFilterSimple::ShouldHitEntity)
+            , (bool ( CTraceFilterSimple_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterSimple_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CPyTraceFilterSimple_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterSimple", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterSimple::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSimple::ShouldHitEntity)
-            , (bool ( CPyTraceFilterSimple_wrapper::* )( ::IHandleEntity *,int ) )(&CPyTraceFilterSimple_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterSimple::* )( ::IHandleEntity *,int ))(&::CTraceFilterSimple::ShouldHitEntity)
+            , (bool ( CPyTraceFilterSimple_wrapper::* )( ::IHandleEntity *,int ))(&CPyTraceFilterSimple_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterChain_wrapper, bp::bases< CTraceFilter > >( "CTraceFilterChain", bp::init< ITraceFilter *, ITraceFilter * >(( bp::arg("pTraceFilter1"), bp::arg("pTraceFilter2") )) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterChain::* )( ::IHandleEntity *,int ) )(&::CTraceFilterChain::ShouldHitEntity)
-            , (bool ( CTraceFilterChain_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterChain_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterChain::* )( ::IHandleEntity *,int ))(&::CTraceFilterChain::ShouldHitEntity)
+            , (bool ( CTraceFilterChain_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterChain_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterEntitiesOnly_wrapper, bp::bases< ITraceFilter >, boost::noncopyable >( "CTraceFilterEntitiesOnly" )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterEntitiesOnly::* )(  ) const)( &::CTraceFilterEntitiesOnly::GetTraceType ) )    
+            , (::TraceType_t ( ::CTraceFilterEntitiesOnly::* )(  )const)( &::CTraceFilterEntitiesOnly::GetTraceType ) )    
         .def( 
             "ShouldHitEntity"
-            , bp::pure_virtual( (bool ( ::ITraceFilter::* )( ::IHandleEntity *,int ) )(&::ITraceFilter::ShouldHitEntity) )
+            , bp::pure_virtual( (bool ( ::ITraceFilter::* )( ::IHandleEntity *,int ))(&::ITraceFilter::ShouldHitEntity) )
             , ( bp::arg("pEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterHitAll_wrapper, bp::bases< CTraceFilter > >( "CTraceFilterHitAll" )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterHitAll::* )( ::IHandleEntity *,int ) )(&::CTraceFilterHitAll::ShouldHitEntity)
-            , (bool ( CTraceFilterHitAll_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterHitAll_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterHitAll::* )( ::IHandleEntity *,int ))(&::CTraceFilterHitAll::ShouldHitEntity)
+            , (bool ( CTraceFilterHitAll_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterHitAll_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pServerEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterSkipTwoEntities_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterSkipTwoEntities", bp::init< IHandleEntity const *, IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("passentity2"), bp::arg("collisionGroup") )) )    
         .def( 
             "SetPassEntity2"
-            , (void ( ::CTraceFilterSkipTwoEntities::* )( ::IHandleEntity const * ) )( &::CTraceFilterSkipTwoEntities::SetPassEntity2 )
+            , (void ( ::CTraceFilterSkipTwoEntities::* )( ::IHandleEntity const * ))( &::CTraceFilterSkipTwoEntities::SetPassEntity2 )
             , ( bp::arg("pPassEntity2") ) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterSkipTwoEntities::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSkipTwoEntities::ShouldHitEntity)
-            , (bool ( CTraceFilterSkipTwoEntities_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSkipTwoEntities_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterSkipTwoEntities::* )( ::IHandleEntity *,int ))(&::CTraceFilterSkipTwoEntities::ShouldHitEntity)
+            , (bool ( CTraceFilterSkipTwoEntities_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterSkipTwoEntities_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterLOS_wrapper, bp::bases< CTraceFilterSkipTwoEntities > >( "CTraceFilterLOS", bp::init< IHandleEntity *, int, bp::optional< IHandleEntity * > >(( bp::arg("pHandleEntity"), bp::arg("collisionGroup"), bp::arg("pHandleEntity2")=bp::object() )) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterLOS::* )( ::IHandleEntity *,int ) )(&::CTraceFilterLOS::ShouldHitEntity)
-            , (bool ( CTraceFilterLOS_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterLOS_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterLOS::* )( ::IHandleEntity *,int ))(&::CTraceFilterLOS::ShouldHitEntity)
+            , (bool ( CTraceFilterLOS_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterLOS_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterMelee_wrapper, bp::bases< CTraceFilterEntitiesOnly > >( "CTraceFilterMelee", bp::no_init )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterMelee::* )( ::IHandleEntity *,int ) )(&::CTraceFilterMelee::ShouldHitEntity)
-            , (bool ( CTraceFilterMelee_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterMelee_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterMelee::* )( ::IHandleEntity *,int ))(&::CTraceFilterMelee::ShouldHitEntity)
+            , (bool ( CTraceFilterMelee_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterMelee_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) )    
         .def_readwrite( "m_bDamageAnyNPC", &CTraceFilterMelee::m_bDamageAnyNPC )    
         .def_readwrite( "m_collisionGroup", &CTraceFilterMelee::m_collisionGroup )    
@@ -3007,29 +3007,29 @@ BOOST_PYTHON_MODULE(_utils){
     bp::class_< CTraceFilterNoNPCsOrPlayer_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterNoNPCsOrPlayer", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterNoNPCsOrPlayer::* )( ::IHandleEntity *,int ) )(&::CTraceFilterNoNPCsOrPlayer::ShouldHitEntity)
-            , (bool ( CTraceFilterNoNPCsOrPlayer_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterNoNPCsOrPlayer_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterNoNPCsOrPlayer::* )( ::IHandleEntity *,int ))(&::CTraceFilterNoNPCsOrPlayer::ShouldHitEntity)
+            , (bool ( CTraceFilterNoNPCsOrPlayer_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterNoNPCsOrPlayer_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterOnlyNPCsAndPlayer_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterOnlyNPCsAndPlayer", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterOnlyNPCsAndPlayer::* )(  ) const)( &::CTraceFilterOnlyNPCsAndPlayer::GetTraceType ) )    
+            , (::TraceType_t ( ::CTraceFilterOnlyNPCsAndPlayer::* )(  )const)( &::CTraceFilterOnlyNPCsAndPlayer::GetTraceType ) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterOnlyNPCsAndPlayer::* )( ::IHandleEntity *,int ) )(&::CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity)
-            , (bool ( CTraceFilterOnlyNPCsAndPlayer_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterOnlyNPCsAndPlayer_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterOnlyNPCsAndPlayer::* )( ::IHandleEntity *,int ))(&::CTraceFilterOnlyNPCsAndPlayer::ShouldHitEntity)
+            , (bool ( CTraceFilterOnlyNPCsAndPlayer_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterOnlyNPCsAndPlayer_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterSimpleClassnameList_wrapper, bp::bases< CTraceFilterSimple >, boost::noncopyable >( "CTraceFilterSimpleClassnameList", bp::init< IHandleEntity const *, int >(( bp::arg("passentity"), bp::arg("collisionGroup") )) )    
         .def( 
             "AddClassnameToIgnore"
-            , (void ( ::CTraceFilterSimpleClassnameList::* )( char const * ) )( &::CTraceFilterSimpleClassnameList::AddClassnameToIgnore )
+            , (void ( ::CTraceFilterSimpleClassnameList::* )( char const * ))( &::CTraceFilterSimpleClassnameList::AddClassnameToIgnore )
             , ( bp::arg("pchClassname") ) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterSimpleClassnameList::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSimpleClassnameList::ShouldHitEntity)
-            , (bool ( CTraceFilterSimpleClassnameList_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSimpleClassnameList_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterSimpleClassnameList::* )( ::IHandleEntity *,int ))(&::CTraceFilterSimpleClassnameList::ShouldHitEntity)
+            , (bool ( CTraceFilterSimpleClassnameList_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterSimpleClassnameList_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     { //::CTraceFilterSimpleList
@@ -3039,7 +3039,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::implicitly_convertible< int, CTraceFilterSimpleList >();
         { //::CTraceFilterSimpleList::AddEntityToIgnore
         
-            typedef void ( ::CTraceFilterSimpleList::*AddEntityToIgnore_function_type )( ::IHandleEntity * ) ;
+            typedef void ( ::CTraceFilterSimpleList::*AddEntityToIgnore_function_type)( ::IHandleEntity * ) ;
             
             CTraceFilterSimpleList_exposer.def( 
                 "AddEntityToIgnore"
@@ -3049,8 +3049,8 @@ BOOST_PYTHON_MODULE(_utils){
         }
         { //::CTraceFilterSimpleList::ShouldHitEntity
         
-            typedef bool ( ::CTraceFilterSimpleList::*ShouldHitEntity_function_type )( ::IHandleEntity *,int ) ;
-            typedef bool ( CTraceFilterSimpleList_wrapper::*default_ShouldHitEntity_function_type )( ::IHandleEntity *,int ) ;
+            typedef bool ( ::CTraceFilterSimpleList::*ShouldHitEntity_function_type)( ::IHandleEntity *,int ) ;
+            typedef bool ( CTraceFilterSimpleList_wrapper::*default_ShouldHitEntity_function_type)( ::IHandleEntity *,int ) ;
             
             CTraceFilterSimpleList_exposer.def( 
                 "ShouldHitEntity"
@@ -3064,35 +3064,35 @@ BOOST_PYTHON_MODULE(_utils){
     bp::class_< CTraceFilterSkipClassname_wrapper, bp::bases< CTraceFilterSimple > >( "CTraceFilterSkipClassname", bp::init< IHandleEntity const *, char const *, int >(( bp::arg("passentity"), bp::arg("pchClassname"), bp::arg("collisionGroup") )) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterSkipClassname::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSkipClassname::ShouldHitEntity)
-            , (bool ( CTraceFilterSkipClassname_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSkipClassname_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterSkipClassname::* )( ::IHandleEntity *,int ))(&::CTraceFilterSkipClassname::ShouldHitEntity)
+            , (bool ( CTraceFilterSkipClassname_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterSkipClassname_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterSkipTwoClassnames_wrapper, bp::bases< CTraceFilterSkipClassname > >( "CTraceFilterSkipTwoClassnames", bp::init< IHandleEntity const *, char const *, char const *, int >(( bp::arg("passentity"), bp::arg("pchClassname"), bp::arg("pchClassname2"), bp::arg("collisionGroup") )) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterSkipTwoClassnames::* )( ::IHandleEntity *,int ) )(&::CTraceFilterSkipTwoClassnames::ShouldHitEntity)
-            , (bool ( CTraceFilterSkipTwoClassnames_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterSkipTwoClassnames_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterSkipTwoClassnames::* )( ::IHandleEntity *,int ))(&::CTraceFilterSkipTwoClassnames::ShouldHitEntity)
+            , (bool ( CTraceFilterSkipTwoClassnames_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterSkipTwoClassnames_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pHandleEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterWorldAndPropsOnly_wrapper, bp::bases< ITraceFilter > >( "CTraceFilterWorldAndPropsOnly" )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterWorldAndPropsOnly::* )(  ) const)( &::CTraceFilterWorldAndPropsOnly::GetTraceType ) )    
+            , (::TraceType_t ( ::CTraceFilterWorldAndPropsOnly::* )(  )const)( &::CTraceFilterWorldAndPropsOnly::GetTraceType ) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterWorldAndPropsOnly::* )( ::IHandleEntity *,int ) )(&::CTraceFilterWorldAndPropsOnly::ShouldHitEntity)
-            , (bool ( CTraceFilterWorldAndPropsOnly_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterWorldAndPropsOnly_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterWorldAndPropsOnly::* )( ::IHandleEntity *,int ))(&::CTraceFilterWorldAndPropsOnly::ShouldHitEntity)
+            , (bool ( CTraceFilterWorldAndPropsOnly_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterWorldAndPropsOnly_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pServerEntity"), bp::arg("contentsMask") ) );
 
     bp::class_< CTraceFilterWorldOnly_wrapper, bp::bases< ITraceFilter > >( "CTraceFilterWorldOnly" )    
         .def( 
             "GetTraceType"
-            , (::TraceType_t ( ::CTraceFilterWorldOnly::* )(  ) const)( &::CTraceFilterWorldOnly::GetTraceType ) )    
+            , (::TraceType_t ( ::CTraceFilterWorldOnly::* )(  )const)( &::CTraceFilterWorldOnly::GetTraceType ) )    
         .def( 
             "ShouldHitEntity"
-            , (bool ( ::CTraceFilterWorldOnly::* )( ::IHandleEntity *,int ) )(&::CTraceFilterWorldOnly::ShouldHitEntity)
-            , (bool ( CTraceFilterWorldOnly_wrapper::* )( ::IHandleEntity *,int ) )(&CTraceFilterWorldOnly_wrapper::default_ShouldHitEntity)
+            , (bool ( ::CTraceFilterWorldOnly::* )( ::IHandleEntity *,int ))(&::CTraceFilterWorldOnly::ShouldHitEntity)
+            , (bool ( CTraceFilterWorldOnly_wrapper::* )( ::IHandleEntity *,int ))(&CTraceFilterWorldOnly_wrapper::default_ShouldHitEntity)
             , ( bp::arg("pServerEntity"), bp::arg("contentsMask") ) );
 
     { //::PyRay_t
@@ -3103,7 +3103,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::implicitly_convertible< Ray_t const &, PyRay_t >();
         { //::PyRay_t::Init
         
-            typedef void ( ::PyRay_t::*Init_function_type )( ::Vector const &,::Vector const & ) ;
+            typedef void ( ::PyRay_t::*Init_function_type)( ::Vector const &,::Vector const & ) ;
             
             Ray_t_exposer.def( 
                 "Init"
@@ -3113,7 +3113,7 @@ BOOST_PYTHON_MODULE(_utils){
         }
         { //::PyRay_t::Init
         
-            typedef void ( ::PyRay_t::*Init_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const & ) ;
+            typedef void ( ::PyRay_t::*Init_function_type)( ::Vector const &,::Vector const &,::Vector const &,::Vector const & ) ;
             
             Ray_t_exposer.def( 
                 "Init"
@@ -3123,7 +3123,7 @@ BOOST_PYTHON_MODULE(_utils){
         }
         { //::PyRay_t::InvDelta
         
-            typedef ::Vector ( ::PyRay_t::*InvDelta_function_type )(  ) const;
+            typedef ::Vector ( ::PyRay_t::*InvDelta_function_type)(  ) const;
             
             Ray_t_exposer.def( 
                 "InvDelta"
@@ -3132,7 +3132,7 @@ BOOST_PYTHON_MODULE(_utils){
         }
         { //::PyRay_t::ToRay
         
-            typedef ::Ray_t ( ::PyRay_t::*ToRay_function_type )(  ) const;
+            typedef ::Ray_t ( ::PyRay_t::*ToRay_function_type)(  ) const;
             
             Ray_t_exposer.def( 
                 "ToRay"
@@ -3182,7 +3182,7 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::ComputePointFromBarycentric
     
-        typedef void ( *ComputePointFromBarycentric_function_type )( ::Vector2D const &,::Vector2D const &,::Vector2D const &,float,float,::Vector2D & );
+        typedef void ( *ComputePointFromBarycentric_function_type )( ::Vector const &,::Vector const &,::Vector const &,float,float,::Vector & );
         
         bp::def( 
             "ComputePointFromBarycentric"
@@ -3193,7 +3193,7 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::ComputePointFromBarycentric
     
-        typedef void ( *ComputePointFromBarycentric_function_type )( ::Vector const &,::Vector const &,::Vector const &,float,float,::Vector & );
+        typedef void ( *ComputePointFromBarycentric_function_type )( ::Vector2D const &,::Vector2D const &,::Vector2D const &,float,float,::Vector2D & );
         
         bp::def( 
             "ComputePointFromBarycentric"
@@ -3215,17 +3215,6 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::ENTINDEX
     
-        typedef int ( *ENTINDEX_function_type )( ::CBaseEntity * );
-        
-        bp::def( 
-            "ENTINDEX"
-            , ENTINDEX_function_type( &::ENTINDEX )
-            , ( bp::arg("pEnt") ) );
-    
-    }
-
-    { //::ENTINDEX
-    
         typedef int ( *ENTINDEX_function_type )( ::edict_t * );
         
         bp::def( 
@@ -3235,25 +3224,14 @@ BOOST_PYTHON_MODULE(_utils){
     
     }
 
-    { //::ExplosionCreate
+    { //::ENTINDEX
     
-        typedef void ( *ExplosionCreate_function_type )( ::Vector const &,::QAngle const &,::CBaseEntity *,int,int,bool,::EHANDLE const *,::Class_T,float,bool,bool,int );
+        typedef int ( *ENTINDEX_function_type )( ::CBaseEntity * );
         
         bp::def( 
-            "ExplosionCreate"
-            , ExplosionCreate_function_type( &::ExplosionCreate )
-            , ( bp::arg("center"), bp::arg("angles"), bp::arg("pOwner"), bp::arg("magnitude"), bp::arg("radius"), bp::arg("doDamage"), bp::arg("ignoredEntity"), bp::arg("ignoredClass"), bp::arg("flExplosionForce")=0.0f, bp::arg("bSurfaceOnly")=(bool)(false), bp::arg("bSilent")=(bool)(false), bp::arg("iCustomDamageType")=(int)(-0x000000001) ) );
-    
-    }
-
-    { //::ExplosionCreate
-    
-        typedef void ( *ExplosionCreate_function_type )( ::Vector const &,::QAngle const &,::CBaseEntity *,int,int,int,float,::CBaseEntity *,int,::EHANDLE const *,::Class_T );
-        
-        bp::def( 
-            "ExplosionCreate"
-            , ExplosionCreate_function_type( &::ExplosionCreate )
-            , ( bp::arg("center"), bp::arg("angles"), bp::arg("pOwner"), bp::arg("magnitude"), bp::arg("radius"), bp::arg("nSpawnFlags"), bp::arg("flExplosionForce")=0.0f, bp::arg("pInflictor")=bp::object(), bp::arg("iCustomDamageType")=(int)(-0x000000001), bp::arg("ignoredEntity")=bp::object(), bp::arg("ignoredClass")=::CLASS_NONE ) );
+            "ENTINDEX"
+            , ENTINDEX_function_type( &::ENTINDEX )
+            , ( bp::arg("pEnt") ) );
     
     }
 
@@ -3264,7 +3242,29 @@ BOOST_PYTHON_MODULE(_utils){
         bp::def( 
             "ExplosionCreate"
             , ExplosionCreate_function_type( &::ExplosionCreate )
-            , ( bp::arg("center"), bp::arg("angles"), bp::arg("pOwner"), bp::arg("magnitude"), bp::arg("radius"), bp::arg("doDamage"), bp::arg("flExplosionForce")=0.0f, bp::arg("bSurfaceOnly")=(bool)(false), bp::arg("bSilent")=(bool)(false), bp::arg("iCustomDamageType")=(int)(-0x000000001) ) );
+            , ( bp::arg("center"), bp::arg("angles"), bp::arg("pOwner"), bp::arg("magnitude"), bp::arg("radius"), bp::arg("doDamage"), bp::arg("flExplosionForce")=0.F, bp::arg("bSurfaceOnly")=(bool)(false), bp::arg("bSilent")=(bool)(false), bp::arg("iCustomDamageType")=(int)(-1) ) );
+    
+    }
+
+    { //::ExplosionCreate
+    
+        typedef void ( *ExplosionCreate_function_type )( ::Vector const &,::QAngle const &,::CBaseEntity *,int,int,int,float,::CBaseEntity *,int,::EHANDLE const *,::Class_T );
+        
+        bp::def( 
+            "ExplosionCreate"
+            , ExplosionCreate_function_type( &::ExplosionCreate )
+            , ( bp::arg("center"), bp::arg("angles"), bp::arg("pOwner"), bp::arg("magnitude"), bp::arg("radius"), bp::arg("nSpawnFlags"), bp::arg("flExplosionForce")=0.F, bp::arg("pInflictor")=bp::object(), bp::arg("iCustomDamageType")=(int)(-1), bp::arg("ignoredEntity")=bp::object(), bp::arg("ignoredClass")=::Class_T::CLASS_NONE ) );
+    
+    }
+
+    { //::ExplosionCreate
+    
+        typedef void ( *ExplosionCreate_function_type )( ::Vector const &,::QAngle const &,::CBaseEntity *,int,int,bool,::EHANDLE const *,::Class_T,float,bool,bool,int );
+        
+        bp::def( 
+            "ExplosionCreate"
+            , ExplosionCreate_function_type( &::ExplosionCreate )
+            , ( bp::arg("center"), bp::arg("angles"), bp::arg("pOwner"), bp::arg("magnitude"), bp::arg("radius"), bp::arg("doDamage"), bp::arg("ignoredEntity"), bp::arg("ignoredClass"), bp::arg("flExplosionForce")=0.F, bp::arg("bSurfaceOnly")=(bool)(false), bp::arg("bSilent")=(bool)(false), bp::arg("iCustomDamageType")=(int)(-1) ) );
     
     }
 
@@ -3315,12 +3315,12 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::IntersectRayWithBox
     
-        typedef bool ( *IntersectRayWithBox_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float,::BoxTraceInfo_t * );
+        typedef bool ( *IntersectRayWithBox_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float,::CBaseTrace *,float * );
         
         bp::def( 
             "IntersectRayWithBox"
             , IntersectRayWithBox_function_type( &::IntersectRayWithBox )
-            , ( bp::arg("vecRayStart"), bp::arg("vecRayDelta"), bp::arg("boxMins"), bp::arg("boxMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
+            , ( bp::arg("rayStart"), bp::arg("rayDelta"), bp::arg("boxMins"), bp::arg("boxMaxs"), bp::arg("epsilon"), bp::arg("pTrace"), bp::arg("pFractionLeftSolid")=bp::object() ) );
     
     }
 
@@ -3337,45 +3337,23 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::IntersectRayWithBox
     
-        typedef bool ( *IntersectRayWithBox_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float,::CBaseTrace *,float * );
+        typedef bool ( *IntersectRayWithBox_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float,::BoxTraceInfo_t * );
         
         bp::def( 
             "IntersectRayWithBox"
             , IntersectRayWithBox_function_type( &::IntersectRayWithBox )
-            , ( bp::arg("rayStart"), bp::arg("rayDelta"), bp::arg("boxMins"), bp::arg("boxMaxs"), bp::arg("epsilon"), bp::arg("pTrace"), bp::arg("pFractionLeftSolid")=bp::object() ) );
+            , ( bp::arg("vecRayStart"), bp::arg("vecRayDelta"), bp::arg("boxMins"), bp::arg("boxMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
     
     }
 
     { //::IntersectRayWithOBB
     
-        typedef bool ( *IntersectRayWithOBB_function_type )( ::Vector const &,::Vector const &,::matrix3x4_t const &,::Vector const &,::Vector const &,float,::BoxTraceInfo_t * );
+        typedef bool ( *IntersectRayWithOBB_function_type )( ::Vector const &,::Vector const &,::matrix3x4_t const &,::Vector const &,::Vector const &,float,::CBaseTrace * );
         
         bp::def( 
             "IntersectRayWithOBB"
             , IntersectRayWithOBB_function_type( &::IntersectRayWithOBB )
             , ( bp::arg("vecRayStart"), bp::arg("vecRayDelta"), bp::arg("matOBBToWorld"), bp::arg("vecOBBMins"), bp::arg("vecOBBMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
-    
-    }
-
-    { //::IntersectRayWithOBB
-    
-        typedef bool ( *IntersectRayWithOBB_function_type )( ::Ray_t const &,::matrix3x4_t const &,::Vector const &,::Vector const &,float,::CBaseTrace * );
-        
-        bp::def( 
-            "IntersectRayWithOBB"
-            , IntersectRayWithOBB_function_type( &::IntersectRayWithOBB )
-            , ( bp::arg("ray"), bp::arg("matOBBToWorld"), bp::arg("vecOBBMins"), bp::arg("vecOBBMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
-    
-    }
-
-    { //::IntersectRayWithOBB
-    
-        typedef bool ( *IntersectRayWithOBB_function_type )( ::Ray_t const &,::Vector const &,::QAngle const &,::Vector const &,::Vector const &,float,::CBaseTrace * );
-        
-        bp::def( 
-            "IntersectRayWithOBB"
-            , IntersectRayWithOBB_function_type( &::IntersectRayWithOBB )
-            , ( bp::arg("ray"), bp::arg("vecBoxOrigin"), bp::arg("angBoxRotation"), bp::arg("vecOBBMins"), bp::arg("vecOBBMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
     
     }
 
@@ -3392,7 +3370,29 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::IntersectRayWithOBB
     
-        typedef bool ( *IntersectRayWithOBB_function_type )( ::Vector const &,::Vector const &,::matrix3x4_t const &,::Vector const &,::Vector const &,float,::CBaseTrace * );
+        typedef bool ( *IntersectRayWithOBB_function_type )( ::Ray_t const &,::Vector const &,::QAngle const &,::Vector const &,::Vector const &,float,::CBaseTrace * );
+        
+        bp::def( 
+            "IntersectRayWithOBB"
+            , IntersectRayWithOBB_function_type( &::IntersectRayWithOBB )
+            , ( bp::arg("ray"), bp::arg("vecBoxOrigin"), bp::arg("angBoxRotation"), bp::arg("vecOBBMins"), bp::arg("vecOBBMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
+    
+    }
+
+    { //::IntersectRayWithOBB
+    
+        typedef bool ( *IntersectRayWithOBB_function_type )( ::Ray_t const &,::matrix3x4_t const &,::Vector const &,::Vector const &,float,::CBaseTrace * );
+        
+        bp::def( 
+            "IntersectRayWithOBB"
+            , IntersectRayWithOBB_function_type( &::IntersectRayWithOBB )
+            , ( bp::arg("ray"), bp::arg("matOBBToWorld"), bp::arg("vecOBBMins"), bp::arg("vecOBBMaxs"), bp::arg("flTolerance"), bp::arg("pTrace") ) );
+    
+    }
+
+    { //::IntersectRayWithOBB
+    
+        typedef bool ( *IntersectRayWithOBB_function_type )( ::Vector const &,::Vector const &,::matrix3x4_t const &,::Vector const &,::Vector const &,float,::BoxTraceInfo_t * );
         
         bp::def( 
             "IntersectRayWithOBB"
@@ -3403,12 +3403,12 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::IntersectRayWithPlane
     
-        typedef float ( *IntersectRayWithPlane_function_type )( ::Vector const &,::Vector const &,::Vector const &,float );
+        typedef float ( *IntersectRayWithPlane_function_type )( ::Ray_t const &,::cplane_t const & );
         
         bp::def( 
             "IntersectRayWithPlane"
             , IntersectRayWithPlane_function_type( &::IntersectRayWithPlane )
-            , ( bp::arg("org"), bp::arg("dir"), bp::arg("normal"), bp::arg("dist") ) );
+            , ( bp::arg("ray"), bp::arg("plane") ) );
     
     }
 
@@ -3425,12 +3425,12 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::IntersectRayWithPlane
     
-        typedef float ( *IntersectRayWithPlane_function_type )( ::Ray_t const &,::cplane_t const & );
+        typedef float ( *IntersectRayWithPlane_function_type )( ::Vector const &,::Vector const &,::Vector const &,float );
         
         bp::def( 
             "IntersectRayWithPlane"
             , IntersectRayWithPlane_function_type( &::IntersectRayWithPlane )
-            , ( bp::arg("ray"), bp::arg("plane") ) );
+            , ( bp::arg("org"), bp::arg("dir"), bp::arg("normal"), bp::arg("dist") ) );
     
     }
 
@@ -3491,12 +3491,12 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::IsBoxIntersectingRay
     
-        typedef bool ( *IsBoxIntersectingRay_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,::Vector const &,float );
+        typedef bool ( *IsBoxIntersectingRay_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float );
         
         bp::def( 
             "IsBoxIntersectingRay"
             , IsBoxIntersectingRay_function_type( &::IsBoxIntersectingRay )
-            , ( bp::arg("boxMin"), bp::arg("boxMax"), bp::arg("origin"), bp::arg("delta"), bp::arg("invDelta"), bp::arg("flTolerance")=0.0f ) );
+            , ( bp::arg("boxMin"), bp::arg("boxMax"), bp::arg("origin"), bp::arg("delta"), bp::arg("flTolerance")=0.F ) );
     
     }
 
@@ -3507,18 +3507,18 @@ BOOST_PYTHON_MODULE(_utils){
         bp::def( 
             "IsBoxIntersectingRay"
             , IsBoxIntersectingRay_function_type( &::IsBoxIntersectingRay )
-            , ( bp::arg("boxMin"), bp::arg("boxMax"), bp::arg("ray"), bp::arg("flTolerance")=0.0f ) );
+            , ( bp::arg("boxMin"), bp::arg("boxMax"), bp::arg("ray"), bp::arg("flTolerance")=0.F ) );
     
     }
 
     { //::IsBoxIntersectingRay
     
-        typedef bool ( *IsBoxIntersectingRay_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float );
+        typedef bool ( *IsBoxIntersectingRay_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,::Vector const &,float );
         
         bp::def( 
             "IsBoxIntersectingRay"
             , IsBoxIntersectingRay_function_type( &::IsBoxIntersectingRay )
-            , ( bp::arg("boxMin"), bp::arg("boxMax"), bp::arg("origin"), bp::arg("delta"), bp::arg("flTolerance")=0.0f ) );
+            , ( bp::arg("boxMin"), bp::arg("boxMax"), bp::arg("origin"), bp::arg("delta"), bp::arg("invDelta"), bp::arg("flTolerance")=0.F ) );
     
     }
 
@@ -3573,7 +3573,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::def( 
             "IsOBBIntersectingOBB"
             , IsOBBIntersectingOBB_function_type( &::IsOBBIntersectingOBB )
-            , ( bp::arg("vecOrigin1"), bp::arg("vecAngles1"), bp::arg("boxMin1"), bp::arg("boxMax1"), bp::arg("vecOrigin2"), bp::arg("vecAngles2"), bp::arg("boxMin2"), bp::arg("boxMax2"), bp::arg("flTolerance")=0.0f ) );
+            , ( bp::arg("vecOrigin1"), bp::arg("vecAngles1"), bp::arg("boxMin1"), bp::arg("boxMax1"), bp::arg("vecOrigin2"), bp::arg("vecAngles2"), bp::arg("boxMin2"), bp::arg("boxMax2"), bp::arg("flTolerance")=0.F ) );
     
     }
 
@@ -3617,7 +3617,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::def( 
             "IsRayIntersectingSphere"
             , IsRayIntersectingSphere_function_type( &::IsRayIntersectingSphere )
-            , ( bp::arg("vecRayOrigin"), bp::arg("vecRayDelta"), bp::arg("vecSphereCenter"), bp::arg("flRadius"), bp::arg("flTolerance")=0.0f ) );
+            , ( bp::arg("vecRayOrigin"), bp::arg("vecRayDelta"), bp::arg("vecSphereCenter"), bp::arg("flRadius"), bp::arg("flTolerance")=0.F ) );
     
     }
 
@@ -4109,7 +4109,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::def( 
             "UTIL_EmitAmbientSound"
             , UTIL_EmitAmbientSound_function_type( &::UTIL_EmitAmbientSound )
-            , ( bp::arg("entindex"), bp::arg("vecOrigin"), bp::arg("samp"), bp::arg("vol"), bp::arg("soundlevel"), bp::arg("fFlags"), bp::arg("pitch"), bp::arg("soundtime")=0.0f, bp::arg("duration")=bp::object() ) );
+            , ( bp::arg("entindex"), bp::arg("vecOrigin"), bp::arg("samp"), bp::arg("vol"), bp::arg("soundlevel"), bp::arg("fFlags"), bp::arg("pitch"), bp::arg("soundtime")=0.F, bp::arg("duration")=bp::object() ) );
     
     }
 
@@ -4204,24 +4204,24 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_FindClientInPVS
     
-        typedef ::CBaseEntity * ( *UTIL_FindClientInPVS_function_type )( ::Vector const &,::Vector const & );
-        
-        bp::def( 
-            "UTIL_FindClientInPVS"
-            , UTIL_FindClientInPVS_function_type( &::UTIL_FindClientInPVS )
-            , ( bp::arg("vecBoxMins"), bp::arg("vecBoxMaxs") )
-            , bp::return_value_policy< bp::return_by_value >() );
-    
-    }
-
-    { //::UTIL_FindClientInPVS
-    
         typedef ::edict_t * ( *UTIL_FindClientInPVS_function_type )( ::edict_t * );
         
         bp::def( 
             "UTIL_FindClientInPVS"
             , UTIL_FindClientInPVS_function_type( &::UTIL_FindClientInPVS )
             , ( bp::arg("pEdict") )
+            , bp::return_value_policy< bp::return_by_value >() );
+    
+    }
+
+    { //::UTIL_FindClientInPVS
+    
+        typedef ::CBaseEntity * ( *UTIL_FindClientInPVS_function_type )( ::Vector const &,::Vector const & );
+        
+        bp::def( 
+            "UTIL_FindClientInPVS"
+            , UTIL_FindClientInPVS_function_type( &::UTIL_FindClientInPVS )
+            , ( bp::arg("vecBoxMins"), bp::arg("vecBoxMaxs") )
             , bp::return_value_policy< bp::return_by_value >() );
     
     }
@@ -4390,23 +4390,23 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_IsFacingWithinTolerance
     
-        typedef bool ( *UTIL_IsFacingWithinTolerance_function_type )( ::CBaseEntity *,::CBaseEntity *,float,float * );
-        
-        bp::def( 
-            "UTIL_IsFacingWithinTolerance"
-            , UTIL_IsFacingWithinTolerance_function_type( &::UTIL_IsFacingWithinTolerance )
-            , ( bp::arg("pViewer"), bp::arg("pTarget"), bp::arg("flDotTolerance"), bp::arg("pflDot")=bp::object() ) );
-    
-    }
-
-    { //::UTIL_IsFacingWithinTolerance
-    
         typedef bool ( *UTIL_IsFacingWithinTolerance_function_type )( ::CBaseEntity *,::Vector const &,float,float * );
         
         bp::def( 
             "UTIL_IsFacingWithinTolerance"
             , UTIL_IsFacingWithinTolerance_function_type( &::UTIL_IsFacingWithinTolerance )
             , ( bp::arg("pViewer"), bp::arg("vecPosition"), bp::arg("flDotTolerance"), bp::arg("pflDot")=bp::object() ) );
+    
+    }
+
+    { //::UTIL_IsFacingWithinTolerance
+    
+        typedef bool ( *UTIL_IsFacingWithinTolerance_function_type )( ::CBaseEntity *,::CBaseEntity *,float,float * );
+        
+        bp::def( 
+            "UTIL_IsFacingWithinTolerance"
+            , UTIL_IsFacingWithinTolerance_function_type( &::UTIL_IsFacingWithinTolerance )
+            , ( bp::arg("pViewer"), bp::arg("pTarget"), bp::arg("flDotTolerance"), bp::arg("pflDot")=bp::object() ) );
     
     }
 
@@ -4466,7 +4466,7 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_LoadAndSpawnEntitiesFromScript
     
-        typedef bool ( *UTIL_LoadAndSpawnEntitiesFromScript_function_type )( ::CUtlVector< CBaseEntity*, CUtlMemory< CBaseEntity*, int > > &,char const *,char const *,bool );
+        typedef bool ( *UTIL_LoadAndSpawnEntitiesFromScript_function_type )( ::CUtlVector< CBaseEntity *, CUtlMemory< CBaseEntity *, int > > &,char const *,char const *,bool );
         
         bp::def( 
             "UTIL_LoadAndSpawnEntitiesFromScript"
@@ -4488,23 +4488,23 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_ParentToWorldSpace
     
-        typedef void ( *UTIL_ParentToWorldSpace_function_type )( ::CBaseEntity *,::Vector &,::Quaternion & );
-        
-        bp::def( 
-            "UTIL_ParentToWorldSpace"
-            , UTIL_ParentToWorldSpace_function_type( &::UTIL_ParentToWorldSpace )
-            , ( bp::arg("pEntity"), bp::arg("vecPosition"), bp::arg("quat") ) );
-    
-    }
-
-    { //::UTIL_ParentToWorldSpace
-    
         typedef void ( *UTIL_ParentToWorldSpace_function_type )( ::CBaseEntity *,::Vector &,::QAngle & );
         
         bp::def( 
             "UTIL_ParentToWorldSpace"
             , UTIL_ParentToWorldSpace_function_type( &::UTIL_ParentToWorldSpace )
             , ( bp::arg("pEntity"), bp::arg("vecPosition"), bp::arg("vecAngles") ) );
+    
+    }
+
+    { //::UTIL_ParentToWorldSpace
+    
+        typedef void ( *UTIL_ParentToWorldSpace_function_type )( ::CBaseEntity *,::Vector &,::Quaternion & );
+        
+        bp::def( 
+            "UTIL_ParentToWorldSpace"
+            , UTIL_ParentToWorldSpace_function_type( &::UTIL_ParentToWorldSpace )
+            , ( bp::arg("pEntity"), bp::arg("vecPosition"), bp::arg("quat") ) );
     
     }
 
@@ -4723,23 +4723,23 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_PyTraceRay
     
-        typedef void ( *UTIL_TraceRay_function_type )( ::PyRay_t const &,unsigned int,::ITraceFilter &,::trace_t * );
-        
-        bp::def( 
-            "UTIL_TraceRay"
-            , UTIL_TraceRay_function_type( &::UTIL_PyTraceRay )
-            , ( bp::arg("ray"), bp::arg("mask"), bp::arg("traceFilter"), bp::arg("ptr") ) );
-    
-    }
-
-    { //::UTIL_PyTraceRay
-    
         typedef void ( *UTIL_TraceRay_function_type )( ::PyRay_t const &,unsigned int,::CBaseEntity const *,int,::trace_t * );
         
         bp::def( 
             "UTIL_TraceRay"
             , UTIL_TraceRay_function_type( &::UTIL_PyTraceRay )
             , ( bp::arg("ray"), bp::arg("mask"), bp::arg("ignore"), bp::arg("collisionGroup"), bp::arg("ptr") ) );
+    
+    }
+
+    { //::UTIL_PyTraceRay
+    
+        typedef void ( *UTIL_TraceRay_function_type )( ::PyRay_t const &,unsigned int,::ITraceFilter &,::trace_t * );
+        
+        bp::def( 
+            "UTIL_TraceRay"
+            , UTIL_TraceRay_function_type( &::UTIL_PyTraceRay )
+            , ( bp::arg("ray"), bp::arg("mask"), bp::arg("traceFilter"), bp::arg("ptr") ) );
     
     }
 
@@ -4755,7 +4755,7 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_Remove
     
-        typedef void ( *UTIL_Remove_function_type )( ::CBaseEntity * );
+        typedef void ( *UTIL_Remove_function_type )( ::IServerNetworkable * );
         
         bp::def( 
             "UTIL_Remove"
@@ -4766,7 +4766,7 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_Remove
     
-        typedef void ( *UTIL_Remove_function_type )( ::IServerNetworkable * );
+        typedef void ( *UTIL_Remove_function_type )( ::CBaseEntity * );
         
         bp::def( 
             "UTIL_Remove"
@@ -4979,7 +4979,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::def( 
             "UTIL_SnapDirectionToAxis"
             , UTIL_SnapDirectionToAxis_function_type( &::UTIL_SnapDirectionToAxis )
-            , ( bp::arg("direction"), bp::arg("epsilon")=2.00000009499490261077880859375e-3f ) );
+            , ( bp::arg("direction"), bp::arg("epsilon")=0.00200000009F ) );
     
     }
 
@@ -5051,12 +5051,12 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_TraceEntity
     
-        typedef void ( *UTIL_TraceEntity_function_type )( ::CBaseEntity *,::Vector const &,::Vector const &,unsigned int,::IHandleEntity const *,int,::trace_t * );
+        typedef void ( *UTIL_TraceEntity_function_type )( ::CBaseEntity *,::Vector const &,::Vector const &,unsigned int,::trace_t * );
         
         bp::def( 
             "UTIL_TraceEntity"
             , UTIL_TraceEntity_function_type( &::UTIL_TraceEntity )
-            , ( bp::arg("pEntity"), bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("ignore"), bp::arg("collisionGroup"), bp::arg("ptr") ) );
+            , ( bp::arg("pEntity"), bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("ptr") ) );
     
     }
 
@@ -5073,23 +5073,12 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_TraceEntity
     
-        typedef void ( *UTIL_TraceEntity_function_type )( ::CBaseEntity *,::Vector const &,::Vector const &,unsigned int,::trace_t * );
+        typedef void ( *UTIL_TraceEntity_function_type )( ::CBaseEntity *,::Vector const &,::Vector const &,unsigned int,::IHandleEntity const *,int,::trace_t * );
         
         bp::def( 
             "UTIL_TraceEntity"
             , UTIL_TraceEntity_function_type( &::UTIL_TraceEntity )
-            , ( bp::arg("pEntity"), bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("ptr") ) );
-    
-    }
-
-    { //::UTIL_TraceHull
-    
-        typedef void ( *UTIL_TraceHull_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,unsigned int,::ITraceFilter *,::trace_t * );
-        
-        bp::def( 
-            "UTIL_TraceHull"
-            , UTIL_TraceHull_function_type( &::UTIL_TraceHull )
-            , ( bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("hullMin"), bp::arg("hullMax"), bp::arg("mask"), bp::arg("pFilter"), bp::arg("ptr") ) );
+            , ( bp::arg("pEntity"), bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("ignore"), bp::arg("collisionGroup"), bp::arg("ptr") ) );
     
     }
 
@@ -5104,14 +5093,14 @@ BOOST_PYTHON_MODULE(_utils){
     
     }
 
-    { //::UTIL_TraceLine
+    { //::UTIL_TraceHull
     
-        typedef void ( *UTIL_TraceLine_function_type )( ::Vector const &,::Vector const &,unsigned int,::ITraceFilter *,::trace_t * );
+        typedef void ( *UTIL_TraceHull_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,unsigned int,::ITraceFilter *,::trace_t * );
         
         bp::def( 
-            "UTIL_TraceLine"
-            , UTIL_TraceLine_function_type( &::UTIL_TraceLine )
-            , ( bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("pFilter"), bp::arg("ptr") ) );
+            "UTIL_TraceHull"
+            , UTIL_TraceHull_function_type( &::UTIL_TraceHull )
+            , ( bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("hullMin"), bp::arg("hullMax"), bp::arg("mask"), bp::arg("pFilter"), bp::arg("ptr") ) );
     
     }
 
@@ -5123,6 +5112,17 @@ BOOST_PYTHON_MODULE(_utils){
             "UTIL_TraceLine"
             , UTIL_TraceLine_function_type( &::UTIL_TraceLine )
             , ( bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("ignore"), bp::arg("collisionGroup"), bp::arg("ptr") ) );
+    
+    }
+
+    { //::UTIL_TraceLine
+    
+        typedef void ( *UTIL_TraceLine_function_type )( ::Vector const &,::Vector const &,unsigned int,::ITraceFilter *,::trace_t * );
+        
+        bp::def( 
+            "UTIL_TraceLine"
+            , UTIL_TraceLine_function_type( &::UTIL_TraceLine )
+            , ( bp::arg("vecAbsStart"), bp::arg("vecAbsEnd"), bp::arg("mask"), bp::arg("pFilter"), bp::arg("ptr") ) );
     
     }
 
@@ -5144,7 +5144,7 @@ BOOST_PYTHON_MODULE(_utils){
         bp::def( 
             "UTIL_Tracer"
             , UTIL_Tracer_function_type( &::UTIL_Tracer )
-            , ( bp::arg("vecStart"), bp::arg("vecEnd"), bp::arg("iEntIndex")=(int)(0), bp::arg("iAttachment")=(int)(-0x000000001), bp::arg("flVelocity")=0, bp::arg("bWhiz")=(bool)(false), bp::arg("pCustomTracerName")=bp::object(), bp::arg("iParticleID")=(int)(0) ) );
+            , ( bp::arg("vecStart"), bp::arg("vecEnd"), bp::arg("iEntIndex")=(int)(0), bp::arg("iAttachment")=(int)(-1), bp::arg("flVelocity")=0, bp::arg("bWhiz")=(bool)(false), bp::arg("pCustomTracerName")=bp::object(), bp::arg("iParticleID")=(int)(0) ) );
     
     }
 
@@ -5172,17 +5172,6 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_VecToPitch
     
-        typedef float ( *UTIL_VecToPitch_function_type )( ::matrix3x4_t const &,::Vector const & );
-        
-        bp::def( 
-            "UTIL_VecToPitch"
-            , UTIL_VecToPitch_function_type( &::UTIL_VecToPitch )
-            , ( bp::arg("matrix"), bp::arg("vec") ) );
-    
-    }
-
-    { //::UTIL_VecToPitch
-    
         typedef float ( *UTIL_VecToPitch_function_type )( ::Vector const & );
         
         bp::def( 
@@ -5192,13 +5181,13 @@ BOOST_PYTHON_MODULE(_utils){
     
     }
 
-    { //::UTIL_VecToYaw
+    { //::UTIL_VecToPitch
     
-        typedef float ( *UTIL_VecToYaw_function_type )( ::matrix3x4_t const &,::Vector const & );
+        typedef float ( *UTIL_VecToPitch_function_type )( ::matrix3x4_t const &,::Vector const & );
         
         bp::def( 
-            "UTIL_VecToYaw"
-            , UTIL_VecToYaw_function_type( &::UTIL_VecToYaw )
+            "UTIL_VecToPitch"
+            , UTIL_VecToPitch_function_type( &::UTIL_VecToPitch )
             , ( bp::arg("matrix"), bp::arg("vec") ) );
     
     }
@@ -5211,6 +5200,17 @@ BOOST_PYTHON_MODULE(_utils){
             "UTIL_VecToYaw"
             , UTIL_VecToYaw_function_type( &::UTIL_VecToYaw )
             , ( bp::arg("vec") ) );
+    
+    }
+
+    { //::UTIL_VecToYaw
+    
+        typedef float ( *UTIL_VecToYaw_function_type )( ::matrix3x4_t const &,::Vector const & );
+        
+        bp::def( 
+            "UTIL_VecToYaw"
+            , UTIL_VecToYaw_function_type( &::UTIL_VecToYaw )
+            , ( bp::arg("matrix"), bp::arg("vec") ) );
     
     }
 
@@ -5238,23 +5238,23 @@ BOOST_PYTHON_MODULE(_utils){
 
     { //::UTIL_WorldToParentSpace
     
-        typedef void ( *UTIL_WorldToParentSpace_function_type )( ::CBaseEntity *,::Vector &,::Quaternion & );
-        
-        bp::def( 
-            "UTIL_WorldToParentSpace"
-            , UTIL_WorldToParentSpace_function_type( &::UTIL_WorldToParentSpace )
-            , ( bp::arg("pEntity"), bp::arg("vecPosition"), bp::arg("quat") ) );
-    
-    }
-
-    { //::UTIL_WorldToParentSpace
-    
         typedef void ( *UTIL_WorldToParentSpace_function_type )( ::CBaseEntity *,::Vector &,::QAngle & );
         
         bp::def( 
             "UTIL_WorldToParentSpace"
             , UTIL_WorldToParentSpace_function_type( &::UTIL_WorldToParentSpace )
             , ( bp::arg("pEntity"), bp::arg("vecPosition"), bp::arg("vecAngles") ) );
+    
+    }
+
+    { //::UTIL_WorldToParentSpace
+    
+        typedef void ( *UTIL_WorldToParentSpace_function_type )( ::CBaseEntity *,::Vector &,::Quaternion & );
+        
+        bp::def( 
+            "UTIL_WorldToParentSpace"
+            , UTIL_WorldToParentSpace_function_type( &::UTIL_WorldToParentSpace )
+            , ( bp::arg("pEntity"), bp::arg("vecPosition"), bp::arg("quat") ) );
     
     }
 

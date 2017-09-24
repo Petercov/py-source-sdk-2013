@@ -83,238 +83,238 @@ BOOST_PYTHON_MODULE(_physics){
         .def( bp::init< >() )    
         .def( 
             "AddSolidFlags"
-            , (void ( ::CCollisionProperty::* )( int ) )( &::CCollisionProperty::AddSolidFlags )
+            , (void ( ::CCollisionProperty::* )( int ))( &::CCollisionProperty::AddSolidFlags )
             , ( bp::arg("flags") ) )    
         .def( 
             "BoundingRadius"
-            , (float ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::BoundingRadius ) )    
+            , (float ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::BoundingRadius ) )    
         .def( 
             "BoundingRadius2D"
-            , (float ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::BoundingRadius2D ) )    
+            , (float ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::BoundingRadius2D ) )    
         .def( 
             "CalcDistanceFromPoint"
-            , (float ( ::CCollisionProperty::* )( ::Vector const & ) const)( &::CCollisionProperty::CalcDistanceFromPoint )
+            , (float ( ::CCollisionProperty::* )( ::Vector const & )const)( &::CCollisionProperty::CalcDistanceFromPoint )
             , ( bp::arg("vecWorldPt") ) )    
         .def( 
             "CalcNearestPoint"
-            , (void ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::CalcNearestPoint )
+            , (void ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::CalcNearestPoint )
             , ( bp::arg("vecWorldPt"), bp::arg("pVecNearestWorldPt") ) )    
         .def( 
             "ClearSolidFlags"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::ClearSolidFlags ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::ClearSolidFlags ) )    
         .def( 
             "CollisionSpaceMaxs"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::CollisionSpaceMaxs )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::CollisionSpaceMaxs )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "CollisionSpaceMins"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::CollisionSpaceMins )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::CollisionSpaceMins )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "CollisionToNormalizedSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::CollisionToNormalizedSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::CollisionToNormalizedSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "CollisionToWorldSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::CollisionToWorldSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::CollisionToWorldSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "CollisionToWorldTransform"
-            , (::matrix3x4_t const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::CollisionToWorldTransform )
+            , (::matrix3x4_t const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::CollisionToWorldTransform )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "ComputeSupportMap"
-            , (float ( ::CCollisionProperty::* )( ::Vector const & ) const)( &::CCollisionProperty::ComputeSupportMap )
+            , (float ( ::CCollisionProperty::* )( ::Vector const & )const)( &::CCollisionProperty::ComputeSupportMap )
             , ( bp::arg("vecDirection") ) )    
         .def( 
             "CreatePartitionHandle"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::CreatePartitionHandle ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::CreatePartitionHandle ) )    
         .def( 
             "DestroyPartitionHandle"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::DestroyPartitionHandle ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::DestroyPartitionHandle ) )    
         .def( 
             "DoesRotationInvalidateSurroundingBox"
-            , (bool ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::DoesRotationInvalidateSurroundingBox ) )    
+            , (bool ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::DoesRotationInvalidateSurroundingBox ) )    
         .def( 
             "DoesVPhysicsInvalidateSurroundingBox"
-            , (bool ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::DoesVPhysicsInvalidateSurroundingBox ) )    
+            , (bool ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::DoesVPhysicsInvalidateSurroundingBox ) )    
         .def( 
             "GetCollisionAngles"
-            , (::QAngle const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetCollisionAngles )
+            , (::QAngle const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetCollisionAngles )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetCollisionGroup"
-            , (int ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetCollisionGroup ) )    
+            , (int ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetCollisionGroup ) )    
         .def( 
             "GetCollisionModel"
-            , (::model_t const * ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::GetCollisionModel )
+            , (::model_t const * ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::GetCollisionModel )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetCollisionModelIndex"
-            , (int ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::GetCollisionModelIndex ) )    
+            , (int ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::GetCollisionModelIndex ) )    
         .def( 
             "GetCollisionOrigin"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetCollisionOrigin )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetCollisionOrigin )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetPartitionHandle"
-            , (short unsigned int ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetPartitionHandle ) )    
+            , (short unsigned int ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetPartitionHandle ) )    
         .def( 
             "GetRootParentToWorldTransform"
-            , (::matrix3x4_t const * ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetRootParentToWorldTransform )
+            , (::matrix3x4_t const * ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetRootParentToWorldTransform )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetSolid"
-            , (::SolidType_t ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetSolid ) )    
+            , (::SolidType_t ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetSolid ) )    
         .def( 
             "GetSolidFlags"
-            , (int ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetSolidFlags ) )    
+            , (int ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetSolidFlags ) )    
         .def( 
             "Init"
-            , (void ( ::CCollisionProperty::* )( ::C_BaseEntity * ) )( &::CCollisionProperty::Init )
+            , (void ( ::CCollisionProperty::* )( ::C_BaseEntity * ))( &::CCollisionProperty::Init )
             , ( bp::arg("pEntity") ) )    
         .def( 
             "IsBoundsDefinedInEntitySpace"
-            , (bool ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::IsBoundsDefinedInEntitySpace ) )    
+            , (bool ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::IsBoundsDefinedInEntitySpace ) )    
         .def( 
             "IsPointInBounds"
-            , (bool ( ::CCollisionProperty::* )( ::Vector const & ) const)( &::CCollisionProperty::IsPointInBounds )
+            , (bool ( ::CCollisionProperty::* )( ::Vector const & )const)( &::CCollisionProperty::IsPointInBounds )
             , ( bp::arg("vecWorldPt") ) )    
         .def( 
             "IsSolid"
-            , (bool ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::IsSolid ) )    
+            , (bool ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::IsSolid ) )    
         .def( 
             "IsSolidFlagSet"
-            , (bool ( ::CCollisionProperty::* )( int ) const)( &::CCollisionProperty::IsSolidFlagSet )
+            , (bool ( ::CCollisionProperty::* )( int )const)( &::CCollisionProperty::IsSolidFlagSet )
             , ( bp::arg("flagMask") ) )    
         .def( 
             "MarkPartitionHandleDirty"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::MarkPartitionHandleDirty ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::MarkPartitionHandleDirty ) )    
         .def( 
             "MarkSurroundingBoundsDirty"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::MarkSurroundingBoundsDirty ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::MarkSurroundingBoundsDirty ) )    
         .def( 
             "NormalizedToCollisionSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::NormalizedToCollisionSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::NormalizedToCollisionSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "NormalizedToWorldSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::NormalizedToWorldSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::NormalizedToWorldSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OBBCenter"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::OBBCenter )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::OBBCenter )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OBBMaxs"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::OBBMaxs )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::OBBMaxs )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OBBMaxsPreScaled"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::OBBMaxsPreScaled )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::OBBMaxsPreScaled )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OBBMins"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::OBBMins )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::OBBMins )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OBBMinsPreScaled"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::OBBMinsPreScaled )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::OBBMinsPreScaled )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OBBSize"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::OBBSize )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::OBBSize )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "RandomPointInBounds"
-            , (void ( ::CCollisionProperty::* )( ::Vector const &,::Vector const &,::Vector * ) const)( &::CCollisionProperty::RandomPointInBounds )
+            , (void ( ::CCollisionProperty::* )( ::Vector const &,::Vector const &,::Vector * )const)( &::CCollisionProperty::RandomPointInBounds )
             , ( bp::arg("vecNormalizedMins"), bp::arg("vecNormalizedMaxs"), bp::arg("pPoint") ) )    
         .def( 
             "RefreshScaledCollisionBounds"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::RefreshScaledCollisionBounds ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::RefreshScaledCollisionBounds ) )    
         .def( 
             "RemoveSolidFlags"
-            , (void ( ::CCollisionProperty::* )( int ) )( &::CCollisionProperty::RemoveSolidFlags )
+            , (void ( ::CCollisionProperty::* )( int ))( &::CCollisionProperty::RemoveSolidFlags )
             , ( bp::arg("flags") ) )    
         .def( 
             "SetCollisionBounds"
-            , (void ( ::CCollisionProperty::* )( ::Vector const &,::Vector const & ) )( &::CCollisionProperty::SetCollisionBounds )
+            , (void ( ::CCollisionProperty::* )( ::Vector const &,::Vector const & ))( &::CCollisionProperty::SetCollisionBounds )
             , ( bp::arg("mins"), bp::arg("maxs") ) )    
         .def( 
             "SetSolid"
-            , (void ( ::CCollisionProperty::* )( ::SolidType_t ) )( &::CCollisionProperty::SetSolid )
+            , (void ( ::CCollisionProperty::* )( ::SolidType_t ))( &::CCollisionProperty::SetSolid )
             , ( bp::arg("val") ) )    
         .def( 
             "SetSolidFlags"
-            , (void ( ::CCollisionProperty::* )( int ) )( &::CCollisionProperty::SetSolidFlags )
+            , (void ( ::CCollisionProperty::* )( int ))( &::CCollisionProperty::SetSolidFlags )
             , ( bp::arg("flags") ) )    
         .def( 
             "SetSurroundingBoundsType"
-            , (void ( ::CCollisionProperty::* )( ::SurroundingBoundsType_t,::Vector const *,::Vector const * ) )( &::CCollisionProperty::SetSurroundingBoundsType )
+            , (void ( ::CCollisionProperty::* )( ::SurroundingBoundsType_t,::Vector const *,::Vector const * ))( &::CCollisionProperty::SetSurroundingBoundsType )
             , ( bp::arg("type"), bp::arg("pMins")=bp::object(), bp::arg("pMaxs")=bp::object() ) )    
         .def( 
             "ShouldTouchTrigger"
-            , (bool ( ::CCollisionProperty::* )( int ) const)( &::CCollisionProperty::ShouldTouchTrigger )
+            , (bool ( ::CCollisionProperty::* )( int )const)( &::CCollisionProperty::ShouldTouchTrigger )
             , ( bp::arg("triggerSolidFlags") ) )    
         .def( 
             "TestCollision"
-            , (bool ( ::CCollisionProperty::* )( ::Ray_t const &,unsigned int,::trace_t & ) )( &::CCollisionProperty::TestCollision )
+            , (bool ( ::CCollisionProperty::* )( ::Ray_t const &,unsigned int,::trace_t & ))( &::CCollisionProperty::TestCollision )
             , ( bp::arg("ray"), bp::arg("fContentsMask"), bp::arg("tr") ) )    
         .def( 
             "TestHitboxes"
-            , (bool ( ::CCollisionProperty::* )( ::Ray_t const &,unsigned int,::trace_t & ) )( &::CCollisionProperty::TestHitboxes )
+            , (bool ( ::CCollisionProperty::* )( ::Ray_t const &,unsigned int,::trace_t & ))( &::CCollisionProperty::TestHitboxes )
             , ( bp::arg("ray"), bp::arg("fContentsMask"), bp::arg("tr") ) )    
         .def( 
             "UpdatePartition"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::UpdatePartition ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::UpdatePartition ) )    
         .def( 
             "UseTriggerBounds"
-            , (void ( ::CCollisionProperty::* )( bool,float ) )( &::CCollisionProperty::UseTriggerBounds )
-            , ( bp::arg("bEnable"), bp::arg("flBloat")=0.0f ) )    
+            , (void ( ::CCollisionProperty::* )( bool,float ))( &::CCollisionProperty::UseTriggerBounds )
+            , ( bp::arg("bEnable"), bp::arg("flBloat")=0.F ) )    
         .def( 
             "WorldDirectionToCollisionSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::WorldDirectionToCollisionSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::WorldDirectionToCollisionSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "WorldSpaceAABB"
-            , (void ( ::CCollisionProperty::* )( ::Vector *,::Vector * ) const)( &::CCollisionProperty::WorldSpaceAABB )
+            , (void ( ::CCollisionProperty::* )( ::Vector *,::Vector * )const)( &::CCollisionProperty::WorldSpaceAABB )
             , ( bp::arg("pWorldMins"), bp::arg("pWorldMaxs") ) )    
         .def( 
             "WorldSpaceCenter"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::WorldSpaceCenter )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::WorldSpaceCenter )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "WorldSpaceSurroundingBounds"
-            , (void ( ::CCollisionProperty::* )( ::Vector *,::Vector * ) )( &::CCollisionProperty::WorldSpaceSurroundingBounds )
+            , (void ( ::CCollisionProperty::* )( ::Vector *,::Vector * ))( &::CCollisionProperty::WorldSpaceSurroundingBounds )
             , ( bp::arg("pVecMins"), bp::arg("pVecMaxs") ) )    
         .def( 
             "WorldSpaceTriggerBounds"
-            , (void ( ::CCollisionProperty::* )( ::Vector *,::Vector * ) const)( &::CCollisionProperty::WorldSpaceTriggerBounds )
+            , (void ( ::CCollisionProperty::* )( ::Vector *,::Vector * )const)( &::CCollisionProperty::WorldSpaceTriggerBounds )
             , ( bp::arg("pVecWorldMins"), bp::arg("pVecWorldMaxs") ) )    
         .def( 
             "WorldToCollisionSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::WorldToCollisionSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::WorldToCollisionSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "WorldToNormalizedSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::WorldToNormalizedSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::WorldToNormalizedSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() );
 
     bp::class_< PyPhysicsCollision >( "PhysicsCollision", bp::no_init )    
         .def( 
             "CollideGetAABB"
-            , (::boost::python::tuple ( ::PyPhysicsCollision::* )( ::PyPhysicsObject *,::Vector const &,::QAngle const & ) )( &::PyPhysicsCollision::CollideGetAABB )
+            , (::boost::python::tuple ( ::PyPhysicsCollision::* )( ::PyPhysicsObject *,::Vector const &,::QAngle const & ))( &::PyPhysicsCollision::CollideGetAABB )
             , ( bp::arg("pPhysObj"), bp::arg("collideOrigin"), bp::arg("collideAngles") ) )    
         .def( 
             "TraceBox"
-            , (void ( ::PyPhysicsCollision::* )( ::PyRay_t &,::PyPhysicsObject &,::Vector const &,::QAngle const &,::trace_t & ) )( &::PyPhysicsCollision::TraceBox )
+            , (void ( ::PyPhysicsCollision::* )( ::PyRay_t &,::PyPhysicsObject &,::Vector const &,::QAngle const &,::trace_t & ))( &::PyPhysicsCollision::TraceBox )
             , ( bp::arg("ray"), bp::arg("physObj"), bp::arg("collideOrigin"), bp::arg("collideAngles"), bp::arg("ptr") ) );
 
     { //::PyPhysicsObject
@@ -327,7 +327,7 @@ BOOST_PYTHON_MODULE(_physics){
         bp::implicitly_convertible< IPhysicsObject *, PyPhysicsObject >();
         { //::PyPhysicsObject::AddVelocity
         
-            typedef void ( ::PyPhysicsObject::*AddVelocity_function_type )( ::Vector const *,::AngularImpulse const * ) ;
+            typedef void ( ::PyPhysicsObject::*AddVelocity_function_type)( ::Vector const *,::AngularImpulse const * ) ;
             
             PhysicsObject_exposer.def( 
                 "AddVelocity"
@@ -337,7 +337,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::ApplyForceCenter
         
-            typedef void ( ::PyPhysicsObject::*ApplyForceCenter_function_type )( ::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*ApplyForceCenter_function_type)( ::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "ApplyForceCenter"
@@ -347,7 +347,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::ApplyForceOffset
         
-            typedef void ( ::PyPhysicsObject::*ApplyForceOffset_function_type )( ::Vector const &,::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*ApplyForceOffset_function_type)( ::Vector const &,::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "ApplyForceOffset"
@@ -357,7 +357,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::ApplyTorqueCenter
         
-            typedef void ( ::PyPhysicsObject::*ApplyTorqueCenter_function_type )( ::AngularImpulse const & ) ;
+            typedef void ( ::PyPhysicsObject::*ApplyTorqueCenter_function_type)( ::AngularImpulse const & ) ;
             
             PhysicsObject_exposer.def( 
                 "ApplyTorqueCenter"
@@ -367,7 +367,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::BecomeHinged
         
-            typedef void ( ::PyPhysicsObject::*BecomeHinged_function_type )( int ) ;
+            typedef void ( ::PyPhysicsObject::*BecomeHinged_function_type)( int ) ;
             
             PhysicsObject_exposer.def( 
                 "BecomeHinged"
@@ -377,7 +377,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::BecomeTrigger
         
-            typedef void ( ::PyPhysicsObject::*BecomeTrigger_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*BecomeTrigger_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "BecomeTrigger"
@@ -386,7 +386,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::Bool
         
-            typedef bool ( ::PyPhysicsObject::*__bool___function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*__bool___function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "__bool__"
@@ -395,7 +395,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::CalculateAngularDrag
         
-            typedef float ( ::PyPhysicsObject::*CalculateAngularDrag_function_type )( ::Vector const & ) ;
+            typedef float ( ::PyPhysicsObject::*CalculateAngularDrag_function_type)( ::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "CalculateAngularDrag"
@@ -405,7 +405,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::CalculateForceOffset
         
-            typedef void ( ::PyPhysicsObject::*CalculateForceOffset_function_type )( ::Vector const &,::Vector const &,::Vector *,::AngularImpulse * ) ;
+            typedef void ( ::PyPhysicsObject::*CalculateForceOffset_function_type)( ::Vector const &,::Vector const &,::Vector *,::AngularImpulse * ) ;
             
             PhysicsObject_exposer.def( 
                 "CalculateForceOffset"
@@ -415,7 +415,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::CalculateLinearDrag
         
-            typedef float ( ::PyPhysicsObject::*CalculateLinearDrag_function_type )( ::Vector const & ) ;
+            typedef float ( ::PyPhysicsObject::*CalculateLinearDrag_function_type)( ::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "CalculateLinearDrag"
@@ -425,7 +425,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::CalculateVelocityOffset
         
-            typedef void ( ::PyPhysicsObject::*CalculateVelocityOffset_function_type )( ::Vector const &,::Vector const &,::Vector *,::AngularImpulse * ) ;
+            typedef void ( ::PyPhysicsObject::*CalculateVelocityOffset_function_type)( ::Vector const &,::Vector const &,::Vector *,::AngularImpulse * ) ;
             
             PhysicsObject_exposer.def( 
                 "CalculateVelocityOffset"
@@ -435,7 +435,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::Cmp
         
-            typedef bool ( ::PyPhysicsObject::*__cmp___function_type )( ::boost::python::api::object ) ;
+            typedef bool ( ::PyPhysicsObject::*__cmp___function_type)( ::boost::python::api::object ) ;
             
             PhysicsObject_exposer.def( 
                 "__cmp__"
@@ -445,7 +445,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::Destroy
         
-            typedef void ( ::PyPhysicsObject::*Destroy_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*Destroy_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "Destroy"
@@ -454,7 +454,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::EnableCollisions
         
-            typedef void ( ::PyPhysicsObject::*EnableCollisions_function_type )( bool ) ;
+            typedef void ( ::PyPhysicsObject::*EnableCollisions_function_type)( bool ) ;
             
             PhysicsObject_exposer.def( 
                 "EnableCollisions"
@@ -464,7 +464,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::EnableDrag
         
-            typedef void ( ::PyPhysicsObject::*EnableDrag_function_type )( bool ) ;
+            typedef void ( ::PyPhysicsObject::*EnableDrag_function_type)( bool ) ;
             
             PhysicsObject_exposer.def( 
                 "EnableDrag"
@@ -474,7 +474,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::EnableGravity
         
-            typedef void ( ::PyPhysicsObject::*EnableGravity_function_type )( bool ) ;
+            typedef void ( ::PyPhysicsObject::*EnableGravity_function_type)( bool ) ;
             
             PhysicsObject_exposer.def( 
                 "EnableGravity"
@@ -484,7 +484,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::EnableMotion
         
-            typedef void ( ::PyPhysicsObject::*EnableMotion_function_type )( bool ) ;
+            typedef void ( ::PyPhysicsObject::*EnableMotion_function_type)( bool ) ;
             
             PhysicsObject_exposer.def( 
                 "EnableMotion"
@@ -494,7 +494,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetCallbackFlags
         
-            typedef short unsigned int ( ::PyPhysicsObject::*GetCallbackFlags_function_type )(  ) ;
+            typedef short unsigned int ( ::PyPhysicsObject::*GetCallbackFlags_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetCallbackFlags"
@@ -503,7 +503,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetContents
         
-            typedef unsigned int ( ::PyPhysicsObject::*GetContents_function_type )(  ) ;
+            typedef unsigned int ( ::PyPhysicsObject::*GetContents_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetContents"
@@ -512,7 +512,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetDamping
         
-            typedef ::boost::python::tuple ( ::PyPhysicsObject::*GetDamping_function_type )(  ) ;
+            typedef ::boost::python::tuple ( ::PyPhysicsObject::*GetDamping_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetDamping"
@@ -521,7 +521,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetEnergy
         
-            typedef float ( ::PyPhysicsObject::*GetEnergy_function_type )(  ) ;
+            typedef float ( ::PyPhysicsObject::*GetEnergy_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetEnergy"
@@ -530,7 +530,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetGameFlags
         
-            typedef short unsigned int ( ::PyPhysicsObject::*GetGameFlags_function_type )(  ) ;
+            typedef short unsigned int ( ::PyPhysicsObject::*GetGameFlags_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetGameFlags"
@@ -539,7 +539,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetGameIndex
         
-            typedef short unsigned int ( ::PyPhysicsObject::*GetGameIndex_function_type )(  ) ;
+            typedef short unsigned int ( ::PyPhysicsObject::*GetGameIndex_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetGameIndex"
@@ -548,7 +548,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetImplicitVelocity
         
-            typedef void ( ::PyPhysicsObject::*GetImplicitVelocity_function_type )( ::Vector *,::AngularImpulse * ) ;
+            typedef void ( ::PyPhysicsObject::*GetImplicitVelocity_function_type)( ::Vector *,::AngularImpulse * ) ;
             
             PhysicsObject_exposer.def( 
                 "GetImplicitVelocity"
@@ -558,7 +558,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetInertia
         
-            typedef ::Vector ( ::PyPhysicsObject::*GetInertia_function_type )(  ) ;
+            typedef ::Vector ( ::PyPhysicsObject::*GetInertia_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetInertia"
@@ -567,7 +567,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetInvInertia
         
-            typedef ::Vector ( ::PyPhysicsObject::*GetInvInertia_function_type )(  ) ;
+            typedef ::Vector ( ::PyPhysicsObject::*GetInvInertia_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetInvInertia"
@@ -576,7 +576,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetInvMass
         
-            typedef float ( ::PyPhysicsObject::*GetInvMass_function_type )(  ) ;
+            typedef float ( ::PyPhysicsObject::*GetInvMass_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetInvMass"
@@ -585,7 +585,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetMass
         
-            typedef float ( ::PyPhysicsObject::*GetMass_function_type )(  ) ;
+            typedef float ( ::PyPhysicsObject::*GetMass_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetMass"
@@ -594,7 +594,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetMassCenterLocalSpace
         
-            typedef ::Vector ( ::PyPhysicsObject::*GetMassCenterLocalSpace_function_type )(  ) ;
+            typedef ::Vector ( ::PyPhysicsObject::*GetMassCenterLocalSpace_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetMassCenterLocalSpace"
@@ -603,7 +603,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetMaterialIndex
         
-            typedef int ( ::PyPhysicsObject::*GetMaterialIndex_function_type )(  ) ;
+            typedef int ( ::PyPhysicsObject::*GetMaterialIndex_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetMaterialIndex"
@@ -612,7 +612,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetName
         
-            typedef char const * ( ::PyPhysicsObject::*GetName_function_type )(  ) ;
+            typedef char const * ( ::PyPhysicsObject::*GetName_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetName"
@@ -621,7 +621,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetPosition
         
-            typedef void ( ::PyPhysicsObject::*GetPosition_function_type )( ::Vector *,::QAngle * ) ;
+            typedef void ( ::PyPhysicsObject::*GetPosition_function_type)( ::Vector *,::QAngle * ) ;
             
             PhysicsObject_exposer.def( 
                 "GetPosition"
@@ -631,7 +631,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetPositionMatrix
         
-            typedef void ( ::PyPhysicsObject::*GetPositionMatrix_function_type )( ::matrix3x4_t * ) ;
+            typedef void ( ::PyPhysicsObject::*GetPositionMatrix_function_type)( ::matrix3x4_t * ) ;
             
             PhysicsObject_exposer.def( 
                 "GetPositionMatrix"
@@ -641,7 +641,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetShadowController
         
-            typedef ::PyPhysicsShadowController ( ::PyPhysicsObject::*GetShadowController_function_type )(  ) ;
+            typedef ::PyPhysicsShadowController ( ::PyPhysicsObject::*GetShadowController_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetShadowController"
@@ -650,7 +650,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetShadowPosition
         
-            typedef int ( ::PyPhysicsObject::*GetShadowPosition_function_type )( ::Vector *,::QAngle * ) ;
+            typedef int ( ::PyPhysicsObject::*GetShadowPosition_function_type)( ::Vector *,::QAngle * ) ;
             
             PhysicsObject_exposer.def( 
                 "GetShadowPosition"
@@ -660,7 +660,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetSphereRadius
         
-            typedef float ( ::PyPhysicsObject::*GetSphereRadius_function_type )(  ) ;
+            typedef float ( ::PyPhysicsObject::*GetSphereRadius_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetSphereRadius"
@@ -669,7 +669,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetVelocity
         
-            typedef void ( ::PyPhysicsObject::*GetVelocity_function_type )( ::Vector *,::AngularImpulse * ) ;
+            typedef void ( ::PyPhysicsObject::*GetVelocity_function_type)( ::Vector *,::AngularImpulse * ) ;
             
             PhysicsObject_exposer.def( 
                 "GetVelocity"
@@ -679,7 +679,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetVelocityAtPoint
         
-            typedef void ( ::PyPhysicsObject::*GetVelocityAtPoint_function_type )( ::Vector const &,::Vector * ) ;
+            typedef void ( ::PyPhysicsObject::*GetVelocityAtPoint_function_type)( ::Vector const &,::Vector * ) ;
             
             PhysicsObject_exposer.def( 
                 "GetVelocityAtPoint"
@@ -689,7 +689,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::HasEntity
         
-            typedef bool ( ::PyPhysicsObject::*HasEntity_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*HasEntity_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "HasEntity"
@@ -698,7 +698,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsAsleep
         
-            typedef bool ( ::PyPhysicsObject::*IsAsleep_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsAsleep_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsAsleep"
@@ -707,7 +707,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsAttachedToConstraint
         
-            typedef bool ( ::PyPhysicsObject::*IsAttachedToConstraint_function_type )( bool ) ;
+            typedef bool ( ::PyPhysicsObject::*IsAttachedToConstraint_function_type)( bool ) ;
             
             PhysicsObject_exposer.def( 
                 "IsAttachedToConstraint"
@@ -717,7 +717,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsCollisionEnabled
         
-            typedef bool ( ::PyPhysicsObject::*IsCollisionEnabled_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsCollisionEnabled_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsCollisionEnabled"
@@ -726,7 +726,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsDragEnabled
         
-            typedef bool ( ::PyPhysicsObject::*IsDragEnabled_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsDragEnabled_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsDragEnabled"
@@ -735,7 +735,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsFluid
         
-            typedef bool ( ::PyPhysicsObject::*IsFluid_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsFluid_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsFluid"
@@ -744,7 +744,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsGravityEnabled
         
-            typedef bool ( ::PyPhysicsObject::*IsGravityEnabled_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsGravityEnabled_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsGravityEnabled"
@@ -753,7 +753,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsHinged
         
-            typedef bool ( ::PyPhysicsObject::*IsHinged_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsHinged_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsHinged"
@@ -762,7 +762,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsMotionEnabled
         
-            typedef bool ( ::PyPhysicsObject::*IsMotionEnabled_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsMotionEnabled_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsMotionEnabled"
@@ -771,7 +771,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsMoveable
         
-            typedef bool ( ::PyPhysicsObject::*IsMoveable_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsMoveable_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsMoveable"
@@ -780,7 +780,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsStatic
         
-            typedef bool ( ::PyPhysicsObject::*IsStatic_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsStatic_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsStatic"
@@ -789,7 +789,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsTrigger
         
-            typedef bool ( ::PyPhysicsObject::*IsTrigger_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsTrigger_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsTrigger"
@@ -798,7 +798,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::LocalToWorld
         
-            typedef void ( ::PyPhysicsObject::*LocalToWorld_function_type )( ::Vector *,::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*LocalToWorld_function_type)( ::Vector *,::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "LocalToWorld"
@@ -808,7 +808,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::LocalToWorldVector
         
-            typedef void ( ::PyPhysicsObject::*LocalToWorldVector_function_type )( ::Vector *,::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*LocalToWorldVector_function_type)( ::Vector *,::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "LocalToWorldVector"
@@ -818,7 +818,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::NonZero
         
-            typedef bool ( ::PyPhysicsObject::*__nonzero___function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*__nonzero___function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "__nonzero__"
@@ -827,7 +827,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::OutputDebugInfo
         
-            typedef void ( ::PyPhysicsObject::*OutputDebugInfo_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*OutputDebugInfo_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "OutputDebugInfo"
@@ -836,7 +836,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::RecheckCollisionFilter
         
-            typedef void ( ::PyPhysicsObject::*RecheckCollisionFilter_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*RecheckCollisionFilter_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "RecheckCollisionFilter"
@@ -845,7 +845,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::RecheckContactPoints
         
-            typedef void ( ::PyPhysicsObject::*RecheckContactPoints_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*RecheckContactPoints_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "RecheckContactPoints"
@@ -854,7 +854,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::RemoveHinged
         
-            typedef void ( ::PyPhysicsObject::*RemoveHinged_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*RemoveHinged_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "RemoveHinged"
@@ -863,7 +863,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::RemoveShadowController
         
-            typedef void ( ::PyPhysicsObject::*RemoveShadowController_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*RemoveShadowController_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "RemoveShadowController"
@@ -872,7 +872,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::RemoveTrigger
         
-            typedef void ( ::PyPhysicsObject::*RemoveTrigger_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*RemoveTrigger_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "RemoveTrigger"
@@ -881,7 +881,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetBuoyancyRatio
         
-            typedef void ( ::PyPhysicsObject::*SetBuoyancyRatio_function_type )( float ) ;
+            typedef void ( ::PyPhysicsObject::*SetBuoyancyRatio_function_type)( float ) ;
             
             PhysicsObject_exposer.def( 
                 "SetBuoyancyRatio"
@@ -891,7 +891,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetCallbackFlags
         
-            typedef void ( ::PyPhysicsObject::*SetCallbackFlags_function_type )( short unsigned int ) ;
+            typedef void ( ::PyPhysicsObject::*SetCallbackFlags_function_type)( short unsigned int ) ;
             
             PhysicsObject_exposer.def( 
                 "SetCallbackFlags"
@@ -901,7 +901,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetContents
         
-            typedef void ( ::PyPhysicsObject::*SetContents_function_type )( unsigned int ) ;
+            typedef void ( ::PyPhysicsObject::*SetContents_function_type)( unsigned int ) ;
             
             PhysicsObject_exposer.def( 
                 "SetContents"
@@ -911,7 +911,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetDamping
         
-            typedef void ( ::PyPhysicsObject::*SetDamping_function_type )( float,float ) ;
+            typedef void ( ::PyPhysicsObject::*SetDamping_function_type)( float,float ) ;
             
             PhysicsObject_exposer.def( 
                 "SetDamping"
@@ -921,7 +921,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetDragCoefficient
         
-            typedef void ( ::PyPhysicsObject::*SetDragCoefficient_function_type )( float *,float * ) ;
+            typedef void ( ::PyPhysicsObject::*SetDragCoefficient_function_type)( float *,float * ) ;
             
             PhysicsObject_exposer.def( 
                 "SetDragCoefficient"
@@ -931,7 +931,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetGameFlags
         
-            typedef void ( ::PyPhysicsObject::*SetGameFlags_function_type )( short unsigned int ) ;
+            typedef void ( ::PyPhysicsObject::*SetGameFlags_function_type)( short unsigned int ) ;
             
             PhysicsObject_exposer.def( 
                 "SetGameFlags"
@@ -941,7 +941,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetGameIndex
         
-            typedef void ( ::PyPhysicsObject::*SetGameIndex_function_type )( short unsigned int ) ;
+            typedef void ( ::PyPhysicsObject::*SetGameIndex_function_type)( short unsigned int ) ;
             
             PhysicsObject_exposer.def( 
                 "SetGameIndex"
@@ -951,7 +951,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetInertia
         
-            typedef void ( ::PyPhysicsObject::*SetInertia_function_type )( ::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*SetInertia_function_type)( ::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "SetInertia"
@@ -961,7 +961,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetMass
         
-            typedef void ( ::PyPhysicsObject::*SetMass_function_type )( float ) ;
+            typedef void ( ::PyPhysicsObject::*SetMass_function_type)( float ) ;
             
             PhysicsObject_exposer.def( 
                 "SetMass"
@@ -971,7 +971,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetMaterialIndex
         
-            typedef void ( ::PyPhysicsObject::*SetMaterialIndex_function_type )( int ) ;
+            typedef void ( ::PyPhysicsObject::*SetMaterialIndex_function_type)( int ) ;
             
             PhysicsObject_exposer.def( 
                 "SetMaterialIndex"
@@ -981,7 +981,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetPosition
         
-            typedef void ( ::PyPhysicsObject::*SetPosition_function_type )( ::Vector const &,::QAngle const &,bool ) ;
+            typedef void ( ::PyPhysicsObject::*SetPosition_function_type)( ::Vector const &,::QAngle const &,bool ) ;
             
             PhysicsObject_exposer.def( 
                 "SetPosition"
@@ -991,7 +991,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetPositionMatrix
         
-            typedef void ( ::PyPhysicsObject::*SetPositionMatrix_function_type )( ::matrix3x4_t const &,bool ) ;
+            typedef void ( ::PyPhysicsObject::*SetPositionMatrix_function_type)( ::matrix3x4_t const &,bool ) ;
             
             PhysicsObject_exposer.def( 
                 "SetPositionMatrix"
@@ -1001,7 +1001,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetShadow
         
-            typedef void ( ::PyPhysicsObject::*SetShadow_function_type )( float,float,bool,bool ) ;
+            typedef void ( ::PyPhysicsObject::*SetShadow_function_type)( float,float,bool,bool ) ;
             
             PhysicsObject_exposer.def( 
                 "SetShadow"
@@ -1011,7 +1011,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetVelocity
         
-            typedef void ( ::PyPhysicsObject::*SetVelocity_function_type )( ::Vector const *,::AngularImpulse const * ) ;
+            typedef void ( ::PyPhysicsObject::*SetVelocity_function_type)( ::Vector const *,::AngularImpulse const * ) ;
             
             PhysicsObject_exposer.def( 
                 "SetVelocity"
@@ -1021,7 +1021,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetVelocityInstantaneous
         
-            typedef void ( ::PyPhysicsObject::*SetVelocityInstantaneous_function_type )( ::Vector const *,::AngularImpulse const * ) ;
+            typedef void ( ::PyPhysicsObject::*SetVelocityInstantaneous_function_type)( ::Vector const *,::AngularImpulse const * ) ;
             
             PhysicsObject_exposer.def( 
                 "SetVelocityInstantaneous"
@@ -1031,7 +1031,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::Sleep
         
-            typedef void ( ::PyPhysicsObject::*Sleep_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*Sleep_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "Sleep"
@@ -1040,7 +1040,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::UpdateShadow
         
-            typedef void ( ::PyPhysicsObject::*UpdateShadow_function_type )( ::Vector const &,::QAngle const &,bool,float ) ;
+            typedef void ( ::PyPhysicsObject::*UpdateShadow_function_type)( ::Vector const &,::QAngle const &,bool,float ) ;
             
             PhysicsObject_exposer.def( 
                 "UpdateShadow"
@@ -1050,7 +1050,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::Wake
         
-            typedef void ( ::PyPhysicsObject::*Wake_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*Wake_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "Wake"
@@ -1059,7 +1059,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::WorldToLocal
         
-            typedef void ( ::PyPhysicsObject::*WorldToLocal_function_type )( ::Vector *,::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*WorldToLocal_function_type)( ::Vector *,::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "WorldToLocal"
@@ -1069,7 +1069,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::WorldToLocalVector
         
-            typedef void ( ::PyPhysicsObject::*WorldToLocalVector_function_type )( ::Vector *,::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*WorldToLocalVector_function_type)( ::Vector *,::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "WorldToLocalVector"
@@ -1088,7 +1088,7 @@ BOOST_PYTHON_MODULE(_physics){
         bp::implicitly_convertible< bp::api::object, PyPhysicsShadowController >();
         { //::PyPhysicsShadowController::AllowsRotation
         
-            typedef bool ( ::PyPhysicsShadowController::*AllowsRotation_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsShadowController::*AllowsRotation_function_type)(  ) ;
             
             PhysicsShadowController_exposer.def( 
                 "AllowsRotation"
@@ -1097,7 +1097,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::AllowsTranslation
         
-            typedef bool ( ::PyPhysicsShadowController::*AllowsTranslation_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsShadowController::*AllowsTranslation_function_type)(  ) ;
             
             PhysicsShadowController_exposer.def( 
                 "AllowsTranslation"
@@ -1106,7 +1106,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::Bool
         
-            typedef bool ( ::PyPhysicsShadowController::*__bool___function_type )(  ) ;
+            typedef bool ( ::PyPhysicsShadowController::*__bool___function_type)(  ) ;
             
             PhysicsShadowController_exposer.def( 
                 "__bool__"
@@ -1115,7 +1115,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::Cmp
         
-            typedef bool ( ::PyPhysicsShadowController::*__cmp___function_type )( ::boost::python::api::object ) ;
+            typedef bool ( ::PyPhysicsShadowController::*__cmp___function_type)( ::boost::python::api::object ) ;
             
             PhysicsShadowController_exposer.def( 
                 "__cmp__"
@@ -1125,7 +1125,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::GetLastImpulse
         
-            typedef void ( ::PyPhysicsShadowController::*GetLastImpulse_function_type )( ::Vector * ) ;
+            typedef void ( ::PyPhysicsShadowController::*GetLastImpulse_function_type)( ::Vector * ) ;
             
             PhysicsShadowController_exposer.def( 
                 "GetLastImpulse"
@@ -1135,7 +1135,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::GetMaxSpeed
         
-            typedef void ( ::PyPhysicsShadowController::*GetMaxSpeed_function_type )( float *,float * ) ;
+            typedef void ( ::PyPhysicsShadowController::*GetMaxSpeed_function_type)( float *,float * ) ;
             
             PhysicsShadowController_exposer.def( 
                 "GetMaxSpeed"
@@ -1145,7 +1145,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::GetTargetPosition
         
-            typedef float ( ::PyPhysicsShadowController::*GetTargetPosition_function_type )( ::Vector *,::QAngle * ) ;
+            typedef float ( ::PyPhysicsShadowController::*GetTargetPosition_function_type)( ::Vector *,::QAngle * ) ;
             
             PhysicsShadowController_exposer.def( 
                 "GetTargetPosition"
@@ -1155,7 +1155,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::GetTeleportDistance
         
-            typedef float ( ::PyPhysicsShadowController::*GetTeleportDistance_function_type )(  ) ;
+            typedef float ( ::PyPhysicsShadowController::*GetTeleportDistance_function_type)(  ) ;
             
             PhysicsShadowController_exposer.def( 
                 "GetTeleportDistance"
@@ -1164,7 +1164,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::IsPhysicallyControlled
         
-            typedef bool ( ::PyPhysicsShadowController::*IsPhysicallyControlled_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsShadowController::*IsPhysicallyControlled_function_type)(  ) ;
             
             PhysicsShadowController_exposer.def( 
                 "IsPhysicallyControlled"
@@ -1173,7 +1173,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::MaxSpeed
         
-            typedef void ( ::PyPhysicsShadowController::*MaxSpeed_function_type )( float,float ) ;
+            typedef void ( ::PyPhysicsShadowController::*MaxSpeed_function_type)( float,float ) ;
             
             PhysicsShadowController_exposer.def( 
                 "MaxSpeed"
@@ -1183,7 +1183,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::NonZero
         
-            typedef bool ( ::PyPhysicsShadowController::*__nonzero___function_type )(  ) ;
+            typedef bool ( ::PyPhysicsShadowController::*__nonzero___function_type)(  ) ;
             
             PhysicsShadowController_exposer.def( 
                 "__nonzero__"
@@ -1192,7 +1192,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::ObjectMaterialChanged
         
-            typedef void ( ::PyPhysicsShadowController::*ObjectMaterialChanged_function_type )( int ) ;
+            typedef void ( ::PyPhysicsShadowController::*ObjectMaterialChanged_function_type)( int ) ;
             
             PhysicsShadowController_exposer.def( 
                 "ObjectMaterialChanged"
@@ -1202,7 +1202,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::SetPhysicallyControlled
         
-            typedef void ( ::PyPhysicsShadowController::*SetPhysicallyControlled_function_type )( bool ) ;
+            typedef void ( ::PyPhysicsShadowController::*SetPhysicallyControlled_function_type)( bool ) ;
             
             PhysicsShadowController_exposer.def( 
                 "SetPhysicallyControlled"
@@ -1212,7 +1212,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::SetTeleportDistance
         
-            typedef void ( ::PyPhysicsShadowController::*SetTeleportDistance_function_type )( float ) ;
+            typedef void ( ::PyPhysicsShadowController::*SetTeleportDistance_function_type)( float ) ;
             
             PhysicsShadowController_exposer.def( 
                 "SetTeleportDistance"
@@ -1222,7 +1222,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::StepUp
         
-            typedef void ( ::PyPhysicsShadowController::*StepUp_function_type )( float ) ;
+            typedef void ( ::PyPhysicsShadowController::*StepUp_function_type)( float ) ;
             
             PhysicsShadowController_exposer.def( 
                 "StepUp"
@@ -1232,7 +1232,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::Update
         
-            typedef void ( ::PyPhysicsShadowController::*Update_function_type )( ::Vector const &,::QAngle const &,float ) ;
+            typedef void ( ::PyPhysicsShadowController::*Update_function_type)( ::Vector const &,::QAngle const &,float ) ;
             
             PhysicsShadowController_exposer.def( 
                 "Update"
@@ -1242,7 +1242,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::UseShadowMaterial
         
-            typedef void ( ::PyPhysicsShadowController::*UseShadowMaterial_function_type )( bool ) ;
+            typedef void ( ::PyPhysicsShadowController::*UseShadowMaterial_function_type)( bool ) ;
             
             PhysicsShadowController_exposer.def( 
                 "UseShadowMaterial"
@@ -1257,31 +1257,31 @@ BOOST_PYTHON_MODULE(_physics){
     bp::class_< PyPhysicsSurfaceProps >( "PhysicsSurfaceProps", bp::no_init )    
         .def( 
             "GetPhysicsParameters"
-            , (void ( ::PyPhysicsSurfaceProps::* )( int,::surfacephysicsparams_t & ) const)( &::PyPhysicsSurfaceProps::GetPhysicsParameters )
+            , (void ( ::PyPhysicsSurfaceProps::* )( int,::surfacephysicsparams_t & )const)( &::PyPhysicsSurfaceProps::GetPhysicsParameters )
             , ( bp::arg("surfaceDataIndex"), bp::arg("paramsout") ) )    
         .def( 
             "GetPropName"
-            , (char const * ( ::PyPhysicsSurfaceProps::* )( int ) const)( &::PyPhysicsSurfaceProps::GetPropName )
+            , (char const * ( ::PyPhysicsSurfaceProps::* )( int )const)( &::PyPhysicsSurfaceProps::GetPropName )
             , ( bp::arg("surfaceDataIndex") ) )    
         .def( 
             "GetString"
-            , (char const * ( ::PyPhysicsSurfaceProps::* )( short unsigned int ) const)( &::PyPhysicsSurfaceProps::GetString )
+            , (char const * ( ::PyPhysicsSurfaceProps::* )( short unsigned int )const)( &::PyPhysicsSurfaceProps::GetString )
             , ( bp::arg("stringTableIndex") ) )    
         .def( 
             "GetSurfaceData"
-            , (::surfacedata_t ( ::PyPhysicsSurfaceProps::* )( int ) )( &::PyPhysicsSurfaceProps::GetSurfaceData )
+            , (::surfacedata_t ( ::PyPhysicsSurfaceProps::* )( int ))( &::PyPhysicsSurfaceProps::GetSurfaceData )
             , ( bp::arg("surfaceDataIndex") ) )    
         .def( 
             "GetSurfaceIndex"
-            , (int ( ::PyPhysicsSurfaceProps::* )( char const * ) const)( &::PyPhysicsSurfaceProps::GetSurfaceIndex )
+            , (int ( ::PyPhysicsSurfaceProps::* )( char const * )const)( &::PyPhysicsSurfaceProps::GetSurfaceIndex )
             , ( bp::arg("pSurfacePropName") ) )    
         .def( 
             "ParseSurfaceData"
-            , (int ( ::PyPhysicsSurfaceProps::* )( char const *,char const * ) )( &::PyPhysicsSurfaceProps::ParseSurfaceData )
+            , (int ( ::PyPhysicsSurfaceProps::* )( char const *,char const * ))( &::PyPhysicsSurfaceProps::ParseSurfaceData )
             , ( bp::arg("pFilename"), bp::arg("pTextfile") ) )    
         .def( 
             "SurfacePropCount"
-            , (int ( ::PyPhysicsSurfaceProps::* )(  ) const)( &::PyPhysicsSurfaceProps::SurfacePropCount ) );
+            , (int ( ::PyPhysicsSurfaceProps::* )(  )const)( &::PyPhysicsSurfaceProps::SurfacePropCount ) );
 
     bp::class_< surfaceaudioparams_t >( "surfaceaudioparams_t" )    
         .def_readwrite( "hardThreshold", &surfaceaudioparams_t::hardThreshold )    
@@ -1484,238 +1484,238 @@ BOOST_PYTHON_MODULE(_physics){
         .def( bp::init< >() )    
         .def( 
             "AddSolidFlags"
-            , (void ( ::CCollisionProperty::* )( int ) )( &::CCollisionProperty::AddSolidFlags )
+            , (void ( ::CCollisionProperty::* )( int ))( &::CCollisionProperty::AddSolidFlags )
             , ( bp::arg("flags") ) )    
         .def( 
             "BoundingRadius"
-            , (float ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::BoundingRadius ) )    
+            , (float ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::BoundingRadius ) )    
         .def( 
             "BoundingRadius2D"
-            , (float ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::BoundingRadius2D ) )    
+            , (float ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::BoundingRadius2D ) )    
         .def( 
             "CalcDistanceFromPoint"
-            , (float ( ::CCollisionProperty::* )( ::Vector const & ) const)( &::CCollisionProperty::CalcDistanceFromPoint )
+            , (float ( ::CCollisionProperty::* )( ::Vector const & )const)( &::CCollisionProperty::CalcDistanceFromPoint )
             , ( bp::arg("vecWorldPt") ) )    
         .def( 
             "CalcNearestPoint"
-            , (void ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::CalcNearestPoint )
+            , (void ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::CalcNearestPoint )
             , ( bp::arg("vecWorldPt"), bp::arg("pVecNearestWorldPt") ) )    
         .def( 
             "ClearSolidFlags"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::ClearSolidFlags ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::ClearSolidFlags ) )    
         .def( 
             "CollisionSpaceMaxs"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::CollisionSpaceMaxs )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::CollisionSpaceMaxs )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "CollisionSpaceMins"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::CollisionSpaceMins )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::CollisionSpaceMins )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "CollisionToNormalizedSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::CollisionToNormalizedSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::CollisionToNormalizedSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "CollisionToWorldSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::CollisionToWorldSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::CollisionToWorldSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "CollisionToWorldTransform"
-            , (::matrix3x4_t const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::CollisionToWorldTransform )
+            , (::matrix3x4_t const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::CollisionToWorldTransform )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "ComputeSupportMap"
-            , (float ( ::CCollisionProperty::* )( ::Vector const & ) const)( &::CCollisionProperty::ComputeSupportMap )
+            , (float ( ::CCollisionProperty::* )( ::Vector const & )const)( &::CCollisionProperty::ComputeSupportMap )
             , ( bp::arg("vecDirection") ) )    
         .def( 
             "CreatePartitionHandle"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::CreatePartitionHandle ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::CreatePartitionHandle ) )    
         .def( 
             "DestroyPartitionHandle"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::DestroyPartitionHandle ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::DestroyPartitionHandle ) )    
         .def( 
             "DoesRotationInvalidateSurroundingBox"
-            , (bool ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::DoesRotationInvalidateSurroundingBox ) )    
+            , (bool ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::DoesRotationInvalidateSurroundingBox ) )    
         .def( 
             "DoesVPhysicsInvalidateSurroundingBox"
-            , (bool ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::DoesVPhysicsInvalidateSurroundingBox ) )    
+            , (bool ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::DoesVPhysicsInvalidateSurroundingBox ) )    
         .def( 
             "GetCollisionAngles"
-            , (::QAngle const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetCollisionAngles )
+            , (::QAngle const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetCollisionAngles )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetCollisionGroup"
-            , (int ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetCollisionGroup ) )    
+            , (int ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetCollisionGroup ) )    
         .def( 
             "GetCollisionModel"
-            , (::model_t const * ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::GetCollisionModel )
+            , (::model_t const * ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::GetCollisionModel )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetCollisionModelIndex"
-            , (int ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::GetCollisionModelIndex ) )    
+            , (int ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::GetCollisionModelIndex ) )    
         .def( 
             "GetCollisionOrigin"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetCollisionOrigin )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetCollisionOrigin )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetPartitionHandle"
-            , (short unsigned int ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetPartitionHandle ) )    
+            , (short unsigned int ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetPartitionHandle ) )    
         .def( 
             "GetRootParentToWorldTransform"
-            , (::matrix3x4_t const * ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetRootParentToWorldTransform )
+            , (::matrix3x4_t const * ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetRootParentToWorldTransform )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetSolid"
-            , (::SolidType_t ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetSolid ) )    
+            , (::SolidType_t ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetSolid ) )    
         .def( 
             "GetSolidFlags"
-            , (int ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::GetSolidFlags ) )    
+            , (int ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::GetSolidFlags ) )    
         .def( 
             "Init"
-            , (void ( ::CCollisionProperty::* )( ::CBaseEntity * ) )( &::CCollisionProperty::Init )
+            , (void ( ::CCollisionProperty::* )( ::CBaseEntity * ))( &::CCollisionProperty::Init )
             , ( bp::arg("pEntity") ) )    
         .def( 
             "IsBoundsDefinedInEntitySpace"
-            , (bool ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::IsBoundsDefinedInEntitySpace ) )    
+            , (bool ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::IsBoundsDefinedInEntitySpace ) )    
         .def( 
             "IsPointInBounds"
-            , (bool ( ::CCollisionProperty::* )( ::Vector const & ) const)( &::CCollisionProperty::IsPointInBounds )
+            , (bool ( ::CCollisionProperty::* )( ::Vector const & )const)( &::CCollisionProperty::IsPointInBounds )
             , ( bp::arg("vecWorldPt") ) )    
         .def( 
             "IsSolid"
-            , (bool ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::IsSolid ) )    
+            , (bool ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::IsSolid ) )    
         .def( 
             "IsSolidFlagSet"
-            , (bool ( ::CCollisionProperty::* )( int ) const)( &::CCollisionProperty::IsSolidFlagSet )
+            , (bool ( ::CCollisionProperty::* )( int )const)( &::CCollisionProperty::IsSolidFlagSet )
             , ( bp::arg("flagMask") ) )    
         .def( 
             "MarkPartitionHandleDirty"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::MarkPartitionHandleDirty ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::MarkPartitionHandleDirty ) )    
         .def( 
             "MarkSurroundingBoundsDirty"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::MarkSurroundingBoundsDirty ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::MarkSurroundingBoundsDirty ) )    
         .def( 
             "NormalizedToCollisionSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::NormalizedToCollisionSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::NormalizedToCollisionSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "NormalizedToWorldSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::NormalizedToWorldSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::NormalizedToWorldSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OBBCenter"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::OBBCenter )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::OBBCenter )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OBBMaxs"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::OBBMaxs )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::OBBMaxs )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OBBMaxsPreScaled"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::OBBMaxsPreScaled )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::OBBMaxsPreScaled )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OBBMins"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::OBBMins )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::OBBMins )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OBBMinsPreScaled"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::OBBMinsPreScaled )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::OBBMinsPreScaled )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OBBSize"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::OBBSize )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::OBBSize )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "RandomPointInBounds"
-            , (void ( ::CCollisionProperty::* )( ::Vector const &,::Vector const &,::Vector * ) const)( &::CCollisionProperty::RandomPointInBounds )
+            , (void ( ::CCollisionProperty::* )( ::Vector const &,::Vector const &,::Vector * )const)( &::CCollisionProperty::RandomPointInBounds )
             , ( bp::arg("vecNormalizedMins"), bp::arg("vecNormalizedMaxs"), bp::arg("pPoint") ) )    
         .def( 
             "RefreshScaledCollisionBounds"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::RefreshScaledCollisionBounds ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::RefreshScaledCollisionBounds ) )    
         .def( 
             "RemoveSolidFlags"
-            , (void ( ::CCollisionProperty::* )( int ) )( &::CCollisionProperty::RemoveSolidFlags )
+            , (void ( ::CCollisionProperty::* )( int ))( &::CCollisionProperty::RemoveSolidFlags )
             , ( bp::arg("flags") ) )    
         .def( 
             "SetCollisionBounds"
-            , (void ( ::CCollisionProperty::* )( ::Vector const &,::Vector const & ) )( &::CCollisionProperty::SetCollisionBounds )
+            , (void ( ::CCollisionProperty::* )( ::Vector const &,::Vector const & ))( &::CCollisionProperty::SetCollisionBounds )
             , ( bp::arg("mins"), bp::arg("maxs") ) )    
         .def( 
             "SetSolid"
-            , (void ( ::CCollisionProperty::* )( ::SolidType_t ) )( &::CCollisionProperty::SetSolid )
+            , (void ( ::CCollisionProperty::* )( ::SolidType_t ))( &::CCollisionProperty::SetSolid )
             , ( bp::arg("val") ) )    
         .def( 
             "SetSolidFlags"
-            , (void ( ::CCollisionProperty::* )( int ) )( &::CCollisionProperty::SetSolidFlags )
+            , (void ( ::CCollisionProperty::* )( int ))( &::CCollisionProperty::SetSolidFlags )
             , ( bp::arg("flags") ) )    
         .def( 
             "SetSurroundingBoundsType"
-            , (void ( ::CCollisionProperty::* )( ::SurroundingBoundsType_t,::Vector const *,::Vector const * ) )( &::CCollisionProperty::SetSurroundingBoundsType )
+            , (void ( ::CCollisionProperty::* )( ::SurroundingBoundsType_t,::Vector const *,::Vector const * ))( &::CCollisionProperty::SetSurroundingBoundsType )
             , ( bp::arg("type"), bp::arg("pMins")=bp::object(), bp::arg("pMaxs")=bp::object() ) )    
         .def( 
             "ShouldTouchTrigger"
-            , (bool ( ::CCollisionProperty::* )( int ) const)( &::CCollisionProperty::ShouldTouchTrigger )
+            , (bool ( ::CCollisionProperty::* )( int )const)( &::CCollisionProperty::ShouldTouchTrigger )
             , ( bp::arg("triggerSolidFlags") ) )    
         .def( 
             "TestCollision"
-            , (bool ( ::CCollisionProperty::* )( ::Ray_t const &,unsigned int,::trace_t & ) )( &::CCollisionProperty::TestCollision )
+            , (bool ( ::CCollisionProperty::* )( ::Ray_t const &,unsigned int,::trace_t & ))( &::CCollisionProperty::TestCollision )
             , ( bp::arg("ray"), bp::arg("fContentsMask"), bp::arg("tr") ) )    
         .def( 
             "TestHitboxes"
-            , (bool ( ::CCollisionProperty::* )( ::Ray_t const &,unsigned int,::trace_t & ) )( &::CCollisionProperty::TestHitboxes )
+            , (bool ( ::CCollisionProperty::* )( ::Ray_t const &,unsigned int,::trace_t & ))( &::CCollisionProperty::TestHitboxes )
             , ( bp::arg("ray"), bp::arg("fContentsMask"), bp::arg("tr") ) )    
         .def( 
             "UpdatePartition"
-            , (void ( ::CCollisionProperty::* )(  ) )( &::CCollisionProperty::UpdatePartition ) )    
+            , (void ( ::CCollisionProperty::* )(  ))( &::CCollisionProperty::UpdatePartition ) )    
         .def( 
             "UseTriggerBounds"
-            , (void ( ::CCollisionProperty::* )( bool,float ) )( &::CCollisionProperty::UseTriggerBounds )
-            , ( bp::arg("bEnable"), bp::arg("flBloat")=0.0f ) )    
+            , (void ( ::CCollisionProperty::* )( bool,float ))( &::CCollisionProperty::UseTriggerBounds )
+            , ( bp::arg("bEnable"), bp::arg("flBloat")=0.F ) )    
         .def( 
             "WorldDirectionToCollisionSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::WorldDirectionToCollisionSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::WorldDirectionToCollisionSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "WorldSpaceAABB"
-            , (void ( ::CCollisionProperty::* )( ::Vector *,::Vector * ) const)( &::CCollisionProperty::WorldSpaceAABB )
+            , (void ( ::CCollisionProperty::* )( ::Vector *,::Vector * )const)( &::CCollisionProperty::WorldSpaceAABB )
             , ( bp::arg("pWorldMins"), bp::arg("pWorldMaxs") ) )    
         .def( 
             "WorldSpaceCenter"
-            , (::Vector const & ( ::CCollisionProperty::* )(  ) const)( &::CCollisionProperty::WorldSpaceCenter )
+            , (::Vector const & ( ::CCollisionProperty::* )(  )const)( &::CCollisionProperty::WorldSpaceCenter )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "WorldSpaceSurroundingBounds"
-            , (void ( ::CCollisionProperty::* )( ::Vector *,::Vector * ) )( &::CCollisionProperty::WorldSpaceSurroundingBounds )
+            , (void ( ::CCollisionProperty::* )( ::Vector *,::Vector * ))( &::CCollisionProperty::WorldSpaceSurroundingBounds )
             , ( bp::arg("pVecMins"), bp::arg("pVecMaxs") ) )    
         .def( 
             "WorldSpaceTriggerBounds"
-            , (void ( ::CCollisionProperty::* )( ::Vector *,::Vector * ) const)( &::CCollisionProperty::WorldSpaceTriggerBounds )
+            , (void ( ::CCollisionProperty::* )( ::Vector *,::Vector * )const)( &::CCollisionProperty::WorldSpaceTriggerBounds )
             , ( bp::arg("pVecWorldMins"), bp::arg("pVecWorldMaxs") ) )    
         .def( 
             "WorldToCollisionSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::WorldToCollisionSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::WorldToCollisionSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "WorldToNormalizedSpace"
-            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * ) const)( &::CCollisionProperty::WorldToNormalizedSpace )
+            , (::Vector const & ( ::CCollisionProperty::* )( ::Vector const &,::Vector * )const)( &::CCollisionProperty::WorldToNormalizedSpace )
             , ( bp::arg("in"), bp::arg("pResult") )
             , bp::return_value_policy< bp::copy_const_reference >() );
 
     bp::class_< PyPhysicsCollision >( "PhysicsCollision", bp::no_init )    
         .def( 
             "CollideGetAABB"
-            , (::boost::python::tuple ( ::PyPhysicsCollision::* )( ::PyPhysicsObject *,::Vector const &,::QAngle const & ) )( &::PyPhysicsCollision::CollideGetAABB )
+            , (::boost::python::tuple ( ::PyPhysicsCollision::* )( ::PyPhysicsObject *,::Vector const &,::QAngle const & ))( &::PyPhysicsCollision::CollideGetAABB )
             , ( bp::arg("pPhysObj"), bp::arg("collideOrigin"), bp::arg("collideAngles") ) )    
         .def( 
             "TraceBox"
-            , (void ( ::PyPhysicsCollision::* )( ::PyRay_t &,::PyPhysicsObject &,::Vector const &,::QAngle const &,::trace_t & ) )( &::PyPhysicsCollision::TraceBox )
+            , (void ( ::PyPhysicsCollision::* )( ::PyRay_t &,::PyPhysicsObject &,::Vector const &,::QAngle const &,::trace_t & ))( &::PyPhysicsCollision::TraceBox )
             , ( bp::arg("ray"), bp::arg("physObj"), bp::arg("collideOrigin"), bp::arg("collideAngles"), bp::arg("ptr") ) );
 
     { //::PyPhysicsObject
@@ -1728,7 +1728,7 @@ BOOST_PYTHON_MODULE(_physics){
         bp::implicitly_convertible< IPhysicsObject *, PyPhysicsObject >();
         { //::PyPhysicsObject::AddVelocity
         
-            typedef void ( ::PyPhysicsObject::*AddVelocity_function_type )( ::Vector const *,::AngularImpulse const * ) ;
+            typedef void ( ::PyPhysicsObject::*AddVelocity_function_type)( ::Vector const *,::AngularImpulse const * ) ;
             
             PhysicsObject_exposer.def( 
                 "AddVelocity"
@@ -1738,7 +1738,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::ApplyForceCenter
         
-            typedef void ( ::PyPhysicsObject::*ApplyForceCenter_function_type )( ::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*ApplyForceCenter_function_type)( ::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "ApplyForceCenter"
@@ -1748,7 +1748,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::ApplyForceOffset
         
-            typedef void ( ::PyPhysicsObject::*ApplyForceOffset_function_type )( ::Vector const &,::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*ApplyForceOffset_function_type)( ::Vector const &,::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "ApplyForceOffset"
@@ -1758,7 +1758,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::ApplyTorqueCenter
         
-            typedef void ( ::PyPhysicsObject::*ApplyTorqueCenter_function_type )( ::AngularImpulse const & ) ;
+            typedef void ( ::PyPhysicsObject::*ApplyTorqueCenter_function_type)( ::AngularImpulse const & ) ;
             
             PhysicsObject_exposer.def( 
                 "ApplyTorqueCenter"
@@ -1768,7 +1768,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::BecomeHinged
         
-            typedef void ( ::PyPhysicsObject::*BecomeHinged_function_type )( int ) ;
+            typedef void ( ::PyPhysicsObject::*BecomeHinged_function_type)( int ) ;
             
             PhysicsObject_exposer.def( 
                 "BecomeHinged"
@@ -1778,7 +1778,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::BecomeTrigger
         
-            typedef void ( ::PyPhysicsObject::*BecomeTrigger_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*BecomeTrigger_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "BecomeTrigger"
@@ -1787,7 +1787,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::Bool
         
-            typedef bool ( ::PyPhysicsObject::*__bool___function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*__bool___function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "__bool__"
@@ -1796,7 +1796,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::CalculateAngularDrag
         
-            typedef float ( ::PyPhysicsObject::*CalculateAngularDrag_function_type )( ::Vector const & ) ;
+            typedef float ( ::PyPhysicsObject::*CalculateAngularDrag_function_type)( ::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "CalculateAngularDrag"
@@ -1806,7 +1806,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::CalculateForceOffset
         
-            typedef void ( ::PyPhysicsObject::*CalculateForceOffset_function_type )( ::Vector const &,::Vector const &,::Vector *,::AngularImpulse * ) ;
+            typedef void ( ::PyPhysicsObject::*CalculateForceOffset_function_type)( ::Vector const &,::Vector const &,::Vector *,::AngularImpulse * ) ;
             
             PhysicsObject_exposer.def( 
                 "CalculateForceOffset"
@@ -1816,7 +1816,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::CalculateLinearDrag
         
-            typedef float ( ::PyPhysicsObject::*CalculateLinearDrag_function_type )( ::Vector const & ) ;
+            typedef float ( ::PyPhysicsObject::*CalculateLinearDrag_function_type)( ::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "CalculateLinearDrag"
@@ -1826,7 +1826,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::CalculateVelocityOffset
         
-            typedef void ( ::PyPhysicsObject::*CalculateVelocityOffset_function_type )( ::Vector const &,::Vector const &,::Vector *,::AngularImpulse * ) ;
+            typedef void ( ::PyPhysicsObject::*CalculateVelocityOffset_function_type)( ::Vector const &,::Vector const &,::Vector *,::AngularImpulse * ) ;
             
             PhysicsObject_exposer.def( 
                 "CalculateVelocityOffset"
@@ -1836,7 +1836,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::Cmp
         
-            typedef bool ( ::PyPhysicsObject::*__cmp___function_type )( ::boost::python::api::object ) ;
+            typedef bool ( ::PyPhysicsObject::*__cmp___function_type)( ::boost::python::api::object ) ;
             
             PhysicsObject_exposer.def( 
                 "__cmp__"
@@ -1846,7 +1846,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::Destroy
         
-            typedef void ( ::PyPhysicsObject::*Destroy_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*Destroy_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "Destroy"
@@ -1855,7 +1855,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::EnableCollisions
         
-            typedef void ( ::PyPhysicsObject::*EnableCollisions_function_type )( bool ) ;
+            typedef void ( ::PyPhysicsObject::*EnableCollisions_function_type)( bool ) ;
             
             PhysicsObject_exposer.def( 
                 "EnableCollisions"
@@ -1865,7 +1865,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::EnableDrag
         
-            typedef void ( ::PyPhysicsObject::*EnableDrag_function_type )( bool ) ;
+            typedef void ( ::PyPhysicsObject::*EnableDrag_function_type)( bool ) ;
             
             PhysicsObject_exposer.def( 
                 "EnableDrag"
@@ -1875,7 +1875,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::EnableGravity
         
-            typedef void ( ::PyPhysicsObject::*EnableGravity_function_type )( bool ) ;
+            typedef void ( ::PyPhysicsObject::*EnableGravity_function_type)( bool ) ;
             
             PhysicsObject_exposer.def( 
                 "EnableGravity"
@@ -1885,7 +1885,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::EnableMotion
         
-            typedef void ( ::PyPhysicsObject::*EnableMotion_function_type )( bool ) ;
+            typedef void ( ::PyPhysicsObject::*EnableMotion_function_type)( bool ) ;
             
             PhysicsObject_exposer.def( 
                 "EnableMotion"
@@ -1895,7 +1895,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetCallbackFlags
         
-            typedef short unsigned int ( ::PyPhysicsObject::*GetCallbackFlags_function_type )(  ) ;
+            typedef short unsigned int ( ::PyPhysicsObject::*GetCallbackFlags_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetCallbackFlags"
@@ -1904,7 +1904,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetContents
         
-            typedef unsigned int ( ::PyPhysicsObject::*GetContents_function_type )(  ) ;
+            typedef unsigned int ( ::PyPhysicsObject::*GetContents_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetContents"
@@ -1913,7 +1913,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetDamping
         
-            typedef ::boost::python::tuple ( ::PyPhysicsObject::*GetDamping_function_type )(  ) ;
+            typedef ::boost::python::tuple ( ::PyPhysicsObject::*GetDamping_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetDamping"
@@ -1922,7 +1922,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetEnergy
         
-            typedef float ( ::PyPhysicsObject::*GetEnergy_function_type )(  ) ;
+            typedef float ( ::PyPhysicsObject::*GetEnergy_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetEnergy"
@@ -1931,7 +1931,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetGameFlags
         
-            typedef short unsigned int ( ::PyPhysicsObject::*GetGameFlags_function_type )(  ) ;
+            typedef short unsigned int ( ::PyPhysicsObject::*GetGameFlags_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetGameFlags"
@@ -1940,7 +1940,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetGameIndex
         
-            typedef short unsigned int ( ::PyPhysicsObject::*GetGameIndex_function_type )(  ) ;
+            typedef short unsigned int ( ::PyPhysicsObject::*GetGameIndex_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetGameIndex"
@@ -1949,7 +1949,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetImplicitVelocity
         
-            typedef void ( ::PyPhysicsObject::*GetImplicitVelocity_function_type )( ::Vector *,::AngularImpulse * ) ;
+            typedef void ( ::PyPhysicsObject::*GetImplicitVelocity_function_type)( ::Vector *,::AngularImpulse * ) ;
             
             PhysicsObject_exposer.def( 
                 "GetImplicitVelocity"
@@ -1959,7 +1959,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetInertia
         
-            typedef ::Vector ( ::PyPhysicsObject::*GetInertia_function_type )(  ) ;
+            typedef ::Vector ( ::PyPhysicsObject::*GetInertia_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetInertia"
@@ -1968,7 +1968,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetInvInertia
         
-            typedef ::Vector ( ::PyPhysicsObject::*GetInvInertia_function_type )(  ) ;
+            typedef ::Vector ( ::PyPhysicsObject::*GetInvInertia_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetInvInertia"
@@ -1977,7 +1977,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetInvMass
         
-            typedef float ( ::PyPhysicsObject::*GetInvMass_function_type )(  ) ;
+            typedef float ( ::PyPhysicsObject::*GetInvMass_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetInvMass"
@@ -1986,7 +1986,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetMass
         
-            typedef float ( ::PyPhysicsObject::*GetMass_function_type )(  ) ;
+            typedef float ( ::PyPhysicsObject::*GetMass_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetMass"
@@ -1995,7 +1995,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetMassCenterLocalSpace
         
-            typedef ::Vector ( ::PyPhysicsObject::*GetMassCenterLocalSpace_function_type )(  ) ;
+            typedef ::Vector ( ::PyPhysicsObject::*GetMassCenterLocalSpace_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetMassCenterLocalSpace"
@@ -2004,7 +2004,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetMaterialIndex
         
-            typedef int ( ::PyPhysicsObject::*GetMaterialIndex_function_type )(  ) ;
+            typedef int ( ::PyPhysicsObject::*GetMaterialIndex_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetMaterialIndex"
@@ -2013,7 +2013,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetName
         
-            typedef char const * ( ::PyPhysicsObject::*GetName_function_type )(  ) ;
+            typedef char const * ( ::PyPhysicsObject::*GetName_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetName"
@@ -2022,7 +2022,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetPosition
         
-            typedef void ( ::PyPhysicsObject::*GetPosition_function_type )( ::Vector *,::QAngle * ) ;
+            typedef void ( ::PyPhysicsObject::*GetPosition_function_type)( ::Vector *,::QAngle * ) ;
             
             PhysicsObject_exposer.def( 
                 "GetPosition"
@@ -2032,7 +2032,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetPositionMatrix
         
-            typedef void ( ::PyPhysicsObject::*GetPositionMatrix_function_type )( ::matrix3x4_t * ) ;
+            typedef void ( ::PyPhysicsObject::*GetPositionMatrix_function_type)( ::matrix3x4_t * ) ;
             
             PhysicsObject_exposer.def( 
                 "GetPositionMatrix"
@@ -2042,7 +2042,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetShadowController
         
-            typedef ::PyPhysicsShadowController ( ::PyPhysicsObject::*GetShadowController_function_type )(  ) ;
+            typedef ::PyPhysicsShadowController ( ::PyPhysicsObject::*GetShadowController_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetShadowController"
@@ -2051,7 +2051,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetShadowPosition
         
-            typedef int ( ::PyPhysicsObject::*GetShadowPosition_function_type )( ::Vector *,::QAngle * ) ;
+            typedef int ( ::PyPhysicsObject::*GetShadowPosition_function_type)( ::Vector *,::QAngle * ) ;
             
             PhysicsObject_exposer.def( 
                 "GetShadowPosition"
@@ -2061,7 +2061,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetSphereRadius
         
-            typedef float ( ::PyPhysicsObject::*GetSphereRadius_function_type )(  ) ;
+            typedef float ( ::PyPhysicsObject::*GetSphereRadius_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "GetSphereRadius"
@@ -2070,7 +2070,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetVelocity
         
-            typedef void ( ::PyPhysicsObject::*GetVelocity_function_type )( ::Vector *,::AngularImpulse * ) ;
+            typedef void ( ::PyPhysicsObject::*GetVelocity_function_type)( ::Vector *,::AngularImpulse * ) ;
             
             PhysicsObject_exposer.def( 
                 "GetVelocity"
@@ -2080,7 +2080,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::GetVelocityAtPoint
         
-            typedef void ( ::PyPhysicsObject::*GetVelocityAtPoint_function_type )( ::Vector const &,::Vector * ) ;
+            typedef void ( ::PyPhysicsObject::*GetVelocityAtPoint_function_type)( ::Vector const &,::Vector * ) ;
             
             PhysicsObject_exposer.def( 
                 "GetVelocityAtPoint"
@@ -2090,7 +2090,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::HasEntity
         
-            typedef bool ( ::PyPhysicsObject::*HasEntity_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*HasEntity_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "HasEntity"
@@ -2099,7 +2099,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsAsleep
         
-            typedef bool ( ::PyPhysicsObject::*IsAsleep_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsAsleep_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsAsleep"
@@ -2108,7 +2108,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsAttachedToConstraint
         
-            typedef bool ( ::PyPhysicsObject::*IsAttachedToConstraint_function_type )( bool ) ;
+            typedef bool ( ::PyPhysicsObject::*IsAttachedToConstraint_function_type)( bool ) ;
             
             PhysicsObject_exposer.def( 
                 "IsAttachedToConstraint"
@@ -2118,7 +2118,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsCollisionEnabled
         
-            typedef bool ( ::PyPhysicsObject::*IsCollisionEnabled_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsCollisionEnabled_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsCollisionEnabled"
@@ -2127,7 +2127,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsDragEnabled
         
-            typedef bool ( ::PyPhysicsObject::*IsDragEnabled_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsDragEnabled_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsDragEnabled"
@@ -2136,7 +2136,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsFluid
         
-            typedef bool ( ::PyPhysicsObject::*IsFluid_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsFluid_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsFluid"
@@ -2145,7 +2145,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsGravityEnabled
         
-            typedef bool ( ::PyPhysicsObject::*IsGravityEnabled_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsGravityEnabled_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsGravityEnabled"
@@ -2154,7 +2154,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsHinged
         
-            typedef bool ( ::PyPhysicsObject::*IsHinged_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsHinged_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsHinged"
@@ -2163,7 +2163,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsMotionEnabled
         
-            typedef bool ( ::PyPhysicsObject::*IsMotionEnabled_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsMotionEnabled_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsMotionEnabled"
@@ -2172,7 +2172,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsMoveable
         
-            typedef bool ( ::PyPhysicsObject::*IsMoveable_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsMoveable_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsMoveable"
@@ -2181,7 +2181,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsStatic
         
-            typedef bool ( ::PyPhysicsObject::*IsStatic_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsStatic_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsStatic"
@@ -2190,7 +2190,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::IsTrigger
         
-            typedef bool ( ::PyPhysicsObject::*IsTrigger_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*IsTrigger_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "IsTrigger"
@@ -2199,7 +2199,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::LocalToWorld
         
-            typedef void ( ::PyPhysicsObject::*LocalToWorld_function_type )( ::Vector *,::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*LocalToWorld_function_type)( ::Vector *,::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "LocalToWorld"
@@ -2209,7 +2209,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::LocalToWorldVector
         
-            typedef void ( ::PyPhysicsObject::*LocalToWorldVector_function_type )( ::Vector *,::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*LocalToWorldVector_function_type)( ::Vector *,::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "LocalToWorldVector"
@@ -2219,7 +2219,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::NonZero
         
-            typedef bool ( ::PyPhysicsObject::*__nonzero___function_type )(  ) ;
+            typedef bool ( ::PyPhysicsObject::*__nonzero___function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "__nonzero__"
@@ -2228,7 +2228,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::OutputDebugInfo
         
-            typedef void ( ::PyPhysicsObject::*OutputDebugInfo_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*OutputDebugInfo_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "OutputDebugInfo"
@@ -2237,7 +2237,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::RecheckCollisionFilter
         
-            typedef void ( ::PyPhysicsObject::*RecheckCollisionFilter_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*RecheckCollisionFilter_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "RecheckCollisionFilter"
@@ -2246,7 +2246,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::RecheckContactPoints
         
-            typedef void ( ::PyPhysicsObject::*RecheckContactPoints_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*RecheckContactPoints_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "RecheckContactPoints"
@@ -2255,7 +2255,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::RemoveHinged
         
-            typedef void ( ::PyPhysicsObject::*RemoveHinged_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*RemoveHinged_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "RemoveHinged"
@@ -2264,7 +2264,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::RemoveShadowController
         
-            typedef void ( ::PyPhysicsObject::*RemoveShadowController_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*RemoveShadowController_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "RemoveShadowController"
@@ -2273,7 +2273,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::RemoveTrigger
         
-            typedef void ( ::PyPhysicsObject::*RemoveTrigger_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*RemoveTrigger_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "RemoveTrigger"
@@ -2282,7 +2282,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetBuoyancyRatio
         
-            typedef void ( ::PyPhysicsObject::*SetBuoyancyRatio_function_type )( float ) ;
+            typedef void ( ::PyPhysicsObject::*SetBuoyancyRatio_function_type)( float ) ;
             
             PhysicsObject_exposer.def( 
                 "SetBuoyancyRatio"
@@ -2292,7 +2292,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetCallbackFlags
         
-            typedef void ( ::PyPhysicsObject::*SetCallbackFlags_function_type )( short unsigned int ) ;
+            typedef void ( ::PyPhysicsObject::*SetCallbackFlags_function_type)( short unsigned int ) ;
             
             PhysicsObject_exposer.def( 
                 "SetCallbackFlags"
@@ -2302,7 +2302,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetContents
         
-            typedef void ( ::PyPhysicsObject::*SetContents_function_type )( unsigned int ) ;
+            typedef void ( ::PyPhysicsObject::*SetContents_function_type)( unsigned int ) ;
             
             PhysicsObject_exposer.def( 
                 "SetContents"
@@ -2312,7 +2312,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetDamping
         
-            typedef void ( ::PyPhysicsObject::*SetDamping_function_type )( float,float ) ;
+            typedef void ( ::PyPhysicsObject::*SetDamping_function_type)( float,float ) ;
             
             PhysicsObject_exposer.def( 
                 "SetDamping"
@@ -2322,7 +2322,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetDragCoefficient
         
-            typedef void ( ::PyPhysicsObject::*SetDragCoefficient_function_type )( float *,float * ) ;
+            typedef void ( ::PyPhysicsObject::*SetDragCoefficient_function_type)( float *,float * ) ;
             
             PhysicsObject_exposer.def( 
                 "SetDragCoefficient"
@@ -2332,7 +2332,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetGameFlags
         
-            typedef void ( ::PyPhysicsObject::*SetGameFlags_function_type )( short unsigned int ) ;
+            typedef void ( ::PyPhysicsObject::*SetGameFlags_function_type)( short unsigned int ) ;
             
             PhysicsObject_exposer.def( 
                 "SetGameFlags"
@@ -2342,7 +2342,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetGameIndex
         
-            typedef void ( ::PyPhysicsObject::*SetGameIndex_function_type )( short unsigned int ) ;
+            typedef void ( ::PyPhysicsObject::*SetGameIndex_function_type)( short unsigned int ) ;
             
             PhysicsObject_exposer.def( 
                 "SetGameIndex"
@@ -2352,7 +2352,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetInertia
         
-            typedef void ( ::PyPhysicsObject::*SetInertia_function_type )( ::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*SetInertia_function_type)( ::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "SetInertia"
@@ -2362,7 +2362,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetMass
         
-            typedef void ( ::PyPhysicsObject::*SetMass_function_type )( float ) ;
+            typedef void ( ::PyPhysicsObject::*SetMass_function_type)( float ) ;
             
             PhysicsObject_exposer.def( 
                 "SetMass"
@@ -2372,7 +2372,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetMaterialIndex
         
-            typedef void ( ::PyPhysicsObject::*SetMaterialIndex_function_type )( int ) ;
+            typedef void ( ::PyPhysicsObject::*SetMaterialIndex_function_type)( int ) ;
             
             PhysicsObject_exposer.def( 
                 "SetMaterialIndex"
@@ -2382,7 +2382,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetPosition
         
-            typedef void ( ::PyPhysicsObject::*SetPosition_function_type )( ::Vector const &,::QAngle const &,bool ) ;
+            typedef void ( ::PyPhysicsObject::*SetPosition_function_type)( ::Vector const &,::QAngle const &,bool ) ;
             
             PhysicsObject_exposer.def( 
                 "SetPosition"
@@ -2392,7 +2392,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetPositionMatrix
         
-            typedef void ( ::PyPhysicsObject::*SetPositionMatrix_function_type )( ::matrix3x4_t const &,bool ) ;
+            typedef void ( ::PyPhysicsObject::*SetPositionMatrix_function_type)( ::matrix3x4_t const &,bool ) ;
             
             PhysicsObject_exposer.def( 
                 "SetPositionMatrix"
@@ -2402,7 +2402,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetShadow
         
-            typedef void ( ::PyPhysicsObject::*SetShadow_function_type )( float,float,bool,bool ) ;
+            typedef void ( ::PyPhysicsObject::*SetShadow_function_type)( float,float,bool,bool ) ;
             
             PhysicsObject_exposer.def( 
                 "SetShadow"
@@ -2412,7 +2412,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetVelocity
         
-            typedef void ( ::PyPhysicsObject::*SetVelocity_function_type )( ::Vector const *,::AngularImpulse const * ) ;
+            typedef void ( ::PyPhysicsObject::*SetVelocity_function_type)( ::Vector const *,::AngularImpulse const * ) ;
             
             PhysicsObject_exposer.def( 
                 "SetVelocity"
@@ -2422,7 +2422,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::SetVelocityInstantaneous
         
-            typedef void ( ::PyPhysicsObject::*SetVelocityInstantaneous_function_type )( ::Vector const *,::AngularImpulse const * ) ;
+            typedef void ( ::PyPhysicsObject::*SetVelocityInstantaneous_function_type)( ::Vector const *,::AngularImpulse const * ) ;
             
             PhysicsObject_exposer.def( 
                 "SetVelocityInstantaneous"
@@ -2432,7 +2432,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::Sleep
         
-            typedef void ( ::PyPhysicsObject::*Sleep_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*Sleep_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "Sleep"
@@ -2441,7 +2441,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::UpdateShadow
         
-            typedef void ( ::PyPhysicsObject::*UpdateShadow_function_type )( ::Vector const &,::QAngle const &,bool,float ) ;
+            typedef void ( ::PyPhysicsObject::*UpdateShadow_function_type)( ::Vector const &,::QAngle const &,bool,float ) ;
             
             PhysicsObject_exposer.def( 
                 "UpdateShadow"
@@ -2451,7 +2451,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::Wake
         
-            typedef void ( ::PyPhysicsObject::*Wake_function_type )(  ) ;
+            typedef void ( ::PyPhysicsObject::*Wake_function_type)(  ) ;
             
             PhysicsObject_exposer.def( 
                 "Wake"
@@ -2460,7 +2460,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::WorldToLocal
         
-            typedef void ( ::PyPhysicsObject::*WorldToLocal_function_type )( ::Vector *,::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*WorldToLocal_function_type)( ::Vector *,::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "WorldToLocal"
@@ -2470,7 +2470,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsObject::WorldToLocalVector
         
-            typedef void ( ::PyPhysicsObject::*WorldToLocalVector_function_type )( ::Vector *,::Vector const & ) ;
+            typedef void ( ::PyPhysicsObject::*WorldToLocalVector_function_type)( ::Vector *,::Vector const & ) ;
             
             PhysicsObject_exposer.def( 
                 "WorldToLocalVector"
@@ -2489,7 +2489,7 @@ BOOST_PYTHON_MODULE(_physics){
         bp::implicitly_convertible< bp::api::object, PyPhysicsShadowController >();
         { //::PyPhysicsShadowController::AllowsRotation
         
-            typedef bool ( ::PyPhysicsShadowController::*AllowsRotation_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsShadowController::*AllowsRotation_function_type)(  ) ;
             
             PhysicsShadowController_exposer.def( 
                 "AllowsRotation"
@@ -2498,7 +2498,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::AllowsTranslation
         
-            typedef bool ( ::PyPhysicsShadowController::*AllowsTranslation_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsShadowController::*AllowsTranslation_function_type)(  ) ;
             
             PhysicsShadowController_exposer.def( 
                 "AllowsTranslation"
@@ -2507,7 +2507,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::Bool
         
-            typedef bool ( ::PyPhysicsShadowController::*__bool___function_type )(  ) ;
+            typedef bool ( ::PyPhysicsShadowController::*__bool___function_type)(  ) ;
             
             PhysicsShadowController_exposer.def( 
                 "__bool__"
@@ -2516,7 +2516,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::Cmp
         
-            typedef bool ( ::PyPhysicsShadowController::*__cmp___function_type )( ::boost::python::api::object ) ;
+            typedef bool ( ::PyPhysicsShadowController::*__cmp___function_type)( ::boost::python::api::object ) ;
             
             PhysicsShadowController_exposer.def( 
                 "__cmp__"
@@ -2526,7 +2526,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::GetLastImpulse
         
-            typedef void ( ::PyPhysicsShadowController::*GetLastImpulse_function_type )( ::Vector * ) ;
+            typedef void ( ::PyPhysicsShadowController::*GetLastImpulse_function_type)( ::Vector * ) ;
             
             PhysicsShadowController_exposer.def( 
                 "GetLastImpulse"
@@ -2536,7 +2536,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::GetMaxSpeed
         
-            typedef void ( ::PyPhysicsShadowController::*GetMaxSpeed_function_type )( float *,float * ) ;
+            typedef void ( ::PyPhysicsShadowController::*GetMaxSpeed_function_type)( float *,float * ) ;
             
             PhysicsShadowController_exposer.def( 
                 "GetMaxSpeed"
@@ -2546,7 +2546,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::GetTargetPosition
         
-            typedef float ( ::PyPhysicsShadowController::*GetTargetPosition_function_type )( ::Vector *,::QAngle * ) ;
+            typedef float ( ::PyPhysicsShadowController::*GetTargetPosition_function_type)( ::Vector *,::QAngle * ) ;
             
             PhysicsShadowController_exposer.def( 
                 "GetTargetPosition"
@@ -2556,7 +2556,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::GetTeleportDistance
         
-            typedef float ( ::PyPhysicsShadowController::*GetTeleportDistance_function_type )(  ) ;
+            typedef float ( ::PyPhysicsShadowController::*GetTeleportDistance_function_type)(  ) ;
             
             PhysicsShadowController_exposer.def( 
                 "GetTeleportDistance"
@@ -2565,7 +2565,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::IsPhysicallyControlled
         
-            typedef bool ( ::PyPhysicsShadowController::*IsPhysicallyControlled_function_type )(  ) ;
+            typedef bool ( ::PyPhysicsShadowController::*IsPhysicallyControlled_function_type)(  ) ;
             
             PhysicsShadowController_exposer.def( 
                 "IsPhysicallyControlled"
@@ -2574,7 +2574,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::MaxSpeed
         
-            typedef void ( ::PyPhysicsShadowController::*MaxSpeed_function_type )( float,float ) ;
+            typedef void ( ::PyPhysicsShadowController::*MaxSpeed_function_type)( float,float ) ;
             
             PhysicsShadowController_exposer.def( 
                 "MaxSpeed"
@@ -2584,7 +2584,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::NonZero
         
-            typedef bool ( ::PyPhysicsShadowController::*__nonzero___function_type )(  ) ;
+            typedef bool ( ::PyPhysicsShadowController::*__nonzero___function_type)(  ) ;
             
             PhysicsShadowController_exposer.def( 
                 "__nonzero__"
@@ -2593,7 +2593,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::ObjectMaterialChanged
         
-            typedef void ( ::PyPhysicsShadowController::*ObjectMaterialChanged_function_type )( int ) ;
+            typedef void ( ::PyPhysicsShadowController::*ObjectMaterialChanged_function_type)( int ) ;
             
             PhysicsShadowController_exposer.def( 
                 "ObjectMaterialChanged"
@@ -2603,7 +2603,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::SetPhysicallyControlled
         
-            typedef void ( ::PyPhysicsShadowController::*SetPhysicallyControlled_function_type )( bool ) ;
+            typedef void ( ::PyPhysicsShadowController::*SetPhysicallyControlled_function_type)( bool ) ;
             
             PhysicsShadowController_exposer.def( 
                 "SetPhysicallyControlled"
@@ -2613,7 +2613,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::SetTeleportDistance
         
-            typedef void ( ::PyPhysicsShadowController::*SetTeleportDistance_function_type )( float ) ;
+            typedef void ( ::PyPhysicsShadowController::*SetTeleportDistance_function_type)( float ) ;
             
             PhysicsShadowController_exposer.def( 
                 "SetTeleportDistance"
@@ -2623,7 +2623,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::StepUp
         
-            typedef void ( ::PyPhysicsShadowController::*StepUp_function_type )( float ) ;
+            typedef void ( ::PyPhysicsShadowController::*StepUp_function_type)( float ) ;
             
             PhysicsShadowController_exposer.def( 
                 "StepUp"
@@ -2633,7 +2633,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::Update
         
-            typedef void ( ::PyPhysicsShadowController::*Update_function_type )( ::Vector const &,::QAngle const &,float ) ;
+            typedef void ( ::PyPhysicsShadowController::*Update_function_type)( ::Vector const &,::QAngle const &,float ) ;
             
             PhysicsShadowController_exposer.def( 
                 "Update"
@@ -2643,7 +2643,7 @@ BOOST_PYTHON_MODULE(_physics){
         }
         { //::PyPhysicsShadowController::UseShadowMaterial
         
-            typedef void ( ::PyPhysicsShadowController::*UseShadowMaterial_function_type )( bool ) ;
+            typedef void ( ::PyPhysicsShadowController::*UseShadowMaterial_function_type)( bool ) ;
             
             PhysicsShadowController_exposer.def( 
                 "UseShadowMaterial"
@@ -2658,31 +2658,31 @@ BOOST_PYTHON_MODULE(_physics){
     bp::class_< PyPhysicsSurfaceProps >( "PhysicsSurfaceProps", bp::no_init )    
         .def( 
             "GetPhysicsParameters"
-            , (void ( ::PyPhysicsSurfaceProps::* )( int,::surfacephysicsparams_t & ) const)( &::PyPhysicsSurfaceProps::GetPhysicsParameters )
+            , (void ( ::PyPhysicsSurfaceProps::* )( int,::surfacephysicsparams_t & )const)( &::PyPhysicsSurfaceProps::GetPhysicsParameters )
             , ( bp::arg("surfaceDataIndex"), bp::arg("paramsout") ) )    
         .def( 
             "GetPropName"
-            , (char const * ( ::PyPhysicsSurfaceProps::* )( int ) const)( &::PyPhysicsSurfaceProps::GetPropName )
+            , (char const * ( ::PyPhysicsSurfaceProps::* )( int )const)( &::PyPhysicsSurfaceProps::GetPropName )
             , ( bp::arg("surfaceDataIndex") ) )    
         .def( 
             "GetString"
-            , (char const * ( ::PyPhysicsSurfaceProps::* )( short unsigned int ) const)( &::PyPhysicsSurfaceProps::GetString )
+            , (char const * ( ::PyPhysicsSurfaceProps::* )( short unsigned int )const)( &::PyPhysicsSurfaceProps::GetString )
             , ( bp::arg("stringTableIndex") ) )    
         .def( 
             "GetSurfaceData"
-            , (::surfacedata_t ( ::PyPhysicsSurfaceProps::* )( int ) )( &::PyPhysicsSurfaceProps::GetSurfaceData )
+            , (::surfacedata_t ( ::PyPhysicsSurfaceProps::* )( int ))( &::PyPhysicsSurfaceProps::GetSurfaceData )
             , ( bp::arg("surfaceDataIndex") ) )    
         .def( 
             "GetSurfaceIndex"
-            , (int ( ::PyPhysicsSurfaceProps::* )( char const * ) const)( &::PyPhysicsSurfaceProps::GetSurfaceIndex )
+            , (int ( ::PyPhysicsSurfaceProps::* )( char const * )const)( &::PyPhysicsSurfaceProps::GetSurfaceIndex )
             , ( bp::arg("pSurfacePropName") ) )    
         .def( 
             "ParseSurfaceData"
-            , (int ( ::PyPhysicsSurfaceProps::* )( char const *,char const * ) )( &::PyPhysicsSurfaceProps::ParseSurfaceData )
+            , (int ( ::PyPhysicsSurfaceProps::* )( char const *,char const * ))( &::PyPhysicsSurfaceProps::ParseSurfaceData )
             , ( bp::arg("pFilename"), bp::arg("pTextfile") ) )    
         .def( 
             "SurfacePropCount"
-            , (int ( ::PyPhysicsSurfaceProps::* )(  ) const)( &::PyPhysicsSurfaceProps::SurfacePropCount ) );
+            , (int ( ::PyPhysicsSurfaceProps::* )(  )const)( &::PyPhysicsSurfaceProps::SurfacePropCount ) );
 
     bp::class_< surfaceaudioparams_t >( "surfaceaudioparams_t" )    
         .def_readwrite( "hardThreshold", &surfaceaudioparams_t::hardThreshold )    
@@ -2792,23 +2792,23 @@ BOOST_PYTHON_MODULE(_physics){
 
     { //::PyPhysCallbackDamage
     
-        typedef void ( *PhysCallbackDamage_function_type )( ::CBaseEntity *,::CTakeDamageInfo const & );
-        
-        bp::def( 
-            "PhysCallbackDamage"
-            , PhysCallbackDamage_function_type( &::PyPhysCallbackDamage )
-            , ( bp::arg("pEntity"), bp::arg("info") ) );
-    
-    }
-
-    { //::PyPhysCallbackDamage
-    
         typedef void ( *PhysCallbackDamage_function_type )( ::CBaseEntity *,::CTakeDamageInfo const &,::gamevcollisionevent_t &,int );
         
         bp::def( 
             "PhysCallbackDamage"
             , PhysCallbackDamage_function_type( &::PyPhysCallbackDamage )
             , ( bp::arg("pEntity"), bp::arg("info"), bp::arg("event"), bp::arg("hurtIndex") ) );
+    
+    }
+
+    { //::PyPhysCallbackDamage
+    
+        typedef void ( *PhysCallbackDamage_function_type )( ::CBaseEntity *,::CTakeDamageInfo const & );
+        
+        bp::def( 
+            "PhysCallbackDamage"
+            , PhysCallbackDamage_function_type( &::PyPhysCallbackDamage )
+            , ( bp::arg("pEntity"), bp::arg("info") ) );
     
     }
 

@@ -81,309 +81,309 @@ BOOST_PYTHON_MODULE(_particles){
     bp::class_< CParticleCollection, boost::noncopyable >( "CParticleCollection", bp::no_init )    
         .def( 
             "IsValid"
-            , (bool ( ::CParticleCollection::* )(  ) const)( &::CParticleCollection::IsValid ) );
+            , (bool ( ::CParticleCollection::* )(  )const)( &::CParticleCollection::IsValid ) );
 
     bp::class_< CNewParticleEffect, bp::bases< CParticleCollection >, boost::noncopyable >( "CNewParticleEffect", bp::no_init )    
         .def( bp::init< C_BaseEntity *, char const * >(( bp::arg("pOwner"), bp::arg("pEffectName") )) )    
         .def( bp::init< C_BaseEntity *, CParticleSystemDefinition * >(( bp::arg("pOwner"), bp::arg("pEffect") )) )    
         .def( 
             "AllocateToolParticleEffectId"
-            , (int ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::AllocateToolParticleEffectId ) )    
+            , (int ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::AllocateToolParticleEffectId ) )    
         .def( 
             "DebugDrawBbox"
-            , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::DebugDrawBbox )
+            , (void ( ::CNewParticleEffect::* )( bool ))( &::CNewParticleEffect::DebugDrawBbox )
             , ( bp::arg("bCulled") ) )    
         .def( 
             "DetectChanges"
-            , (void ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::DetectChanges ) )    
+            , (void ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::DetectChanges ) )    
         .def( 
             "DrawModel"
-            , (int ( ::CNewParticleEffect::* )( int ) )( &::CNewParticleEffect::DrawModel )
+            , (int ( ::CNewParticleEffect::* )( int ))( &::CNewParticleEffect::DrawModel )
             , ( bp::arg("flags") ) )    
         .def( 
             "GetAutoUpdateBBox"
-            , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetAutoUpdateBBox ) )    
+            , (bool ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::GetAutoUpdateBBox ) )    
         .def( 
             "GetControlPointEntity"
-            , (::EHANDLE const & ( ::CNewParticleEffect::* )( int ) )( &::CNewParticleEffect::GetControlPointEntity )
+            , (::EHANDLE const & ( ::CNewParticleEffect::* )( int ))( &::CNewParticleEffect::GetControlPointEntity )
             , ( bp::arg("nWhichPoint") )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetEffectName"
-            , (char const * ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetEffectName ) )    
+            , (char const * ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::GetEffectName ) )    
         .def( 
             "GetFirstFrameFlag"
-            , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetFirstFrameFlag ) )    
+            , (bool ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::GetFirstFrameFlag ) )    
         .def( 
             "GetIsViewModelEffect"
-            , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetIsViewModelEffect ) )    
+            , (bool ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::GetIsViewModelEffect ) )    
         .def( 
             "GetNeedsBBoxUpdate"
-            , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetNeedsBBoxUpdate ) )    
+            , (bool ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::GetNeedsBBoxUpdate ) )    
         .def( 
             "GetOwner"
-            , (::C_BaseEntity * ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetOwner )
+            , (::C_BaseEntity * ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::GetOwner )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetPMaterial"
-            , (::PMaterialHandle ( ::CNewParticleEffect::* )( char const * ) )( &::CNewParticleEffect::GetPMaterial )
+            , (::PMaterialHandle ( ::CNewParticleEffect::* )( char const * ))( &::CNewParticleEffect::GetPMaterial )
             , ( bp::arg("name") )
             , bp::return_internal_reference< >() )    
         .def( 
             "GetRemoveFlag"
-            , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetRemoveFlag ) )    
+            , (bool ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::GetRemoveFlag ) )    
         .def( 
             "GetRenderAngles"
-            , (::QAngle const & ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetRenderAngles )
+            , (::QAngle const & ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::GetRenderAngles )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetRenderBounds"
-            , (void ( ::CNewParticleEffect::* )( ::Vector &,::Vector & ) )( &::CNewParticleEffect::GetRenderBounds )
+            , (void ( ::CNewParticleEffect::* )( ::Vector &,::Vector & ))( &::CNewParticleEffect::GetRenderBounds )
             , ( bp::arg("mins"), bp::arg("maxs") ) )    
         .def( 
             "GetRenderOrigin"
-            , (::Vector const & ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetRenderOrigin )
+            , (::Vector const & ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::GetRenderOrigin )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetSortOrigin"
-            , (::Vector const & ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::GetSortOrigin )
+            , (::Vector const & ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::GetSortOrigin )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetToolParticleEffectId"
-            , (int ( ::CNewParticleEffect::* )(  ) const)( &::CNewParticleEffect::GetToolParticleEffectId ) )    
+            , (int ( ::CNewParticleEffect::* )(  )const)( &::CNewParticleEffect::GetToolParticleEffectId ) )    
         .def( 
             "IsTransparent"
-            , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::IsTransparent ) )    
+            , (bool ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::IsTransparent ) )    
         .def( 
             "IsTwoPass"
-            , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::IsTwoPass ) )    
+            , (bool ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::IsTwoPass ) )    
         .def( 
             "MarkShouldPerformCullCheck"
-            , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::MarkShouldPerformCullCheck )
+            , (void ( ::CNewParticleEffect::* )( bool ))( &::CNewParticleEffect::MarkShouldPerformCullCheck )
             , ( bp::arg("bEnable") ) )    
         .def( 
             "NotifyRemove"
-            , (void ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::NotifyRemove ) )    
+            , (void ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::NotifyRemove ) )    
         .def( 
             "RecalculateBoundingBox"
-            , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::RecalculateBoundingBox ) )    
+            , (bool ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::RecalculateBoundingBox ) )    
         .def( 
             "RenderParticles"
-            , (void ( ::CNewParticleEffect::* )( ::CParticleRenderIterator * ) )( &::CNewParticleEffect::RenderParticles )
+            , (void ( ::CNewParticleEffect::* )( ::CParticleRenderIterator * ))( &::CNewParticleEffect::RenderParticles )
             , ( bp::arg("pIterator") ) )    
         .def( 
             "RenderableToWorldTransform"
-            , (::matrix3x4_t const & ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::RenderableToWorldTransform )
+            , (::matrix3x4_t const & ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::RenderableToWorldTransform )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "SetAutoUpdateBBox"
-            , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::SetAutoUpdateBBox )
+            , (void ( ::CNewParticleEffect::* )( bool ))( &::CNewParticleEffect::SetAutoUpdateBBox )
             , ( bp::arg("bNeedsUpdate") ) )    
         .def( 
             "SetControlPoint"
-            , (void ( ::CNewParticleEffect::* )( int,::Vector const & ) )( &::CNewParticleEffect::SetControlPoint )
+            , (void ( ::CNewParticleEffect::* )( int,::Vector const & ))( &::CNewParticleEffect::SetControlPoint )
             , ( bp::arg("nWhichPoint"), bp::arg("v") ) )    
         .def( 
             "SetControlPointEntity"
-            , (void ( ::CNewParticleEffect::* )( int,::C_BaseEntity * ) )( &::CNewParticleEffect::SetControlPointEntity )
+            , (void ( ::CNewParticleEffect::* )( int,::C_BaseEntity * ))( &::CNewParticleEffect::SetControlPointEntity )
             , ( bp::arg("nWhichPoint"), bp::arg("pEntity") ) )    
         .def( 
             "SetControlPointForwardVector"
-            , (void ( ::CNewParticleEffect::* )( int,::Vector const & ) )( &::CNewParticleEffect::SetControlPointForwardVector )
+            , (void ( ::CNewParticleEffect::* )( int,::Vector const & ))( &::CNewParticleEffect::SetControlPointForwardVector )
             , ( bp::arg("nWhichPoint"), bp::arg("v") ) )    
         .def( 
             "SetControlPointOrientation"
-            , (void ( ::CNewParticleEffect::* )( int,::Quaternion const & ) )( &::CNewParticleEffect::SetControlPointOrientation )
+            , (void ( ::CNewParticleEffect::* )( int,::Quaternion const & ))( &::CNewParticleEffect::SetControlPointOrientation )
             , ( bp::arg("nWhichPoint"), bp::arg("q") ) )    
         .def( 
             "SetControlPointOrientation"
-            , (void ( ::CNewParticleEffect::* )( int,::Vector const &,::Vector const &,::Vector const & ) )( &::CNewParticleEffect::SetControlPointOrientation )
+            , (void ( ::CNewParticleEffect::* )( int,::Vector const &,::Vector const &,::Vector const & ))( &::CNewParticleEffect::SetControlPointOrientation )
             , ( bp::arg("nWhichPoint"), bp::arg("forward"), bp::arg("right"), bp::arg("up") ) )    
         .def( 
             "SetControlPointRightVector"
-            , (void ( ::CNewParticleEffect::* )( int,::Vector const & ) )( &::CNewParticleEffect::SetControlPointRightVector )
+            , (void ( ::CNewParticleEffect::* )( int,::Vector const & ))( &::CNewParticleEffect::SetControlPointRightVector )
             , ( bp::arg("nWhichPoint"), bp::arg("v") ) )    
         .def( 
             "SetControlPointUpVector"
-            , (void ( ::CNewParticleEffect::* )( int,::Vector const & ) )( &::CNewParticleEffect::SetControlPointUpVector )
+            , (void ( ::CNewParticleEffect::* )( int,::Vector const & ))( &::CNewParticleEffect::SetControlPointUpVector )
             , ( bp::arg("nWhichPoint"), bp::arg("v") ) )    
         .def( 
             "SetDontRemove"
-            , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::SetDontRemove )
+            , (void ( ::CNewParticleEffect::* )( bool ))( &::CNewParticleEffect::SetDontRemove )
             , ( bp::arg("bSet") ) )    
         .def( 
             "SetDormant"
-            , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::SetDormant )
+            , (void ( ::CNewParticleEffect::* )( bool ))( &::CNewParticleEffect::SetDormant )
             , ( bp::arg("bDormant") ) )    
         .def( 
             "SetDrawn"
-            , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::SetDrawn )
+            , (void ( ::CNewParticleEffect::* )( bool ))( &::CNewParticleEffect::SetDrawn )
             , ( bp::arg("bDrawn") ) )    
         .def( 
             "SetDynamicallyAllocated"
-            , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::SetDynamicallyAllocated )
+            , (void ( ::CNewParticleEffect::* )( bool ))( &::CNewParticleEffect::SetDynamicallyAllocated )
             , ( bp::arg("bDynamic")=(bool)(true) ) )    
         .def( 
             "SetFirstFrameFlag"
-            , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::SetFirstFrameFlag )
+            , (void ( ::CNewParticleEffect::* )( bool ))( &::CNewParticleEffect::SetFirstFrameFlag )
             , ( bp::arg("bFirst") ) )    
         .def( 
             "SetIsViewModelEffect"
-            , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::SetIsViewModelEffect )
+            , (void ( ::CNewParticleEffect::* )( bool ))( &::CNewParticleEffect::SetIsViewModelEffect )
             , ( bp::arg("bIsViewModelEffect") ) )    
         .def( 
             "SetNeedsBBoxUpdate"
-            , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::SetNeedsBBoxUpdate )
+            , (void ( ::CNewParticleEffect::* )( bool ))( &::CNewParticleEffect::SetNeedsBBoxUpdate )
             , ( bp::arg("bNeedsUpdate") ) )    
         .def( 
             "SetOwner"
-            , (void ( ::CNewParticleEffect::* )( ::C_BaseEntity * ) )( &::CNewParticleEffect::SetOwner )
+            , (void ( ::CNewParticleEffect::* )( ::C_BaseEntity * ))( &::CNewParticleEffect::SetOwner )
             , ( bp::arg("pOwner") ) )    
         .def( 
             "SetParticleCullRadius"
-            , (void ( ::CNewParticleEffect::* )( float ) )( &::CNewParticleEffect::SetParticleCullRadius )
+            , (void ( ::CNewParticleEffect::* )( float ))( &::CNewParticleEffect::SetParticleCullRadius )
             , ( bp::arg("radius") ) )    
         .def( 
             "SetRemoveFlag"
-            , (void ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::SetRemoveFlag ) )    
+            , (void ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::SetRemoveFlag ) )    
         .def( 
             "SetShouldSimulate"
-            , (void ( ::CNewParticleEffect::* )( bool ) )( &::CNewParticleEffect::SetShouldSimulate )
+            , (void ( ::CNewParticleEffect::* )( bool ))( &::CNewParticleEffect::SetShouldSimulate )
             , ( bp::arg("bSim") ) )    
         .def( 
             "SetSortOrigin"
-            , (void ( ::CNewParticleEffect::* )( ::Vector const & ) )( &::CNewParticleEffect::SetSortOrigin )
+            , (void ( ::CNewParticleEffect::* )( ::Vector const & ))( &::CNewParticleEffect::SetSortOrigin )
             , ( bp::arg("vSortOrigin") ) )    
         .def( 
             "ShouldDraw"
-            , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::ShouldDraw ) )    
+            , (bool ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::ShouldDraw ) )    
         .def( 
             "ShouldPerformCullCheck"
-            , (bool ( ::CNewParticleEffect::* )(  ) const)( &::CNewParticleEffect::ShouldPerformCullCheck ) )    
+            , (bool ( ::CNewParticleEffect::* )(  )const)( &::CNewParticleEffect::ShouldPerformCullCheck ) )    
         .def( 
             "ShouldSimulate"
-            , (bool ( ::CNewParticleEffect::* )(  ) const)( &::CNewParticleEffect::ShouldSimulate ) )    
+            , (bool ( ::CNewParticleEffect::* )(  )const)( &::CNewParticleEffect::ShouldSimulate ) )    
         .def( 
             "SimulateParticles"
-            , (void ( ::CNewParticleEffect::* )( ::CParticleSimulateIterator * ) )( &::CNewParticleEffect::SimulateParticles )
+            , (void ( ::CNewParticleEffect::* )( ::CParticleSimulateIterator * ))( &::CNewParticleEffect::SimulateParticles )
             , ( bp::arg("pIterator") ) )    
         .def( 
             "StopEmission"
-            , (void ( ::CNewParticleEffect::* )( bool,bool,bool ) )( &::CNewParticleEffect::StopEmission )
+            , (void ( ::CNewParticleEffect::* )( bool,bool,bool ))( &::CNewParticleEffect::StopEmission )
             , ( bp::arg("bInfiniteOnly")=(bool)(false), bp::arg("bRemoveAllParticles")=(bool)(false), bp::arg("bWakeOnStop")=(bool)(false) ) )    
         .def( 
             "Update"
-            , (void ( ::CNewParticleEffect::* )( float ) )( &::CNewParticleEffect::Update )
+            , (void ( ::CNewParticleEffect::* )( float ))( &::CNewParticleEffect::Update )
             , ( bp::arg("flTimeDelta") ) )    
         .def( 
             "UsesFullFrameBufferTexture"
-            , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::UsesFullFrameBufferTexture ) )    
+            , (bool ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::UsesFullFrameBufferTexture ) )    
         .def( 
             "UsesPowerOfTwoFrameBufferTexture"
-            , (bool ( ::CNewParticleEffect::* )(  ) )( &::CNewParticleEffect::UsesPowerOfTwoFrameBufferTexture ) );
+            , (bool ( ::CNewParticleEffect::* )(  ))( &::CNewParticleEffect::UsesPowerOfTwoFrameBufferTexture ) );
 
     bp::class_< CParticleMgr, boost::noncopyable >( "CParticleMgr", bp::no_init )    
         .def( 
             "AddEffect"
-            , (bool ( ::CParticleMgr::* )( ::CParticleEffectBinding *,::IParticleEffect * ) )( &::CParticleMgr::AddEffect )
+            , (bool ( ::CParticleMgr::* )( ::CParticleEffectBinding *,::IParticleEffect * ))( &::CParticleMgr::AddEffect )
             , ( bp::arg("pEffect"), bp::arg("pSim") ) )    
         .def( 
             "AddEffect"
-            , (void ( ::CParticleMgr::* )( ::CNewParticleEffect * ) )( &::CParticleMgr::AddEffect )
+            , (void ( ::CParticleMgr::* )( ::CNewParticleEffect * ))( &::CParticleMgr::AddEffect )
             , ( bp::arg("pEffect") ) )    
         .def( 
             "AddEffectListener"
-            , (void ( ::CParticleMgr::* )( ::IClientParticleListener * ) )( &::CParticleMgr::AddEffectListener )
+            , (void ( ::CParticleMgr::* )( ::IClientParticleListener * ))( &::CParticleMgr::AddEffectListener )
             , ( bp::arg("pListener") ) )    
         .def( 
             "AllocateToolParticleEffectId"
-            , (int ( ::CParticleMgr::* )(  ) )( &::CParticleMgr::AllocateToolParticleEffectId ) )    
+            , (int ( ::CParticleMgr::* )(  ))( &::CParticleMgr::AllocateToolParticleEffectId ) )    
         .def( 
             "DrawBeforeViewModelEffects"
-            , (void ( ::CParticleMgr::* )(  ) )( &::CParticleMgr::DrawBeforeViewModelEffects ) )    
+            , (void ( ::CParticleMgr::* )(  ))( &::CParticleMgr::DrawBeforeViewModelEffects ) )    
         .def( 
             "FreeParticle"
-            , (void ( ::CParticleMgr::* )( ::Particle * ) )( &::CParticleMgr::FreeParticle )
+            , (void ( ::CParticleMgr::* )( ::Particle * ))( &::CParticleMgr::FreeParticle )
             , ( bp::arg("arg0") ) )    
         .def( 
             "GetDirectionalLightInfo"
-            , (void ( ::CParticleMgr::* )( ::CParticleLightInfo & ) const)( &::CParticleMgr::GetDirectionalLightInfo )
+            , (void ( ::CParticleMgr::* )( ::CParticleLightInfo & )const)( &::CParticleMgr::GetDirectionalLightInfo )
             , ( bp::arg("info") ) )    
         .def( 
             "GetPMaterial"
-            , (::PMaterialHandle ( ::CParticleMgr::* )( char const * ) )( &::CParticleMgr::GetPMaterial )
+            , (::PMaterialHandle ( ::CParticleMgr::* )( char const * ))( &::CParticleMgr::GetPMaterial )
             , ( bp::arg("pMaterialName") )
             , bp::return_internal_reference< >() )    
         .def( 
             "IncrementFrameCode"
-            , (void ( ::CParticleMgr::* )(  ) )( &::CParticleMgr::IncrementFrameCode ) )    
+            , (void ( ::CParticleMgr::* )(  ))( &::CParticleMgr::IncrementFrameCode ) )    
         .def( 
             "Init"
-            , (bool ( ::CParticleMgr::* )( long unsigned int,::IMaterialSystem * ) )( &::CParticleMgr::Init )
+            , (bool ( ::CParticleMgr::* )( long unsigned int,::IMaterialSystem * ))( &::CParticleMgr::Init )
             , ( bp::arg("nPreallocatedParticles"), bp::arg("pMaterial") ) )    
         .def( 
             "LevelInit"
-            , (void ( ::CParticleMgr::* )(  ) )( &::CParticleMgr::LevelInit ) )    
+            , (void ( ::CParticleMgr::* )(  ))( &::CParticleMgr::LevelInit ) )    
         .def( 
             "PostRender"
-            , (void ( ::CParticleMgr::* )(  ) )( &::CParticleMgr::PostRender ) )    
+            , (void ( ::CParticleMgr::* )(  ))( &::CParticleMgr::PostRender ) )    
         .def( 
             "RemoveAllEffects"
-            , (void ( ::CParticleMgr::* )(  ) )( &::CParticleMgr::RemoveAllEffects ) )    
+            , (void ( ::CParticleMgr::* )(  ))( &::CParticleMgr::RemoveAllEffects ) )    
         .def( 
             "RemoveAllNewEffects"
-            , (void ( ::CParticleMgr::* )(  ) )( &::CParticleMgr::RemoveAllNewEffects ) )    
+            , (void ( ::CParticleMgr::* )(  ))( &::CParticleMgr::RemoveAllNewEffects ) )    
         .def( 
             "RemoveEffect"
-            , (void ( ::CParticleMgr::* )( ::CParticleEffectBinding * ) )( &::CParticleMgr::RemoveEffect )
+            , (void ( ::CParticleMgr::* )( ::CParticleEffectBinding * ))( &::CParticleMgr::RemoveEffect )
             , ( bp::arg("pEffect") ) )    
         .def( 
             "RemoveEffect"
-            , (void ( ::CParticleMgr::* )( ::CNewParticleEffect * ) )( &::CParticleMgr::RemoveEffect )
+            , (void ( ::CParticleMgr::* )( ::CNewParticleEffect * ))( &::CParticleMgr::RemoveEffect )
             , ( bp::arg("pEffect") ) )    
         .def( 
             "RemoveEffectListener"
-            , (void ( ::CParticleMgr::* )( ::IClientParticleListener * ) )( &::CParticleMgr::RemoveEffectListener )
+            , (void ( ::CParticleMgr::* )( ::IClientParticleListener * ))( &::CParticleMgr::RemoveEffectListener )
             , ( bp::arg("pListener") ) )    
         .def( 
             "RenderParticleSystems"
-            , (void ( ::CParticleMgr::* )( bool ) )( &::CParticleMgr::RenderParticleSystems )
+            , (void ( ::CParticleMgr::* )( bool ))( &::CParticleMgr::RenderParticleSystems )
             , ( bp::arg("bEnable") ) )    
         .def( 
             "RepairPMaterial"
-            , (void ( ::CParticleMgr::* )( ::PMaterialHandle ) )( &::CParticleMgr::RepairPMaterial )
+            , (void ( ::CParticleMgr::* )( ::PMaterialHandle ))( &::CParticleMgr::RepairPMaterial )
             , ( bp::arg("hMaterial") ) )    
         .def( 
             "SetDirectionalLightInfo"
-            , (void ( ::CParticleMgr::* )( ::CParticleLightInfo const & ) )( &::CParticleMgr::SetDirectionalLightInfo )
+            , (void ( ::CParticleMgr::* )( ::CParticleLightInfo const & ))( &::CParticleMgr::SetDirectionalLightInfo )
             , ( bp::arg("info") ) )    
         .def( 
             "ShouldRenderParticleSystems"
-            , (bool ( ::CParticleMgr::* )(  ) const)( &::CParticleMgr::ShouldRenderParticleSystems ) )    
+            , (bool ( ::CParticleMgr::* )(  )const)( &::CParticleMgr::ShouldRenderParticleSystems ) )    
         .def( 
             "Simulate"
-            , (void ( ::CParticleMgr::* )( float ) )( &::CParticleMgr::Simulate )
+            , (void ( ::CParticleMgr::* )( float ))( &::CParticleMgr::Simulate )
             , ( bp::arg("fTimeDelta") ) )    
         .def( 
             "StatsAccumulateActiveParticleSystems"
-            , (void ( ::CParticleMgr::* )(  ) )( &::CParticleMgr::StatsAccumulateActiveParticleSystems ) )    
+            , (void ( ::CParticleMgr::* )(  ))( &::CParticleMgr::StatsAccumulateActiveParticleSystems ) )    
         .def( 
             "StatsNewParticleEffectDrawn"
-            , (void ( ::CParticleMgr::* )( ::CNewParticleEffect * ) )( &::CParticleMgr::StatsNewParticleEffectDrawn )
+            , (void ( ::CParticleMgr::* )( ::CNewParticleEffect * ))( &::CParticleMgr::StatsNewParticleEffectDrawn )
             , ( bp::arg("pParticles") ) )    
         .def( 
             "StatsOldParticleEffectDrawn"
-            , (void ( ::CParticleMgr::* )( ::CParticleEffectBinding * ) )( &::CParticleMgr::StatsOldParticleEffectDrawn )
+            , (void ( ::CParticleMgr::* )( ::CParticleEffectBinding * ))( &::CParticleMgr::StatsOldParticleEffectDrawn )
             , ( bp::arg("pParticles") ) )    
         .def( 
             "StatsReset"
-            , (void ( ::CParticleMgr::* )(  ) )( &::CParticleMgr::StatsReset ) )    
+            , (void ( ::CParticleMgr::* )(  ))( &::CParticleMgr::StatsReset ) )    
         .def( 
             "StatsSpewResults"
-            , (void ( ::CParticleMgr::* )(  ) )( &::CParticleMgr::StatsSpewResults ) )    
+            , (void ( ::CParticleMgr::* )(  ))( &::CParticleMgr::StatsSpewResults ) )    
         .def( 
             "Term"
-            , (void ( ::CParticleMgr::* )(  ) )( &::CParticleMgr::Term ) )    
+            , (void ( ::CParticleMgr::* )(  ))( &::CParticleMgr::Term ) )    
         .def_readwrite( "m_bStatsRunning", &CParticleMgr::m_bStatsRunning )    
         .def_readwrite( "m_nStatsFramesSinceLastAlert", &CParticleMgr::m_nStatsFramesSinceLastAlert );
 
@@ -391,85 +391,85 @@ BOOST_PYTHON_MODULE(_particles){
         .def( bp::init< >() )    
         .def( 
             "AddControlPoint"
-            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect *,int,::C_BaseEntity *,::ParticleAttachment_t,char const *,::Vector ) )( &::CParticleProperty::AddControlPoint )
+            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect *,int,::C_BaseEntity *,::ParticleAttachment_t,char const *,::Vector ))( &::CParticleProperty::AddControlPoint )
             , ( bp::arg("pEffect"), bp::arg("iPoint"), bp::arg("pEntity"), bp::arg("iAttachType"), bp::arg("pszAttachmentName")=bp::object(), bp::arg("vecOriginOffset")=vec3_origin ) )    
         .def( 
             "AddControlPoint"
-            , (void ( ::CParticleProperty::* )( int,int,::C_BaseEntity *,::ParticleAttachment_t,int,::Vector ) )( &::CParticleProperty::AddControlPoint )
+            , (void ( ::CParticleProperty::* )( int,int,::C_BaseEntity *,::ParticleAttachment_t,int,::Vector ))( &::CParticleProperty::AddControlPoint )
             , ( bp::arg("iEffectIndex"), bp::arg("iPoint"), bp::arg("pEntity"), bp::arg("iAttachType"), bp::arg("iAttachmentPoint")=(int)(0), bp::arg("vecOriginOffset")=vec3_origin ) )    
         .def( 
             "Create"
-            , (::CNewParticleEffect * ( ::CParticleProperty::* )( char const *,::ParticleAttachment_t,char const * ) )( &::CParticleProperty::Create )
+            , (::CNewParticleEffect * ( ::CParticleProperty::* )( char const *,::ParticleAttachment_t,char const * ))( &::CParticleProperty::Create )
             , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pszAttachmentName") )
             , bp::return_internal_reference< >() )    
         .def( 
             "Create"
-            , (::CNewParticleEffect * ( ::CParticleProperty::* )( char const *,::ParticleAttachment_t,int,::Vector ) )( &::CParticleProperty::Create )
+            , (::CNewParticleEffect * ( ::CParticleProperty::* )( char const *,::ParticleAttachment_t,int,::Vector ))( &::CParticleProperty::Create )
             , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("iAttachmentPoint")=(int)(0), bp::arg("vecOriginOffset")=vec3_origin )
             , bp::return_internal_reference< >() )    
         .def( 
             "DebugPrintEffects"
-            , (void ( ::CParticleProperty::* )(  ) )( &::CParticleProperty::DebugPrintEffects ) )    
+            , (void ( ::CParticleProperty::* )(  ))( &::CParticleProperty::DebugPrintEffects ) )    
         .def( 
             "FindEffect"
-            , (int ( ::CParticleProperty::* )( char const *,int ) )( &::CParticleProperty::FindEffect )
+            , (int ( ::CParticleProperty::* )( char const *,int ))( &::CParticleProperty::FindEffect )
             , ( bp::arg("pEffectName"), bp::arg("nStart")=(int)(0) ) )    
         .def( 
             "GetOuter"
-            , (::C_BaseEntity * ( ::CParticleProperty::* )(  ) )( &::CParticleProperty::GetOuter )
+            , (::C_BaseEntity * ( ::CParticleProperty::* )(  ))( &::CParticleProperty::GetOuter )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetParticleEffectFromIdx"
-            , (::CNewParticleEffect * ( ::CParticleProperty::* )( int ) )( &::CParticleProperty::GetParticleEffectFromIdx )
+            , (::CNewParticleEffect * ( ::CParticleProperty::* )( int ))( &::CParticleProperty::GetParticleEffectFromIdx )
             , ( bp::arg("idx") )
             , bp::return_internal_reference< >() )    
         .def( 
             "Init"
-            , (void ( ::CParticleProperty::* )( ::C_BaseEntity * ) )( &::CParticleProperty::Init )
+            , (void ( ::CParticleProperty::* )( ::C_BaseEntity * ))( &::CParticleProperty::Init )
             , ( bp::arg("pEntity") ) )    
         .def( 
             "OnParticleSystemDeleted"
-            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect * ) )( &::CParticleProperty::OnParticleSystemDeleted )
+            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect * ))( &::CParticleProperty::OnParticleSystemDeleted )
             , ( bp::arg("pEffect") ) )    
         .def( 
             "OnParticleSystemUpdated"
-            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect *,float ) )( &::CParticleProperty::OnParticleSystemUpdated )
+            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect *,float ))( &::CParticleProperty::OnParticleSystemUpdated )
             , ( bp::arg("pEffect"), bp::arg("flTimeDelta") ) )    
         .def( 
             "OwnerSetDormantTo"
-            , (void ( ::CParticleProperty::* )( bool ) )( &::CParticleProperty::OwnerSetDormantTo )
+            , (void ( ::CParticleProperty::* )( bool ))( &::CParticleProperty::OwnerSetDormantTo )
             , ( bp::arg("bDormant") ) )    
         .def( 
             "ReplaceParticleEffect"
-            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect *,::CNewParticleEffect * ) )( &::CParticleProperty::ReplaceParticleEffect )
+            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect *,::CNewParticleEffect * ))( &::CParticleProperty::ReplaceParticleEffect )
             , ( bp::arg("pOldEffect"), bp::arg("pNewEffect") ) )    
         .def( 
             "SetControlPointParent"
-            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect *,int,int ) )( &::CParticleProperty::SetControlPointParent )
+            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect *,int,int ))( &::CParticleProperty::SetControlPointParent )
             , ( bp::arg("pEffect"), bp::arg("whichControlPoint"), bp::arg("parentIdx") ) )    
         .def( 
             "SetControlPointParent"
-            , (void ( ::CParticleProperty::* )( int,int,int ) )( &::CParticleProperty::SetControlPointParent )
+            , (void ( ::CParticleProperty::* )( int,int,int ))( &::CParticleProperty::SetControlPointParent )
             , ( bp::arg("iEffectIndex"), bp::arg("whichControlPoint"), bp::arg("parentIdx") ) )    
         .def( 
             "StopEmission"
-            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect *,bool,bool ) )( &::CParticleProperty::StopEmission )
+            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect *,bool,bool ))( &::CParticleProperty::StopEmission )
             , ( bp::arg("pEffect")=bp::object(), bp::arg("bWakeOnStop")=(bool)(false), bp::arg("bDestroyAsleepSystems")=(bool)(false) ) )    
         .def( 
             "StopEmissionAndDestroyImmediately"
-            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect * ) )( &::CParticleProperty::StopEmissionAndDestroyImmediately )
+            , (void ( ::CParticleProperty::* )( ::CNewParticleEffect * ))( &::CParticleProperty::StopEmissionAndDestroyImmediately )
             , ( bp::arg("pEffect")=bp::object() ) )    
         .def( 
             "StopParticlesInvolving"
-            , (void ( ::CParticleProperty::* )( ::C_BaseEntity * ) )( &::CParticleProperty::StopParticlesInvolving )
+            , (void ( ::CParticleProperty::* )( ::C_BaseEntity * ))( &::CParticleProperty::StopParticlesInvolving )
             , ( bp::arg("pEntity") ) )    
         .def( 
             "StopParticlesNamed"
-            , (void ( ::CParticleProperty::* )( char const *,bool,bool ) )( &::CParticleProperty::StopParticlesNamed )
+            , (void ( ::CParticleProperty::* )( char const *,bool,bool ))( &::CParticleProperty::StopParticlesNamed )
             , ( bp::arg("pszEffectName"), bp::arg("bForceRemoveInstantly")=(bool)(false), bp::arg("bInverse")=(bool)(false) ) )    
         .def( 
             "StopParticlesWithNameAndAttachment"
-            , (void ( ::CParticleProperty::* )( char const *,int,bool ) )( &::CParticleProperty::StopParticlesWithNameAndAttachment )
+            , (void ( ::CParticleProperty::* )( char const *,int,bool ))( &::CParticleProperty::StopParticlesWithNameAndAttachment )
             , ( bp::arg("pszEffectName"), bp::arg("iAttachmentPoint"), bp::arg("bForceRemoveInstantly")=(bool)(false) ) )    
         .def_readwrite( "m_DataMap", CParticleProperty::m_DataMap )    
         .def_readwrite( "m_PredMap", CParticleProperty::m_PredMap );
@@ -488,8 +488,8 @@ BOOST_PYTHON_MODULE(_particles){
         bp::implicitly_convertible< C_BaseEntity *, PyDBaseLight >();
         { //property "origin"[fget=::PyDBaseLight::GetOrigin, fset=::PyDBaseLight::SetOrigin]
         
-            typedef ::Vector & ( ::PyDBaseLight::*fget )(  ) ;
-            typedef void ( ::PyDBaseLight::*fset )( ::Vector & ) ;
+            typedef ::Vector & ( ::PyDBaseLight::*fget)(  ) ;
+            typedef void ( ::PyDBaseLight::*fset)( ::Vector & ) ;
             
             DBaseLight_exposer.add_property( 
                 "origin"
@@ -501,8 +501,8 @@ BOOST_PYTHON_MODULE(_particles){
         }
         { //property "color"[fget=::PyDBaseLight::GetColor, fset=::PyDBaseLight::SetColor]
         
-            typedef ::ColorRGBExp32 & ( ::PyDBaseLight::*fget )(  ) ;
-            typedef void ( ::PyDBaseLight::*fset )( ::ColorRGBExp32 & ) ;
+            typedef ::ColorRGBExp32 & ( ::PyDBaseLight::*fget)(  ) ;
+            typedef void ( ::PyDBaseLight::*fset)( ::ColorRGBExp32 & ) ;
             
             DBaseLight_exposer.add_property( 
                 "color"
@@ -514,8 +514,8 @@ BOOST_PYTHON_MODULE(_particles){
         }
         { //property "die"[fget=::PyDBaseLight::GetDie, fset=::PyDBaseLight::SetDie]
         
-            typedef float ( ::PyDBaseLight::*fget )(  ) ;
-            typedef void ( ::PyDBaseLight::*fset )( float ) ;
+            typedef float ( ::PyDBaseLight::*fget)(  ) ;
+            typedef void ( ::PyDBaseLight::*fset)( float ) ;
             
             DBaseLight_exposer.add_property( 
                 "die"
@@ -525,8 +525,8 @@ BOOST_PYTHON_MODULE(_particles){
         }
         { //property "radius"[fget=::PyDBaseLight::GetRadius, fset=::PyDBaseLight::SetRadius]
         
-            typedef float ( ::PyDBaseLight::*fget )(  ) ;
-            typedef void ( ::PyDBaseLight::*fset )( float ) ;
+            typedef float ( ::PyDBaseLight::*fget)(  ) ;
+            typedef void ( ::PyDBaseLight::*fset)( float ) ;
             
             DBaseLight_exposer.add_property( 
                 "radius"
@@ -536,8 +536,8 @@ BOOST_PYTHON_MODULE(_particles){
         }
         { //property "flags"[fget=::PyDBaseLight::GetFlags, fset=::PyDBaseLight::SetFlags]
         
-            typedef int ( ::PyDBaseLight::*fget )(  ) ;
-            typedef void ( ::PyDBaseLight::*fset )( int ) ;
+            typedef int ( ::PyDBaseLight::*fget)(  ) ;
+            typedef void ( ::PyDBaseLight::*fset)( int ) ;
             
             DBaseLight_exposer.add_property( 
                 "flags"
@@ -547,8 +547,8 @@ BOOST_PYTHON_MODULE(_particles){
         }
         { //property "minlight"[fget=::PyDBaseLight::GetMinlight, fset=::PyDBaseLight::SetMinlight]
         
-            typedef int ( ::PyDBaseLight::*fget )(  ) ;
-            typedef void ( ::PyDBaseLight::*fset )( int ) ;
+            typedef int ( ::PyDBaseLight::*fget)(  ) ;
+            typedef void ( ::PyDBaseLight::*fset)( int ) ;
             
             DBaseLight_exposer.add_property( 
                 "minlight"
@@ -558,8 +558,8 @@ BOOST_PYTHON_MODULE(_particles){
         }
         { //property "decay"[fget=::PyDBaseLight::GetDecay, fset=::PyDBaseLight::SetDecay]
         
-            typedef float ( ::PyDBaseLight::*fget )(  ) ;
-            typedef void ( ::PyDBaseLight::*fset )( float ) ;
+            typedef float ( ::PyDBaseLight::*fget)(  ) ;
+            typedef void ( ::PyDBaseLight::*fset)( float ) ;
             
             DBaseLight_exposer.add_property( 
                 "decay"
@@ -569,8 +569,8 @@ BOOST_PYTHON_MODULE(_particles){
         }
         { //property "style"[fget=::PyDBaseLight::GetStyle, fset=::PyDBaseLight::SetStyle]
         
-            typedef int ( ::PyDBaseLight::*fget )(  ) ;
-            typedef void ( ::PyDBaseLight::*fset )( int ) ;
+            typedef int ( ::PyDBaseLight::*fget)(  ) ;
+            typedef void ( ::PyDBaseLight::*fset)( int ) ;
             
             DBaseLight_exposer.add_property( 
                 "style"
@@ -580,8 +580,8 @@ BOOST_PYTHON_MODULE(_particles){
         }
         { //property "direction"[fget=::PyDBaseLight::GetDirection, fset=::PyDBaseLight::SetDirection]
         
-            typedef ::Vector & ( ::PyDBaseLight::*fget )(  ) ;
-            typedef void ( ::PyDBaseLight::*fset )( ::Vector & ) ;
+            typedef ::Vector & ( ::PyDBaseLight::*fget)(  ) ;
+            typedef void ( ::PyDBaseLight::*fset)( ::Vector & ) ;
             
             DBaseLight_exposer.add_property( 
                 "direction"
@@ -593,8 +593,8 @@ BOOST_PYTHON_MODULE(_particles){
         }
         { //property "innerangle"[fget=::PyDBaseLight::GetInnerAngle, fset=::PyDBaseLight::SetInnerAngle]
         
-            typedef float ( ::PyDBaseLight::*fget )(  ) ;
-            typedef void ( ::PyDBaseLight::*fset )( float ) ;
+            typedef float ( ::PyDBaseLight::*fget)(  ) ;
+            typedef void ( ::PyDBaseLight::*fset)( float ) ;
             
             DBaseLight_exposer.add_property( 
                 "innerangle"
@@ -604,8 +604,8 @@ BOOST_PYTHON_MODULE(_particles){
         }
         { //property "outerangle"[fget=::PyDBaseLight::GetOuterAngle, fset=::PyDBaseLight::SetOuterAngle]
         
-            typedef float ( ::PyDBaseLight::*fget )(  ) ;
-            typedef void ( ::PyDBaseLight::*fset )( float ) ;
+            typedef float ( ::PyDBaseLight::*fget)(  ) ;
+            typedef void ( ::PyDBaseLight::*fset)( float ) ;
             
             DBaseLight_exposer.add_property( 
                 "outerangle"
@@ -639,7 +639,7 @@ BOOST_PYTHON_MODULE(_particles){
         SimpleParticle_exposer.def_readwrite( "rolldelta", &SimpleParticle::m_flRollDelta );
         SimpleParticle_exposer.def_readwrite( "flags", &SimpleParticle::m_iFlags );
         pyplusplus::containers::static_sized::register_array_1< unsigned char, 3 >( "__array_1_unsigned_char_3" );
-        { //SimpleParticle::m_uchColor [variable], type=unsigned char[3]
+        { //SimpleParticle::m_uchColor [variable], type=unsigned char [3]
         
             typedef pyplusplus::containers::static_sized::array_1_t< unsigned char, 3> ( *array_wrapper_creator )( ::SimpleParticle & );
             
@@ -700,45 +700,23 @@ BOOST_PYTHON_MODULE(_particles){
 
     { //::DispatchParticleEffect
     
-        typedef void ( *DispatchParticleEffect_function_type )( char const *,::Vector,::QAngle,::Vector,::Vector,bool,::C_BaseEntity *,int );
+        typedef void ( *DispatchParticleEffect_function_type )( char const *,::ParticleAttachment_t,::C_BaseEntity *,char const *,bool );
         
         bp::def( 
             "DispatchParticleEffect"
             , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
-            , ( bp::arg("pszParticleName"), bp::arg("vecOrigin"), bp::arg("vecAngles"), bp::arg("vecColor1"), bp::arg("vecColor2"), bp::arg("bUseColors")=(bool)(true), bp::arg("pEntity")=bp::object(), bp::arg("iAttachType")=int(::PATTACH_CUSTOMORIGIN) ) );
+            , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pEntity"), bp::arg("pszAttachmentName"), bp::arg("bResetAllParticlesOnEntity")=(bool)(false) ) );
     
     }
 
     { //::DispatchParticleEffect
     
-        typedef void ( *DispatchParticleEffect_function_type )( char const *,::ParticleAttachment_t,::C_BaseEntity *,char const *,::Vector,::Vector,bool,bool );
+        typedef void ( *DispatchParticleEffect_function_type )( char const *,::ParticleAttachment_t,::C_BaseEntity *,int,bool );
         
         bp::def( 
             "DispatchParticleEffect"
             , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
-            , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pEntity"), bp::arg("pszAttachmentName"), bp::arg("vecColor1"), bp::arg("vecColor2"), bp::arg("bUseColors")=(bool)(true), bp::arg("bResetAllParticlesOnEntity")=(bool)(false) ) );
-    
-    }
-
-    { //::DispatchParticleEffect
-    
-        typedef void ( *DispatchParticleEffect_function_type )( int,::Vector,::Vector,::QAngle,::C_BaseEntity * );
-        
-        bp::def( 
-            "DispatchParticleEffect"
-            , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
-            , ( bp::arg("iEffectIndex"), bp::arg("vecOrigin"), bp::arg("vecStart"), bp::arg("vecAngles"), bp::arg("pEntity")=bp::object() ) );
-    
-    }
-
-    { //::DispatchParticleEffect
-    
-        typedef void ( *DispatchParticleEffect_function_type )( char const *,::Vector,::Vector,::QAngle,::C_BaseEntity * );
-        
-        bp::def( 
-            "DispatchParticleEffect"
-            , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
-            , ( bp::arg("pszParticleName"), bp::arg("vecOrigin"), bp::arg("vecStart"), bp::arg("vecAngles"), bp::arg("pEntity")=bp::object() ) );
+            , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pEntity")=bp::object(), bp::arg("iAttachmentPoint")=(int)(-1), bp::arg("bResetAllParticlesOnEntity")=(bool)(false) ) );
     
     }
 
@@ -755,23 +733,45 @@ BOOST_PYTHON_MODULE(_particles){
 
     { //::DispatchParticleEffect
     
-        typedef void ( *DispatchParticleEffect_function_type )( char const *,::ParticleAttachment_t,::C_BaseEntity *,int,bool );
+        typedef void ( *DispatchParticleEffect_function_type )( char const *,::Vector,::Vector,::QAngle,::C_BaseEntity * );
         
         bp::def( 
             "DispatchParticleEffect"
             , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
-            , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pEntity")=bp::object(), bp::arg("iAttachmentPoint")=(int)(-0x000000001), bp::arg("bResetAllParticlesOnEntity")=(bool)(false) ) );
+            , ( bp::arg("pszParticleName"), bp::arg("vecOrigin"), bp::arg("vecStart"), bp::arg("vecAngles"), bp::arg("pEntity")=bp::object() ) );
     
     }
 
     { //::DispatchParticleEffect
     
-        typedef void ( *DispatchParticleEffect_function_type )( char const *,::ParticleAttachment_t,::C_BaseEntity *,char const *,bool );
+        typedef void ( *DispatchParticleEffect_function_type )( int,::Vector,::Vector,::QAngle,::C_BaseEntity * );
         
         bp::def( 
             "DispatchParticleEffect"
             , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
-            , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pEntity"), bp::arg("pszAttachmentName"), bp::arg("bResetAllParticlesOnEntity")=(bool)(false) ) );
+            , ( bp::arg("iEffectIndex"), bp::arg("vecOrigin"), bp::arg("vecStart"), bp::arg("vecAngles"), bp::arg("pEntity")=bp::object() ) );
+    
+    }
+
+    { //::DispatchParticleEffect
+    
+        typedef void ( *DispatchParticleEffect_function_type )( char const *,::ParticleAttachment_t,::C_BaseEntity *,char const *,::Vector,::Vector,bool,bool );
+        
+        bp::def( 
+            "DispatchParticleEffect"
+            , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
+            , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pEntity"), bp::arg("pszAttachmentName"), bp::arg("vecColor1"), bp::arg("vecColor2"), bp::arg("bUseColors")=(bool)(true), bp::arg("bResetAllParticlesOnEntity")=(bool)(false) ) );
+    
+    }
+
+    { //::DispatchParticleEffect
+    
+        typedef void ( *DispatchParticleEffect_function_type )( char const *,::Vector,::QAngle,::Vector,::Vector,bool,::C_BaseEntity *,int );
+        
+        bp::def( 
+            "DispatchParticleEffect"
+            , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
+            , ( bp::arg("pszParticleName"), bp::arg("vecOrigin"), bp::arg("vecAngles"), bp::arg("vecColor1"), bp::arg("vecColor2"), bp::arg("bUseColors")=(bool)(true), bp::arg("pEntity")=bp::object(), bp::arg("iAttachType")=int(::ParticleAttachment_t::PATTACH_CUSTOMORIGIN) ) );
     
     }
 
@@ -897,45 +897,23 @@ BOOST_PYTHON_MODULE(_particles){
 
     { //::DispatchParticleEffect
     
-        typedef void ( *DispatchParticleEffect_function_type )( char const *,::Vector,::QAngle,::Vector,::Vector,bool,::CBaseEntity *,int );
+        typedef void ( *DispatchParticleEffect_function_type )( char const *,::ParticleAttachment_t,::CBaseEntity *,char const *,bool );
         
         bp::def( 
             "DispatchParticleEffect"
             , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
-            , ( bp::arg("pszParticleName"), bp::arg("vecOrigin"), bp::arg("vecAngles"), bp::arg("vecColor1"), bp::arg("vecColor2"), bp::arg("bUseColors")=(bool)(true), bp::arg("pEntity")=bp::object(), bp::arg("iAttachType")=int(::PATTACH_CUSTOMORIGIN) ) );
+            , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pEntity"), bp::arg("pszAttachmentName"), bp::arg("bResetAllParticlesOnEntity")=(bool)(false) ) );
     
     }
 
     { //::DispatchParticleEffect
     
-        typedef void ( *DispatchParticleEffect_function_type )( char const *,::ParticleAttachment_t,::CBaseEntity *,char const *,::Vector,::Vector,bool,bool );
+        typedef void ( *DispatchParticleEffect_function_type )( char const *,::ParticleAttachment_t,::CBaseEntity *,int,bool );
         
         bp::def( 
             "DispatchParticleEffect"
             , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
-            , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pEntity"), bp::arg("pszAttachmentName"), bp::arg("vecColor1"), bp::arg("vecColor2"), bp::arg("bUseColors")=(bool)(true), bp::arg("bResetAllParticlesOnEntity")=(bool)(false) ) );
-    
-    }
-
-    { //::DispatchParticleEffect
-    
-        typedef void ( *DispatchParticleEffect_function_type )( int,::Vector,::Vector,::QAngle,::CBaseEntity * );
-        
-        bp::def( 
-            "DispatchParticleEffect"
-            , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
-            , ( bp::arg("iEffectIndex"), bp::arg("vecOrigin"), bp::arg("vecStart"), bp::arg("vecAngles"), bp::arg("pEntity")=bp::object() ) );
-    
-    }
-
-    { //::DispatchParticleEffect
-    
-        typedef void ( *DispatchParticleEffect_function_type )( char const *,::Vector,::Vector,::QAngle,::CBaseEntity * );
-        
-        bp::def( 
-            "DispatchParticleEffect"
-            , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
-            , ( bp::arg("pszParticleName"), bp::arg("vecOrigin"), bp::arg("vecStart"), bp::arg("vecAngles"), bp::arg("pEntity")=bp::object() ) );
+            , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pEntity")=bp::object(), bp::arg("iAttachmentPoint")=(int)(-1), bp::arg("bResetAllParticlesOnEntity")=(bool)(false) ) );
     
     }
 
@@ -952,23 +930,45 @@ BOOST_PYTHON_MODULE(_particles){
 
     { //::DispatchParticleEffect
     
-        typedef void ( *DispatchParticleEffect_function_type )( char const *,::ParticleAttachment_t,::CBaseEntity *,int,bool );
+        typedef void ( *DispatchParticleEffect_function_type )( char const *,::Vector,::Vector,::QAngle,::CBaseEntity * );
         
         bp::def( 
             "DispatchParticleEffect"
             , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
-            , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pEntity")=bp::object(), bp::arg("iAttachmentPoint")=(int)(-0x000000001), bp::arg("bResetAllParticlesOnEntity")=(bool)(false) ) );
+            , ( bp::arg("pszParticleName"), bp::arg("vecOrigin"), bp::arg("vecStart"), bp::arg("vecAngles"), bp::arg("pEntity")=bp::object() ) );
     
     }
 
     { //::DispatchParticleEffect
     
-        typedef void ( *DispatchParticleEffect_function_type )( char const *,::ParticleAttachment_t,::CBaseEntity *,char const *,bool );
+        typedef void ( *DispatchParticleEffect_function_type )( int,::Vector,::Vector,::QAngle,::CBaseEntity * );
         
         bp::def( 
             "DispatchParticleEffect"
             , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
-            , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pEntity"), bp::arg("pszAttachmentName"), bp::arg("bResetAllParticlesOnEntity")=(bool)(false) ) );
+            , ( bp::arg("iEffectIndex"), bp::arg("vecOrigin"), bp::arg("vecStart"), bp::arg("vecAngles"), bp::arg("pEntity")=bp::object() ) );
+    
+    }
+
+    { //::DispatchParticleEffect
+    
+        typedef void ( *DispatchParticleEffect_function_type )( char const *,::ParticleAttachment_t,::CBaseEntity *,char const *,::Vector,::Vector,bool,bool );
+        
+        bp::def( 
+            "DispatchParticleEffect"
+            , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
+            , ( bp::arg("pszParticleName"), bp::arg("iAttachType"), bp::arg("pEntity"), bp::arg("pszAttachmentName"), bp::arg("vecColor1"), bp::arg("vecColor2"), bp::arg("bUseColors")=(bool)(true), bp::arg("bResetAllParticlesOnEntity")=(bool)(false) ) );
+    
+    }
+
+    { //::DispatchParticleEffect
+    
+        typedef void ( *DispatchParticleEffect_function_type )( char const *,::Vector,::QAngle,::Vector,::Vector,bool,::CBaseEntity *,int );
+        
+        bp::def( 
+            "DispatchParticleEffect"
+            , DispatchParticleEffect_function_type( &::DispatchParticleEffect )
+            , ( bp::arg("pszParticleName"), bp::arg("vecOrigin"), bp::arg("vecAngles"), bp::arg("vecColor1"), bp::arg("vecColor2"), bp::arg("bUseColors")=(bool)(true), bp::arg("pEntity")=bp::object(), bp::arg("iAttachType")=int(::ParticleAttachment_t::PATTACH_CUSTOMORIGIN) ) );
     
     }
 

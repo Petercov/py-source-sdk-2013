@@ -179,7 +179,7 @@ BOOST_PYTHON_MODULE(_animation){
                     bp::implicitly_convertible< int, CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs >();
                     { //::CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs::operator()
                     
-                        typedef bool ( ::CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs::*__call___function_type )( ::CStudioHdr::CActivityToSequenceMapping::HashValueType const &,::CStudioHdr::CActivityToSequenceMapping::HashValueType const & ) const;
+                        typedef bool ( ::CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs::*__call___function_type)( ::CStudioHdr::CActivityToSequenceMapping::HashValueType const &,::CStudioHdr::CActivityToSequenceMapping::HashValueType const & ) const;
                         
                         HashFuncs_exposer.def( 
                             "__call__"
@@ -189,7 +189,7 @@ BOOST_PYTHON_MODULE(_animation){
                     }
                     { //::CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs::operator()
                     
-                        typedef unsigned int ( ::CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs::*__call___function_type )( ::CStudioHdr::CActivityToSequenceMapping::HashValueType const & ) const;
+                        typedef unsigned int ( ::CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs::*__call___function_type)( ::CStudioHdr::CActivityToSequenceMapping::HashValueType const & ) const;
                         
                         HashFuncs_exposer.def( 
                             "__call__"
@@ -214,7 +214,7 @@ BOOST_PYTHON_MODULE(_animation){
             CActivityToSequenceMapping_exposer.def( bp::init< >() );
             { //::CStudioHdr::CActivityToSequenceMapping::IsInitialized
             
-                typedef bool ( ::CStudioHdr::CActivityToSequenceMapping::*IsInitialized_function_type )(  ) ;
+                typedef bool ( ::CStudioHdr::CActivityToSequenceMapping::*IsInitialized_function_type)(  ) ;
                 
                 CActivityToSequenceMapping_exposer.def( 
                     "IsInitialized"
@@ -223,7 +223,7 @@ BOOST_PYTHON_MODULE(_animation){
             }
             { //::CStudioHdr::CActivityToSequenceMapping::NumSequencesForActivity
             
-                typedef int ( ::CStudioHdr::CActivityToSequenceMapping::*NumSequencesForActivity_function_type )( int ) ;
+                typedef int ( ::CStudioHdr::CActivityToSequenceMapping::*NumSequencesForActivity_function_type)( int ) ;
                 
                 CActivityToSequenceMapping_exposer.def( 
                     "NumSequencesForActivity"
@@ -234,7 +234,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::BoneFlexDriverCount
         
-            typedef int ( ::CStudioHdr::*BoneFlexDriverCount_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*BoneFlexDriverCount_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "BoneFlexDriverCount"
@@ -243,7 +243,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::ClearPerfCounters
         
-            typedef void ( ::CStudioHdr::*ClearPerfCounters_function_type )(  ) ;
+            typedef void ( ::CStudioHdr::*ClearPerfCounters_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "ClearPerfCounters"
@@ -252,7 +252,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::CopyAutoplaySequences
         
-            typedef int ( ::CStudioHdr::*CopyAutoplaySequences_function_type )( short unsigned int *,int ) const;
+            typedef int ( ::CStudioHdr::*CopyAutoplaySequences_function_type)( short unsigned int *,int ) const;
             
             CStudioHdr_exposer.def( 
                 "CopyAutoplaySequences"
@@ -262,7 +262,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::CountAutoplaySequences
         
-            typedef int ( ::CStudioHdr::*CountAutoplaySequences_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*CountAutoplaySequences_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "CountAutoplaySequences"
@@ -271,7 +271,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::EntryNode
         
-            typedef int ( ::CStudioHdr::*EntryNode_function_type )( int ) ;
+            typedef int ( ::CStudioHdr::*EntryNode_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "EntryNode"
@@ -281,7 +281,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::ExitNode
         
-            typedef int ( ::CStudioHdr::*ExitNode_function_type )( int ) ;
+            typedef int ( ::CStudioHdr::*ExitNode_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "ExitNode"
@@ -291,7 +291,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetActivityListVersion
         
-            typedef int ( ::CStudioHdr::*GetActivityListVersion_function_type )(  ) ;
+            typedef int ( ::CStudioHdr::*GetActivityListVersion_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "GetActivityListVersion"
@@ -300,7 +300,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetAttachmentBone
         
-            typedef int ( ::CStudioHdr::*GetAttachmentBone_function_type )( int ) ;
+            typedef int ( ::CStudioHdr::*GetAttachmentBone_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "GetAttachmentBone"
@@ -310,7 +310,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetAutoplayList
         
-            typedef int ( ::CStudioHdr::*GetAutoplayList_function_type )( short unsigned int * * ) const;
+            typedef int ( ::CStudioHdr::*GetAutoplayList_function_type)( short unsigned int * * ) const;
             
             CStudioHdr_exposer.def( 
                 "GetAutoplayList"
@@ -320,7 +320,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetEventListVersion
         
-            typedef int ( ::CStudioHdr::*GetEventListVersion_function_type )(  ) ;
+            typedef int ( ::CStudioHdr::*GetEventListVersion_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "GetEventListVersion"
@@ -329,7 +329,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetNumAttachments
         
-            typedef int ( ::CStudioHdr::*GetNumAttachments_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*GetNumAttachments_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "GetNumAttachments"
@@ -338,7 +338,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetNumBoneControllers
         
-            typedef int ( ::CStudioHdr::*GetNumBoneControllers_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*GetNumBoneControllers_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "GetNumBoneControllers"
@@ -347,7 +347,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetNumIKAutoplayLocks
         
-            typedef int ( ::CStudioHdr::*GetNumIKAutoplayLocks_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*GetNumIKAutoplayLocks_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "GetNumIKAutoplayLocks"
@@ -356,7 +356,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetNumIKChains
         
-            typedef int ( ::CStudioHdr::*GetNumIKChains_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*GetNumIKChains_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "GetNumIKChains"
@@ -365,7 +365,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetNumPoseParameters
         
-            typedef int ( ::CStudioHdr::*GetNumPoseParameters_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*GetNumPoseParameters_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "GetNumPoseParameters"
@@ -374,7 +374,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetNumSeq
         
-            typedef int ( ::CStudioHdr::*GetNumSeq_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*GetNumSeq_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "GetNumSeq"
@@ -383,7 +383,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetSharedPoseParameter
         
-            typedef int ( ::CStudioHdr::*GetSharedPoseParameter_function_type )( int,int ) const;
+            typedef int ( ::CStudioHdr::*GetSharedPoseParameter_function_type)( int,int ) const;
             
             CStudioHdr_exposer.def( 
                 "GetSharedPoseParameter"
@@ -393,7 +393,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetTransition
         
-            typedef int ( ::CStudioHdr::*GetTransition_function_type )( int,int ) const;
+            typedef int ( ::CStudioHdr::*GetTransition_function_type)( int,int ) const;
             
             CStudioHdr_exposer.def( 
                 "GetTransition"
@@ -403,7 +403,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::HaveSequenceForActivity
         
-            typedef bool ( ::CStudioHdr::*HaveSequenceForActivity_function_type )( int ) ;
+            typedef bool ( ::CStudioHdr::*HaveSequenceForActivity_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "HaveSequenceForActivity"
@@ -413,7 +413,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::IllumPositionAttachmentIndex
         
-            typedef int ( ::CStudioHdr::*IllumPositionAttachmentIndex_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*IllumPositionAttachmentIndex_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "IllumPositionAttachmentIndex"
@@ -422,7 +422,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::IsReadyForAccess
         
-            typedef bool ( ::CStudioHdr::*IsReadyForAccess_function_type )(  ) const;
+            typedef bool ( ::CStudioHdr::*IsReadyForAccess_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "IsReadyForAccess"
@@ -431,7 +431,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::IsValid
         
-            typedef bool ( ::CStudioHdr::*IsValid_function_type )(  ) ;
+            typedef bool ( ::CStudioHdr::*IsValid_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "IsValid"
@@ -440,7 +440,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::IsVirtual
         
-            typedef bool ( ::CStudioHdr::*IsVirtual_function_type )(  ) ;
+            typedef bool ( ::CStudioHdr::*IsVirtual_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "IsVirtual"
@@ -449,7 +449,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::MaxEyeDeflection
         
-            typedef float ( ::CStudioHdr::*MaxEyeDeflection_function_type )(  ) const;
+            typedef float ( ::CStudioHdr::*MaxEyeDeflection_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "MaxEyeDeflection"
@@ -458,7 +458,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::ReinitializeSequenceMapping
         
-            typedef void ( ::CStudioHdr::*ReinitializeSequenceMapping_function_type )(  ) ;
+            typedef void ( ::CStudioHdr::*ReinitializeSequenceMapping_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "ReinitializeSequenceMapping"
@@ -467,7 +467,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::RemapAnimBone
         
-            typedef int ( ::CStudioHdr::*RemapAnimBone_function_type )( int,int ) const;
+            typedef int ( ::CStudioHdr::*RemapAnimBone_function_type)( int,int ) const;
             
             CStudioHdr_exposer.def( 
                 "RemapAnimBone"
@@ -477,7 +477,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::RemapSeqBone
         
-            typedef int ( ::CStudioHdr::*RemapSeqBone_function_type )( int,int ) const;
+            typedef int ( ::CStudioHdr::*RemapSeqBone_function_type)( int,int ) const;
             
             CStudioHdr_exposer.def( 
                 "RemapSeqBone"
@@ -487,7 +487,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::RunFlexRules
         
-            typedef void ( ::CStudioHdr::*RunFlexRules_function_type )( float const *,float * ) ;
+            typedef void ( ::CStudioHdr::*RunFlexRules_function_type)( float const *,float * ) ;
             
             CStudioHdr_exposer.def( 
                 "RunFlexRules"
@@ -497,7 +497,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::SelectWeightedSequence
         
-            typedef int ( ::CStudioHdr::*SelectWeightedSequence_function_type )( int,int ) ;
+            typedef int ( ::CStudioHdr::*SelectWeightedSequence_function_type)( int,int ) ;
             
             CStudioHdr_exposer.def( 
                 "SelectWeightedSequence"
@@ -507,7 +507,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::SelectWeightedSequenceFromModifiers
         
-            typedef int ( ::CStudioHdr::*SelectWeightedSequenceFromModifiers_function_type )( int,::CUtlSymbol *,int ) ;
+            typedef int ( ::CStudioHdr::*SelectWeightedSequenceFromModifiers_function_type)( int,::CUtlSymbol *,int ) ;
             
             CStudioHdr_exposer.def( 
                 "SelectWeightedSequenceFromModifiers"
@@ -517,7 +517,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::SequencesAvailable
         
-            typedef bool ( ::CStudioHdr::*SequencesAvailable_function_type )(  ) const;
+            typedef bool ( ::CStudioHdr::*SequencesAvailable_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "SequencesAvailable"
@@ -526,7 +526,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::SetActivityListVersion
         
-            typedef void ( ::CStudioHdr::*SetActivityListVersion_function_type )( int ) ;
+            typedef void ( ::CStudioHdr::*SetActivityListVersion_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "SetActivityListVersion"
@@ -536,7 +536,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::SetAttachmentBone
         
-            typedef void ( ::CStudioHdr::*SetAttachmentBone_function_type )( int,int ) ;
+            typedef void ( ::CStudioHdr::*SetAttachmentBone_function_type)( int,int ) ;
             
             CStudioHdr_exposer.def( 
                 "SetAttachmentBone"
@@ -546,7 +546,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::SetEventListVersion
         
-            typedef void ( ::CStudioHdr::*SetEventListVersion_function_type )( int ) ;
+            typedef void ( ::CStudioHdr::*SetEventListVersion_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "SetEventListVersion"
@@ -556,7 +556,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::Term
         
-            typedef void ( ::CStudioHdr::*Term_function_type )(  ) ;
+            typedef void ( ::CStudioHdr::*Term_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "Term"
@@ -565,7 +565,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::VertAnimFixedPointScale
         
-            typedef float ( ::CStudioHdr::*VertAnimFixedPointScale_function_type )(  ) const;
+            typedef float ( ::CStudioHdr::*VertAnimFixedPointScale_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "VertAnimFixedPointScale"
@@ -574,7 +574,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::boneFlags
         
-            typedef int ( ::CStudioHdr::*boneFlags_function_type )( int ) const;
+            typedef int ( ::CStudioHdr::*boneFlags_function_type)( int ) const;
             
             CStudioHdr_exposer.def( 
                 "boneFlags"
@@ -584,7 +584,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::boneParent
         
-            typedef int ( ::CStudioHdr::*boneParent_function_type )( int ) const;
+            typedef int ( ::CStudioHdr::*boneParent_function_type)( int ) const;
             
             CStudioHdr_exposer.def( 
                 "boneParent"
@@ -594,7 +594,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::contents
         
-            typedef int ( ::CStudioHdr::*contents_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*contents_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "contents"
@@ -603,7 +603,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::eyeposition
         
-            typedef ::Vector ( ::CStudioHdr::*eyeposition_function_type )(  ) const;
+            typedef ::Vector ( ::CStudioHdr::*eyeposition_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "eyeposition"
@@ -612,7 +612,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::flags
         
-            typedef int ( ::CStudioHdr::*flags_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*flags_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "flags"
@@ -621,7 +621,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::hull_max
         
-            typedef ::Vector ( ::CStudioHdr::*hull_max_function_type )(  ) const;
+            typedef ::Vector ( ::CStudioHdr::*hull_max_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "hull_max"
@@ -630,7 +630,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::hull_min
         
-            typedef ::Vector ( ::CStudioHdr::*hull_min_function_type )(  ) const;
+            typedef ::Vector ( ::CStudioHdr::*hull_min_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "hull_min"
@@ -639,7 +639,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::iHitboxCount
         
-            typedef int ( ::CStudioHdr::*iHitboxCount_function_type )( int ) const;
+            typedef int ( ::CStudioHdr::*iHitboxCount_function_type)( int ) const;
             
             CStudioHdr_exposer.def( 
                 "iHitboxCount"
@@ -649,7 +649,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::iRelativeAnim
         
-            typedef int ( ::CStudioHdr::*iRelativeAnim_function_type )( int,int ) const;
+            typedef int ( ::CStudioHdr::*iRelativeAnim_function_type)( int,int ) const;
             
             CStudioHdr_exposer.def( 
                 "iRelativeAnim"
@@ -659,7 +659,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::iRelativeSeq
         
-            typedef int ( ::CStudioHdr::*iRelativeSeq_function_type )( int,int ) const;
+            typedef int ( ::CStudioHdr::*iRelativeSeq_function_type)( int,int ) const;
             
             CStudioHdr_exposer.def( 
                 "iRelativeSeq"
@@ -669,7 +669,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::illumposition
         
-            typedef ::Vector ( ::CStudioHdr::*illumposition_function_type )(  ) const;
+            typedef ::Vector ( ::CStudioHdr::*illumposition_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "illumposition"
@@ -678,7 +678,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::mass
         
-            typedef float ( ::CStudioHdr::*mass_function_type )(  ) const;
+            typedef float ( ::CStudioHdr::*mass_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "mass"
@@ -687,7 +687,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numbodyparts
         
-            typedef int ( ::CStudioHdr::*numbodyparts_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numbodyparts_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numbodyparts"
@@ -696,7 +696,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numbonecontrollers
         
-            typedef int ( ::CStudioHdr::*numbonecontrollers_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numbonecontrollers_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numbonecontrollers"
@@ -705,7 +705,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numbones
         
-            typedef int ( ::CStudioHdr::*numbones_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numbones_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numbones"
@@ -714,7 +714,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numflexcontrollers
         
-            typedef ::LocalFlexController_t ( ::CStudioHdr::*numflexcontrollers_function_type )(  ) const;
+            typedef ::LocalFlexController_t ( ::CStudioHdr::*numflexcontrollers_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numflexcontrollers"
@@ -723,7 +723,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numflexcontrollerui
         
-            typedef int ( ::CStudioHdr::*numflexcontrollerui_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numflexcontrollerui_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numflexcontrollerui"
@@ -732,7 +732,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numflexdesc
         
-            typedef int ( ::CStudioHdr::*numflexdesc_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numflexdesc_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numflexdesc"
@@ -741,7 +741,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numflexrules
         
-            typedef int ( ::CStudioHdr::*numflexrules_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numflexrules_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numflexrules"
@@ -750,7 +750,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numhitboxsets
         
-            typedef int ( ::CStudioHdr::*numhitboxsets_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numhitboxsets_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numhitboxsets"
@@ -759,7 +759,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numikchains
         
-            typedef int ( ::CStudioHdr::*numikchains_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numikchains_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numikchains"
@@ -768,7 +768,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numskinfamilies
         
-            typedef int ( ::CStudioHdr::*numskinfamilies_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numskinfamilies_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numskinfamilies"
@@ -777,7 +777,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numtextures
         
-            typedef int ( ::CStudioHdr::*numtextures_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numtextures_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numtextures"
@@ -786,7 +786,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::pAttachment
         
-            typedef ::mstudioattachment_t const & ( ::CStudioHdr::*pAttachment_function_type )( int ) ;
+            typedef ::mstudioattachment_t const & ( ::CStudioHdr::*pAttachment_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "pAttachment"
@@ -797,7 +797,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::pIKAutoplayLock
         
-            typedef ::mstudioiklock_t const & ( ::CStudioHdr::*pIKAutoplayLock_function_type )( int ) ;
+            typedef ::mstudioiklock_t const & ( ::CStudioHdr::*pIKAutoplayLock_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "pIKAutoplayLock"
@@ -808,7 +808,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::pPoseParameter
         
-            typedef ::mstudioposeparamdesc_t const & ( ::CStudioHdr::*pPoseParameter_function_type )( int ) ;
+            typedef ::mstudioposeparamdesc_t const & ( ::CStudioHdr::*pPoseParameter_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "pPoseParameter"
@@ -819,7 +819,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::pSeqdesc
         
-            typedef ::mstudioseqdesc_t & ( ::CStudioHdr::*Seqdesc_function_type )( int ) ;
+            typedef ::mstudioseqdesc_t & ( ::CStudioHdr::*Seqdesc_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "Seqdesc"
@@ -830,7 +830,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::pszName
         
-            typedef char const * ( ::CStudioHdr::*name_function_type )(  ) const;
+            typedef char const * ( ::CStudioHdr::*name_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "name"
@@ -839,7 +839,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::view_bbmax
         
-            typedef ::Vector ( ::CStudioHdr::*view_bbmax_function_type )(  ) const;
+            typedef ::Vector ( ::CStudioHdr::*view_bbmax_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "view_bbmax"
@@ -848,7 +848,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::view_bbmin
         
-            typedef ::Vector ( ::CStudioHdr::*view_bbmin_function_type )(  ) const;
+            typedef ::Vector ( ::CStudioHdr::*view_bbmin_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "view_bbmin"
@@ -868,7 +868,7 @@ BOOST_PYTHON_MODULE(_animation){
         mstudioseqdesc_t_exposer.def( bp::init< >() );
         { //::mstudioseqdesc_t::KeyValueText
         
-            typedef char const * ( ::mstudioseqdesc_t::*KeyValueText_function_type )(  ) const;
+            typedef char const * ( ::mstudioseqdesc_t::*KeyValueText_function_type)(  ) const;
             
             mstudioseqdesc_t_exposer.def( 
                 "KeyValueText"
@@ -877,7 +877,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::mstudioseqdesc_t::anim
         
-            typedef int ( ::mstudioseqdesc_t::*anim_function_type )( int,int ) const;
+            typedef int ( ::mstudioseqdesc_t::*anim_function_type)( int,int ) const;
             
             mstudioseqdesc_t_exposer.def( 
                 "anim"
@@ -887,7 +887,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::mstudioseqdesc_t::poseKey
         
-            typedef float ( ::mstudioseqdesc_t::*poseKey_function_type )( int,int ) const;
+            typedef float ( ::mstudioseqdesc_t::*poseKey_function_type)( int,int ) const;
             
             mstudioseqdesc_t_exposer.def( 
                 "poseKey"
@@ -897,7 +897,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::mstudioseqdesc_t::weight
         
-            typedef float ( ::mstudioseqdesc_t::*weight_function_type )( int ) const;
+            typedef float ( ::mstudioseqdesc_t::*weight_function_type)( int ) const;
             
             mstudioseqdesc_t_exposer.def( 
                 "weight"
@@ -921,7 +921,7 @@ BOOST_PYTHON_MODULE(_animation){
         mstudioseqdesc_t_exposer.def_readwrite( "fadeouttime", &mstudioseqdesc_t::fadeouttime );
         mstudioseqdesc_t_exposer.def_readwrite( "flags", &mstudioseqdesc_t::flags );
         pyplusplus::containers::static_sized::register_array_1< int, 2 >( "__array_1_int_2" );
-        { //mstudioseqdesc_t::groupsize [variable], type=int[2]
+        { //mstudioseqdesc_t::groupsize [variable], type=int [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< int, 2> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
             
@@ -945,7 +945,7 @@ BOOST_PYTHON_MODULE(_animation){
         mstudioseqdesc_t_exposer.def_readwrite( "numiklocks", &mstudioseqdesc_t::numiklocks );
         mstudioseqdesc_t_exposer.def_readwrite( "numikrules", &mstudioseqdesc_t::numikrules );
         pyplusplus::containers::static_sized::register_array_1< float, 2 >( "__array_1_float_2" );
-        { //mstudioseqdesc_t::paramend [variable], type=float[2]
+        { //mstudioseqdesc_t::paramend [variable], type=float [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< float, 2> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
             
@@ -953,7 +953,7 @@ BOOST_PYTHON_MODULE(_animation){
                 , bp::make_function( array_wrapper_creator(&mstudioseqdesc_t_wrapper::pyplusplus_paramend_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
-        { //mstudioseqdesc_t::paramindex [variable], type=int[2]
+        { //mstudioseqdesc_t::paramindex [variable], type=int [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< int, 2> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
             
@@ -962,7 +962,7 @@ BOOST_PYTHON_MODULE(_animation){
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
         mstudioseqdesc_t_exposer.def_readwrite( "paramparent", &mstudioseqdesc_t::paramparent );
-        { //mstudioseqdesc_t::paramstart [variable], type=float[2]
+        { //mstudioseqdesc_t::paramstart [variable], type=float [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< float, 2> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
             
@@ -975,7 +975,7 @@ BOOST_PYTHON_MODULE(_animation){
         mstudioseqdesc_t_exposer.def_readwrite( "szactivitynameindex", &mstudioseqdesc_t::szactivitynameindex );
         mstudioseqdesc_t_exposer.def_readwrite( "szlabelindex", &mstudioseqdesc_t::szlabelindex );
         pyplusplus::containers::static_sized::register_array_1< int, 5 >( "__array_1_int_5" );
-        { //mstudioseqdesc_t::unused [variable], type=int[5]
+        { //mstudioseqdesc_t::unused [variable], type=int [5]
         
             typedef pyplusplus::containers::static_sized::array_1_t< int, 5> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
             
@@ -1235,7 +1235,7 @@ BOOST_PYTHON_MODULE(_animation){
         bp::def( 
             "SelectWeightedSequence"
             , SelectWeightedSequence_function_type( &::SelectWeightedSequence )
-            , ( bp::arg("pstudiohdr"), bp::arg("activity"), bp::arg("curSequence")=(int)(-0x000000001) ) );
+            , ( bp::arg("pstudiohdr"), bp::arg("activity"), bp::arg("curSequence")=(int)(-1) ) );
     
     }
 
@@ -1428,7 +1428,7 @@ BOOST_PYTHON_MODULE(_animation){
                     bp::implicitly_convertible< int, CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs >();
                     { //::CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs::operator()
                     
-                        typedef bool ( ::CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs::*__call___function_type )( ::CStudioHdr::CActivityToSequenceMapping::HashValueType const &,::CStudioHdr::CActivityToSequenceMapping::HashValueType const & ) const;
+                        typedef bool ( ::CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs::*__call___function_type)( ::CStudioHdr::CActivityToSequenceMapping::HashValueType const &,::CStudioHdr::CActivityToSequenceMapping::HashValueType const & ) const;
                         
                         HashFuncs_exposer.def( 
                             "__call__"
@@ -1438,7 +1438,7 @@ BOOST_PYTHON_MODULE(_animation){
                     }
                     { //::CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs::operator()
                     
-                        typedef unsigned int ( ::CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs::*__call___function_type )( ::CStudioHdr::CActivityToSequenceMapping::HashValueType const & ) const;
+                        typedef unsigned int ( ::CStudioHdr::CActivityToSequenceMapping::HashValueType::HashFuncs::*__call___function_type)( ::CStudioHdr::CActivityToSequenceMapping::HashValueType const & ) const;
                         
                         HashFuncs_exposer.def( 
                             "__call__"
@@ -1463,7 +1463,7 @@ BOOST_PYTHON_MODULE(_animation){
             CActivityToSequenceMapping_exposer.def( bp::init< >() );
             { //::CStudioHdr::CActivityToSequenceMapping::IsInitialized
             
-                typedef bool ( ::CStudioHdr::CActivityToSequenceMapping::*IsInitialized_function_type )(  ) ;
+                typedef bool ( ::CStudioHdr::CActivityToSequenceMapping::*IsInitialized_function_type)(  ) ;
                 
                 CActivityToSequenceMapping_exposer.def( 
                     "IsInitialized"
@@ -1472,7 +1472,7 @@ BOOST_PYTHON_MODULE(_animation){
             }
             { //::CStudioHdr::CActivityToSequenceMapping::NumSequencesForActivity
             
-                typedef int ( ::CStudioHdr::CActivityToSequenceMapping::*NumSequencesForActivity_function_type )( int ) ;
+                typedef int ( ::CStudioHdr::CActivityToSequenceMapping::*NumSequencesForActivity_function_type)( int ) ;
                 
                 CActivityToSequenceMapping_exposer.def( 
                     "NumSequencesForActivity"
@@ -1483,7 +1483,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::BoneFlexDriverCount
         
-            typedef int ( ::CStudioHdr::*BoneFlexDriverCount_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*BoneFlexDriverCount_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "BoneFlexDriverCount"
@@ -1492,7 +1492,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::ClearPerfCounters
         
-            typedef void ( ::CStudioHdr::*ClearPerfCounters_function_type )(  ) ;
+            typedef void ( ::CStudioHdr::*ClearPerfCounters_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "ClearPerfCounters"
@@ -1501,7 +1501,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::CopyAutoplaySequences
         
-            typedef int ( ::CStudioHdr::*CopyAutoplaySequences_function_type )( short unsigned int *,int ) const;
+            typedef int ( ::CStudioHdr::*CopyAutoplaySequences_function_type)( short unsigned int *,int ) const;
             
             CStudioHdr_exposer.def( 
                 "CopyAutoplaySequences"
@@ -1511,7 +1511,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::CountAutoplaySequences
         
-            typedef int ( ::CStudioHdr::*CountAutoplaySequences_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*CountAutoplaySequences_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "CountAutoplaySequences"
@@ -1520,7 +1520,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::EntryNode
         
-            typedef int ( ::CStudioHdr::*EntryNode_function_type )( int ) ;
+            typedef int ( ::CStudioHdr::*EntryNode_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "EntryNode"
@@ -1530,7 +1530,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::ExitNode
         
-            typedef int ( ::CStudioHdr::*ExitNode_function_type )( int ) ;
+            typedef int ( ::CStudioHdr::*ExitNode_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "ExitNode"
@@ -1540,7 +1540,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetActivityListVersion
         
-            typedef int ( ::CStudioHdr::*GetActivityListVersion_function_type )(  ) ;
+            typedef int ( ::CStudioHdr::*GetActivityListVersion_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "GetActivityListVersion"
@@ -1549,7 +1549,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetAttachmentBone
         
-            typedef int ( ::CStudioHdr::*GetAttachmentBone_function_type )( int ) ;
+            typedef int ( ::CStudioHdr::*GetAttachmentBone_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "GetAttachmentBone"
@@ -1559,7 +1559,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetAutoplayList
         
-            typedef int ( ::CStudioHdr::*GetAutoplayList_function_type )( short unsigned int * * ) const;
+            typedef int ( ::CStudioHdr::*GetAutoplayList_function_type)( short unsigned int * * ) const;
             
             CStudioHdr_exposer.def( 
                 "GetAutoplayList"
@@ -1569,7 +1569,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetEventListVersion
         
-            typedef int ( ::CStudioHdr::*GetEventListVersion_function_type )(  ) ;
+            typedef int ( ::CStudioHdr::*GetEventListVersion_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "GetEventListVersion"
@@ -1578,7 +1578,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetNumAttachments
         
-            typedef int ( ::CStudioHdr::*GetNumAttachments_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*GetNumAttachments_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "GetNumAttachments"
@@ -1587,7 +1587,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetNumBoneControllers
         
-            typedef int ( ::CStudioHdr::*GetNumBoneControllers_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*GetNumBoneControllers_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "GetNumBoneControllers"
@@ -1596,7 +1596,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetNumIKAutoplayLocks
         
-            typedef int ( ::CStudioHdr::*GetNumIKAutoplayLocks_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*GetNumIKAutoplayLocks_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "GetNumIKAutoplayLocks"
@@ -1605,7 +1605,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetNumIKChains
         
-            typedef int ( ::CStudioHdr::*GetNumIKChains_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*GetNumIKChains_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "GetNumIKChains"
@@ -1614,7 +1614,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetNumPoseParameters
         
-            typedef int ( ::CStudioHdr::*GetNumPoseParameters_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*GetNumPoseParameters_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "GetNumPoseParameters"
@@ -1623,7 +1623,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetNumSeq
         
-            typedef int ( ::CStudioHdr::*GetNumSeq_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*GetNumSeq_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "GetNumSeq"
@@ -1632,7 +1632,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetSharedPoseParameter
         
-            typedef int ( ::CStudioHdr::*GetSharedPoseParameter_function_type )( int,int ) const;
+            typedef int ( ::CStudioHdr::*GetSharedPoseParameter_function_type)( int,int ) const;
             
             CStudioHdr_exposer.def( 
                 "GetSharedPoseParameter"
@@ -1642,7 +1642,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::GetTransition
         
-            typedef int ( ::CStudioHdr::*GetTransition_function_type )( int,int ) const;
+            typedef int ( ::CStudioHdr::*GetTransition_function_type)( int,int ) const;
             
             CStudioHdr_exposer.def( 
                 "GetTransition"
@@ -1652,7 +1652,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::HaveSequenceForActivity
         
-            typedef bool ( ::CStudioHdr::*HaveSequenceForActivity_function_type )( int ) ;
+            typedef bool ( ::CStudioHdr::*HaveSequenceForActivity_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "HaveSequenceForActivity"
@@ -1662,7 +1662,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::IllumPositionAttachmentIndex
         
-            typedef int ( ::CStudioHdr::*IllumPositionAttachmentIndex_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*IllumPositionAttachmentIndex_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "IllumPositionAttachmentIndex"
@@ -1671,7 +1671,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::IsReadyForAccess
         
-            typedef bool ( ::CStudioHdr::*IsReadyForAccess_function_type )(  ) const;
+            typedef bool ( ::CStudioHdr::*IsReadyForAccess_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "IsReadyForAccess"
@@ -1680,7 +1680,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::IsValid
         
-            typedef bool ( ::CStudioHdr::*IsValid_function_type )(  ) ;
+            typedef bool ( ::CStudioHdr::*IsValid_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "IsValid"
@@ -1689,7 +1689,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::IsVirtual
         
-            typedef bool ( ::CStudioHdr::*IsVirtual_function_type )(  ) ;
+            typedef bool ( ::CStudioHdr::*IsVirtual_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "IsVirtual"
@@ -1698,7 +1698,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::MaxEyeDeflection
         
-            typedef float ( ::CStudioHdr::*MaxEyeDeflection_function_type )(  ) const;
+            typedef float ( ::CStudioHdr::*MaxEyeDeflection_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "MaxEyeDeflection"
@@ -1707,7 +1707,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::ReinitializeSequenceMapping
         
-            typedef void ( ::CStudioHdr::*ReinitializeSequenceMapping_function_type )(  ) ;
+            typedef void ( ::CStudioHdr::*ReinitializeSequenceMapping_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "ReinitializeSequenceMapping"
@@ -1716,7 +1716,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::RemapAnimBone
         
-            typedef int ( ::CStudioHdr::*RemapAnimBone_function_type )( int,int ) const;
+            typedef int ( ::CStudioHdr::*RemapAnimBone_function_type)( int,int ) const;
             
             CStudioHdr_exposer.def( 
                 "RemapAnimBone"
@@ -1726,7 +1726,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::RemapSeqBone
         
-            typedef int ( ::CStudioHdr::*RemapSeqBone_function_type )( int,int ) const;
+            typedef int ( ::CStudioHdr::*RemapSeqBone_function_type)( int,int ) const;
             
             CStudioHdr_exposer.def( 
                 "RemapSeqBone"
@@ -1736,7 +1736,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::RunFlexRules
         
-            typedef void ( ::CStudioHdr::*RunFlexRules_function_type )( float const *,float * ) ;
+            typedef void ( ::CStudioHdr::*RunFlexRules_function_type)( float const *,float * ) ;
             
             CStudioHdr_exposer.def( 
                 "RunFlexRules"
@@ -1746,7 +1746,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::SelectWeightedSequence
         
-            typedef int ( ::CStudioHdr::*SelectWeightedSequence_function_type )( int,int ) ;
+            typedef int ( ::CStudioHdr::*SelectWeightedSequence_function_type)( int,int ) ;
             
             CStudioHdr_exposer.def( 
                 "SelectWeightedSequence"
@@ -1756,7 +1756,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::SelectWeightedSequenceFromModifiers
         
-            typedef int ( ::CStudioHdr::*SelectWeightedSequenceFromModifiers_function_type )( int,::CUtlSymbol *,int ) ;
+            typedef int ( ::CStudioHdr::*SelectWeightedSequenceFromModifiers_function_type)( int,::CUtlSymbol *,int ) ;
             
             CStudioHdr_exposer.def( 
                 "SelectWeightedSequenceFromModifiers"
@@ -1766,7 +1766,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::SequencesAvailable
         
-            typedef bool ( ::CStudioHdr::*SequencesAvailable_function_type )(  ) const;
+            typedef bool ( ::CStudioHdr::*SequencesAvailable_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "SequencesAvailable"
@@ -1775,7 +1775,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::SetActivityListVersion
         
-            typedef void ( ::CStudioHdr::*SetActivityListVersion_function_type )( int ) ;
+            typedef void ( ::CStudioHdr::*SetActivityListVersion_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "SetActivityListVersion"
@@ -1785,7 +1785,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::SetAttachmentBone
         
-            typedef void ( ::CStudioHdr::*SetAttachmentBone_function_type )( int,int ) ;
+            typedef void ( ::CStudioHdr::*SetAttachmentBone_function_type)( int,int ) ;
             
             CStudioHdr_exposer.def( 
                 "SetAttachmentBone"
@@ -1795,7 +1795,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::SetEventListVersion
         
-            typedef void ( ::CStudioHdr::*SetEventListVersion_function_type )( int ) ;
+            typedef void ( ::CStudioHdr::*SetEventListVersion_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "SetEventListVersion"
@@ -1805,7 +1805,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::Term
         
-            typedef void ( ::CStudioHdr::*Term_function_type )(  ) ;
+            typedef void ( ::CStudioHdr::*Term_function_type)(  ) ;
             
             CStudioHdr_exposer.def( 
                 "Term"
@@ -1814,7 +1814,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::VertAnimFixedPointScale
         
-            typedef float ( ::CStudioHdr::*VertAnimFixedPointScale_function_type )(  ) const;
+            typedef float ( ::CStudioHdr::*VertAnimFixedPointScale_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "VertAnimFixedPointScale"
@@ -1823,7 +1823,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::boneFlags
         
-            typedef int ( ::CStudioHdr::*boneFlags_function_type )( int ) const;
+            typedef int ( ::CStudioHdr::*boneFlags_function_type)( int ) const;
             
             CStudioHdr_exposer.def( 
                 "boneFlags"
@@ -1833,7 +1833,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::boneParent
         
-            typedef int ( ::CStudioHdr::*boneParent_function_type )( int ) const;
+            typedef int ( ::CStudioHdr::*boneParent_function_type)( int ) const;
             
             CStudioHdr_exposer.def( 
                 "boneParent"
@@ -1843,7 +1843,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::contents
         
-            typedef int ( ::CStudioHdr::*contents_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*contents_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "contents"
@@ -1852,7 +1852,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::eyeposition
         
-            typedef ::Vector ( ::CStudioHdr::*eyeposition_function_type )(  ) const;
+            typedef ::Vector ( ::CStudioHdr::*eyeposition_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "eyeposition"
@@ -1861,7 +1861,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::flags
         
-            typedef int ( ::CStudioHdr::*flags_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*flags_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "flags"
@@ -1870,7 +1870,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::hull_max
         
-            typedef ::Vector ( ::CStudioHdr::*hull_max_function_type )(  ) const;
+            typedef ::Vector ( ::CStudioHdr::*hull_max_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "hull_max"
@@ -1879,7 +1879,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::hull_min
         
-            typedef ::Vector ( ::CStudioHdr::*hull_min_function_type )(  ) const;
+            typedef ::Vector ( ::CStudioHdr::*hull_min_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "hull_min"
@@ -1888,7 +1888,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::iHitboxCount
         
-            typedef int ( ::CStudioHdr::*iHitboxCount_function_type )( int ) const;
+            typedef int ( ::CStudioHdr::*iHitboxCount_function_type)( int ) const;
             
             CStudioHdr_exposer.def( 
                 "iHitboxCount"
@@ -1898,7 +1898,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::iRelativeAnim
         
-            typedef int ( ::CStudioHdr::*iRelativeAnim_function_type )( int,int ) const;
+            typedef int ( ::CStudioHdr::*iRelativeAnim_function_type)( int,int ) const;
             
             CStudioHdr_exposer.def( 
                 "iRelativeAnim"
@@ -1908,7 +1908,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::iRelativeSeq
         
-            typedef int ( ::CStudioHdr::*iRelativeSeq_function_type )( int,int ) const;
+            typedef int ( ::CStudioHdr::*iRelativeSeq_function_type)( int,int ) const;
             
             CStudioHdr_exposer.def( 
                 "iRelativeSeq"
@@ -1918,7 +1918,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::illumposition
         
-            typedef ::Vector ( ::CStudioHdr::*illumposition_function_type )(  ) const;
+            typedef ::Vector ( ::CStudioHdr::*illumposition_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "illumposition"
@@ -1927,7 +1927,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::mass
         
-            typedef float ( ::CStudioHdr::*mass_function_type )(  ) const;
+            typedef float ( ::CStudioHdr::*mass_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "mass"
@@ -1936,7 +1936,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numbodyparts
         
-            typedef int ( ::CStudioHdr::*numbodyparts_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numbodyparts_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numbodyparts"
@@ -1945,7 +1945,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numbonecontrollers
         
-            typedef int ( ::CStudioHdr::*numbonecontrollers_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numbonecontrollers_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numbonecontrollers"
@@ -1954,7 +1954,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numbones
         
-            typedef int ( ::CStudioHdr::*numbones_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numbones_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numbones"
@@ -1963,7 +1963,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numflexcontrollers
         
-            typedef ::LocalFlexController_t ( ::CStudioHdr::*numflexcontrollers_function_type )(  ) const;
+            typedef ::LocalFlexController_t ( ::CStudioHdr::*numflexcontrollers_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numflexcontrollers"
@@ -1972,7 +1972,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numflexcontrollerui
         
-            typedef int ( ::CStudioHdr::*numflexcontrollerui_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numflexcontrollerui_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numflexcontrollerui"
@@ -1981,7 +1981,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numflexdesc
         
-            typedef int ( ::CStudioHdr::*numflexdesc_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numflexdesc_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numflexdesc"
@@ -1990,7 +1990,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numflexrules
         
-            typedef int ( ::CStudioHdr::*numflexrules_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numflexrules_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numflexrules"
@@ -1999,7 +1999,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numhitboxsets
         
-            typedef int ( ::CStudioHdr::*numhitboxsets_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numhitboxsets_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numhitboxsets"
@@ -2008,7 +2008,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numikchains
         
-            typedef int ( ::CStudioHdr::*numikchains_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numikchains_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numikchains"
@@ -2017,7 +2017,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numskinfamilies
         
-            typedef int ( ::CStudioHdr::*numskinfamilies_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numskinfamilies_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numskinfamilies"
@@ -2026,7 +2026,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::numtextures
         
-            typedef int ( ::CStudioHdr::*numtextures_function_type )(  ) const;
+            typedef int ( ::CStudioHdr::*numtextures_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "numtextures"
@@ -2035,7 +2035,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::pAttachment
         
-            typedef ::mstudioattachment_t const & ( ::CStudioHdr::*pAttachment_function_type )( int ) ;
+            typedef ::mstudioattachment_t const & ( ::CStudioHdr::*pAttachment_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "pAttachment"
@@ -2046,7 +2046,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::pIKAutoplayLock
         
-            typedef ::mstudioiklock_t const & ( ::CStudioHdr::*pIKAutoplayLock_function_type )( int ) ;
+            typedef ::mstudioiklock_t const & ( ::CStudioHdr::*pIKAutoplayLock_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "pIKAutoplayLock"
@@ -2057,7 +2057,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::pPoseParameter
         
-            typedef ::mstudioposeparamdesc_t const & ( ::CStudioHdr::*pPoseParameter_function_type )( int ) ;
+            typedef ::mstudioposeparamdesc_t const & ( ::CStudioHdr::*pPoseParameter_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "pPoseParameter"
@@ -2068,7 +2068,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::pSeqdesc
         
-            typedef ::mstudioseqdesc_t & ( ::CStudioHdr::*Seqdesc_function_type )( int ) ;
+            typedef ::mstudioseqdesc_t & ( ::CStudioHdr::*Seqdesc_function_type)( int ) ;
             
             CStudioHdr_exposer.def( 
                 "Seqdesc"
@@ -2079,7 +2079,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::pszName
         
-            typedef char const * ( ::CStudioHdr::*name_function_type )(  ) const;
+            typedef char const * ( ::CStudioHdr::*name_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "name"
@@ -2088,7 +2088,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::view_bbmax
         
-            typedef ::Vector ( ::CStudioHdr::*view_bbmax_function_type )(  ) const;
+            typedef ::Vector ( ::CStudioHdr::*view_bbmax_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "view_bbmax"
@@ -2097,7 +2097,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::CStudioHdr::view_bbmin
         
-            typedef ::Vector ( ::CStudioHdr::*view_bbmin_function_type )(  ) const;
+            typedef ::Vector ( ::CStudioHdr::*view_bbmin_function_type)(  ) const;
             
             CStudioHdr_exposer.def( 
                 "view_bbmin"
@@ -2117,7 +2117,7 @@ BOOST_PYTHON_MODULE(_animation){
         mstudioseqdesc_t_exposer.def( bp::init< >() );
         { //::mstudioseqdesc_t::KeyValueText
         
-            typedef char const * ( ::mstudioseqdesc_t::*KeyValueText_function_type )(  ) const;
+            typedef char const * ( ::mstudioseqdesc_t::*KeyValueText_function_type)(  ) const;
             
             mstudioseqdesc_t_exposer.def( 
                 "KeyValueText"
@@ -2126,7 +2126,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::mstudioseqdesc_t::anim
         
-            typedef int ( ::mstudioseqdesc_t::*anim_function_type )( int,int ) const;
+            typedef int ( ::mstudioseqdesc_t::*anim_function_type)( int,int ) const;
             
             mstudioseqdesc_t_exposer.def( 
                 "anim"
@@ -2136,7 +2136,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::mstudioseqdesc_t::poseKey
         
-            typedef float ( ::mstudioseqdesc_t::*poseKey_function_type )( int,int ) const;
+            typedef float ( ::mstudioseqdesc_t::*poseKey_function_type)( int,int ) const;
             
             mstudioseqdesc_t_exposer.def( 
                 "poseKey"
@@ -2146,7 +2146,7 @@ BOOST_PYTHON_MODULE(_animation){
         }
         { //::mstudioseqdesc_t::weight
         
-            typedef float ( ::mstudioseqdesc_t::*weight_function_type )( int ) const;
+            typedef float ( ::mstudioseqdesc_t::*weight_function_type)( int ) const;
             
             mstudioseqdesc_t_exposer.def( 
                 "weight"
@@ -2170,7 +2170,7 @@ BOOST_PYTHON_MODULE(_animation){
         mstudioseqdesc_t_exposer.def_readwrite( "fadeouttime", &mstudioseqdesc_t::fadeouttime );
         mstudioseqdesc_t_exposer.def_readwrite( "flags", &mstudioseqdesc_t::flags );
         pyplusplus::containers::static_sized::register_array_1< int, 2 >( "__array_1_int_2" );
-        { //mstudioseqdesc_t::groupsize [variable], type=int[2]
+        { //mstudioseqdesc_t::groupsize [variable], type=int [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< int, 2> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
             
@@ -2194,7 +2194,7 @@ BOOST_PYTHON_MODULE(_animation){
         mstudioseqdesc_t_exposer.def_readwrite( "numiklocks", &mstudioseqdesc_t::numiklocks );
         mstudioseqdesc_t_exposer.def_readwrite( "numikrules", &mstudioseqdesc_t::numikrules );
         pyplusplus::containers::static_sized::register_array_1< float, 2 >( "__array_1_float_2" );
-        { //mstudioseqdesc_t::paramend [variable], type=float[2]
+        { //mstudioseqdesc_t::paramend [variable], type=float [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< float, 2> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
             
@@ -2202,7 +2202,7 @@ BOOST_PYTHON_MODULE(_animation){
                 , bp::make_function( array_wrapper_creator(&mstudioseqdesc_t_wrapper::pyplusplus_paramend_wrapper)
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
-        { //mstudioseqdesc_t::paramindex [variable], type=int[2]
+        { //mstudioseqdesc_t::paramindex [variable], type=int [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< int, 2> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
             
@@ -2211,7 +2211,7 @@ BOOST_PYTHON_MODULE(_animation){
                                     , bp::with_custodian_and_ward_postcall< 0, 1 >() ) );
         }
         mstudioseqdesc_t_exposer.def_readwrite( "paramparent", &mstudioseqdesc_t::paramparent );
-        { //mstudioseqdesc_t::paramstart [variable], type=float[2]
+        { //mstudioseqdesc_t::paramstart [variable], type=float [2]
         
             typedef pyplusplus::containers::static_sized::array_1_t< float, 2> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
             
@@ -2224,7 +2224,7 @@ BOOST_PYTHON_MODULE(_animation){
         mstudioseqdesc_t_exposer.def_readwrite( "szactivitynameindex", &mstudioseqdesc_t::szactivitynameindex );
         mstudioseqdesc_t_exposer.def_readwrite( "szlabelindex", &mstudioseqdesc_t::szlabelindex );
         pyplusplus::containers::static_sized::register_array_1< int, 5 >( "__array_1_int_5" );
-        { //mstudioseqdesc_t::unused [variable], type=int[5]
+        { //mstudioseqdesc_t::unused [variable], type=int [5]
         
             typedef pyplusplus::containers::static_sized::array_1_t< int, 5> ( *array_wrapper_creator )( ::mstudioseqdesc_t & );
             
@@ -2484,7 +2484,7 @@ BOOST_PYTHON_MODULE(_animation){
         bp::def( 
             "SelectWeightedSequence"
             , SelectWeightedSequence_function_type( &::SelectWeightedSequence )
-            , ( bp::arg("pstudiohdr"), bp::arg("activity"), bp::arg("curSequence")=(int)(-0x000000001) ) );
+            , ( bp::arg("pstudiohdr"), bp::arg("activity"), bp::arg("curSequence")=(int)(-1) ) );
     
     }
 

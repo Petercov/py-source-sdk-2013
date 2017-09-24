@@ -67,12 +67,12 @@ BOOST_PYTHON_MODULE(_ndebugoverlay){
 
     { //::NDebugOverlay::Circle
     
-        typedef void ( *Circle_function_type )( ::Vector const &,::Vector const &,::Vector const &,float,int,int,int,int,bool,float );
+        typedef void ( *Circle_function_type )( ::Vector const &,float,int,int,int,int,bool,float );
         
         bp::def( 
             "Circle"
             , Circle_function_type( &::NDebugOverlay::Circle )
-            , ( bp::arg("position"), bp::arg("xAxis"), bp::arg("yAxis"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("bNoDepthTest"), bp::arg("flDuration") ) );
+            , ( bp::arg("position"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("bNoDepthTest"), bp::arg("flDuration") ) );
     
     }
 
@@ -89,23 +89,12 @@ BOOST_PYTHON_MODULE(_ndebugoverlay){
 
     { //::NDebugOverlay::Circle
     
-        typedef void ( *Circle_function_type )( ::Vector const &,float,int,int,int,int,bool,float );
+        typedef void ( *Circle_function_type )( ::Vector const &,::Vector const &,::Vector const &,float,int,int,int,int,bool,float );
         
         bp::def( 
             "Circle"
             , Circle_function_type( &::NDebugOverlay::Circle )
-            , ( bp::arg("position"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("bNoDepthTest"), bp::arg("flDuration") ) );
-    
-    }
-
-    { //::NDebugOverlay::Cross3D
-    
-        typedef void ( *Cross3D_function_type )( ::Vector const &,float,int,int,int,bool,float );
-        
-        bp::def( 
-            "Cross3D"
-            , Cross3D_function_type( &::NDebugOverlay::Cross3D )
-            , ( bp::arg("position"), bp::arg("size"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("noDepthTest"), bp::arg("flDuration") ) );
+            , ( bp::arg("position"), bp::arg("xAxis"), bp::arg("yAxis"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("bNoDepthTest"), bp::arg("flDuration") ) );
     
     }
 
@@ -120,14 +109,14 @@ BOOST_PYTHON_MODULE(_ndebugoverlay){
     
     }
 
-    { //::NDebugOverlay::Cross3DOriented
+    { //::NDebugOverlay::Cross3D
     
-        typedef void ( *Cross3DOriented_function_type )( ::matrix3x4_t const &,float,int,bool,float );
+        typedef void ( *Cross3D_function_type )( ::Vector const &,float,int,int,int,bool,float );
         
         bp::def( 
-            "Cross3DOriented"
-            , Cross3DOriented_function_type( &::NDebugOverlay::Cross3DOriented )
-            , ( bp::arg("m"), bp::arg("size"), bp::arg("c"), bp::arg("noDepthTest"), bp::arg("flDuration") ) );
+            "Cross3D"
+            , Cross3D_function_type( &::NDebugOverlay::Cross3D )
+            , ( bp::arg("position"), bp::arg("size"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("noDepthTest"), bp::arg("flDuration") ) );
     
     }
 
@@ -139,6 +128,17 @@ BOOST_PYTHON_MODULE(_ndebugoverlay){
             "Cross3DOriented"
             , Cross3DOriented_function_type( &::NDebugOverlay::Cross3DOriented )
             , ( bp::arg("position"), bp::arg("angles"), bp::arg("size"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("noDepthTest"), bp::arg("flDuration") ) );
+    
+    }
+
+    { //::NDebugOverlay::Cross3DOriented
+    
+        typedef void ( *Cross3DOriented_function_type )( ::matrix3x4_t const &,float,int,bool,float );
+        
+        bp::def( 
+            "Cross3DOriented"
+            , Cross3DOriented_function_type( &::NDebugOverlay::Cross3DOriented )
+            , ( bp::arg("m"), bp::arg("size"), bp::arg("c"), bp::arg("noDepthTest"), bp::arg("flDuration") ) );
     
     }
 
@@ -242,23 +242,23 @@ BOOST_PYTHON_MODULE(_ndebugoverlay){
 
     { //::NDebugOverlay::Sphere
     
-        typedef void ( *Sphere_function_type )( ::Vector const &,::QAngle const &,float,int,int,int,int,bool,float );
-        
-        bp::def( 
-            "Sphere"
-            , Sphere_function_type( &::NDebugOverlay::Sphere )
-            , ( bp::arg("position"), bp::arg("angles"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("bNoDepthTest"), bp::arg("flDuration") ) );
-    
-    }
-
-    { //::NDebugOverlay::Sphere
-    
         typedef void ( *Sphere_function_type )( ::Vector const &,float,int,int,int,bool,float );
         
         bp::def( 
             "Sphere"
             , Sphere_function_type( &::NDebugOverlay::Sphere )
             , ( bp::arg("center"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("noDepthTest"), bp::arg("flDuration") ) );
+    
+    }
+
+    { //::NDebugOverlay::Sphere
+    
+        typedef void ( *Sphere_function_type )( ::Vector const &,::QAngle const &,float,int,int,int,int,bool,float );
+        
+        bp::def( 
+            "Sphere"
+            , Sphere_function_type( &::NDebugOverlay::Sphere )
+            , ( bp::arg("position"), bp::arg("angles"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("bNoDepthTest"), bp::arg("flDuration") ) );
     
     }
 
@@ -383,12 +383,12 @@ BOOST_PYTHON_MODULE(_ndebugoverlay){
 
     { //::NDebugOverlay::Circle
     
-        typedef void ( *Circle_function_type )( ::Vector const &,::Vector const &,::Vector const &,float,int,int,int,int,bool,float );
+        typedef void ( *Circle_function_type )( ::Vector const &,float,int,int,int,int,bool,float );
         
         bp::def( 
             "Circle"
             , Circle_function_type( &::NDebugOverlay::Circle )
-            , ( bp::arg("position"), bp::arg("xAxis"), bp::arg("yAxis"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("bNoDepthTest"), bp::arg("flDuration") ) );
+            , ( bp::arg("position"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("bNoDepthTest"), bp::arg("flDuration") ) );
     
     }
 
@@ -405,23 +405,12 @@ BOOST_PYTHON_MODULE(_ndebugoverlay){
 
     { //::NDebugOverlay::Circle
     
-        typedef void ( *Circle_function_type )( ::Vector const &,float,int,int,int,int,bool,float );
+        typedef void ( *Circle_function_type )( ::Vector const &,::Vector const &,::Vector const &,float,int,int,int,int,bool,float );
         
         bp::def( 
             "Circle"
             , Circle_function_type( &::NDebugOverlay::Circle )
-            , ( bp::arg("position"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("bNoDepthTest"), bp::arg("flDuration") ) );
-    
-    }
-
-    { //::NDebugOverlay::Cross3D
-    
-        typedef void ( *Cross3D_function_type )( ::Vector const &,float,int,int,int,bool,float );
-        
-        bp::def( 
-            "Cross3D"
-            , Cross3D_function_type( &::NDebugOverlay::Cross3D )
-            , ( bp::arg("position"), bp::arg("size"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("noDepthTest"), bp::arg("flDuration") ) );
+            , ( bp::arg("position"), bp::arg("xAxis"), bp::arg("yAxis"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("bNoDepthTest"), bp::arg("flDuration") ) );
     
     }
 
@@ -436,14 +425,14 @@ BOOST_PYTHON_MODULE(_ndebugoverlay){
     
     }
 
-    { //::NDebugOverlay::Cross3DOriented
+    { //::NDebugOverlay::Cross3D
     
-        typedef void ( *Cross3DOriented_function_type )( ::matrix3x4_t const &,float,int,bool,float );
+        typedef void ( *Cross3D_function_type )( ::Vector const &,float,int,int,int,bool,float );
         
         bp::def( 
-            "Cross3DOriented"
-            , Cross3DOriented_function_type( &::NDebugOverlay::Cross3DOriented )
-            , ( bp::arg("m"), bp::arg("size"), bp::arg("c"), bp::arg("noDepthTest"), bp::arg("flDuration") ) );
+            "Cross3D"
+            , Cross3D_function_type( &::NDebugOverlay::Cross3D )
+            , ( bp::arg("position"), bp::arg("size"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("noDepthTest"), bp::arg("flDuration") ) );
     
     }
 
@@ -455,6 +444,17 @@ BOOST_PYTHON_MODULE(_ndebugoverlay){
             "Cross3DOriented"
             , Cross3DOriented_function_type( &::NDebugOverlay::Cross3DOriented )
             , ( bp::arg("position"), bp::arg("angles"), bp::arg("size"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("noDepthTest"), bp::arg("flDuration") ) );
+    
+    }
+
+    { //::NDebugOverlay::Cross3DOriented
+    
+        typedef void ( *Cross3DOriented_function_type )( ::matrix3x4_t const &,float,int,bool,float );
+        
+        bp::def( 
+            "Cross3DOriented"
+            , Cross3DOriented_function_type( &::NDebugOverlay::Cross3DOriented )
+            , ( bp::arg("m"), bp::arg("size"), bp::arg("c"), bp::arg("noDepthTest"), bp::arg("flDuration") ) );
     
     }
 
@@ -558,23 +558,23 @@ BOOST_PYTHON_MODULE(_ndebugoverlay){
 
     { //::NDebugOverlay::Sphere
     
-        typedef void ( *Sphere_function_type )( ::Vector const &,::QAngle const &,float,int,int,int,int,bool,float );
-        
-        bp::def( 
-            "Sphere"
-            , Sphere_function_type( &::NDebugOverlay::Sphere )
-            , ( bp::arg("position"), bp::arg("angles"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("bNoDepthTest"), bp::arg("flDuration") ) );
-    
-    }
-
-    { //::NDebugOverlay::Sphere
-    
         typedef void ( *Sphere_function_type )( ::Vector const &,float,int,int,int,bool,float );
         
         bp::def( 
             "Sphere"
             , Sphere_function_type( &::NDebugOverlay::Sphere )
             , ( bp::arg("center"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("noDepthTest"), bp::arg("flDuration") ) );
+    
+    }
+
+    { //::NDebugOverlay::Sphere
+    
+        typedef void ( *Sphere_function_type )( ::Vector const &,::QAngle const &,float,int,int,int,int,bool,float );
+        
+        bp::def( 
+            "Sphere"
+            , Sphere_function_type( &::NDebugOverlay::Sphere )
+            , ( bp::arg("position"), bp::arg("angles"), bp::arg("radius"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("bNoDepthTest"), bp::arg("flDuration") ) );
     
     }
 

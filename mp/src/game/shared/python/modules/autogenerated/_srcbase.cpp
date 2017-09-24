@@ -32,7 +32,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         bp::implicitly_convertible< int, PyUtlFlags >();
         { //::PyUtlFlags::ClearAllFlags
         
-            typedef void ( ::PyUtlFlags::*ClearAllFlags_function_type )(  ) ;
+            typedef void ( ::PyUtlFlags::*ClearAllFlags_function_type)(  ) ;
             
             UtlFlags_exposer.def( 
                 "ClearAllFlags"
@@ -41,7 +41,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlFlags::ClearFlag
         
-            typedef void ( ::PyUtlFlags::*ClearFlag_function_type )( int ) ;
+            typedef void ( ::PyUtlFlags::*ClearFlag_function_type)( int ) ;
             
             UtlFlags_exposer.def( 
                 "ClearFlag"
@@ -51,7 +51,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlFlags::IsAnyFlagSet
         
-            typedef bool ( ::PyUtlFlags::*IsAnyFlagSet_function_type )(  ) const;
+            typedef bool ( ::PyUtlFlags::*IsAnyFlagSet_function_type)(  ) const;
             
             UtlFlags_exposer.def( 
                 "IsAnyFlagSet"
@@ -60,7 +60,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlFlags::IsFlagSet
         
-            typedef bool ( ::PyUtlFlags::*IsFlagSet_function_type )( int ) const;
+            typedef bool ( ::PyUtlFlags::*IsFlagSet_function_type)( int ) const;
             
             UtlFlags_exposer.def( 
                 "IsFlagSet"
@@ -70,7 +70,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlFlags::SetFlag
         
-            typedef void ( ::PyUtlFlags::*SetFlag_function_type )( int ) ;
+            typedef void ( ::PyUtlFlags::*SetFlag_function_type)( int ) ;
             
             UtlFlags_exposer.def( 
                 "SetFlag"
@@ -80,7 +80,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlFlags::SetFlag
         
-            typedef void ( ::PyUtlFlags::*SetFlag_function_type )( int,bool ) ;
+            typedef void ( ::PyUtlFlags::*SetFlag_function_type)( int,bool ) ;
             
             UtlFlags_exposer.def( 
                 "SetFlag"
@@ -534,7 +534,7 @@ BOOST_PYTHON_MODULE(_srcbase){
 
     { //::PyUtlRBTree
         typedef bp::class_< PyUtlRBTree > UtlRBTree_exposer_t;
-        UtlRBTree_exposer_t UtlRBTree_exposer = UtlRBTree_exposer_t( "UtlRBTree", bp::init< bp::optional< int, int, bp::api::object > >(( bp::arg("growSize")=(int)(0), bp::arg("initSize")=(int)(0), bp::arg("lessfunc")=boost::python::api::object() )) );
+        UtlRBTree_exposer_t UtlRBTree_exposer = UtlRBTree_exposer_t( "UtlRBTree", bp::init< bp::optional< int, int, bp::api::object > >(( bp::arg("growSize")=(int)(0), bp::arg("initSize")=(int)(0), bp::arg("lessfunc")=boost::python::object() )) );
         bp::scope UtlRBTree_scope( UtlRBTree_exposer );
         bp::implicitly_convertible< int, PyUtlRBTree >();
         UtlRBTree_exposer.def( bp::init< bp::api::object >(( bp::arg("lessfunc") )) );
@@ -542,7 +542,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         UtlRBTree_exposer.def( bp::init< PyUtlRBTree const & >(( bp::arg("tree") )) );
         { //::PyUtlRBTree::Count
         
-            typedef unsigned int ( ::PyUtlRBTree::*Count_function_type )(  ) const;
+            typedef unsigned int ( ::PyUtlRBTree::*Count_function_type)(  ) const;
             
             UtlRBTree_exposer.def( 
                 "Count"
@@ -551,7 +551,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::Element
         
-            typedef ::boost::python::api::object ( ::PyUtlRBTree::*Element_function_type )( int ) ;
+            typedef ::boost::python::api::object ( ::PyUtlRBTree::*Element_function_type)( int ) ;
             
             UtlRBTree_exposer.def( 
                 "Element"
@@ -561,7 +561,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::Find
         
-            typedef int ( ::PyUtlRBTree::*Find_function_type )( ::boost::python::api::object ) const;
+            typedef int ( ::PyUtlRBTree::*Find_function_type)( ::boost::python::api::object ) const;
             
             UtlRBTree_exposer.def( 
                 "Find"
@@ -571,7 +571,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::FindInsertionPosition
         
-            typedef void ( ::PyUtlRBTree::*FindInsertionPosition_function_type )( ::boost::python::api::object const &,int &,bool & ) ;
+            typedef void ( ::PyUtlRBTree::*FindInsertionPosition_function_type)( ::boost::python::api::object const &,int &,bool & ) ;
             
             UtlRBTree_exposer.def( 
                 "FindInsertionPosition"
@@ -581,7 +581,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::FirstInorder
         
-            typedef int ( ::PyUtlRBTree::*FirstInorder_function_type )(  ) const;
+            typedef int ( ::PyUtlRBTree::*FirstInorder_function_type)(  ) const;
             
             UtlRBTree_exposer.def( 
                 "FirstInorder"
@@ -590,7 +590,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::FirstPostorder
         
-            typedef int ( ::PyUtlRBTree::*FirstPostorder_function_type )(  ) const;
+            typedef int ( ::PyUtlRBTree::*FirstPostorder_function_type)(  ) const;
             
             UtlRBTree_exposer.def( 
                 "FirstPostorder"
@@ -599,7 +599,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::FirstPreorder
         
-            typedef int ( ::PyUtlRBTree::*FirstPreorder_function_type )(  ) const;
+            typedef int ( ::PyUtlRBTree::*FirstPreorder_function_type)(  ) const;
             
             UtlRBTree_exposer.def( 
                 "FirstPreorder"
@@ -608,7 +608,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::Insert
         
-            typedef int ( ::PyUtlRBTree::*Insert_function_type )( ::boost::python::api::object ) ;
+            typedef int ( ::PyUtlRBTree::*Insert_function_type)( ::boost::python::api::object ) ;
             
             UtlRBTree_exposer.def( 
                 "Insert"
@@ -618,7 +618,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::InsertAt
         
-            typedef int ( ::PyUtlRBTree::*InsertAt_function_type )( int,bool ) ;
+            typedef int ( ::PyUtlRBTree::*InsertAt_function_type)( int,bool ) ;
             
             UtlRBTree_exposer.def( 
                 "InsertAt"
@@ -628,7 +628,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::InsertIfNotFound
         
-            typedef int ( ::PyUtlRBTree::*InsertIfNotFound_function_type )( ::boost::python::api::object ) ;
+            typedef int ( ::PyUtlRBTree::*InsertIfNotFound_function_type)( ::boost::python::api::object ) ;
             
             UtlRBTree_exposer.def( 
                 "InsertIfNotFound"
@@ -638,7 +638,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::LastInorder
         
-            typedef int ( ::PyUtlRBTree::*LastInorder_function_type )(  ) const;
+            typedef int ( ::PyUtlRBTree::*LastInorder_function_type)(  ) const;
             
             UtlRBTree_exposer.def( 
                 "LastInorder"
@@ -647,7 +647,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::LastPreorder
         
-            typedef int ( ::PyUtlRBTree::*LastPreorder_function_type )(  ) const;
+            typedef int ( ::PyUtlRBTree::*LastPreorder_function_type)(  ) const;
             
             UtlRBTree_exposer.def( 
                 "LastPreorder"
@@ -656,7 +656,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::NextInorder
         
-            typedef int ( ::PyUtlRBTree::*NextInorder_function_type )( int ) const;
+            typedef int ( ::PyUtlRBTree::*NextInorder_function_type)( int ) const;
             
             UtlRBTree_exposer.def( 
                 "NextInorder"
@@ -666,7 +666,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::NextPostorder
         
-            typedef int ( ::PyUtlRBTree::*NextPostorder_function_type )( int ) const;
+            typedef int ( ::PyUtlRBTree::*NextPostorder_function_type)( int ) const;
             
             UtlRBTree_exposer.def( 
                 "NextPostorder"
@@ -676,7 +676,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::NextPreorder
         
-            typedef int ( ::PyUtlRBTree::*NextPreorder_function_type )( int ) const;
+            typedef int ( ::PyUtlRBTree::*NextPreorder_function_type)( int ) const;
             
             UtlRBTree_exposer.def( 
                 "NextPreorder"
@@ -686,7 +686,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::PrevInorder
         
-            typedef int ( ::PyUtlRBTree::*PrevInorder_function_type )( int ) const;
+            typedef int ( ::PyUtlRBTree::*PrevInorder_function_type)( int ) const;
             
             UtlRBTree_exposer.def( 
                 "PrevInorder"
@@ -696,7 +696,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::PrevPreorder
         
-            typedef int ( ::PyUtlRBTree::*PrevPreorder_function_type )( int ) const;
+            typedef int ( ::PyUtlRBTree::*PrevPreorder_function_type)( int ) const;
             
             UtlRBTree_exposer.def( 
                 "PrevPreorder"
@@ -706,7 +706,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::Purge
         
-            typedef void ( ::PyUtlRBTree::*Purge_function_type )(  ) ;
+            typedef void ( ::PyUtlRBTree::*Purge_function_type)(  ) ;
             
             UtlRBTree_exposer.def( 
                 "Purge"
@@ -715,7 +715,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::Remove
         
-            typedef bool ( ::PyUtlRBTree::*Remove_function_type )( ::boost::python::api::object ) ;
+            typedef bool ( ::PyUtlRBTree::*Remove_function_type)( ::boost::python::api::object ) ;
             
             UtlRBTree_exposer.def( 
                 "Remove"
@@ -725,7 +725,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::RemoveAll
         
-            typedef void ( ::PyUtlRBTree::*RemoveAll_function_type )(  ) ;
+            typedef void ( ::PyUtlRBTree::*RemoveAll_function_type)(  ) ;
             
             UtlRBTree_exposer.def( 
                 "RemoveAll"
@@ -734,7 +734,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::RemoveAt
         
-            typedef void ( ::PyUtlRBTree::*RemoveAt_function_type )( int ) ;
+            typedef void ( ::PyUtlRBTree::*RemoveAt_function_type)( int ) ;
             
             UtlRBTree_exposer.def( 
                 "RemoveAt"
@@ -744,7 +744,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::Root
         
-            typedef int ( ::PyUtlRBTree::*Root_function_type )(  ) const;
+            typedef int ( ::PyUtlRBTree::*Root_function_type)(  ) const;
             
             UtlRBTree_exposer.def( 
                 "Root"
@@ -753,7 +753,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::SetLessFunc
         
-            typedef void ( ::PyUtlRBTree::*SetLessFunc_function_type )( ::boost::python::api::object ) ;
+            typedef void ( ::PyUtlRBTree::*SetLessFunc_function_type)( ::boost::python::api::object ) ;
             
             UtlRBTree_exposer.def( 
                 "SetLessFunc"
@@ -763,7 +763,7 @@ BOOST_PYTHON_MODULE(_srcbase){
         }
         { //::PyUtlRBTree::operator[]
         
-            typedef ::boost::python::api::object ( ::PyUtlRBTree::*__getitem___function_type )( int ) ;
+            typedef ::boost::python::api::object ( ::PyUtlRBTree::*__getitem___function_type)( int ) ;
             
             UtlRBTree_exposer.def( 
                 "__getitem__"

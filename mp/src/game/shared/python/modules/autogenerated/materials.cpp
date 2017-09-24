@@ -82,43 +82,43 @@ BOOST_PYTHON_MODULE(materials){
         .def( bp::init< >() )    
         .def( 
             "HasGlowEffect"
-            , (bool ( ::CGlowObjectManager::* )( ::C_BaseEntity * ) const)( &::CGlowObjectManager::HasGlowEffect )
+            , (bool ( ::CGlowObjectManager::* )( ::C_BaseEntity * )const)( &::CGlowObjectManager::HasGlowEffect )
             , ( bp::arg("pEntity") ) )    
         .def( 
             "IsRenderingWhenOccluded"
-            , (bool ( ::CGlowObjectManager::* )( int ) const)( &::CGlowObjectManager::IsRenderingWhenOccluded )
+            , (bool ( ::CGlowObjectManager::* )( int )const)( &::CGlowObjectManager::IsRenderingWhenOccluded )
             , ( bp::arg("nGlowObjectHandle") ) )    
         .def( 
             "IsRenderingWhenUnoccluded"
-            , (bool ( ::CGlowObjectManager::* )( int ) const)( &::CGlowObjectManager::IsRenderingWhenUnoccluded )
+            , (bool ( ::CGlowObjectManager::* )( int )const)( &::CGlowObjectManager::IsRenderingWhenUnoccluded )
             , ( bp::arg("nGlowObjectHandle") ) )    
         .def( 
             "RegisterGlowObject"
-            , (int ( ::CGlowObjectManager::* )( ::C_BaseEntity *,::Vector const &,float,bool,bool,int ) )( &::CGlowObjectManager::RegisterGlowObject )
+            , (int ( ::CGlowObjectManager::* )( ::C_BaseEntity *,::Vector const &,float,bool,bool,int ))( &::CGlowObjectManager::RegisterGlowObject )
             , ( bp::arg("pEntity"), bp::arg("vGlowColor"), bp::arg("flGlowAlpha"), bp::arg("bRenderWhenOccluded"), bp::arg("bRenderWhenUnoccluded"), bp::arg("nSplitScreenSlot") ) )    
         .def( 
             "RenderGlowEffects"
-            , (void ( ::CGlowObjectManager::* )( ::CViewSetup const *,int ) )( &::CGlowObjectManager::RenderGlowEffects )
+            , (void ( ::CGlowObjectManager::* )( ::CViewSetup const *,int ))( &::CGlowObjectManager::RenderGlowEffects )
             , ( bp::arg("pSetup"), bp::arg("nSplitScreenSlot") ) )    
         .def( 
             "SetAlpha"
-            , (void ( ::CGlowObjectManager::* )( int,float ) )( &::CGlowObjectManager::SetAlpha )
+            , (void ( ::CGlowObjectManager::* )( int,float ))( &::CGlowObjectManager::SetAlpha )
             , ( bp::arg("nGlowObjectHandle"), bp::arg("flAlpha") ) )    
         .def( 
             "SetColor"
-            , (void ( ::CGlowObjectManager::* )( int,::Vector const & ) )( &::CGlowObjectManager::SetColor )
+            , (void ( ::CGlowObjectManager::* )( int,::Vector const & ))( &::CGlowObjectManager::SetColor )
             , ( bp::arg("nGlowObjectHandle"), bp::arg("vGlowColor") ) )    
         .def( 
             "SetEntity"
-            , (void ( ::CGlowObjectManager::* )( int,::C_BaseEntity * ) )( &::CGlowObjectManager::SetEntity )
+            , (void ( ::CGlowObjectManager::* )( int,::C_BaseEntity * ))( &::CGlowObjectManager::SetEntity )
             , ( bp::arg("nGlowObjectHandle"), bp::arg("pEntity") ) )    
         .def( 
             "SetRenderFlags"
-            , (void ( ::CGlowObjectManager::* )( int,bool,bool ) )( &::CGlowObjectManager::SetRenderFlags )
+            , (void ( ::CGlowObjectManager::* )( int,bool,bool ))( &::CGlowObjectManager::SetRenderFlags )
             , ( bp::arg("nGlowObjectHandle"), bp::arg("bRenderWhenOccluded"), bp::arg("bRenderWhenUnoccluded") ) )    
         .def( 
             "UnregisterGlowObject"
-            , (void ( ::CGlowObjectManager::* )( int ) )( &::CGlowObjectManager::UnregisterGlowObject )
+            , (void ( ::CGlowObjectManager::* )( int ))( &::CGlowObjectManager::UnregisterGlowObject )
             , ( bp::arg("nGlowObjectHandle") ) );
 
     { //::CMaterialReference
@@ -128,7 +128,7 @@ BOOST_PYTHON_MODULE(materials){
         bp::implicitly_convertible< char const *, CMaterialReference >();
         { //::CMaterialReference::Init
         
-            typedef void ( ::CMaterialReference::*Init_function_type )( char const *,char const *,bool ) ;
+            typedef void ( ::CMaterialReference::*Init_function_type)( char const *,char const *,bool ) ;
             
             CMaterialReference_exposer.def( 
                 "Init"
@@ -138,7 +138,7 @@ BOOST_PYTHON_MODULE(materials){
         }
         { //::CMaterialReference::Init
         
-            typedef void ( ::CMaterialReference::*Init_function_type )( char const *,::KeyValues * ) ;
+            typedef void ( ::CMaterialReference::*Init_function_type)( char const *,::KeyValues * ) ;
             
             CMaterialReference_exposer.def( 
                 "Init"
@@ -148,7 +148,7 @@ BOOST_PYTHON_MODULE(materials){
         }
         { //::CMaterialReference::Init
         
-            typedef void ( ::CMaterialReference::*Init_function_type )( ::IMaterial * ) ;
+            typedef void ( ::CMaterialReference::*Init_function_type)( ::IMaterial * ) ;
             
             CMaterialReference_exposer.def( 
                 "Init"
@@ -158,7 +158,7 @@ BOOST_PYTHON_MODULE(materials){
         }
         { //::CMaterialReference::Init
         
-            typedef void ( ::CMaterialReference::*Init_function_type )( ::CMaterialReference & ) ;
+            typedef void ( ::CMaterialReference::*Init_function_type)( ::CMaterialReference & ) ;
             
             CMaterialReference_exposer.def( 
                 "Init"
@@ -168,7 +168,7 @@ BOOST_PYTHON_MODULE(materials){
         }
         { //::CMaterialReference::Init
         
-            typedef void ( ::CMaterialReference::*Init_function_type )( char const *,char const *,::KeyValues * ) ;
+            typedef void ( ::CMaterialReference::*Init_function_type)( char const *,char const *,::KeyValues * ) ;
             
             CMaterialReference_exposer.def( 
                 "Init"
@@ -178,7 +178,7 @@ BOOST_PYTHON_MODULE(materials){
         }
         { //::CMaterialReference::IsValid
         
-            typedef bool ( ::CMaterialReference::*IsValid_function_type )(  ) ;
+            typedef bool ( ::CMaterialReference::*IsValid_function_type)(  ) ;
             
             CMaterialReference_exposer.def( 
                 "IsValid"
@@ -187,7 +187,7 @@ BOOST_PYTHON_MODULE(materials){
         }
         { //::CMaterialReference::Shutdown
         
-            typedef void ( ::CMaterialReference::*Shutdown_function_type )(  ) ;
+            typedef void ( ::CMaterialReference::*Shutdown_function_type)(  ) ;
             
             CMaterialReference_exposer.def( 
                 "Shutdown"
@@ -201,45 +201,45 @@ BOOST_PYTHON_MODULE(materials){
         .def( bp::init< Vector const &, Vector const &, Vector const &, float, float >(( bp::arg("pos"), bp::arg("color"), bp::arg("point_at"), bp::arg("inner_cone_boundary"), bp::arg("outer_cone_boundary") )) )    
         .def( 
             "ComputeLightAtPoints"
-            , (void ( ::LightDesc_t::* )( ::FourVectors const &,::FourVectors const &,::FourVectors &,bool ) const)( &::LightDesc_t::ComputeLightAtPoints )
+            , (void ( ::LightDesc_t::* )( ::FourVectors const &,::FourVectors const &,::FourVectors &,bool )const)( &::LightDesc_t::ComputeLightAtPoints )
             , ( bp::arg("pos"), bp::arg("normal"), bp::arg("color"), bp::arg("DoHalfLambert")=(bool)(false) ) )    
         .def( 
             "ComputeLightAtPointsForDirectional"
-            , (void ( ::LightDesc_t::* )( ::FourVectors const &,::FourVectors const &,::FourVectors &,bool ) const)( &::LightDesc_t::ComputeLightAtPointsForDirectional )
+            , (void ( ::LightDesc_t::* )( ::FourVectors const &,::FourVectors const &,::FourVectors &,bool )const)( &::LightDesc_t::ComputeLightAtPointsForDirectional )
             , ( bp::arg("pos"), bp::arg("normal"), bp::arg("color"), bp::arg("DoHalfLambert")=(bool)(false) ) )    
         .def( 
             "ComputeNonincidenceLightAtPoints"
-            , (void ( ::LightDesc_t::* )( ::FourVectors const &,::FourVectors & ) const)( &::LightDesc_t::ComputeNonincidenceLightAtPoints )
+            , (void ( ::LightDesc_t::* )( ::FourVectors const &,::FourVectors & )const)( &::LightDesc_t::ComputeNonincidenceLightAtPoints )
             , ( bp::arg("pos"), bp::arg("color") ) )    
         .def( 
             "InitDirectional"
-            , (void ( ::LightDesc_t::* )( ::Vector const &,::Vector const & ) )( &::LightDesc_t::InitDirectional )
+            , (void ( ::LightDesc_t::* )( ::Vector const &,::Vector const & ))( &::LightDesc_t::InitDirectional )
             , ( bp::arg("dir"), bp::arg("color") ) )    
         .def( 
             "InitPoint"
-            , (void ( ::LightDesc_t::* )( ::Vector const &,::Vector const & ) )( &::LightDesc_t::InitPoint )
+            , (void ( ::LightDesc_t::* )( ::Vector const &,::Vector const & ))( &::LightDesc_t::InitPoint )
             , ( bp::arg("pos"), bp::arg("color") ) )    
         .def( 
             "InitSpot"
-            , (void ( ::LightDesc_t::* )( ::Vector const &,::Vector const &,::Vector const &,float,float ) )( &::LightDesc_t::InitSpot )
+            , (void ( ::LightDesc_t::* )( ::Vector const &,::Vector const &,::Vector const &,float,float ))( &::LightDesc_t::InitSpot )
             , ( bp::arg("pos"), bp::arg("color"), bp::arg("point_at"), bp::arg("inner_cone_boundary"), bp::arg("outer_cone_boundary") ) )    
         .def( 
             "IsDirectionWithinLightCone"
-            , (bool ( ::LightDesc_t::* )( ::Vector const & ) const)( &::LightDesc_t::IsDirectionWithinLightCone )
+            , (bool ( ::LightDesc_t::* )( ::Vector const & )const)( &::LightDesc_t::IsDirectionWithinLightCone )
             , ( bp::arg("rdir") ) )    
         .def( 
             "OneOverThetaDotMinusPhiDot"
-            , (float ( ::LightDesc_t::* )(  ) const)( &::LightDesc_t::OneOverThetaDotMinusPhiDot ) )    
+            , (float ( ::LightDesc_t::* )(  )const)( &::LightDesc_t::OneOverThetaDotMinusPhiDot ) )    
         .def( 
             "RecalculateDerivedValues"
-            , (void ( ::LightDesc_t::* )(  ) )( &::LightDesc_t::RecalculateDerivedValues ) )    
+            , (void ( ::LightDesc_t::* )(  ))( &::LightDesc_t::RecalculateDerivedValues ) )    
         .def( 
             "SetupNewStyleAttenuation"
-            , (void ( ::LightDesc_t::* )( float,float ) )( &::LightDesc_t::SetupNewStyleAttenuation )
+            , (void ( ::LightDesc_t::* )( float,float ))( &::LightDesc_t::SetupNewStyleAttenuation )
             , ( bp::arg("fFiftyPercentDistance"), bp::arg("fZeroPercentDistance") ) )    
         .def( 
             "SetupOldStyleAttenuation"
-            , (void ( ::LightDesc_t::* )( float,float,float ) )( &::LightDesc_t::SetupOldStyleAttenuation )
+            , (void ( ::LightDesc_t::* )( float,float,float ))( &::LightDesc_t::SetupOldStyleAttenuation )
             , ( bp::arg("fQuadatricAttn"), bp::arg("fLinearAttn"), bp::arg("fConstantAttn") ) )    
         .def_readwrite( "m_Attenuation0", &LightDesc_t::m_Attenuation0 )    
         .def_readwrite( "m_Attenuation1", &LightDesc_t::m_Attenuation1 )    
@@ -261,38 +261,38 @@ BOOST_PYTHON_MODULE(materials){
     bp::class_< PyProceduralTexture, boost::noncopyable >( "ProceduralTexture", bp::init< char const *, char const *, int, int, ImageFormat, int >(( bp::arg("pTextureName"), bp::arg("pTextureGroupName"), bp::arg("w"), bp::arg("h"), bp::arg("fmt"), bp::arg("nFlags") )) )    
         .def( 
             "Download"
-            , (void ( ::PyProceduralTexture::* )(  ) )( &::PyProceduralTexture::Download ) )    
+            , (void ( ::PyProceduralTexture::* )(  ))( &::PyProceduralTexture::Download ) )    
         .def( 
             "GetDebugID"
-            , (int ( ::PyProceduralTexture::* )(  ) )( &::PyProceduralTexture::GetDebugID ) )    
+            , (int ( ::PyProceduralTexture::* )(  ))( &::PyProceduralTexture::GetDebugID ) )    
         .def( 
             "GetName"
-            , (char const * ( ::PyProceduralTexture::* )(  ) )( &::PyProceduralTexture::GetName ) )    
+            , (char const * ( ::PyProceduralTexture::* )(  ))( &::PyProceduralTexture::GetName ) )    
         .def( 
             "IsModified"
-            , (bool ( ::PyProceduralTexture::* )(  ) )( &::PyProceduralTexture::IsModified ) )    
+            , (bool ( ::PyProceduralTexture::* )(  ))( &::PyProceduralTexture::IsModified ) )    
         .def( 
             "IsValid"
-            , (bool ( ::PyProceduralTexture::* )(  ) )( &::PyProceduralTexture::IsValid ) )    
+            , (bool ( ::PyProceduralTexture::* )(  ))( &::PyProceduralTexture::IsValid ) )    
         .def( 
             "SetAllPixels"
-            , (void ( ::PyProceduralTexture::* )( int ) )( &::PyProceduralTexture::SetAllPixels )
+            , (void ( ::PyProceduralTexture::* )( int ))( &::PyProceduralTexture::SetAllPixels )
             , ( bp::arg("i") ) )    
         .def( 
             "SetPixel"
-            , (void ( ::PyProceduralTexture::* )( int,int,int ) )( &::PyProceduralTexture::SetPixel )
+            , (void ( ::PyProceduralTexture::* )( int,int,int ))( &::PyProceduralTexture::SetPixel )
             , ( bp::arg("x"), bp::arg("y"), bp::arg("i") ) )    
         .def( 
             "SetPixel"
-            , (void ( ::PyProceduralTexture::* )( int,int,int,int,int,int ) )( &::PyProceduralTexture::SetPixel )
+            , (void ( ::PyProceduralTexture::* )( int,int,int,int,int,int ))( &::PyProceduralTexture::SetPixel )
             , ( bp::arg("x"), bp::arg("y"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a") ) )    
         .def( 
             "SetPixel"
-            , (void ( ::PyProceduralTexture::* )( int,int,::Color const & ) )( &::PyProceduralTexture::SetPixel )
+            , (void ( ::PyProceduralTexture::* )( int,int,::Color const & ))( &::PyProceduralTexture::SetPixel )
             , ( bp::arg("x"), bp::arg("y"), bp::arg("c") ) )    
         .def( 
             "Shutdown"
-            , (void ( ::PyProceduralTexture::* )(  ) )( &::PyProceduralTexture::Shutdown ) );
+            , (void ( ::PyProceduralTexture::* )(  ))( &::PyProceduralTexture::Shutdown ) );
 }
 #else
 #include "cbase.h"
@@ -325,7 +325,7 @@ BOOST_PYTHON_MODULE(materials){
         bp::implicitly_convertible< char const *, CMaterialReference >();
         { //::CMaterialReference::Init
         
-            typedef void ( ::CMaterialReference::*Init_function_type )( char const *,char const *,bool ) ;
+            typedef void ( ::CMaterialReference::*Init_function_type)( char const *,char const *,bool ) ;
             
             CMaterialReference_exposer.def( 
                 "Init"
@@ -335,7 +335,7 @@ BOOST_PYTHON_MODULE(materials){
         }
         { //::CMaterialReference::Init
         
-            typedef void ( ::CMaterialReference::*Init_function_type )( char const *,::KeyValues * ) ;
+            typedef void ( ::CMaterialReference::*Init_function_type)( char const *,::KeyValues * ) ;
             
             CMaterialReference_exposer.def( 
                 "Init"
@@ -345,7 +345,7 @@ BOOST_PYTHON_MODULE(materials){
         }
         { //::CMaterialReference::Init
         
-            typedef void ( ::CMaterialReference::*Init_function_type )( ::IMaterial * ) ;
+            typedef void ( ::CMaterialReference::*Init_function_type)( ::IMaterial * ) ;
             
             CMaterialReference_exposer.def( 
                 "Init"
@@ -355,7 +355,7 @@ BOOST_PYTHON_MODULE(materials){
         }
         { //::CMaterialReference::Init
         
-            typedef void ( ::CMaterialReference::*Init_function_type )( ::CMaterialReference & ) ;
+            typedef void ( ::CMaterialReference::*Init_function_type)( ::CMaterialReference & ) ;
             
             CMaterialReference_exposer.def( 
                 "Init"
@@ -365,7 +365,7 @@ BOOST_PYTHON_MODULE(materials){
         }
         { //::CMaterialReference::Init
         
-            typedef void ( ::CMaterialReference::*Init_function_type )( char const *,char const *,::KeyValues * ) ;
+            typedef void ( ::CMaterialReference::*Init_function_type)( char const *,char const *,::KeyValues * ) ;
             
             CMaterialReference_exposer.def( 
                 "Init"
@@ -375,7 +375,7 @@ BOOST_PYTHON_MODULE(materials){
         }
         { //::CMaterialReference::IsValid
         
-            typedef bool ( ::CMaterialReference::*IsValid_function_type )(  ) ;
+            typedef bool ( ::CMaterialReference::*IsValid_function_type)(  ) ;
             
             CMaterialReference_exposer.def( 
                 "IsValid"
@@ -384,7 +384,7 @@ BOOST_PYTHON_MODULE(materials){
         }
         { //::CMaterialReference::Shutdown
         
-            typedef void ( ::CMaterialReference::*Shutdown_function_type )(  ) ;
+            typedef void ( ::CMaterialReference::*Shutdown_function_type)(  ) ;
             
             CMaterialReference_exposer.def( 
                 "Shutdown"

@@ -1226,41 +1226,41 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , ( bp::arg("pSys") ) )    
         .def( 
             "Init"
-            , (bool ( ::IGameSystem::* )(  ) )( &::IGameSystem::Init ) )    
+            , (bool ( ::IGameSystem::* )(  ))( &::IGameSystem::Init ) )    
         .def( 
             "InitAllSystems"
             , (bool (*)(  ))( &::IGameSystem::InitAllSystems ) )    
         .def( 
             "IsPerFrame"
-            , (bool ( ::IGameSystem::* )(  ) )( &::IGameSystem::IsPerFrame ) )    
+            , (bool ( ::IGameSystem::* )(  ))( &::IGameSystem::IsPerFrame ) )    
         .def( 
             "LevelInitPostEntity"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::LevelInitPostEntity ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::LevelInitPostEntity ) )    
         .def( 
             "LevelInitPostEntityAllSystems"
             , (void (*)(  ))( &::IGameSystem::LevelInitPostEntityAllSystems ) )    
         .def( 
             "LevelInitPreEntity"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::LevelInitPreEntity ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::LevelInitPreEntity ) )    
         .def( 
             "LevelInitPreEntityAllSystems"
             , (void (*)( char const * ))( &::IGameSystem::LevelInitPreEntityAllSystems )
             , ( bp::arg("pMapName") ) )    
         .def( 
             "LevelShutdownPostEntity"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::LevelShutdownPostEntity ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::LevelShutdownPostEntity ) )    
         .def( 
             "LevelShutdownPostEntityAllSystems"
             , (void (*)(  ))( &::IGameSystem::LevelShutdownPostEntityAllSystems ) )    
         .def( 
             "LevelShutdownPreClearSteamAPIContext"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::LevelShutdownPreClearSteamAPIContext ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::LevelShutdownPreClearSteamAPIContext ) )    
         .def( 
             "LevelShutdownPreClearSteamAPIContextAllSystems"
             , (void (*)(  ))( &::IGameSystem::LevelShutdownPreClearSteamAPIContextAllSystems ) )    
         .def( 
             "LevelShutdownPreEntity"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::LevelShutdownPreEntity ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::LevelShutdownPreEntity ) )    
         .def( 
             "LevelShutdownPreEntityAllSystems"
             , (void (*)(  ))( &::IGameSystem::LevelShutdownPreEntityAllSystems ) )    
@@ -1269,22 +1269,22 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , (char const * (*)(  ))( &::IGameSystem::MapName ) )    
         .def( 
             "Name"
-            , (char const * ( ::IGameSystem::* )(  ) )( &::IGameSystem::Name ) )    
+            , (char const * ( ::IGameSystem::* )(  ))( &::IGameSystem::Name ) )    
         .def( 
             "OnRestore"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::OnRestore ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::OnRestore ) )    
         .def( 
             "OnRestoreAllSystems"
             , (void (*)(  ))( &::IGameSystem::OnRestoreAllSystems ) )    
         .def( 
             "OnSave"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::OnSave ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::OnSave ) )    
         .def( 
             "OnSaveAllSystems"
             , (void (*)(  ))( &::IGameSystem::OnSaveAllSystems ) )    
         .def( 
             "PostInit"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::PostInit ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::PostInit ) )    
         .def( 
             "PostInitAllSystems"
             , (void (*)(  ))( &::IGameSystem::PostInitAllSystems ) )    
@@ -1303,13 +1303,13 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , (void (*)(  ))( &::IGameSystem::RemoveAll ) )    
         .def( 
             "SafeRemoveIfDesired"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::SafeRemoveIfDesired ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::SafeRemoveIfDesired ) )    
         .def( 
             "SafeRemoveIfDesiredAllSystems"
             , (void (*)(  ))( &::IGameSystem::SafeRemoveIfDesiredAllSystems ) )    
         .def( 
             "Shutdown"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::Shutdown ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::Shutdown ) )    
         .def( 
             "ShutdownAllSystems"
             , (void (*)(  ))( &::IGameSystem::ShutdownAllSystems ) )    
@@ -1339,54 +1339,54 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< CBaseGameSystem_wrapper, bp::bases< IGameSystem > >( "CBaseGameSystem" )    
         .def( 
             "Init"
-            , (bool ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::Init)
-            , (bool ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_Init) )    
+            , (bool ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::Init)
+            , (bool ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_Init) )    
         .def( 
             "IsPerFrame"
-            , (bool ( ::CBaseGameSystem::* )(  ) )( &::CBaseGameSystem::IsPerFrame ) )    
+            , (bool ( ::CBaseGameSystem::* )(  ))( &::CBaseGameSystem::IsPerFrame ) )    
         .def( 
             "LevelInitPostEntity"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::LevelInitPostEntity)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_LevelInitPostEntity) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::LevelInitPostEntity)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_LevelInitPostEntity) )    
         .def( 
             "LevelInitPreEntity"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::LevelInitPreEntity)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_LevelInitPreEntity) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::LevelInitPreEntity)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_LevelInitPreEntity) )    
         .def( 
             "LevelShutdownPostEntity"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::LevelShutdownPostEntity)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_LevelShutdownPostEntity) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::LevelShutdownPostEntity)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_LevelShutdownPostEntity) )    
         .def( 
             "LevelShutdownPreClearSteamAPIContext"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::LevelShutdownPreClearSteamAPIContext)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_LevelShutdownPreClearSteamAPIContext) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::LevelShutdownPreClearSteamAPIContext)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_LevelShutdownPreClearSteamAPIContext) )    
         .def( 
             "LevelShutdownPreEntity"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::LevelShutdownPreEntity)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_LevelShutdownPreEntity) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::LevelShutdownPreEntity)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_LevelShutdownPreEntity) )    
         .def( 
             "Name"
-            , (char const * ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::Name)
-            , (char const * ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_Name) )    
+            , (char const * ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::Name)
+            , (char const * ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_Name) )    
         .def( 
             "OnRestore"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::OnRestore)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_OnRestore) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::OnRestore)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_OnRestore) )    
         .def( 
             "OnSave"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::OnSave)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_OnSave) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::OnSave)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_OnSave) )    
         .def( 
             "PostInit"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::PostInit)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_PostInit) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::PostInit)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_PostInit) )    
         .def( 
             "SafeRemoveIfDesired"
-            , (void ( ::CBaseGameSystem::* )(  ) )( &::CBaseGameSystem::SafeRemoveIfDesired ) )    
+            , (void ( ::CBaseGameSystem::* )(  ))( &::CBaseGameSystem::SafeRemoveIfDesired ) )    
         .def( 
             "Shutdown"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::Shutdown)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_Shutdown) );
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::Shutdown)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_Shutdown) );
 
     { //::CAutoGameSystem
         typedef bp::class_< CAutoGameSystem_wrapper, bp::bases< CBaseGameSystem > > AutoGameSystem_exposer_t;
@@ -1395,8 +1395,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         bp::implicitly_convertible< char const *, CAutoGameSystem >();
         { //::CAutoGameSystem::Name
         
-            typedef char const * ( ::CAutoGameSystem::*Name_function_type )(  ) ;
-            typedef char const * ( CAutoGameSystem_wrapper::*default_Name_function_type )(  ) ;
+            typedef char const * ( ::CAutoGameSystem::*Name_function_type)(  ) ;
+            typedef char const * ( CAutoGameSystem_wrapper::*default_Name_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "Name"
@@ -1409,8 +1409,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
                     , bp::make_function( (void (*)( ::CAutoGameSystem &,::CAutoGameSystem * ))(&CAutoGameSystem_wrapper::set_m_pNext), bp::with_custodian_and_ward_postcall< 1, 2 >() ) );
         { //::CBaseGameSystem::Init
         
-            typedef bool ( ::CBaseGameSystem::*Init_function_type )(  ) ;
-            typedef bool ( CAutoGameSystem_wrapper::*default_Init_function_type )(  ) ;
+            typedef bool ( ::CBaseGameSystem::*Init_function_type)(  ) ;
+            typedef bool ( CAutoGameSystem_wrapper::*default_Init_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "Init"
@@ -1420,8 +1420,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::LevelInitPostEntity
         
-            typedef void ( ::CBaseGameSystem::*LevelInitPostEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_LevelInitPostEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*LevelInitPostEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_LevelInitPostEntity_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "LevelInitPostEntity"
@@ -1431,8 +1431,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::LevelInitPreEntity
         
-            typedef void ( ::CBaseGameSystem::*LevelInitPreEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_LevelInitPreEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*LevelInitPreEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_LevelInitPreEntity_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "LevelInitPreEntity"
@@ -1442,8 +1442,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::LevelShutdownPostEntity
         
-            typedef void ( ::CBaseGameSystem::*LevelShutdownPostEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_LevelShutdownPostEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*LevelShutdownPostEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_LevelShutdownPostEntity_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "LevelShutdownPostEntity"
@@ -1453,8 +1453,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::LevelShutdownPreClearSteamAPIContext
         
-            typedef void ( ::CBaseGameSystem::*LevelShutdownPreClearSteamAPIContext_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_LevelShutdownPreClearSteamAPIContext_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*LevelShutdownPreClearSteamAPIContext_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_LevelShutdownPreClearSteamAPIContext_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "LevelShutdownPreClearSteamAPIContext"
@@ -1464,8 +1464,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::LevelShutdownPreEntity
         
-            typedef void ( ::CBaseGameSystem::*LevelShutdownPreEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_LevelShutdownPreEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*LevelShutdownPreEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_LevelShutdownPreEntity_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "LevelShutdownPreEntity"
@@ -1475,8 +1475,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::OnRestore
         
-            typedef void ( ::CBaseGameSystem::*OnRestore_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_OnRestore_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*OnRestore_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_OnRestore_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "OnRestore"
@@ -1486,8 +1486,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::OnSave
         
-            typedef void ( ::CBaseGameSystem::*OnSave_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_OnSave_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*OnSave_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_OnSave_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "OnSave"
@@ -1497,8 +1497,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::PostInit
         
-            typedef void ( ::CBaseGameSystem::*PostInit_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_PostInit_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*PostInit_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_PostInit_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "PostInit"
@@ -1508,8 +1508,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::Shutdown
         
-            typedef void ( ::CBaseGameSystem::*Shutdown_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_Shutdown_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*Shutdown_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_Shutdown_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "Shutdown"
@@ -1522,66 +1522,66 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< CBaseGameSystemPerFrame_wrapper >( "CBaseGameSystemPerFrame" )    
         .def( 
             "Init"
-            , (bool ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::Init)
-            , (bool ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_Init) )    
+            , (bool ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::Init)
+            , (bool ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_Init) )    
         .def( 
             "IsPerFrame"
-            , (bool ( ::CBaseGameSystemPerFrame::* )(  ) )( &::CBaseGameSystemPerFrame::IsPerFrame ) )    
+            , (bool ( ::CBaseGameSystemPerFrame::* )(  ))( &::CBaseGameSystemPerFrame::IsPerFrame ) )    
         .def( 
             "LevelInitPostEntity"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::LevelInitPostEntity)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_LevelInitPostEntity) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::LevelInitPostEntity)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_LevelInitPostEntity) )    
         .def( 
             "LevelInitPreEntity"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::LevelInitPreEntity)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_LevelInitPreEntity) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::LevelInitPreEntity)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_LevelInitPreEntity) )    
         .def( 
             "LevelShutdownPostEntity"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::LevelShutdownPostEntity)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_LevelShutdownPostEntity) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::LevelShutdownPostEntity)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_LevelShutdownPostEntity) )    
         .def( 
             "LevelShutdownPreClearSteamAPIContext"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::LevelShutdownPreClearSteamAPIContext)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_LevelShutdownPreClearSteamAPIContext) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::LevelShutdownPreClearSteamAPIContext)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_LevelShutdownPreClearSteamAPIContext) )    
         .def( 
             "LevelShutdownPreEntity"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::LevelShutdownPreEntity)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_LevelShutdownPreEntity) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::LevelShutdownPreEntity)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_LevelShutdownPreEntity) )    
         .def( 
             "Name"
-            , (char const * ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::Name)
-            , (char const * ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_Name) )    
+            , (char const * ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::Name)
+            , (char const * ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_Name) )    
         .def( 
             "OnRestore"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::OnRestore)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_OnRestore) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::OnRestore)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_OnRestore) )    
         .def( 
             "OnSave"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::OnSave)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_OnSave) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::OnSave)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_OnSave) )    
         .def( 
             "PostInit"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::PostInit)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_PostInit) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::PostInit)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_PostInit) )    
         .def( 
             "PostRender"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::PostRender)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_PostRender) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::PostRender)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_PostRender) )    
         .def( 
             "PreRender"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::PreRender)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_PreRender) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::PreRender)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_PreRender) )    
         .def( 
             "SafeRemoveIfDesired"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )( &::CBaseGameSystemPerFrame::SafeRemoveIfDesired ) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))( &::CBaseGameSystemPerFrame::SafeRemoveIfDesired ) )    
         .def( 
             "Shutdown"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::Shutdown)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_Shutdown) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::Shutdown)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_Shutdown) )    
         .def( 
             "Update"
-            , (void ( ::CBaseGameSystemPerFrame::* )( float ) )(&::CBaseGameSystemPerFrame::Update)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )( float ) )(&CBaseGameSystemPerFrame_wrapper::default_Update)
+            , (void ( ::CBaseGameSystemPerFrame::* )( float ))(&::CBaseGameSystemPerFrame::Update)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )( float ))(&CBaseGameSystemPerFrame_wrapper::default_Update)
             , ( bp::arg("frametime") ) );
 
     { //::CAutoGameSystemPerFrame
@@ -1591,8 +1591,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         bp::implicitly_convertible< char const *, CAutoGameSystemPerFrame >();
         { //::CAutoGameSystemPerFrame::Name
         
-            typedef char const * ( ::CAutoGameSystemPerFrame::*Name_function_type )(  ) ;
-            typedef char const * ( CAutoGameSystemPerFrame_wrapper::*default_Name_function_type )(  ) ;
+            typedef char const * ( ::CAutoGameSystemPerFrame::*Name_function_type)(  ) ;
+            typedef char const * ( CAutoGameSystemPerFrame_wrapper::*default_Name_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "Name"
@@ -1605,8 +1605,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
                     , bp::make_function( (void (*)( ::CAutoGameSystemPerFrame &,::CAutoGameSystemPerFrame * ))(&CAutoGameSystemPerFrame_wrapper::set_m_pNext), bp::with_custodian_and_ward_postcall< 1, 2 >() ) );
         { //::CBaseGameSystemPerFrame::Init
         
-            typedef bool ( ::CBaseGameSystemPerFrame::*Init_function_type )(  ) ;
-            typedef bool ( CAutoGameSystemPerFrame_wrapper::*default_Init_function_type )(  ) ;
+            typedef bool ( ::CBaseGameSystemPerFrame::*Init_function_type)(  ) ;
+            typedef bool ( CAutoGameSystemPerFrame_wrapper::*default_Init_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "Init"
@@ -1616,8 +1616,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::LevelInitPostEntity
         
-            typedef void ( ::CBaseGameSystemPerFrame::*LevelInitPostEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelInitPostEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*LevelInitPostEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelInitPostEntity_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "LevelInitPostEntity"
@@ -1627,8 +1627,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::LevelInitPreEntity
         
-            typedef void ( ::CBaseGameSystemPerFrame::*LevelInitPreEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelInitPreEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*LevelInitPreEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelInitPreEntity_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "LevelInitPreEntity"
@@ -1638,8 +1638,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::LevelShutdownPostEntity
         
-            typedef void ( ::CBaseGameSystemPerFrame::*LevelShutdownPostEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelShutdownPostEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*LevelShutdownPostEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelShutdownPostEntity_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "LevelShutdownPostEntity"
@@ -1649,8 +1649,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::LevelShutdownPreClearSteamAPIContext
         
-            typedef void ( ::CBaseGameSystemPerFrame::*LevelShutdownPreClearSteamAPIContext_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelShutdownPreClearSteamAPIContext_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*LevelShutdownPreClearSteamAPIContext_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelShutdownPreClearSteamAPIContext_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "LevelShutdownPreClearSteamAPIContext"
@@ -1660,8 +1660,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::LevelShutdownPreEntity
         
-            typedef void ( ::CBaseGameSystemPerFrame::*LevelShutdownPreEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelShutdownPreEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*LevelShutdownPreEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelShutdownPreEntity_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "LevelShutdownPreEntity"
@@ -1671,8 +1671,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::OnRestore
         
-            typedef void ( ::CBaseGameSystemPerFrame::*OnRestore_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_OnRestore_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*OnRestore_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_OnRestore_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "OnRestore"
@@ -1682,8 +1682,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::OnSave
         
-            typedef void ( ::CBaseGameSystemPerFrame::*OnSave_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_OnSave_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*OnSave_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_OnSave_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "OnSave"
@@ -1693,8 +1693,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::PostInit
         
-            typedef void ( ::CBaseGameSystemPerFrame::*PostInit_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_PostInit_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*PostInit_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_PostInit_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "PostInit"
@@ -1704,8 +1704,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::PostRender
         
-            typedef void ( ::CBaseGameSystemPerFrame::*PostRender_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_PostRender_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*PostRender_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_PostRender_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "PostRender"
@@ -1715,8 +1715,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::PreRender
         
-            typedef void ( ::CBaseGameSystemPerFrame::*PreRender_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_PreRender_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*PreRender_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_PreRender_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "PreRender"
@@ -1726,8 +1726,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::Shutdown
         
-            typedef void ( ::CBaseGameSystemPerFrame::*Shutdown_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_Shutdown_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*Shutdown_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_Shutdown_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "Shutdown"
@@ -1737,8 +1737,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::Update
         
-            typedef void ( ::CBaseGameSystemPerFrame::*Update_function_type )( float ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_Update_function_type )( float ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*Update_function_type)( float ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_Update_function_type)( float ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "Update"
@@ -1752,79 +1752,79 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< IRecipientFilter, boost::noncopyable >( "IRecipientFilter", bp::no_init )    
         .def( 
             "GetRecipientCount"
-            , (int ( ::IRecipientFilter::* )(  ) const)( &::IRecipientFilter::GetRecipientCount ) )    
+            , (int ( ::IRecipientFilter::* )(  )const)( &::IRecipientFilter::GetRecipientCount ) )    
         .def( 
             "GetRecipientIndex"
-            , (int ( ::IRecipientFilter::* )( int ) const)( &::IRecipientFilter::GetRecipientIndex )
+            , (int ( ::IRecipientFilter::* )( int )const)( &::IRecipientFilter::GetRecipientIndex )
             , ( bp::arg("slot") ) )    
         .def( 
             "IsInitMessage"
-            , (bool ( ::IRecipientFilter::* )(  ) const)( &::IRecipientFilter::IsInitMessage ) )    
+            , (bool ( ::IRecipientFilter::* )(  )const)( &::IRecipientFilter::IsInitMessage ) )    
         .def( 
             "IsReliable"
-            , (bool ( ::IRecipientFilter::* )(  ) const)( &::IRecipientFilter::IsReliable ) );
+            , (bool ( ::IRecipientFilter::* )(  )const)( &::IRecipientFilter::IsReliable ) );
 
     bp::class_< C_RecipientFilter, bp::bases< IRecipientFilter >, boost::noncopyable >( "C_RecipientFilter", bp::no_init )    
         .def( bp::init< >() )    
         .def( 
             "AddAllPlayers"
-            , (void ( ::C_RecipientFilter::* )(  ) )( &::C_RecipientFilter::AddAllPlayers ) )    
+            , (void ( ::C_RecipientFilter::* )(  ))( &::C_RecipientFilter::AddAllPlayers ) )    
         .def( 
             "AddPlayersFromBitMask"
-            , (void ( ::C_RecipientFilter::* )( ::CBitVec< 255 > & ) )( &::C_RecipientFilter::AddPlayersFromBitMask )
+            , (void ( ::C_RecipientFilter::* )( ::CBitVec< 255 > & ))( &::C_RecipientFilter::AddPlayersFromBitMask )
             , ( bp::arg("playerbits") ) )    
         .def( 
             "AddRecipient"
-            , (void ( ::C_RecipientFilter::* )( ::C_BasePlayer * ) )( &::C_RecipientFilter::AddRecipient )
+            , (void ( ::C_RecipientFilter::* )( ::C_BasePlayer * ))( &::C_RecipientFilter::AddRecipient )
             , ( bp::arg("player") ) )    
         .def( 
             "AddRecipientsByPAS"
-            , (void ( ::C_RecipientFilter::* )( ::Vector const & ) )( &::C_RecipientFilter::AddRecipientsByPAS )
+            , (void ( ::C_RecipientFilter::* )( ::Vector const & ))( &::C_RecipientFilter::AddRecipientsByPAS )
             , ( bp::arg("origin") ) )    
         .def( 
             "AddRecipientsByPVS"
-            , (void ( ::C_RecipientFilter::* )( ::Vector const & ) )( &::C_RecipientFilter::AddRecipientsByPVS )
+            , (void ( ::C_RecipientFilter::* )( ::Vector const & ))( &::C_RecipientFilter::AddRecipientsByPVS )
             , ( bp::arg("origin") ) )    
         .def( 
             "CopyFrom"
-            , (void ( ::C_RecipientFilter::* )( ::C_RecipientFilter const & ) )( &::C_RecipientFilter::CopyFrom )
+            , (void ( ::C_RecipientFilter::* )( ::C_RecipientFilter const & ))( &::C_RecipientFilter::CopyFrom )
             , ( bp::arg("src") ) )    
         .def( 
             "GetRecipientCount"
-            , (int ( ::C_RecipientFilter::* )(  ) const)( &::C_RecipientFilter::GetRecipientCount ) )    
+            , (int ( ::C_RecipientFilter::* )(  )const)( &::C_RecipientFilter::GetRecipientCount ) )    
         .def( 
             "GetRecipientIndex"
-            , (int ( ::C_RecipientFilter::* )( int ) const)( &::C_RecipientFilter::GetRecipientIndex )
+            , (int ( ::C_RecipientFilter::* )( int )const)( &::C_RecipientFilter::GetRecipientIndex )
             , ( bp::arg("slot") ) )    
         .def( 
             "IgnorePredictionCull"
-            , (bool ( ::C_RecipientFilter::* )(  ) const)( &::C_RecipientFilter::IgnorePredictionCull ) )    
+            , (bool ( ::C_RecipientFilter::* )(  )const)( &::C_RecipientFilter::IgnorePredictionCull ) )    
         .def( 
             "IsInitMessage"
-            , (bool ( ::C_RecipientFilter::* )(  ) const)( &::C_RecipientFilter::IsInitMessage ) )    
+            , (bool ( ::C_RecipientFilter::* )(  )const)( &::C_RecipientFilter::IsInitMessage ) )    
         .def( 
             "IsReliable"
-            , (bool ( ::C_RecipientFilter::* )(  ) const)( &::C_RecipientFilter::IsReliable ) )    
+            , (bool ( ::C_RecipientFilter::* )(  )const)( &::C_RecipientFilter::IsReliable ) )    
         .def( 
             "IsUsingPredictionRules"
-            , (bool ( ::C_RecipientFilter::* )(  ) const)( &::C_RecipientFilter::IsUsingPredictionRules ) )    
+            , (bool ( ::C_RecipientFilter::* )(  )const)( &::C_RecipientFilter::IsUsingPredictionRules ) )    
         .def( 
             "MakeReliable"
-            , (void ( ::C_RecipientFilter::* )(  ) )( &::C_RecipientFilter::MakeReliable ) )    
+            , (void ( ::C_RecipientFilter::* )(  ))( &::C_RecipientFilter::MakeReliable ) )    
         .def( 
             "RemoveRecipient"
-            , (void ( ::C_RecipientFilter::* )( ::C_BasePlayer * ) )( &::C_RecipientFilter::RemoveRecipient )
+            , (void ( ::C_RecipientFilter::* )( ::C_BasePlayer * ))( &::C_RecipientFilter::RemoveRecipient )
             , ( bp::arg("player") ) )    
         .def( 
             "Reset"
-            , (void ( ::C_RecipientFilter::* )(  ) )( &::C_RecipientFilter::Reset ) )    
+            , (void ( ::C_RecipientFilter::* )(  ))( &::C_RecipientFilter::Reset ) )    
         .def( 
             "SetIgnorePredictionCull"
-            , (void ( ::C_RecipientFilter::* )( bool ) )( &::C_RecipientFilter::SetIgnorePredictionCull )
+            , (void ( ::C_RecipientFilter::* )( bool ))( &::C_RecipientFilter::SetIgnorePredictionCull )
             , ( bp::arg("ignore") ) )    
         .def( 
             "UsePredictionRules"
-            , (void ( ::C_RecipientFilter::* )(  ) )( &::C_RecipientFilter::UsePredictionRules ) )    
+            , (void ( ::C_RecipientFilter::* )(  ))( &::C_RecipientFilter::UsePredictionRules ) )    
         .def_readwrite( "m_Recipients", &C_RecipientFilter::m_Recipients )    
         .def_readwrite( "m_bIgnorePredictionCull", &C_RecipientFilter::m_bIgnorePredictionCull )    
         .def_readwrite( "m_bInitMessage", &C_RecipientFilter::m_bInitMessage )    
@@ -1837,28 +1837,28 @@ BOOST_PYTHON_MODULE(_gameinterface){
         .def( bp::init< >() )    
         .def( 
             "BLoggedOn"
-            , (bool ( ::CClientSteamContext::* )(  ) )( &::CClientSteamContext::BLoggedOn ) )    
+            , (bool ( ::CClientSteamContext::* )(  ))( &::CClientSteamContext::BLoggedOn ) )    
         .def( 
             "GetAppID"
-            , (::uint32 ( ::CClientSteamContext::* )(  ) )( &::CClientSteamContext::GetAppID ) )    
+            , (::uint32 ( ::CClientSteamContext::* )(  ))( &::CClientSteamContext::GetAppID ) )    
         .def( 
             "GetConnectedUniverse"
-            , (::EUniverse ( ::CClientSteamContext::* )(  ) )( &::CClientSteamContext::GetConnectedUniverse ) )    
+            , (::EUniverse ( ::CClientSteamContext::* )(  ))( &::CClientSteamContext::GetConnectedUniverse ) )    
         .def( 
             "GetLocalPlayerSteamID"
-            , (::CSteamID const & ( ::CClientSteamContext::* )(  ) )( &::CClientSteamContext::GetLocalPlayerSteamID )
+            , (::CSteamID const & ( ::CClientSteamContext::* )(  ))( &::CClientSteamContext::GetLocalPlayerSteamID )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "OnSteamServerConnectFailure"
-            , (void ( ::CClientSteamContext::* )( ::SteamServerConnectFailure_t * ) )( &::CClientSteamContext::OnSteamServerConnectFailure )
+            , (void ( ::CClientSteamContext::* )( ::SteamServerConnectFailure_t * ))( &::CClientSteamContext::OnSteamServerConnectFailure )
             , ( bp::arg("pParam") ) )    
         .def( 
             "OnSteamServersConnected"
-            , (void ( ::CClientSteamContext::* )( ::SteamServersConnected_t * ) )( &::CClientSteamContext::OnSteamServersConnected )
+            , (void ( ::CClientSteamContext::* )( ::SteamServersConnected_t * ))( &::CClientSteamContext::OnSteamServersConnected )
             , ( bp::arg("pParam") ) )    
         .def( 
             "OnSteamServersDisconnected"
-            , (void ( ::CClientSteamContext::* )( ::SteamServersDisconnected_t * ) )( &::CClientSteamContext::OnSteamServersDisconnected )
+            , (void ( ::CClientSteamContext::* )( ::SteamServersDisconnected_t * ))( &::CClientSteamContext::OnSteamServersDisconnected )
             , ( bp::arg("pParam") ) )    
         .def_readonly( "m_CallbackSteamServerConnectFailure", &CClientSteamContext::m_CallbackSteamServerConnectFailure )    
         .def_readonly( "m_CallbackSteamServersConnected", &CClientSteamContext::m_CallbackSteamServersConnected )    
@@ -1868,39 +1868,39 @@ BOOST_PYTHON_MODULE(_gameinterface){
         .def( bp::init< int, char const * * >(( bp::arg("nArgC"), bp::arg("ppArgV") )) )    
         .def( 
             "Arg"
-            , (char const * ( ::CCommand::* )( int ) const)( &::CCommand::Arg )
+            , (char const * ( ::CCommand::* )( int )const)( &::CCommand::Arg )
             , ( bp::arg("nIndex") ) )    
         .def( 
             "ArgC"
-            , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) )    
+            , (int ( ::CCommand::* )(  )const)( &::CCommand::ArgC ) )    
         .def( 
             "ArgS"
-            , (char const * ( ::CCommand::* )(  ) const)( &::CCommand::ArgS ) )    
+            , (char const * ( ::CCommand::* )(  )const)( &::CCommand::ArgS ) )    
         .def( 
             "FindArg"
-            , (char const * ( ::CCommand::* )( char const * ) const)( &::CCommand::FindArg )
+            , (char const * ( ::CCommand::* )( char const * )const)( &::CCommand::FindArg )
             , ( bp::arg("pName") ) )    
         .def( 
             "FindArgInt"
-            , (int ( ::CCommand::* )( char const *,int ) const)( &::CCommand::FindArgInt )
+            , (int ( ::CCommand::* )( char const *,int )const)( &::CCommand::FindArgInt )
             , ( bp::arg("pName"), bp::arg("nDefaultVal") ) )    
         .def( 
             "GetCommandString"
-            , (char const * ( ::CCommand::* )(  ) const)( &::CCommand::GetCommandString ) )    
+            , (char const * ( ::CCommand::* )(  )const)( &::CCommand::GetCommandString ) )    
         .def( 
             "MaxCommandLength"
             , (int (*)(  ))( &::CCommand::MaxCommandLength ) )    
         .def( 
             "Reset"
-            , (void ( ::CCommand::* )(  ) )( &::CCommand::Reset ) )    
+            , (void ( ::CCommand::* )(  ))( &::CCommand::Reset ) )    
         .def( 
             "__getitem__"
-            , (char const * ( ::CCommand::* )( int ) const)( &::CCommand::operator[] )
+            , (char const * ( ::CCommand::* )( int )const)( &::CCommand::operator[] )
             , ( bp::arg("nIndex") ) )    
         .staticmethod( "MaxCommandLength" )    
         .def( 
-            "__len__"
-            , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) );
+                    "__len__"
+                    , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) );
 
     bp::class_< CLocalPlayerFilter, bp::bases< C_RecipientFilter >, boost::noncopyable >( "CLocalPlayerFilter", bp::init< >() );
 
@@ -1913,10 +1913,10 @@ BOOST_PYTHON_MODULE(_gameinterface){
 
     { //::CPASAttenuationFilter
         typedef bp::class_< CPASAttenuationFilter, bp::bases< CPASFilter >, boost::noncopyable > CPASAttenuationFilter_exposer_t;
-        CPASAttenuationFilter_exposer_t CPASAttenuationFilter_exposer = CPASAttenuationFilter_exposer_t( "CPASAttenuationFilter", bp::init< C_BaseEntity *, bp::optional< float > >(( bp::arg("entity"), bp::arg("attenuation")=8.00000011920928955078125e-1f )) );
+        CPASAttenuationFilter_exposer_t CPASAttenuationFilter_exposer = CPASAttenuationFilter_exposer_t( "CPASAttenuationFilter", bp::init< C_BaseEntity *, bp::optional< float > >(( bp::arg("entity"), bp::arg("attenuation")=0.800000011F )) );
         bp::scope CPASAttenuationFilter_scope( CPASAttenuationFilter_exposer );
         bp::implicitly_convertible< C_BaseEntity *, CPASAttenuationFilter >();
-        CPASAttenuationFilter_exposer.def( bp::init< Vector const &, bp::optional< float > >(( bp::arg("origin"), bp::arg("attenuation")=8.00000011920928955078125e-1f )) );
+        CPASAttenuationFilter_exposer.def( bp::init< Vector const &, bp::optional< float > >(( bp::arg("origin"), bp::arg("attenuation")=0.800000011F )) );
         bp::implicitly_convertible< Vector const &, CPASAttenuationFilter >();
         CPASAttenuationFilter_exposer.def( bp::init< C_BaseEntity *, char const * >(( bp::arg("entity"), bp::arg("lookupSound") )) );
         CPASAttenuationFilter_exposer.def( bp::init< Vector const &, char const * >(( bp::arg("origin"), bp::arg("lookupSound") )) );
@@ -1950,7 +1950,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         bp::implicitly_convertible< IConVar *, ConVarRef >();
         { //::ConVarRef::GetBool
         
-            typedef bool ( ::ConVarRef::*GetBool_function_type )(  ) const;
+            typedef bool ( ::ConVarRef::*GetBool_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "GetBool"
@@ -1959,7 +1959,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::GetDefault
         
-            typedef char const * ( ::ConVarRef::*GetDefault_function_type )(  ) const;
+            typedef char const * ( ::ConVarRef::*GetDefault_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "GetDefault"
@@ -1968,7 +1968,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::GetFloat
         
-            typedef float ( ::ConVarRef::*GetFloat_function_type )(  ) const;
+            typedef float ( ::ConVarRef::*GetFloat_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "GetFloat"
@@ -1977,7 +1977,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::GetInt
         
-            typedef int ( ::ConVarRef::*GetInt_function_type )(  ) const;
+            typedef int ( ::ConVarRef::*GetInt_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "GetInt"
@@ -1986,7 +1986,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::GetName
         
-            typedef char const * ( ::ConVarRef::*GetName_function_type )(  ) const;
+            typedef char const * ( ::ConVarRef::*GetName_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "GetName"
@@ -1995,7 +1995,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::GetString
         
-            typedef char const * ( ::ConVarRef::*GetString_function_type )(  ) const;
+            typedef char const * ( ::ConVarRef::*GetString_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "GetString"
@@ -2004,7 +2004,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::Init
         
-            typedef void ( ::ConVarRef::*Init_function_type )( char const *,bool ) ;
+            typedef void ( ::ConVarRef::*Init_function_type)( char const *,bool ) ;
             
             ConVarRef_exposer.def( 
                 "Init"
@@ -2014,7 +2014,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::IsFlagSet
         
-            typedef bool ( ::ConVarRef::*IsFlagSet_function_type )( int ) const;
+            typedef bool ( ::ConVarRef::*IsFlagSet_function_type)( int ) const;
             
             ConVarRef_exposer.def( 
                 "IsFlagSet"
@@ -2024,7 +2024,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::IsValid
         
-            typedef bool ( ::ConVarRef::*IsValid_function_type )(  ) const;
+            typedef bool ( ::ConVarRef::*IsValid_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "IsValid"
@@ -2033,7 +2033,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::SetValue
         
-            typedef void ( ::ConVarRef::*SetValue_function_type )( char const * ) ;
+            typedef void ( ::ConVarRef::*SetValue_function_type)( char const * ) ;
             
             ConVarRef_exposer.def( 
                 "SetValue"
@@ -2043,7 +2043,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::SetValue
         
-            typedef void ( ::ConVarRef::*SetValue_function_type )( float ) ;
+            typedef void ( ::ConVarRef::*SetValue_function_type)( float ) ;
             
             ConVarRef_exposer.def( 
                 "SetValue"
@@ -2053,7 +2053,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::SetValue
         
-            typedef void ( ::ConVarRef::*SetValue_function_type )( int ) ;
+            typedef void ( ::ConVarRef::*SetValue_function_type)( int ) ;
             
             ConVarRef_exposer.def( 
                 "SetValue"
@@ -2063,7 +2063,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::SetValue
         
-            typedef void ( ::ConVarRef::*SetValue_function_type )( bool ) ;
+            typedef void ( ::ConVarRef::*SetValue_function_type)( bool ) ;
             
             ConVarRef_exposer.def( 
                 "SetValue"
@@ -2076,66 +2076,66 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< ICommandLine, boost::noncopyable >( "ICommandLine", bp::no_init )    
         .def( 
             "AppendParm"
-            , (void ( ::ICommandLine::* )( char const *,char const * ) )( &::ICommandLine::AppendParm )
+            , (void ( ::ICommandLine::* )( char const *,char const * ))( &::ICommandLine::AppendParm )
             , ( bp::arg("pszParm"), bp::arg("pszValues") ) )    
         .def( 
             "CheckParm"
-            , (char const * ( ::ICommandLine::* )( char const *,char const * * ) const)( &::ICommandLine::CheckParm )
+            , (char const * ( ::ICommandLine::* )( char const *,char const * * )const)( &::ICommandLine::CheckParm )
             , ( bp::arg("psz"), bp::arg("ppszValue")=bp::object() ) )    
         .def( 
             "CreateCmdLine"
-            , (void ( ::ICommandLine::* )( char const * ) )( &::ICommandLine::CreateCmdLine )
+            , (void ( ::ICommandLine::* )( char const * ))( &::ICommandLine::CreateCmdLine )
             , ( bp::arg("commandline") ) )    
         .def( 
             "CreateCmdLine"
-            , (void ( ::ICommandLine::* )( int,char * * ) )( &::ICommandLine::CreateCmdLine )
+            , (void ( ::ICommandLine::* )( int,char * * ))( &::ICommandLine::CreateCmdLine )
             , ( bp::arg("argc"), bp::arg("argv") ) )    
         .def( 
             "FindParm"
-            , (int ( ::ICommandLine::* )( char const * ) const)( &::ICommandLine::FindParm )
+            , (int ( ::ICommandLine::* )( char const * )const)( &::ICommandLine::FindParm )
             , ( bp::arg("psz") ) )    
         .def( 
             "GetCmdLine"
-            , (char const * ( ::ICommandLine::* )(  ) const)( &::ICommandLine::GetCmdLine ) )    
+            , (char const * ( ::ICommandLine::* )(  )const)( &::ICommandLine::GetCmdLine ) )    
         .def( 
             "GetParm"
-            , (char const * ( ::ICommandLine::* )( int ) const)( &::ICommandLine::GetParm )
+            , (char const * ( ::ICommandLine::* )( int )const)( &::ICommandLine::GetParm )
             , ( bp::arg("nIndex") ) )    
         .def( 
             "ParmCount"
-            , (int ( ::ICommandLine::* )(  ) const)( &::ICommandLine::ParmCount ) )    
+            , (int ( ::ICommandLine::* )(  )const)( &::ICommandLine::ParmCount ) )    
         .def( 
             "ParmValue"
-            , (char const * ( ::ICommandLine::* )( char const *,char const * ) const)( &::ICommandLine::ParmValue )
+            , (char const * ( ::ICommandLine::* )( char const *,char const * )const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("pDefaultVal")=bp::object() ) )    
         .def( 
             "ParmValue"
-            , (int ( ::ICommandLine::* )( char const *,int ) const)( &::ICommandLine::ParmValue )
+            , (int ( ::ICommandLine::* )( char const *,int )const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("nDefaultVal") ) )    
         .def( 
             "ParmValue"
-            , (float ( ::ICommandLine::* )( char const *,float ) const)( &::ICommandLine::ParmValue )
+            , (float ( ::ICommandLine::* )( char const *,float )const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("flDefaultVal") ) )    
         .def( 
             "ParmValueByIndex"
-            , (char const * ( ::ICommandLine::* )( int,char const * ) const)( &::ICommandLine::ParmValueByIndex )
+            , (char const * ( ::ICommandLine::* )( int,char const * )const)( &::ICommandLine::ParmValueByIndex )
             , ( bp::arg("nIndex"), bp::arg("pDefaultVal")=bp::object() ) )    
         .def( 
             "RemoveParm"
-            , (void ( ::ICommandLine::* )( char const * ) )( &::ICommandLine::RemoveParm )
+            , (void ( ::ICommandLine::* )( char const * ))( &::ICommandLine::RemoveParm )
             , ( bp::arg("parm") ) )    
         .def( 
             "SetParm"
-            , (void ( ::ICommandLine::* )( int,char const * ) )( &::ICommandLine::SetParm )
+            , (void ( ::ICommandLine::* )( int,char const * ))( &::ICommandLine::SetParm )
             , ( bp::arg("nIndex"), bp::arg("pNewParm") ) );
 
-    bp::class_< PyConCommand >( "ConCommand", bp::init< char const *, bp::api::object, bp::optional< char const *, int, bp::api::object, bool > >(( bp::arg("pName"), bp::arg("method"), bp::arg("helpstring")=bp::object(), bp::arg("flags")=(int)(0), bp::arg("completionfunc")=boost::python::api::object(), bp::arg("useweakref")=(bool)(false) )) )    
+    bp::class_< PyConCommand >( "ConCommand", bp::init< char const *, bp::api::object, bp::optional< char const *, int, bp::api::object, bool > >(( bp::arg("pName"), bp::arg("method"), bp::arg("helpstring")=bp::object(), bp::arg("flags")=(int)(0), bp::arg("completionfunc")=bp::object(), bp::arg("useweakref")=(bool)(false) )) )    
         .def( 
             "CanAutoComplete"
-            , (bool ( ::PyConCommand::* )(  ) )( &::PyConCommand::CanAutoComplete ) )    
+            , (bool ( ::PyConCommand::* )(  ))( &::PyConCommand::CanAutoComplete ) )    
         .def( 
             "Shutdown"
-            , (void ( ::PyConCommand::* )(  ) )( &::PyConCommand::Shutdown ) );
+            , (void ( ::PyConCommand::* )(  ))( &::PyConCommand::Shutdown ) );
 
     bp::class_< PyConVar >( "ConVar", bp::init< char const *, char const *, bp::optional< int > >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags")=(int)(0) )) )    
         .def( bp::init< char const *, char const *, int, char const * >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring") )) )    
@@ -2143,51 +2143,51 @@ BOOST_PYTHON_MODULE(_gameinterface){
         .def( bp::init< char const *, char const *, int, char const *, bp::api::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("callback") )) )    
         .def( bp::init< char const *, char const *, int, char const *, bool, float, bool, float, bp::api::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("bMin"), bp::arg("fMin"), bp::arg("bMax"), bp::arg("fMax"), bp::arg("callback") )) )    
         .def( 
-            "AddFlags"
-            , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
-            , ( bp::arg("flags") ) )    
+                    "AddFlags"
+                    , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
+                    , ( bp::arg("flags") ) )    
         .def( 
-            "GetBool"
-            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::GetBool ) )    
+                    "GetBool"
+                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::GetBool ) )    
         .def( 
-            "GetDefault"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetDefault ) )    
+                    "GetDefault"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetDefault ) )    
         .def( 
-            "GetFloat"
-            , (float ( ::ConVar::* )(  ) const)( &::ConVar::GetFloat ) )    
+                    "GetFloat"
+                    , (float ( ::ConVar::* )(  ) const)( &::ConVar::GetFloat ) )    
         .def( 
-            "GetHelpText"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetHelpText ) )    
+                    "GetHelpText"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetHelpText ) )    
         .def( 
-            "GetInt"
-            , (int ( ::ConVar::* )(  ) const)( &::ConVar::GetInt ) )    
+                    "GetInt"
+                    , (int ( ::ConVar::* )(  ) const)( &::ConVar::GetInt ) )    
         .def( 
-            "GetMax"
-            , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMax )
-            , ( bp::arg("maxVal") ) )    
+                    "GetMax"
+                    , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMax )
+                    , ( bp::arg("maxVal") ) )    
         .def( 
-            "GetMin"
-            , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMin )
-            , ( bp::arg("minVal") ) )    
+                    "GetMin"
+                    , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMin )
+                    , ( bp::arg("minVal") ) )    
         .def( 
-            "GetName"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetName ) )    
+                    "GetName"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetName ) )    
         .def( 
-            "GetString"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetString ) )    
+                    "GetString"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetString ) )    
         .def( 
-            "IsCommand"
-            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsCommand ) )    
+                    "IsCommand"
+                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsCommand ) )    
         .def( 
-            "IsFlagSet"
-            , (bool ( ::ConVar::* )( int ) const)( &::ConVar::IsFlagSet )
-            , ( bp::arg("flag") ) )    
+                    "IsFlagSet"
+                    , (bool ( ::ConVar::* )( int ) const)( &::ConVar::IsFlagSet )
+                    , ( bp::arg("flag") ) )    
         .def( 
-            "IsRegistered"
-            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsRegistered ) )    
+                    "IsRegistered"
+                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsRegistered ) )    
         .def( 
-            "Revert"
-            , (void ( ::ConVar::* )(  ) )( &::ConVar::Revert ) );
+                    "Revert"
+                    , (void ( ::ConVar::* )(  ) )( &::ConVar::Revert ) );
 
     { //::PyGameEvent
         typedef bp::class_< PyGameEvent > GameEvent_exposer_t;
@@ -2197,7 +2197,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         bp::implicitly_convertible< char const *, PyGameEvent >();
         { //::PyGameEvent::GetBool
         
-            typedef bool ( ::PyGameEvent::*GetBool_function_type )( char const *,bool ) ;
+            typedef bool ( ::PyGameEvent::*GetBool_function_type)( char const *,bool ) ;
             
             GameEvent_exposer.def( 
                 "GetBool"
@@ -2207,17 +2207,17 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::GetFloat
         
-            typedef float ( ::PyGameEvent::*GetFloat_function_type )( char const *,float ) ;
+            typedef float ( ::PyGameEvent::*GetFloat_function_type)( char const *,float ) ;
             
             GameEvent_exposer.def( 
                 "GetFloat"
                 , GetFloat_function_type( &::PyGameEvent::GetFloat )
-                , ( bp::arg("keyName")=bp::object(), bp::arg("defaultValue")=0.0f ) );
+                , ( bp::arg("keyName")=bp::object(), bp::arg("defaultValue")=0.F ) );
         
         }
         { //::PyGameEvent::GetInt
         
-            typedef int ( ::PyGameEvent::*GetInt_function_type )( char const *,int ) ;
+            typedef int ( ::PyGameEvent::*GetInt_function_type)( char const *,int ) ;
             
             GameEvent_exposer.def( 
                 "GetInt"
@@ -2227,7 +2227,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::GetName
         
-            typedef char const * ( ::PyGameEvent::*GetName_function_type )(  ) const;
+            typedef char const * ( ::PyGameEvent::*GetName_function_type)(  ) const;
             
             GameEvent_exposer.def( 
                 "GetName"
@@ -2236,7 +2236,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::GetString
         
-            typedef char const * ( ::PyGameEvent::*GetString_function_type )( char const *,char const * ) ;
+            typedef char const * ( ::PyGameEvent::*GetString_function_type)( char const *,char const * ) ;
             
             GameEvent_exposer.def( 
                 "GetString"
@@ -2246,7 +2246,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::IsEmpty
         
-            typedef bool ( ::PyGameEvent::*IsEmpty_function_type )( char const * ) ;
+            typedef bool ( ::PyGameEvent::*IsEmpty_function_type)( char const * ) ;
             
             GameEvent_exposer.def( 
                 "IsEmpty"
@@ -2256,7 +2256,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::IsLocal
         
-            typedef bool ( ::PyGameEvent::*IsLocal_function_type )(  ) const;
+            typedef bool ( ::PyGameEvent::*IsLocal_function_type)(  ) const;
             
             GameEvent_exposer.def( 
                 "IsLocal"
@@ -2265,7 +2265,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::IsReliable
         
-            typedef bool ( ::PyGameEvent::*IsReliable_function_type )(  ) const;
+            typedef bool ( ::PyGameEvent::*IsReliable_function_type)(  ) const;
             
             GameEvent_exposer.def( 
                 "IsReliable"
@@ -2274,7 +2274,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::SetBool
         
-            typedef void ( ::PyGameEvent::*SetBool_function_type )( char const *,bool ) ;
+            typedef void ( ::PyGameEvent::*SetBool_function_type)( char const *,bool ) ;
             
             GameEvent_exposer.def( 
                 "SetBool"
@@ -2284,7 +2284,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::SetFloat
         
-            typedef void ( ::PyGameEvent::*SetFloat_function_type )( char const *,float ) ;
+            typedef void ( ::PyGameEvent::*SetFloat_function_type)( char const *,float ) ;
             
             GameEvent_exposer.def( 
                 "SetFloat"
@@ -2294,7 +2294,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::SetInt
         
-            typedef void ( ::PyGameEvent::*SetInt_function_type )( char const *,int ) ;
+            typedef void ( ::PyGameEvent::*SetInt_function_type)( char const *,int ) ;
             
             GameEvent_exposer.def( 
                 "SetInt"
@@ -2304,7 +2304,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::SetString
         
-            typedef void ( ::PyGameEvent::*SetString_function_type )( char const *,char const * ) ;
+            typedef void ( ::PyGameEvent::*SetString_function_type)( char const *,char const * ) ;
             
             GameEvent_exposer.def( 
                 "SetString"
@@ -2317,8 +2317,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< PyGameEventListener_wrapper >( "GameEventListener" )    
         .def( 
             "FireGameEvent"
-            , (void ( ::PyGameEventListener::* )( ::boost::python::api::object ) )(&::PyGameEventListener::PyFireGameEvent)
-            , (void ( PyGameEventListener_wrapper::* )( ::boost::python::api::object ) )(&PyGameEventListener_wrapper::default_FireGameEvent)
+            , (void ( ::PyGameEventListener::* )( ::boost::python::api::object ))(&::PyGameEventListener::PyFireGameEvent)
+            , (void ( PyGameEventListener_wrapper::* )( ::boost::python::api::object ))(&PyGameEventListener_wrapper::default_FireGameEvent)
             , ( bp::arg("event") ) )    
         .def( "ListenForGameEvent", (void ( ::PyGameEventListener::* )( char const * ) )( &::PyGameEventListener::ListenForGameEvent ), bp::arg("name") )    
         .def( "StopListeningForAllEvents", (void ( ::PyGameEventListener::* )() )( &::PyGameEventListener::StopListeningForAllEvents ) );
@@ -2326,286 +2326,286 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< PyVEngineClient_wrapper >( "VEngineClient" )    
         .def( 
             "ActivateOccluder"
-            , (void ( ::PyVEngineClient::* )( int,bool ) )( &::PyVEngineClient::ActivateOccluder )
+            , (void ( ::PyVEngineClient::* )( int,bool ))( &::PyVEngineClient::ActivateOccluder )
             , ( bp::arg("nOccluderIndex"), bp::arg("bActive") ) )    
         .def( 
             "CheckDoneKeyTrapping"
-            , (bool ( ::PyVEngineClient::* )( ::ButtonCode_t ) )( &::PyVEngineClient::CheckDoneKeyTrapping )
+            , (bool ( ::PyVEngineClient::* )( ::ButtonCode_t ))( &::PyVEngineClient::CheckDoneKeyTrapping )
             , ( bp::arg("code") ) )    
         .def( 
             "CheckPoint"
-            , (void ( ::PyVEngineClient::* )( char const * ) )( &::PyVEngineClient::CheckPoint )
+            , (void ( ::PyVEngineClient::* )( char const * ))( &::PyVEngineClient::CheckPoint )
             , ( bp::arg("pName") ) )    
         .def( 
             "ClientCmd_Unrestricted"
-            , (void ( ::PyVEngineClient::* )( char const * ) )( &::PyVEngineClient::ClientCmd_Unrestricted )
+            , (void ( ::PyVEngineClient::* )( char const * ))( &::PyVEngineClient::ClientCmd_Unrestricted )
             , ( bp::arg("szCmdString") ) )    
         .def( 
             "ClientCommand"
-            , (void ( ::PyVEngineClient::* )( char const * ) )( &::PyVEngineClient::ClientCommand )
+            , (void ( ::PyVEngineClient::* )( char const * ))( &::PyVEngineClient::ClientCommand )
             , ( bp::arg("szCmdString") ) )    
         .def( 
             "ComputeDynamicLighting"
-            , (void ( ::PyVEngineClient::* )( ::Vector const &,::Vector const *,::Vector & ) )( &::PyVEngineClient::ComputeDynamicLighting )
+            , (void ( ::PyVEngineClient::* )( ::Vector const &,::Vector const *,::Vector & ))( &::PyVEngineClient::ComputeDynamicLighting )
             , ( bp::arg("pt"), bp::arg("pNormal"), bp::arg("color") ) )    
         .def( 
             "ComputeLighting"
-            , (void ( ::PyVEngineClient::* )( ::Vector const &,::Vector const *,bool,::Vector &,::Vector * ) )( &::PyVEngineClient::ComputeLighting )
+            , (void ( ::PyVEngineClient::* )( ::Vector const &,::Vector const *,bool,::Vector &,::Vector * ))( &::PyVEngineClient::ComputeLighting )
             , ( bp::arg("pt"), bp::arg("pNormal"), bp::arg("bClamp"), bp::arg("color"), bp::arg("pBoxColors")=bp::object() ) )    
         .def( 
             "Con_IsVisible"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::Con_IsVisible ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::Con_IsVisible ) )    
         .def( 
             "Con_NPrintf"
-            , (void ( ::PyVEngineClient::* )( int,char const * ) )( &::PyVEngineClient::Con_NPrintf )
+            , (void ( ::PyVEngineClient::* )( int,char const * ))( &::PyVEngineClient::Con_NPrintf )
             , ( bp::arg("pos"), bp::arg("fmt") ) )    
         .def( 
             "CopyFrameBufferToMaterial"
-            , (bool ( ::PyVEngineClient::* )( char const * ) )( &::PyVEngineClient::CopyFrameBufferToMaterial )
+            , (bool ( ::PyVEngineClient::* )( char const * ))( &::PyVEngineClient::CopyFrameBufferToMaterial )
             , ( bp::arg("pMaterialName") ) )    
         .def( 
             "CullBox"
-            , (bool ( ::PyVEngineClient::* )( ::Vector const &,::Vector const & ) )( &::PyVEngineClient::CullBox )
+            , (bool ( ::PyVEngineClient::* )( ::Vector const &,::Vector const & ))( &::PyVEngineClient::CullBox )
             , ( bp::arg("mins"), bp::arg("maxs") ) )    
         .def( 
             "DoesBoxTouchAreaFrustum"
-            , (bool ( ::PyVEngineClient::* )( ::Vector const &,::Vector const &,int ) )( &::PyVEngineClient::DoesBoxTouchAreaFrustum )
+            , (bool ( ::PyVEngineClient::* )( ::Vector const &,::Vector const &,int ))( &::PyVEngineClient::DoesBoxTouchAreaFrustum )
             , ( bp::arg("mins"), bp::arg("maxs"), bp::arg("iArea") ) )    
         .def( 
             "DrawPortals"
-            , (void ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::DrawPortals ) )    
+            , (void ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::DrawPortals ) )    
         .def( 
             "ExecuteClientCmd"
-            , (void ( ::PyVEngineClient::* )( char const * ) )( &::PyVEngineClient::ExecuteClientCmd )
+            , (void ( ::PyVEngineClient::* )( char const * ))( &::PyVEngineClient::ExecuteClientCmd )
             , ( bp::arg("szCmdString") ) )    
         .def( 
             "GameLumpSize"
-            , (int ( ::PyVEngineClient::* )( int ) const)( &::PyVEngineClient::GameLumpSize )
+            , (int ( ::PyVEngineClient::* )( int )const)( &::PyVEngineClient::GameLumpSize )
             , ( bp::arg("lumpId") ) )    
         .def( 
             "GameLumpVersion"
-            , (int ( ::PyVEngineClient::* )( int ) const)( &::PyVEngineClient::GameLumpVersion )
+            , (int ( ::PyVEngineClient::* )( int )const)( &::PyVEngineClient::GameLumpVersion )
             , ( bp::arg("lumpId") ) )    
         .def( 
             "GetAmbientLightColor"
-            , (void ( ::PyVEngineClient::* )( ::Vector & ) )( &::PyVEngineClient::GetAmbientLightColor )
+            , (void ( ::PyVEngineClient::* )( ::Vector & ))( &::PyVEngineClient::GetAmbientLightColor )
             , ( bp::arg("color") ) )    
         .def( 
             "GetAppID"
-            , (int ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetAppID ) )    
+            , (int ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetAppID ) )    
         .def( 
             "GetChapterName"
-            , (::boost::python::api::object ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetChapterName ) )    
+            , (::boost::python::api::object ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetChapterName ) )    
         .def( 
             "GetDXSupportLevel"
-            , (int ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetDXSupportLevel ) )    
+            , (int ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetDXSupportLevel ) )    
         .def( 
             "GetEngineBuildNumber"
-            , (unsigned int ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetEngineBuildNumber ) )    
+            , (unsigned int ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetEngineBuildNumber ) )    
         .def( 
             "GetGameDirectory"
-            , (char const * ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetGameDirectory ) )    
+            , (char const * ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetGameDirectory ) )    
         .def( 
             "GetLastTimeStamp"
-            , (float ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetLastTimeStamp ) )    
+            , (float ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetLastTimeStamp ) )    
         .def( 
             "GetLevelName"
-            , (char const * ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetLevelName ) )    
+            , (char const * ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetLevelName ) )    
         .def( 
             "GetLightForPoint"
-            , (::Vector ( ::PyVEngineClient::* )( ::Vector const &,bool ) )(&::PyVEngineClient::GetLightForPoint)
-            , (::Vector ( PyVEngineClient_wrapper::* )( ::Vector const &,bool ) )(&PyVEngineClient_wrapper::default_GetLightForPoint)
+            , (::Vector ( ::PyVEngineClient::* )( ::Vector const &,bool ))(&::PyVEngineClient::GetLightForPoint)
+            , (::Vector ( PyVEngineClient_wrapper::* )( ::Vector const &,bool ))(&PyVEngineClient_wrapper::default_GetLightForPoint)
             , ( bp::arg("pos"), bp::arg("clamp") ) )    
         .def( 
             "GetLightForPointFast"
-            , (::Vector ( ::PyVEngineClient::* )( ::Vector const &,bool ) )( &::PyVEngineClient::GetLightForPointFast )
+            , (::Vector ( ::PyVEngineClient::* )( ::Vector const &,bool ))( &::PyVEngineClient::GetLightForPointFast )
             , ( bp::arg("pos"), bp::arg("bClamp") ) )    
         .def( 
             "GetLocalPlayer"
-            , (int ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetLocalPlayer ) )    
+            , (int ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetLocalPlayer ) )    
         .def( 
             "GetMainMenuBackgroundName"
-            , (::boost::python::api::object ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetMainMenuBackgroundName ) )    
+            , (::boost::python::api::object ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetMainMenuBackgroundName ) )    
         .def( 
             "GetMapEntitiesString"
-            , (char const * ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetMapEntitiesString ) )    
+            , (char const * ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetMapEntitiesString ) )    
         .def( 
             "GetMaxClients"
-            , (int ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetMaxClients ) )    
+            , (int ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetMaxClients ) )    
         .def( 
             "GetMostRecentSaveGame"
-            , (char const * ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetMostRecentSaveGame ) )    
+            , (char const * ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetMostRecentSaveGame ) )    
         .def( 
             "GetPlayerForUserID"
-            , (int ( ::PyVEngineClient::* )( int ) )( &::PyVEngineClient::GetPlayerForUserID )
+            , (int ( ::PyVEngineClient::* )( int ))( &::PyVEngineClient::GetPlayerForUserID )
             , ( bp::arg("userID") ) )    
         .def( 
             "GetPlayerInfo"
-            , (bool ( ::PyVEngineClient::* )( int,::py_player_info_t * ) )( &::PyVEngineClient::GetPlayerInfo )
+            , (bool ( ::PyVEngineClient::* )( int,::py_player_info_t * ))( &::PyVEngineClient::GetPlayerInfo )
             , ( bp::arg("ent_num"), bp::arg("pinfo") ) )    
         .def( 
             "GetProductVersionString"
-            , (char const * ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetProductVersionString ) )    
+            , (char const * ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetProductVersionString ) )    
         .def( 
             "GetScreenAspectRatio"
-            , (float ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetScreenAspectRatio ) )    
+            , (float ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetScreenAspectRatio ) )    
         .def( 
             "GetScreenSize"
-            , (void ( ::PyVEngineClient::* )( int &,int & ) )( &::PyVEngineClient::GetScreenSize )
+            , (void ( ::PyVEngineClient::* )( int &,int & ))( &::PyVEngineClient::GetScreenSize )
             , ( bp::arg("width"), bp::arg("height") ) )    
         .def( 
             "GetUILanguage"
-            , (::boost::python::api::object ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::GetUILanguage ) )    
+            , (::boost::python::api::object ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::GetUILanguage ) )    
         .def( 
             "GetViewAngles"
-            , (void ( ::PyVEngineClient::* )( ::QAngle & ) )( &::PyVEngineClient::GetViewAngles )
+            , (void ( ::PyVEngineClient::* )( ::QAngle & ))( &::PyVEngineClient::GetViewAngles )
             , ( bp::arg("va") ) )    
         .def( 
             "GrabPreColorCorrectedFrame"
-            , (void ( ::PyVEngineClient::* )( int,int,int,int ) )( &::PyVEngineClient::GrabPreColorCorrectedFrame )
+            , (void ( ::PyVEngineClient::* )( int,int,int,int ))( &::PyVEngineClient::GrabPreColorCorrectedFrame )
             , ( bp::arg("x"), bp::arg("y"), bp::arg("width"), bp::arg("height") ) )    
         .def( 
             "IsBoxInViewCluster"
-            , (int ( ::PyVEngineClient::* )( ::Vector const &,::Vector const & ) )( &::PyVEngineClient::IsBoxInViewCluster )
+            , (int ( ::PyVEngineClient::* )( ::Vector const &,::Vector const & ))( &::PyVEngineClient::IsBoxInViewCluster )
             , ( bp::arg("mins"), bp::arg("maxs") ) )    
         .def( 
             "IsBoxVisible"
-            , (int ( ::PyVEngineClient::* )( ::Vector const &,::Vector const & ) )( &::PyVEngineClient::IsBoxVisible )
+            , (int ( ::PyVEngineClient::* )( ::Vector const &,::Vector const & ))( &::PyVEngineClient::IsBoxVisible )
             , ( bp::arg("mins"), bp::arg("maxs") ) )    
         .def( 
             "IsConnected"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::IsConnected ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::IsConnected ) )    
         .def( 
             "IsDrawingLoadingImage"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::IsDrawingLoadingImage ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::IsDrawingLoadingImage ) )    
         .def( 
             "IsHLTV"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::IsHLTV ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::IsHLTV ) )    
         .def( 
             "IsHammerRunning"
-            , (bool ( ::PyVEngineClient::* )(  ) const)( &::PyVEngineClient::IsHammerRunning ) )    
+            , (bool ( ::PyVEngineClient::* )(  )const)( &::PyVEngineClient::IsHammerRunning ) )    
         .def( 
             "IsInEditMode"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::IsInEditMode ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::IsInEditMode ) )    
         .def( 
             "IsInGame"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::IsInGame ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::IsInGame ) )    
         .def( 
             "IsLevelMainMenuBackground"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::IsLevelMainMenuBackground ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::IsLevelMainMenuBackground ) )    
         .def( 
             "IsLowViolence"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::IsLowViolence ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::IsLowViolence ) )    
         .def( 
             "IsOccluded"
-            , (bool ( ::PyVEngineClient::* )( ::Vector const &,::Vector const & ) )( &::PyVEngineClient::IsOccluded )
+            , (bool ( ::PyVEngineClient::* )( ::Vector const &,::Vector const & ))( &::PyVEngineClient::IsOccluded )
             , ( bp::arg("vecAbsMins"), bp::arg("vecAbsMaxs") ) )    
         .def( 
             "IsPaused"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::IsPaused ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::IsPaused ) )    
         .def( 
             "IsPlayingDemo"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::IsPlayingDemo ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::IsPlayingDemo ) )    
         .def( 
             "IsPlayingTimeDemo"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::IsPlayingTimeDemo ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::IsPlayingTimeDemo ) )    
         .def( 
             "IsRecordingDemo"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::IsRecordingDemo ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::IsRecordingDemo ) )    
         .def( 
             "IsTakingScreenshot"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::IsTakingScreenshot ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::IsTakingScreenshot ) )    
         .def( 
             "Key_BindingForKey"
-            , (char const * ( ::PyVEngineClient::* )( ::ButtonCode_t ) )( &::PyVEngineClient::Key_BindingForKey )
+            , (char const * ( ::PyVEngineClient::* )( ::ButtonCode_t ))( &::PyVEngineClient::Key_BindingForKey )
             , ( bp::arg("code") ) )    
         .def( 
             "Key_LookupBinding"
-            , (char const * ( ::PyVEngineClient::* )( char const * ) )( &::PyVEngineClient::Key_LookupBinding )
+            , (char const * ( ::PyVEngineClient::* )( char const * ))( &::PyVEngineClient::Key_LookupBinding )
             , ( bp::arg("pBinding") ) )    
         .def( 
             "LevelLeafCount"
-            , (int ( ::PyVEngineClient::* )(  ) const)( &::PyVEngineClient::LevelLeafCount ) )    
+            , (int ( ::PyVEngineClient::* )(  )const)( &::PyVEngineClient::LevelLeafCount ) )    
         .def( 
             "LightStyleValue"
-            , (float ( ::PyVEngineClient::* )( int ) )( &::PyVEngineClient::LightStyleValue )
+            , (float ( ::PyVEngineClient::* )( int ))( &::PyVEngineClient::LightStyleValue )
             , ( bp::arg("style") ) )    
         .def( 
             "LoadModel"
-            , (::model_t * ( ::PyVEngineClient::* )( char const *,bool ) )( &::PyVEngineClient::LoadModel )
+            , (::model_t * ( ::PyVEngineClient::* )( char const *,bool ))( &::PyVEngineClient::LoadModel )
             , ( bp::arg("pName"), bp::arg("bProp")=(bool)(false) )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "MapHasHDRLighting"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::MapHasHDRLighting ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::MapHasHDRLighting ) )    
         .def( 
             "ReadConfiguration"
-            , (void ( ::PyVEngineClient::* )( int const ) )( &::PyVEngineClient::ReadConfiguration )
+            , (void ( ::PyVEngineClient::* )( int const ))( &::PyVEngineClient::ReadConfiguration )
             , ( bp::arg("iController") ) )    
         .def( 
             "ServerCommand"
-            , (void ( ::PyVEngineClient::* )( char const *,bool ) )( &::PyVEngineClient::ServerCommand )
+            , (void ( ::PyVEngineClient::* )( char const *,bool ))( &::PyVEngineClient::ServerCommand )
             , ( bp::arg("szCmdString"), bp::arg("bReliable")=(bool)(true) ) )    
         .def( 
             "SetMostRecentSaveGame"
-            , (void ( ::PyVEngineClient::* )( char const * ) )( &::PyVEngineClient::SetMostRecentSaveGame )
+            , (void ( ::PyVEngineClient::* )( char const * ))( &::PyVEngineClient::SetMostRecentSaveGame )
             , ( bp::arg("lpszFilename") ) )    
         .def( 
             "SetRestrictClientCommands"
-            , (void ( ::PyVEngineClient::* )( bool ) )( &::PyVEngineClient::SetRestrictClientCommands )
+            , (void ( ::PyVEngineClient::* )( bool ))( &::PyVEngineClient::SetRestrictClientCommands )
             , ( bp::arg("bRestrict") ) )    
         .def( 
             "SetRestrictServerCommands"
-            , (void ( ::PyVEngineClient::* )( bool ) )( &::PyVEngineClient::SetRestrictServerCommands )
+            , (void ( ::PyVEngineClient::* )( bool ))( &::PyVEngineClient::SetRestrictServerCommands )
             , ( bp::arg("bRestrict") ) )    
         .def( 
             "SetViewAngles"
-            , (void ( ::PyVEngineClient::* )( ::QAngle & ) )( &::PyVEngineClient::SetViewAngles )
+            , (void ( ::PyVEngineClient::* )( ::QAngle & ))( &::PyVEngineClient::SetViewAngles )
             , ( bp::arg("va") ) )    
         .def( 
             "Sound_ExtraUpdate"
-            , (void ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::Sound_ExtraUpdate ) )    
+            , (void ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::Sound_ExtraUpdate ) )    
         .def( 
             "StartKeyTrapMode"
-            , (void ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::StartKeyTrapMode ) )    
+            , (void ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::StartKeyTrapMode ) )    
         .def( 
             "SupportsHDR"
-            , (bool ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::SupportsHDR ) )    
+            , (bool ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::SupportsHDR ) )    
         .def( 
             "WorldToScreenMatrix"
-            , (::VMatrix const & ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::WorldToScreenMatrix )
+            , (::VMatrix const & ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::WorldToScreenMatrix )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "WorldToViewMatrix"
-            , (::VMatrix const & ( ::PyVEngineClient::* )(  ) )( &::PyVEngineClient::WorldToViewMatrix )
+            , (::VMatrix const & ( ::PyVEngineClient::* )(  ))( &::PyVEngineClient::WorldToViewMatrix )
             , bp::return_value_policy< bp::copy_const_reference >() );
 
     bp::class_< PyVModelInfo >( "VModelInfo" )    
         .def( 
             "FindOrLoadModel"
-            , (::model_t * ( ::PyVModelInfo::* )( char const * ) )( &::PyVModelInfo::FindOrLoadModel )
+            , (::model_t * ( ::PyVModelInfo::* )( char const * ))( &::PyVModelInfo::FindOrLoadModel )
             , ( bp::arg("name") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetModel"
-            , (::model_t * ( ::PyVModelInfo::* )( int ) )( &::PyVModelInfo::GetModel )
+            , (::model_t * ( ::PyVModelInfo::* )( int ))( &::PyVModelInfo::GetModel )
             , ( bp::arg("modelindex") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetModelBounds"
-            , (::boost::python::tuple ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetModelBounds )
+            , (::boost::python::tuple ( ::PyVModelInfo::* )( ::model_t * ))( &::PyVModelInfo::GetModelBounds )
             , ( bp::arg("pModel") ) )    
         .def( 
             "GetModelIndex"
-            , (int ( ::PyVModelInfo::* )( char const * ) )( &::PyVModelInfo::GetModelIndex )
+            , (int ( ::PyVModelInfo::* )( char const * ))( &::PyVModelInfo::GetModelIndex )
             , ( bp::arg("name") ) )    
         .def( 
             "GetModelName"
-            , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetModelName )
+            , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ))( &::PyVModelInfo::GetModelName )
             , ( bp::arg("model") ) )    
         .def( 
             "GetStudioModel"
-            , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetStudioModel )
+            , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ))( &::PyVModelInfo::GetStudioModel )
             , ( bp::arg("model") ) );
 
     { //::dheader_t
@@ -2614,7 +2614,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         bp::scope dheader_t_scope( dheader_t_exposer );
         dheader_t_exposer.def_readwrite( "ident", &dheader_t::ident );
         pyplusplus::containers::static_sized::register_array_1< ::lump_t, 64, bp::return_internal_reference< > >( "__array_1__scope_lump_t_64" );
-        { //dheader_t::lumps [variable], type=lump_t[64]
+        { //dheader_t::lumps [variable], type=lump_t [64]
         
             typedef pyplusplus::containers::static_sized::array_1_t< ::lump_t, 64> ( *array_wrapper_creator )( ::dheader_t & );
             
@@ -2637,7 +2637,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         PlayerInfo_exposer_t PlayerInfo_exposer = PlayerInfo_exposer_t( "PlayerInfo" );
         bp::scope PlayerInfo_scope( PlayerInfo_exposer );
         pyplusplus::containers::static_sized::register_array_1< unsigned int, 4 >( "__array_1_unsigned_int_4" );
-        { //py_player_info_s::customFiles [variable], type=CRC32_t[4]
+        { //py_player_info_s::customFiles [variable], type=CRC32_t [4]
         
             typedef pyplusplus::containers::static_sized::array_1_t< unsigned int, 4> ( *array_wrapper_creator )( ::py_player_info_s & );
             
@@ -2727,7 +2727,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         bp::def( 
             "AddSearchPath"
             , AddSearchPath_function_type( &::PyAddSearchPath )
-            , ( bp::arg("pPath"), bp::arg("pathID"), bp::arg("addType")=::PATH_ADD_TO_TAIL ) );
+            , ( bp::arg("pPath"), bp::arg("pathID"), bp::arg("addType")=::SearchPathAdd_t::PATH_ADD_TO_TAIL ) );
     
     }
 
@@ -4106,41 +4106,41 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , (void (*)(  ))( &::IGameSystem::FrameUpdatePreEntityThinkAllSystems ) )    
         .def( 
             "Init"
-            , (bool ( ::IGameSystem::* )(  ) )( &::IGameSystem::Init ) )    
+            , (bool ( ::IGameSystem::* )(  ))( &::IGameSystem::Init ) )    
         .def( 
             "InitAllSystems"
             , (bool (*)(  ))( &::IGameSystem::InitAllSystems ) )    
         .def( 
             "IsPerFrame"
-            , (bool ( ::IGameSystem::* )(  ) )( &::IGameSystem::IsPerFrame ) )    
+            , (bool ( ::IGameSystem::* )(  ))( &::IGameSystem::IsPerFrame ) )    
         .def( 
             "LevelInitPostEntity"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::LevelInitPostEntity ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::LevelInitPostEntity ) )    
         .def( 
             "LevelInitPostEntityAllSystems"
             , (void (*)(  ))( &::IGameSystem::LevelInitPostEntityAllSystems ) )    
         .def( 
             "LevelInitPreEntity"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::LevelInitPreEntity ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::LevelInitPreEntity ) )    
         .def( 
             "LevelInitPreEntityAllSystems"
             , (void (*)( char const * ))( &::IGameSystem::LevelInitPreEntityAllSystems )
             , ( bp::arg("pMapName") ) )    
         .def( 
             "LevelShutdownPostEntity"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::LevelShutdownPostEntity ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::LevelShutdownPostEntity ) )    
         .def( 
             "LevelShutdownPostEntityAllSystems"
             , (void (*)(  ))( &::IGameSystem::LevelShutdownPostEntityAllSystems ) )    
         .def( 
             "LevelShutdownPreClearSteamAPIContext"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::LevelShutdownPreClearSteamAPIContext ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::LevelShutdownPreClearSteamAPIContext ) )    
         .def( 
             "LevelShutdownPreClearSteamAPIContextAllSystems"
             , (void (*)(  ))( &::IGameSystem::LevelShutdownPreClearSteamAPIContextAllSystems ) )    
         .def( 
             "LevelShutdownPreEntity"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::LevelShutdownPreEntity ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::LevelShutdownPreEntity ) )    
         .def( 
             "LevelShutdownPreEntityAllSystems"
             , (void (*)(  ))( &::IGameSystem::LevelShutdownPreEntityAllSystems ) )    
@@ -4149,22 +4149,22 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , (char const * (*)(  ))( &::IGameSystem::MapName ) )    
         .def( 
             "Name"
-            , (char const * ( ::IGameSystem::* )(  ) )( &::IGameSystem::Name ) )    
+            , (char const * ( ::IGameSystem::* )(  ))( &::IGameSystem::Name ) )    
         .def( 
             "OnRestore"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::OnRestore ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::OnRestore ) )    
         .def( 
             "OnRestoreAllSystems"
             , (void (*)(  ))( &::IGameSystem::OnRestoreAllSystems ) )    
         .def( 
             "OnSave"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::OnSave ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::OnSave ) )    
         .def( 
             "OnSaveAllSystems"
             , (void (*)(  ))( &::IGameSystem::OnSaveAllSystems ) )    
         .def( 
             "PostInit"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::PostInit ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::PostInit ) )    
         .def( 
             "PostInitAllSystems"
             , (void (*)(  ))( &::IGameSystem::PostInitAllSystems ) )    
@@ -4188,13 +4188,13 @@ BOOST_PYTHON_MODULE(_gameinterface){
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "SafeRemoveIfDesired"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::SafeRemoveIfDesired ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::SafeRemoveIfDesired ) )    
         .def( 
             "SafeRemoveIfDesiredAllSystems"
             , (void (*)(  ))( &::IGameSystem::SafeRemoveIfDesiredAllSystems ) )    
         .def( 
             "Shutdown"
-            , (void ( ::IGameSystem::* )(  ) )( &::IGameSystem::Shutdown ) )    
+            , (void ( ::IGameSystem::* )(  ))( &::IGameSystem::Shutdown ) )    
         .def( 
             "ShutdownAllSystems"
             , (void (*)(  ))( &::IGameSystem::ShutdownAllSystems ) )    
@@ -4222,54 +4222,54 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< CBaseGameSystem_wrapper, bp::bases< IGameSystem > >( "CBaseGameSystem" )    
         .def( 
             "Init"
-            , (bool ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::Init)
-            , (bool ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_Init) )    
+            , (bool ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::Init)
+            , (bool ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_Init) )    
         .def( 
             "IsPerFrame"
-            , (bool ( ::CBaseGameSystem::* )(  ) )( &::CBaseGameSystem::IsPerFrame ) )    
+            , (bool ( ::CBaseGameSystem::* )(  ))( &::CBaseGameSystem::IsPerFrame ) )    
         .def( 
             "LevelInitPostEntity"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::LevelInitPostEntity)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_LevelInitPostEntity) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::LevelInitPostEntity)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_LevelInitPostEntity) )    
         .def( 
             "LevelInitPreEntity"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::LevelInitPreEntity)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_LevelInitPreEntity) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::LevelInitPreEntity)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_LevelInitPreEntity) )    
         .def( 
             "LevelShutdownPostEntity"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::LevelShutdownPostEntity)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_LevelShutdownPostEntity) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::LevelShutdownPostEntity)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_LevelShutdownPostEntity) )    
         .def( 
             "LevelShutdownPreClearSteamAPIContext"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::LevelShutdownPreClearSteamAPIContext)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_LevelShutdownPreClearSteamAPIContext) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::LevelShutdownPreClearSteamAPIContext)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_LevelShutdownPreClearSteamAPIContext) )    
         .def( 
             "LevelShutdownPreEntity"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::LevelShutdownPreEntity)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_LevelShutdownPreEntity) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::LevelShutdownPreEntity)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_LevelShutdownPreEntity) )    
         .def( 
             "Name"
-            , (char const * ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::Name)
-            , (char const * ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_Name) )    
+            , (char const * ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::Name)
+            , (char const * ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_Name) )    
         .def( 
             "OnRestore"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::OnRestore)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_OnRestore) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::OnRestore)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_OnRestore) )    
         .def( 
             "OnSave"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::OnSave)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_OnSave) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::OnSave)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_OnSave) )    
         .def( 
             "PostInit"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::PostInit)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_PostInit) )    
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::PostInit)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_PostInit) )    
         .def( 
             "SafeRemoveIfDesired"
-            , (void ( ::CBaseGameSystem::* )(  ) )( &::CBaseGameSystem::SafeRemoveIfDesired ) )    
+            , (void ( ::CBaseGameSystem::* )(  ))( &::CBaseGameSystem::SafeRemoveIfDesired ) )    
         .def( 
             "Shutdown"
-            , (void ( ::CBaseGameSystem::* )(  ) )(&::CBaseGameSystem::Shutdown)
-            , (void ( CBaseGameSystem_wrapper::* )(  ) )(&CBaseGameSystem_wrapper::default_Shutdown) );
+            , (void ( ::CBaseGameSystem::* )(  ))(&::CBaseGameSystem::Shutdown)
+            , (void ( CBaseGameSystem_wrapper::* )(  ))(&CBaseGameSystem_wrapper::default_Shutdown) );
 
     { //::CAutoGameSystem
         typedef bp::class_< CAutoGameSystem_wrapper, bp::bases< CBaseGameSystem > > AutoGameSystem_exposer_t;
@@ -4278,8 +4278,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         bp::implicitly_convertible< char const *, CAutoGameSystem >();
         { //::CAutoGameSystem::Name
         
-            typedef char const * ( ::CAutoGameSystem::*Name_function_type )(  ) ;
-            typedef char const * ( CAutoGameSystem_wrapper::*default_Name_function_type )(  ) ;
+            typedef char const * ( ::CAutoGameSystem::*Name_function_type)(  ) ;
+            typedef char const * ( CAutoGameSystem_wrapper::*default_Name_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "Name"
@@ -4292,8 +4292,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
                     , bp::make_function( (void (*)( ::CAutoGameSystem &,::CAutoGameSystem * ))(&CAutoGameSystem_wrapper::set_m_pNext), bp::with_custodian_and_ward_postcall< 1, 2 >() ) );
         { //::CBaseGameSystem::Init
         
-            typedef bool ( ::CBaseGameSystem::*Init_function_type )(  ) ;
-            typedef bool ( CAutoGameSystem_wrapper::*default_Init_function_type )(  ) ;
+            typedef bool ( ::CBaseGameSystem::*Init_function_type)(  ) ;
+            typedef bool ( CAutoGameSystem_wrapper::*default_Init_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "Init"
@@ -4303,8 +4303,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::LevelInitPostEntity
         
-            typedef void ( ::CBaseGameSystem::*LevelInitPostEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_LevelInitPostEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*LevelInitPostEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_LevelInitPostEntity_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "LevelInitPostEntity"
@@ -4314,8 +4314,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::LevelInitPreEntity
         
-            typedef void ( ::CBaseGameSystem::*LevelInitPreEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_LevelInitPreEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*LevelInitPreEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_LevelInitPreEntity_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "LevelInitPreEntity"
@@ -4325,8 +4325,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::LevelShutdownPostEntity
         
-            typedef void ( ::CBaseGameSystem::*LevelShutdownPostEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_LevelShutdownPostEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*LevelShutdownPostEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_LevelShutdownPostEntity_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "LevelShutdownPostEntity"
@@ -4336,8 +4336,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::LevelShutdownPreClearSteamAPIContext
         
-            typedef void ( ::CBaseGameSystem::*LevelShutdownPreClearSteamAPIContext_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_LevelShutdownPreClearSteamAPIContext_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*LevelShutdownPreClearSteamAPIContext_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_LevelShutdownPreClearSteamAPIContext_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "LevelShutdownPreClearSteamAPIContext"
@@ -4347,8 +4347,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::LevelShutdownPreEntity
         
-            typedef void ( ::CBaseGameSystem::*LevelShutdownPreEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_LevelShutdownPreEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*LevelShutdownPreEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_LevelShutdownPreEntity_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "LevelShutdownPreEntity"
@@ -4358,8 +4358,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::OnRestore
         
-            typedef void ( ::CBaseGameSystem::*OnRestore_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_OnRestore_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*OnRestore_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_OnRestore_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "OnRestore"
@@ -4369,8 +4369,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::OnSave
         
-            typedef void ( ::CBaseGameSystem::*OnSave_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_OnSave_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*OnSave_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_OnSave_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "OnSave"
@@ -4380,8 +4380,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::PostInit
         
-            typedef void ( ::CBaseGameSystem::*PostInit_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_PostInit_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*PostInit_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_PostInit_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "PostInit"
@@ -4391,8 +4391,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystem::Shutdown
         
-            typedef void ( ::CBaseGameSystem::*Shutdown_function_type )(  ) ;
-            typedef void ( CAutoGameSystem_wrapper::*default_Shutdown_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystem::*Shutdown_function_type)(  ) ;
+            typedef void ( CAutoGameSystem_wrapper::*default_Shutdown_function_type)(  ) ;
             
             AutoGameSystem_exposer.def( 
                 "Shutdown"
@@ -4405,66 +4405,66 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< CBaseGameSystemPerFrame_wrapper >( "CBaseGameSystemPerFrame" )    
         .def( 
             "FrameUpdatePostEntityThink"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::FrameUpdatePostEntityThink)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_FrameUpdatePostEntityThink) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::FrameUpdatePostEntityThink)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_FrameUpdatePostEntityThink) )    
         .def( 
             "FrameUpdatePreEntityThink"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::FrameUpdatePreEntityThink)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_FrameUpdatePreEntityThink) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::FrameUpdatePreEntityThink)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_FrameUpdatePreEntityThink) )    
         .def( 
             "Init"
-            , (bool ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::Init)
-            , (bool ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_Init) )    
+            , (bool ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::Init)
+            , (bool ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_Init) )    
         .def( 
             "IsPerFrame"
-            , (bool ( ::CBaseGameSystemPerFrame::* )(  ) )( &::CBaseGameSystemPerFrame::IsPerFrame ) )    
+            , (bool ( ::CBaseGameSystemPerFrame::* )(  ))( &::CBaseGameSystemPerFrame::IsPerFrame ) )    
         .def( 
             "LevelInitPostEntity"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::LevelInitPostEntity)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_LevelInitPostEntity) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::LevelInitPostEntity)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_LevelInitPostEntity) )    
         .def( 
             "LevelInitPreEntity"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::LevelInitPreEntity)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_LevelInitPreEntity) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::LevelInitPreEntity)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_LevelInitPreEntity) )    
         .def( 
             "LevelShutdownPostEntity"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::LevelShutdownPostEntity)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_LevelShutdownPostEntity) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::LevelShutdownPostEntity)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_LevelShutdownPostEntity) )    
         .def( 
             "LevelShutdownPreClearSteamAPIContext"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::LevelShutdownPreClearSteamAPIContext)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_LevelShutdownPreClearSteamAPIContext) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::LevelShutdownPreClearSteamAPIContext)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_LevelShutdownPreClearSteamAPIContext) )    
         .def( 
             "LevelShutdownPreEntity"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::LevelShutdownPreEntity)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_LevelShutdownPreEntity) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::LevelShutdownPreEntity)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_LevelShutdownPreEntity) )    
         .def( 
             "Name"
-            , (char const * ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::Name)
-            , (char const * ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_Name) )    
+            , (char const * ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::Name)
+            , (char const * ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_Name) )    
         .def( 
             "OnRestore"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::OnRestore)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_OnRestore) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::OnRestore)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_OnRestore) )    
         .def( 
             "OnSave"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::OnSave)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_OnSave) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::OnSave)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_OnSave) )    
         .def( 
             "PostInit"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::PostInit)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_PostInit) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::PostInit)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_PostInit) )    
         .def( 
             "PreClientUpdate"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::PreClientUpdate)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_PreClientUpdate) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::PreClientUpdate)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_PreClientUpdate) )    
         .def( 
             "SafeRemoveIfDesired"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )( &::CBaseGameSystemPerFrame::SafeRemoveIfDesired ) )    
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))( &::CBaseGameSystemPerFrame::SafeRemoveIfDesired ) )    
         .def( 
             "Shutdown"
-            , (void ( ::CBaseGameSystemPerFrame::* )(  ) )(&::CBaseGameSystemPerFrame::Shutdown)
-            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ) )(&CBaseGameSystemPerFrame_wrapper::default_Shutdown) );
+            , (void ( ::CBaseGameSystemPerFrame::* )(  ))(&::CBaseGameSystemPerFrame::Shutdown)
+            , (void ( CBaseGameSystemPerFrame_wrapper::* )(  ))(&CBaseGameSystemPerFrame_wrapper::default_Shutdown) );
 
     { //::CAutoGameSystemPerFrame
         typedef bp::class_< CAutoGameSystemPerFrame_wrapper, bp::bases< CBaseGameSystemPerFrame > > AutoGameSystemPerFrame_exposer_t;
@@ -4473,8 +4473,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         bp::implicitly_convertible< char const *, CAutoGameSystemPerFrame >();
         { //::CAutoGameSystemPerFrame::Name
         
-            typedef char const * ( ::CAutoGameSystemPerFrame::*Name_function_type )(  ) ;
-            typedef char const * ( CAutoGameSystemPerFrame_wrapper::*default_Name_function_type )(  ) ;
+            typedef char const * ( ::CAutoGameSystemPerFrame::*Name_function_type)(  ) ;
+            typedef char const * ( CAutoGameSystemPerFrame_wrapper::*default_Name_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "Name"
@@ -4487,8 +4487,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
                     , bp::make_function( (void (*)( ::CAutoGameSystemPerFrame &,::CAutoGameSystemPerFrame * ))(&CAutoGameSystemPerFrame_wrapper::set_m_pNext), bp::with_custodian_and_ward_postcall< 1, 2 >() ) );
         { //::CBaseGameSystemPerFrame::FrameUpdatePostEntityThink
         
-            typedef void ( ::CBaseGameSystemPerFrame::*FrameUpdatePostEntityThink_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_FrameUpdatePostEntityThink_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*FrameUpdatePostEntityThink_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_FrameUpdatePostEntityThink_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "FrameUpdatePostEntityThink"
@@ -4498,8 +4498,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::FrameUpdatePreEntityThink
         
-            typedef void ( ::CBaseGameSystemPerFrame::*FrameUpdatePreEntityThink_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_FrameUpdatePreEntityThink_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*FrameUpdatePreEntityThink_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_FrameUpdatePreEntityThink_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "FrameUpdatePreEntityThink"
@@ -4509,8 +4509,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::Init
         
-            typedef bool ( ::CBaseGameSystemPerFrame::*Init_function_type )(  ) ;
-            typedef bool ( CAutoGameSystemPerFrame_wrapper::*default_Init_function_type )(  ) ;
+            typedef bool ( ::CBaseGameSystemPerFrame::*Init_function_type)(  ) ;
+            typedef bool ( CAutoGameSystemPerFrame_wrapper::*default_Init_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "Init"
@@ -4520,8 +4520,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::LevelInitPostEntity
         
-            typedef void ( ::CBaseGameSystemPerFrame::*LevelInitPostEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelInitPostEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*LevelInitPostEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelInitPostEntity_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "LevelInitPostEntity"
@@ -4531,8 +4531,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::LevelInitPreEntity
         
-            typedef void ( ::CBaseGameSystemPerFrame::*LevelInitPreEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelInitPreEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*LevelInitPreEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelInitPreEntity_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "LevelInitPreEntity"
@@ -4542,8 +4542,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::LevelShutdownPostEntity
         
-            typedef void ( ::CBaseGameSystemPerFrame::*LevelShutdownPostEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelShutdownPostEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*LevelShutdownPostEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelShutdownPostEntity_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "LevelShutdownPostEntity"
@@ -4553,8 +4553,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::LevelShutdownPreClearSteamAPIContext
         
-            typedef void ( ::CBaseGameSystemPerFrame::*LevelShutdownPreClearSteamAPIContext_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelShutdownPreClearSteamAPIContext_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*LevelShutdownPreClearSteamAPIContext_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelShutdownPreClearSteamAPIContext_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "LevelShutdownPreClearSteamAPIContext"
@@ -4564,8 +4564,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::LevelShutdownPreEntity
         
-            typedef void ( ::CBaseGameSystemPerFrame::*LevelShutdownPreEntity_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelShutdownPreEntity_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*LevelShutdownPreEntity_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_LevelShutdownPreEntity_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "LevelShutdownPreEntity"
@@ -4575,8 +4575,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::OnRestore
         
-            typedef void ( ::CBaseGameSystemPerFrame::*OnRestore_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_OnRestore_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*OnRestore_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_OnRestore_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "OnRestore"
@@ -4586,8 +4586,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::OnSave
         
-            typedef void ( ::CBaseGameSystemPerFrame::*OnSave_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_OnSave_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*OnSave_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_OnSave_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "OnSave"
@@ -4597,8 +4597,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::PostInit
         
-            typedef void ( ::CBaseGameSystemPerFrame::*PostInit_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_PostInit_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*PostInit_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_PostInit_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "PostInit"
@@ -4608,8 +4608,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::PreClientUpdate
         
-            typedef void ( ::CBaseGameSystemPerFrame::*PreClientUpdate_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_PreClientUpdate_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*PreClientUpdate_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_PreClientUpdate_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "PreClientUpdate"
@@ -4619,8 +4619,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::CBaseGameSystemPerFrame::Shutdown
         
-            typedef void ( ::CBaseGameSystemPerFrame::*Shutdown_function_type )(  ) ;
-            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_Shutdown_function_type )(  ) ;
+            typedef void ( ::CBaseGameSystemPerFrame::*Shutdown_function_type)(  ) ;
+            typedef void ( CAutoGameSystemPerFrame_wrapper::*default_Shutdown_function_type)(  ) ;
             
             AutoGameSystemPerFrame_exposer.def( 
                 "Shutdown"
@@ -4633,97 +4633,97 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< IRecipientFilter, boost::noncopyable >( "IRecipientFilter", bp::no_init )    
         .def( 
             "GetRecipientCount"
-            , (int ( ::IRecipientFilter::* )(  ) const)( &::IRecipientFilter::GetRecipientCount ) )    
+            , (int ( ::IRecipientFilter::* )(  )const)( &::IRecipientFilter::GetRecipientCount ) )    
         .def( 
             "GetRecipientIndex"
-            , (int ( ::IRecipientFilter::* )( int ) const)( &::IRecipientFilter::GetRecipientIndex )
+            , (int ( ::IRecipientFilter::* )( int )const)( &::IRecipientFilter::GetRecipientIndex )
             , ( bp::arg("slot") ) )    
         .def( 
             "IsInitMessage"
-            , (bool ( ::IRecipientFilter::* )(  ) const)( &::IRecipientFilter::IsInitMessage ) )    
+            , (bool ( ::IRecipientFilter::* )(  )const)( &::IRecipientFilter::IsInitMessage ) )    
         .def( 
             "IsReliable"
-            , (bool ( ::IRecipientFilter::* )(  ) const)( &::IRecipientFilter::IsReliable ) );
+            , (bool ( ::IRecipientFilter::* )(  )const)( &::IRecipientFilter::IsReliable ) );
 
     bp::class_< CRecipientFilter, bp::bases< IRecipientFilter >, boost::noncopyable >( "CRecipientFilter", bp::no_init )    
         .def( bp::init< >() )    
         .def( 
             "AddAllPlayers"
-            , (void ( ::CRecipientFilter::* )(  ) )( &::CRecipientFilter::AddAllPlayers ) )    
+            , (void ( ::CRecipientFilter::* )(  ))( &::CRecipientFilter::AddAllPlayers ) )    
         .def( 
             "AddPlayersFromBitMask"
-            , (void ( ::CRecipientFilter::* )( ::CBitVec< 255 > & ) )( &::CRecipientFilter::AddPlayersFromBitMask )
+            , (void ( ::CRecipientFilter::* )( ::CBitVec< 255 > & ))( &::CRecipientFilter::AddPlayersFromBitMask )
             , ( bp::arg("playerbits") ) )    
         .def( 
             "AddRecipient"
-            , (void ( ::CRecipientFilter::* )( ::CBasePlayer const * ) )( &::CRecipientFilter::AddRecipient )
+            , (void ( ::CRecipientFilter::* )( ::CBasePlayer const * ))( &::CRecipientFilter::AddRecipient )
             , ( bp::arg("player") ) )    
         .def( 
             "AddRecipientsByPAS"
-            , (void ( ::CRecipientFilter::* )( ::Vector const & ) )( &::CRecipientFilter::AddRecipientsByPAS )
+            , (void ( ::CRecipientFilter::* )( ::Vector const & ))( &::CRecipientFilter::AddRecipientsByPAS )
             , ( bp::arg("origin") ) )    
         .def( 
             "AddRecipientsByPVS"
-            , (void ( ::CRecipientFilter::* )( ::Vector const & ) )( &::CRecipientFilter::AddRecipientsByPVS )
+            , (void ( ::CRecipientFilter::* )( ::Vector const & ))( &::CRecipientFilter::AddRecipientsByPVS )
             , ( bp::arg("origin") ) )    
         .def( 
             "CopyFrom"
-            , (void ( ::CRecipientFilter::* )( ::CRecipientFilter const & ) )( &::CRecipientFilter::CopyFrom )
+            , (void ( ::CRecipientFilter::* )( ::CRecipientFilter const & ))( &::CRecipientFilter::CopyFrom )
             , ( bp::arg("src") ) )    
         .def( 
             "GetRecipientCount"
-            , (int ( ::CRecipientFilter::* )(  ) const)( &::CRecipientFilter::GetRecipientCount ) )    
+            , (int ( ::CRecipientFilter::* )(  )const)( &::CRecipientFilter::GetRecipientCount ) )    
         .def( 
             "GetRecipientIndex"
-            , (int ( ::CRecipientFilter::* )( int ) const)( &::CRecipientFilter::GetRecipientIndex )
+            , (int ( ::CRecipientFilter::* )( int )const)( &::CRecipientFilter::GetRecipientIndex )
             , ( bp::arg("slot") ) )    
         .def( 
             "IgnorePredictionCull"
-            , (bool ( ::CRecipientFilter::* )(  ) const)( &::CRecipientFilter::IgnorePredictionCull ) )    
+            , (bool ( ::CRecipientFilter::* )(  )const)( &::CRecipientFilter::IgnorePredictionCull ) )    
         .def( 
             "IsInitMessage"
-            , (bool ( ::CRecipientFilter::* )(  ) const)( &::CRecipientFilter::IsInitMessage ) )    
+            , (bool ( ::CRecipientFilter::* )(  )const)( &::CRecipientFilter::IsInitMessage ) )    
         .def( 
             "IsReliable"
-            , (bool ( ::CRecipientFilter::* )(  ) const)( &::CRecipientFilter::IsReliable ) )    
+            , (bool ( ::CRecipientFilter::* )(  )const)( &::CRecipientFilter::IsReliable ) )    
         .def( 
             "IsUsingPredictionRules"
-            , (bool ( ::CRecipientFilter::* )(  ) const)( &::CRecipientFilter::IsUsingPredictionRules ) )    
+            , (bool ( ::CRecipientFilter::* )(  )const)( &::CRecipientFilter::IsUsingPredictionRules ) )    
         .def( 
             "MakeInitMessage"
-            , (void ( ::CRecipientFilter::* )(  ) )( &::CRecipientFilter::MakeInitMessage ) )    
+            , (void ( ::CRecipientFilter::* )(  ))( &::CRecipientFilter::MakeInitMessage ) )    
         .def( 
             "MakeReliable"
-            , (void ( ::CRecipientFilter::* )(  ) )( &::CRecipientFilter::MakeReliable ) )    
+            , (void ( ::CRecipientFilter::* )(  ))( &::CRecipientFilter::MakeReliable ) )    
         .def( 
             "RemoveAllRecipients"
-            , (void ( ::CRecipientFilter::* )(  ) )( &::CRecipientFilter::RemoveAllRecipients ) )    
+            , (void ( ::CRecipientFilter::* )(  ))( &::CRecipientFilter::RemoveAllRecipients ) )    
         .def( 
             "RemovePlayersFromBitMask"
-            , (void ( ::CRecipientFilter::* )( ::CBitVec< 255 > & ) )( &::CRecipientFilter::RemovePlayersFromBitMask )
+            , (void ( ::CRecipientFilter::* )( ::CBitVec< 255 > & ))( &::CRecipientFilter::RemovePlayersFromBitMask )
             , ( bp::arg("playerbits") ) )    
         .def( 
             "RemoveRecipient"
-            , (void ( ::CRecipientFilter::* )( ::CBasePlayer * ) )( &::CRecipientFilter::RemoveRecipient )
+            , (void ( ::CRecipientFilter::* )( ::CBasePlayer * ))( &::CRecipientFilter::RemoveRecipient )
             , ( bp::arg("player") ) )    
         .def( 
             "RemoveRecipientByPlayerIndex"
-            , (void ( ::CRecipientFilter::* )( int ) )( &::CRecipientFilter::RemoveRecipientByPlayerIndex )
+            , (void ( ::CRecipientFilter::* )( int ))( &::CRecipientFilter::RemoveRecipientByPlayerIndex )
             , ( bp::arg("playerindex") ) )    
         .def( 
             "RemoveRecipientsByPVS"
-            , (void ( ::CRecipientFilter::* )( ::Vector const & ) )( &::CRecipientFilter::RemoveRecipientsByPVS )
+            , (void ( ::CRecipientFilter::* )( ::Vector const & ))( &::CRecipientFilter::RemoveRecipientsByPVS )
             , ( bp::arg("origin") ) )    
         .def( 
             "Reset"
-            , (void ( ::CRecipientFilter::* )(  ) )( &::CRecipientFilter::Reset ) )    
+            , (void ( ::CRecipientFilter::* )(  ))( &::CRecipientFilter::Reset ) )    
         .def( 
             "SetIgnorePredictionCull"
-            , (void ( ::CRecipientFilter::* )( bool ) )( &::CRecipientFilter::SetIgnorePredictionCull )
+            , (void ( ::CRecipientFilter::* )( bool ))( &::CRecipientFilter::SetIgnorePredictionCull )
             , ( bp::arg("ignore") ) )    
         .def( 
             "UsePredictionRules"
-            , (void ( ::CRecipientFilter::* )(  ) )( &::CRecipientFilter::UsePredictionRules ) );
+            , (void ( ::CRecipientFilter::* )(  ))( &::CRecipientFilter::UsePredictionRules ) );
 
     bp::class_< CBroadcastRecipientFilter, bp::bases< CRecipientFilter >, boost::noncopyable >( "CBroadcastRecipientFilter", bp::init< >() );
 
@@ -4731,39 +4731,39 @@ BOOST_PYTHON_MODULE(_gameinterface){
         .def( bp::init< int, char const * * >(( bp::arg("nArgC"), bp::arg("ppArgV") )) )    
         .def( 
             "Arg"
-            , (char const * ( ::CCommand::* )( int ) const)( &::CCommand::Arg )
+            , (char const * ( ::CCommand::* )( int )const)( &::CCommand::Arg )
             , ( bp::arg("nIndex") ) )    
         .def( 
             "ArgC"
-            , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) )    
+            , (int ( ::CCommand::* )(  )const)( &::CCommand::ArgC ) )    
         .def( 
             "ArgS"
-            , (char const * ( ::CCommand::* )(  ) const)( &::CCommand::ArgS ) )    
+            , (char const * ( ::CCommand::* )(  )const)( &::CCommand::ArgS ) )    
         .def( 
             "FindArg"
-            , (char const * ( ::CCommand::* )( char const * ) const)( &::CCommand::FindArg )
+            , (char const * ( ::CCommand::* )( char const * )const)( &::CCommand::FindArg )
             , ( bp::arg("pName") ) )    
         .def( 
             "FindArgInt"
-            , (int ( ::CCommand::* )( char const *,int ) const)( &::CCommand::FindArgInt )
+            , (int ( ::CCommand::* )( char const *,int )const)( &::CCommand::FindArgInt )
             , ( bp::arg("pName"), bp::arg("nDefaultVal") ) )    
         .def( 
             "GetCommandString"
-            , (char const * ( ::CCommand::* )(  ) const)( &::CCommand::GetCommandString ) )    
+            , (char const * ( ::CCommand::* )(  )const)( &::CCommand::GetCommandString ) )    
         .def( 
             "MaxCommandLength"
             , (int (*)(  ))( &::CCommand::MaxCommandLength ) )    
         .def( 
             "Reset"
-            , (void ( ::CCommand::* )(  ) )( &::CCommand::Reset ) )    
+            , (void ( ::CCommand::* )(  ))( &::CCommand::Reset ) )    
         .def( 
             "__getitem__"
-            , (char const * ( ::CCommand::* )( int ) const)( &::CCommand::operator[] )
+            , (char const * ( ::CCommand::* )( int )const)( &::CCommand::operator[] )
             , ( bp::arg("nIndex") ) )    
         .staticmethod( "MaxCommandLength" )    
         .def( 
-            "__len__"
-            , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) );
+                    "__len__"
+                    , (int ( ::CCommand::* )(  ) const)( &::CCommand::ArgC ) );
 
     bp::class_< CMapEntityRef >( "CMapEntityRef" )    
         .def_readwrite( "m_iEdict", &CMapEntityRef::m_iEdict )    
@@ -4782,10 +4782,10 @@ BOOST_PYTHON_MODULE(_gameinterface){
         CPASAttenuationFilter_exposer_t CPASAttenuationFilter_exposer = CPASAttenuationFilter_exposer_t( "CPASAttenuationFilter", bp::init< >() );
         bp::scope CPASAttenuationFilter_scope( CPASAttenuationFilter_exposer );
         CPASAttenuationFilter_exposer.def( bp::init< CBaseEntity *, soundlevel_t >(( bp::arg("entity"), bp::arg("soundlevel") )) );
-        CPASAttenuationFilter_exposer.def( bp::init< CBaseEntity *, bp::optional< float > >(( bp::arg("entity"), bp::arg("attenuation")=8.00000011920928955078125e-1f )) );
+        CPASAttenuationFilter_exposer.def( bp::init< CBaseEntity *, bp::optional< float > >(( bp::arg("entity"), bp::arg("attenuation")=0.800000011F )) );
         bp::implicitly_convertible< CBaseEntity *, CPASAttenuationFilter >();
         CPASAttenuationFilter_exposer.def( bp::init< Vector const &, soundlevel_t >(( bp::arg("origin"), bp::arg("soundlevel") )) );
-        CPASAttenuationFilter_exposer.def( bp::init< Vector const &, bp::optional< float > >(( bp::arg("origin"), bp::arg("attenuation")=8.00000011920928955078125e-1f )) );
+        CPASAttenuationFilter_exposer.def( bp::init< Vector const &, bp::optional< float > >(( bp::arg("origin"), bp::arg("attenuation")=0.800000011F )) );
         bp::implicitly_convertible< Vector const &, CPASAttenuationFilter >();
         CPASAttenuationFilter_exposer.def( bp::init< CBaseEntity *, char const * >(( bp::arg("entity"), bp::arg("lookupSound") )) );
         CPASAttenuationFilter_exposer.def( bp::init< Vector const &, char const * >(( bp::arg("origin"), bp::arg("lookupSound") )) );
@@ -4793,12 +4793,12 @@ BOOST_PYTHON_MODULE(_gameinterface){
         CPASAttenuationFilter_exposer.def( bp::init< Vector const &, char const *, HSOUNDSCRIPTHANDLE & >(( bp::arg("origin"), bp::arg("lookupSound"), bp::arg("handle") )) );
         { //::CPASAttenuationFilter::Filter
         
-            typedef void ( ::CPASAttenuationFilter::*Filter_function_type )( ::Vector const &,float ) ;
+            typedef void ( ::CPASAttenuationFilter::*Filter_function_type)( ::Vector const &,float ) ;
             
             CPASAttenuationFilter_exposer.def( 
                 "Filter"
                 , Filter_function_type( &::CPASAttenuationFilter::Filter )
-                , ( bp::arg("origin"), bp::arg("attenuation")=8.00000011920928955078125e-1f ) );
+                , ( bp::arg("origin"), bp::arg("attenuation")=0.800000011F ) );
         
         }
     }
@@ -4815,139 +4815,139 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< CServerGameDLL >( "CServerGameDLL" )    
         .def( 
             "AsyncPrepareLevelResources"
-            , (::IServerGameDLL::ePrepareLevelResourcesResult ( ::CServerGameDLL::* )( char *,::size_t,char *,::size_t,float * ) )( &::CServerGameDLL::AsyncPrepareLevelResources )
+            , (::IServerGameDLL::ePrepareLevelResourcesResult ( ::CServerGameDLL::* )( char *,::size_t,char *,::size_t,float * ))( &::CServerGameDLL::AsyncPrepareLevelResources )
             , ( bp::arg("pszMapName"), bp::arg("nMapNameSize"), bp::arg("pszMapFile"), bp::arg("nMapFileSize"), bp::arg("flProgress")=bp::object() ) )    
         .def( 
             "BuildAdjacentMapList"
-            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::BuildAdjacentMapList ) )    
+            , (void ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::BuildAdjacentMapList ) )    
         .def( 
             "CanProvideLevel"
-            , (::IServerGameDLL::eCanProvideLevelResult ( ::CServerGameDLL::* )( char *,int ) )( &::CServerGameDLL::CanProvideLevel )
+            , (::IServerGameDLL::eCanProvideLevelResult ( ::CServerGameDLL::* )( char *,int ))( &::CServerGameDLL::CanProvideLevel )
             , ( bp::arg("pMapName"), bp::arg("nMapNameMax") ) )    
         .def( 
             "CreateEntityTransitionList"
-            , (int ( ::CServerGameDLL::* )( ::CSaveRestoreData *,int ) )( &::CServerGameDLL::CreateEntityTransitionList )
+            , (int ( ::CServerGameDLL::* )( ::CSaveRestoreData *,int ))( &::CServerGameDLL::CreateEntityTransitionList )
             , ( bp::arg("arg0"), bp::arg("arg1") ) )    
         .def( 
             "CreateNetworkStringTables"
-            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::CreateNetworkStringTables ) )    
+            , (void ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::CreateNetworkStringTables ) )    
         .def( 
             "DLLShutdown"
-            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::DLLShutdown ) )    
+            , (void ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::DLLShutdown ) )    
         .def( 
             "GameFrame"
-            , (void ( ::CServerGameDLL::* )( bool ) )( &::CServerGameDLL::GameFrame )
+            , (void ( ::CServerGameDLL::* )( bool ))( &::CServerGameDLL::GameFrame )
             , ( bp::arg("simulating") ) )    
         .def( 
             "GameInit"
-            , (bool ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GameInit ) )    
+            , (bool ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::GameInit ) )    
         .def( 
             "GameServerSteamAPIActivated"
-            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GameServerSteamAPIActivated ) )    
+            , (void ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::GameServerSteamAPIActivated ) )    
         .def( 
             "GameServerSteamAPIShutdown"
-            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GameServerSteamAPIShutdown ) )    
+            , (void ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::GameServerSteamAPIShutdown ) )    
         .def( 
             "GameShutdown"
-            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GameShutdown ) )    
+            , (void ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::GameShutdown ) )    
         .def( 
             "GetGameDescription"
-            , (char const * ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GetGameDescription ) )    
+            , (char const * ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::GetGameDescription ) )    
         .def( 
             "GetSaveComment"
-            , (void ( ::CServerGameDLL::* )( char *,int,float,float,bool ) )( &::CServerGameDLL::GetSaveComment )
+            , (void ( ::CServerGameDLL::* )( char *,int,float,float,bool ))( &::CServerGameDLL::GetSaveComment )
             , ( bp::arg("comment"), bp::arg("maxlength"), bp::arg("flMinutes"), bp::arg("flSeconds"), bp::arg("bNoTime")=(bool)(false) ) )    
         .def( 
             "GetServerBrowserGameData"
-            , (char const * ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GetServerBrowserGameData ) )    
+            , (char const * ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::GetServerBrowserGameData ) )    
         .def( 
             "GetServerBrowserMapOverride"
-            , (char const * ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::GetServerBrowserMapOverride ) )    
+            , (char const * ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::GetServerBrowserMapOverride ) )    
         .def( 
             "GetTickInterval"
-            , (float ( ::CServerGameDLL::* )(  ) const)( &::CServerGameDLL::GetTickInterval ) )    
+            , (float ( ::CServerGameDLL::* )(  )const)( &::CServerGameDLL::GetTickInterval ) )    
         .def( 
             "GetUserMessageInfo"
-            , (bool ( ::CServerGameDLL::* )( int,char *,int,int & ) )( &::CServerGameDLL::GetUserMessageInfo )
+            , (bool ( ::CServerGameDLL::* )( int,char *,int,int & ))( &::CServerGameDLL::GetUserMessageInfo )
             , ( bp::arg("msg_type"), bp::arg("name"), bp::arg("maxnamelength"), bp::arg("size") ) )    
         .def( 
             "InvalidateMdlCache"
-            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::InvalidateMdlCache ) )    
+            , (void ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::InvalidateMdlCache ) )    
         .def( 
             "IsManualMapChangeOkay"
-            , (bool ( ::CServerGameDLL::* )( char const * * ) )( &::CServerGameDLL::IsManualMapChangeOkay )
+            , (bool ( ::CServerGameDLL::* )( char const * * ))( &::CServerGameDLL::IsManualMapChangeOkay )
             , ( bp::arg("pszReason") ) )    
         .def( 
             "IsRestoring"
-            , (bool ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::IsRestoring ) )    
+            , (bool ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::IsRestoring ) )    
         .def( 
             "LevelInit"
-            , (bool ( ::CServerGameDLL::* )( char const *,char const *,char const *,char const *,bool,bool ) )( &::CServerGameDLL::LevelInit )
+            , (bool ( ::CServerGameDLL::* )( char const *,char const *,char const *,char const *,bool,bool ))( &::CServerGameDLL::LevelInit )
             , ( bp::arg("pMapName"), bp::arg("pMapEntities"), bp::arg("pOldLevel"), bp::arg("pLandmarkName"), bp::arg("loadGame"), bp::arg("background") ) )    
         .def( 
             "LevelShutdown"
-            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::LevelShutdown ) )    
+            , (void ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::LevelShutdown ) )    
         .def( 
             "OnQueryCvarValueFinished"
-            , (void ( ::CServerGameDLL::* )( ::QueryCvarCookie_t,::edict_t *,::EQueryCvarValueStatus,char const *,char const * ) )( &::CServerGameDLL::OnQueryCvarValueFinished )
+            , (void ( ::CServerGameDLL::* )( ::QueryCvarCookie_t,::edict_t *,::EQueryCvarValueStatus,char const *,char const * ))( &::CServerGameDLL::OnQueryCvarValueFinished )
             , ( bp::arg("iCookie"), bp::arg("pPlayerEntity"), bp::arg("eStatus"), bp::arg("pCvarName"), bp::arg("pCvarValue") ) )    
         .def( 
             "PostInit"
-            , (void ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::PostInit ) )    
+            , (void ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::PostInit ) )    
         .def( 
             "PreClientUpdate"
-            , (void ( ::CServerGameDLL::* )( bool ) )( &::CServerGameDLL::PreClientUpdate )
+            , (void ( ::CServerGameDLL::* )( bool ))( &::CServerGameDLL::PreClientUpdate )
             , ( bp::arg("simulating") ) )    
         .def( 
             "PreSave"
-            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::PreSave )
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ))( &::CServerGameDLL::PreSave )
             , ( bp::arg("arg0") ) )    
         .def( 
             "PreSaveGameLoaded"
-            , (void ( ::CServerGameDLL::* )( char const *,bool ) )( &::CServerGameDLL::PreSaveGameLoaded )
+            , (void ( ::CServerGameDLL::* )( char const *,bool ))( &::CServerGameDLL::PreSaveGameLoaded )
             , ( bp::arg("pSaveName"), bp::arg("bInGame") ) )    
         .def( 
             "PrepareLevelResources"
-            , (void ( ::CServerGameDLL::* )( char *,::size_t,char *,::size_t ) )( &::CServerGameDLL::PrepareLevelResources )
+            , (void ( ::CServerGameDLL::* )( char *,::size_t,char *,::size_t ))( &::CServerGameDLL::PrepareLevelResources )
             , ( bp::arg("pszMapName"), bp::arg("nMapNameSize"), bp::arg("pszMapFile"), bp::arg("nMapFileSize") ) )    
         .def( 
             "ReadRestoreHeaders"
-            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::ReadRestoreHeaders )
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ))( &::CServerGameDLL::ReadRestoreHeaders )
             , ( bp::arg("arg0") ) )    
         .def( 
             "Restore"
-            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData *,bool ) )( &::CServerGameDLL::Restore )
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData *,bool ))( &::CServerGameDLL::Restore )
             , ( bp::arg("arg0"), bp::arg("arg1") ) )    
         .def( 
             "RestoreGlobalState"
-            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::RestoreGlobalState )
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ))( &::CServerGameDLL::RestoreGlobalState )
             , ( bp::arg("arg0") ) )    
         .def( 
             "Save"
-            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::Save )
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ))( &::CServerGameDLL::Save )
             , ( bp::arg("arg0") ) )    
         .def( 
             "SaveGlobalState"
-            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::SaveGlobalState )
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ))( &::CServerGameDLL::SaveGlobalState )
             , ( bp::arg("arg0") ) )    
         .def( 
             "ServerActivate"
-            , (void ( ::CServerGameDLL::* )( ::edict_t *,int,int ) )( &::CServerGameDLL::ServerActivate )
+            , (void ( ::CServerGameDLL::* )( ::edict_t *,int,int ))( &::CServerGameDLL::ServerActivate )
             , ( bp::arg("pEdictList"), bp::arg("edictCount"), bp::arg("clientMax") ) )    
         .def( 
             "SetServerHibernation"
-            , (void ( ::CServerGameDLL::* )( bool ) )( &::CServerGameDLL::SetServerHibernation )
+            , (void ( ::CServerGameDLL::* )( bool ))( &::CServerGameDLL::SetServerHibernation )
             , ( bp::arg("bHibernating") ) )    
         .def( 
             "ShouldHideServer"
-            , (bool ( ::CServerGameDLL::* )(  ) )( &::CServerGameDLL::ShouldHideServer ) )    
+            , (bool ( ::CServerGameDLL::* )(  ))( &::CServerGameDLL::ShouldHideServer ) )    
         .def( 
             "Think"
-            , (void ( ::CServerGameDLL::* )( bool ) )( &::CServerGameDLL::Think )
+            , (void ( ::CServerGameDLL::* )( bool ))( &::CServerGameDLL::Think )
             , ( bp::arg("finalTick") ) )    
         .def( 
             "WriteSaveHeaders"
-            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ) )( &::CServerGameDLL::WriteSaveHeaders )
+            , (void ( ::CServerGameDLL::* )( ::CSaveRestoreData * ))( &::CServerGameDLL::WriteSaveHeaders )
             , ( bp::arg("arg0") ) )    
         .def_readwrite( "m_bIsHibernating", &CServerGameDLL::m_bIsHibernating )    
         .def_readwrite( "m_fAutoSaveDangerousMinHealthToCommit", &CServerGameDLL::m_fAutoSaveDangerousMinHealthToCommit )    
@@ -4970,7 +4970,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         bp::implicitly_convertible< IConVar *, ConVarRef >();
         { //::ConVarRef::GetBool
         
-            typedef bool ( ::ConVarRef::*GetBool_function_type )(  ) const;
+            typedef bool ( ::ConVarRef::*GetBool_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "GetBool"
@@ -4979,7 +4979,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::GetDefault
         
-            typedef char const * ( ::ConVarRef::*GetDefault_function_type )(  ) const;
+            typedef char const * ( ::ConVarRef::*GetDefault_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "GetDefault"
@@ -4988,7 +4988,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::GetFloat
         
-            typedef float ( ::ConVarRef::*GetFloat_function_type )(  ) const;
+            typedef float ( ::ConVarRef::*GetFloat_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "GetFloat"
@@ -4997,7 +4997,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::GetInt
         
-            typedef int ( ::ConVarRef::*GetInt_function_type )(  ) const;
+            typedef int ( ::ConVarRef::*GetInt_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "GetInt"
@@ -5006,7 +5006,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::GetName
         
-            typedef char const * ( ::ConVarRef::*GetName_function_type )(  ) const;
+            typedef char const * ( ::ConVarRef::*GetName_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "GetName"
@@ -5015,7 +5015,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::GetString
         
-            typedef char const * ( ::ConVarRef::*GetString_function_type )(  ) const;
+            typedef char const * ( ::ConVarRef::*GetString_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "GetString"
@@ -5024,7 +5024,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::Init
         
-            typedef void ( ::ConVarRef::*Init_function_type )( char const *,bool ) ;
+            typedef void ( ::ConVarRef::*Init_function_type)( char const *,bool ) ;
             
             ConVarRef_exposer.def( 
                 "Init"
@@ -5034,7 +5034,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::IsFlagSet
         
-            typedef bool ( ::ConVarRef::*IsFlagSet_function_type )( int ) const;
+            typedef bool ( ::ConVarRef::*IsFlagSet_function_type)( int ) const;
             
             ConVarRef_exposer.def( 
                 "IsFlagSet"
@@ -5044,7 +5044,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::IsValid
         
-            typedef bool ( ::ConVarRef::*IsValid_function_type )(  ) const;
+            typedef bool ( ::ConVarRef::*IsValid_function_type)(  ) const;
             
             ConVarRef_exposer.def( 
                 "IsValid"
@@ -5053,7 +5053,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::SetValue
         
-            typedef void ( ::ConVarRef::*SetValue_function_type )( char const * ) ;
+            typedef void ( ::ConVarRef::*SetValue_function_type)( char const * ) ;
             
             ConVarRef_exposer.def( 
                 "SetValue"
@@ -5063,7 +5063,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::SetValue
         
-            typedef void ( ::ConVarRef::*SetValue_function_type )( float ) ;
+            typedef void ( ::ConVarRef::*SetValue_function_type)( float ) ;
             
             ConVarRef_exposer.def( 
                 "SetValue"
@@ -5073,7 +5073,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::SetValue
         
-            typedef void ( ::ConVarRef::*SetValue_function_type )( int ) ;
+            typedef void ( ::ConVarRef::*SetValue_function_type)( int ) ;
             
             ConVarRef_exposer.def( 
                 "SetValue"
@@ -5083,7 +5083,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::ConVarRef::SetValue
         
-            typedef void ( ::ConVarRef::*SetValue_function_type )( bool ) ;
+            typedef void ( ::ConVarRef::*SetValue_function_type)( bool ) ;
             
             ConVarRef_exposer.def( 
                 "SetValue"
@@ -5096,77 +5096,77 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< ICommandLine, boost::noncopyable >( "ICommandLine", bp::no_init )    
         .def( 
             "AppendParm"
-            , (void ( ::ICommandLine::* )( char const *,char const * ) )( &::ICommandLine::AppendParm )
+            , (void ( ::ICommandLine::* )( char const *,char const * ))( &::ICommandLine::AppendParm )
             , ( bp::arg("pszParm"), bp::arg("pszValues") ) )    
         .def( 
             "CheckParm"
-            , (char const * ( ::ICommandLine::* )( char const *,char const * * ) const)( &::ICommandLine::CheckParm )
+            , (char const * ( ::ICommandLine::* )( char const *,char const * * )const)( &::ICommandLine::CheckParm )
             , ( bp::arg("psz"), bp::arg("ppszValue")=bp::object() ) )    
         .def( 
             "CreateCmdLine"
-            , (void ( ::ICommandLine::* )( char const * ) )( &::ICommandLine::CreateCmdLine )
+            , (void ( ::ICommandLine::* )( char const * ))( &::ICommandLine::CreateCmdLine )
             , ( bp::arg("commandline") ) )    
         .def( 
             "CreateCmdLine"
-            , (void ( ::ICommandLine::* )( int,char * * ) )( &::ICommandLine::CreateCmdLine )
+            , (void ( ::ICommandLine::* )( int,char * * ))( &::ICommandLine::CreateCmdLine )
             , ( bp::arg("argc"), bp::arg("argv") ) )    
         .def( 
             "FindParm"
-            , (int ( ::ICommandLine::* )( char const * ) const)( &::ICommandLine::FindParm )
+            , (int ( ::ICommandLine::* )( char const * )const)( &::ICommandLine::FindParm )
             , ( bp::arg("psz") ) )    
         .def( 
             "GetCmdLine"
-            , (char const * ( ::ICommandLine::* )(  ) const)( &::ICommandLine::GetCmdLine ) )    
+            , (char const * ( ::ICommandLine::* )(  )const)( &::ICommandLine::GetCmdLine ) )    
         .def( 
             "GetParm"
-            , (char const * ( ::ICommandLine::* )( int ) const)( &::ICommandLine::GetParm )
+            , (char const * ( ::ICommandLine::* )( int )const)( &::ICommandLine::GetParm )
             , ( bp::arg("nIndex") ) )    
         .def( 
             "ParmCount"
-            , (int ( ::ICommandLine::* )(  ) const)( &::ICommandLine::ParmCount ) )    
+            , (int ( ::ICommandLine::* )(  )const)( &::ICommandLine::ParmCount ) )    
         .def( 
             "ParmValue"
-            , (char const * ( ::ICommandLine::* )( char const *,char const * ) const)( &::ICommandLine::ParmValue )
+            , (char const * ( ::ICommandLine::* )( char const *,char const * )const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("pDefaultVal")=bp::object() ) )    
         .def( 
             "ParmValue"
-            , (int ( ::ICommandLine::* )( char const *,int ) const)( &::ICommandLine::ParmValue )
+            , (int ( ::ICommandLine::* )( char const *,int )const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("nDefaultVal") ) )    
         .def( 
             "ParmValue"
-            , (float ( ::ICommandLine::* )( char const *,float ) const)( &::ICommandLine::ParmValue )
+            , (float ( ::ICommandLine::* )( char const *,float )const)( &::ICommandLine::ParmValue )
             , ( bp::arg("psz"), bp::arg("flDefaultVal") ) )    
         .def( 
             "ParmValueByIndex"
-            , (char const * ( ::ICommandLine::* )( int,char const * ) const)( &::ICommandLine::ParmValueByIndex )
+            , (char const * ( ::ICommandLine::* )( int,char const * )const)( &::ICommandLine::ParmValueByIndex )
             , ( bp::arg("nIndex"), bp::arg("pDefaultVal")=bp::object() ) )    
         .def( 
             "RemoveParm"
-            , (void ( ::ICommandLine::* )( char const * ) )( &::ICommandLine::RemoveParm )
+            , (void ( ::ICommandLine::* )( char const * ))( &::ICommandLine::RemoveParm )
             , ( bp::arg("parm") ) )    
         .def( 
             "SetParm"
-            , (void ( ::ICommandLine::* )( int,char const * ) )( &::ICommandLine::SetParm )
+            , (void ( ::ICommandLine::* )( int,char const * ))( &::ICommandLine::SetParm )
             , ( bp::arg("nIndex"), bp::arg("pNewParm") ) );
 
     bp::class_< IMapEntityFilter_wrapper, boost::noncopyable >( "IMapEntityFilter" )    
         .def( 
             "CreateNextEntity"
-            , bp::pure_virtual( (::CBaseEntity * ( ::IMapEntityFilter::* )( char const * ) )(&::IMapEntityFilter::CreateNextEntity) )
+            , bp::pure_virtual( (::CBaseEntity * ( ::IMapEntityFilter::* )( char const * ))(&::IMapEntityFilter::CreateNextEntity) )
             , ( bp::arg("pClassname") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "ShouldCreateEntity"
-            , bp::pure_virtual( (bool ( ::IMapEntityFilter::* )( char const * ) )(&::IMapEntityFilter::ShouldCreateEntity) )
+            , bp::pure_virtual( (bool ( ::IMapEntityFilter::* )( char const * ))(&::IMapEntityFilter::ShouldCreateEntity) )
             , ( bp::arg("pClassname") ) );
 
-    bp::class_< PyConCommand >( "ConCommand", bp::init< char const *, bp::api::object, bp::optional< char const *, int, bp::api::object, bool > >(( bp::arg("pName"), bp::arg("method"), bp::arg("helpstring")=bp::object(), bp::arg("flags")=(int)(0), bp::arg("completionfunc")=boost::python::api::object(), bp::arg("useweakref")=(bool)(false) )) )    
+    bp::class_< PyConCommand >( "ConCommand", bp::init< char const *, bp::api::object, bp::optional< char const *, int, bp::api::object, bool > >(( bp::arg("pName"), bp::arg("method"), bp::arg("helpstring")=bp::object(), bp::arg("flags")=(int)(0), bp::arg("completionfunc")=bp::object(), bp::arg("useweakref")=(bool)(false) )) )    
         .def( 
             "CanAutoComplete"
-            , (bool ( ::PyConCommand::* )(  ) )( &::PyConCommand::CanAutoComplete ) )    
+            , (bool ( ::PyConCommand::* )(  ))( &::PyConCommand::CanAutoComplete ) )    
         .def( 
             "Shutdown"
-            , (void ( ::PyConCommand::* )(  ) )( &::PyConCommand::Shutdown ) );
+            , (void ( ::PyConCommand::* )(  ))( &::PyConCommand::Shutdown ) );
 
     bp::class_< PyConVar >( "ConVar", bp::init< char const *, char const *, bp::optional< int > >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags")=(int)(0) )) )    
         .def( bp::init< char const *, char const *, int, char const * >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring") )) )    
@@ -5174,51 +5174,51 @@ BOOST_PYTHON_MODULE(_gameinterface){
         .def( bp::init< char const *, char const *, int, char const *, bp::api::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("callback") )) )    
         .def( bp::init< char const *, char const *, int, char const *, bool, float, bool, float, bp::api::object >(( bp::arg("name"), bp::arg("defaultvalue"), bp::arg("flags"), bp::arg("helpstring"), bp::arg("bMin"), bp::arg("fMin"), bp::arg("bMax"), bp::arg("fMax"), bp::arg("callback") )) )    
         .def( 
-            "AddFlags"
-            , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
-            , ( bp::arg("flags") ) )    
+                    "AddFlags"
+                    , (void ( ::ConVar::* )( int ) )( &::ConVar::AddFlags )
+                    , ( bp::arg("flags") ) )    
         .def( 
-            "GetBool"
-            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::GetBool ) )    
+                    "GetBool"
+                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::GetBool ) )    
         .def( 
-            "GetDefault"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetDefault ) )    
+                    "GetDefault"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetDefault ) )    
         .def( 
-            "GetFloat"
-            , (float ( ::ConVar::* )(  ) const)( &::ConVar::GetFloat ) )    
+                    "GetFloat"
+                    , (float ( ::ConVar::* )(  ) const)( &::ConVar::GetFloat ) )    
         .def( 
-            "GetHelpText"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetHelpText ) )    
+                    "GetHelpText"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetHelpText ) )    
         .def( 
-            "GetInt"
-            , (int ( ::ConVar::* )(  ) const)( &::ConVar::GetInt ) )    
+                    "GetInt"
+                    , (int ( ::ConVar::* )(  ) const)( &::ConVar::GetInt ) )    
         .def( 
-            "GetMax"
-            , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMax )
-            , ( bp::arg("maxVal") ) )    
+                    "GetMax"
+                    , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMax )
+                    , ( bp::arg("maxVal") ) )    
         .def( 
-            "GetMin"
-            , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMin )
-            , ( bp::arg("minVal") ) )    
+                    "GetMin"
+                    , (bool ( ::ConVar::* )( float & ) const)( &::ConVar::GetMin )
+                    , ( bp::arg("minVal") ) )    
         .def( 
-            "GetName"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetName ) )    
+                    "GetName"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetName ) )    
         .def( 
-            "GetString"
-            , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetString ) )    
+                    "GetString"
+                    , (char const * ( ::ConVar::* )(  ) const)( &::ConVar::GetString ) )    
         .def( 
-            "IsCommand"
-            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsCommand ) )    
+                    "IsCommand"
+                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsCommand ) )    
         .def( 
-            "IsFlagSet"
-            , (bool ( ::ConVar::* )( int ) const)( &::ConVar::IsFlagSet )
-            , ( bp::arg("flag") ) )    
+                    "IsFlagSet"
+                    , (bool ( ::ConVar::* )( int ) const)( &::ConVar::IsFlagSet )
+                    , ( bp::arg("flag") ) )    
         .def( 
-            "IsRegistered"
-            , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsRegistered ) )    
+                    "IsRegistered"
+                    , (bool ( ::ConVar::* )(  ) const)( &::ConVar::IsRegistered ) )    
         .def( 
-            "Revert"
-            , (void ( ::ConVar::* )(  ) )( &::ConVar::Revert ) );
+                    "Revert"
+                    , (void ( ::ConVar::* )(  ) )( &::ConVar::Revert ) );
 
     { //::PyGameEvent
         typedef bp::class_< PyGameEvent > GameEvent_exposer_t;
@@ -5228,7 +5228,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         bp::implicitly_convertible< char const *, PyGameEvent >();
         { //::PyGameEvent::GetBool
         
-            typedef bool ( ::PyGameEvent::*GetBool_function_type )( char const *,bool ) ;
+            typedef bool ( ::PyGameEvent::*GetBool_function_type)( char const *,bool ) ;
             
             GameEvent_exposer.def( 
                 "GetBool"
@@ -5238,17 +5238,17 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::GetFloat
         
-            typedef float ( ::PyGameEvent::*GetFloat_function_type )( char const *,float ) ;
+            typedef float ( ::PyGameEvent::*GetFloat_function_type)( char const *,float ) ;
             
             GameEvent_exposer.def( 
                 "GetFloat"
                 , GetFloat_function_type( &::PyGameEvent::GetFloat )
-                , ( bp::arg("keyName")=bp::object(), bp::arg("defaultValue")=0.0f ) );
+                , ( bp::arg("keyName")=bp::object(), bp::arg("defaultValue")=0.F ) );
         
         }
         { //::PyGameEvent::GetInt
         
-            typedef int ( ::PyGameEvent::*GetInt_function_type )( char const *,int ) ;
+            typedef int ( ::PyGameEvent::*GetInt_function_type)( char const *,int ) ;
             
             GameEvent_exposer.def( 
                 "GetInt"
@@ -5258,7 +5258,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::GetName
         
-            typedef char const * ( ::PyGameEvent::*GetName_function_type )(  ) const;
+            typedef char const * ( ::PyGameEvent::*GetName_function_type)(  ) const;
             
             GameEvent_exposer.def( 
                 "GetName"
@@ -5267,7 +5267,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::GetString
         
-            typedef char const * ( ::PyGameEvent::*GetString_function_type )( char const *,char const * ) ;
+            typedef char const * ( ::PyGameEvent::*GetString_function_type)( char const *,char const * ) ;
             
             GameEvent_exposer.def( 
                 "GetString"
@@ -5277,7 +5277,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::IsEmpty
         
-            typedef bool ( ::PyGameEvent::*IsEmpty_function_type )( char const * ) ;
+            typedef bool ( ::PyGameEvent::*IsEmpty_function_type)( char const * ) ;
             
             GameEvent_exposer.def( 
                 "IsEmpty"
@@ -5287,7 +5287,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::IsLocal
         
-            typedef bool ( ::PyGameEvent::*IsLocal_function_type )(  ) const;
+            typedef bool ( ::PyGameEvent::*IsLocal_function_type)(  ) const;
             
             GameEvent_exposer.def( 
                 "IsLocal"
@@ -5296,7 +5296,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::IsReliable
         
-            typedef bool ( ::PyGameEvent::*IsReliable_function_type )(  ) const;
+            typedef bool ( ::PyGameEvent::*IsReliable_function_type)(  ) const;
             
             GameEvent_exposer.def( 
                 "IsReliable"
@@ -5305,7 +5305,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::SetBool
         
-            typedef void ( ::PyGameEvent::*SetBool_function_type )( char const *,bool ) ;
+            typedef void ( ::PyGameEvent::*SetBool_function_type)( char const *,bool ) ;
             
             GameEvent_exposer.def( 
                 "SetBool"
@@ -5315,7 +5315,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::SetFloat
         
-            typedef void ( ::PyGameEvent::*SetFloat_function_type )( char const *,float ) ;
+            typedef void ( ::PyGameEvent::*SetFloat_function_type)( char const *,float ) ;
             
             GameEvent_exposer.def( 
                 "SetFloat"
@@ -5325,7 +5325,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::SetInt
         
-            typedef void ( ::PyGameEvent::*SetInt_function_type )( char const *,int ) ;
+            typedef void ( ::PyGameEvent::*SetInt_function_type)( char const *,int ) ;
             
             GameEvent_exposer.def( 
                 "SetInt"
@@ -5335,7 +5335,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         }
         { //::PyGameEvent::SetString
         
-            typedef void ( ::PyGameEvent::*SetString_function_type )( char const *,char const * ) ;
+            typedef void ( ::PyGameEvent::*SetString_function_type)( char const *,char const * ) ;
             
             GameEvent_exposer.def( 
                 "SetString"
@@ -5348,8 +5348,8 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< PyGameEventListener_wrapper >( "GameEventListener" )    
         .def( 
             "FireGameEvent"
-            , (void ( ::PyGameEventListener::* )( ::boost::python::api::object ) )(&::PyGameEventListener::PyFireGameEvent)
-            , (void ( PyGameEventListener_wrapper::* )( ::boost::python::api::object ) )(&PyGameEventListener_wrapper::default_FireGameEvent)
+            , (void ( ::PyGameEventListener::* )( ::boost::python::api::object ))(&::PyGameEventListener::PyFireGameEvent)
+            , (void ( PyGameEventListener_wrapper::* )( ::boost::python::api::object ))(&PyGameEventListener_wrapper::default_FireGameEvent)
             , ( bp::arg("event") ) )    
         .def( "ListenForGameEvent", (void ( ::PyGameEventListener::* )( char const * ) )( &::PyGameEventListener::ListenForGameEvent ), bp::arg("name") )    
         .def( "StopListeningForAllEvents", (void ( ::PyGameEventListener::* )() )( &::PyGameEventListener::StopListeningForAllEvents ) );
@@ -5357,196 +5357,196 @@ BOOST_PYTHON_MODULE(_gameinterface){
     bp::class_< PyVEngineServer >( "VEngineServer" )    
         .def( 
             "AllowImmediateEdictReuse"
-            , (void ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::AllowImmediateEdictReuse ) )    
+            , (void ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::AllowImmediateEdictReuse ) )    
         .def( 
             "ChangeLevel"
-            , (void ( ::PyVEngineServer::* )( char const *,char const * ) )( &::PyVEngineServer::ChangeLevel )
+            , (void ( ::PyVEngineServer::* )( char const *,char const * ))( &::PyVEngineServer::ChangeLevel )
             , ( bp::arg("s1"), bp::arg("s2")=bp::object() ) )    
         .def( 
             "ClearSaveDirAfterClientLoad"
-            , (void ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::ClearSaveDirAfterClientLoad ) )    
+            , (void ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::ClearSaveDirAfterClientLoad ) )    
         .def( 
             "ClientCommand"
-            , (void ( ::PyVEngineServer::* )( ::CBasePlayer *,char const * ) )( &::PyVEngineServer::ClientCommand )
+            , (void ( ::PyVEngineServer::* )( ::CBasePlayer *,char const * ))( &::PyVEngineServer::ClientCommand )
             , ( bp::arg("player"), bp::arg("command") ) )    
         .def( 
             "ClientPrintf"
-            , (void ( ::PyVEngineServer::* )( ::CBasePlayer *,char const * ) )( &::PyVEngineServer::ClientPrintf )
+            , (void ( ::PyVEngineServer::* )( ::CBasePlayer *,char const * ))( &::PyVEngineServer::ClientPrintf )
             , ( bp::arg("player"), bp::arg("szMsg") ) )    
         .def( 
             "Con_NPrintf"
-            , (void ( ::PyVEngineServer::* )( int,char const * ) )( &::PyVEngineServer::Con_NPrintf )
+            , (void ( ::PyVEngineServer::* )( int,char const * ))( &::PyVEngineServer::Con_NPrintf )
             , ( bp::arg("pos"), bp::arg("fmt") ) )    
         .def( 
             "EmitAmbientSound"
-            , (void ( ::PyVEngineServer::* )( int,::Vector const &,char const *,float,::soundlevel_t,int,int,float ) )( &::PyVEngineServer::EmitAmbientSound )
-            , ( bp::arg("entindex"), bp::arg("pos"), bp::arg("samp"), bp::arg("vol"), bp::arg("soundlevel"), bp::arg("fFlags"), bp::arg("pitch"), bp::arg("delay")=0.0f ) )    
+            , (void ( ::PyVEngineServer::* )( int,::Vector const &,char const *,float,::soundlevel_t,int,int,float ))( &::PyVEngineServer::EmitAmbientSound )
+            , ( bp::arg("entindex"), bp::arg("pos"), bp::arg("samp"), bp::arg("vol"), bp::arg("soundlevel"), bp::arg("fFlags"), bp::arg("pitch"), bp::arg("delay")=0.F ) )    
         .def( 
             "FadeClientVolume"
-            , (void ( ::PyVEngineServer::* )( ::CBasePlayer *,float,float,float,float ) )( &::PyVEngineServer::FadeClientVolume )
+            , (void ( ::PyVEngineServer::* )( ::CBasePlayer *,float,float,float,float ))( &::PyVEngineServer::FadeClientVolume )
             , ( bp::arg("player"), bp::arg("fadePercent"), bp::arg("fadeOutSeconds"), bp::arg("holdTime"), bp::arg("fadeInSeconds") ) )    
         .def( 
             "ForceExactFile"
-            , (void ( ::PyVEngineServer::* )( char const * ) )( &::PyVEngineServer::ForceExactFile )
+            , (void ( ::PyVEngineServer::* )( char const * ))( &::PyVEngineServer::ForceExactFile )
             , ( bp::arg("s") ) )    
         .def( 
             "ForceModelBounds"
-            , (void ( ::PyVEngineServer::* )( char const *,::Vector const &,::Vector const & ) )( &::PyVEngineServer::ForceModelBounds )
+            , (void ( ::PyVEngineServer::* )( char const *,::Vector const &,::Vector const & ))( &::PyVEngineServer::ForceModelBounds )
             , ( bp::arg("s"), bp::arg("mins"), bp::arg("maxs") ) )    
         .def( 
             "ForceSimpleMaterial"
-            , (void ( ::PyVEngineServer::* )( char const * ) )( &::PyVEngineServer::ForceSimpleMaterial )
+            , (void ( ::PyVEngineServer::* )( char const * ))( &::PyVEngineServer::ForceSimpleMaterial )
             , ( bp::arg("s") ) )    
         .def( 
             "GetAppID"
-            , (int ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::GetAppID ) )    
+            , (int ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::GetAppID ) )    
         .def( 
             "GetClientConVarValue"
-            , (char const * ( ::PyVEngineServer::* )( int,char const * ) )( &::PyVEngineServer::GetClientConVarValue )
+            , (char const * ( ::PyVEngineServer::* )( int,char const * ))( &::PyVEngineServer::GetClientConVarValue )
             , ( bp::arg("clientIndex"), bp::arg("name") ) )    
         .def( 
             "GetClientSteamID"
-            , (::boost::python::api::object ( ::PyVEngineServer::* )( ::CBasePlayer * ) )( &::PyVEngineServer::GetClientSteamID )
+            , (::boost::python::api::object ( ::PyVEngineServer::* )( ::CBasePlayer * ))( &::PyVEngineServer::GetClientSteamID )
             , ( bp::arg("player") ) )    
         .def( 
             "GetEntityCount"
-            , (int ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::GetEntityCount ) )    
+            , (int ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::GetEntityCount ) )    
         .def( 
             "GetGameDir"
-            , (::boost::python::api::object ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::GetGameDir ) )    
+            , (::boost::python::api::object ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::GetGameDir ) )    
         .def( 
             "GetMapEntitiesString"
-            , (char const * ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::GetMapEntitiesString ) )    
+            , (char const * ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::GetMapEntitiesString ) )    
         .def( 
             "GetMostRecentlyLoadedFileName"
-            , (char const * ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::GetMostRecentlyLoadedFileName ) )    
+            , (char const * ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::GetMostRecentlyLoadedFileName ) )    
         .def( 
             "GetPlayerInfo"
-            , (bool ( ::PyVEngineServer::* )( int,::py_player_info_t * ) )( &::PyVEngineServer::GetPlayerInfo )
+            , (bool ( ::PyVEngineServer::* )( int,::py_player_info_t * ))( &::PyVEngineServer::GetPlayerInfo )
             , ( bp::arg("ent_num"), bp::arg("pinfo") ) )    
         .def( 
             "GetPlayerNetworkIDString"
-            , (char const * ( ::PyVEngineServer::* )( ::CBasePlayer * ) )( &::PyVEngineServer::GetPlayerNetworkIDString )
+            , (char const * ( ::PyVEngineServer::* )( ::CBasePlayer * ))( &::PyVEngineServer::GetPlayerNetworkIDString )
             , ( bp::arg("player") ) )    
         .def( 
             "GetPlayerUserId"
-            , (int ( ::PyVEngineServer::* )( ::CBasePlayer * ) )( &::PyVEngineServer::GetPlayerUserId )
+            , (int ( ::PyVEngineServer::* )( ::CBasePlayer * ))( &::PyVEngineServer::GetPlayerUserId )
             , ( bp::arg("player") ) )    
         .def( 
             "GetSaveFileName"
-            , (char const * ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::GetSaveFileName ) )    
+            , (char const * ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::GetSaveFileName ) )    
         .def( 
             "InsertServerCommand"
-            , (void ( ::PyVEngineServer::* )( char const * ) )( &::PyVEngineServer::InsertServerCommand )
+            , (void ( ::PyVEngineServer::* )( char const * ))( &::PyVEngineServer::InsertServerCommand )
             , ( bp::arg("str") ) )    
         .def( 
             "IsClientFullyAuthenticated"
-            , (bool ( ::PyVEngineServer::* )( ::CBasePlayer * ) )( &::PyVEngineServer::IsClientFullyAuthenticated )
+            , (bool ( ::PyVEngineServer::* )( ::CBasePlayer * ))( &::PyVEngineServer::IsClientFullyAuthenticated )
             , ( bp::arg("player") ) )    
         .def( 
             "IsDecalPrecached"
-            , (bool ( ::PyVEngineServer::* )( char const * ) const)( &::PyVEngineServer::IsDecalPrecached )
+            , (bool ( ::PyVEngineServer::* )( char const * )const)( &::PyVEngineServer::IsDecalPrecached )
             , ( bp::arg("s") ) )    
         .def( 
             "IsDedicatedServer"
-            , (bool ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::IsDedicatedServer ) )    
+            , (bool ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::IsDedicatedServer ) )    
         .def( 
             "IsGenericPrecached"
-            , (bool ( ::PyVEngineServer::* )( char const * ) const)( &::PyVEngineServer::IsGenericPrecached )
+            , (bool ( ::PyVEngineServer::* )( char const * )const)( &::PyVEngineServer::IsGenericPrecached )
             , ( bp::arg("s") ) )    
         .def( 
             "IsInCommentaryMode"
-            , (int ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::IsInCommentaryMode ) )    
+            , (int ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::IsInCommentaryMode ) )    
         .def( 
             "IsInEditMode"
-            , (int ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::IsInEditMode ) )    
+            , (int ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::IsInEditMode ) )    
         .def( 
             "IsInternalBuild"
-            , (bool ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::IsInternalBuild ) )    
+            , (bool ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::IsInternalBuild ) )    
         .def( 
             "IsLowViolence"
-            , (bool ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::IsLowViolence ) )    
+            , (bool ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::IsLowViolence ) )    
         .def( 
             "IsMapValid"
-            , (int ( ::PyVEngineServer::* )( char const * ) )( &::PyVEngineServer::IsMapValid )
+            , (int ( ::PyVEngineServer::* )( char const * ))( &::PyVEngineServer::IsMapValid )
             , ( bp::arg("filename") ) )    
         .def( 
             "IsModelPrecached"
-            , (bool ( ::PyVEngineServer::* )( char const * ) const)( &::PyVEngineServer::IsModelPrecached )
+            , (bool ( ::PyVEngineServer::* )( char const * )const)( &::PyVEngineServer::IsModelPrecached )
             , ( bp::arg("s") ) )    
         .def( 
             "IsPaused"
-            , (bool ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::IsPaused ) )    
+            , (bool ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::IsPaused ) )    
         .def( 
             "LightStyle"
-            , (void ( ::PyVEngineServer::* )( int,char const * ) )( &::PyVEngineServer::LightStyle )
+            , (void ( ::PyVEngineServer::* )( int,char const * ))( &::PyVEngineServer::LightStyle )
             , ( bp::arg("style"), bp::arg("val") ) )    
         .def( 
             "LogPrint"
-            , (void ( ::PyVEngineServer::* )( char const * ) )( &::PyVEngineServer::LogPrint )
+            , (void ( ::PyVEngineServer::* )( char const * ))( &::PyVEngineServer::LogPrint )
             , ( bp::arg("msg") ) )    
         .def( 
             "PrecacheDecal"
-            , (int ( ::PyVEngineServer::* )( char const *,bool ) )( &::PyVEngineServer::PrecacheDecal )
+            , (int ( ::PyVEngineServer::* )( char const *,bool ))( &::PyVEngineServer::PrecacheDecal )
             , ( bp::arg("name"), bp::arg("preload")=(bool)(false) ) )    
         .def( 
             "PrecacheGeneric"
-            , (int ( ::PyVEngineServer::* )( char const *,bool ) )( &::PyVEngineServer::PrecacheGeneric )
+            , (int ( ::PyVEngineServer::* )( char const *,bool ))( &::PyVEngineServer::PrecacheGeneric )
             , ( bp::arg("s"), bp::arg("preload")=(bool)(false) ) )    
         .def( 
             "PrecacheModel"
-            , (int ( ::PyVEngineServer::* )( char const *,bool ) )( &::PyVEngineServer::PrecacheModel )
+            , (int ( ::PyVEngineServer::* )( char const *,bool ))( &::PyVEngineServer::PrecacheModel )
             , ( bp::arg("s"), bp::arg("preload")=(bool)(false) ) )    
         .def( 
             "PrecacheSentenceFile"
-            , (int ( ::PyVEngineServer::* )( char const *,bool ) )( &::PyVEngineServer::PrecacheSentenceFile )
+            , (int ( ::PyVEngineServer::* )( char const *,bool ))( &::PyVEngineServer::PrecacheSentenceFile )
             , ( bp::arg("s"), bp::arg("preload")=(bool)(false) ) )    
         .def( 
             "ServerCommand"
-            , (void ( ::PyVEngineServer::* )( char const * ) )( &::PyVEngineServer::ServerCommand )
+            , (void ( ::PyVEngineServer::* )( char const * ))( &::PyVEngineServer::ServerCommand )
             , ( bp::arg("str") ) )    
         .def( 
             "ServerExecute"
-            , (void ( ::PyVEngineServer::* )(  ) )( &::PyVEngineServer::ServerExecute ) )    
+            , (void ( ::PyVEngineServer::* )(  ))( &::PyVEngineServer::ServerExecute ) )    
         .def( 
             "SetAreaPortalState"
-            , (void ( ::PyVEngineServer::* )( int,int ) )( &::PyVEngineServer::SetAreaPortalState )
+            , (void ( ::PyVEngineServer::* )( int,int ))( &::PyVEngineServer::SetAreaPortalState )
             , ( bp::arg("portalNumber"), bp::arg("isOpen") ) )    
         .def( 
             "SetDedicatedServerBenchmarkMode"
-            , (void ( ::PyVEngineServer::* )( bool ) )( &::PyVEngineServer::SetDedicatedServerBenchmarkMode )
+            , (void ( ::PyVEngineServer::* )( bool ))( &::PyVEngineServer::SetDedicatedServerBenchmarkMode )
             , ( bp::arg("bBenchmarkMode") ) )    
         .def( 
             "StaticDecal"
-            , (void ( ::PyVEngineServer::* )( ::Vector const &,int,int,int,bool ) )( &::PyVEngineServer::StaticDecal )
+            , (void ( ::PyVEngineServer::* )( ::Vector const &,int,int,int,bool ))( &::PyVEngineServer::StaticDecal )
             , ( bp::arg("originInEntitySpace"), bp::arg("decalIndex"), bp::arg("entityIndex"), bp::arg("modelIndex"), bp::arg("lowpriority") ) );
 
     bp::class_< PyVModelInfo >( "VModelInfo" )    
         .def( 
             "FindOrLoadModel"
-            , (::model_t * ( ::PyVModelInfo::* )( char const * ) )( &::PyVModelInfo::FindOrLoadModel )
+            , (::model_t * ( ::PyVModelInfo::* )( char const * ))( &::PyVModelInfo::FindOrLoadModel )
             , ( bp::arg("name") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetModel"
-            , (::model_t * ( ::PyVModelInfo::* )( int ) )( &::PyVModelInfo::GetModel )
+            , (::model_t * ( ::PyVModelInfo::* )( int ))( &::PyVModelInfo::GetModel )
             , ( bp::arg("modelindex") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetModelBounds"
-            , (::boost::python::tuple ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetModelBounds )
+            , (::boost::python::tuple ( ::PyVModelInfo::* )( ::model_t * ))( &::PyVModelInfo::GetModelBounds )
             , ( bp::arg("pModel") ) )    
         .def( 
             "GetModelIndex"
-            , (int ( ::PyVModelInfo::* )( char const * ) )( &::PyVModelInfo::GetModelIndex )
+            , (int ( ::PyVModelInfo::* )( char const * ))( &::PyVModelInfo::GetModelIndex )
             , ( bp::arg("name") ) )    
         .def( 
             "GetModelName"
-            , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetModelName )
+            , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ))( &::PyVModelInfo::GetModelName )
             , ( bp::arg("model") ) )    
         .def( 
             "GetStudioModel"
-            , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ) )( &::PyVModelInfo::GetStudioModel )
+            , (::boost::python::api::object ( ::PyVModelInfo::* )( ::model_t * ))( &::PyVModelInfo::GetStudioModel )
             , ( bp::arg("model") ) );
 
     { //::dheader_t
@@ -5555,7 +5555,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         bp::scope dheader_t_scope( dheader_t_exposer );
         dheader_t_exposer.def_readwrite( "ident", &dheader_t::ident );
         pyplusplus::containers::static_sized::register_array_1< ::lump_t, 64, bp::return_internal_reference< > >( "__array_1__scope_lump_t_64" );
-        { //dheader_t::lumps [variable], type=lump_t[64]
+        { //dheader_t::lumps [variable], type=lump_t [64]
         
             typedef pyplusplus::containers::static_sized::array_1_t< ::lump_t, 64> ( *array_wrapper_creator )( ::dheader_t & );
             
@@ -5581,7 +5581,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         PlayerInfo_exposer_t PlayerInfo_exposer = PlayerInfo_exposer_t( "PlayerInfo" );
         bp::scope PlayerInfo_scope( PlayerInfo_exposer );
         pyplusplus::containers::static_sized::register_array_1< unsigned int, 4 >( "__array_1_unsigned_int_4" );
-        { //py_player_info_s::customFiles [variable], type=CRC32_t[4]
+        { //py_player_info_s::customFiles [variable], type=CRC32_t [4]
         
             typedef pyplusplus::containers::static_sized::array_1_t< unsigned int, 4> ( *array_wrapper_creator )( ::py_player_info_s & );
             
@@ -5660,7 +5660,7 @@ BOOST_PYTHON_MODULE(_gameinterface){
         bp::def( 
             "AddSearchPath"
             , AddSearchPath_function_type( &::PyAddSearchPath )
-            , ( bp::arg("pPath"), bp::arg("pathID"), bp::arg("addType")=::PATH_ADD_TO_TAIL ) );
+            , ( bp::arg("pPath"), bp::arg("pathID"), bp::arg("addType")=::SearchPathAdd_t::PATH_ADD_TO_TAIL ) );
     
     }
 

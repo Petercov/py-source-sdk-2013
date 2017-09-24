@@ -90,7 +90,7 @@ struct PyClientSideEffect_wrapper : PyClientSideEffect, bp::wrapper< PyClientSid
 
 struct PyMeshBuilder_wrapper : PyMeshBuilder, bp::wrapper< PyMeshBuilder > {
 
-    PyMeshBuilder_wrapper(char const * pMaterialName, ::MaterialPrimitiveType_t type=::MATERIAL_POINTS )
+    PyMeshBuilder_wrapper(char const * pMaterialName, ::MaterialPrimitiveType_t type=::MaterialPrimitiveType_t::MATERIAL_POINTS )
     : PyMeshBuilder( pMaterialName, type )
       , bp::wrapper< PyMeshBuilder >(){
         // constructor
@@ -202,7 +202,7 @@ BOOST_PYTHON_MODULE(_te){
         CTempEnts_exposer.def( bp::init< >() );
         { //::CTempEnts::AttachTentToPlayer
         
-            typedef void ( ::CTempEnts::*AttachTentToPlayer_function_type )( int,int,float,float ) ;
+            typedef void ( ::CTempEnts::*AttachTentToPlayer_function_type)( int,int,float,float ) ;
             
             CTempEnts_exposer.def( 
                 "AttachTentToPlayer"
@@ -212,7 +212,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::BloodSprite
         
-            typedef void ( ::CTempEnts::*BloodSprite_function_type )( ::Vector const &,int,int,int,int,int,int,float ) ;
+            typedef void ( ::CTempEnts::*BloodSprite_function_type)( ::Vector const &,int,int,int,int,int,int,float ) ;
             
             CTempEnts_exposer.def( 
                 "BloodSprite"
@@ -222,7 +222,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::BreakModel
         
-            typedef void ( ::CTempEnts::*BreakModel_function_type )( ::Vector const &,::QAngle const &,::Vector const &,::Vector const &,float,float,int,int,char ) ;
+            typedef void ( ::CTempEnts::*BreakModel_function_type)( ::Vector const &,::QAngle const &,::Vector const &,::Vector const &,float,float,int,int,char ) ;
             
             CTempEnts_exposer.def( 
                 "BreakModel"
@@ -232,7 +232,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::BubbleTrail
         
-            typedef void ( ::CTempEnts::*BubbleTrail_function_type )( ::Vector const &,::Vector const &,float,int,int,float ) ;
+            typedef void ( ::CTempEnts::*BubbleTrail_function_type)( ::Vector const &,::Vector const &,float,int,int,float ) ;
             
             CTempEnts_exposer.def( 
                 "BubbleTrail"
@@ -242,7 +242,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::Bubbles
         
-            typedef void ( ::CTempEnts::*Bubbles_function_type )( ::Vector const &,::Vector const &,float,int,int,float ) ;
+            typedef void ( ::CTempEnts::*Bubbles_function_type)( ::Vector const &,::Vector const &,float,int,int,float ) ;
             
             CTempEnts_exposer.def( 
                 "Bubbles"
@@ -252,7 +252,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::CSEjectBrass
         
-            typedef void ( ::CTempEnts::*CSEjectBrass_function_type )( ::Vector const &,::QAngle const &,int,int,::C_BasePlayer * ) ;
+            typedef void ( ::CTempEnts::*CSEjectBrass_function_type)( ::Vector const &,::QAngle const &,int,int,::C_BasePlayer * ) ;
             
             CTempEnts_exposer.def( 
                 "CSEjectBrass"
@@ -262,7 +262,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::Clear
         
-            typedef void ( ::CTempEnts::*Clear_function_type )(  ) ;
+            typedef void ( ::CTempEnts::*Clear_function_type)(  ) ;
             
             CTempEnts_exposer.def( 
                 "Clear"
@@ -271,7 +271,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::EjectBrass
         
-            typedef void ( ::CTempEnts::*EjectBrass_function_type )( ::Vector const &,::QAngle const &,::QAngle const &,int ) ;
+            typedef void ( ::CTempEnts::*EjectBrass_function_type)( ::Vector const &,::QAngle const &,::QAngle const &,int ) ;
             
             CTempEnts_exposer.def( 
                 "EjectBrass"
@@ -281,7 +281,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::FizzEffect
         
-            typedef void ( ::CTempEnts::*FizzEffect_function_type )( ::C_BaseEntity *,int,int,int ) ;
+            typedef void ( ::CTempEnts::*FizzEffect_function_type)( ::C_BaseEntity *,int,int,int ) ;
             
             CTempEnts_exposer.def( 
                 "FizzEffect"
@@ -291,7 +291,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::HL1EjectBrass
         
-            typedef void ( ::CTempEnts::*HL1EjectBrass_function_type )( ::Vector const &,::QAngle const &,::Vector const &,int ) ;
+            typedef void ( ::CTempEnts::*HL1EjectBrass_function_type)( ::Vector const &,::QAngle const &,::Vector const &,int ) ;
             
             CTempEnts_exposer.def( 
                 "HL1EjectBrass"
@@ -301,7 +301,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::Init
         
-            typedef void ( ::CTempEnts::*Init_function_type )(  ) ;
+            typedef void ( ::CTempEnts::*Init_function_type)(  ) ;
             
             CTempEnts_exposer.def( 
                 "Init"
@@ -310,7 +310,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::KillAttachedTents
         
-            typedef void ( ::CTempEnts::*KillAttachedTents_function_type )( int ) ;
+            typedef void ( ::CTempEnts::*KillAttachedTents_function_type)( int ) ;
             
             CTempEnts_exposer.def( 
                 "KillAttachedTents"
@@ -320,7 +320,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::LevelInit
         
-            typedef void ( ::CTempEnts::*LevelInit_function_type )(  ) ;
+            typedef void ( ::CTempEnts::*LevelInit_function_type)(  ) ;
             
             CTempEnts_exposer.def( 
                 "LevelInit"
@@ -329,7 +329,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::LevelShutdown
         
-            typedef void ( ::CTempEnts::*LevelShutdown_function_type )(  ) ;
+            typedef void ( ::CTempEnts::*LevelShutdown_function_type)(  ) ;
             
             CTempEnts_exposer.def( 
                 "LevelShutdown"
@@ -338,7 +338,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::MuzzleFlash
         
-            typedef void ( ::CTempEnts::*MuzzleFlash_function_type )( int,::ClientEntityHandle_t,int,bool ) ;
+            typedef void ( ::CTempEnts::*MuzzleFlash_function_type)( int,::ClientEntityHandle_t,int,bool ) ;
             
             CTempEnts_exposer.def( 
                 "MuzzleFlash"
@@ -348,7 +348,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::MuzzleFlash
         
-            typedef void ( ::CTempEnts::*MuzzleFlash_function_type )( ::Vector const &,::QAngle const &,int,::ClientEntityHandle_t,bool ) ;
+            typedef void ( ::CTempEnts::*MuzzleFlash_function_type)( ::Vector const &,::QAngle const &,int,::ClientEntityHandle_t,bool ) ;
             
             CTempEnts_exposer.def( 
                 "MuzzleFlash"
@@ -358,7 +358,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::PhysicsProp
         
-            typedef void ( ::CTempEnts::*PhysicsProp_function_type )( int,int,::Vector const &,::QAngle const &,::Vector const &,int,int ) ;
+            typedef void ( ::CTempEnts::*PhysicsProp_function_type)( int,int,::Vector const &,::QAngle const &,::Vector const &,int,int ) ;
             
             CTempEnts_exposer.def( 
                 "PhysicsProp"
@@ -368,7 +368,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::RocketFlare
         
-            typedef void ( ::CTempEnts::*RocketFlare_function_type )( ::Vector const & ) ;
+            typedef void ( ::CTempEnts::*RocketFlare_function_type)( ::Vector const & ) ;
             
             CTempEnts_exposer.def( 
                 "RocketFlare"
@@ -378,7 +378,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::Shutdown
         
-            typedef void ( ::CTempEnts::*Shutdown_function_type )(  ) ;
+            typedef void ( ::CTempEnts::*Shutdown_function_type)(  ) ;
             
             CTempEnts_exposer.def( 
                 "Shutdown"
@@ -387,7 +387,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::Sprite_Spray
         
-            typedef void ( ::CTempEnts::*Sprite_Spray_function_type )( ::Vector const &,::Vector const &,int,int,int,int ) ;
+            typedef void ( ::CTempEnts::*Sprite_Spray_function_type)( ::Vector const &,::Vector const &,int,int,int,int ) ;
             
             CTempEnts_exposer.def( 
                 "Sprite_Spray"
@@ -397,7 +397,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::Sprite_Trail
         
-            typedef void ( ::CTempEnts::*Sprite_Trail_function_type )( ::Vector const &,::Vector const &,int,int,float,float,float,int,float ) ;
+            typedef void ( ::CTempEnts::*Sprite_Trail_function_type)( ::Vector const &,::Vector const &,int,int,float,float,float,int,float ) ;
             
             CTempEnts_exposer.def( 
                 "Sprite_Trail"
@@ -407,7 +407,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::CTempEnts::Update
         
-            typedef void ( ::CTempEnts::*Update_function_type )(  ) ;
+            typedef void ( ::CTempEnts::*Update_function_type)(  ) ;
             
             CTempEnts_exposer.def( 
                 "Update"
@@ -419,227 +419,227 @@ BOOST_PYTHON_MODULE(_te){
     bp::class_< C_EnvelopeFX_wrapper, boost::noncopyable >( "C_EnvelopeFX", bp::init< >() )    
         .def( 
             "EffectInit"
-            , (void ( ::C_EnvelopeFX::* )( int,int ) )( &::C_EnvelopeFX::EffectInit )
+            , (void ( ::C_EnvelopeFX::* )( int,int ))( &::C_EnvelopeFX::EffectInit )
             , ( bp::arg("entityIndex"), bp::arg("attachment") ) )    
         .def( 
             "EffectShutdown"
-            , (void ( ::C_EnvelopeFX::* )(  ) )( &::C_EnvelopeFX::EffectShutdown ) )    
+            , (void ( ::C_EnvelopeFX::* )(  ))( &::C_EnvelopeFX::EffectShutdown ) )    
         .def( 
             "GetRenderAngles"
-            , (::QAngle const & ( ::C_EnvelopeFX::* )(  ) )( &::C_EnvelopeFX::GetRenderAngles )
+            , (::QAngle const & ( ::C_EnvelopeFX::* )(  ))( &::C_EnvelopeFX::GetRenderAngles )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "GetRenderOrigin"
-            , (::Vector const & ( ::C_EnvelopeFX::* )(  ) )( &::C_EnvelopeFX::GetRenderOrigin )
+            , (::Vector const & ( ::C_EnvelopeFX::* )(  ))( &::C_EnvelopeFX::GetRenderOrigin )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "IsActive"
-            , (bool ( ::C_EnvelopeFX::* )(  ) const)( &::C_EnvelopeFX::IsActive ) )    
+            , (bool ( ::C_EnvelopeFX::* )(  )const)( &::C_EnvelopeFX::IsActive ) )    
         .def( 
             "IsTransparent"
-            , (bool ( ::C_EnvelopeFX::* )(  ) )( &::C_EnvelopeFX::IsTransparent ) )    
+            , (bool ( ::C_EnvelopeFX::* )(  ))( &::C_EnvelopeFX::IsTransparent ) )    
         .def( 
             "LimitTime"
-            , (void ( ::C_EnvelopeFX::* )( float ) )( &::C_EnvelopeFX::LimitTime )
+            , (void ( ::C_EnvelopeFX::* )( float ))( &::C_EnvelopeFX::LimitTime )
             , ( bp::arg("tmax") ) )    
         .def( 
             "RemoveRenderable"
-            , (void ( C_EnvelopeFX_wrapper::* )(  ) )(&C_EnvelopeFX_wrapper::RemoveRenderable) )    
+            , (void ( C_EnvelopeFX_wrapper::* )(  ))(&C_EnvelopeFX_wrapper::RemoveRenderable) )    
         .def( 
             "RenderableToWorldTransform"
-            , (::matrix3x4_t const & ( ::C_EnvelopeFX::* )(  ) )( &::C_EnvelopeFX::RenderableToWorldTransform )
+            , (::matrix3x4_t const & ( ::C_EnvelopeFX::* )(  ))( &::C_EnvelopeFX::RenderableToWorldTransform )
             , bp::return_value_policy< bp::copy_const_reference >() )    
         .def( 
             "SetActive"
-            , (void ( ::C_EnvelopeFX::* )( bool ) )( &::C_EnvelopeFX::SetActive )
+            , (void ( ::C_EnvelopeFX::* )( bool ))( &::C_EnvelopeFX::SetActive )
             , ( bp::arg("state")=(bool)(true) ) )    
         .def( 
             "SetRenderOrigin"
-            , (void ( ::C_EnvelopeFX::* )( ::Vector const & ) )( &::C_EnvelopeFX::SetRenderOrigin )
+            , (void ( ::C_EnvelopeFX::* )( ::Vector const & ))( &::C_EnvelopeFX::SetRenderOrigin )
             , ( bp::arg("origin") ) )    
         .def( 
             "SetTime"
-            , (void ( ::C_EnvelopeFX::* )( float ) )( &::C_EnvelopeFX::SetTime )
+            , (void ( ::C_EnvelopeFX::* )( float ))( &::C_EnvelopeFX::SetTime )
             , ( bp::arg("t") ) )    
         .def( 
             "ShouldDraw"
-            , (bool ( ::C_EnvelopeFX::* )(  ) )( &::C_EnvelopeFX::ShouldDraw ) )    
+            , (bool ( ::C_EnvelopeFX::* )(  ))( &::C_EnvelopeFX::ShouldDraw ) )    
         .def( 
             "ShouldReceiveProjectedTextures"
-            , (bool ( ::C_EnvelopeFX::* )( int ) )( &::C_EnvelopeFX::ShouldReceiveProjectedTextures )
+            , (bool ( ::C_EnvelopeFX::* )( int ))( &::C_EnvelopeFX::ShouldReceiveProjectedTextures )
             , ( bp::arg("flags") ) )    
         .def( 
             "Update"
-            , (void ( ::C_EnvelopeFX::* )(  ) )( &::C_EnvelopeFX::Update ) )    
+            , (void ( ::C_EnvelopeFX::* )(  ))( &::C_EnvelopeFX::Update ) )    
         .def( 
             "GetRenderBounds"
-            , bp::pure_virtual( (void ( ::IClientRenderable::* )( ::Vector &,::Vector & ) )(&::IClientRenderable::GetRenderBounds) )
+            , bp::pure_virtual( (void ( ::IClientRenderable::* )( ::Vector &,::Vector & ))(&::IClientRenderable::GetRenderBounds) )
             , ( bp::arg("mins"), bp::arg("maxs") ) );
 
     bp::class_< ITempEntsSystem, boost::noncopyable >( "ITempEntsSystem", bp::no_init )    
         .def( 
             "ArmorRicochet"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const * ) )( &::ITempEntsSystem::ArmorRicochet )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const * ))( &::ITempEntsSystem::ArmorRicochet )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("dir") ) )    
         .def( 
             "BSPDecal"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int ) )( &::ITempEntsSystem::BSPDecal )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int ))( &::ITempEntsSystem::BSPDecal )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("entity"), bp::arg("index") ) )    
         .def( 
             "BeamEntPoint"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,::Vector const *,int,::Vector const *,int,int,int,int,float,float,float,int,float,int,int,int,int,int ) )( &::ITempEntsSystem::BeamEntPoint )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,::Vector const *,int,::Vector const *,int,int,int,int,float,float,float,int,float,int,int,int,int,int ))( &::ITempEntsSystem::BeamEntPoint )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("nStartEntity"), bp::arg("start"), bp::arg("nEndEntity"), bp::arg("end"), bp::arg("modelindex"), bp::arg("haloindex"), bp::arg("startframe"), bp::arg("framerate"), bp::arg("life"), bp::arg("width"), bp::arg("endWidth"), bp::arg("fadeLength"), bp::arg("amplitude"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("speed") ) )    
         .def( 
             "BeamEnts"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,int,int,int,float,float,float,int,float,int,int,int,int,int ) )( &::ITempEntsSystem::BeamEnts )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,int,int,int,float,float,float,int,float,int,int,int,int,int ))( &::ITempEntsSystem::BeamEnts )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("start"), bp::arg("end"), bp::arg("modelindex"), bp::arg("haloindex"), bp::arg("startframe"), bp::arg("framerate"), bp::arg("life"), bp::arg("width"), bp::arg("endWidth"), bp::arg("fadeLength"), bp::arg("amplitude"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("speed") ) )    
         .def( 
             "BeamFollow"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,float,float,float,float,float,float,float,float ) )( &::ITempEntsSystem::BeamFollow )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,float,float,float,float,float,float,float,float ))( &::ITempEntsSystem::BeamFollow )
             , ( bp::arg("filter"), bp::arg("delay"), bp::arg("iEntIndex"), bp::arg("modelIndex"), bp::arg("haloIndex"), bp::arg("life"), bp::arg("width"), bp::arg("endWidth"), bp::arg("fadeLength"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a") ) )    
         .def( 
             "BeamLaser"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,int,int,int,float,float,float,int,float,int,int,int,int,int ) )( &::ITempEntsSystem::BeamLaser )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,int,int,int,float,float,float,int,float,int,int,int,int,int ))( &::ITempEntsSystem::BeamLaser )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("start"), bp::arg("end"), bp::arg("modelindex"), bp::arg("haloindex"), bp::arg("startframe"), bp::arg("framerate"), bp::arg("life"), bp::arg("width"), bp::arg("endWidth"), bp::arg("fadeLength"), bp::arg("amplitude"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("speed") ) )    
         .def( 
             "BeamPoints"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int,int,float,float,float,int,float,int,int,int,int,int ) )( &::ITempEntsSystem::BeamPoints )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int,int,float,float,float,int,float,int,int,int,int,int ))( &::ITempEntsSystem::BeamPoints )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("start"), bp::arg("end"), bp::arg("modelindex"), bp::arg("haloindex"), bp::arg("startframe"), bp::arg("framerate"), bp::arg("life"), bp::arg("width"), bp::arg("endWidth"), bp::arg("fadeLength"), bp::arg("amplitude"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("speed") ) )    
         .def( 
             "BeamRing"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,int,int,int,float,float,int,float,int,int,int,int,int,int ) )( &::ITempEntsSystem::BeamRing )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,int,int,int,float,float,int,float,int,int,int,int,int,int ))( &::ITempEntsSystem::BeamRing )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("start"), bp::arg("end"), bp::arg("modelindex"), bp::arg("haloindex"), bp::arg("startframe"), bp::arg("framerate"), bp::arg("life"), bp::arg("width"), bp::arg("spread"), bp::arg("amplitude"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("speed"), bp::arg("flags")=(int)(0) ) )    
         .def( 
             "BeamRingPoint"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,float,float,int,int,int,int,float,float,int,float,int,int,int,int,int,int ) )( &::ITempEntsSystem::BeamRingPoint )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,float,float,int,int,int,int,float,float,int,float,int,int,int,int,int,int ))( &::ITempEntsSystem::BeamRingPoint )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("center"), bp::arg("start_radius"), bp::arg("end_radius"), bp::arg("modelindex"), bp::arg("haloindex"), bp::arg("startframe"), bp::arg("framerate"), bp::arg("life"), bp::arg("width"), bp::arg("spread"), bp::arg("amplitude"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("speed"), bp::arg("flags")=(int)(0) ) )    
         .def( 
             "BeamSpline"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,::Vector * ) )( &::ITempEntsSystem::BeamSpline )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,::Vector * ))( &::ITempEntsSystem::BeamSpline )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("points"), bp::arg("rgPoints") ) )    
         .def( 
             "BloodSprite"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int,int,int ) )( &::ITempEntsSystem::BloodSprite )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int,int,int ))( &::ITempEntsSystem::BloodSprite )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("org"), bp::arg("dir"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("size") ) )    
         .def( 
             "BloodStream"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int,int,int ) )( &::ITempEntsSystem::BloodStream )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int,int,int ))( &::ITempEntsSystem::BloodStream )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("org"), bp::arg("dir"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("amount") ) )    
         .def( 
             "BreakModel"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::QAngle const &,::Vector const &,::Vector const &,int,int,int,float,int ) )( &::ITempEntsSystem::BreakModel )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::QAngle const &,::Vector const &,::Vector const &,int,int,int,float,int ))( &::ITempEntsSystem::BreakModel )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("angle"), bp::arg("size"), bp::arg("vel"), bp::arg("modelindex"), bp::arg("randomization"), bp::arg("count"), bp::arg("time"), bp::arg("flags") ) )    
         .def( 
             "BubbleTrail"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,float,int,int,float ) )( &::ITempEntsSystem::BubbleTrail )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,float,int,int,float ))( &::ITempEntsSystem::BubbleTrail )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("mins"), bp::arg("maxs"), bp::arg("height"), bp::arg("modelindex"), bp::arg("count"), bp::arg("speed") ) )    
         .def( 
             "Bubbles"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,float,int,int,float ) )( &::ITempEntsSystem::Bubbles )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,float,int,int,float ))( &::ITempEntsSystem::Bubbles )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("mins"), bp::arg("maxs"), bp::arg("height"), bp::arg("modelindex"), bp::arg("count"), bp::arg("speed") ) )    
         .def( 
             "ClientProjectile"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,::C_BaseEntity * ) )( &::ITempEntsSystem::ClientProjectile )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,::C_BaseEntity * ))( &::ITempEntsSystem::ClientProjectile )
             , ( bp::arg("filter"), bp::arg("delay"), bp::arg("vecOrigin"), bp::arg("vecVelocity"), bp::arg("modelindex"), bp::arg("lifetime"), bp::arg("pOwner") ) )    
         .def( 
             "Decal"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int ) )( &::ITempEntsSystem::Decal )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int ))( &::ITempEntsSystem::Decal )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("start"), bp::arg("entity"), bp::arg("hitbox"), bp::arg("index") ) )    
         .def( 
             "DispatchEffect"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,char const *,::CEffectData const & ) )( &::ITempEntsSystem::DispatchEffect )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,char const *,::CEffectData const & ))( &::ITempEntsSystem::DispatchEffect )
             , ( bp::arg("filter"), bp::arg("delay"), bp::arg("pos"), bp::arg("pName"), bp::arg("data") ) )    
         .def( 
             "Dust"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::Vector const &,float,float ) )( &::ITempEntsSystem::Dust )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::Vector const &,float,float ))( &::ITempEntsSystem::Dust )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("dir"), bp::arg("size"), bp::arg("speed") ) )    
         .def( 
             "DynamicLight"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int,int,int,float,float,float ) )( &::ITempEntsSystem::DynamicLight )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int,int,int,float,float,float ))( &::ITempEntsSystem::DynamicLight )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("org"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("exponent"), bp::arg("radius"), bp::arg("time"), bp::arg("decay") ) )    
         .def( 
             "EnergySplash"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,bool ) )( &::ITempEntsSystem::EnergySplash )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,bool ))( &::ITempEntsSystem::EnergySplash )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("dir"), bp::arg("bExplosive") ) )    
         .def( 
             "Explosion"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,int,int,int,int,::Vector const *,unsigned char ) )( &::ITempEntsSystem::Explosion )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,int,int,int,int,::Vector const *,unsigned char ))( &::ITempEntsSystem::Explosion )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("modelindex"), bp::arg("scale"), bp::arg("framerate"), bp::arg("flags"), bp::arg("radius"), bp::arg("magnitude"), bp::arg("normal")=bp::object(), bp::arg("materialType")=(unsigned char)('C') ) )    
         .def( 
             "Fizz"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::C_BaseEntity const *,int,int,int ) )( &::ITempEntsSystem::Fizz )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::C_BaseEntity const *,int,int,int ))( &::ITempEntsSystem::Fizz )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("ed"), bp::arg("modelindex"), bp::arg("density"), bp::arg("current") ) )    
         .def( 
             "FootprintDecal"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,unsigned char ) )( &::ITempEntsSystem::FootprintDecal )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,unsigned char ))( &::ITempEntsSystem::FootprintDecal )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("origin"), bp::arg("right"), bp::arg("entity"), bp::arg("index"), bp::arg("materialType") ) )    
         .def( 
             "GaussExplosion"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::Vector const &,int ) )( &::ITempEntsSystem::GaussExplosion )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::Vector const &,int ))( &::ITempEntsSystem::GaussExplosion )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("dir"), bp::arg("type") ) )    
         .def( 
             "GlowSprite"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,float,int ) )( &::ITempEntsSystem::GlowSprite )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,float,int ))( &::ITempEntsSystem::GlowSprite )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("modelindex"), bp::arg("life"), bp::arg("size"), bp::arg("brightness") ) )    
         .def( 
             "KillPlayerAttachments"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int ) )( &::ITempEntsSystem::KillPlayerAttachments )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int ))( &::ITempEntsSystem::KillPlayerAttachments )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("player") ) )    
         .def( 
             "LargeFunnel"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int ) )( &::ITempEntsSystem::LargeFunnel )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int ))( &::ITempEntsSystem::LargeFunnel )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("modelindex"), bp::arg("reversed") ) )    
         .def( 
             "MetalSparks"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const * ) )( &::ITempEntsSystem::MetalSparks )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const * ))( &::ITempEntsSystem::MetalSparks )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("dir") ) )    
         .def( 
             "MuzzleFlash"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::QAngle const &,float,int ) )( &::ITempEntsSystem::MuzzleFlash )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::QAngle const &,float,int ))( &::ITempEntsSystem::MuzzleFlash )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("start"), bp::arg("angles"), bp::arg("scale"), bp::arg("type") ) )    
         .def( 
             "PhysicsProp"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,::Vector const &,::QAngle const &,::Vector const &,int,int ) )( &::ITempEntsSystem::PhysicsProp )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,::Vector const &,::QAngle const &,::Vector const &,int,int ))( &::ITempEntsSystem::PhysicsProp )
             , ( bp::arg("filter"), bp::arg("delay"), bp::arg("modelindex"), bp::arg("skin"), bp::arg("pos"), bp::arg("angles"), bp::arg("vel"), bp::arg("flags"), bp::arg("effects") ) )    
         .def( 
             "PlayerDecal"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int ) )( &::ITempEntsSystem::PlayerDecal )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int ))( &::ITempEntsSystem::PlayerDecal )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("player"), bp::arg("entity") ) )    
         .def( 
             "ProjectDecal"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::QAngle const *,float,int ) )( &::ITempEntsSystem::ProjectDecal )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::QAngle const *,float,int ))( &::ITempEntsSystem::ProjectDecal )
             , ( bp::arg("filter"), bp::arg("delay"), bp::arg("pos"), bp::arg("angles"), bp::arg("distance"), bp::arg("index") ) )    
         .def( 
             "ShatterSurface"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::QAngle const *,::Vector const *,::Vector const *,float,float,float,::ShatterSurface_t,int,int,int,int,int,int ) )( &::ITempEntsSystem::ShatterSurface )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::QAngle const *,::Vector const *,::Vector const *,float,float,float,::ShatterSurface_t,int,int,int,int,int,int ))( &::ITempEntsSystem::ShatterSurface )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("angle"), bp::arg("vForce"), bp::arg("vForcePos"), bp::arg("width"), bp::arg("height"), bp::arg("shardsize"), bp::arg("surfacetype"), bp::arg("front_r"), bp::arg("front_g"), bp::arg("front_b"), bp::arg("back_r"), bp::arg("back_g"), bp::arg("back_b") ) )    
         .def( 
             "ShowLine"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const * ) )( &::ITempEntsSystem::ShowLine )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const * ))( &::ITempEntsSystem::ShowLine )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("start"), bp::arg("end") ) )    
         .def( 
             "Smoke"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,int ) )( &::ITempEntsSystem::Smoke )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,int ))( &::ITempEntsSystem::Smoke )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("modelindex"), bp::arg("scale"), bp::arg("framerate") ) )    
         .def( 
             "Sparks"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int,::Vector const * ) )( &::ITempEntsSystem::Sparks )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int,::Vector const * ))( &::ITempEntsSystem::Sparks )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("nMagnitude"), bp::arg("nTrailLength"), bp::arg("pDir") ) )    
         .def( 
             "Sprite"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,int ) )( &::ITempEntsSystem::Sprite )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,int ))( &::ITempEntsSystem::Sprite )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("modelindex"), bp::arg("size"), bp::arg("brightness") ) )    
         .def( 
             "SpriteSpray"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,float,int ) )( &::ITempEntsSystem::SpriteSpray )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,float,int ))( &::ITempEntsSystem::SpriteSpray )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("dir"), bp::arg("modelindex"), bp::arg("speed"), bp::arg("noise"), bp::arg("count") ) )    
         .def( 
             "TriggerTempEntity"
-            , (void ( ::ITempEntsSystem::* )( ::KeyValues * ) )( &::ITempEntsSystem::TriggerTempEntity )
+            , (void ( ::ITempEntsSystem::* )( ::KeyValues * ))( &::ITempEntsSystem::TriggerTempEntity )
             , ( bp::arg("pKeyValues") ) )    
         .def( 
             "WorldDecal"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int ) )( &::ITempEntsSystem::WorldDecal )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int ))( &::ITempEntsSystem::WorldDecal )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("index") ) );
 
     bp::class_< PyClientEffectRegistration >( "ClientEffectRegistration", bp::init< char const *, bp::api::object >(( bp::arg("pEffectName"), bp::arg("method") )) );
@@ -651,7 +651,7 @@ BOOST_PYTHON_MODULE(_te){
         bp::implicitly_convertible< char const *, PyClientSideEffect >();
         { //::PyClientSideEffect::AddMeshBuilder
         
-            typedef void ( ::PyClientSideEffect::*AddMeshBuilder_function_type )( ::boost::python::api::object ) ;
+            typedef void ( ::PyClientSideEffect::*AddMeshBuilder_function_type)( ::boost::python::api::object ) ;
             
             ClientSideEffect_exposer.def( 
                 "AddMeshBuilder"
@@ -661,7 +661,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::PyClientSideEffect::ClearMeshBuilders
         
-            typedef void ( ::PyClientSideEffect::*ClearMeshBuilders_function_type )(  ) ;
+            typedef void ( ::PyClientSideEffect::*ClearMeshBuilders_function_type)(  ) ;
             
             ClientSideEffect_exposer.def( 
                 "ClearMeshBuilders"
@@ -670,7 +670,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::PyClientSideEffect::Destroy
         
-            typedef void ( ::PyClientSideEffect::*Destroy_function_type )(  ) ;
+            typedef void ( ::PyClientSideEffect::*Destroy_function_type)(  ) ;
             
             ClientSideEffect_exposer.def( 
                 "Destroy"
@@ -679,8 +679,8 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::PyClientSideEffect::Draw
         
-            typedef void ( ::PyClientSideEffect::*Draw_function_type )( double ) ;
-            typedef void ( PyClientSideEffect_wrapper::*default_Draw_function_type )( double ) ;
+            typedef void ( ::PyClientSideEffect::*Draw_function_type)( double ) ;
+            typedef void ( PyClientSideEffect_wrapper::*default_Draw_function_type)( double ) ;
             
             ClientSideEffect_exposer.def( 
                 "Draw"
@@ -691,7 +691,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::PyClientSideEffect::IsActive
         
-            typedef bool ( ::PyClientSideEffect::*IsActive_function_type )(  ) ;
+            typedef bool ( ::PyClientSideEffect::*IsActive_function_type)(  ) ;
             
             ClientSideEffect_exposer.def( 
                 "IsActive"
@@ -700,7 +700,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::PyClientSideEffect::RemoveMeshBuilder
         
-            typedef void ( ::PyClientSideEffect::*RemoveMeshBuilder_function_type )( ::boost::python::api::object ) ;
+            typedef void ( ::PyClientSideEffect::*RemoveMeshBuilder_function_type)( ::boost::python::api::object ) ;
             
             ClientSideEffect_exposer.def( 
                 "RemoveMeshBuilder"
@@ -712,12 +712,12 @@ BOOST_PYTHON_MODULE(_te){
 
     { //::PyMeshBuilder
         typedef bp::class_< PyMeshBuilder_wrapper, boost::noncopyable > MeshBuilder_exposer_t;
-        MeshBuilder_exposer_t MeshBuilder_exposer = MeshBuilder_exposer_t( "MeshBuilder", bp::init< char const *, bp::optional< MaterialPrimitiveType_t > >(( bp::arg("pMaterialName"), bp::arg("type")=::MATERIAL_POINTS )) );
+        MeshBuilder_exposer_t MeshBuilder_exposer = MeshBuilder_exposer_t( "MeshBuilder", bp::init< char const *, bp::optional< MaterialPrimitiveType_t > >(( bp::arg("pMaterialName"), bp::arg("type")=::MaterialPrimitiveType_t::MATERIAL_POINTS )) );
         bp::scope MeshBuilder_scope( MeshBuilder_exposer );
         bp::implicitly_convertible< char const *, PyMeshBuilder >();
         { //::PyMeshBuilder::AddVertex
         
-            typedef void ( ::PyMeshBuilder::*AddVertex_function_type )( ::PyMeshVertex & ) ;
+            typedef void ( ::PyMeshBuilder::*AddVertex_function_type)( ::PyMeshVertex & ) ;
             
             MeshBuilder_exposer.def( 
                 "AddVertex"
@@ -727,7 +727,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::PyMeshBuilder::Draw
         
-            typedef void ( ::PyMeshBuilder::*Draw_function_type )( double ) ;
+            typedef void ( ::PyMeshBuilder::*Draw_function_type)( double ) ;
             
             MeshBuilder_exposer.def( 
                 "Draw"
@@ -737,7 +737,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::PyMeshBuilder::GetNumPrimitives
         
-            typedef int ( PyMeshBuilder_wrapper::*GetNumPrimitives_function_type )(  ) ;
+            typedef int ( PyMeshBuilder_wrapper::*GetNumPrimitives_function_type)(  ) ;
             
             MeshBuilder_exposer.def( 
                 "GetNumPrimitives"
@@ -746,7 +746,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::PyMeshBuilder::SetMaterial
         
-            typedef void ( ::PyMeshBuilder::*SetMaterial_function_type )( char const * ) ;
+            typedef void ( ::PyMeshBuilder::*SetMaterial_function_type)( char const * ) ;
             
             MeshBuilder_exposer.def( 
                 "SetMaterial"
@@ -763,7 +763,7 @@ BOOST_PYTHON_MODULE(_te){
         bp::implicitly_convertible< char const *, PyMeshRallyLine >();
         { //::PyMeshRallyLine::Draw
         
-            typedef void ( ::PyMeshRallyLine::*Draw_function_type )( double ) ;
+            typedef void ( ::PyMeshRallyLine::*Draw_function_type)( double ) ;
             
             MeshRallyLine_exposer.def( 
                 "Draw"
@@ -773,7 +773,7 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //::PyMeshRallyLine::Init
         
-            typedef void ( ::PyMeshRallyLine::*Init_function_type )(  ) ;
+            typedef void ( ::PyMeshRallyLine::*Init_function_type)(  ) ;
             
             MeshRallyLine_exposer.def( 
                 "Init"
@@ -790,7 +790,7 @@ BOOST_PYTHON_MODULE(_te){
         MeshRallyLine_exposer.def_readwrite( "textureyscale", &PyMeshRallyLine::textureyscale );
         { //::PyMeshBuilder::GetNumPrimitives
         
-            typedef int ( PyMeshRallyLine_wrapper::*GetNumPrimitives_function_type )(  ) ;
+            typedef int ( PyMeshRallyLine_wrapper::*GetNumPrimitives_function_type)(  ) ;
             
             MeshRallyLine_exposer.def( 
                 "GetNumPrimitives"
@@ -799,8 +799,8 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //property "ent1"[fget=::PyMeshRallyLine::GetEnt1, fset=::PyMeshRallyLine::SetEnt1]
         
-            typedef ::C_BaseEntity * ( ::PyMeshRallyLine::*fget )(  ) ;
-            typedef void ( ::PyMeshRallyLine::*fset )( ::C_BaseEntity * ) ;
+            typedef ::C_BaseEntity * ( ::PyMeshRallyLine::*fget)(  ) ;
+            typedef void ( ::PyMeshRallyLine::*fset)( ::C_BaseEntity * ) ;
             
             MeshRallyLine_exposer.add_property( 
                 "ent1"
@@ -812,8 +812,8 @@ BOOST_PYTHON_MODULE(_te){
         }
         { //property "ent2"[fget=::PyMeshRallyLine::GetEnt2, fset=::PyMeshRallyLine::SetEnt2]
         
-            typedef ::C_BaseEntity * ( ::PyMeshRallyLine::*fget )(  ) ;
-            typedef void ( ::PyMeshRallyLine::*fset )( ::C_BaseEntity * ) ;
+            typedef ::C_BaseEntity * ( ::PyMeshRallyLine::*fget)(  ) ;
+            typedef void ( ::PyMeshRallyLine::*fset)( ::C_BaseEntity * ) ;
             
             MeshRallyLine_exposer.add_property( 
                 "ent2"
@@ -831,8 +831,8 @@ BOOST_PYTHON_MODULE(_te){
         bp::scope MeshVertex_scope( MeshVertex_exposer );
         { //::PyMeshVertex::Draw
         
-            typedef void ( ::PyMeshVertex::*Draw_function_type )( ::CMeshBuilder & ) ;
-            typedef void ( PyMeshVertex_wrapper::*default_Draw_function_type )( ::CMeshBuilder & ) ;
+            typedef void ( ::PyMeshVertex::*Draw_function_type)( ::CMeshBuilder & ) ;
+            typedef void ( PyMeshVertex_wrapper::*default_Draw_function_type)( ::CMeshBuilder & ) ;
             
             MeshVertex_exposer.def( 
                 "Draw"
@@ -849,8 +849,8 @@ BOOST_PYTHON_MODULE(_te){
         MeshVertex_exposer.def_readwrite( "t", &PyMeshVertex::t );
         { //property "ent"[fget=::PyMeshVertex::GetEnt, fset=::PyMeshVertex::SetEnt]
         
-            typedef ::C_BaseEntity * ( ::PyMeshVertex::*fget )(  ) ;
-            typedef void ( ::PyMeshVertex::*fset )( ::C_BaseEntity * ) ;
+            typedef ::C_BaseEntity * ( ::PyMeshVertex::*fget)(  ) ;
+            typedef void ( ::PyMeshVertex::*fset)( ::C_BaseEntity * ) ;
             
             MeshVertex_exposer.add_property( 
                 "ent"
@@ -886,23 +886,23 @@ BOOST_PYTHON_MODULE(_te){
 
     { //::FX_AddQuad
     
-        typedef void ( *FX_AddQuad_function_type )( ::Vector const &,::Vector const &,float,float,float,float,float,float,float,float,::Vector const &,float,char const *,unsigned int );
-        
-        bp::def( 
-            "FX_AddQuad"
-            , FX_AddQuad_function_type( &::FX_AddQuad )
-            , ( bp::arg("origin"), bp::arg("normal"), bp::arg("startSize"), bp::arg("endSize"), bp::arg("sizeBias"), bp::arg("startAlpha"), bp::arg("endAlpha"), bp::arg("alphaBias"), bp::arg("yaw"), bp::arg("deltaYaw"), bp::arg("color"), bp::arg("lifeTime"), bp::arg("shader"), bp::arg("flags") ) );
-    
-    }
-
-    { //::FX_AddQuad
-    
         typedef void ( *FX_AddQuad_function_type )( ::FXQuadData_t const & );
         
         bp::def( 
             "FX_AddQuad"
             , FX_AddQuad_function_type( &::FX_AddQuad )
             , ( bp::arg("data") ) );
+    
+    }
+
+    { //::FX_AddQuad
+    
+        typedef void ( *FX_AddQuad_function_type )( ::Vector const &,::Vector const &,float,float,float,float,float,float,float,float,::Vector const &,float,char const *,unsigned int );
+        
+        bp::def( 
+            "FX_AddQuad"
+            , FX_AddQuad_function_type( &::FX_AddQuad )
+            , ( bp::arg("origin"), bp::arg("normal"), bp::arg("startSize"), bp::arg("endSize"), bp::arg("sizeBias"), bp::arg("startAlpha"), bp::arg("endAlpha"), bp::arg("alphaBias"), bp::arg("yaw"), bp::arg("deltaYaw"), bp::arg("color"), bp::arg("lifeTime"), bp::arg("shader"), bp::arg("flags") ) );
     
     }
 
@@ -974,23 +974,23 @@ BOOST_PYTHON_MODULE(_te){
 
     { //::FX_DustImpact
     
-        typedef void ( *FX_DustImpact_function_type )( ::Vector const &,::trace_t *,float );
-        
-        bp::def( 
-            "FX_DustImpact"
-            , FX_DustImpact_function_type( &::FX_DustImpact )
-            , ( bp::arg("origin"), bp::arg("tr"), bp::arg("flScale") ) );
-    
-    }
-
-    { //::FX_DustImpact
-    
         typedef void ( *FX_DustImpact_function_type )( ::Vector const &,::trace_t *,int );
         
         bp::def( 
             "FX_DustImpact"
             , FX_DustImpact_function_type( &::FX_DustImpact )
             , ( bp::arg("origin"), bp::arg("tr"), bp::arg("iScale") ) );
+    
+    }
+
+    { //::FX_DustImpact
+    
+        typedef void ( *FX_DustImpact_function_type )( ::Vector const &,::trace_t *,float );
+        
+        bp::def( 
+            "FX_DustImpact"
+            , FX_DustImpact_function_type( &::FX_DustImpact )
+            , ( bp::arg("origin"), bp::arg("tr"), bp::arg("flScale") ) );
     
     }
 
@@ -1150,23 +1150,23 @@ BOOST_PYTHON_MODULE(_te){
 
     { //::FX_Smoke
     
-        typedef void ( *FX_Smoke_function_type )( ::Vector const &,::QAngle const &,float,int,unsigned char *,int );
-        
-        bp::def( 
-            "FX_Smoke"
-            , FX_Smoke_function_type( &::FX_Smoke )
-            , ( bp::arg("origin"), bp::arg("angles"), bp::arg("scale"), bp::arg("numParticles"), bp::arg("pColor")=bp::object(), bp::arg("iAlpha")=(int)(-0x000000001) ) );
-    
-    }
-
-    { //::FX_Smoke
-    
         typedef ::CSmartPtr< CSimpleEmitter, CRefCountAccessor > ( *FX_Smoke_function_type )( ::Vector const &,::Vector const &,float,int,float,unsigned char *,int,char const *,float,float );
         
         bp::def( 
             "FX_Smoke"
             , FX_Smoke_function_type( &::FX_Smoke )
             , ( bp::arg("origin"), bp::arg("velocity"), bp::arg("scale"), bp::arg("numParticles"), bp::arg("flDietime"), bp::arg("pColor"), bp::arg("iAlpha"), bp::arg("pMaterial"), bp::arg("flRoll"), bp::arg("flRollDelta") ) );
+    
+    }
+
+    { //::FX_Smoke
+    
+        typedef void ( *FX_Smoke_function_type )( ::Vector const &,::QAngle const &,float,int,unsigned char *,int );
+        
+        bp::def( 
+            "FX_Smoke"
+            , FX_Smoke_function_type( &::FX_Smoke )
+            , ( bp::arg("origin"), bp::arg("angles"), bp::arg("scale"), bp::arg("numParticles"), bp::arg("pColor")=bp::object(), bp::arg("iAlpha")=(int)(-1) ) );
     
     }
 
@@ -1314,7 +1314,7 @@ BOOST_PYTHON_MODULE(_te){
     bp::class_< CEffectData >( "CEffectData", bp::init< >() )    
         .def( 
             "GetEffectNameIndex"
-            , (int ( ::CEffectData::* )(  ) )( &::CEffectData::GetEffectNameIndex ) )    
+            , (int ( ::CEffectData::* )(  ))( &::CEffectData::GetEffectNameIndex ) )    
         .def_readwrite( "m_ControlPoint1", &CEffectData::m_ControlPoint1 )    
         .def_readwrite( "m_CustomColors", &CEffectData::m_CustomColors )    
         .def_readwrite( "m_bControlPoint1", &CEffectData::m_bControlPoint1 )    
@@ -1338,167 +1338,167 @@ BOOST_PYTHON_MODULE(_te){
     bp::class_< ITempEntsSystem, boost::noncopyable >( "ITempEntsSystem", bp::no_init )    
         .def( 
             "ArmorRicochet"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const * ) )( &::ITempEntsSystem::ArmorRicochet )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const * ))( &::ITempEntsSystem::ArmorRicochet )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("dir") ) )    
         .def( 
             "BSPDecal"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int ) )( &::ITempEntsSystem::BSPDecal )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int ))( &::ITempEntsSystem::BSPDecal )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("entity"), bp::arg("index") ) )    
         .def( 
             "BeamEntPoint"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,::Vector const *,int,::Vector const *,int,int,int,int,float,float,float,int,float,int,int,int,int,int ) )( &::ITempEntsSystem::BeamEntPoint )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,::Vector const *,int,::Vector const *,int,int,int,int,float,float,float,int,float,int,int,int,int,int ))( &::ITempEntsSystem::BeamEntPoint )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("nStartEntity"), bp::arg("start"), bp::arg("nEndEntity"), bp::arg("end"), bp::arg("modelindex"), bp::arg("haloindex"), bp::arg("startframe"), bp::arg("framerate"), bp::arg("life"), bp::arg("width"), bp::arg("endWidth"), bp::arg("fadeLength"), bp::arg("amplitude"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("speed") ) )    
         .def( 
             "BeamEnts"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,int,int,int,float,float,float,int,float,int,int,int,int,int ) )( &::ITempEntsSystem::BeamEnts )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,int,int,int,float,float,float,int,float,int,int,int,int,int ))( &::ITempEntsSystem::BeamEnts )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("start"), bp::arg("end"), bp::arg("modelindex"), bp::arg("haloindex"), bp::arg("startframe"), bp::arg("framerate"), bp::arg("life"), bp::arg("width"), bp::arg("endWidth"), bp::arg("fadeLength"), bp::arg("amplitude"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("speed") ) )    
         .def( 
             "BeamFollow"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,float,float,float,float,float,float,float,float ) )( &::ITempEntsSystem::BeamFollow )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,float,float,float,float,float,float,float,float ))( &::ITempEntsSystem::BeamFollow )
             , ( bp::arg("filter"), bp::arg("delay"), bp::arg("iEntIndex"), bp::arg("modelIndex"), bp::arg("haloIndex"), bp::arg("life"), bp::arg("width"), bp::arg("endWidth"), bp::arg("fadeLength"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a") ) )    
         .def( 
             "BeamLaser"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,int,int,int,float,float,float,int,float,int,int,int,int,int ) )( &::ITempEntsSystem::BeamLaser )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,int,int,int,float,float,float,int,float,int,int,int,int,int ))( &::ITempEntsSystem::BeamLaser )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("start"), bp::arg("end"), bp::arg("modelindex"), bp::arg("haloindex"), bp::arg("startframe"), bp::arg("framerate"), bp::arg("life"), bp::arg("width"), bp::arg("endWidth"), bp::arg("fadeLength"), bp::arg("amplitude"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("speed") ) )    
         .def( 
             "BeamPoints"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int,int,float,float,float,int,float,int,int,int,int,int ) )( &::ITempEntsSystem::BeamPoints )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int,int,float,float,float,int,float,int,int,int,int,int ))( &::ITempEntsSystem::BeamPoints )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("start"), bp::arg("end"), bp::arg("modelindex"), bp::arg("haloindex"), bp::arg("startframe"), bp::arg("framerate"), bp::arg("life"), bp::arg("width"), bp::arg("endWidth"), bp::arg("fadeLength"), bp::arg("amplitude"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("speed") ) )    
         .def( 
             "BeamRing"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,int,int,int,float,float,int,float,int,int,int,int,int,int ) )( &::ITempEntsSystem::BeamRing )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,int,int,int,int,float,float,int,float,int,int,int,int,int,int ))( &::ITempEntsSystem::BeamRing )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("start"), bp::arg("end"), bp::arg("modelindex"), bp::arg("haloindex"), bp::arg("startframe"), bp::arg("framerate"), bp::arg("life"), bp::arg("width"), bp::arg("spread"), bp::arg("amplitude"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("speed"), bp::arg("flags")=(int)(0) ) )    
         .def( 
             "BeamRingPoint"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,float,float,int,int,int,int,float,float,int,float,int,int,int,int,int,int ) )( &::ITempEntsSystem::BeamRingPoint )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,float,float,int,int,int,int,float,float,int,float,int,int,int,int,int,int ))( &::ITempEntsSystem::BeamRingPoint )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("center"), bp::arg("start_radius"), bp::arg("end_radius"), bp::arg("modelindex"), bp::arg("haloindex"), bp::arg("startframe"), bp::arg("framerate"), bp::arg("life"), bp::arg("width"), bp::arg("spread"), bp::arg("amplitude"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("speed"), bp::arg("flags")=(int)(0) ) )    
         .def( 
             "BeamSpline"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,::Vector * ) )( &::ITempEntsSystem::BeamSpline )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,::Vector * ))( &::ITempEntsSystem::BeamSpline )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("points"), bp::arg("rgPoints") ) )    
         .def( 
             "BloodSprite"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int,int,int ) )( &::ITempEntsSystem::BloodSprite )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int,int,int ))( &::ITempEntsSystem::BloodSprite )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("org"), bp::arg("dir"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("size") ) )    
         .def( 
             "BloodStream"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int,int,int ) )( &::ITempEntsSystem::BloodStream )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int,int,int ))( &::ITempEntsSystem::BloodStream )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("org"), bp::arg("dir"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("a"), bp::arg("amount") ) )    
         .def( 
             "BreakModel"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::QAngle const &,::Vector const &,::Vector const &,int,int,int,float,int ) )( &::ITempEntsSystem::BreakModel )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::QAngle const &,::Vector const &,::Vector const &,int,int,int,float,int ))( &::ITempEntsSystem::BreakModel )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("angle"), bp::arg("size"), bp::arg("vel"), bp::arg("modelindex"), bp::arg("randomization"), bp::arg("count"), bp::arg("time"), bp::arg("flags") ) )    
         .def( 
             "BubbleTrail"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,float,int,int,float ) )( &::ITempEntsSystem::BubbleTrail )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,float,int,int,float ))( &::ITempEntsSystem::BubbleTrail )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("mins"), bp::arg("maxs"), bp::arg("height"), bp::arg("modelindex"), bp::arg("count"), bp::arg("speed") ) )    
         .def( 
             "Bubbles"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,float,int,int,float ) )( &::ITempEntsSystem::Bubbles )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,float,int,int,float ))( &::ITempEntsSystem::Bubbles )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("mins"), bp::arg("maxs"), bp::arg("height"), bp::arg("modelindex"), bp::arg("count"), bp::arg("speed") ) )    
         .def( 
             "ClientProjectile"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,::CBaseEntity * ) )( &::ITempEntsSystem::ClientProjectile )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,::CBaseEntity * ))( &::ITempEntsSystem::ClientProjectile )
             , ( bp::arg("filter"), bp::arg("delay"), bp::arg("vecOrigin"), bp::arg("vecVelocity"), bp::arg("modelindex"), bp::arg("lifetime"), bp::arg("pOwner") ) )    
         .def( 
             "Decal"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int ) )( &::ITempEntsSystem::Decal )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,int ))( &::ITempEntsSystem::Decal )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("start"), bp::arg("entity"), bp::arg("hitbox"), bp::arg("index") ) )    
         .def( 
             "DispatchEffect"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,char const *,::CEffectData const & ) )( &::ITempEntsSystem::DispatchEffect )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,char const *,::CEffectData const & ))( &::ITempEntsSystem::DispatchEffect )
             , ( bp::arg("filter"), bp::arg("delay"), bp::arg("pos"), bp::arg("pName"), bp::arg("data") ) )    
         .def( 
             "Dust"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::Vector const &,float,float ) )( &::ITempEntsSystem::Dust )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::Vector const &,float,float ))( &::ITempEntsSystem::Dust )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("dir"), bp::arg("size"), bp::arg("speed") ) )    
         .def( 
             "DynamicLight"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int,int,int,float,float,float ) )( &::ITempEntsSystem::DynamicLight )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int,int,int,float,float,float ))( &::ITempEntsSystem::DynamicLight )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("org"), bp::arg("r"), bp::arg("g"), bp::arg("b"), bp::arg("exponent"), bp::arg("radius"), bp::arg("time"), bp::arg("decay") ) )    
         .def( 
             "EnergySplash"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,bool ) )( &::ITempEntsSystem::EnergySplash )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,bool ))( &::ITempEntsSystem::EnergySplash )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("dir"), bp::arg("bExplosive") ) )    
         .def( 
             "Explosion"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,int,int,int,int,::Vector const *,unsigned char ) )( &::ITempEntsSystem::Explosion )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,int,int,int,int,::Vector const *,unsigned char ))( &::ITempEntsSystem::Explosion )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("modelindex"), bp::arg("scale"), bp::arg("framerate"), bp::arg("flags"), bp::arg("radius"), bp::arg("magnitude"), bp::arg("normal")=bp::object(), bp::arg("materialType")=(unsigned char)('C') ) )    
         .def( 
             "Fizz"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::CBaseEntity const *,int,int,int ) )( &::ITempEntsSystem::Fizz )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::CBaseEntity const *,int,int,int ))( &::ITempEntsSystem::Fizz )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("ed"), bp::arg("modelindex"), bp::arg("density"), bp::arg("current") ) )    
         .def( 
             "FootprintDecal"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,unsigned char ) )( &::ITempEntsSystem::FootprintDecal )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,unsigned char ))( &::ITempEntsSystem::FootprintDecal )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("origin"), bp::arg("right"), bp::arg("entity"), bp::arg("index"), bp::arg("materialType") ) )    
         .def( 
             "GaussExplosion"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::Vector const &,int ) )( &::ITempEntsSystem::GaussExplosion )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::Vector const &,int ))( &::ITempEntsSystem::GaussExplosion )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("dir"), bp::arg("type") ) )    
         .def( 
             "GlowSprite"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,float,int ) )( &::ITempEntsSystem::GlowSprite )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,float,int ))( &::ITempEntsSystem::GlowSprite )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("modelindex"), bp::arg("life"), bp::arg("size"), bp::arg("brightness") ) )    
         .def( 
             "KillPlayerAttachments"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int ) )( &::ITempEntsSystem::KillPlayerAttachments )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int ))( &::ITempEntsSystem::KillPlayerAttachments )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("player") ) )    
         .def( 
             "LargeFunnel"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int ) )( &::ITempEntsSystem::LargeFunnel )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int ))( &::ITempEntsSystem::LargeFunnel )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("modelindex"), bp::arg("reversed") ) )    
         .def( 
             "MetalSparks"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const * ) )( &::ITempEntsSystem::MetalSparks )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const * ))( &::ITempEntsSystem::MetalSparks )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("dir") ) )    
         .def( 
             "MuzzleFlash"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::QAngle const &,float,int ) )( &::ITempEntsSystem::MuzzleFlash )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const &,::QAngle const &,float,int ))( &::ITempEntsSystem::MuzzleFlash )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("start"), bp::arg("angles"), bp::arg("scale"), bp::arg("type") ) )    
         .def( 
             "PhysicsProp"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,::Vector const &,::QAngle const &,::Vector const &,int,int ) )( &::ITempEntsSystem::PhysicsProp )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,int,int,::Vector const &,::QAngle const &,::Vector const &,int,int ))( &::ITempEntsSystem::PhysicsProp )
             , ( bp::arg("filter"), bp::arg("delay"), bp::arg("modelindex"), bp::arg("skin"), bp::arg("pos"), bp::arg("angles"), bp::arg("vel"), bp::arg("flags"), bp::arg("effects") ) )    
         .def( 
             "PlayerDecal"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int ) )( &::ITempEntsSystem::PlayerDecal )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int ))( &::ITempEntsSystem::PlayerDecal )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("player"), bp::arg("entity") ) )    
         .def( 
             "ProjectDecal"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::QAngle const *,float,int ) )( &::ITempEntsSystem::ProjectDecal )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::QAngle const *,float,int ))( &::ITempEntsSystem::ProjectDecal )
             , ( bp::arg("filter"), bp::arg("delay"), bp::arg("pos"), bp::arg("angles"), bp::arg("distance"), bp::arg("index") ) )    
         .def( 
             "ShatterSurface"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::QAngle const *,::Vector const *,::Vector const *,float,float,float,::ShatterSurface_t,int,int,int,int,int,int ) )( &::ITempEntsSystem::ShatterSurface )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::QAngle const *,::Vector const *,::Vector const *,float,float,float,::ShatterSurface_t,int,int,int,int,int,int ))( &::ITempEntsSystem::ShatterSurface )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("angle"), bp::arg("vForce"), bp::arg("vForcePos"), bp::arg("width"), bp::arg("height"), bp::arg("shardsize"), bp::arg("surfacetype"), bp::arg("front_r"), bp::arg("front_g"), bp::arg("front_b"), bp::arg("back_r"), bp::arg("back_g"), bp::arg("back_b") ) )    
         .def( 
             "ShowLine"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const * ) )( &::ITempEntsSystem::ShowLine )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const * ))( &::ITempEntsSystem::ShowLine )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("start"), bp::arg("end") ) )    
         .def( 
             "Smoke"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,int ) )( &::ITempEntsSystem::Smoke )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,int ))( &::ITempEntsSystem::Smoke )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("modelindex"), bp::arg("scale"), bp::arg("framerate") ) )    
         .def( 
             "Sparks"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int,::Vector const * ) )( &::ITempEntsSystem::Sparks )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,int,::Vector const * ))( &::ITempEntsSystem::Sparks )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("nMagnitude"), bp::arg("nTrailLength"), bp::arg("pDir") ) )    
         .def( 
             "Sprite"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,int ) )( &::ITempEntsSystem::Sprite )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int,float,int ))( &::ITempEntsSystem::Sprite )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("modelindex"), bp::arg("size"), bp::arg("brightness") ) )    
         .def( 
             "SpriteSpray"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,float,int ) )( &::ITempEntsSystem::SpriteSpray )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,::Vector const *,int,int,float,int ))( &::ITempEntsSystem::SpriteSpray )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("dir"), bp::arg("modelindex"), bp::arg("speed"), bp::arg("noise"), bp::arg("count") ) )    
         .def( 
             "TriggerTempEntity"
-            , (void ( ::ITempEntsSystem::* )( ::KeyValues * ) )( &::ITempEntsSystem::TriggerTempEntity )
+            , (void ( ::ITempEntsSystem::* )( ::KeyValues * ))( &::ITempEntsSystem::TriggerTempEntity )
             , ( bp::arg("pKeyValues") ) )    
         .def( 
             "WorldDecal"
-            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int ) )( &::ITempEntsSystem::WorldDecal )
+            , (void ( ::ITempEntsSystem::* )( ::IRecipientFilter &,float,::Vector const *,int ))( &::ITempEntsSystem::WorldDecal )
             , ( bp::arg("filer"), bp::arg("delay"), bp::arg("pos"), bp::arg("index") ) );
 
     { //::CreateConcussiveBlast
@@ -1514,12 +1514,12 @@ BOOST_PYTHON_MODULE(_te){
 
     { //::DispatchEffect
     
-        typedef void ( *DispatchEffect_function_type )( char const *,::CEffectData const &,::CRecipientFilter & );
+        typedef void ( *DispatchEffect_function_type )( char const *,::CEffectData const & );
         
         bp::def( 
             "DispatchEffect"
             , DispatchEffect_function_type( &::DispatchEffect )
-            , ( bp::arg("pName"), bp::arg("data"), bp::arg("filter") ) );
+            , ( bp::arg("pName"), bp::arg("data") ) );
     
     }
 
@@ -1527,12 +1527,12 @@ BOOST_PYTHON_MODULE(_te){
 
     { //::DispatchEffect
     
-        typedef void ( *DispatchEffect_function_type )( char const *,::CEffectData const & );
+        typedef void ( *DispatchEffect_function_type )( char const *,::CEffectData const &,::CRecipientFilter & );
         
         bp::def( 
             "DispatchEffect"
             , DispatchEffect_function_type( &::DispatchEffect )
-            , ( bp::arg("pName"), bp::arg("data") ) );
+            , ( bp::arg("pName"), bp::arg("data"), bp::arg("filter") ) );
     
     }
 }

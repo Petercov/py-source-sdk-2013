@@ -57,7 +57,7 @@ BOOST_PYTHON_MODULE(_filesystem){
         bp::def( 
             "FullPathToRelativePath"
             , FullPathToRelativePath_function_type( &::PyFS_FullPathToRelativePath )
-            , ( bp::arg("path"), bp::arg("pathid")=bp::object(), bp::arg("defaultvalue")=boost::python::api::object() ) );
+            , ( bp::arg("path"), bp::arg("pathid")=bp::object(), bp::arg("defaultvalue")=boost::python::object() ) );
     
     }
 
@@ -123,7 +123,7 @@ BOOST_PYTHON_MODULE(_filesystem){
         bp::def( 
             "RelativePathToFullPath"
             , RelativePathToFullPath_function_type( &::PyFS_RelativePathToFullPath )
-            , ( bp::arg("path"), bp::arg("pathid")=bp::object(), bp::arg("defaultvalue")=boost::python::api::object() ) );
+            , ( bp::arg("path"), bp::arg("pathid")=bp::object(), bp::arg("defaultvalue")=boost::python::object() ) );
     
     }
 

@@ -392,8 +392,8 @@ BOOST_PYTHON_MODULE(_vgui){
         bp::implicitly_convertible< char const *, CHudElement >();
         { //::CHudElement::FireGameEvent
         
-            typedef void ( ::CHudElement::*FireGameEvent_function_type )( ::IGameEvent * ) ;
-            typedef void ( CHudElement_wrapper::*default_FireGameEvent_function_type )( ::IGameEvent * ) ;
+            typedef void ( ::CHudElement::*FireGameEvent_function_type)( ::IGameEvent * ) ;
+            typedef void ( CHudElement_wrapper::*default_FireGameEvent_function_type)( ::IGameEvent * ) ;
             
             CHudElement_exposer.def( 
                 "FireGameEvent"
@@ -404,8 +404,8 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::GetRenderGroupPriority
         
-            typedef int ( ::CHudElement::*GetRenderGroupPriority_function_type )(  ) ;
-            typedef int ( CHudElement_wrapper::*default_GetRenderGroupPriority_function_type )(  ) ;
+            typedef int ( ::CHudElement::*GetRenderGroupPriority_function_type)(  ) ;
+            typedef int ( CHudElement_wrapper::*default_GetRenderGroupPriority_function_type)(  ) ;
             
             CHudElement_exposer.def( 
                 "GetRenderGroupPriority"
@@ -415,7 +415,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::HideLowerPriorityHudElementsInGroup
         
-            typedef void ( ::CHudElement::*HideLowerPriorityHudElementsInGroup_function_type )( char const * ) ;
+            typedef void ( ::CHudElement::*HideLowerPriorityHudElementsInGroup_function_type)( char const * ) ;
             
             CHudElement_exposer.def( 
                 "HideLowerPriorityHudElementsInGroup"
@@ -425,8 +425,8 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::Init
         
-            typedef void ( ::CHudElement::*Init_function_type )(  ) ;
-            typedef void ( CHudElement_wrapper::*default_Init_function_type )(  ) ;
+            typedef void ( ::CHudElement::*Init_function_type)(  ) ;
+            typedef void ( CHudElement_wrapper::*default_Init_function_type)(  ) ;
             
             CHudElement_exposer.def( 
                 "Init"
@@ -436,7 +436,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::IsActive
         
-            typedef bool ( ::CHudElement::*IsActive_function_type )(  ) ;
+            typedef bool ( ::CHudElement::*IsActive_function_type)(  ) ;
             
             CHudElement_exposer.def( 
                 "IsActive"
@@ -445,7 +445,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::IsParentedToClientDLLRootPanel
         
-            typedef bool ( ::CHudElement::*IsParentedToClientDLLRootPanel_function_type )(  ) const;
+            typedef bool ( ::CHudElement::*IsParentedToClientDLLRootPanel_function_type)(  ) const;
             
             CHudElement_exposer.def( 
                 "IsParentedToClientDLLRootPanel"
@@ -454,8 +454,8 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::LevelInit
         
-            typedef void ( ::CHudElement::*LevelInit_function_type )(  ) ;
-            typedef void ( CHudElement_wrapper::*default_LevelInit_function_type )(  ) ;
+            typedef void ( ::CHudElement::*LevelInit_function_type)(  ) ;
+            typedef void ( CHudElement_wrapper::*default_LevelInit_function_type)(  ) ;
             
             CHudElement_exposer.def( 
                 "LevelInit"
@@ -465,8 +465,8 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::LevelShutdown
         
-            typedef void ( ::CHudElement::*LevelShutdown_function_type )(  ) ;
-            typedef void ( CHudElement_wrapper::*default_LevelShutdown_function_type )(  ) ;
+            typedef void ( ::CHudElement::*LevelShutdown_function_type)(  ) ;
+            typedef void ( CHudElement_wrapper::*default_LevelShutdown_function_type)(  ) ;
             
             CHudElement_exposer.def( 
                 "LevelShutdown"
@@ -476,7 +476,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::ProcessInput
         
-            typedef void ( ::CHudElement::*ProcessInput_function_type )(  ) ;
+            typedef void ( ::CHudElement::*ProcessInput_function_type)(  ) ;
             
             CHudElement_exposer.def( 
                 "ProcessInput"
@@ -485,7 +485,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::RegisterForRenderGroup
         
-            typedef void ( ::CHudElement::*RegisterForRenderGroup_function_type )( char const * ) ;
+            typedef void ( ::CHudElement::*RegisterForRenderGroup_function_type)( char const * ) ;
             
             CHudElement_exposer.def( 
                 "RegisterForRenderGroup"
@@ -495,8 +495,8 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::Reset
         
-            typedef void ( ::CHudElement::*Reset_function_type )(  ) ;
-            typedef void ( CHudElement_wrapper::*default_Reset_function_type )(  ) ;
+            typedef void ( ::CHudElement::*Reset_function_type)(  ) ;
+            typedef void ( CHudElement_wrapper::*default_Reset_function_type)(  ) ;
             
             CHudElement_exposer.def( 
                 "Reset"
@@ -506,7 +506,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::SetActive
         
-            typedef void ( ::CHudElement::*SetActive_function_type )( bool ) ;
+            typedef void ( ::CHudElement::*SetActive_function_type)( bool ) ;
             
             CHudElement_exposer.def( 
                 "SetActive"
@@ -516,8 +516,8 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::SetHiddenBits
         
-            typedef void ( ::CHudElement::*SetHiddenBits_function_type )( int ) ;
-            typedef void ( CHudElement_wrapper::*default_SetHiddenBits_function_type )( int ) ;
+            typedef void ( ::CHudElement::*SetHiddenBits_function_type)( int ) ;
+            typedef void ( CHudElement_wrapper::*default_SetHiddenBits_function_type)( int ) ;
             
             CHudElement_exposer.def( 
                 "SetHiddenBits"
@@ -528,7 +528,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::SetNeedsRemove
         
-            typedef void ( ::CHudElement::*SetNeedsRemove_function_type )( bool ) ;
+            typedef void ( ::CHudElement::*SetNeedsRemove_function_type)( bool ) ;
             
             CHudElement_exposer.def( 
                 "SetNeedsRemove"
@@ -538,7 +538,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::SetParentedToClientDLLRootPanel
         
-            typedef void ( ::CHudElement::*SetParentedToClientDLLRootPanel_function_type )( bool ) ;
+            typedef void ( ::CHudElement::*SetParentedToClientDLLRootPanel_function_type)( bool ) ;
             
             CHudElement_exposer.def( 
                 "SetParentedToClientDLLRootPanel"
@@ -548,7 +548,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::ShouldDraw
         
-            typedef bool ( ::CHudElement::*ShouldDraw_function_type )(  ) ;
+            typedef bool ( ::CHudElement::*ShouldDraw_function_type)(  ) ;
             
             CHudElement_exposer.def( 
                 "ShouldDraw"
@@ -557,7 +557,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::UnhideLowerPriorityHudElementsInGroup
         
-            typedef void ( ::CHudElement::*UnhideLowerPriorityHudElementsInGroup_function_type )( char const * ) ;
+            typedef void ( ::CHudElement::*UnhideLowerPriorityHudElementsInGroup_function_type)( char const * ) ;
             
             CHudElement_exposer.def( 
                 "UnhideLowerPriorityHudElementsInGroup"
@@ -567,7 +567,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::UnregisterForRenderGroup
         
-            typedef void ( ::CHudElement::*UnregisterForRenderGroup_function_type )( char const * ) ;
+            typedef void ( ::CHudElement::*UnregisterForRenderGroup_function_type)( char const * ) ;
             
             CHudElement_exposer.def( 
                 "UnregisterForRenderGroup"
@@ -577,8 +577,8 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudElement::VidInit
         
-            typedef void ( ::CHudElement::*VidInit_function_type )(  ) ;
-            typedef void ( CHudElement_wrapper::*default_VidInit_function_type )(  ) ;
+            typedef void ( ::CHudElement::*VidInit_function_type)(  ) ;
+            typedef void ( CHudElement_wrapper::*default_VidInit_function_type)(  ) ;
             
             CHudElement_exposer.def( 
                 "VidInit"
@@ -593,129 +593,129 @@ BOOST_PYTHON_MODULE(_vgui){
         .def( bp::init< >() )    
         .def( 
             "AddHudElement"
-            , (void ( ::CHud::* )( ::CHudElement * ) )( &::CHud::AddHudElement )
+            , (void ( ::CHud::* )( ::CHudElement * ))( &::CHud::AddHudElement )
             , ( bp::arg("pHudElement") ) )    
         .def( 
             "AddHudRenderGroup"
-            , (int ( ::CHud::* )( char const * ) )( &::CHud::AddHudRenderGroup )
+            , (int ( ::CHud::* )( char const * ))( &::CHud::AddHudRenderGroup )
             , ( bp::arg("pszGroupName") ) )    
         .def( 
             "AddSearchableHudIconToList"
-            , (::CHudTexture * ( ::CHud::* )( ::CHudTexture & ) )( &::CHud::AddSearchableHudIconToList )
+            , (::CHudTexture * ( ::CHud::* )( ::CHudTexture & ))( &::CHud::AddSearchableHudIconToList )
             , ( bp::arg("texture") )
             , bp::return_internal_reference< >() )    
         .def( 
             "AddUnsearchableHudIconToList"
-            , (::CHudTexture * ( ::CHud::* )( ::CHudTexture & ) )( &::CHud::AddUnsearchableHudIconToList )
+            , (::CHudTexture * ( ::CHud::* )( ::CHudTexture & ))( &::CHud::AddUnsearchableHudIconToList )
             , ( bp::arg("texture") )
             , bp::return_internal_reference< >() )    
         .def( 
             "DoesRenderGroupExist"
-            , (bool ( ::CHud::* )( int ) )( &::CHud::DoesRenderGroupExist )
+            , (bool ( ::CHud::* )( int ))( &::CHud::DoesRenderGroupExist )
             , ( bp::arg("iGroupIndex") ) )    
         .def( 
             "DrawIconProgressBar"
-            , (void ( ::CHud::* )( int,int,::CHudTexture *,::CHudTexture *,float,::Color &,int ) )( &::CHud::DrawIconProgressBar )
+            , (void ( ::CHud::* )( int,int,::CHudTexture *,::CHudTexture *,float,::Color &,int ))( &::CHud::DrawIconProgressBar )
             , ( bp::arg("x"), bp::arg("y"), bp::arg("icon"), bp::arg("icon2"), bp::arg("percentage"), bp::arg("clr"), bp::arg("type") ) )    
         .def( 
             "DrawProgressBar"
-            , (void ( ::CHud::* )( int,int,int,int,float,::Color &,unsigned char ) )( &::CHud::DrawProgressBar )
+            , (void ( ::CHud::* )( int,int,int,int,float,::Color &,unsigned char ))( &::CHud::DrawProgressBar )
             , ( bp::arg("x"), bp::arg("y"), bp::arg("width"), bp::arg("height"), bp::arg("percentage"), bp::arg("clr"), bp::arg("type") ) )    
         .def( 
             "FindElement"
-            , (::CHudElement * ( ::CHud::* )( char const * ) )( &::CHud::FindElement )
+            , (::CHudElement * ( ::CHud::* )( char const * ))( &::CHud::FindElement )
             , ( bp::arg("pName") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetFOVSensitivityAdjust"
-            , (float ( ::CHud::* )(  ) )( &::CHud::GetFOVSensitivityAdjust ) )    
+            , (float ( ::CHud::* )(  ))( &::CHud::GetFOVSensitivityAdjust ) )    
         .def( 
             "GetIcon"
-            , (::CHudTexture * ( ::CHud::* )( char const * ) )( &::CHud::GetIcon )
+            , (::CHudTexture * ( ::CHud::* )( char const * ))( &::CHud::GetIcon )
             , ( bp::arg("szIcon") )
             , bp::return_internal_reference< >() )    
         .def( 
             "GetSensitivity"
-            , (float ( ::CHud::* )(  ) )( &::CHud::GetSensitivity ) )    
+            , (float ( ::CHud::* )(  ))( &::CHud::GetSensitivity ) )    
         .def( 
             "Init"
-            , (void ( ::CHud::* )(  ) )( &::CHud::Init ) )    
+            , (void ( ::CHud::* )(  ))( &::CHud::Init ) )    
         .def( 
             "InitColors"
-            , (void ( ::CHud::* )( ::vgui::IScheme * ) )( &::CHud::InitColors )
+            , (void ( ::CHud::* )( ::vgui::IScheme * ))( &::CHud::InitColors )
             , ( bp::arg("pScheme") ) )    
         .def( 
             "IsHidden"
-            , (bool ( ::CHud::* )( int ) )( &::CHud::IsHidden )
+            , (bool ( ::CHud::* )( int ))( &::CHud::IsHidden )
             , ( bp::arg("iHudFlags") ) )    
         .def( 
             "IsRenderGroupLockedFor"
-            , (bool ( ::CHud::* )( ::CHudElement *,int ) )( &::CHud::IsRenderGroupLockedFor )
+            , (bool ( ::CHud::* )( ::CHudElement *,int ))( &::CHud::IsRenderGroupLockedFor )
             , ( bp::arg("pHudElement"), bp::arg("iGroupIndex") ) )    
         .def( 
             "LevelInit"
-            , (void ( ::CHud::* )(  ) )( &::CHud::LevelInit ) )    
+            , (void ( ::CHud::* )(  ))( &::CHud::LevelInit ) )    
         .def( 
             "LevelShutdown"
-            , (void ( ::CHud::* )(  ) )( &::CHud::LevelShutdown ) )    
+            , (void ( ::CHud::* )(  ))( &::CHud::LevelShutdown ) )    
         .def( 
             "LockRenderGroup"
-            , (bool ( ::CHud::* )( int,::CHudElement * ) )( &::CHud::LockRenderGroup )
+            , (bool ( ::CHud::* )( int,::CHudElement * ))( &::CHud::LockRenderGroup )
             , ( bp::arg("iGroupIndex"), bp::arg("pLocker")=bp::object() ) )    
         .def( 
             "LookupRenderGroupIndexByName"
-            , (int ( ::CHud::* )( char const * ) )( &::CHud::LookupRenderGroupIndexByName )
+            , (int ( ::CHud::* )( char const * ))( &::CHud::LookupRenderGroupIndexByName )
             , ( bp::arg("pszGroupName") ) )    
         .def( 
             "MsgFunc_ResetHUD"
-            , (void ( ::CHud::* )( ::bf_read & ) )( &::CHud::MsgFunc_ResetHUD )
+            , (void ( ::CHud::* )( ::bf_read & ))( &::CHud::MsgFunc_ResetHUD )
             , ( bp::arg("msg") ) )    
         .def( 
             "MsgFunc_SendAudio"
-            , (void ( ::CHud::* )( ::bf_read & ) )( &::CHud::MsgFunc_SendAudio )
+            , (void ( ::CHud::* )( ::bf_read & ))( &::CHud::MsgFunc_SendAudio )
             , ( bp::arg("msg") ) )    
         .def( 
             "OnRestore"
-            , (void ( ::CHud::* )(  ) )( &::CHud::OnRestore ) )    
+            , (void ( ::CHud::* )(  ))( &::CHud::OnRestore ) )    
         .def( 
             "ProcessInput"
-            , (void ( ::CHud::* )( bool ) )( &::CHud::ProcessInput )
+            , (void ( ::CHud::* )( bool ))( &::CHud::ProcessInput )
             , ( bp::arg("bActive") ) )    
         .def( 
             "RefreshHudTextures"
-            , (void ( ::CHud::* )(  ) )( &::CHud::RefreshHudTextures ) )    
+            , (void ( ::CHud::* )(  ))( &::CHud::RefreshHudTextures ) )    
         .def( 
             "RegisterForRenderGroup"
-            , (int ( ::CHud::* )( char const * ) )( &::CHud::RegisterForRenderGroup )
+            , (int ( ::CHud::* )( char const * ))( &::CHud::RegisterForRenderGroup )
             , ( bp::arg("pszGroupName") ) )    
         .def( 
             "RemoveHudElement"
-            , (void ( ::CHud::* )( ::CHudElement * ) )( &::CHud::RemoveHudElement )
+            , (void ( ::CHud::* )( ::CHudElement * ))( &::CHud::RemoveHudElement )
             , ( bp::arg("pHudElement") ) )    
         .def( 
             "ResetHUD"
-            , (void ( ::CHud::* )(  ) )( &::CHud::ResetHUD ) )    
+            , (void ( ::CHud::* )(  ))( &::CHud::ResetHUD ) )    
         .def( 
             "SetScreenShotTime"
-            , (void ( ::CHud::* )( float ) )( &::CHud::SetScreenShotTime )
+            , (void ( ::CHud::* )( float ))( &::CHud::SetScreenShotTime )
             , ( bp::arg("flTime") ) )    
         .def( 
             "Shutdown"
-            , (void ( ::CHud::* )(  ) )( &::CHud::Shutdown ) )    
+            , (void ( ::CHud::* )(  ))( &::CHud::Shutdown ) )    
         .def( 
             "Think"
-            , (void ( ::CHud::* )(  ) )( &::CHud::Think ) )    
+            , (void ( ::CHud::* )(  ))( &::CHud::Think ) )    
         .def( 
             "UnlockRenderGroup"
-            , (bool ( ::CHud::* )( int,::CHudElement * ) )( &::CHud::UnlockRenderGroup )
+            , (bool ( ::CHud::* )( int,::CHudElement * ))( &::CHud::UnlockRenderGroup )
             , ( bp::arg("iGroupIndex"), bp::arg("pLocker")=bp::object() ) )    
         .def( 
             "UpdateHud"
-            , (void ( ::CHud::* )( bool ) )( &::CHud::UpdateHud )
+            , (void ( ::CHud::* )( bool ))( &::CHud::UpdateHud )
             , ( bp::arg("bActive") ) )    
         .def( 
             "VidInit"
-            , (void ( ::CHud::* )(  ) )( &::CHud::VidInit ) )    
+            , (void ( ::CHud::* )(  ))( &::CHud::VidInit ) )    
         .def_readonly( "HUDPB_HORIZONTAL", CHud::HUDPB_HORIZONTAL )    
         .def_readonly( "HUDPB_HORIZONTAL_INV", CHud::HUDPB_HORIZONTAL_INV )    
         .def_readonly( "HUDPB_VERTICAL", CHud::HUDPB_VERTICAL )    
@@ -733,7 +733,7 @@ BOOST_PYTHON_MODULE(_vgui){
         bp::scope CHudTexture_scope( CHudTexture_exposer );
         { //::CHudTexture::DrawSelf
         
-            typedef void ( ::CHudTexture::*DrawSelf_function_type )( int,int,::Color const & ) const;
+            typedef void ( ::CHudTexture::*DrawSelf_function_type)( int,int,::Color const & ) const;
             
             CHudTexture_exposer.def( 
                 "DrawSelf"
@@ -743,7 +743,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudTexture::DrawSelf
         
-            typedef void ( ::CHudTexture::*DrawSelf_function_type )( int,int,int,int,::Color const & ) const;
+            typedef void ( ::CHudTexture::*DrawSelf_function_type)( int,int,int,int,::Color const & ) const;
             
             CHudTexture_exposer.def( 
                 "DrawSelf"
@@ -753,7 +753,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudTexture::DrawSelfCropped
         
-            typedef void ( ::CHudTexture::*DrawSelfCropped_function_type )( int,int,int,int,int,int,::Color ) const;
+            typedef void ( ::CHudTexture::*DrawSelfCropped_function_type)( int,int,int,int,int,int,::Color ) const;
             
             CHudTexture_exposer.def( 
                 "DrawSelfCropped"
@@ -763,7 +763,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudTexture::DrawSelfCropped
         
-            typedef void ( ::CHudTexture::*DrawSelfCropped_function_type )( int,int,int,int,int,int,int,int,::Color ) const;
+            typedef void ( ::CHudTexture::*DrawSelfCropped_function_type)( int,int,int,int,int,int,int,int,::Color ) const;
             
             CHudTexture_exposer.def( 
                 "DrawSelfCropped"
@@ -773,7 +773,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudTexture::EffectiveHeight
         
-            typedef int ( ::CHudTexture::*EffectiveHeight_function_type )( float ) const;
+            typedef int ( ::CHudTexture::*EffectiveHeight_function_type)( float ) const;
             
             CHudTexture_exposer.def( 
                 "EffectiveHeight"
@@ -783,7 +783,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudTexture::EffectiveWidth
         
-            typedef int ( ::CHudTexture::*EffectiveWidth_function_type )( float ) const;
+            typedef int ( ::CHudTexture::*EffectiveWidth_function_type)( float ) const;
             
             CHudTexture_exposer.def( 
                 "EffectiveWidth"
@@ -793,7 +793,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudTexture::Height
         
-            typedef int ( ::CHudTexture::*Height_function_type )(  ) const;
+            typedef int ( ::CHudTexture::*Height_function_type)(  ) const;
             
             CHudTexture_exposer.def( 
                 "Height"
@@ -802,7 +802,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudTexture::Precache
         
-            typedef void ( ::CHudTexture::*Precache_function_type )(  ) ;
+            typedef void ( ::CHudTexture::*Precache_function_type)(  ) ;
             
             CHudTexture_exposer.def( 
                 "Precache"
@@ -811,7 +811,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudTexture::Width
         
-            typedef int ( ::CHudTexture::*Width_function_type )(  ) const;
+            typedef int ( ::CHudTexture::*Width_function_type)(  ) const;
             
             CHudTexture_exposer.def( 
                 "Width"
@@ -820,7 +820,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CHudTexture::operator=
         
-            typedef ::CHudTexture & ( ::CHudTexture::*assign_function_type )( ::CHudTexture const & ) ;
+            typedef ::CHudTexture & ( ::CHudTexture::*assign_function_type)( ::CHudTexture const & ) ;
             
             CHudTexture_exposer.def( 
                 "assign"
@@ -838,7 +838,7 @@ BOOST_PYTHON_MODULE(_vgui){
         bp::implicitly_convertible< bp::api::object, CPyHudElementHelper >();
         { //::CPyHudElementHelper::Get
         
-            typedef ::boost::python::api::object ( ::CPyHudElementHelper::*Get_function_type )(  ) ;
+            typedef ::boost::python::api::object ( ::CPyHudElementHelper::*Get_function_type)(  ) ;
             
             CHudElementHelper_exposer.def( 
                 "Get"
@@ -854,44 +854,44 @@ BOOST_PYTHON_MODULE(_vgui){
             , ( bp::arg("inst"), bp::arg("vguiPanel") ) )    
         .def( 
             "GetChild"
-            , (::vgui::VPANEL ( ::CWrapIPanel::* )( ::vgui::VPANEL,int ) )( &::CWrapIPanel::GetChild )
+            , (::vgui::VPANEL ( ::CWrapIPanel::* )( ::vgui::VPANEL,int ))( &::CWrapIPanel::GetChild )
             , ( bp::arg("vguiPanel"), bp::arg("index") ) )    
         .def( 
             "GetChildCount"
-            , (int ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::GetChildCount )
+            , (int ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::GetChildCount )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "GetClassName"
-            , (char const * ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::GetClassName )
+            , (char const * ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::GetClassName )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "GetClipRect"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int &,int &,int &,int & ) )( &::CWrapIPanel::GetClipRect )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int &,int &,int &,int & ))( &::CWrapIPanel::GetClipRect )
             , ( bp::arg("vguiPanel"), bp::arg("x0"), bp::arg("y0"), bp::arg("x1"), bp::arg("y1") ) )    
         .def( 
             "GetCurrentKeyFocus"
-            , (::vgui::VPANEL ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::GetCurrentKeyFocus )
+            , (::vgui::VPANEL ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::GetCurrentKeyFocus )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "GetInset"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int &,int &,int &,int & ) )( &::CWrapIPanel::GetInset )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int &,int &,int &,int & ))( &::CWrapIPanel::GetInset )
             , ( bp::arg("vguiPanel"), bp::arg("left"), bp::arg("top"), bp::arg("right"), bp::arg("bottom") ) )    
         .def( 
             "GetMinimumSize"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int &,int & ) )( &::CWrapIPanel::GetMinimumSize )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int &,int & ))( &::CWrapIPanel::GetMinimumSize )
             , ( bp::arg("vguiPanel"), bp::arg("wide"), bp::arg("tall") ) )    
         .def( 
             "GetName"
-            , (char const * ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::GetName )
+            , (char const * ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::GetName )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "GetPanel"
-            , (::vgui::Panel * ( ::CWrapIPanel::* )( ::vgui::VPANEL,char const * ) )( &::CWrapIPanel::GetPanel )
+            , (::vgui::Panel * ( ::CWrapIPanel::* )( ::vgui::VPANEL,char const * ))( &::CWrapIPanel::GetPanel )
             , ( bp::arg("vguiPanel"), bp::arg("destinationModule") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetParent"
-            , (::vgui::VPANEL ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::GetParent )
+            , (::vgui::VPANEL ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::GetParent )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "GetPos"
@@ -899,7 +899,7 @@ BOOST_PYTHON_MODULE(_vgui){
             , ( bp::arg("inst"), bp::arg("vguiPanel") ) )    
         .def( 
             "GetScheme"
-            , (::vgui::HScheme ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::GetScheme )
+            , (::vgui::HScheme ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::GetScheme )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "GetSize"
@@ -907,159 +907,159 @@ BOOST_PYTHON_MODULE(_vgui){
             , ( bp::arg("inst"), bp::arg("vguiPanel") ) )    
         .def( 
             "GetTabPosition"
-            , (int ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::GetTabPosition )
+            , (int ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::GetTabPosition )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "GetZPos"
-            , (int ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::GetZPos )
+            , (int ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::GetZPos )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "HasParent"
-            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL,::vgui::VPANEL ) )( &::CWrapIPanel::HasParent )
+            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL,::vgui::VPANEL ))( &::CWrapIPanel::HasParent )
             , ( bp::arg("vguiPanel"), bp::arg("potentialParent") ) )    
         .def( 
             "InternalFocusChanged"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ) )( &::CWrapIPanel::InternalFocusChanged )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ))( &::CWrapIPanel::InternalFocusChanged )
             , ( bp::arg("vguiPanel"), bp::arg("lost") ) )    
         .def( 
             "IsEnabled"
-            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::IsEnabled )
+            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::IsEnabled )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "IsFullyVisible"
-            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::IsFullyVisible )
+            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::IsFullyVisible )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "IsKeyBoardInputEnabled"
-            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::IsKeyBoardInputEnabled )
+            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::IsKeyBoardInputEnabled )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "IsMouseInputEnabled"
-            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::IsMouseInputEnabled )
+            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::IsMouseInputEnabled )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "IsPopup"
-            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::IsPopup )
+            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::IsPopup )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "IsProportional"
-            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::IsProportional )
+            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::IsProportional )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "IsTopmostPopup"
-            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::IsTopmostPopup )
+            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::IsTopmostPopup )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "IsVisible"
-            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::IsVisible )
+            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::IsVisible )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "IsWithinTraverse"
-            , (::vgui::VPANEL ( ::CWrapIPanel::* )( ::vgui::VPANEL,int,int,bool ) )( &::CWrapIPanel::IsWithinTraverse )
+            , (::vgui::VPANEL ( ::CWrapIPanel::* )( ::vgui::VPANEL,int,int,bool ))( &::CWrapIPanel::IsWithinTraverse )
             , ( bp::arg("vguiPanel"), bp::arg("x"), bp::arg("y"), bp::arg("traversePopups") ) )    
         .def( 
             "MoveToBack"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::MoveToBack )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::MoveToBack )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "MoveToFront"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::MoveToFront )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::MoveToFront )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "OnChildAdded"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,::vgui::VPANEL ) )( &::CWrapIPanel::OnChildAdded )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,::vgui::VPANEL ))( &::CWrapIPanel::OnChildAdded )
             , ( bp::arg("vguiPanel"), bp::arg("child") ) )    
         .def( 
             "OnSizeChanged"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int,int ) )( &::CWrapIPanel::OnSizeChanged )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int,int ))( &::CWrapIPanel::OnSizeChanged )
             , ( bp::arg("vguiPanel"), bp::arg("newWide"), bp::arg("newTall") ) )    
         .def( 
             "PaintTraverse"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool,bool ) )( &::CWrapIPanel::PaintTraverse )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool,bool ))( &::CWrapIPanel::PaintTraverse )
             , ( bp::arg("vguiPanel"), bp::arg("forceRepaint"), bp::arg("allowForce")=(bool)(true) ) )    
         .def( 
             "PerformApplySchemeSettings"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::PerformApplySchemeSettings )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::PerformApplySchemeSettings )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "Repaint"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::Repaint )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::Repaint )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "RequestFocus"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int ) )( &::CWrapIPanel::RequestFocus )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int ))( &::CWrapIPanel::RequestFocus )
             , ( bp::arg("vguiPanel"), bp::arg("direction")=(int)(0) ) )    
         .def( 
             "RequestFocusNext"
-            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL,::vgui::VPANEL ) )( &::CWrapIPanel::RequestFocusNext )
+            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL,::vgui::VPANEL ))( &::CWrapIPanel::RequestFocusNext )
             , ( bp::arg("vguiPanel"), bp::arg("existingPanel") ) )    
         .def( 
             "RequestFocusPrev"
-            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL,::vgui::VPANEL ) )( &::CWrapIPanel::RequestFocusPrev )
+            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL,::vgui::VPANEL ))( &::CWrapIPanel::RequestFocusPrev )
             , ( bp::arg("vguiPanel"), bp::arg("existingPanel") ) )    
         .def( 
             "RequestInfo"
-            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL,::KeyValues * ) )( &::CWrapIPanel::RequestInfo )
+            , (bool ( ::CWrapIPanel::* )( ::vgui::VPANEL,::KeyValues * ))( &::CWrapIPanel::RequestInfo )
             , ( bp::arg("vguiPanel"), bp::arg("outputData") ) )    
         .def( 
             "SendMessage"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,::KeyValues *,::vgui::VPANEL ) )( &::CWrapIPanel::SendMessage )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,::KeyValues *,::vgui::VPANEL ))( &::CWrapIPanel::SendMessage )
             , ( bp::arg("vguiPanel"), bp::arg("params"), bp::arg("ifromPanel") ) )    
         .def( 
             "SetEnabled"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ) )( &::CWrapIPanel::SetEnabled )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ))( &::CWrapIPanel::SetEnabled )
             , ( bp::arg("vguiPanel"), bp::arg("state") ) )    
         .def( 
             "SetInset"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int,int,int,int ) )( &::CWrapIPanel::SetInset )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int,int,int,int ))( &::CWrapIPanel::SetInset )
             , ( bp::arg("vguiPanel"), bp::arg("left"), bp::arg("top"), bp::arg("right"), bp::arg("bottom") ) )    
         .def( 
             "SetKeyBoardInputEnabled"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ) )( &::CWrapIPanel::SetKeyBoardInputEnabled )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ))( &::CWrapIPanel::SetKeyBoardInputEnabled )
             , ( bp::arg("vguiPanel"), bp::arg("state") ) )    
         .def( 
             "SetMinimumSize"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int,int ) )( &::CWrapIPanel::SetMinimumSize )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int,int ))( &::CWrapIPanel::SetMinimumSize )
             , ( bp::arg("vguiPanel"), bp::arg("wide"), bp::arg("tall") ) )    
         .def( 
             "SetMouseInputEnabled"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ) )( &::CWrapIPanel::SetMouseInputEnabled )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ))( &::CWrapIPanel::SetMouseInputEnabled )
             , ( bp::arg("vguiPanel"), bp::arg("state") ) )    
         .def( 
             "SetParent"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,::vgui::VPANEL ) )( &::CWrapIPanel::SetParent )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,::vgui::VPANEL ))( &::CWrapIPanel::SetParent )
             , ( bp::arg("vguiPanel"), bp::arg("newParent") ) )    
         .def( 
             "SetPopup"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ) )( &::CWrapIPanel::SetPopup )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ))( &::CWrapIPanel::SetPopup )
             , ( bp::arg("vguiPanel"), bp::arg("state") ) )    
         .def( 
             "SetPos"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int,int ) )( &::CWrapIPanel::SetPos )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int,int ))( &::CWrapIPanel::SetPos )
             , ( bp::arg("vguiPanel"), bp::arg("x"), bp::arg("y") ) )    
         .def( 
             "SetSize"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int,int ) )( &::CWrapIPanel::SetSize )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int,int ))( &::CWrapIPanel::SetSize )
             , ( bp::arg("vguiPanel"), bp::arg("wide"), bp::arg("tall") ) )    
         .def( 
             "SetTopmostPopup"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ) )( &::CWrapIPanel::SetTopmostPopup )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ))( &::CWrapIPanel::SetTopmostPopup )
             , ( bp::arg("vguiPanel"), bp::arg("state") ) )    
         .def( 
             "SetVisible"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ) )( &::CWrapIPanel::SetVisible )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,bool ))( &::CWrapIPanel::SetVisible )
             , ( bp::arg("vguiPanel"), bp::arg("state") ) )    
         .def( 
             "SetZPos"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int ) )( &::CWrapIPanel::SetZPos )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL,int ))( &::CWrapIPanel::SetZPos )
             , ( bp::arg("vguiPanel"), bp::arg("z") ) )    
         .def( 
             "Solve"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::Solve )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::Solve )
             , ( bp::arg("vguiPanel") ) )    
         .def( 
             "Think"
-            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ) )( &::CWrapIPanel::Think )
+            , (void ( ::CWrapIPanel::* )( ::vgui::VPANEL ))( &::CWrapIPanel::Think )
             , ( bp::arg("vguiPanel") ) );
 
     { //::CWrapSurface
@@ -1100,7 +1100,7 @@ BOOST_PYTHON_MODULE(_vgui){
             ;
         { //::CWrapSurface::AddBitmapFontFile
         
-            typedef bool ( ::CWrapSurface::*AddBitmapFontFile_function_type )( char const * ) ;
+            typedef bool ( ::CWrapSurface::*AddBitmapFontFile_function_type)( char const * ) ;
             
             ISurface_exposer.def( 
                 "AddBitmapFontFile"
@@ -1110,7 +1110,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::AddCustomFontFile
         
-            typedef bool ( ::CWrapSurface::*AddCustomFontFile_function_type )( char const *,char const * ) ;
+            typedef bool ( ::CWrapSurface::*AddCustomFontFile_function_type)( char const *,char const * ) ;
             
             ISurface_exposer.def( 
                 "AddCustomFontFile"
@@ -1120,7 +1120,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::AddPanel
         
-            typedef void ( ::CWrapSurface::*AddPanel_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*AddPanel_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "AddPanel"
@@ -1130,7 +1130,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::ApplyChanges
         
-            typedef void ( ::CWrapSurface::*ApplyChanges_function_type )(  ) ;
+            typedef void ( ::CWrapSurface::*ApplyChanges_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "ApplyChanges"
@@ -1139,7 +1139,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::BringToFront
         
-            typedef void ( ::CWrapSurface::*BringToFront_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*BringToFront_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "BringToFront"
@@ -1149,7 +1149,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::CalculateMouseVisible
         
-            typedef void ( ::CWrapSurface::*CalculateMouseVisible_function_type )(  ) ;
+            typedef void ( ::CWrapSurface::*CalculateMouseVisible_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "CalculateMouseVisible"
@@ -1158,7 +1158,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::ClearTemporaryFontCache
         
-            typedef void ( ::CWrapSurface::*ClearTemporaryFontCache_function_type )(  ) ;
+            typedef void ( ::CWrapSurface::*ClearTemporaryFontCache_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "ClearTemporaryFontCache"
@@ -1167,7 +1167,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::CreateCursorFromFile
         
-            typedef ::vgui::HCursor ( ::CWrapSurface::*CreateCursorFromFile_function_type )( char const *,char const * ) ;
+            typedef ::vgui::HCursor ( ::CWrapSurface::*CreateCursorFromFile_function_type)( char const *,char const * ) ;
             
             ISurface_exposer.def( 
                 "CreateCursorFromFile"
@@ -1177,7 +1177,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::CreateFont
         
-            typedef ::vgui::HFont ( ::CWrapSurface::*CreateFont_function_type )(  ) ;
+            typedef ::vgui::HFont ( ::CWrapSurface::*CreateFont_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "CreateFont"
@@ -1186,7 +1186,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::CreateHTMLWindow
         
-            typedef ::vgui::IHTML * ( ::CWrapSurface::*CreateHTMLWindow_function_type )( ::vgui::IHTMLEvents *,::vgui::VPANEL ) ;
+            typedef ::vgui::IHTML * ( ::CWrapSurface::*CreateHTMLWindow_function_type)( ::vgui::IHTMLEvents *,::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "CreateHTMLWindow"
@@ -1197,7 +1197,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::CreateNewTextureID
         
-            typedef int ( ::CWrapSurface::*CreateNewTextureID_function_type )( bool ) ;
+            typedef int ( ::CWrapSurface::*CreateNewTextureID_function_type)( bool ) ;
             
             ISurface_exposer.def( 
                 "CreateNewTextureID"
@@ -1207,7 +1207,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::CreatePopup
         
-            typedef void ( ::CWrapSurface::*CreatePopup_function_type )( ::vgui::VPANEL,bool,bool,bool,bool,bool ) ;
+            typedef void ( ::CWrapSurface::*CreatePopup_function_type)( ::vgui::VPANEL,bool,bool,bool,bool,bool ) ;
             
             ISurface_exposer.def( 
                 "CreatePopup"
@@ -1217,7 +1217,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DeleteHTMLWindow
         
-            typedef void ( ::CWrapSurface::*DeleteHTMLWindow_function_type )( ::vgui::IHTML * ) ;
+            typedef void ( ::CWrapSurface::*DeleteHTMLWindow_function_type)( ::vgui::IHTML * ) ;
             
             ISurface_exposer.def( 
                 "DeleteHTMLWindow"
@@ -1227,7 +1227,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DeleteTextureByID
         
-            typedef bool ( ::CWrapSurface::*DeleteTextureByID_function_type )( int ) ;
+            typedef bool ( ::CWrapSurface::*DeleteTextureByID_function_type)( int ) ;
             
             ISurface_exposer.def( 
                 "DeleteTextureByID"
@@ -1237,7 +1237,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DestroyTextureID
         
-            typedef void ( ::CWrapSurface::*DestroyTextureID_function_type )( int ) ;
+            typedef void ( ::CWrapSurface::*DestroyTextureID_function_type)( int ) ;
             
             ISurface_exposer.def( 
                 "DestroyTextureID"
@@ -1247,7 +1247,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawFilledRect
         
-            typedef void ( ::CWrapSurface::*DrawFilledRect_function_type )( int,int,int,int ) ;
+            typedef void ( ::CWrapSurface::*DrawFilledRect_function_type)( int,int,int,int ) ;
             
             ISurface_exposer.def( 
                 "DrawFilledRect"
@@ -1257,7 +1257,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawFilledRectArray
         
-            typedef void ( ::CWrapSurface::*DrawFilledRectArray_function_type )( ::boost::python::list ) ;
+            typedef void ( ::CWrapSurface::*DrawFilledRectArray_function_type)( ::boost::python::list ) ;
             
             ISurface_exposer.def( 
                 "DrawFilledRectArray"
@@ -1267,7 +1267,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawFilledRectFade
         
-            typedef void ( ::CWrapSurface::*DrawFilledRectFade_function_type )( int,int,int,int,unsigned int,unsigned int,bool ) ;
+            typedef void ( ::CWrapSurface::*DrawFilledRectFade_function_type)( int,int,int,int,unsigned int,unsigned int,bool ) ;
             
             ISurface_exposer.def( 
                 "DrawFilledRectFade"
@@ -1277,7 +1277,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawFlushText
         
-            typedef void ( ::CWrapSurface::*DrawFlushText_function_type )(  ) ;
+            typedef void ( ::CWrapSurface::*DrawFlushText_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "DrawFlushText"
@@ -1286,7 +1286,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawGetAlphaMultiplier
         
-            typedef float ( ::CWrapSurface::*DrawGetAlphaMultiplier_function_type )(  ) ;
+            typedef float ( ::CWrapSurface::*DrawGetAlphaMultiplier_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "DrawGetAlphaMultiplier"
@@ -1305,7 +1305,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawGetTextureFile
         
-            typedef bool ( ::CWrapSurface::*DrawGetTextureFile_function_type )( int,char *,int ) ;
+            typedef bool ( ::CWrapSurface::*DrawGetTextureFile_function_type)( int,char *,int ) ;
             
             ISurface_exposer.def( 
                 "DrawGetTextureFile"
@@ -1315,7 +1315,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawGetTextureId
         
-            typedef int ( ::CWrapSurface::*DrawGetTextureId_function_type )( char const * ) ;
+            typedef int ( ::CWrapSurface::*DrawGetTextureId_function_type)( char const * ) ;
             
             ISurface_exposer.def( 
                 "DrawGetTextureId"
@@ -1325,7 +1325,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawGetTextureMatInfoFactory
         
-            typedef ::IVguiMatInfo * ( ::CWrapSurface::*DrawGetTextureMatInfoFactory_function_type )( int ) ;
+            typedef ::IVguiMatInfo * ( ::CWrapSurface::*DrawGetTextureMatInfoFactory_function_type)( int ) ;
             
             ISurface_exposer.def( 
                 "DrawGetTextureMatInfoFactory"
@@ -1346,7 +1346,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawGetUnicodeCharRenderInfo
         
-            typedef bool ( ::CWrapSurface::*DrawGetUnicodeCharRenderInfo_function_type )( wchar_t,::vgui::CharRenderInfo & ) ;
+            typedef bool ( ::CWrapSurface::*DrawGetUnicodeCharRenderInfo_function_type)( wchar_t,::vgui::CharRenderInfo & ) ;
             
             ISurface_exposer.def( 
                 "DrawGetUnicodeCharRenderInfo"
@@ -1356,7 +1356,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawLine
         
-            typedef void ( ::CWrapSurface::*DrawLine_function_type )( int,int,int,int ) ;
+            typedef void ( ::CWrapSurface::*DrawLine_function_type)( int,int,int,int ) ;
             
             ISurface_exposer.def( 
                 "DrawLine"
@@ -1366,7 +1366,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawOutlinedCircle
         
-            typedef void ( ::CWrapSurface::*DrawOutlinedCircle_function_type )( int,int,int,int ) ;
+            typedef void ( ::CWrapSurface::*DrawOutlinedCircle_function_type)( int,int,int,int ) ;
             
             ISurface_exposer.def( 
                 "DrawOutlinedCircle"
@@ -1376,7 +1376,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawOutlinedRect
         
-            typedef void ( ::CWrapSurface::*DrawOutlinedRect_function_type )( int,int,int,int ) ;
+            typedef void ( ::CWrapSurface::*DrawOutlinedRect_function_type)( int,int,int,int ) ;
             
             ISurface_exposer.def( 
                 "DrawOutlinedRect"
@@ -1386,7 +1386,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawPolyLine
         
-            typedef void ( ::CWrapSurface::*DrawPolyLine_function_type )( int *,int *,int ) ;
+            typedef void ( ::CWrapSurface::*DrawPolyLine_function_type)( int *,int *,int ) ;
             
             ISurface_exposer.def( 
                 "DrawPolyLine"
@@ -1396,7 +1396,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawRenderCharFromInfo
         
-            typedef void ( ::CWrapSurface::*DrawRenderCharFromInfo_function_type )( ::vgui::CharRenderInfo const & ) ;
+            typedef void ( ::CWrapSurface::*DrawRenderCharFromInfo_function_type)( ::vgui::CharRenderInfo const & ) ;
             
             ISurface_exposer.def( 
                 "DrawRenderCharFromInfo"
@@ -1406,7 +1406,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawSetAlphaMultiplier
         
-            typedef void ( ::CWrapSurface::*DrawSetAlphaMultiplier_function_type )( float ) ;
+            typedef void ( ::CWrapSurface::*DrawSetAlphaMultiplier_function_type)( float ) ;
             
             ISurface_exposer.def( 
                 "DrawSetAlphaMultiplier"
@@ -1416,7 +1416,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawSetColor
         
-            typedef void ( ::CWrapSurface::*DrawSetColor_function_type )( int,int,int,int ) ;
+            typedef void ( ::CWrapSurface::*DrawSetColor_function_type)( int,int,int,int ) ;
             
             ISurface_exposer.def( 
                 "DrawSetColor"
@@ -1426,7 +1426,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawSetColor
         
-            typedef void ( ::CWrapSurface::*DrawSetColor_function_type )( ::Color ) ;
+            typedef void ( ::CWrapSurface::*DrawSetColor_function_type)( ::Color ) ;
             
             ISurface_exposer.def( 
                 "DrawSetColor"
@@ -1436,7 +1436,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawSetTextColor
         
-            typedef void ( ::CWrapSurface::*DrawSetTextColor_function_type )( int,int,int,int ) ;
+            typedef void ( ::CWrapSurface::*DrawSetTextColor_function_type)( int,int,int,int ) ;
             
             ISurface_exposer.def( 
                 "DrawSetTextColor"
@@ -1446,7 +1446,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawSetTextColor
         
-            typedef void ( ::CWrapSurface::*DrawSetTextColor_function_type )( ::Color ) ;
+            typedef void ( ::CWrapSurface::*DrawSetTextColor_function_type)( ::Color ) ;
             
             ISurface_exposer.def( 
                 "DrawSetTextColor"
@@ -1456,7 +1456,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawSetTextFont
         
-            typedef void ( ::CWrapSurface::*DrawSetTextFont_function_type )( ::vgui::HFont ) ;
+            typedef void ( ::CWrapSurface::*DrawSetTextFont_function_type)( ::vgui::HFont ) ;
             
             ISurface_exposer.def( 
                 "DrawSetTextFont"
@@ -1466,7 +1466,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawSetTextPos
         
-            typedef void ( ::CWrapSurface::*DrawSetTextPos_function_type )( int,int ) ;
+            typedef void ( ::CWrapSurface::*DrawSetTextPos_function_type)( int,int ) ;
             
             ISurface_exposer.def( 
                 "DrawSetTextPos"
@@ -1476,7 +1476,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawSetTextScale
         
-            typedef void ( ::CWrapSurface::*DrawSetTextScale_function_type )( float,float ) ;
+            typedef void ( ::CWrapSurface::*DrawSetTextScale_function_type)( float,float ) ;
             
             ISurface_exposer.def( 
                 "DrawSetTextScale"
@@ -1486,7 +1486,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawSetTexture
         
-            typedef void ( ::CWrapSurface::*DrawSetTexture_function_type )( int ) ;
+            typedef void ( ::CWrapSurface::*DrawSetTexture_function_type)( int ) ;
             
             ISurface_exposer.def( 
                 "DrawSetTexture"
@@ -1496,7 +1496,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawSetTextureFile
         
-            typedef void ( ::CWrapSurface::*DrawSetTextureFile_function_type )( int,char const *,int,bool ) ;
+            typedef void ( ::CWrapSurface::*DrawSetTextureFile_function_type)( int,char const *,int,bool ) ;
             
             ISurface_exposer.def( 
                 "DrawSetTextureFile"
@@ -1506,7 +1506,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawSetTextureFrame
         
-            typedef void ( ::CWrapSurface::*DrawSetTextureFrame_function_type )( int,int,unsigned int * ) ;
+            typedef void ( ::CWrapSurface::*DrawSetTextureFrame_function_type)( int,int,unsigned int * ) ;
             
             ISurface_exposer.def( 
                 "DrawSetTextureFrame"
@@ -1516,7 +1516,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawTexturedLine
         
-            typedef void ( ::CWrapSurface::*DrawTexturedLine_function_type )( ::vgui::Vertex_t const &,::vgui::Vertex_t const & ) ;
+            typedef void ( ::CWrapSurface::*DrawTexturedLine_function_type)( ::vgui::Vertex_t const &,::vgui::Vertex_t const & ) ;
             
             ISurface_exposer.def( 
                 "DrawTexturedLine"
@@ -1526,7 +1526,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawTexturedPolyLine
         
-            typedef void ( ::CWrapSurface::*DrawTexturedPolyLine_function_type )( ::boost::python::list ) ;
+            typedef void ( ::CWrapSurface::*DrawTexturedPolyLine_function_type)( ::boost::python::list ) ;
             
             ISurface_exposer.def( 
                 "DrawTexturedPolyLine"
@@ -1536,7 +1536,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawTexturedPolygon
         
-            typedef void ( ::CWrapSurface::*DrawTexturedPolygon_function_type )( ::boost::python::list ) ;
+            typedef void ( ::CWrapSurface::*DrawTexturedPolygon_function_type)( ::boost::python::list ) ;
             
             ISurface_exposer.def( 
                 "DrawTexturedPolygon"
@@ -1546,7 +1546,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawTexturedRect
         
-            typedef void ( ::CWrapSurface::*DrawTexturedRect_function_type )( int,int,int,int ) ;
+            typedef void ( ::CWrapSurface::*DrawTexturedRect_function_type)( int,int,int,int ) ;
             
             ISurface_exposer.def( 
                 "DrawTexturedRect"
@@ -1556,7 +1556,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawTexturedSubRect
         
-            typedef void ( ::CWrapSurface::*DrawTexturedSubRect_function_type )( int,int,int,int,float,float,float,float ) ;
+            typedef void ( ::CWrapSurface::*DrawTexturedSubRect_function_type)( int,int,int,int,float,float,float,float ) ;
             
             ISurface_exposer.def( 
                 "DrawTexturedSubRect"
@@ -1566,7 +1566,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawUnicodeChar
         
-            typedef void ( ::CWrapSurface::*DrawUnicodeChar_function_type )( wchar_t,int ) ;
+            typedef void ( ::CWrapSurface::*DrawUnicodeChar_function_type)( wchar_t,int ) ;
             
             ISurface_exposer.def( 
                 "DrawUnicodeChar"
@@ -1576,17 +1576,17 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::DrawUnicodeString
         
-            typedef void ( ::CWrapSurface::*DrawUnicodeString_function_type )( ::boost::python::api::object,::vgui::FontDrawType_t ) ;
+            typedef void ( ::CWrapSurface::*DrawUnicodeString_function_type)( ::boost::python::api::object,::vgui::FontDrawType_t ) ;
             
             ISurface_exposer.def( 
                 "DrawUnicodeString"
                 , DrawUnicodeString_function_type( &::CWrapSurface::DrawUnicodeString )
-                , ( bp::arg("unistr"), bp::arg("drawType")=::vgui::FONT_DRAW_DEFAULT ) );
+                , ( bp::arg("unistr"), bp::arg("drawType")=::vgui::FontDrawType_t::FONT_DRAW_DEFAULT ) );
         
         }
         { //::CWrapSurface::DrawUpdateRegionTextureRGBA
         
-            typedef void ( ::CWrapSurface::*DrawUpdateRegionTextureRGBA_function_type )( int,int,int,unsigned char const *,int,int,::ImageFormat ) ;
+            typedef void ( ::CWrapSurface::*DrawUpdateRegionTextureRGBA_function_type)( int,int,int,unsigned char const *,int,int,::ImageFormat ) ;
             
             ISurface_exposer.def( 
                 "DrawUpdateRegionTextureRGBA"
@@ -1596,7 +1596,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::EnableMouseCapture
         
-            typedef void ( ::CWrapSurface::*EnableMouseCapture_function_type )( ::vgui::VPANEL,bool ) ;
+            typedef void ( ::CWrapSurface::*EnableMouseCapture_function_type)( ::vgui::VPANEL,bool ) ;
             
             ISurface_exposer.def( 
                 "EnableMouseCapture"
@@ -1606,7 +1606,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::FlashWindow
         
-            typedef void ( ::CWrapSurface::*FlashWindow_function_type )( ::vgui::VPANEL,bool ) ;
+            typedef void ( ::CWrapSurface::*FlashWindow_function_type)( ::vgui::VPANEL,bool ) ;
             
             ISurface_exposer.def( 
                 "FlashWindow"
@@ -1616,7 +1616,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::ForceScreenPosOffset
         
-            typedef bool ( ::CWrapSurface::*ForceScreenPosOffset_function_type )( bool,int,int ) ;
+            typedef bool ( ::CWrapSurface::*ForceScreenPosOffset_function_type)( bool,int,int ) ;
             
             ISurface_exposer.def( 
                 "ForceScreenPosOffset"
@@ -1626,7 +1626,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::ForceScreenSizeOverride
         
-            typedef bool ( ::CWrapSurface::*ForceScreenSizeOverride_function_type )( bool,int,int ) ;
+            typedef bool ( ::CWrapSurface::*ForceScreenSizeOverride_function_type)( bool,int,int ) ;
             
             ISurface_exposer.def( 
                 "ForceScreenSizeOverride"
@@ -1646,7 +1646,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetBitmapFontName
         
-            typedef char const * ( ::CWrapSurface::*GetBitmapFontName_function_type )( char const * ) ;
+            typedef char const * ( ::CWrapSurface::*GetBitmapFontName_function_type)( char const * ) ;
             
             ISurface_exposer.def( 
                 "GetBitmapFontName"
@@ -1666,7 +1666,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetCharacterWidth
         
-            typedef int ( ::CWrapSurface::*GetCharacterWidth_function_type )( ::vgui::HFont,int ) ;
+            typedef int ( ::CWrapSurface::*GetCharacterWidth_function_type)( ::vgui::HFont,int ) ;
             
             ISurface_exposer.def( 
                 "GetCharacterWidth"
@@ -1676,7 +1676,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetEmbeddedPanel
         
-            typedef ::vgui::VPANEL ( ::CWrapSurface::*GetEmbeddedPanel_function_type )(  ) ;
+            typedef ::vgui::VPANEL ( ::CWrapSurface::*GetEmbeddedPanel_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "GetEmbeddedPanel"
@@ -1685,7 +1685,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetFontAscent
         
-            typedef int ( ::CWrapSurface::*GetFontAscent_function_type )( ::vgui::HFont,wchar_t ) ;
+            typedef int ( ::CWrapSurface::*GetFontAscent_function_type)( ::vgui::HFont,wchar_t ) ;
             
             ISurface_exposer.def( 
                 "GetFontAscent"
@@ -1695,7 +1695,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetFontFamilyName
         
-            typedef char const * ( ::CWrapSurface::*GetFontFamilyName_function_type )( ::vgui::HFont ) ;
+            typedef char const * ( ::CWrapSurface::*GetFontFamilyName_function_type)( ::vgui::HFont ) ;
             
             ISurface_exposer.def( 
                 "GetFontFamilyName"
@@ -1705,7 +1705,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetFontName
         
-            typedef char const * ( ::CWrapSurface::*GetFontName_function_type )( ::vgui::HFont ) ;
+            typedef char const * ( ::CWrapSurface::*GetFontName_function_type)( ::vgui::HFont ) ;
             
             ISurface_exposer.def( 
                 "GetFontName"
@@ -1715,7 +1715,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetFontTall
         
-            typedef int ( ::CWrapSurface::*GetFontTall_function_type )( ::vgui::HFont ) ;
+            typedef int ( ::CWrapSurface::*GetFontTall_function_type)( ::vgui::HFont ) ;
             
             ISurface_exposer.def( 
                 "GetFontTall"
@@ -1725,7 +1725,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetFontTallRequested
         
-            typedef int ( ::CWrapSurface::*GetFontTallRequested_function_type )( ::vgui::HFont ) ;
+            typedef int ( ::CWrapSurface::*GetFontTallRequested_function_type)( ::vgui::HFont ) ;
             
             ISurface_exposer.def( 
                 "GetFontTallRequested"
@@ -1735,7 +1735,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetFullscreenViewport
         
-            typedef void ( ::CWrapSurface::*GetFullscreenViewport_function_type )( int &,int &,int &,int & ) ;
+            typedef void ( ::CWrapSurface::*GetFullscreenViewport_function_type)( int &,int &,int &,int & ) ;
             
             ISurface_exposer.def( 
                 "GetFullscreenViewport"
@@ -1745,7 +1745,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetIconImageForFullPath
         
-            typedef ::vgui::IImage * ( ::CWrapSurface::*GetIconImageForFullPath_function_type )( char const * ) ;
+            typedef ::vgui::IImage * ( ::CWrapSurface::*GetIconImageForFullPath_function_type)( char const * ) ;
             
             ISurface_exposer.def( 
                 "GetIconImageForFullPath"
@@ -1756,7 +1756,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetKernedCharWidth
         
-            typedef void ( ::CWrapSurface::*GetKernedCharWidth_function_type )( ::vgui::HFont,wchar_t,wchar_t,wchar_t,float &,float & ) ;
+            typedef void ( ::CWrapSurface::*GetKernedCharWidth_function_type)( ::vgui::HFont,wchar_t,wchar_t,wchar_t,float &,float & ) ;
             
             ISurface_exposer.def( 
                 "GetKernedCharWidth"
@@ -1766,7 +1766,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetModalPanel
         
-            typedef ::vgui::VPANEL ( ::CWrapSurface::*GetModalPanel_function_type )(  ) ;
+            typedef ::vgui::VPANEL ( ::CWrapSurface::*GetModalPanel_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "GetModalPanel"
@@ -1775,7 +1775,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetNotifyPanel
         
-            typedef ::vgui::VPANEL ( ::CWrapSurface::*GetNotifyPanel_function_type )(  ) ;
+            typedef ::vgui::VPANEL ( ::CWrapSurface::*GetNotifyPanel_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "GetNotifyPanel"
@@ -1784,7 +1784,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetPopup
         
-            typedef ::vgui::VPANEL ( ::CWrapSurface::*GetPopup_function_type )( int ) ;
+            typedef ::vgui::VPANEL ( ::CWrapSurface::*GetPopup_function_type)( int ) ;
             
             ISurface_exposer.def( 
                 "GetPopup"
@@ -1794,7 +1794,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetPopupCount
         
-            typedef int ( ::CWrapSurface::*GetPopupCount_function_type )(  ) ;
+            typedef int ( ::CWrapSurface::*GetPopupCount_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "GetPopupCount"
@@ -1813,7 +1813,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetResolutionKey
         
-            typedef char const * ( ::CWrapSurface::*GetResolutionKey_function_type )(  ) const;
+            typedef char const * ( ::CWrapSurface::*GetResolutionKey_function_type)(  ) const;
             
             ISurface_exposer.def( 
                 "GetResolutionKey"
@@ -1832,7 +1832,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetTextSize
         
-            typedef ::boost::python::tuple ( ::CWrapSurface::*GetTextSize_function_type )( ::vgui::HFont,::boost::python::api::object ) ;
+            typedef ::boost::python::tuple ( ::CWrapSurface::*GetTextSize_function_type)( ::vgui::HFont,::boost::python::api::object ) ;
             
             ISurface_exposer.def( 
                 "GetTextSize"
@@ -1842,7 +1842,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetTextureNumFrames
         
-            typedef int ( ::CWrapSurface::*GetTextureNumFrames_function_type )( int ) ;
+            typedef int ( ::CWrapSurface::*GetTextureNumFrames_function_type)( int ) ;
             
             ISurface_exposer.def( 
                 "GetTextureNumFrames"
@@ -1852,7 +1852,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetTitle
         
-            typedef wchar_t const * ( ::CWrapSurface::*GetTitle_function_type )( ::vgui::VPANEL ) ;
+            typedef wchar_t const * ( ::CWrapSurface::*GetTitle_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "GetTitle"
@@ -1863,7 +1863,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetTopmostPopup
         
-            typedef ::vgui::VPANEL ( ::CWrapSurface::*GetTopmostPopup_function_type )(  ) ;
+            typedef ::vgui::VPANEL ( ::CWrapSurface::*GetTopmostPopup_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "GetTopmostPopup"
@@ -1872,7 +1872,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetWebkitHTMLUserAgentString
         
-            typedef char const * ( ::CWrapSurface::*GetWebkitHTMLUserAgentString_function_type )(  ) ;
+            typedef char const * ( ::CWrapSurface::*GetWebkitHTMLUserAgentString_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "GetWebkitHTMLUserAgentString"
@@ -1891,7 +1891,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::GetZPos
         
-            typedef float ( ::CWrapSurface::*GetZPos_function_type )(  ) const;
+            typedef float ( ::CWrapSurface::*GetZPos_function_type)(  ) const;
             
             ISurface_exposer.def( 
                 "GetZPos"
@@ -1900,7 +1900,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::HasCursorPosFunctions
         
-            typedef bool ( ::CWrapSurface::*HasCursorPosFunctions_function_type )(  ) ;
+            typedef bool ( ::CWrapSurface::*HasCursorPosFunctions_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "HasCursorPosFunctions"
@@ -1909,7 +1909,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::HasFocus
         
-            typedef bool ( ::CWrapSurface::*HasFocus_function_type )(  ) ;
+            typedef bool ( ::CWrapSurface::*HasFocus_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "HasFocus"
@@ -1918,7 +1918,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::Invalidate
         
-            typedef void ( ::CWrapSurface::*Invalidate_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*Invalidate_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "Invalidate"
@@ -1928,7 +1928,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::IsCursorLocked
         
-            typedef bool ( ::CWrapSurface::*IsCursorLocked_function_type )(  ) const;
+            typedef bool ( ::CWrapSurface::*IsCursorLocked_function_type)(  ) const;
             
             ISurface_exposer.def( 
                 "IsCursorLocked"
@@ -1937,7 +1937,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::IsCursorVisible
         
-            typedef bool ( ::CWrapSurface::*IsCursorVisible_function_type )(  ) ;
+            typedef bool ( ::CWrapSurface::*IsCursorVisible_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "IsCursorVisible"
@@ -1946,7 +1946,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::IsFontAdditive
         
-            typedef bool ( ::CWrapSurface::*IsFontAdditive_function_type )( ::vgui::HFont ) ;
+            typedef bool ( ::CWrapSurface::*IsFontAdditive_function_type)( ::vgui::HFont ) ;
             
             ISurface_exposer.def( 
                 "IsFontAdditive"
@@ -1956,7 +1956,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::IsMinimized
         
-            typedef bool ( ::CWrapSurface::*IsMinimized_function_type )( ::vgui::VPANEL ) ;
+            typedef bool ( ::CWrapSurface::*IsMinimized_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "IsMinimized"
@@ -1966,7 +1966,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::IsScreenPosOverrideActive
         
-            typedef bool ( ::CWrapSurface::*IsScreenPosOverrideActive_function_type )(  ) ;
+            typedef bool ( ::CWrapSurface::*IsScreenPosOverrideActive_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "IsScreenPosOverrideActive"
@@ -1975,7 +1975,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::IsScreenSizeOverrideActive
         
-            typedef bool ( ::CWrapSurface::*IsScreenSizeOverrideActive_function_type )(  ) ;
+            typedef bool ( ::CWrapSurface::*IsScreenSizeOverrideActive_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "IsScreenSizeOverrideActive"
@@ -1984,7 +1984,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::IsTextureIDValid
         
-            typedef bool ( ::CWrapSurface::*IsTextureIDValid_function_type )( int ) ;
+            typedef bool ( ::CWrapSurface::*IsTextureIDValid_function_type)( int ) ;
             
             ISurface_exposer.def( 
                 "IsTextureIDValid"
@@ -1994,7 +1994,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::IsWithin
         
-            typedef bool ( ::CWrapSurface::*IsWithin_function_type )( int,int ) ;
+            typedef bool ( ::CWrapSurface::*IsWithin_function_type)( int,int ) ;
             
             ISurface_exposer.def( 
                 "IsWithin"
@@ -2004,7 +2004,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::LockCursor
         
-            typedef void ( ::CWrapSurface::*LockCursor_function_type )(  ) ;
+            typedef void ( ::CWrapSurface::*LockCursor_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "LockCursor"
@@ -2013,7 +2013,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::MovePopupToBack
         
-            typedef void ( ::CWrapSurface::*MovePopupToBack_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*MovePopupToBack_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "MovePopupToBack"
@@ -2023,7 +2023,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::MovePopupToFront
         
-            typedef void ( ::CWrapSurface::*MovePopupToFront_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*MovePopupToFront_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "MovePopupToFront"
@@ -2033,7 +2033,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::NeedKBInput
         
-            typedef bool ( ::CWrapSurface::*NeedKBInput_function_type )(  ) ;
+            typedef bool ( ::CWrapSurface::*NeedKBInput_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "NeedKBInput"
@@ -2042,7 +2042,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::OffsetAbsPos
         
-            typedef void ( ::CWrapSurface::*OffsetAbsPos_function_type )( int &,int & ) ;
+            typedef void ( ::CWrapSurface::*OffsetAbsPos_function_type)( int &,int & ) ;
             
             ISurface_exposer.def( 
                 "OffsetAbsPos"
@@ -2052,7 +2052,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::OnScreenSizeChanged
         
-            typedef void ( ::CWrapSurface::*OnScreenSizeChanged_function_type )( int,int ) ;
+            typedef void ( ::CWrapSurface::*OnScreenSizeChanged_function_type)( int,int ) ;
             
             ISurface_exposer.def( 
                 "OnScreenSizeChanged"
@@ -2062,7 +2062,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::PaintHTMLWindow
         
-            typedef void ( ::CWrapSurface::*PaintHTMLWindow_function_type )( ::vgui::IHTML * ) ;
+            typedef void ( ::CWrapSurface::*PaintHTMLWindow_function_type)( ::vgui::IHTML * ) ;
             
             ISurface_exposer.def( 
                 "PaintHTMLWindow"
@@ -2072,7 +2072,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::PaintSoftwareCursor
         
-            typedef void ( ::CWrapSurface::*PaintSoftwareCursor_function_type )(  ) ;
+            typedef void ( ::CWrapSurface::*PaintSoftwareCursor_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "PaintSoftwareCursor"
@@ -2081,7 +2081,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::PaintTraverse
         
-            typedef void ( ::CWrapSurface::*PaintTraverse_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*PaintTraverse_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "PaintTraverse"
@@ -2091,7 +2091,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::PaintTraverseEx
         
-            typedef void ( ::CWrapSurface::*PaintTraverseEx_function_type )( ::vgui::VPANEL,bool ) ;
+            typedef void ( ::CWrapSurface::*PaintTraverseEx_function_type)( ::vgui::VPANEL,bool ) ;
             
             ISurface_exposer.def( 
                 "PaintTraverseEx"
@@ -2101,7 +2101,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::PlaySound
         
-            typedef void ( ::CWrapSurface::*PlaySound_function_type )( char const * ) ;
+            typedef void ( ::CWrapSurface::*PlaySound_function_type)( char const * ) ;
             
             ISurface_exposer.def( 
                 "PlaySound"
@@ -2111,7 +2111,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::PopFullscreenViewport
         
-            typedef void ( ::CWrapSurface::*PopFullscreenViewport_function_type )(  ) ;
+            typedef void ( ::CWrapSurface::*PopFullscreenViewport_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "PopFullscreenViewport"
@@ -2120,7 +2120,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::PopMakeCurrent
         
-            typedef void ( ::CWrapSurface::*PopMakeCurrent_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*PopMakeCurrent_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "PopMakeCurrent"
@@ -2130,7 +2130,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::PrecacheFontCharacters
         
-            typedef void ( ::CWrapSurface::*PrecacheFontCharacters_function_type )( ::vgui::HFont,wchar_t const * ) ;
+            typedef void ( ::CWrapSurface::*PrecacheFontCharacters_function_type)( ::vgui::HFont,wchar_t const * ) ;
             
             ISurface_exposer.def( 
                 "PrecacheFontCharacters"
@@ -2140,7 +2140,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::PushFullscreenViewport
         
-            typedef void ( ::CWrapSurface::*PushFullscreenViewport_function_type )(  ) ;
+            typedef void ( ::CWrapSurface::*PushFullscreenViewport_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "PushFullscreenViewport"
@@ -2149,7 +2149,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::PushMakeCurrent
         
-            typedef void ( ::CWrapSurface::*PushMakeCurrent_function_type )( ::vgui::VPANEL,bool ) ;
+            typedef void ( ::CWrapSurface::*PushMakeCurrent_function_type)( ::vgui::VPANEL,bool ) ;
             
             ISurface_exposer.def( 
                 "PushMakeCurrent"
@@ -2159,7 +2159,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::RecreateContext
         
-            typedef bool ( ::CWrapSurface::*RecreateContext_function_type )( ::vgui::VPANEL ) ;
+            typedef bool ( ::CWrapSurface::*RecreateContext_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "RecreateContext"
@@ -2169,7 +2169,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::ReleasePanel
         
-            typedef void ( ::CWrapSurface::*ReleasePanel_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*ReleasePanel_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "ReleasePanel"
@@ -2179,7 +2179,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::ResetFontCaches
         
-            typedef void ( ::CWrapSurface::*ResetFontCaches_function_type )(  ) ;
+            typedef void ( ::CWrapSurface::*ResetFontCaches_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "ResetFontCaches"
@@ -2188,7 +2188,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::RestrictPaintToSinglePanel
         
-            typedef void ( ::CWrapSurface::*RestrictPaintToSinglePanel_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*RestrictPaintToSinglePanel_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "RestrictPaintToSinglePanel"
@@ -2198,7 +2198,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetAllowHTMLJavaScript
         
-            typedef void ( ::CWrapSurface::*SetAllowHTMLJavaScript_function_type )( bool ) ;
+            typedef void ( ::CWrapSurface::*SetAllowHTMLJavaScript_function_type)( bool ) ;
             
             ISurface_exposer.def( 
                 "SetAllowHTMLJavaScript"
@@ -2208,7 +2208,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetAsToolBar
         
-            typedef void ( ::CWrapSurface::*SetAsToolBar_function_type )( ::vgui::VPANEL,bool ) ;
+            typedef void ( ::CWrapSurface::*SetAsToolBar_function_type)( ::vgui::VPANEL,bool ) ;
             
             ISurface_exposer.def( 
                 "SetAsToolBar"
@@ -2218,7 +2218,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetAsTopMost
         
-            typedef void ( ::CWrapSurface::*SetAsTopMost_function_type )( ::vgui::VPANEL,bool ) ;
+            typedef void ( ::CWrapSurface::*SetAsTopMost_function_type)( ::vgui::VPANEL,bool ) ;
             
             ISurface_exposer.def( 
                 "SetAsTopMost"
@@ -2228,7 +2228,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetBitmapFontGlyphSet
         
-            typedef bool ( ::CWrapSurface::*SetBitmapFontGlyphSet_function_type )( ::vgui::HFont,char const *,float,float,int ) ;
+            typedef bool ( ::CWrapSurface::*SetBitmapFontGlyphSet_function_type)( ::vgui::HFont,char const *,float,float,int ) ;
             
             ISurface_exposer.def( 
                 "SetBitmapFontGlyphSet"
@@ -2238,7 +2238,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetBitmapFontName
         
-            typedef void ( ::CWrapSurface::*SetBitmapFontName_function_type )( char const *,char const * ) ;
+            typedef void ( ::CWrapSurface::*SetBitmapFontName_function_type)( char const *,char const * ) ;
             
             ISurface_exposer.def( 
                 "SetBitmapFontName"
@@ -2248,7 +2248,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetCursor
         
-            typedef void ( ::CWrapSurface::*SetCursor_function_type )( ::vgui::HCursor ) ;
+            typedef void ( ::CWrapSurface::*SetCursor_function_type)( ::vgui::HCursor ) ;
             
             ISurface_exposer.def( 
                 "SetCursor"
@@ -2258,7 +2258,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetCursorAlwaysVisible
         
-            typedef void ( ::CWrapSurface::*SetCursorAlwaysVisible_function_type )( bool ) ;
+            typedef void ( ::CWrapSurface::*SetCursorAlwaysVisible_function_type)( bool ) ;
             
             ISurface_exposer.def( 
                 "SetCursorAlwaysVisible"
@@ -2268,7 +2268,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetEmbeddedPanel
         
-            typedef void ( ::CWrapSurface::*SetEmbeddedPanel_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*SetEmbeddedPanel_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "SetEmbeddedPanel"
@@ -2278,7 +2278,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetFontGlyphSet
         
-            typedef bool ( ::CWrapSurface::*SetFontGlyphSet_function_type )( ::vgui::HFont,char const *,int,int,int,int,int,int,int ) ;
+            typedef bool ( ::CWrapSurface::*SetFontGlyphSet_function_type)( ::vgui::HFont,char const *,int,int,int,int,int,int,int ) ;
             
             ISurface_exposer.def( 
                 "SetFontGlyphSet"
@@ -2288,7 +2288,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetForegroundWindow
         
-            typedef void ( ::CWrapSurface::*SetForegroundWindow_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*SetForegroundWindow_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "SetForegroundWindow"
@@ -2298,7 +2298,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetFullscreenViewport
         
-            typedef void ( ::CWrapSurface::*SetFullscreenViewport_function_type )( int,int,int,int ) ;
+            typedef void ( ::CWrapSurface::*SetFullscreenViewport_function_type)( int,int,int,int ) ;
             
             ISurface_exposer.def( 
                 "SetFullscreenViewport"
@@ -2308,7 +2308,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetMinimized
         
-            typedef void ( ::CWrapSurface::*SetMinimized_function_type )( ::vgui::VPANEL,bool ) ;
+            typedef void ( ::CWrapSurface::*SetMinimized_function_type)( ::vgui::VPANEL,bool ) ;
             
             ISurface_exposer.def( 
                 "SetMinimized"
@@ -2318,7 +2318,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetModalPanel
         
-            typedef void ( ::CWrapSurface::*SetModalPanel_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*SetModalPanel_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "SetModalPanel"
@@ -2328,7 +2328,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetNotifyIcon
         
-            typedef void ( ::CWrapSurface::*SetNotifyIcon_function_type )( ::vgui::VPANEL,::vgui::HTexture,::vgui::VPANEL,char const * ) ;
+            typedef void ( ::CWrapSurface::*SetNotifyIcon_function_type)( ::vgui::VPANEL,::vgui::HTexture,::vgui::VPANEL,char const * ) ;
             
             ISurface_exposer.def( 
                 "SetNotifyIcon"
@@ -2338,7 +2338,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetPanelForInput
         
-            typedef void ( ::CWrapSurface::*SetPanelForInput_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*SetPanelForInput_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "SetPanelForInput"
@@ -2348,7 +2348,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetPanelVisible
         
-            typedef void ( ::CWrapSurface::*SetPanelVisible_function_type )( ::vgui::VPANEL,bool ) ;
+            typedef void ( ::CWrapSurface::*SetPanelVisible_function_type)( ::vgui::VPANEL,bool ) ;
             
             ISurface_exposer.def( 
                 "SetPanelVisible"
@@ -2358,7 +2358,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetSoftwareCursor
         
-            typedef void ( ::CWrapSurface::*SetSoftwareCursor_function_type )( bool ) ;
+            typedef void ( ::CWrapSurface::*SetSoftwareCursor_function_type)( bool ) ;
             
             ISurface_exposer.def( 
                 "SetSoftwareCursor"
@@ -2368,7 +2368,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetTitle
         
-            typedef void ( ::CWrapSurface::*SetTitle_function_type )( ::vgui::VPANEL,wchar_t const * ) ;
+            typedef void ( ::CWrapSurface::*SetTitle_function_type)( ::vgui::VPANEL,wchar_t const * ) ;
             
             ISurface_exposer.def( 
                 "SetTitle"
@@ -2378,7 +2378,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetTopLevelFocus
         
-            typedef void ( ::CWrapSurface::*SetTopLevelFocus_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*SetTopLevelFocus_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "SetTopLevelFocus"
@@ -2388,7 +2388,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetTranslateExtendedKeys
         
-            typedef void ( ::CWrapSurface::*SetTranslateExtendedKeys_function_type )( bool ) ;
+            typedef void ( ::CWrapSurface::*SetTranslateExtendedKeys_function_type)( bool ) ;
             
             ISurface_exposer.def( 
                 "SetTranslateExtendedKeys"
@@ -2398,7 +2398,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SetWorkspaceInsets
         
-            typedef void ( ::CWrapSurface::*SetWorkspaceInsets_function_type )( int,int,int,int ) ;
+            typedef void ( ::CWrapSurface::*SetWorkspaceInsets_function_type)( int,int,int,int ) ;
             
             ISurface_exposer.def( 
                 "SetWorkspaceInsets"
@@ -2408,7 +2408,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::ShouldPaintChildPanel
         
-            typedef bool ( ::CWrapSurface::*ShouldPaintChildPanel_function_type )( ::vgui::VPANEL ) ;
+            typedef bool ( ::CWrapSurface::*ShouldPaintChildPanel_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "ShouldPaintChildPanel"
@@ -2418,7 +2418,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SolveTraverse
         
-            typedef void ( ::CWrapSurface::*SolveTraverse_function_type )( ::vgui::VPANEL,bool ) ;
+            typedef void ( ::CWrapSurface::*SolveTraverse_function_type)( ::vgui::VPANEL,bool ) ;
             
             ISurface_exposer.def( 
                 "SolveTraverse"
@@ -2428,7 +2428,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SupportsFeature
         
-            typedef bool ( ::CWrapSurface::*SupportsFeature_function_type )( ::CWrapSurface::SurfaceFeature_e ) ;
+            typedef bool ( ::CWrapSurface::*SupportsFeature_function_type)( ::CWrapSurface::SurfaceFeature_e ) ;
             
             ISurface_exposer.def( 
                 "SupportsFeature"
@@ -2448,7 +2448,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SurfaceSetCursorPos
         
-            typedef void ( ::CWrapSurface::*SurfaceSetCursorPos_function_type )( int,int ) ;
+            typedef void ( ::CWrapSurface::*SurfaceSetCursorPos_function_type)( int,int ) ;
             
             ISurface_exposer.def( 
                 "SurfaceSetCursorPos"
@@ -2458,7 +2458,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::SwapBuffers
         
-            typedef void ( ::CWrapSurface::*SwapBuffers_function_type )( ::vgui::VPANEL ) ;
+            typedef void ( ::CWrapSurface::*SwapBuffers_function_type)( ::vgui::VPANEL ) ;
             
             ISurface_exposer.def( 
                 "SwapBuffers"
@@ -2468,7 +2468,7 @@ BOOST_PYTHON_MODULE(_vgui){
         }
         { //::CWrapSurface::UnlockCursor
         
-            typedef void ( ::CWrapSurface::*UnlockCursor_function_type )(  ) ;
+            typedef void ( ::CWrapSurface::*UnlockCursor_function_type)(  ) ;
             
             ISurface_exposer.def( 
                 "UnlockCursor"
@@ -2480,7 +2480,7 @@ BOOST_PYTHON_MODULE(_vgui){
     bp::class_< IClientMode, boost::noncopyable >( "IClientMode", bp::no_init )    
         .def( 
             "ActivateInGameVGuiContext"
-            , (void ( ::IClientMode::* )( ::vgui::Panel * ) )( &::IClientMode::ActivateInGameVGuiContext )
+            , (void ( ::IClientMode::* )( ::vgui::Panel * ))( &::IClientMode::ActivateInGameVGuiContext )
             , ( bp::arg("pPanel") ) )    
         .def( 
             "AdjustEngineViewport"
@@ -2488,642 +2488,642 @@ BOOST_PYTHON_MODULE(_vgui){
             , ( bp::arg("inst") ) )    
         .def( 
             "CanRecordDemo"
-            , (bool ( ::IClientMode::* )( char *,int ) const)( &::IClientMode::CanRecordDemo )
+            , (bool ( ::IClientMode::* )( char *,int )const)( &::IClientMode::CanRecordDemo )
             , ( bp::arg("errorMsg"), bp::arg("length") ) )    
         .def( 
             "ComputeVguiResConditions"
-            , (void ( ::IClientMode::* )( ::KeyValues * ) )( &::IClientMode::ComputeVguiResConditions )
+            , (void ( ::IClientMode::* )( ::KeyValues * ))( &::IClientMode::ComputeVguiResConditions )
             , ( bp::arg("pkvConditions") ) )    
         .def( 
             "CreateMove"
-            , (bool ( ::IClientMode::* )( float,::CUserCmd * ) )( &::IClientMode::CreateMove )
+            , (bool ( ::IClientMode::* )( float,::CUserCmd * ))( &::IClientMode::CreateMove )
             , ( bp::arg("flInputSampleTime"), bp::arg("cmd") ) )    
         .def( 
             "DeactivateInGameVGuiContext"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::DeactivateInGameVGuiContext ) )    
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::DeactivateInGameVGuiContext ) )    
         .def( 
             "Disable"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::Disable ) )    
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::Disable ) )    
         .def( 
             "DisplayReplayMessage"
-            , (void ( ::IClientMode::* )( char const *,float,bool,char const *,bool ) )( &::IClientMode::DisplayReplayMessage )
+            , (void ( ::IClientMode::* )( char const *,float,bool,char const *,bool ))( &::IClientMode::DisplayReplayMessage )
             , ( bp::arg("pLocalizeName"), bp::arg("flDuration"), bp::arg("bUrgent"), bp::arg("pSound"), bp::arg("bDlg") ) )    
         .def( 
             "DoPostScreenSpaceEffects"
-            , (bool ( ::IClientMode::* )( ::CViewSetup const * ) )( &::IClientMode::DoPostScreenSpaceEffects )
+            , (bool ( ::IClientMode::* )( ::CViewSetup const * ))( &::IClientMode::DoPostScreenSpaceEffects )
             , ( bp::arg("pSetup") ) )    
         .def( 
             "Enable"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::Enable ) )    
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::Enable ) )    
         .def( 
             "GetMessagePanel"
-            , (::vgui::Panel * ( ::IClientMode::* )(  ) )( &::IClientMode::GetMessagePanel )
+            , (::vgui::Panel * ( ::IClientMode::* )(  ))( &::IClientMode::GetMessagePanel )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "GetViewModelFOV"
-            , (float ( ::IClientMode::* )(  ) )( &::IClientMode::GetViewModelFOV ) )    
+            , (float ( ::IClientMode::* )(  ))( &::IClientMode::GetViewModelFOV ) )    
         .def( 
             "GetViewport"
-            , (::vgui::Panel * ( ::IClientMode::* )(  ) )( &::IClientMode::GetViewport )
+            , (::vgui::Panel * ( ::IClientMode::* )(  ))( &::IClientMode::GetViewport )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "GetViewportAnimationController"
-            , (::vgui::AnimationController * ( ::IClientMode::* )(  ) )( &::IClientMode::GetViewportAnimationController )
+            , (::vgui::AnimationController * ( ::IClientMode::* )(  ))( &::IClientMode::GetViewportAnimationController )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "InfoPanelDisplayed"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::InfoPanelDisplayed ) )    
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::InfoPanelDisplayed ) )    
         .def( 
             "Init"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::Init ) )    
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::Init ) )    
         .def( 
             "InitViewport"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::InitViewport ) )    
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::InitViewport ) )    
         .def( 
             "IsHTMLInfoPanelAllowed"
-            , (bool ( ::IClientMode::* )(  ) )( &::IClientMode::IsHTMLInfoPanelAllowed ) )    
+            , (bool ( ::IClientMode::* )(  ))( &::IClientMode::IsHTMLInfoPanelAllowed ) )    
         .def( 
             "IsInfoPanelAllowed"
-            , (bool ( ::IClientMode::* )(  ) )( &::IClientMode::IsInfoPanelAllowed ) )    
+            , (bool ( ::IClientMode::* )(  ))( &::IClientMode::IsInfoPanelAllowed ) )    
         .def( 
             "KeyInput"
-            , (int ( ::IClientMode::* )( int,::ButtonCode_t,char const * ) )( &::IClientMode::KeyInput )
+            , (int ( ::IClientMode::* )( int,::ButtonCode_t,char const * ))( &::IClientMode::KeyInput )
             , ( bp::arg("down"), bp::arg("keynum"), bp::arg("pszCurrentBinding") ) )    
         .def( 
             "Layout"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::Layout ) )    
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::Layout ) )    
         .def( 
             "LevelInit"
-            , (void ( ::IClientMode::* )( char const * ) )( &::IClientMode::LevelInit )
+            , (void ( ::IClientMode::* )( char const * ))( &::IClientMode::LevelInit )
             , ( bp::arg("newmap") ) )    
         .def( 
             "LevelShutdown"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::LevelShutdown ) )    
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::LevelShutdown ) )    
         .def( 
             "OverrideMouseInput"
-            , (void ( ::IClientMode::* )( float *,float * ) )( &::IClientMode::OverrideMouseInput )
+            , (void ( ::IClientMode::* )( float *,float * ))( &::IClientMode::OverrideMouseInput )
             , ( bp::arg("x"), bp::arg("y") ) )    
         .def( 
             "OverrideView"
-            , (void ( ::IClientMode::* )( ::CViewSetup * ) )( &::IClientMode::OverrideView )
+            , (void ( ::IClientMode::* )( ::CViewSetup * ))( &::IClientMode::OverrideView )
             , ( bp::arg("pSetup") ) )    
         .def( 
             "PostRender"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::PostRender ) )    
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::PostRender ) )    
         .def( 
             "PostRenderVGui"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::PostRenderVGui ) )    
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::PostRenderVGui ) )    
         .def( 
             "PreRender"
-            , (void ( ::IClientMode::* )( ::CViewSetup * ) )( &::IClientMode::PreRender )
+            , (void ( ::IClientMode::* )( ::CViewSetup * ))( &::IClientMode::PreRender )
             , ( bp::arg("pSetup") ) )    
         .def( 
             "ProcessInput"
-            , (void ( ::IClientMode::* )( bool ) )( &::IClientMode::ProcessInput )
+            , (void ( ::IClientMode::* )( bool ))( &::IClientMode::ProcessInput )
             , ( bp::arg("bActive") ) )    
         .def( 
             "SetMapName"
-            , (void ( ::IClientMode::* )( wchar_t * ) )( &::IClientMode::SetMapName )
+            , (void ( ::IClientMode::* )( wchar_t * ))( &::IClientMode::SetMapName )
             , ( bp::arg("name") ) )    
         .def( 
             "SetServerName"
-            , (void ( ::IClientMode::* )( wchar_t * ) )( &::IClientMode::SetServerName )
+            , (void ( ::IClientMode::* )( wchar_t * ))( &::IClientMode::SetServerName )
             , ( bp::arg("name") ) )    
         .def( 
             "ShouldBlackoutAroundHUD"
-            , (bool ( ::IClientMode::* )(  ) )( &::IClientMode::ShouldBlackoutAroundHUD ) )    
+            , (bool ( ::IClientMode::* )(  ))( &::IClientMode::ShouldBlackoutAroundHUD ) )    
         .def( 
             "ShouldDrawCrosshair"
-            , (bool ( ::IClientMode::* )(  ) )( &::IClientMode::ShouldDrawCrosshair ) )    
+            , (bool ( ::IClientMode::* )(  ))( &::IClientMode::ShouldDrawCrosshair ) )    
         .def( 
             "ShouldDrawDetailObjects"
-            , (bool ( ::IClientMode::* )(  ) )( &::IClientMode::ShouldDrawDetailObjects ) )    
+            , (bool ( ::IClientMode::* )(  ))( &::IClientMode::ShouldDrawDetailObjects ) )    
         .def( 
             "ShouldDrawEntity"
-            , (bool ( ::IClientMode::* )( ::C_BaseEntity * ) )( &::IClientMode::ShouldDrawEntity )
+            , (bool ( ::IClientMode::* )( ::C_BaseEntity * ))( &::IClientMode::ShouldDrawEntity )
             , ( bp::arg("pEnt") ) )    
         .def( 
             "ShouldDrawFog"
-            , (bool ( ::IClientMode::* )(  ) )( &::IClientMode::ShouldDrawFog ) )    
+            , (bool ( ::IClientMode::* )(  ))( &::IClientMode::ShouldDrawFog ) )    
         .def( 
             "ShouldDrawLocalPlayer"
-            , (bool ( ::IClientMode::* )( ::C_BasePlayer * ) )( &::IClientMode::ShouldDrawLocalPlayer )
+            , (bool ( ::IClientMode::* )( ::C_BasePlayer * ))( &::IClientMode::ShouldDrawLocalPlayer )
             , ( bp::arg("pPlayer") ) )    
         .def( 
             "ShouldDrawParticles"
-            , (bool ( ::IClientMode::* )(  ) )( &::IClientMode::ShouldDrawParticles ) )    
+            , (bool ( ::IClientMode::* )(  ))( &::IClientMode::ShouldDrawParticles ) )    
         .def( 
             "ShouldDrawViewModel"
-            , (bool ( ::IClientMode::* )(  ) )( &::IClientMode::ShouldDrawViewModel ) )    
+            , (bool ( ::IClientMode::* )(  ))( &::IClientMode::ShouldDrawViewModel ) )    
         .def( 
             "ShouldOverrideHeadtrackControl"
-            , (::HeadtrackMovementMode_t ( ::IClientMode::* )(  ) )( &::IClientMode::ShouldOverrideHeadtrackControl ) )    
+            , (::HeadtrackMovementMode_t ( ::IClientMode::* )(  ))( &::IClientMode::ShouldOverrideHeadtrackControl ) )    
         .def( 
             "Shutdown"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::Shutdown ) )    
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::Shutdown ) )    
         .def( 
             "StartMessageMode"
-            , (void ( ::IClientMode::* )( int ) )( &::IClientMode::StartMessageMode )
+            , (void ( ::IClientMode::* )( int ))( &::IClientMode::StartMessageMode )
             , ( bp::arg("iMessageModeType") ) )    
         .def( 
             "Update"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::Update ) )    
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::Update ) )    
         .def( 
             "VGui_Shutdown"
-            , (void ( ::IClientMode::* )(  ) )( &::IClientMode::VGui_Shutdown ) );
+            , (void ( ::IClientMode::* )(  ))( &::IClientMode::VGui_Shutdown ) );
 
     bp::class_< PyLocalize >( "Localize" )    
         .def( 
             "AddFile"
-            , (bool ( ::PyLocalize::* )( char const *,char const *,bool ) )( &::PyLocalize::AddFile )
+            , (bool ( ::PyLocalize::* )( char const *,char const *,bool ))( &::PyLocalize::AddFile )
             , ( bp::arg("fileName"), bp::arg("pPathID")=bp::object(), bp::arg("bIncludeFallbackSearchPaths")=(bool)(false) ) )    
         .def( 
             "AddString"
-            , (void ( ::PyLocalize::* )( char const *,wchar_t *,char const * ) )( &::PyLocalize::AddString )
+            , (void ( ::PyLocalize::* )( char const *,wchar_t *,char const * ))( &::PyLocalize::AddString )
             , ( bp::arg("tokenName"), bp::arg("unicodeString"), bp::arg("fileName") ) )    
         .def( 
             "ConstructString"
-            , (::boost::python::api::object ( ::PyLocalize::* )( char const *,::KeyValues * ) )( &::PyLocalize::ConstructString )
+            , (::boost::python::api::object ( ::PyLocalize::* )( char const *,::KeyValues * ))( &::PyLocalize::ConstructString )
             , ( bp::arg("tokenName"), bp::arg("localizationVariables") ) )    
         .def( 
             "ConstructString"
-            , (::boost::python::api::object ( ::PyLocalize::* )( ::StringIndex_t,::KeyValues * ) )( &::PyLocalize::ConstructString )
+            , (::boost::python::api::object ( ::PyLocalize::* )( ::StringIndex_t,::KeyValues * ))( &::PyLocalize::ConstructString )
             , ( bp::arg("unlocalizedTextSymbol"), bp::arg("localizationVariables") ) )    
         .def( 
             "ConvertANSIToUnicode"
-            , (::boost::python::tuple ( ::PyLocalize::* )( char const * ) )( &::PyLocalize::ConvertANSIToUnicode )
+            , (::boost::python::tuple ( ::PyLocalize::* )( char const * ))( &::PyLocalize::ConvertANSIToUnicode )
             , ( bp::arg("ansi") ) )    
         .def( 
             "ConvertUnicodeToANSI"
-            , (::boost::python::tuple ( ::PyLocalize::* )( wchar_t const * ) )( &::PyLocalize::ConvertUnicodeToANSI )
+            , (::boost::python::tuple ( ::PyLocalize::* )( wchar_t const * ))( &::PyLocalize::ConvertUnicodeToANSI )
             , ( bp::arg("unicode") ) )    
         .def( 
             "Find"
-            , (wchar_t * ( ::PyLocalize::* )( char const * ) )( &::PyLocalize::Find )
+            , (wchar_t * ( ::PyLocalize::* )( char const * ))( &::PyLocalize::Find )
             , ( bp::arg("tokenName") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "FindIndex"
-            , (::StringIndex_t ( ::PyLocalize::* )( char const * ) )( &::PyLocalize::FindIndex )
+            , (::StringIndex_t ( ::PyLocalize::* )( char const * ))( &::PyLocalize::FindIndex )
             , ( bp::arg("tokenName") ) )    
         .def( 
             "GetFileNameByIndex"
-            , (char const * ( ::PyLocalize::* )( ::StringIndex_t ) )( &::PyLocalize::GetFileNameByIndex )
+            , (char const * ( ::PyLocalize::* )( ::StringIndex_t ))( &::PyLocalize::GetFileNameByIndex )
             , ( bp::arg("index") ) )    
         .def( 
             "GetFirstStringIndex"
-            , (::StringIndex_t ( ::PyLocalize::* )(  ) )( &::PyLocalize::GetFirstStringIndex ) )    
+            , (::StringIndex_t ( ::PyLocalize::* )(  ))( &::PyLocalize::GetFirstStringIndex ) )    
         .def( 
             "GetLocalizationFileCount"
-            , (int ( ::PyLocalize::* )(  ) )( &::PyLocalize::GetLocalizationFileCount ) )    
+            , (int ( ::PyLocalize::* )(  ))( &::PyLocalize::GetLocalizationFileCount ) )    
         .def( 
             "GetLocalizationFileName"
-            , (char const * ( ::PyLocalize::* )( int ) )( &::PyLocalize::GetLocalizationFileName )
+            , (char const * ( ::PyLocalize::* )( int ))( &::PyLocalize::GetLocalizationFileName )
             , ( bp::arg("index") ) )    
         .def( 
             "GetNameByIndex"
-            , (char const * ( ::PyLocalize::* )( ::StringIndex_t ) )( &::PyLocalize::GetNameByIndex )
+            , (char const * ( ::PyLocalize::* )( ::StringIndex_t ))( &::PyLocalize::GetNameByIndex )
             , ( bp::arg("index") ) )    
         .def( 
             "GetNextStringIndex"
-            , (::StringIndex_t ( ::PyLocalize::* )( ::StringIndex_t ) )( &::PyLocalize::GetNextStringIndex )
+            , (::StringIndex_t ( ::PyLocalize::* )( ::StringIndex_t ))( &::PyLocalize::GetNextStringIndex )
             , ( bp::arg("index") ) )    
         .def( 
             "GetValueByIndex"
-            , (wchar_t * ( ::PyLocalize::* )( ::StringIndex_t ) )( &::PyLocalize::GetValueByIndex )
+            , (wchar_t * ( ::PyLocalize::* )( ::StringIndex_t ))( &::PyLocalize::GetValueByIndex )
             , ( bp::arg("index") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "ReloadLocalizationFiles"
-            , (void ( ::PyLocalize::* )(  ) )( &::PyLocalize::ReloadLocalizationFiles ) )    
+            , (void ( ::PyLocalize::* )(  ))( &::PyLocalize::ReloadLocalizationFiles ) )    
         .def( 
             "RemoveAll"
-            , (void ( ::PyLocalize::* )(  ) )( &::PyLocalize::RemoveAll ) )    
+            , (void ( ::PyLocalize::* )(  ))( &::PyLocalize::RemoveAll ) )    
         .def( 
             "SaveToFile"
-            , (bool ( ::PyLocalize::* )( char const * ) )( &::PyLocalize::SaveToFile )
+            , (bool ( ::PyLocalize::* )( char const * ))( &::PyLocalize::SaveToFile )
             , ( bp::arg("fileName") ) )    
         .def( 
             "SetValueByIndex"
-            , (void ( ::PyLocalize::* )( ::StringIndex_t,wchar_t * ) )( &::PyLocalize::SetValueByIndex )
+            , (void ( ::PyLocalize::* )( ::StringIndex_t,wchar_t * ))( &::PyLocalize::SetValueByIndex )
             , ( bp::arg("index"), bp::arg("newValue") ) );
 
     bp::class_< vgui::IInput, boost::noncopyable >( "IInput", bp::no_init )    
         .def( 
             "CandidateListStartsAtOne"
-            , (bool ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::CandidateListStartsAtOne ) )    
+            , (bool ( ::vgui::IInput::* )(  ))( &::vgui::IInput::CandidateListStartsAtOne ) )    
         .def( 
             "GetAppModalSurface"
-            , (::vgui::VPANEL ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetAppModalSurface ) )    
+            , (::vgui::VPANEL ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetAppModalSurface ) )    
         .def( 
             "GetCalculatedFocus"
-            , (::vgui::VPANEL ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetCalculatedFocus ) )    
+            , (::vgui::VPANEL ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetCalculatedFocus ) )    
         .def( 
             "GetCandidate"
-            , (void ( ::vgui::IInput::* )( int,wchar_t *,int ) )( &::vgui::IInput::GetCandidate )
+            , (void ( ::vgui::IInput::* )( int,wchar_t *,int ))( &::vgui::IInput::GetCandidate )
             , ( bp::arg("num"), bp::arg("dest"), bp::arg("destSizeBytes") ) )    
         .def( 
             "GetCandidateListCount"
-            , (int ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetCandidateListCount ) )    
+            , (int ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetCandidateListCount ) )    
         .def( 
             "GetCandidateListPageSize"
-            , (int ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetCandidateListPageSize ) )    
+            , (int ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetCandidateListPageSize ) )    
         .def( 
             "GetCandidateListPageStart"
-            , (int ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetCandidateListPageStart ) )    
+            , (int ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetCandidateListPageStart ) )    
         .def( 
             "GetCandidateListSelectedItem"
-            , (int ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetCandidateListSelectedItem ) )    
+            , (int ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetCandidateListSelectedItem ) )    
         .def( 
             "GetCurrentIMEHandle"
-            , (int ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetCurrentIMEHandle ) )    
+            , (int ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetCurrentIMEHandle ) )    
         .def( 
             "GetCursorOveride"
-            , (::vgui::HCursor ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetCursorOveride ) )    
+            , (::vgui::HCursor ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetCursorOveride ) )    
         .def( 
             "GetCursorPos"
-            , (void ( ::vgui::IInput::* )( int &,int & ) )( &::vgui::IInput::GetCursorPos )
+            , (void ( ::vgui::IInput::* )( int &,int & ))( &::vgui::IInput::GetCursorPos )
             , ( bp::arg("x"), bp::arg("y") ) )    
         .def( 
             "GetCursorPosition"
-            , (void ( ::vgui::IInput::* )( int &,int & ) )( &::vgui::IInput::GetCursorPosition )
+            , (void ( ::vgui::IInput::* )( int &,int & ))( &::vgui::IInput::GetCursorPosition )
             , ( bp::arg("x"), bp::arg("y") ) )    
         .def( 
             "GetEnglishIMEHandle"
-            , (int ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetEnglishIMEHandle ) )    
+            , (int ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetEnglishIMEHandle ) )    
         .def( 
             "GetFocus"
-            , (::vgui::VPANEL ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetFocus ) )    
+            , (::vgui::VPANEL ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetFocus ) )    
         .def( 
             "GetIMELanguageName"
-            , (void ( ::vgui::IInput::* )( wchar_t *,int ) )( &::vgui::IInput::GetIMELanguageName )
+            , (void ( ::vgui::IInput::* )( wchar_t *,int ))( &::vgui::IInput::GetIMELanguageName )
             , ( bp::arg("buf"), bp::arg("unicodeBufferSizeInBytes") ) )    
         .def( 
             "GetKeyCodeText"
-            , (void ( ::vgui::IInput::* )( ::vgui::KeyCode,char *,int ) )( &::vgui::IInput::GetKeyCodeText )
+            , (void ( ::vgui::IInput::* )( ::vgui::KeyCode,char *,int ))( &::vgui::IInput::GetKeyCodeText )
             , ( bp::arg("code"), bp::arg("buf"), bp::arg("buflen") ) )    
         .def( 
             "GetModalSubTree"
-            , (::vgui::VPANEL ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetModalSubTree ) )    
+            , (::vgui::VPANEL ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetModalSubTree ) )    
         .def( 
             "GetMouseCapture"
-            , (::vgui::VPANEL ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetMouseCapture ) )    
+            , (::vgui::VPANEL ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetMouseCapture ) )    
         .def( 
             "GetMouseOver"
-            , (::vgui::VPANEL ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetMouseOver ) )    
+            , (::vgui::VPANEL ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetMouseOver ) )    
         .def( 
             "GetShouldInvertCompositionString"
-            , (bool ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::GetShouldInvertCompositionString ) )    
+            , (bool ( ::vgui::IInput::* )(  ))( &::vgui::IInput::GetShouldInvertCompositionString ) )    
         .def( 
             "IsKeyDown"
-            , (bool ( ::vgui::IInput::* )( ::vgui::KeyCode ) )( &::vgui::IInput::IsKeyDown )
+            , (bool ( ::vgui::IInput::* )( ::vgui::KeyCode ))( &::vgui::IInput::IsKeyDown )
             , ( bp::arg("code") ) )    
         .def( 
             "IsMouseDown"
-            , (bool ( ::vgui::IInput::* )( ::vgui::MouseCode ) )( &::vgui::IInput::IsMouseDown )
+            , (bool ( ::vgui::IInput::* )( ::vgui::MouseCode ))( &::vgui::IInput::IsMouseDown )
             , ( bp::arg("code") ) )    
         .def( 
             "OnChangeIME"
-            , (void ( ::vgui::IInput::* )( bool ) )( &::vgui::IInput::OnChangeIME )
+            , (void ( ::vgui::IInput::* )( bool ))( &::vgui::IInput::OnChangeIME )
             , ( bp::arg("forward") ) )    
         .def( 
             "OnChangeIMEByHandle"
-            , (void ( ::vgui::IInput::* )( int ) )( &::vgui::IInput::OnChangeIMEByHandle )
+            , (void ( ::vgui::IInput::* )( int ))( &::vgui::IInput::OnChangeIMEByHandle )
             , ( bp::arg("handleValue") ) )    
         .def( 
             "OnChangeIMEConversionModeByHandle"
-            , (void ( ::vgui::IInput::* )( int ) )( &::vgui::IInput::OnChangeIMEConversionModeByHandle )
+            , (void ( ::vgui::IInput::* )( int ))( &::vgui::IInput::OnChangeIMEConversionModeByHandle )
             , ( bp::arg("handleValue") ) )    
         .def( 
             "OnChangeIMESentenceModeByHandle"
-            , (void ( ::vgui::IInput::* )( int ) )( &::vgui::IInput::OnChangeIMESentenceModeByHandle )
+            , (void ( ::vgui::IInput::* )( int ))( &::vgui::IInput::OnChangeIMESentenceModeByHandle )
             , ( bp::arg("handleValue") ) )    
         .def( 
             "OnIMEChangeCandidates"
-            , (void ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::OnIMEChangeCandidates ) )    
+            , (void ( ::vgui::IInput::* )(  ))( &::vgui::IInput::OnIMEChangeCandidates ) )    
         .def( 
             "OnIMECloseCandidates"
-            , (void ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::OnIMECloseCandidates ) )    
+            , (void ( ::vgui::IInput::* )(  ))( &::vgui::IInput::OnIMECloseCandidates ) )    
         .def( 
             "OnIMEComposition"
-            , (void ( ::vgui::IInput::* )( int ) )( &::vgui::IInput::OnIMEComposition )
+            , (void ( ::vgui::IInput::* )( int ))( &::vgui::IInput::OnIMEComposition )
             , ( bp::arg("flags") ) )    
         .def( 
             "OnIMEEndComposition"
-            , (void ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::OnIMEEndComposition ) )    
+            , (void ( ::vgui::IInput::* )(  ))( &::vgui::IInput::OnIMEEndComposition ) )    
         .def( 
             "OnIMERecomputeModes"
-            , (void ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::OnIMERecomputeModes ) )    
+            , (void ( ::vgui::IInput::* )(  ))( &::vgui::IInput::OnIMERecomputeModes ) )    
         .def( 
             "OnIMEShowCandidates"
-            , (void ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::OnIMEShowCandidates ) )    
+            , (void ( ::vgui::IInput::* )(  ))( &::vgui::IInput::OnIMEShowCandidates ) )    
         .def( 
             "OnIMEStartComposition"
-            , (void ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::OnIMEStartComposition ) )    
+            , (void ( ::vgui::IInput::* )(  ))( &::vgui::IInput::OnIMEStartComposition ) )    
         .def( 
             "OnInputLanguageChanged"
-            , (void ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::OnInputLanguageChanged ) )    
+            , (void ( ::vgui::IInput::* )(  ))( &::vgui::IInput::OnInputLanguageChanged ) )    
         .def( 
             "OnKeyCodeUnhandled"
-            , (void ( ::vgui::IInput::* )( int ) )( &::vgui::IInput::OnKeyCodeUnhandled )
+            , (void ( ::vgui::IInput::* )( int ))( &::vgui::IInput::OnKeyCodeUnhandled )
             , ( bp::arg("keyCode") ) )    
         .def( 
             "RegisterKeyCodeUnhandledListener"
-            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL ) )( &::vgui::IInput::RegisterKeyCodeUnhandledListener )
+            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL ))( &::vgui::IInput::RegisterKeyCodeUnhandledListener )
             , ( bp::arg("panel") ) )    
         .def( 
             "ReleaseAppModalSurface"
-            , (void ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::ReleaseAppModalSurface ) )    
+            , (void ( ::vgui::IInput::* )(  ))( &::vgui::IInput::ReleaseAppModalSurface ) )    
         .def( 
             "ReleaseModalSubTree"
-            , (void ( ::vgui::IInput::* )(  ) )( &::vgui::IInput::ReleaseModalSubTree ) )    
+            , (void ( ::vgui::IInput::* )(  ))( &::vgui::IInput::ReleaseModalSubTree ) )    
         .def( 
             "SetAppModalSurface"
-            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL ) )( &::vgui::IInput::SetAppModalSurface )
+            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL ))( &::vgui::IInput::SetAppModalSurface )
             , ( bp::arg("panel") ) )    
         .def( 
             "SetCandidateListPageStart"
-            , (void ( ::vgui::IInput::* )( int ) )( &::vgui::IInput::SetCandidateListPageStart )
+            , (void ( ::vgui::IInput::* )( int ))( &::vgui::IInput::SetCandidateListPageStart )
             , ( bp::arg("start") ) )    
         .def( 
             "SetCandidateWindowPos"
-            , (void ( ::vgui::IInput::* )( int,int ) )( &::vgui::IInput::SetCandidateWindowPos )
+            , (void ( ::vgui::IInput::* )( int,int ))( &::vgui::IInput::SetCandidateWindowPos )
             , ( bp::arg("x"), bp::arg("y") ) )    
         .def( 
             "SetCursorOveride"
-            , (void ( ::vgui::IInput::* )( ::vgui::HCursor ) )( &::vgui::IInput::SetCursorOveride )
+            , (void ( ::vgui::IInput::* )( ::vgui::HCursor ))( &::vgui::IInput::SetCursorOveride )
             , ( bp::arg("cursor") ) )    
         .def( 
             "SetCursorPos"
-            , (void ( ::vgui::IInput::* )( int,int ) )( &::vgui::IInput::SetCursorPos )
+            , (void ( ::vgui::IInput::* )( int,int ))( &::vgui::IInput::SetCursorPos )
             , ( bp::arg("x"), bp::arg("y") ) )    
         .def( 
             "SetModalSubTree"
-            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL,::vgui::VPANEL,bool ) )( &::vgui::IInput::SetModalSubTree )
+            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL,::vgui::VPANEL,bool ))( &::vgui::IInput::SetModalSubTree )
             , ( bp::arg("subTree"), bp::arg("unhandledMouseClickListener"), bp::arg("restrictMessagesToSubTree")=(bool)(true) ) )    
         .def( 
             "SetModalSubTreeReceiveMessages"
-            , (void ( ::vgui::IInput::* )( bool ) )( &::vgui::IInput::SetModalSubTreeReceiveMessages )
+            , (void ( ::vgui::IInput::* )( bool ))( &::vgui::IInput::SetModalSubTreeReceiveMessages )
             , ( bp::arg("state") ) )    
         .def( 
             "SetMouseCapture"
-            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL ) )( &::vgui::IInput::SetMouseCapture )
+            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL ))( &::vgui::IInput::SetMouseCapture )
             , ( bp::arg("panel") ) )    
         .def( 
             "SetMouseCaptureEx"
-            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL,::vgui::MouseCode ) )( &::vgui::IInput::SetMouseCaptureEx )
+            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL,::vgui::MouseCode ))( &::vgui::IInput::SetMouseCaptureEx )
             , ( bp::arg("panel"), bp::arg("captureStartMouseCode") ) )    
         .def( 
             "SetMouseFocus"
-            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL ) )( &::vgui::IInput::SetMouseFocus )
+            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL ))( &::vgui::IInput::SetMouseFocus )
             , ( bp::arg("newMouseFocus") ) )    
         .def( 
             "ShouldModalSubTreeReceiveMessages"
-            , (bool ( ::vgui::IInput::* )(  ) const)( &::vgui::IInput::ShouldModalSubTreeReceiveMessages ) )    
+            , (bool ( ::vgui::IInput::* )(  )const)( &::vgui::IInput::ShouldModalSubTreeReceiveMessages ) )    
         .def( 
             "UnregisterKeyCodeUnhandledListener"
-            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL ) )( &::vgui::IInput::UnregisterKeyCodeUnhandledListener )
+            , (void ( ::vgui::IInput::* )( ::vgui::VPANEL ))( &::vgui::IInput::UnregisterKeyCodeUnhandledListener )
             , ( bp::arg("panel") ) )    
         .def( 
             "WasKeyPressed"
-            , (bool ( ::vgui::IInput::* )( ::vgui::KeyCode ) )( &::vgui::IInput::WasKeyPressed )
+            , (bool ( ::vgui::IInput::* )( ::vgui::KeyCode ))( &::vgui::IInput::WasKeyPressed )
             , ( bp::arg("code") ) )    
         .def( 
             "WasKeyReleased"
-            , (bool ( ::vgui::IInput::* )( ::vgui::KeyCode ) )( &::vgui::IInput::WasKeyReleased )
+            , (bool ( ::vgui::IInput::* )( ::vgui::KeyCode ))( &::vgui::IInput::WasKeyReleased )
             , ( bp::arg("code") ) )    
         .def( 
             "WasKeyTyped"
-            , (bool ( ::vgui::IInput::* )( ::vgui::KeyCode ) )( &::vgui::IInput::WasKeyTyped )
+            , (bool ( ::vgui::IInput::* )( ::vgui::KeyCode ))( &::vgui::IInput::WasKeyTyped )
             , ( bp::arg("code") ) )    
         .def( 
             "WasMouseDoublePressed"
-            , (bool ( ::vgui::IInput::* )( ::vgui::MouseCode ) )( &::vgui::IInput::WasMouseDoublePressed )
+            , (bool ( ::vgui::IInput::* )( ::vgui::MouseCode ))( &::vgui::IInput::WasMouseDoublePressed )
             , ( bp::arg("code") ) )    
         .def( 
             "WasMousePressed"
-            , (bool ( ::vgui::IInput::* )( ::vgui::MouseCode ) )( &::vgui::IInput::WasMousePressed )
+            , (bool ( ::vgui::IInput::* )( ::vgui::MouseCode ))( &::vgui::IInput::WasMousePressed )
             , ( bp::arg("code") ) )    
         .def( 
             "WasMouseReleased"
-            , (bool ( ::vgui::IInput::* )( ::vgui::MouseCode ) )( &::vgui::IInput::WasMouseReleased )
+            , (bool ( ::vgui::IInput::* )( ::vgui::MouseCode ))( &::vgui::IInput::WasMouseReleased )
             , ( bp::arg("code") ) );
 
     bp::class_< vgui::IScheme, boost::noncopyable >( "IScheme", bp::no_init )    
         .def( 
             "GetBorder"
-            , (::vgui::IBorder * ( ::vgui::IScheme::* )( char const * ) )( &::vgui::IScheme::GetBorder )
+            , (::vgui::IBorder * ( ::vgui::IScheme::* )( char const * ))( &::vgui::IScheme::GetBorder )
             , ( bp::arg("borderName") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "GetBorderAtIndex"
-            , (::vgui::IBorder * ( ::vgui::IScheme::* )( int ) )( &::vgui::IScheme::GetBorderAtIndex )
+            , (::vgui::IBorder * ( ::vgui::IScheme::* )( int ))( &::vgui::IScheme::GetBorderAtIndex )
             , ( bp::arg("iIndex") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "GetBorderCount"
-            , (int ( ::vgui::IScheme::* )(  ) const)( &::vgui::IScheme::GetBorderCount ) )    
+            , (int ( ::vgui::IScheme::* )(  )const)( &::vgui::IScheme::GetBorderCount ) )    
         .def( 
             "GetColor"
-            , (::Color ( ::vgui::IScheme::* )( char const *,::Color ) )( &::vgui::IScheme::GetColor )
+            , (::Color ( ::vgui::IScheme::* )( char const *,::Color ))( &::vgui::IScheme::GetColor )
             , ( bp::arg("colorName"), bp::arg("defaultColor") ) )    
         .def( 
             "GetColorData"
-            , (::KeyValues const * ( ::vgui::IScheme::* )(  ) const)( &::vgui::IScheme::GetColorData )
+            , (::KeyValues const * ( ::vgui::IScheme::* )(  )const)( &::vgui::IScheme::GetColorData )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "GetFont"
-            , (::vgui::HFont ( ::vgui::IScheme::* )( char const *,bool ) )( &::vgui::IScheme::GetFont )
+            , (::vgui::HFont ( ::vgui::IScheme::* )( char const *,bool ))( &::vgui::IScheme::GetFont )
             , ( bp::arg("fontName"), bp::arg("proportional")=(bool)(false) ) )    
         .def( 
             "GetFontAtIndex"
-            , (::vgui::HFont ( ::vgui::IScheme::* )( int ) )( &::vgui::IScheme::GetFontAtIndex )
+            , (::vgui::HFont ( ::vgui::IScheme::* )( int ))( &::vgui::IScheme::GetFontAtIndex )
             , ( bp::arg("iIndex") ) )    
         .def( 
             "GetFontCount"
-            , (int ( ::vgui::IScheme::* )(  ) const)( &::vgui::IScheme::GetFontCount ) )    
+            , (int ( ::vgui::IScheme::* )(  )const)( &::vgui::IScheme::GetFontCount ) )    
         .def( 
             "GetFontName"
-            , (char const * ( ::vgui::IScheme::* )( ::vgui::HFont const & ) )( &::vgui::IScheme::GetFontName )
+            , (char const * ( ::vgui::IScheme::* )( ::vgui::HFont const & ))( &::vgui::IScheme::GetFontName )
             , ( bp::arg("font") ) )    
         .def( 
             "GetResourceString"
-            , (char const * ( ::vgui::IScheme::* )( char const * ) )( &::vgui::IScheme::GetResourceString )
+            , (char const * ( ::vgui::IScheme::* )( char const * ))( &::vgui::IScheme::GetResourceString )
             , ( bp::arg("stringName") ) );
 
     bp::class_< vgui::ISchemeManager, boost::noncopyable >( "ISchemeManager", bp::no_init )    
         .def( 
             "DeleteImage"
-            , (bool ( ::vgui::ISchemeManager::* )( char const * ) )( &::vgui::ISchemeManager::DeleteImage )
+            , (bool ( ::vgui::ISchemeManager::* )( char const * ))( &::vgui::ISchemeManager::DeleteImage )
             , ( bp::arg("pImageName") ) )    
         .def( 
             "GetDefaultScheme"
-            , (::vgui::HScheme ( ::vgui::ISchemeManager::* )(  ) )( &::vgui::ISchemeManager::GetDefaultScheme ) )    
+            , (::vgui::HScheme ( ::vgui::ISchemeManager::* )(  ))( &::vgui::ISchemeManager::GetDefaultScheme ) )    
         .def( 
             "GetIScheme"
-            , (::vgui::IScheme * ( ::vgui::ISchemeManager::* )( ::vgui::HScheme ) )( &::vgui::ISchemeManager::GetIScheme )
+            , (::vgui::IScheme * ( ::vgui::ISchemeManager::* )( ::vgui::HScheme ))( &::vgui::ISchemeManager::GetIScheme )
             , ( bp::arg("scheme") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "GetImage"
-            , (::vgui::IImage * ( ::vgui::ISchemeManager::* )( char const *,bool ) )( &::vgui::ISchemeManager::GetImage )
+            , (::vgui::IImage * ( ::vgui::ISchemeManager::* )( char const *,bool ))( &::vgui::ISchemeManager::GetImage )
             , ( bp::arg("imageName"), bp::arg("hardwareFiltered") )
             , bp::return_value_policy< bp::reference_existing_object >() )    
         .def( 
             "GetImageID"
-            , (::vgui::HTexture ( ::vgui::ISchemeManager::* )( char const *,bool ) )( &::vgui::ISchemeManager::GetImageID )
+            , (::vgui::HTexture ( ::vgui::ISchemeManager::* )( char const *,bool ))( &::vgui::ISchemeManager::GetImageID )
             , ( bp::arg("imageName"), bp::arg("hardwareFiltered") ) )    
         .def( 
             "GetProportionalNormalizedValue"
-            , (int ( ::vgui::ISchemeManager::* )( int ) )( &::vgui::ISchemeManager::GetProportionalNormalizedValue )
+            , (int ( ::vgui::ISchemeManager::* )( int ))( &::vgui::ISchemeManager::GetProportionalNormalizedValue )
             , ( bp::arg("scaledValue") ) )    
         .def( 
             "GetProportionalNormalizedValueEx"
-            , (int ( ::vgui::ISchemeManager::* )( ::vgui::HScheme,int ) )( &::vgui::ISchemeManager::GetProportionalNormalizedValueEx )
+            , (int ( ::vgui::ISchemeManager::* )( ::vgui::HScheme,int ))( &::vgui::ISchemeManager::GetProportionalNormalizedValueEx )
             , ( bp::arg("scheme"), bp::arg("scaledValue") ) )    
         .def( 
             "GetProportionalScaledValue"
-            , (int ( ::vgui::ISchemeManager::* )( int ) )( &::vgui::ISchemeManager::GetProportionalScaledValue )
+            , (int ( ::vgui::ISchemeManager::* )( int ))( &::vgui::ISchemeManager::GetProportionalScaledValue )
             , ( bp::arg("normalizedValue") ) )    
         .def( 
             "GetProportionalScaledValueEx"
-            , (int ( ::vgui::ISchemeManager::* )( ::vgui::HScheme,int ) )( &::vgui::ISchemeManager::GetProportionalScaledValueEx )
+            , (int ( ::vgui::ISchemeManager::* )( ::vgui::HScheme,int ))( &::vgui::ISchemeManager::GetProportionalScaledValueEx )
             , ( bp::arg("scheme"), bp::arg("normalizedValue") ) )    
         .def( 
             "GetScheme"
-            , (::vgui::HScheme ( ::vgui::ISchemeManager::* )( char const * ) )( &::vgui::ISchemeManager::GetScheme )
+            , (::vgui::HScheme ( ::vgui::ISchemeManager::* )( char const * ))( &::vgui::ISchemeManager::GetScheme )
             , ( bp::arg("tag") ) )    
         .def( 
             "LoadSchemeFromFile"
-            , (::vgui::HScheme ( ::vgui::ISchemeManager::* )( char const *,char const * ) )( &::vgui::ISchemeManager::LoadSchemeFromFile )
+            , (::vgui::HScheme ( ::vgui::ISchemeManager::* )( char const *,char const * ))( &::vgui::ISchemeManager::LoadSchemeFromFile )
             , ( bp::arg("fileName"), bp::arg("tag") ) )    
         .def( 
             "LoadSchemeFromFileEx"
-            , (::vgui::HScheme ( ::vgui::ISchemeManager::* )( ::vgui::VPANEL,char const *,char const * ) )( &::vgui::ISchemeManager::LoadSchemeFromFileEx )
+            , (::vgui::HScheme ( ::vgui::ISchemeManager::* )( ::vgui::VPANEL,char const *,char const * ))( &::vgui::ISchemeManager::LoadSchemeFromFileEx )
             , ( bp::arg("sizingPanel"), bp::arg("fileName"), bp::arg("tag") ) )    
         .def( 
             "ReloadFonts"
-            , (void ( ::vgui::ISchemeManager::* )(  ) )( &::vgui::ISchemeManager::ReloadFonts ) )    
+            , (void ( ::vgui::ISchemeManager::* )(  ))( &::vgui::ISchemeManager::ReloadFonts ) )    
         .def( 
             "ReloadSchemes"
-            , (void ( ::vgui::ISchemeManager::* )(  ) )( &::vgui::ISchemeManager::ReloadSchemes ) )    
+            , (void ( ::vgui::ISchemeManager::* )(  ))( &::vgui::ISchemeManager::ReloadSchemes ) )    
         .def( 
             "Shutdown"
-            , (void ( ::vgui::ISchemeManager::* )( bool ) )( &::vgui::ISchemeManager::Shutdown )
+            , (void ( ::vgui::ISchemeManager::* )( bool ))( &::vgui::ISchemeManager::Shutdown )
             , ( bp::arg("full")=(bool)(true) ) );
 
     bp::class_< vgui::ISystem, boost::noncopyable >( "ISystem", bp::no_init )    
         .def( 
             "CommandLineParamExists"
-            , (bool ( ::vgui::ISystem::* )( char const * ) )( &::vgui::ISystem::CommandLineParamExists )
+            , (bool ( ::vgui::ISystem::* )( char const * ))( &::vgui::ISystem::CommandLineParamExists )
             , ( bp::arg("paramName") ) )    
         .def( 
             "CreateShortcut"
-            , (bool ( ::vgui::ISystem::* )( char const *,char const *,char const *,char const *,char const * ) )( &::vgui::ISystem::CreateShortcut )
+            , (bool ( ::vgui::ISystem::* )( char const *,char const *,char const *,char const *,char const * ))( &::vgui::ISystem::CreateShortcut )
             , ( bp::arg("linkFileName"), bp::arg("targetPath"), bp::arg("arguments"), bp::arg("workingDirectory"), bp::arg("iconFile") ) )    
         .def( 
             "GetAvailableDrives"
-            , (int ( ::vgui::ISystem::* )( char *,int ) )( &::vgui::ISystem::GetAvailableDrives )
+            , (int ( ::vgui::ISystem::* )( char *,int ))( &::vgui::ISystem::GetAvailableDrives )
             , ( bp::arg("buf"), bp::arg("bufLen") ) )    
         .def( 
             "GetClipboardText"
-            , (int ( ::vgui::ISystem::* )( int,char *,int ) )( &::vgui::ISystem::GetClipboardText )
+            , (int ( ::vgui::ISystem::* )( int,char *,int ))( &::vgui::ISystem::GetClipboardText )
             , ( bp::arg("offset"), bp::arg("buf"), bp::arg("bufLen") ) )    
         .def( 
             "GetClipboardText"
-            , (int ( ::vgui::ISystem::* )( int,wchar_t *,int ) )( &::vgui::ISystem::GetClipboardText )
+            , (int ( ::vgui::ISystem::* )( int,wchar_t *,int ))( &::vgui::ISystem::GetClipboardText )
             , ( bp::arg("offset"), bp::arg("buf"), bp::arg("bufLen") ) )    
         .def( 
             "GetClipboardTextCount"
-            , (int ( ::vgui::ISystem::* )(  ) )( &::vgui::ISystem::GetClipboardTextCount ) )    
+            , (int ( ::vgui::ISystem::* )(  ))( &::vgui::ISystem::GetClipboardTextCount ) )    
         .def( 
             "GetCommandLineParamValue"
-            , (bool ( ::vgui::ISystem::* )( char const *,char *,int ) )( &::vgui::ISystem::GetCommandLineParamValue )
+            , (bool ( ::vgui::ISystem::* )( char const *,char *,int ))( &::vgui::ISystem::GetCommandLineParamValue )
             , ( bp::arg("paramName"), bp::arg("value"), bp::arg("valueBufferSize") ) )    
         .def( 
             "GetCurrentTime"
-            , (double ( ::vgui::ISystem::* )(  ) )( &::vgui::ISystem::GetCurrentTime ) )    
+            , (double ( ::vgui::ISystem::* )(  ))( &::vgui::ISystem::GetCurrentTime ) )    
         .def( 
             "GetCurrentTimeAndDate"
-            , (bool ( ::vgui::ISystem::* )( int *,int *,int *,int *,int *,int *,int * ) )( &::vgui::ISystem::GetCurrentTimeAndDate )
+            , (bool ( ::vgui::ISystem::* )( int *,int *,int *,int *,int *,int *,int * ))( &::vgui::ISystem::GetCurrentTimeAndDate )
             , ( bp::arg("year"), bp::arg("month"), bp::arg("dayOfWeek"), bp::arg("day"), bp::arg("hour"), bp::arg("minute"), bp::arg("second") ) )    
         .def( 
             "GetDesktopFolderPath"
-            , (char const * ( ::vgui::ISystem::* )(  ) )( &::vgui::ISystem::GetDesktopFolderPath ) )    
+            , (char const * ( ::vgui::ISystem::* )(  ))( &::vgui::ISystem::GetDesktopFolderPath ) )    
         .def( 
             "GetFrameTime"
-            , (double ( ::vgui::ISystem::* )(  ) )( &::vgui::ISystem::GetFrameTime ) )    
+            , (double ( ::vgui::ISystem::* )(  ))( &::vgui::ISystem::GetFrameTime ) )    
         .def( 
             "GetFreeDiskSpace"
-            , (double ( ::vgui::ISystem::* )( char const * ) )( &::vgui::ISystem::GetFreeDiskSpace )
+            , (double ( ::vgui::ISystem::* )( char const * ))( &::vgui::ISystem::GetFreeDiskSpace )
             , ( bp::arg("path") ) )    
         .def( 
             "GetFullCommandLine"
-            , (char const * ( ::vgui::ISystem::* )(  ) )( &::vgui::ISystem::GetFullCommandLine ) )    
+            , (char const * ( ::vgui::ISystem::* )(  ))( &::vgui::ISystem::GetFullCommandLine ) )    
         .def( 
             "GetRegistryInteger"
             , (boost::python::tuple (*)( ::vgui::ISystem &,char const * ))( &GetRegistryInteger_7b85c41418413c1905617b15737023e0 )
             , ( bp::arg("inst"), bp::arg("key") ) )    
         .def( 
             "GetShortcutTarget"
-            , (bool ( ::vgui::ISystem::* )( char const *,char *,char *,int ) )( &::vgui::ISystem::GetShortcutTarget )
+            , (bool ( ::vgui::ISystem::* )( char const *,char *,char *,int ))( &::vgui::ISystem::GetShortcutTarget )
             , ( bp::arg("linkFileName"), bp::arg("targetPath"), bp::arg("arguments"), bp::arg("destBufferSizes") ) )    
         .def( 
             "GetTimeMillis"
-            , (long int ( ::vgui::ISystem::* )(  ) )( &::vgui::ISystem::GetTimeMillis ) )    
+            , (long int ( ::vgui::ISystem::* )(  ))( &::vgui::ISystem::GetTimeMillis ) )    
         .def( 
             "GetTimeSinceLastUse"
-            , (double ( ::vgui::ISystem::* )(  ) )( &::vgui::ISystem::GetTimeSinceLastUse ) )    
+            , (double ( ::vgui::ISystem::* )(  ))( &::vgui::ISystem::GetTimeSinceLastUse ) )    
         .def( 
             "GetUserConfigFileData"
-            , (::KeyValues * ( ::vgui::ISystem::* )( char const *,int ) )( &::vgui::ISystem::GetUserConfigFileData )
+            , (::KeyValues * ( ::vgui::ISystem::* )( char const *,int ))( &::vgui::ISystem::GetUserConfigFileData )
             , ( bp::arg("dialogName"), bp::arg("dialogID") )
             , bp::return_value_policy< bp::return_by_value >() )    
         .def( 
             "KeyCode_VirtualKeyToVGUI"
-            , (::vgui::KeyCode ( ::vgui::ISystem::* )( int ) )( &::vgui::ISystem::KeyCode_VirtualKeyToVGUI )
+            , (::vgui::KeyCode ( ::vgui::ISystem::* )( int ))( &::vgui::ISystem::KeyCode_VirtualKeyToVGUI )
             , ( bp::arg("keyCode") ) )    
         .def( 
             "ModifyShortcutTarget"
-            , (bool ( ::vgui::ISystem::* )( char const *,char const *,char const *,char const * ) )( &::vgui::ISystem::ModifyShortcutTarget )
+            , (bool ( ::vgui::ISystem::* )( char const *,char const *,char const *,char const * ))( &::vgui::ISystem::ModifyShortcutTarget )
             , ( bp::arg("linkFileName"), bp::arg("targetPath"), bp::arg("arguments"), bp::arg("workingDirectory") ) )    
         .def( 
             "RunFrame"
-            , (void ( ::vgui::ISystem::* )(  ) )( &::vgui::ISystem::RunFrame ) )    
+            , (void ( ::vgui::ISystem::* )(  ))( &::vgui::ISystem::RunFrame ) )    
         .def( 
             "SaveUserConfigFile"
-            , (void ( ::vgui::ISystem::* )(  ) )( &::vgui::ISystem::SaveUserConfigFile ) )    
+            , (void ( ::vgui::ISystem::* )(  ))( &::vgui::ISystem::SaveUserConfigFile ) )    
         .def( 
             "SetClipboardText"
-            , (void ( ::vgui::ISystem::* )( char const *,int ) )( &::vgui::ISystem::SetClipboardText )
+            , (void ( ::vgui::ISystem::* )( char const *,int ))( &::vgui::ISystem::SetClipboardText )
             , ( bp::arg("text"), bp::arg("textLen") ) )    
         .def( 
             "SetClipboardText"
-            , (void ( ::vgui::ISystem::* )( wchar_t const *,int ) )( &::vgui::ISystem::SetClipboardText )
+            , (void ( ::vgui::ISystem::* )( wchar_t const *,int ))( &::vgui::ISystem::SetClipboardText )
             , ( bp::arg("text"), bp::arg("textLen") ) )    
         .def( 
             "SetUserConfigFile"
-            , (void ( ::vgui::ISystem::* )( char const *,char const * ) )( &::vgui::ISystem::SetUserConfigFile )
+            , (void ( ::vgui::ISystem::* )( char const *,char const * ))( &::vgui::ISystem::SetUserConfigFile )
             , ( bp::arg("fileName"), bp::arg("pathName") ) )    
         .def( 
             "SetWatchForComputerUse"
-            , (bool ( ::vgui::ISystem::* )( bool ) )( &::vgui::ISystem::SetWatchForComputerUse )
+            , (bool ( ::vgui::ISystem::* )( bool ))( &::vgui::ISystem::SetWatchForComputerUse )
             , ( bp::arg("state") ) )    
         .def( 
             "ShellExecute"
-            , (void ( ::vgui::ISystem::* )( char const *,char const * ) )( &::vgui::ISystem::ShellExecute )
+            , (void ( ::vgui::ISystem::* )( char const *,char const * ))( &::vgui::ISystem::ShellExecute )
             , ( bp::arg("command"), bp::arg("file") ) )    
         .def( 
             "ShellExecuteEx"
-            , (void ( ::vgui::ISystem::* )( char const *,char const *,char const * ) )( &::vgui::ISystem::ShellExecuteEx )
+            , (void ( ::vgui::ISystem::* )( char const *,char const *,char const * ))( &::vgui::ISystem::ShellExecuteEx )
             , ( bp::arg("command"), bp::arg("file"), bp::arg("pParams") ) )    
         .def( 
             "Shutdown"
-            , (void ( ::vgui::ISystem::* )(  ) )( &::vgui::ISystem::Shutdown ) )    
+            , (void ( ::vgui::ISystem::* )(  ))( &::vgui::ISystem::Shutdown ) )    
         .def( 
-            "GetRegistryString"
-            , (boost::python::tuple (*)( ::vgui::ISystem &,char const * ))( &GetRegistryString_cc10e70c5f6b49d5963b27442c970b19 )
-            , ( bp::arg("inst"), bp::arg("key") ) );
+                    "GetRegistryString"
+                    , (boost::python::tuple (*)( ::vgui::ISystem &,char const * ))( &GetRegistryString_cc10e70c5f6b49d5963b27442c970b19 )
+                    , ( bp::arg("inst"), bp::arg("key") ) );
 
     bp::class_< vgui::IntRect >( "IntRect" )    
         .def_readwrite( "x0", &vgui::IntRect::x0 )    
@@ -3135,16 +3135,16 @@ BOOST_PYTHON_MODULE(_vgui){
         typedef bp::class_< vgui::Vertex_t > Vertex_t_exposer_t;
         Vertex_t_exposer_t Vertex_t_exposer = Vertex_t_exposer_t( "Vertex_t", bp::init< >() );
         bp::scope Vertex_t_scope( Vertex_t_exposer );
-        Vertex_t_exposer.def( bp::init< Vector2D const &, bp::optional< Vector2D const & > >(( bp::arg("pos"), bp::arg("coord")=::Vector2D( 0.0, 0.0 ) )) );
+        Vertex_t_exposer.def( bp::init< Vector2D const &, bp::optional< Vector2D const & > >(( bp::arg("pos"), bp::arg("coord")=::Vector2D( 0, 0 ) )) );
         bp::implicitly_convertible< Vector2D const &, vgui::Vertex_t >();
         { //::vgui::Vertex_t::Init
         
-            typedef void ( ::vgui::Vertex_t::*Init_function_type )( ::Vector2D const &,::Vector2D const & ) ;
+            typedef void ( ::vgui::Vertex_t::*Init_function_type)( ::Vector2D const &,::Vector2D const & ) ;
             
             Vertex_t_exposer.def( 
                 "Init"
                 , Init_function_type( &::vgui::Vertex_t::Init )
-                , ( bp::arg("pos"), bp::arg("coord")=::Vector2D( 0.0, 0.0 ) ) );
+                , ( bp::arg("pos"), bp::arg("coord")=::Vector2D( 0, 0 ) ) );
         
         }
         Vertex_t_exposer.def_readwrite( "m_Position", &vgui::Vertex_t::m_Position );

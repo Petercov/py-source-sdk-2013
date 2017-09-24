@@ -41,7 +41,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         bp::implicitly_convertible< bool, CGlobalVarsBase >();
         { //::CGlobalVarsBase::GetNetworkBase
         
-            typedef int ( ::CGlobalVarsBase::*GetNetworkBase_function_type )( int,int ) ;
+            typedef int ( ::CGlobalVarsBase::*GetNetworkBase_function_type)( int,int ) ;
             
             CGlobalVarsBase_exposer.def( 
                 "GetNetworkBase"
@@ -51,7 +51,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::CGlobalVarsBase::IsClient
         
-            typedef bool ( ::CGlobalVarsBase::*IsClient_function_type )(  ) const;
+            typedef bool ( ::CGlobalVarsBase::*IsClient_function_type)(  ) const;
             
             CGlobalVarsBase_exposer.def( 
                 "IsClient"
@@ -106,7 +106,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::Color::GetRawColor
         
-            typedef int ( ::Color::*GetRawColor_function_type )(  ) const;
+            typedef int ( ::Color::*GetRawColor_function_type)(  ) const;
             
             Color_exposer.def( 
                 "GetRawColor"
@@ -115,7 +115,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::Color::SetColor
         
-            typedef void ( ::Color::*SetColor_function_type )( int,int,int,int ) ;
+            typedef void ( ::Color::*SetColor_function_type)( int,int,int,int ) ;
             
             Color_exposer.def( 
                 "SetColor"
@@ -125,7 +125,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::Color::SetRawColor
         
-            typedef void ( ::Color::*SetRawColor_function_type )( int ) ;
+            typedef void ( ::Color::*SetRawColor_function_type)( int ) ;
             
             Color_exposer.def( 
                 "SetRawColor"
@@ -135,7 +135,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::Color::a
         
-            typedef int ( ::Color::*a_function_type )(  ) const;
+            typedef int ( ::Color::*a_function_type)(  ) const;
             
             Color_exposer.def( 
                 "a"
@@ -144,7 +144,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::Color::b
         
-            typedef int ( ::Color::*b_function_type )(  ) const;
+            typedef int ( ::Color::*b_function_type)(  ) const;
             
             Color_exposer.def( 
                 "b"
@@ -153,7 +153,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::Color::g
         
-            typedef int ( ::Color::*g_function_type )(  ) const;
+            typedef int ( ::Color::*g_function_type)(  ) const;
             
             Color_exposer.def( 
                 "g"
@@ -164,7 +164,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         Color_exposer.def( bp::self == bp::self );
         { //::Color::operator[]
         
-            typedef unsigned char & ( ::Color::*__getitem___function_type )( int ) ;
+            typedef unsigned char & ( ::Color::*__getitem___function_type)( int ) ;
             
             Color_exposer.def( 
                 "__getitem__"
@@ -175,7 +175,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::Color::operator[]
         
-            typedef unsigned char const & ( ::Color::*__getitem___function_type )( int ) const;
+            typedef unsigned char const & ( ::Color::*__getitem___function_type)( int ) const;
             
             Color_exposer.def( 
                 "__getitem__"
@@ -186,7 +186,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::Color::r
         
-            typedef int ( ::Color::*r_function_type )(  ) const;
+            typedef int ( ::Color::*r_function_type)(  ) const;
             
             Color_exposer.def( 
                 "r"
@@ -239,7 +239,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         KeyValues_exposer.def( bp::init< char const *, char const *, int, char const *, int >(( bp::arg("setName"), bp::arg("firstKey"), bp::arg("firstValue"), bp::arg("secondKey"), bp::arg("secondValue") )) );
         { //::PyKeyValues::AddSubKey
         
-            typedef void ( ::PyKeyValues::*AddSubKey_function_type )( ::KeyValues * ) ;
+            typedef void ( ::PyKeyValues::*AddSubKey_function_type)( ::KeyValues * ) ;
             
             KeyValues_exposer.def( 
                 "AddSubKey"
@@ -249,7 +249,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::ChainKeyValue
         
-            typedef void ( ::PyKeyValues::*ChainKeyValue_function_type )( ::KeyValues * ) ;
+            typedef void ( ::PyKeyValues::*ChainKeyValue_function_type)( ::KeyValues * ) ;
             
             KeyValues_exposer.def( 
                 "ChainKeyValue"
@@ -259,7 +259,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::Clear
         
-            typedef void ( ::PyKeyValues::*Clear_function_type )(  ) ;
+            typedef void ( ::PyKeyValues::*Clear_function_type)(  ) ;
             
             KeyValues_exposer.def( 
                 "Clear"
@@ -268,7 +268,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::CreateNewKey
         
-            typedef ::KeyValues * ( ::PyKeyValues::*CreateNewKey_function_type )(  ) ;
+            typedef ::KeyValues * ( ::PyKeyValues::*CreateNewKey_function_type)(  ) ;
             
             KeyValues_exposer.def( 
                 "CreateNewKey"
@@ -278,7 +278,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::FindKey
         
-            typedef ::KeyValues * ( ::PyKeyValues::*FindKey_function_type )( char const *,bool ) ;
+            typedef ::KeyValues * ( ::PyKeyValues::*FindKey_function_type)( char const *,bool ) ;
             
             KeyValues_exposer.def( 
                 "FindKey"
@@ -289,7 +289,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::FindKey
         
-            typedef ::KeyValues * ( ::PyKeyValues::*FindKey_function_type )( int ) const;
+            typedef ::KeyValues * ( ::PyKeyValues::*FindKey_function_type)( int ) const;
             
             KeyValues_exposer.def( 
                 "FindKey"
@@ -300,7 +300,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetBool
         
-            typedef bool ( ::PyKeyValues::*GetBool_function_type )( char const *,bool ) ;
+            typedef bool ( ::PyKeyValues::*GetBool_function_type)( char const *,bool ) ;
             
             KeyValues_exposer.def( 
                 "GetBool"
@@ -310,7 +310,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetBool
         
-            typedef bool ( ::PyKeyValues::*GetBool_function_type )( int,bool ) ;
+            typedef bool ( ::PyKeyValues::*GetBool_function_type)( int,bool ) ;
             
             KeyValues_exposer.def( 
                 "GetBool"
@@ -320,7 +320,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetColor
         
-            typedef ::Color ( ::PyKeyValues::*GetColor_function_type )( char const * ) ;
+            typedef ::Color ( ::PyKeyValues::*GetColor_function_type)( char const * ) ;
             
             KeyValues_exposer.def( 
                 "GetColor"
@@ -330,7 +330,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetColor
         
-            typedef ::Color ( ::PyKeyValues::*GetColor_function_type )( int ) ;
+            typedef ::Color ( ::PyKeyValues::*GetColor_function_type)( int ) ;
             
             KeyValues_exposer.def( 
                 "GetColor"
@@ -340,7 +340,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetDataType
         
-            typedef ::KeyValues::types_t ( ::PyKeyValues::*GetDataType_function_type )( char const * ) ;
+            typedef ::KeyValues::types_t ( ::PyKeyValues::*GetDataType_function_type)( char const * ) ;
             
             KeyValues_exposer.def( 
                 "GetDataType"
@@ -350,7 +350,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetFirstSubKey
         
-            typedef ::KeyValues * ( ::PyKeyValues::*GetFirstSubKey_function_type )(  ) ;
+            typedef ::KeyValues * ( ::PyKeyValues::*GetFirstSubKey_function_type)(  ) ;
             
             KeyValues_exposer.def( 
                 "GetFirstSubKey"
@@ -360,7 +360,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetFirstTrueSubKey
         
-            typedef ::KeyValues * ( ::PyKeyValues::*GetFirstTrueSubKey_function_type )(  ) ;
+            typedef ::KeyValues * ( ::PyKeyValues::*GetFirstTrueSubKey_function_type)(  ) ;
             
             KeyValues_exposer.def( 
                 "GetFirstTrueSubKey"
@@ -370,7 +370,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetFirstValue
         
-            typedef ::KeyValues * ( ::PyKeyValues::*GetFirstValue_function_type )(  ) ;
+            typedef ::KeyValues * ( ::PyKeyValues::*GetFirstValue_function_type)(  ) ;
             
             KeyValues_exposer.def( 
                 "GetFirstValue"
@@ -380,27 +380,27 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetFloat
         
-            typedef float ( ::PyKeyValues::*GetFloat_function_type )( char const *,float ) ;
+            typedef float ( ::PyKeyValues::*GetFloat_function_type)( char const *,float ) ;
             
             KeyValues_exposer.def( 
                 "GetFloat"
                 , GetFloat_function_type( &::PyKeyValues::GetFloat )
-                , ( bp::arg("keyName")=bp::object(), bp::arg("defaultValue")=0.0f ) );
+                , ( bp::arg("keyName")=bp::object(), bp::arg("defaultValue")=0.F ) );
         
         }
         { //::PyKeyValues::GetFloat
         
-            typedef float ( ::PyKeyValues::*GetFloat_function_type )( int,float ) ;
+            typedef float ( ::PyKeyValues::*GetFloat_function_type)( int,float ) ;
             
             KeyValues_exposer.def( 
                 "GetFloat"
                 , GetFloat_function_type( &::PyKeyValues::GetFloat )
-                , ( bp::arg("keySymbol"), bp::arg("defaultValue")=0.0f ) );
+                , ( bp::arg("keySymbol"), bp::arg("defaultValue")=0.F ) );
         
         }
         { //::PyKeyValues::GetInt
         
-            typedef int ( ::PyKeyValues::*GetInt_function_type )( char const *,int ) ;
+            typedef int ( ::PyKeyValues::*GetInt_function_type)( char const *,int ) ;
             
             KeyValues_exposer.def( 
                 "GetInt"
@@ -410,7 +410,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetInt
         
-            typedef int ( ::PyKeyValues::*GetInt_function_type )( int,int ) ;
+            typedef int ( ::PyKeyValues::*GetInt_function_type)( int,int ) ;
             
             KeyValues_exposer.def( 
                 "GetInt"
@@ -420,7 +420,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetName
         
-            typedef char const * ( ::PyKeyValues::*GetName_function_type )(  ) const;
+            typedef char const * ( ::PyKeyValues::*GetName_function_type)(  ) const;
             
             KeyValues_exposer.def( 
                 "GetName"
@@ -429,7 +429,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetNameSymbol
         
-            typedef int ( ::PyKeyValues::*GetNameSymbol_function_type )(  ) ;
+            typedef int ( ::PyKeyValues::*GetNameSymbol_function_type)(  ) ;
             
             KeyValues_exposer.def( 
                 "GetNameSymbol"
@@ -438,7 +438,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetNextKey
         
-            typedef ::KeyValues * ( ::PyKeyValues::*GetNextKey_function_type )(  ) ;
+            typedef ::KeyValues * ( ::PyKeyValues::*GetNextKey_function_type)(  ) ;
             
             KeyValues_exposer.def( 
                 "GetNextKey"
@@ -448,7 +448,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetNextTrueSubKey
         
-            typedef ::KeyValues * ( ::PyKeyValues::*GetNextTrueSubKey_function_type )(  ) ;
+            typedef ::KeyValues * ( ::PyKeyValues::*GetNextTrueSubKey_function_type)(  ) ;
             
             KeyValues_exposer.def( 
                 "GetNextTrueSubKey"
@@ -458,7 +458,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetNextValue
         
-            typedef ::KeyValues * ( ::PyKeyValues::*GetNextValue_function_type )(  ) ;
+            typedef ::KeyValues * ( ::PyKeyValues::*GetNextValue_function_type)(  ) ;
             
             KeyValues_exposer.def( 
                 "GetNextValue"
@@ -468,7 +468,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetRawKeyValues
         
-            typedef ::KeyValues * ( ::PyKeyValues::*__GetRawKeyValues_function_type )(  ) const;
+            typedef ::KeyValues * ( ::PyKeyValues::*__GetRawKeyValues_function_type)(  ) const;
             
             KeyValues_exposer.def( 
                 "__GetRawKeyValues"
@@ -478,7 +478,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetString
         
-            typedef char const * ( ::PyKeyValues::*GetString_function_type )( char const *,char const * ) ;
+            typedef char const * ( ::PyKeyValues::*GetString_function_type)( char const *,char const * ) ;
             
             KeyValues_exposer.def( 
                 "GetString"
@@ -488,7 +488,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetString
         
-            typedef char const * ( ::PyKeyValues::*GetString_function_type )( int,char const * ) ;
+            typedef char const * ( ::PyKeyValues::*GetString_function_type)( int,char const * ) ;
             
             KeyValues_exposer.def( 
                 "GetString"
@@ -498,7 +498,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::GetUint64
         
-            typedef ::uint64 ( ::PyKeyValues::*GetUint64_function_type )( char const *,::uint64 ) ;
+            typedef ::uint64 ( ::PyKeyValues::*GetUint64_function_type)( char const *,::uint64 ) ;
             
             KeyValues_exposer.def( 
                 "GetUint64"
@@ -508,7 +508,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::IsEmpty
         
-            typedef bool ( ::PyKeyValues::*IsEmpty_function_type )( char const * ) ;
+            typedef bool ( ::PyKeyValues::*IsEmpty_function_type)( char const * ) ;
             
             KeyValues_exposer.def( 
                 "IsEmpty"
@@ -518,7 +518,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::IsEmpty
         
-            typedef bool ( ::PyKeyValues::*IsEmpty_function_type )( int ) ;
+            typedef bool ( ::PyKeyValues::*IsEmpty_function_type)( int ) ;
             
             KeyValues_exposer.def( 
                 "IsEmpty"
@@ -528,7 +528,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::RemoveSubKey
         
-            typedef void ( ::PyKeyValues::*RemoveSubKey_function_type )( ::KeyValues * ) ;
+            typedef void ( ::PyKeyValues::*RemoveSubKey_function_type)( ::KeyValues * ) ;
             
             KeyValues_exposer.def( 
                 "RemoveSubKey"
@@ -538,7 +538,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::SetBool
         
-            typedef void ( ::PyKeyValues::*SetBool_function_type )( char const *,bool ) ;
+            typedef void ( ::PyKeyValues::*SetBool_function_type)( char const *,bool ) ;
             
             KeyValues_exposer.def( 
                 "SetBool"
@@ -548,7 +548,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::SetColor
         
-            typedef void ( ::PyKeyValues::*SetColor_function_type )( char const *,::Color ) ;
+            typedef void ( ::PyKeyValues::*SetColor_function_type)( char const *,::Color ) ;
             
             KeyValues_exposer.def( 
                 "SetColor"
@@ -558,7 +558,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::SetFloat
         
-            typedef void ( ::PyKeyValues::*SetFloat_function_type )( char const *,float ) ;
+            typedef void ( ::PyKeyValues::*SetFloat_function_type)( char const *,float ) ;
             
             KeyValues_exposer.def( 
                 "SetFloat"
@@ -568,7 +568,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::SetInt
         
-            typedef void ( ::PyKeyValues::*SetInt_function_type )( char const *,int ) ;
+            typedef void ( ::PyKeyValues::*SetInt_function_type)( char const *,int ) ;
             
             KeyValues_exposer.def( 
                 "SetInt"
@@ -578,7 +578,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::SetName
         
-            typedef void ( ::PyKeyValues::*SetName_function_type )( char const * ) ;
+            typedef void ( ::PyKeyValues::*SetName_function_type)( char const * ) ;
             
             KeyValues_exposer.def( 
                 "SetName"
@@ -588,7 +588,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::SetNextKey
         
-            typedef void ( ::PyKeyValues::*SetNextKey_function_type )( ::KeyValues * ) ;
+            typedef void ( ::PyKeyValues::*SetNextKey_function_type)( ::KeyValues * ) ;
             
             KeyValues_exposer.def( 
                 "SetNextKey"
@@ -598,7 +598,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::SetString
         
-            typedef void ( ::PyKeyValues::*SetString_function_type )( char const *,char const * ) ;
+            typedef void ( ::PyKeyValues::*SetString_function_type)( char const *,char const * ) ;
             
             KeyValues_exposer.def( 
                 "SetString"
@@ -608,7 +608,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::SetStringValue
         
-            typedef void ( ::PyKeyValues::*SetStringValue_function_type )( char const * ) ;
+            typedef void ( ::PyKeyValues::*SetStringValue_function_type)( char const * ) ;
             
             KeyValues_exposer.def( 
                 "SetStringValue"
@@ -618,7 +618,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::SetUint64
         
-            typedef void ( ::PyKeyValues::*SetUint64_function_type )( char const *,::uint64 ) ;
+            typedef void ( ::PyKeyValues::*SetUint64_function_type)( char const *,::uint64 ) ;
             
             KeyValues_exposer.def( 
                 "SetUint64"
@@ -628,7 +628,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::PyKeyValues::deleteThis
         
-            typedef void ( ::PyKeyValues::*deleteThis_function_type )(  ) ;
+            typedef void ( ::PyKeyValues::*deleteThis_function_type)(  ) ;
             
             KeyValues_exposer.def( 
                 "deleteThis"
@@ -644,7 +644,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         bp::scope SrcPyStdErr_scope( SrcPyStdErr_exposer );
         { //::SrcPyStdErr::flush
         
-            typedef void ( ::SrcPyStdErr::*flush_function_type )(  ) ;
+            typedef void ( ::SrcPyStdErr::*flush_function_type)(  ) ;
             
             SrcPyStdErr_exposer.def( 
                 "flush"
@@ -653,7 +653,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::SrcPyStdErr::write
         
-            typedef void ( ::SrcPyStdErr::*write_function_type )( char const * ) ;
+            typedef void ( ::SrcPyStdErr::*write_function_type)( char const * ) ;
             
             SrcPyStdErr_exposer.def( 
                 "write"
@@ -663,7 +663,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //property "encoding"[fget=::SrcPyStdErr::encoding]
         
-            typedef char const * ( ::SrcPyStdErr::*fget )(  ) ;
+            typedef char const * ( ::SrcPyStdErr::*fget)(  ) ;
             
             SrcPyStdErr_exposer.add_property( 
                 "encoding"
@@ -678,7 +678,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         bp::scope SrcPyStdOut_scope( SrcPyStdOut_exposer );
         { //::SrcPyStdOut::flush
         
-            typedef void ( ::SrcPyStdOut::*flush_function_type )(  ) ;
+            typedef void ( ::SrcPyStdOut::*flush_function_type)(  ) ;
             
             SrcPyStdOut_exposer.def( 
                 "flush"
@@ -687,7 +687,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //::SrcPyStdOut::write
         
-            typedef void ( ::SrcPyStdOut::*write_function_type )( char const * ) ;
+            typedef void ( ::SrcPyStdOut::*write_function_type)( char const * ) ;
             
             SrcPyStdOut_exposer.def( 
                 "write"
@@ -697,7 +697,7 @@ BOOST_PYTHON_MODULE(srcbuiltins){
         }
         { //property "encoding"[fget=::SrcPyStdOut::encoding]
         
-            typedef char const * ( ::SrcPyStdOut::*fget )(  ) ;
+            typedef char const * ( ::SrcPyStdOut::*fget)(  ) ;
             
             SrcPyStdOut_exposer.add_property( 
                 "encoding"
@@ -917,8 +917,8 @@ BOOST_PYTHON_MODULE(srcbuiltins){
     py_keyvalues_to_keyvalues();
 
     bp::to_python_converter<
-	string_t,
-	string_t_to_python_str>();
+    	string_t,
+    	string_t_to_python_str>();
 
     python_str_to_string_t();
 

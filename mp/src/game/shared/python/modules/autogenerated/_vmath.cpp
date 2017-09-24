@@ -88,22 +88,22 @@ struct VMatrix_wrapper : VMatrix, bp::wrapper< VMatrix > {
     
     }
 
+    VMatrix_wrapper(::Vector const & forward, ::Vector const & left, ::Vector const & up )
+    : VMatrix( forward, left, up )
+      , bp::wrapper< VMatrix >(){
+        // constructor
+    
+    }
+
+    VMatrix_wrapper(::Vector const & forward, ::Vector const & left, ::Vector const & up, ::Vector const & translation )
+    : VMatrix( forward, left, up, translation )
+      , bp::wrapper< VMatrix >(){
+        // constructor
+    
+    }
+
     VMatrix_wrapper(::matrix3x4_t const & matrix3x4 )
     : VMatrix( matrix3x4 )
-      , bp::wrapper< VMatrix >(){
-        // constructor
-    
-    }
-
-    VMatrix_wrapper(::Vector const & xAxis, ::Vector const & yAxis, ::Vector const & zAxis )
-    : VMatrix( xAxis, yAxis, zAxis )
-      , bp::wrapper< VMatrix >(){
-        // constructor
-    
-    }
-
-    VMatrix_wrapper(::Vector const & xAxis, ::Vector const & yAxis, ::Vector const & zAxis, ::Vector const & translation )
-    : VMatrix( xAxis, yAxis, zAxis, translation )
       , bp::wrapper< VMatrix >(){
         // constructor
     
@@ -349,17 +349,17 @@ BOOST_PYTHON_MODULE(_vmath){
         QAngle_exposer.def( bp::init< vec_t, vec_t, vec_t >(( bp::arg("X"), bp::arg("Y"), bp::arg("Z") )) );
         { //::QAngle::Init
         
-            typedef void ( ::QAngle::*Init_function_type )( ::vec_t,::vec_t,::vec_t ) ;
+            typedef void ( ::QAngle::*Init_function_type)( ::vec_t,::vec_t,::vec_t ) ;
             
             QAngle_exposer.def( 
                 "Init"
                 , Init_function_type( &::QAngle::Init )
-                , ( bp::arg("ix")=0.0f, bp::arg("iy")=0.0f, bp::arg("iz")=0.0f ) );
+                , ( bp::arg("ix")=0.F, bp::arg("iy")=0.F, bp::arg("iz")=0.F ) );
         
         }
         { //::QAngle::Invalidate
         
-            typedef void ( ::QAngle::*Invalidate_function_type )(  ) ;
+            typedef void ( ::QAngle::*Invalidate_function_type)(  ) ;
             
             QAngle_exposer.def( 
                 "Invalidate"
@@ -368,7 +368,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::QAngle::IsValid
         
-            typedef bool ( ::QAngle::*IsValid_function_type )(  ) const;
+            typedef bool ( ::QAngle::*IsValid_function_type)(  ) const;
             
             QAngle_exposer.def( 
                 "IsValid"
@@ -377,7 +377,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::QAngle::Length
         
-            typedef ::vec_t ( ::QAngle::*Length_function_type )(  ) const;
+            typedef ::vec_t ( ::QAngle::*Length_function_type)(  ) const;
             
             QAngle_exposer.def( 
                 "Length"
@@ -386,7 +386,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::QAngle::LengthSqr
         
-            typedef ::vec_t ( ::QAngle::*LengthSqr_function_type )(  ) const;
+            typedef ::vec_t ( ::QAngle::*LengthSqr_function_type)(  ) const;
             
             QAngle_exposer.def( 
                 "LengthSqr"
@@ -395,7 +395,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::QAngle::Random
         
-            typedef void ( ::QAngle::*Random_function_type )( ::vec_t,::vec_t ) ;
+            typedef void ( ::QAngle::*Random_function_type)( ::vec_t,::vec_t ) ;
             
             QAngle_exposer.def( 
                 "Random"
@@ -432,17 +432,17 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::implicitly_convertible< RadianEuler const &, Quaternion >();
         { //::Quaternion::Init
         
-            typedef void ( ::Quaternion::*Init_function_type )( ::vec_t,::vec_t,::vec_t,::vec_t ) ;
+            typedef void ( ::Quaternion::*Init_function_type)( ::vec_t,::vec_t,::vec_t,::vec_t ) ;
             
             Quaternion_exposer.def( 
                 "Init"
                 , Init_function_type( &::Quaternion::Init )
-                , ( bp::arg("ix")=0.0f, bp::arg("iy")=0.0f, bp::arg("iz")=0.0f, bp::arg("iw")=0.0f ) );
+                , ( bp::arg("ix")=0.F, bp::arg("iy")=0.F, bp::arg("iz")=0.F, bp::arg("iw")=0.F ) );
         
         }
         { //::Quaternion::Invalidate
         
-            typedef void ( ::Quaternion::*Invalidate_function_type )(  ) ;
+            typedef void ( ::Quaternion::*Invalidate_function_type)(  ) ;
             
             Quaternion_exposer.def( 
                 "Invalidate"
@@ -451,7 +451,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Quaternion::IsValid
         
-            typedef bool ( ::Quaternion::*IsValid_function_type )(  ) const;
+            typedef bool ( ::Quaternion::*IsValid_function_type)(  ) const;
             
             Quaternion_exposer.def( 
                 "IsValid"
@@ -471,13 +471,13 @@ BOOST_PYTHON_MODULE(_vmath){
         VMatrix_exposer_t VMatrix_exposer = VMatrix_exposer_t( "VMatrix", bp::init< >() );
         bp::scope VMatrix_scope( VMatrix_exposer );
         VMatrix_exposer.def( bp::init< vec_t, vec_t, vec_t, vec_t, vec_t, vec_t, vec_t, vec_t, vec_t, vec_t, vec_t, vec_t, vec_t, vec_t, vec_t, vec_t >(( bp::arg("m00"), bp::arg("m01"), bp::arg("m02"), bp::arg("m03"), bp::arg("m10"), bp::arg("m11"), bp::arg("m12"), bp::arg("m13"), bp::arg("m20"), bp::arg("m21"), bp::arg("m22"), bp::arg("m23"), bp::arg("m30"), bp::arg("m31"), bp::arg("m32"), bp::arg("m33") )) );
+        VMatrix_exposer.def( bp::init< Vector const &, Vector const &, Vector const & >(( bp::arg("forward"), bp::arg("left"), bp::arg("up") )) );
+        VMatrix_exposer.def( bp::init< Vector const &, Vector const &, Vector const &, Vector const & >(( bp::arg("forward"), bp::arg("left"), bp::arg("up"), bp::arg("translation") )) );
         VMatrix_exposer.def( bp::init< matrix3x4_t const & >(( bp::arg("matrix3x4") )) );
         bp::implicitly_convertible< matrix3x4_t const &, VMatrix >();
-        VMatrix_exposer.def( bp::init< Vector const &, Vector const &, Vector const & >(( bp::arg("xAxis"), bp::arg("yAxis"), bp::arg("zAxis") )) );
-        VMatrix_exposer.def( bp::init< Vector const &, Vector const &, Vector const &, Vector const & >(( bp::arg("xAxis"), bp::arg("yAxis"), bp::arg("zAxis"), bp::arg("translation") )) );
         { //::VMatrix::ApplyRotation
         
-            typedef ::Vector ( ::VMatrix::*ApplyRotation_function_type )( ::Vector const & ) const;
+            typedef ::Vector ( ::VMatrix::*ApplyRotation_function_type)( ::Vector const & ) const;
             
             VMatrix_exposer.def( 
                 "ApplyRotation"
@@ -487,7 +487,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::As3x4
         
-            typedef ::matrix3x4_t const & ( ::VMatrix::*As3x4_function_type )(  ) const;
+            typedef ::matrix3x4_t const & ( ::VMatrix::*As3x4_function_type)(  ) const;
             
             VMatrix_exposer.def( 
                 "As3x4"
@@ -497,7 +497,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::CopyFrom3x4
         
-            typedef void ( ::VMatrix::*CopyFrom3x4_function_type )( ::matrix3x4_t const & ) ;
+            typedef void ( ::VMatrix::*CopyFrom3x4_function_type)( ::matrix3x4_t const & ) ;
             
             VMatrix_exposer.def( 
                 "CopyFrom3x4"
@@ -507,7 +507,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::GetBasisVectors
         
-            typedef void ( ::VMatrix::*GetBasisVectors_function_type )( ::Vector &,::Vector &,::Vector & ) const;
+            typedef void ( ::VMatrix::*GetBasisVectors_function_type)( ::Vector &,::Vector &,::Vector & ) const;
             
             VMatrix_exposer.def( 
                 "GetBasisVectors"
@@ -517,7 +517,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::GetForward
         
-            typedef ::Vector ( ::VMatrix::*GetForward_function_type )(  ) const;
+            typedef ::Vector ( ::VMatrix::*GetForward_function_type)(  ) const;
             
             VMatrix_exposer.def( 
                 "GetForward"
@@ -526,7 +526,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::GetLeft
         
-            typedef ::Vector ( ::VMatrix::*GetLeft_function_type )(  ) const;
+            typedef ::Vector ( ::VMatrix::*GetLeft_function_type)(  ) const;
             
             VMatrix_exposer.def( 
                 "GetLeft"
@@ -535,7 +535,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::GetScale
         
-            typedef ::Vector ( ::VMatrix::*GetScale_function_type )(  ) const;
+            typedef ::Vector ( ::VMatrix::*GetScale_function_type)(  ) const;
             
             VMatrix_exposer.def( 
                 "GetScale"
@@ -544,7 +544,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::GetTranslation
         
-            typedef ::Vector ( ::VMatrix::*GetTranslation_function_type )(  ) const;
+            typedef ::Vector ( ::VMatrix::*GetTranslation_function_type)(  ) const;
             
             VMatrix_exposer.def( 
                 "GetTranslation"
@@ -553,7 +553,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::GetUp
         
-            typedef ::Vector ( ::VMatrix::*GetUp_function_type )(  ) const;
+            typedef ::Vector ( ::VMatrix::*GetUp_function_type)(  ) const;
             
             VMatrix_exposer.def( 
                 "GetUp"
@@ -562,7 +562,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::Identity
         
-            typedef void ( ::VMatrix::*Identity_function_type )(  ) ;
+            typedef void ( ::VMatrix::*Identity_function_type)(  ) ;
             
             VMatrix_exposer.def( 
                 "Identity"
@@ -571,7 +571,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::Init
         
-            typedef void ( ::VMatrix::*Init_function_type )( ::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t ) ;
+            typedef void ( ::VMatrix::*Init_function_type)( ::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t,::vec_t ) ;
             
             VMatrix_exposer.def( 
                 "Init"
@@ -581,7 +581,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::Init
         
-            typedef void ( ::VMatrix::*Init_function_type )( ::matrix3x4_t const & ) ;
+            typedef void ( ::VMatrix::*Init_function_type)( ::matrix3x4_t const & ) ;
             
             VMatrix_exposer.def( 
                 "Init"
@@ -591,7 +591,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::InverseGeneral
         
-            typedef bool ( ::VMatrix::*InverseGeneral_function_type )( ::VMatrix & ) const;
+            typedef bool ( ::VMatrix::*InverseGeneral_function_type)( ::VMatrix & ) const;
             
             VMatrix_exposer.def( 
                 "InverseGeneral"
@@ -601,7 +601,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::InverseTR
         
-            typedef void ( ::VMatrix::*InverseTR_function_type )( ::VMatrix & ) const;
+            typedef void ( ::VMatrix::*InverseTR_function_type)( ::VMatrix & ) const;
             
             VMatrix_exposer.def( 
                 "InverseTR"
@@ -611,7 +611,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::InverseTR
         
-            typedef ::VMatrix ( ::VMatrix::*InverseTR_function_type )(  ) const;
+            typedef ::VMatrix ( ::VMatrix::*InverseTR_function_type)(  ) const;
             
             VMatrix_exposer.def( 
                 "InverseTR"
@@ -620,7 +620,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::IsIdentity
         
-            typedef bool ( ::VMatrix::*IsIdentity_function_type )(  ) const;
+            typedef bool ( ::VMatrix::*IsIdentity_function_type)(  ) const;
             
             VMatrix_exposer.def( 
                 "IsIdentity"
@@ -629,7 +629,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::IsRotationMatrix
         
-            typedef bool ( ::VMatrix::*IsRotationMatrix_function_type )(  ) const;
+            typedef bool ( ::VMatrix::*IsRotationMatrix_function_type)(  ) const;
             
             VMatrix_exposer.def( 
                 "IsRotationMatrix"
@@ -638,7 +638,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::MatrixMul
         
-            typedef void ( ::VMatrix::*MatrixMul_function_type )( ::VMatrix const &,::VMatrix & ) const;
+            typedef void ( ::VMatrix::*MatrixMul_function_type)( ::VMatrix const &,::VMatrix & ) const;
             
             VMatrix_exposer.def( 
                 "MatrixMul"
@@ -648,7 +648,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::NormalizeBasisVectors
         
-            typedef ::VMatrix ( ::VMatrix::*NormalizeBasisVectors_function_type )(  ) const;
+            typedef ::VMatrix ( ::VMatrix::*NormalizeBasisVectors_function_type)(  ) const;
             
             VMatrix_exposer.def( 
                 "NormalizeBasisVectors"
@@ -657,7 +657,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::PostTranslate
         
-            typedef void ( ::VMatrix::*PostTranslate_function_type )( ::Vector const & ) ;
+            typedef void ( ::VMatrix::*PostTranslate_function_type)( ::Vector const & ) ;
             
             VMatrix_exposer.def( 
                 "PostTranslate"
@@ -667,7 +667,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::PreTranslate
         
-            typedef void ( ::VMatrix::*PreTranslate_function_type )( ::Vector const & ) ;
+            typedef void ( ::VMatrix::*PreTranslate_function_type)( ::Vector const & ) ;
             
             VMatrix_exposer.def( 
                 "PreTranslate"
@@ -677,7 +677,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::Scale
         
-            typedef ::VMatrix ( ::VMatrix::*Scale_function_type )( ::Vector const & ) ;
+            typedef ::VMatrix ( ::VMatrix::*Scale_function_type)( ::Vector const & ) ;
             
             VMatrix_exposer.def( 
                 "Scale"
@@ -687,7 +687,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::Set3x4
         
-            typedef void ( ::VMatrix::*Set3x4_function_type )( ::matrix3x4_t & ) const;
+            typedef void ( ::VMatrix::*Set3x4_function_type)( ::matrix3x4_t & ) const;
             
             VMatrix_exposer.def( 
                 "Set3x4"
@@ -697,7 +697,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::SetBasisVectors
         
-            typedef void ( ::VMatrix::*SetBasisVectors_function_type )( ::Vector const &,::Vector const &,::Vector const & ) ;
+            typedef void ( ::VMatrix::*SetBasisVectors_function_type)( ::Vector const &,::Vector const &,::Vector const & ) ;
             
             VMatrix_exposer.def( 
                 "SetBasisVectors"
@@ -707,7 +707,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::SetForward
         
-            typedef void ( ::VMatrix::*SetForward_function_type )( ::Vector const & ) ;
+            typedef void ( ::VMatrix::*SetForward_function_type)( ::Vector const & ) ;
             
             VMatrix_exposer.def( 
                 "SetForward"
@@ -717,7 +717,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::SetLeft
         
-            typedef void ( ::VMatrix::*SetLeft_function_type )( ::Vector const & ) ;
+            typedef void ( ::VMatrix::*SetLeft_function_type)( ::Vector const & ) ;
             
             VMatrix_exposer.def( 
                 "SetLeft"
@@ -727,7 +727,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::SetTranslation
         
-            typedef void ( ::VMatrix::*SetTranslation_function_type )( ::Vector const & ) ;
+            typedef void ( ::VMatrix::*SetTranslation_function_type)( ::Vector const & ) ;
             
             VMatrix_exposer.def( 
                 "SetTranslation"
@@ -737,7 +737,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::SetUp
         
-            typedef void ( ::VMatrix::*SetUp_function_type )( ::Vector const & ) ;
+            typedef void ( ::VMatrix::*SetUp_function_type)( ::Vector const & ) ;
             
             VMatrix_exposer.def( 
                 "SetUp"
@@ -747,7 +747,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::SetupMatrixAngles
         
-            typedef void ( ::VMatrix::*SetupMatrixAngles_function_type )( ::QAngle const & ) ;
+            typedef void ( ::VMatrix::*SetupMatrixAngles_function_type)( ::QAngle const & ) ;
             
             VMatrix_exposer.def( 
                 "SetupMatrixAngles"
@@ -757,7 +757,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::SetupMatrixOrgAngles
         
-            typedef void ( ::VMatrix::*SetupMatrixOrgAngles_function_type )( ::Vector const &,::QAngle const & ) ;
+            typedef void ( ::VMatrix::*SetupMatrixOrgAngles_function_type)( ::Vector const &,::QAngle const & ) ;
             
             VMatrix_exposer.def( 
                 "SetupMatrixOrgAngles"
@@ -767,7 +767,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::TransformPlane
         
-            typedef void ( ::VMatrix::*TransformPlane_function_type )( ::VPlane const &,::VPlane & ) const;
+            typedef void ( ::VMatrix::*TransformPlane_function_type)( ::VPlane const &,::VPlane & ) const;
             
             VMatrix_exposer.def( 
                 "TransformPlane"
@@ -777,7 +777,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::Transpose
         
-            typedef ::VMatrix ( ::VMatrix::*Transpose_function_type )(  ) const;
+            typedef ::VMatrix ( ::VMatrix::*Transpose_function_type)(  ) const;
             
             VMatrix_exposer.def( 
                 "Transpose"
@@ -786,7 +786,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::Transpose3x3
         
-            typedef ::VMatrix ( ::VMatrix::*Transpose3x3_function_type )(  ) const;
+            typedef ::VMatrix ( ::VMatrix::*Transpose3x3_function_type)(  ) const;
             
             VMatrix_exposer.def( 
                 "Transpose3x3"
@@ -795,7 +795,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::V3Mul
         
-            typedef void ( ::VMatrix::*V3Mul_function_type )( ::Vector const &,::Vector & ) const;
+            typedef void ( ::VMatrix::*V3Mul_function_type)( ::Vector const &,::Vector & ) const;
             
             VMatrix_exposer.def( 
                 "V3Mul"
@@ -805,7 +805,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::V4Mul
         
-            typedef void ( ::VMatrix::*V4Mul_function_type )( ::Vector4D const &,::Vector4D & ) const;
+            typedef void ( ::VMatrix::*V4Mul_function_type)( ::Vector4D const &,::Vector4D & ) const;
             
             VMatrix_exposer.def( 
                 "V4Mul"
@@ -815,7 +815,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::VMul3x3
         
-            typedef ::Vector ( ::VMatrix::*VMul3x3_function_type )( ::Vector const & ) const;
+            typedef ::Vector ( ::VMatrix::*VMul3x3_function_type)( ::Vector const & ) const;
             
             VMatrix_exposer.def( 
                 "VMul3x3"
@@ -825,7 +825,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::VMul3x3Transpose
         
-            typedef ::Vector ( ::VMatrix::*VMul3x3Transpose_function_type )( ::Vector const & ) const;
+            typedef ::Vector ( ::VMatrix::*VMul3x3Transpose_function_type)( ::Vector const & ) const;
             
             VMatrix_exposer.def( 
                 "VMul3x3Transpose"
@@ -835,7 +835,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::VMul4x3
         
-            typedef ::Vector ( ::VMatrix::*VMul4x3_function_type )( ::Vector const & ) const;
+            typedef ::Vector ( ::VMatrix::*VMul4x3_function_type)( ::Vector const & ) const;
             
             VMatrix_exposer.def( 
                 "VMul4x3"
@@ -845,7 +845,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::VMatrix::VMul4x3Transpose
         
-            typedef ::Vector ( ::VMatrix::*VMul4x3Transpose_function_type )( ::Vector const & ) const;
+            typedef ::Vector ( ::VMatrix::*VMul4x3Transpose_function_type)( ::Vector const & ) const;
             
             VMatrix_exposer.def( 
                 "VMul4x3Transpose"
@@ -875,7 +875,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::implicitly_convertible< vec_t, Vector >();
         { //::Vector::AsVector2D
         
-            typedef ::Vector2D & ( ::Vector::*AsVector2D_function_type )(  ) ;
+            typedef ::Vector2D & ( ::Vector::*AsVector2D_function_type)(  ) ;
             
             Vector_exposer.def( 
                 "AsVector2D"
@@ -885,7 +885,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::AsVector2D
         
-            typedef ::Vector2D const & ( ::Vector::*AsVector2D_function_type )(  ) const;
+            typedef ::Vector2D const & ( ::Vector::*AsVector2D_function_type)(  ) const;
             
             Vector_exposer.def( 
                 "AsVector2D"
@@ -895,7 +895,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::Cross
         
-            typedef ::Vector ( ::Vector::*Cross_function_type )( ::Vector const & ) const;
+            typedef ::Vector ( ::Vector::*Cross_function_type)( ::Vector const & ) const;
             
             Vector_exposer.def( 
                 "Cross"
@@ -905,7 +905,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::DistTo
         
-            typedef ::vec_t ( ::Vector::*DistTo_function_type )( ::Vector const & ) const;
+            typedef ::vec_t ( ::Vector::*DistTo_function_type)( ::Vector const & ) const;
             
             Vector_exposer.def( 
                 "DistTo"
@@ -915,7 +915,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::DistToSqr
         
-            typedef ::vec_t ( ::Vector::*DistToSqr_function_type )( ::Vector const & ) const;
+            typedef ::vec_t ( ::Vector::*DistToSqr_function_type)( ::Vector const & ) const;
             
             Vector_exposer.def( 
                 "DistToSqr"
@@ -925,7 +925,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::Dot
         
-            typedef ::vec_t ( ::Vector::*Dot_function_type )( ::Vector const & ) const;
+            typedef ::vec_t ( ::Vector::*Dot_function_type)( ::Vector const & ) const;
             
             Vector_exposer.def( 
                 "Dot"
@@ -935,17 +935,17 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::Init
         
-            typedef void ( ::Vector::*Init_function_type )( ::vec_t,::vec_t,::vec_t ) ;
+            typedef void ( ::Vector::*Init_function_type)( ::vec_t,::vec_t,::vec_t ) ;
             
             Vector_exposer.def( 
                 "Init"
                 , Init_function_type( &::Vector::Init )
-                , ( bp::arg("ix")=0.0f, bp::arg("iy")=0.0f, bp::arg("iz")=0.0f ) );
+                , ( bp::arg("ix")=0.F, bp::arg("iy")=0.F, bp::arg("iz")=0.F ) );
         
         }
         { //::Vector::Invalidate
         
-            typedef void ( ::Vector::*Invalidate_function_type )(  ) ;
+            typedef void ( ::Vector::*Invalidate_function_type)(  ) ;
             
             Vector_exposer.def( 
                 "Invalidate"
@@ -954,7 +954,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::IsLengthGreaterThan
         
-            typedef bool ( ::Vector::*IsLengthGreaterThan_function_type )( float ) const;
+            typedef bool ( ::Vector::*IsLengthGreaterThan_function_type)( float ) const;
             
             Vector_exposer.def( 
                 "IsLengthGreaterThan"
@@ -964,7 +964,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::IsLengthLessThan
         
-            typedef bool ( ::Vector::*IsLengthLessThan_function_type )( float ) const;
+            typedef bool ( ::Vector::*IsLengthLessThan_function_type)( float ) const;
             
             Vector_exposer.def( 
                 "IsLengthLessThan"
@@ -974,7 +974,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::IsValid
         
-            typedef bool ( ::Vector::*IsValid_function_type )(  ) const;
+            typedef bool ( ::Vector::*IsValid_function_type)(  ) const;
             
             Vector_exposer.def( 
                 "IsValid"
@@ -983,17 +983,17 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::IsZero
         
-            typedef bool ( ::Vector::*IsZero_function_type )( float ) const;
+            typedef bool ( ::Vector::*IsZero_function_type)( float ) const;
             
             Vector_exposer.def( 
                 "IsZero"
                 , IsZero_function_type( &::Vector::IsZero )
-                , ( bp::arg("tolerance")=9.99999977648258209228515625e-3f ) );
+                , ( bp::arg("tolerance")=0.00999999977F ) );
         
         }
         { //::Vector::Length
         
-            typedef ::vec_t ( ::Vector::*Length_function_type )(  ) const;
+            typedef ::vec_t ( ::Vector::*Length_function_type)(  ) const;
             
             Vector_exposer.def( 
                 "Length"
@@ -1002,7 +1002,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::Length2D
         
-            typedef ::vec_t ( ::Vector::*Length2D_function_type )(  ) const;
+            typedef ::vec_t ( ::Vector::*Length2D_function_type)(  ) const;
             
             Vector_exposer.def( 
                 "Length2D"
@@ -1011,7 +1011,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::Length2DSqr
         
-            typedef ::vec_t ( ::Vector::*Length2DSqr_function_type )(  ) const;
+            typedef ::vec_t ( ::Vector::*Length2DSqr_function_type)(  ) const;
             
             Vector_exposer.def( 
                 "Length2DSqr"
@@ -1020,7 +1020,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::LengthSqr
         
-            typedef ::vec_t ( ::Vector::*LengthSqr_function_type )(  ) const;
+            typedef ::vec_t ( ::Vector::*LengthSqr_function_type)(  ) const;
             
             Vector_exposer.def( 
                 "LengthSqr"
@@ -1029,7 +1029,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::Max
         
-            typedef ::Vector ( ::Vector::*Max_function_type )( ::Vector const & ) const;
+            typedef ::Vector ( ::Vector::*Max_function_type)( ::Vector const & ) const;
             
             Vector_exposer.def( 
                 "Max"
@@ -1039,7 +1039,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::Min
         
-            typedef ::Vector ( ::Vector::*Min_function_type )( ::Vector const & ) const;
+            typedef ::Vector ( ::Vector::*Min_function_type)( ::Vector const & ) const;
             
             Vector_exposer.def( 
                 "Min"
@@ -1049,7 +1049,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::MulAdd
         
-            typedef void ( ::Vector::*MulAdd_function_type )( ::Vector const &,::Vector const &,float ) ;
+            typedef void ( ::Vector::*MulAdd_function_type)( ::Vector const &,::Vector const &,float ) ;
             
             Vector_exposer.def( 
                 "MulAdd"
@@ -1059,7 +1059,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::Negate
         
-            typedef void ( ::Vector::*Negate_function_type )(  ) ;
+            typedef void ( ::Vector::*Negate_function_type)(  ) ;
             
             Vector_exposer.def( 
                 "Negate"
@@ -1068,7 +1068,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::NormalizeInPlace
         
-            typedef ::vec_t ( ::Vector::*NormalizeInPlace_function_type )(  ) ;
+            typedef ::vec_t ( ::Vector::*NormalizeInPlace_function_type)(  ) ;
             
             Vector_exposer.def( 
                 "NormalizeInPlace"
@@ -1077,7 +1077,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::Normalized
         
-            typedef ::Vector ( ::Vector::*Normalized_function_type )(  ) const;
+            typedef ::Vector ( ::Vector::*Normalized_function_type)(  ) const;
             
             Vector_exposer.def( 
                 "Normalized"
@@ -1086,7 +1086,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::Random
         
-            typedef void ( ::Vector::*Random_function_type )( ::vec_t,::vec_t ) ;
+            typedef void ( ::Vector::*Random_function_type)( ::vec_t,::vec_t ) ;
             
             Vector_exposer.def( 
                 "Random"
@@ -1096,7 +1096,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::WithinAABox
         
-            typedef bool ( ::Vector::*WithinAABox_function_type )( ::Vector const &,::Vector const & ) ;
+            typedef bool ( ::Vector::*WithinAABox_function_type)( ::Vector const &,::Vector const & ) ;
             
             Vector_exposer.def( 
                 "WithinAABox"
@@ -1106,7 +1106,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector::Zero
         
-            typedef void ( ::Vector::*Zero_function_type )(  ) ;
+            typedef void ( ::Vector::*Zero_function_type)(  ) ;
             
             Vector_exposer.def( 
                 "Zero"
@@ -1147,7 +1147,7 @@ BOOST_PYTHON_MODULE(_vmath){
         Vector2D_exposer.def( bp::init< Vector2D const & >(( bp::arg("vOther") )) );
         { //::Vector2D::DistTo
         
-            typedef ::vec_t ( ::Vector2D::*DistTo_function_type )( ::Vector2D const & ) const;
+            typedef ::vec_t ( ::Vector2D::*DistTo_function_type)( ::Vector2D const & ) const;
             
             Vector2D_exposer.def( 
                 "DistTo"
@@ -1157,7 +1157,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::DistToSqr
         
-            typedef ::vec_t ( ::Vector2D::*DistToSqr_function_type )( ::Vector2D const & ) const;
+            typedef ::vec_t ( ::Vector2D::*DistToSqr_function_type)( ::Vector2D const & ) const;
             
             Vector2D_exposer.def( 
                 "DistToSqr"
@@ -1167,7 +1167,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::Dot
         
-            typedef ::vec_t ( ::Vector2D::*Dot_function_type )( ::Vector2D const & ) const;
+            typedef ::vec_t ( ::Vector2D::*Dot_function_type)( ::Vector2D const & ) const;
             
             Vector2D_exposer.def( 
                 "Dot"
@@ -1177,17 +1177,17 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::Init
         
-            typedef void ( ::Vector2D::*Init_function_type )( ::vec_t,::vec_t ) ;
+            typedef void ( ::Vector2D::*Init_function_type)( ::vec_t,::vec_t ) ;
             
             Vector2D_exposer.def( 
                 "Init"
                 , Init_function_type( &::Vector2D::Init )
-                , ( bp::arg("ix")=0.0f, bp::arg("iy")=0.0f ) );
+                , ( bp::arg("ix")=0.F, bp::arg("iy")=0.F ) );
         
         }
         { //::Vector2D::IsLengthGreaterThan
         
-            typedef bool ( ::Vector2D::*IsLengthGreaterThan_function_type )( float ) const;
+            typedef bool ( ::Vector2D::*IsLengthGreaterThan_function_type)( float ) const;
             
             Vector2D_exposer.def( 
                 "IsLengthGreaterThan"
@@ -1197,7 +1197,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::IsLengthLessThan
         
-            typedef bool ( ::Vector2D::*IsLengthLessThan_function_type )( float ) const;
+            typedef bool ( ::Vector2D::*IsLengthLessThan_function_type)( float ) const;
             
             Vector2D_exposer.def( 
                 "IsLengthLessThan"
@@ -1207,7 +1207,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::IsValid
         
-            typedef bool ( ::Vector2D::*IsValid_function_type )(  ) const;
+            typedef bool ( ::Vector2D::*IsValid_function_type)(  ) const;
             
             Vector2D_exposer.def( 
                 "IsValid"
@@ -1216,17 +1216,17 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::IsZero
         
-            typedef bool ( ::Vector2D::*IsZero_function_type )( float ) const;
+            typedef bool ( ::Vector2D::*IsZero_function_type)( float ) const;
             
             Vector2D_exposer.def( 
                 "IsZero"
                 , IsZero_function_type( &::Vector2D::IsZero )
-                , ( bp::arg("tolerance")=9.99999977648258209228515625e-3f ) );
+                , ( bp::arg("tolerance")=0.00999999977F ) );
         
         }
         { //::Vector2D::Length
         
-            typedef ::vec_t ( ::Vector2D::*Length_function_type )(  ) const;
+            typedef ::vec_t ( ::Vector2D::*Length_function_type)(  ) const;
             
             Vector2D_exposer.def( 
                 "Length"
@@ -1235,7 +1235,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::LengthSqr
         
-            typedef ::vec_t ( ::Vector2D::*LengthSqr_function_type )(  ) const;
+            typedef ::vec_t ( ::Vector2D::*LengthSqr_function_type)(  ) const;
             
             Vector2D_exposer.def( 
                 "LengthSqr"
@@ -1244,7 +1244,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::Max
         
-            typedef ::Vector2D ( ::Vector2D::*Max_function_type )( ::Vector2D const & ) const;
+            typedef ::Vector2D ( ::Vector2D::*Max_function_type)( ::Vector2D const & ) const;
             
             Vector2D_exposer.def( 
                 "Max"
@@ -1254,7 +1254,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::Min
         
-            typedef ::Vector2D ( ::Vector2D::*Min_function_type )( ::Vector2D const & ) const;
+            typedef ::Vector2D ( ::Vector2D::*Min_function_type)( ::Vector2D const & ) const;
             
             Vector2D_exposer.def( 
                 "Min"
@@ -1264,7 +1264,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::MulAdd
         
-            typedef void ( ::Vector2D::*MulAdd_function_type )( ::Vector2D const &,::Vector2D const &,float ) ;
+            typedef void ( ::Vector2D::*MulAdd_function_type)( ::Vector2D const &,::Vector2D const &,float ) ;
             
             Vector2D_exposer.def( 
                 "MulAdd"
@@ -1274,7 +1274,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::Negate
         
-            typedef void ( ::Vector2D::*Negate_function_type )(  ) ;
+            typedef void ( ::Vector2D::*Negate_function_type)(  ) ;
             
             Vector2D_exposer.def( 
                 "Negate"
@@ -1283,7 +1283,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::NormalizeInPlace
         
-            typedef ::vec_t ( ::Vector2D::*NormalizeInPlace_function_type )(  ) ;
+            typedef ::vec_t ( ::Vector2D::*NormalizeInPlace_function_type)(  ) ;
             
             Vector2D_exposer.def( 
                 "NormalizeInPlace"
@@ -1292,7 +1292,7 @@ BOOST_PYTHON_MODULE(_vmath){
         }
         { //::Vector2D::Random
         
-            typedef void ( ::Vector2D::*Random_function_type )( float,float ) ;
+            typedef void ( ::Vector2D::*Random_function_type)( float,float ) ;
             
             Vector2D_exposer.def( 
                 "Random"
@@ -1332,11 +1332,11 @@ BOOST_PYTHON_MODULE(_vmath){
         .def( bp::init< Vector const &, Vector const &, Vector const &, Vector const & >(( bp::arg("xAxis"), bp::arg("yAxis"), bp::arg("zAxis"), bp::arg("vecOrigin") )) )    
         .def( 
             "Init"
-            , (void ( ::matrix3x4_t::* )( ::Vector const &,::Vector const &,::Vector const &,::Vector const & ) )( &::matrix3x4_t::Init )
+            , (void ( ::matrix3x4_t::* )( ::Vector const &,::Vector const &,::Vector const &,::Vector const & ))( &::matrix3x4_t::Init )
             , ( bp::arg("xAxis"), bp::arg("yAxis"), bp::arg("zAxis"), bp::arg("vecOrigin") ) )    
         .def( 
             "Invalidate"
-            , (void ( ::matrix3x4_t::* )(  ) )( &::matrix3x4_t::Invalidate ) );
+            , (void ( ::matrix3x4_t::* )(  ))( &::matrix3x4_t::Invalidate ) );
 
     { //::AddPointToBounds
     
@@ -1373,7 +1373,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::AngleIMatrix
     
-        typedef void ( *AngleIMatrix_function_type )( ::RadianEuler const &,::matrix3x4_t & );
+        typedef void ( *AngleIMatrix_function_type )( ::QAngle const &,::matrix3x4_t & );
         
         bp::def( 
             "AngleIMatrix"
@@ -1395,7 +1395,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::AngleIMatrix
     
-        typedef void ( *AngleIMatrix_function_type )( ::QAngle const &,::matrix3x4_t & );
+        typedef void ( *AngleIMatrix_function_type )( ::RadianEuler const &,::matrix3x4_t & );
         
         bp::def( 
             "AngleIMatrix"
@@ -1406,18 +1406,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::AngleMatrix
     
-        typedef void ( *AngleMatrix_function_type )( ::RadianEuler const &,::Vector const &,::matrix3x4_t & );
-        
-        bp::def( 
-            "AngleMatrix"
-            , AngleMatrix_function_type( &::AngleMatrix )
-            , ( bp::arg("angles"), bp::arg("position"), bp::arg("mat") ) );
-    
-    }
-
-    { //::AngleMatrix
-    
-        typedef void ( *AngleMatrix_function_type )( ::RadianEuler const &,::matrix3x4_t & );
+        typedef void ( *AngleMatrix_function_type )( ::QAngle const &,::matrix3x4_t & );
         
         bp::def( 
             "AngleMatrix"
@@ -1439,12 +1428,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::AngleMatrix
     
-        typedef void ( *AngleMatrix_function_type )( ::QAngle const &,::matrix3x4_t & );
+        typedef void ( *AngleMatrix_function_type )( ::RadianEuler const &,::matrix3x4_t & );
         
         bp::def( 
             "AngleMatrix"
             , AngleMatrix_function_type( &::AngleMatrix )
             , ( bp::arg("angles"), bp::arg("mat") ) );
+    
+    }
+
+    { //::AngleMatrix
+    
+        typedef void ( *AngleMatrix_function_type )( ::RadianEuler const &,::Vector const &,::matrix3x4_t & );
+        
+        bp::def( 
+            "AngleMatrix"
+            , AngleMatrix_function_type( &::AngleMatrix )
+            , ( bp::arg("angles"), bp::arg("position"), bp::arg("mat") ) );
     
     }
 
@@ -1472,7 +1472,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::AngleQuaternion
     
-        typedef void ( *AngleQuaternion_function_type )( ::QAngle const &,::Quaternion & );
+        typedef void ( *AngleQuaternion_function_type )( ::RadianEuler const &,::Quaternion & );
         
         bp::def( 
             "AngleQuaternion"
@@ -1483,23 +1483,12 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::AngleQuaternion
     
-        typedef void ( *AngleQuaternion_function_type )( ::RadianEuler const &,::Quaternion & );
+        typedef void ( *AngleQuaternion_function_type )( ::QAngle const &,::Quaternion & );
         
         bp::def( 
             "AngleQuaternion"
             , AngleQuaternion_function_type( &::AngleQuaternion )
             , ( bp::arg("angles"), bp::arg("qt") ) );
-    
-    }
-
-    { //::AngleVectors
-    
-        typedef void ( *AngleVectors_function_type )( ::QAngle const &,::Vector *,::Vector *,::Vector * );
-        
-        bp::def( 
-            "AngleVectors"
-            , AngleVectors_function_type( &::AngleVectors )
-            , ( bp::arg("angles"), bp::arg("forward"), bp::arg("right"), bp::arg("up") ) );
     
     }
 
@@ -1511,6 +1500,17 @@ BOOST_PYTHON_MODULE(_vmath){
             "AngleVectors"
             , AngleVectors_function_type( &::AngleVectors )
             , ( bp::arg("angles"), bp::arg("forward") ) );
+    
+    }
+
+    { //::AngleVectors
+    
+        typedef void ( *AngleVectors_function_type )( ::QAngle const &,::Vector *,::Vector *,::Vector * );
+        
+        bp::def( 
+            "AngleVectors"
+            , AngleVectors_function_type( &::AngleVectors )
+            , ( bp::arg("angles"), bp::arg("forward"), bp::arg("right"), bp::arg("up") ) );
     
     }
 
@@ -1532,7 +1532,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "AnglesAreEqual"
             , AnglesAreEqual_function_type( &::AnglesAreEqual )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("tolerance")=0.0f ) );
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("tolerance")=0.F ) );
     
     }
 
@@ -1642,7 +1642,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "BoxOnPlaneSide2"
             , BoxOnPlaneSide2_function_type( &::BoxOnPlaneSide2 )
-            , ( bp::arg("emins"), bp::arg("emaxs"), bp::arg("p"), bp::arg("tolerance")=0.0f ) );
+            , ( bp::arg("emins"), bp::arg("emaxs"), bp::arg("p"), bp::arg("tolerance")=0.F ) );
     
     }
 
@@ -1857,23 +1857,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::Catmull_Rom_Spline_Integral
     
-        typedef void ( *Catmull_Rom_Spline_Integral_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,::Vector & );
-        
-        bp::def( 
-            "Catmull_Rom_Spline_Integral"
-            , Catmull_Rom_Spline_Integral_function_type( &::Catmull_Rom_Spline_Integral )
-            , ( bp::arg("p1"), bp::arg("p2"), bp::arg("p3"), bp::arg("p4"), bp::arg("output") ) );
-    
-    }
-
-    { //::Catmull_Rom_Spline_Integral
-    
         typedef void ( *Catmull_Rom_Spline_Integral_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float,::Vector & );
         
         bp::def( 
             "Catmull_Rom_Spline_Integral"
             , Catmull_Rom_Spline_Integral_function_type( &::Catmull_Rom_Spline_Integral )
             , ( bp::arg("p1"), bp::arg("p2"), bp::arg("p3"), bp::arg("p4"), bp::arg("t"), bp::arg("output") ) );
+    
+    }
+
+    { //::Catmull_Rom_Spline_Integral
+    
+        typedef void ( *Catmull_Rom_Spline_Integral_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,::Vector & );
+        
+        bp::def( 
+            "Catmull_Rom_Spline_Integral"
+            , Catmull_Rom_Spline_Integral_function_type( &::Catmull_Rom_Spline_Integral )
+            , ( bp::arg("p1"), bp::arg("p2"), bp::arg("p3"), bp::arg("p4"), bp::arg("output") ) );
     
     }
 
@@ -1983,7 +1983,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "ClipPolyToPlane"
             , ClipPolyToPlane_function_type( &::ClipPolyToPlane )
-            , ( bp::arg("inVerts"), bp::arg("vertCount"), bp::arg("outVerts"), bp::arg("normal"), bp::arg("dist"), bp::arg("fOnPlaneEpsilon")=1.00000001490116119384765625e-1f ) );
+            , ( bp::arg("inVerts"), bp::arg("vertCount"), bp::arg("outVerts"), bp::arg("normal"), bp::arg("dist"), bp::arg("fOnPlaneEpsilon")=0.100000001F ) );
     
     }
 
@@ -1994,7 +1994,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "ClipPolyToPlane_Precise"
             , ClipPolyToPlane_Precise_function_type( &::ClipPolyToPlane_Precise )
-            , ( bp::arg("inVerts"), bp::arg("vertCount"), bp::arg("outVerts"), bp::arg("normal"), bp::arg("dist"), bp::arg("fOnPlaneEpsilon")=1.00000000000000005551115123125782702118158340454e-1 ) );
+            , ( bp::arg("inVerts"), bp::arg("vertCount"), bp::arg("outVerts"), bp::arg("normal"), bp::arg("dist"), bp::arg("fOnPlaneEpsilon")=0.10000000000000001 ) );
     
     }
 
@@ -2066,23 +2066,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::CrossProduct
     
-        typedef ::Vector ( *CrossProduct_function_type )( ::Vector const &,::Vector const & );
-        
-        bp::def( 
-            "CrossProduct"
-            , CrossProduct_function_type( &::CrossProduct )
-            , ( bp::arg("a"), bp::arg("b") ) );
-    
-    }
-
-    { //::CrossProduct
-    
         typedef void ( *CrossProduct_function_type )( ::Vector const &,::Vector const &,::Vector & );
         
         bp::def( 
             "CrossProduct"
             , CrossProduct_function_type( &::CrossProduct )
             , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
+    
+    }
+
+    { //::CrossProduct
+    
+        typedef ::Vector ( *CrossProduct_function_type )( ::Vector const &,::Vector const & );
+        
+        bp::def( 
+            "CrossProduct"
+            , CrossProduct_function_type( &::CrossProduct )
+            , ( bp::arg("a"), bp::arg("b") ) );
     
     }
 
@@ -2132,23 +2132,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::ExponentialDecay
     
-        typedef float ( *ExponentialDecay_function_type )( float,float,float );
-        
-        bp::def( 
-            "ExponentialDecay"
-            , ExponentialDecay_function_type( &::ExponentialDecay )
-            , ( bp::arg("decayTo"), bp::arg("decayTime"), bp::arg("dt") ) );
-    
-    }
-
-    { //::ExponentialDecay
-    
         typedef float ( *ExponentialDecay_function_type )( float,float );
         
         bp::def( 
             "ExponentialDecay"
             , ExponentialDecay_function_type( &::ExponentialDecay )
             , ( bp::arg("halflife"), bp::arg("dt") ) );
+    
+    }
+
+    { //::ExponentialDecay
+    
+        typedef float ( *ExponentialDecay_function_type )( float,float,float );
+        
+        bp::def( 
+            "ExponentialDecay"
+            , ExponentialDecay_function_type( &::ExponentialDecay )
+            , ( bp::arg("decayTo"), bp::arg("decayTime"), bp::arg("dt") ) );
     
     }
 
@@ -2286,34 +2286,12 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::Hermite_Spline
     
-        typedef void ( *Hermite_Spline_function_type )( ::Quaternion const &,::Quaternion const &,::Quaternion const &,float,::Quaternion & );
+        typedef void ( *Hermite_Spline_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float,::Vector & );
         
         bp::def( 
             "Hermite_Spline"
             , Hermite_Spline_function_type( &::Hermite_Spline )
-            , ( bp::arg("q0"), bp::arg("q1"), bp::arg("q2"), bp::arg("t"), bp::arg("output") ) );
-    
-    }
-
-    { //::Hermite_Spline
-    
-        typedef float ( *Hermite_Spline_function_type )( float,float,float,float );
-        
-        bp::def( 
-            "Hermite_Spline"
-            , Hermite_Spline_function_type( &::Hermite_Spline )
-            , ( bp::arg("p0"), bp::arg("p1"), bp::arg("p2"), bp::arg("t") ) );
-    
-    }
-
-    { //::Hermite_Spline
-    
-        typedef void ( *Hermite_Spline_function_type )( ::Vector const &,::Vector const &,::Vector const &,float,::Vector & );
-        
-        bp::def( 
-            "Hermite_Spline"
-            , Hermite_Spline_function_type( &::Hermite_Spline )
-            , ( bp::arg("p0"), bp::arg("p1"), bp::arg("p2"), bp::arg("t"), bp::arg("output") ) );
+            , ( bp::arg("p1"), bp::arg("p2"), bp::arg("d1"), bp::arg("d2"), bp::arg("t"), bp::arg("output") ) );
     
     }
 
@@ -2330,12 +2308,34 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::Hermite_Spline
     
-        typedef void ( *Hermite_Spline_function_type )( ::Vector const &,::Vector const &,::Vector const &,::Vector const &,float,::Vector & );
+        typedef void ( *Hermite_Spline_function_type )( ::Vector const &,::Vector const &,::Vector const &,float,::Vector & );
         
         bp::def( 
             "Hermite_Spline"
             , Hermite_Spline_function_type( &::Hermite_Spline )
-            , ( bp::arg("p1"), bp::arg("p2"), bp::arg("d1"), bp::arg("d2"), bp::arg("t"), bp::arg("output") ) );
+            , ( bp::arg("p0"), bp::arg("p1"), bp::arg("p2"), bp::arg("t"), bp::arg("output") ) );
+    
+    }
+
+    { //::Hermite_Spline
+    
+        typedef float ( *Hermite_Spline_function_type )( float,float,float,float );
+        
+        bp::def( 
+            "Hermite_Spline"
+            , Hermite_Spline_function_type( &::Hermite_Spline )
+            , ( bp::arg("p0"), bp::arg("p1"), bp::arg("p2"), bp::arg("t") ) );
+    
+    }
+
+    { //::Hermite_Spline
+    
+        typedef void ( *Hermite_Spline_function_type )( ::Quaternion const &,::Quaternion const &,::Quaternion const &,float,::Quaternion & );
+        
+        bp::def( 
+            "Hermite_Spline"
+            , Hermite_Spline_function_type( &::Hermite_Spline )
+            , ( bp::arg("q0"), bp::arg("q1"), bp::arg("q2"), bp::arg("t"), bp::arg("output") ) );
     
     }
 
@@ -2379,7 +2379,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "IsIntegralValue"
             , IsIntegralValue_function_type( &::IsIntegralValue )
-            , ( bp::arg("flValue"), bp::arg("flTolerance")=1.000000047497451305389404296875e-3f ) );
+            , ( bp::arg("flValue"), bp::arg("flTolerance")=0.00100000005F ) );
     
     }
 
@@ -2423,7 +2423,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "Lerp"
             , Lerp_function_type( &::Lerp )
-            , ( bp::arg("flPercent"), bp::arg("q1"), bp::arg("q2") ) );
+            , ( bp::arg("flPercent"), bp::arg("A"), bp::arg("B") ) );
     
     }
 
@@ -2495,6 +2495,17 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatricesAreEqual
     
+        typedef bool ( *MatricesAreEqual_function_type )( ::matrix3x4_t const &,::matrix3x4_t const &,float );
+        
+        bp::def( 
+            "MatricesAreEqual"
+            , MatricesAreEqual_function_type( &::MatricesAreEqual )
+            , ( bp::arg("src1"), bp::arg("src2"), bp::arg("flTolerance")=1.0000000000000001E-5 ) );
+    
+    }
+
+    { //::MatricesAreEqual
+    
         typedef bool ( *MatricesAreEqual_function_type )( ::VMatrix const &,::VMatrix const &,float );
         
         bp::def( 
@@ -2504,42 +2515,9 @@ BOOST_PYTHON_MODULE(_vmath){
     
     }
 
-    { //::MatricesAreEqual
-    
-        typedef bool ( *MatricesAreEqual_function_type )( ::matrix3x4_t const &,::matrix3x4_t const &,float );
-        
-        bp::def( 
-            "MatricesAreEqual"
-            , MatricesAreEqual_function_type( &::MatricesAreEqual )
-            , ( bp::arg("src1"), bp::arg("src2"), bp::arg("flTolerance")=1.00000000000000008180305391403130954586231382564e-5 ) );
-    
-    }
-
     { //::MatrixAngles
     
-        typedef void ( *MatrixAngles_function_type )( ::matrix3x4_t const &,::Quaternion &,::Vector & );
-        
-        bp::def( 
-            "MatrixAngles"
-            , MatrixAngles_function_type( &::MatrixAngles )
-            , ( bp::arg("mat"), bp::arg("q"), bp::arg("position") ) );
-    
-    }
-
-    { //::MatrixAngles
-    
-        typedef void ( *MatrixAngles_function_type )( ::matrix3x4_t const &,::RadianEuler &,::Vector & );
-        
-        bp::def( 
-            "MatrixAngles"
-            , MatrixAngles_function_type( &::MatrixAngles )
-            , ( bp::arg("mat"), bp::arg("angles"), bp::arg("position") ) );
-    
-    }
-
-    { //::MatrixAngles
-    
-        typedef void ( *MatrixAngles_function_type )( ::matrix3x4_t const &,::RadianEuler & );
+        typedef void ( *MatrixAngles_function_type )( ::matrix3x4_t const &,::QAngle & );
         
         bp::def( 
             "MatrixAngles"
@@ -2561,12 +2539,34 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatrixAngles
     
-        typedef void ( *MatrixAngles_function_type )( ::matrix3x4_t const &,::QAngle & );
+        typedef void ( *MatrixAngles_function_type )( ::matrix3x4_t const &,::RadianEuler & );
         
         bp::def( 
             "MatrixAngles"
             , MatrixAngles_function_type( &::MatrixAngles )
             , ( bp::arg("matrix"), bp::arg("angles") ) );
+    
+    }
+
+    { //::MatrixAngles
+    
+        typedef void ( *MatrixAngles_function_type )( ::matrix3x4_t const &,::RadianEuler &,::Vector & );
+        
+        bp::def( 
+            "MatrixAngles"
+            , MatrixAngles_function_type( &::MatrixAngles )
+            , ( bp::arg("mat"), bp::arg("angles"), bp::arg("position") ) );
+    
+    }
+
+    { //::MatrixAngles
+    
+        typedef void ( *MatrixAngles_function_type )( ::matrix3x4_t const &,::Quaternion &,::Vector & );
+        
+        bp::def( 
+            "MatrixAngles"
+            , MatrixAngles_function_type( &::MatrixAngles )
+            , ( bp::arg("mat"), bp::arg("q"), bp::arg("position") ) );
     
     }
 
@@ -2583,23 +2583,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatrixBuildRotationAboutAxis
     
-        typedef void ( *MatrixBuildRotationAboutAxis_function_type )( ::VMatrix &,::Vector const &,float );
-        
-        bp::def( 
-            "MatrixBuildRotationAboutAxis"
-            , MatrixBuildRotationAboutAxis_function_type( &::MatrixBuildRotationAboutAxis )
-            , ( bp::arg("dst"), bp::arg("vAxisOfRot"), bp::arg("angleDegrees") ) );
-    
-    }
-
-    { //::MatrixBuildRotationAboutAxis
-    
         typedef void ( *MatrixBuildRotationAboutAxis_function_type )( ::Vector const &,float,::matrix3x4_t & );
         
         bp::def( 
             "MatrixBuildRotationAboutAxis"
             , MatrixBuildRotationAboutAxis_function_type( &::MatrixBuildRotationAboutAxis )
             , ( bp::arg("vAxisOfRot"), bp::arg("angleDegrees"), bp::arg("dst") ) );
+    
+    }
+
+    { //::MatrixBuildRotationAboutAxis
+    
+        typedef void ( *MatrixBuildRotationAboutAxis_function_type )( ::VMatrix &,::Vector const &,float );
+        
+        bp::def( 
+            "MatrixBuildRotationAboutAxis"
+            , MatrixBuildRotationAboutAxis_function_type( &::MatrixBuildRotationAboutAxis )
+            , ( bp::arg("dst"), bp::arg("vAxisOfRot"), bp::arg("angleDegrees") ) );
     
     }
 
@@ -2616,23 +2616,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatrixCopy
     
-        typedef void ( *MatrixCopy_function_type )( ::VMatrix const &,::VMatrix & );
-        
-        bp::def( 
-            "MatrixCopy"
-            , MatrixCopy_function_type( &::MatrixCopy )
-            , ( bp::arg("src"), bp::arg("dst") ) );
-    
-    }
-
-    { //::MatrixCopy
-    
         typedef void ( *MatrixCopy_function_type )( ::matrix3x4_t const &,::matrix3x4_t & );
         
         bp::def( 
             "MatrixCopy"
             , MatrixCopy_function_type( &::MatrixCopy )
             , ( bp::arg("in"), bp::arg("out") ) );
+    
+    }
+
+    { //::MatrixCopy
+    
+        typedef void ( *MatrixCopy_function_type )( ::VMatrix const &,::VMatrix & );
+        
+        bp::def( 
+            "MatrixCopy"
+            , MatrixCopy_function_type( &::MatrixCopy )
+            , ( bp::arg("src"), bp::arg("dst") ) );
     
     }
 
@@ -2649,23 +2649,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatrixGetColumn
     
-        typedef void ( *MatrixGetColumn_function_type )( ::VMatrix const &,int,::Vector * );
-        
-        bp::def( 
-            "MatrixGetColumn"
-            , MatrixGetColumn_function_type( &::MatrixGetColumn )
-            , ( bp::arg("src"), bp::arg("nCol"), bp::arg("pColumn") ) );
-    
-    }
-
-    { //::MatrixGetColumn
-    
         typedef void ( *MatrixGetColumn_function_type )( ::matrix3x4_t const &,int,::Vector & );
         
         bp::def( 
             "MatrixGetColumn"
             , MatrixGetColumn_function_type( &::MatrixGetColumn )
             , ( bp::arg("in"), bp::arg("column"), bp::arg("out") ) );
+    
+    }
+
+    { //::MatrixGetColumn
+    
+        typedef void ( *MatrixGetColumn_function_type )( ::VMatrix const &,int,::Vector * );
+        
+        bp::def( 
+            "MatrixGetColumn"
+            , MatrixGetColumn_function_type( &::MatrixGetColumn )
+            , ( bp::arg("src"), bp::arg("nCol"), bp::arg("pColumn") ) );
     
     }
 
@@ -2676,7 +2676,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "MatrixGetRow"
             , MatrixGetRow_function_type( &::MatrixGetRow )
-            , ( bp::arg("src"), bp::arg("nRow"), bp::arg("pRow") ) );
+            , ( bp::arg("src"), bp::arg("nCol"), bp::arg("pColumn") ) );
     
     }
 
@@ -2704,7 +2704,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatrixInverseTranspose
     
-        typedef void ( *MatrixInverseTranspose_function_type )( ::VMatrix const &,::VMatrix & );
+        typedef void ( *MatrixInverseTranspose_function_type )( ::matrix3x4_t const &,::matrix3x4_t & );
         
         bp::def( 
             "MatrixInverseTranspose"
@@ -2715,7 +2715,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatrixInverseTranspose
     
-        typedef void ( *MatrixInverseTranspose_function_type )( ::matrix3x4_t const &,::matrix3x4_t & );
+        typedef void ( *MatrixInverseTranspose_function_type )( ::VMatrix const &,::VMatrix & );
         
         bp::def( 
             "MatrixInverseTranspose"
@@ -2737,23 +2737,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatrixMultiply
     
-        typedef void ( *MatrixMultiply_function_type )( ::VMatrix const &,::VMatrix const &,::VMatrix & );
-        
-        bp::def( 
-            "MatrixMultiply"
-            , MatrixMultiply_function_type( &::MatrixMultiply )
-            , ( bp::arg("src1"), bp::arg("src2"), bp::arg("dst") ) );
-    
-    }
-
-    { //::MatrixMultiply
-    
         typedef void ( *MatrixMultiply_function_type )( ::matrix3x4_t const &,::matrix3x4_t const &,::matrix3x4_t & );
         
         bp::def( 
             "MatrixMultiply"
             , MatrixMultiply_function_type( &::MatrixMultiply )
             , ( bp::arg("in1"), bp::arg("in2"), bp::arg("out") ) );
+    
+    }
+
+    { //::MatrixMultiply
+    
+        typedef void ( *MatrixMultiply_function_type )( ::VMatrix const &,::VMatrix const &,::VMatrix & );
+        
+        bp::def( 
+            "MatrixMultiply"
+            , MatrixMultiply_function_type( &::MatrixMultiply )
+            , ( bp::arg("src1"), bp::arg("src2"), bp::arg("dst") ) );
     
     }
 
@@ -2803,23 +2803,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatrixSetColumn
     
-        typedef void ( *MatrixSetColumn_function_type )( ::VMatrix &,int,::Vector const & );
-        
-        bp::def( 
-            "MatrixSetColumn"
-            , MatrixSetColumn_function_type( &::MatrixSetColumn )
-            , ( bp::arg("src"), bp::arg("nCol"), bp::arg("column") ) );
-    
-    }
-
-    { //::MatrixSetColumn
-    
         typedef void ( *MatrixSetColumn_function_type )( ::Vector const &,int,::matrix3x4_t & );
         
         bp::def( 
             "MatrixSetColumn"
             , MatrixSetColumn_function_type( &::MatrixSetColumn )
             , ( bp::arg("in"), bp::arg("column"), bp::arg("out") ) );
+    
+    }
+
+    { //::MatrixSetColumn
+    
+        typedef void ( *MatrixSetColumn_function_type )( ::VMatrix &,int,::Vector const & );
+        
+        bp::def( 
+            "MatrixSetColumn"
+            , MatrixSetColumn_function_type( &::MatrixSetColumn )
+            , ( bp::arg("src"), bp::arg("nCol"), bp::arg("column") ) );
     
     }
 
@@ -2841,7 +2841,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "MatrixSetRow"
             , MatrixSetRow_function_type( &::MatrixSetRow )
-            , ( bp::arg("dst"), bp::arg("nRow"), bp::arg("row") ) );
+            , ( bp::arg("src"), bp::arg("nCol"), bp::arg("column") ) );
     
     }
 
@@ -2858,7 +2858,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatrixTransformPlane
     
-        typedef void ( *MatrixTransformPlane_function_type )( ::VMatrix const &,::cplane_t const &,::cplane_t & );
+        typedef void ( *MatrixTransformPlane_function_type )( ::matrix3x4_t const &,::cplane_t const &,::cplane_t & );
         
         bp::def( 
             "MatrixTransformPlane"
@@ -2869,7 +2869,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatrixTransformPlane
     
-        typedef void ( *MatrixTransformPlane_function_type )( ::matrix3x4_t const &,::cplane_t const &,::cplane_t & );
+        typedef void ( *MatrixTransformPlane_function_type )( ::VMatrix const &,::cplane_t const &,::cplane_t & );
         
         bp::def( 
             "MatrixTransformPlane"
@@ -2891,12 +2891,12 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatrixTranspose
     
-        typedef void ( *MatrixTranspose_function_type )( ::VMatrix const &,::VMatrix & );
+        typedef void ( *MatrixTranspose_function_type )( ::matrix3x4_t & );
         
         bp::def( 
             "MatrixTranspose"
             , MatrixTranspose_function_type( &::MatrixTranspose )
-            , ( bp::arg("src"), bp::arg("dst") ) );
+            , ( bp::arg("mat") ) );
     
     }
 
@@ -2913,12 +2913,12 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::MatrixTranspose
     
-        typedef void ( *MatrixTranspose_function_type )( ::matrix3x4_t & );
+        typedef void ( *MatrixTranspose_function_type )( ::VMatrix const &,::VMatrix & );
         
         bp::def( 
             "MatrixTranspose"
             , MatrixTranspose_function_type( &::MatrixTranspose )
-            , ( bp::arg("mat") ) );
+            , ( bp::arg("src"), bp::arg("dst") ) );
     
     }
 
@@ -2962,7 +2962,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "PolyFromPlane"
             , PolyFromPlane_function_type( &::PolyFromPlane )
-            , ( bp::arg("outVerts"), bp::arg("normal"), bp::arg("dist"), bp::arg("fHalfScale")=9.0e+3f ) );
+            , ( bp::arg("outVerts"), bp::arg("normal"), bp::arg("dist"), bp::arg("fHalfScale")=9000.F ) );
     
     }
 
@@ -2995,7 +2995,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "QAnglesAreEqual"
             , QAnglesAreEqual_function_type( &::QAnglesAreEqual )
-            , ( bp::arg("src1"), bp::arg("src2"), bp::arg("tolerance")=0.0f ) );
+            , ( bp::arg("src1"), bp::arg("src2"), bp::arg("tolerance")=0.F ) );
     
     }
 
@@ -3034,7 +3034,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::QuaternionAngles
     
-        typedef void ( *QuaternionAngles_function_type )( ::Quaternion const &,::QAngle & );
+        typedef void ( *QuaternionAngles_function_type )( ::Quaternion const &,::RadianEuler & );
         
         bp::def( 
             "QuaternionAngles"
@@ -3045,7 +3045,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::QuaternionAngles
     
-        typedef void ( *QuaternionAngles_function_type )( ::Quaternion const &,::RadianEuler & );
+        typedef void ( *QuaternionAngles_function_type )( ::Quaternion const &,::QAngle & );
         
         bp::def( 
             "QuaternionAngles"
@@ -3133,23 +3133,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::QuaternionMatrix
     
-        typedef void ( *QuaternionMatrix_function_type )( ::Quaternion const &,::Vector const &,::matrix3x4_t & );
-        
-        bp::def( 
-            "QuaternionMatrix"
-            , QuaternionMatrix_function_type( &::QuaternionMatrix )
-            , ( bp::arg("q"), bp::arg("pos"), bp::arg("matrix") ) );
-    
-    }
-
-    { //::QuaternionMatrix
-    
         typedef void ( *QuaternionMatrix_function_type )( ::Quaternion const &,::matrix3x4_t & );
         
         bp::def( 
             "QuaternionMatrix"
             , QuaternionMatrix_function_type( &::QuaternionMatrix )
             , ( bp::arg("q"), bp::arg("matrix") ) );
+    
+    }
+
+    { //::QuaternionMatrix
+    
+        typedef void ( *QuaternionMatrix_function_type )( ::Quaternion const &,::Vector const &,::matrix3x4_t & );
+        
+        bp::def( 
+            "QuaternionMatrix"
+            , QuaternionMatrix_function_type( &::QuaternionMatrix )
+            , ( bp::arg("q"), bp::arg("pos"), bp::arg("matrix") ) );
     
     }
 
@@ -3276,7 +3276,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::RandomVector
     
-        typedef ::Vector ( *RandomVector_function_type )( float,float );
+        typedef ::Vector ( *RandomVector_function_type )( ::vec_t,::vec_t );
         
         bp::def( 
             "RandomVector"
@@ -3408,12 +3408,12 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::SetScaleMatrix
     
-        typedef void ( *SetScaleMatrix_function_type )( ::Vector const &,::matrix3x4_t & );
+        typedef void ( *SetScaleMatrix_function_type )( float,float,float,::matrix3x4_t & );
         
         bp::def( 
             "SetScaleMatrix"
             , SetScaleMatrix_function_type( &::SetScaleMatrix )
-            , ( bp::arg("scale"), bp::arg("dst") ) );
+            , ( bp::arg("x"), bp::arg("y"), bp::arg("z"), bp::arg("dst") ) );
     
     }
 
@@ -3430,12 +3430,12 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::SetScaleMatrix
     
-        typedef void ( *SetScaleMatrix_function_type )( float,float,float,::matrix3x4_t & );
+        typedef void ( *SetScaleMatrix_function_type )( ::Vector const &,::matrix3x4_t & );
         
         bp::def( 
             "SetScaleMatrix"
             , SetScaleMatrix_function_type( &::SetScaleMatrix )
-            , ( bp::arg("x"), bp::arg("y"), bp::arg("z"), bp::arg("dst") ) );
+            , ( bp::arg("scale"), bp::arg("dst") ) );
     
     }
 
@@ -3512,7 +3512,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "SmoothCurve_Tweak"
             , SmoothCurve_Tweak_function_type( &::SmoothCurve_Tweak )
-            , ( bp::arg("x"), bp::arg("flPeakPos")=5.0e-1, bp::arg("flPeakSharpness")=5.0e-1 ) );
+            , ( bp::arg("x"), bp::arg("flPeakPos")=0.5, bp::arg("flPeakSharpness")=0.5 ) );
     
     }
 
@@ -3677,7 +3677,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "Vector2DAdd"
             , Vector2DAdd_function_type( &::Vector2DAdd )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
     
     }
 
@@ -3705,23 +3705,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::Vector2DDivide
     
-        typedef void ( *Vector2DDivide_function_type )( ::Vector2D const &,::Vector2D const &,::Vector2D & );
-        
-        bp::def( 
-            "Vector2DDivide"
-            , Vector2DDivide_function_type( &::Vector2DDivide )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
-    
-    }
-
-    { //::Vector2DDivide
-    
         typedef void ( *Vector2DDivide_function_type )( ::Vector2D const &,::vec_t,::Vector2D & );
         
         bp::def( 
             "Vector2DDivide"
             , Vector2DDivide_function_type( &::Vector2DDivide )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
+    
+    }
+
+    { //::Vector2DDivide
+    
+        typedef void ( *Vector2DDivide_function_type )( ::Vector2D const &,::Vector2D const &,::Vector2D & );
+        
+        bp::def( 
+            "Vector2DDivide"
+            , Vector2DDivide_function_type( &::Vector2DDivide )
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
     
     }
 
@@ -3782,23 +3782,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::Vector2DMultiply
     
-        typedef void ( *Vector2DMultiply_function_type )( ::Vector2D const &,::Vector2D const &,::Vector2D & );
-        
-        bp::def( 
-            "Vector2DMultiply"
-            , Vector2DMultiply_function_type( &::Vector2DMultiply )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
-    
-    }
-
-    { //::Vector2DMultiply
-    
         typedef void ( *Vector2DMultiply_function_type )( ::Vector2D const &,::vec_t,::Vector2D & );
         
         bp::def( 
             "Vector2DMultiply"
             , Vector2DMultiply_function_type( &::Vector2DMultiply )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
+    
+    }
+
+    { //::Vector2DMultiply
+    
+        typedef void ( *Vector2DMultiply_function_type )( ::Vector2D const &,::Vector2D const &,::Vector2D & );
+        
+        bp::def( 
+            "Vector2DMultiply"
+            , Vector2DMultiply_function_type( &::Vector2DMultiply )
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
     
     }
 
@@ -3820,7 +3820,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "Vector2DSubtract"
             , Vector2DSubtract_function_type( &::Vector2DSubtract )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
     
     }
 
@@ -3837,7 +3837,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::VectorAdd
     
-        typedef void ( *VectorAdd_function_type )( ::QAngle const &,::QAngle const &,::QAngle & );
+        typedef void ( *VectorAdd_function_type )( ::Vector const &,::Vector const &,::Vector & );
         
         bp::def( 
             "VectorAdd"
@@ -3848,23 +3848,12 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::VectorAdd
     
-        typedef void ( *VectorAdd_function_type )( ::Vector const &,::Vector const &,::Vector & );
+        typedef void ( *VectorAdd_function_type )( ::QAngle const &,::QAngle const &,::QAngle & );
         
         bp::def( 
             "VectorAdd"
             , VectorAdd_function_type( &::VectorAdd )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
-    
-    }
-
-    { //::VectorAngles
-    
-        typedef void ( *VectorAngles_function_type )( ::Vector const &,::Vector const &,::QAngle & );
-        
-        bp::def( 
-            "VectorAngles"
-            , VectorAngles_function_type( &::VectorAngles )
-            , ( bp::arg("forward"), bp::arg("pseudoup"), bp::arg("angles") ) );
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
     
     }
 
@@ -3876,6 +3865,17 @@ BOOST_PYTHON_MODULE(_vmath){
             "VectorAngles"
             , VectorAngles_function_type( &::VectorAngles )
             , ( bp::arg("forward"), bp::arg("angles") ) );
+    
+    }
+
+    { //::VectorAngles
+    
+        typedef void ( *VectorAngles_function_type )( ::Vector const &,::Vector const &,::QAngle & );
+        
+        bp::def( 
+            "VectorAngles"
+            , VectorAngles_function_type( &::VectorAngles )
+            , ( bp::arg("forward"), bp::arg("pseudoup"), bp::arg("angles") ) );
     
     }
 
@@ -3914,7 +3914,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::VectorCopy
     
-        typedef void ( *VectorCopy_function_type )( ::QAngle const &,::QAngle & );
+        typedef void ( *VectorCopy_function_type )( ::Vector const &,::Vector & );
         
         bp::def( 
             "VectorCopy"
@@ -3936,7 +3936,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::VectorCopy
     
-        typedef void ( *VectorCopy_function_type )( ::Vector const &,::Vector & );
+        typedef void ( *VectorCopy_function_type )( ::QAngle const &,::QAngle & );
         
         bp::def( 
             "VectorCopy"
@@ -3947,23 +3947,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::VectorDivide
     
-        typedef void ( *VectorDivide_function_type )( ::Vector const &,::Vector const &,::Vector & );
-        
-        bp::def( 
-            "VectorDivide"
-            , VectorDivide_function_type( &::VectorDivide )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
-    
-    }
-
-    { //::VectorDivide
-    
         typedef void ( *VectorDivide_function_type )( ::Vector const &,::vec_t,::Vector & );
         
         bp::def( 
             "VectorDivide"
             , VectorDivide_function_type( &::VectorDivide )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
+    
+    }
+
+    { //::VectorDivide
+    
+        typedef void ( *VectorDivide_function_type )( ::Vector const &,::Vector const &,::Vector & );
+        
+        bp::def( 
+            "VectorDivide"
+            , VectorDivide_function_type( &::VectorDivide )
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
     
     }
 
@@ -4013,17 +4013,6 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::VectorLerp
     
-        typedef ::Vector ( *VectorLerp_function_type )( ::Vector const &,::Vector const &,::vec_t );
-        
-        bp::def( 
-            "VectorLerp"
-            , VectorLerp_function_type( &::VectorLerp )
-            , ( bp::arg("src1"), bp::arg("src2"), bp::arg("t") ) );
-    
-    }
-
-    { //::VectorLerp
-    
         typedef void ( *VectorLerp_function_type )( ::Vector const &,::Vector const &,::vec_t,::Vector & );
         
         bp::def( 
@@ -4033,9 +4022,20 @@ BOOST_PYTHON_MODULE(_vmath){
     
     }
 
+    { //::VectorLerp
+    
+        typedef ::Vector ( *VectorLerp_function_type )( ::Vector const &,::Vector const &,::vec_t );
+        
+        bp::def( 
+            "VectorLerp"
+            , VectorLerp_function_type( &::VectorLerp )
+            , ( bp::arg("src1"), bp::arg("src2"), bp::arg("t") ) );
+    
+    }
+
     { //::VectorMA
     
-        typedef void ( *VectorMA_function_type )( ::QAngle const &,float,::QAngle const &,::QAngle & );
+        typedef void ( *VectorMA_function_type )( ::Vector const &,float,::Vector const &,::Vector & );
         
         bp::def( 
             "VectorMA"
@@ -4046,7 +4046,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::VectorMA
     
-        typedef void ( *VectorMA_function_type )( ::Vector const &,float,::Vector const &,::Vector & );
+        typedef void ( *VectorMA_function_type )( ::QAngle const &,float,::QAngle const &,::QAngle & );
         
         bp::def( 
             "VectorMA"
@@ -4112,23 +4112,23 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::VectorMultiply
     
-        typedef void ( *VectorMultiply_function_type )( ::Vector const &,::Vector const &,::Vector & );
-        
-        bp::def( 
-            "VectorMultiply"
-            , VectorMultiply_function_type( &::VectorMultiply )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
-    
-    }
-
-    { //::VectorMultiply
-    
         typedef void ( *VectorMultiply_function_type )( ::Vector const &,::vec_t,::Vector & );
         
         bp::def( 
             "VectorMultiply"
             , VectorMultiply_function_type( &::VectorMultiply )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
+    
+    }
+
+    { //::VectorMultiply
+    
+        typedef void ( *VectorMultiply_function_type )( ::Vector const &,::Vector const &,::Vector & );
+        
+        bp::def( 
+            "VectorMultiply"
+            , VectorMultiply_function_type( &::VectorMultiply )
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
     
     }
 
@@ -4167,7 +4167,7 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::VectorRotate
     
-        typedef void ( *VectorRotate_function_type )( ::Vector const &,::matrix3x4_t const &,::Vector & );
+        typedef void ( *VectorRotate_function_type )( ::Vector const &,::QAngle const &,::Vector & );
         
         bp::def( 
             "VectorRotate"
@@ -4189,23 +4189,12 @@ BOOST_PYTHON_MODULE(_vmath){
 
     { //::VectorRotate
     
-        typedef void ( *VectorRotate_function_type )( ::Vector const &,::QAngle const &,::Vector & );
+        typedef void ( *VectorRotate_function_type )( ::Vector const &,::matrix3x4_t const &,::Vector & );
         
         bp::def( 
             "VectorRotate"
             , VectorRotate_function_type( &::VectorRotate )
             , ( bp::arg("in1"), bp::arg("in2"), bp::arg("out") ) );
-    
-    }
-
-    { //::VectorScale
-    
-        typedef void ( *VectorScale_function_type )( ::RadianEuler const &,float,::RadianEuler & );
-        
-        bp::def( 
-            "VectorScale"
-            , VectorScale_function_type( &::VectorScale )
-            , ( bp::arg("src"), bp::arg("b"), bp::arg("dst") ) );
     
     }
 
@@ -4220,6 +4209,17 @@ BOOST_PYTHON_MODULE(_vmath){
     
     }
 
+    { //::VectorScale
+    
+        typedef void ( *VectorScale_function_type )( ::RadianEuler const &,float,::RadianEuler & );
+        
+        bp::def( 
+            "VectorScale"
+            , VectorScale_function_type( &::VectorScale )
+            , ( bp::arg("src"), bp::arg("b"), bp::arg("dst") ) );
+    
+    }
+
     { //::VectorSubtract
     
         typedef void ( *VectorSubtract_function_type )( ::Vector const &,::Vector const &,::Vector & );
@@ -4227,7 +4227,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "VectorSubtract"
             , VectorSubtract_function_type( &::VectorSubtract )
-            , ( bp::arg("a"), bp::arg("b"), bp::arg("c") ) );
+            , ( bp::arg("a"), bp::arg("b"), bp::arg("result") ) );
     
     }
 
@@ -4271,7 +4271,7 @@ BOOST_PYTHON_MODULE(_vmath){
         bp::def( 
             "VectorsAreEqual"
             , VectorsAreEqual_function_type( &::VectorsAreEqual )
-            , ( bp::arg("src1"), bp::arg("src2"), bp::arg("tolerance")=0.0f ) );
+            , ( bp::arg("src1"), bp::arg("src2"), bp::arg("tolerance")=0.F ) );
     
     }
 
