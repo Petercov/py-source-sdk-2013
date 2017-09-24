@@ -29,6 +29,8 @@ class default_argument_patcher_t(object):
             return self.__fix_unqualified_enum
         elif self.__is_double_call(func, arg):
             return self.__fix_double_call
+        elif self.__is_null_default_value(func, arg):
+            return self.__fix_null_default_value
         elif self.__is_invalid_integral(func, arg):
             return self.__fix_invalid_integral
         elif self.__is_constructor_call(func, arg):
@@ -232,6 +234,14 @@ class default_argument_patcher_t(object):
                 name)
 
         return call_invocation.join(f_q_name, args)
+
+    @staticmethod
+    def __is_null_default_value(func, arg):
+        return arg.default_value == '__null'
+
+    @staticmethod
+    def __fix_null_default_value(func, arg):
+        return '0'
 
 
 class casting_operator_patcher_t(object):

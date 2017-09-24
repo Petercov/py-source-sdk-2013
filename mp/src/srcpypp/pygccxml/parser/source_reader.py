@@ -227,7 +227,6 @@ class source_reader_t(object):
             ffname = self.__file_full_name(source_file)
         command_line = self.__create_command_line(ffname, xml_file)
 
-        print('command_line: %s' % command_line)
         process = subprocess.Popen(
             args=command_line,
             shell=True,

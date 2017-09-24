@@ -804,6 +804,12 @@ class Entities(SemiSharedModuleGenerator):
             
             # Do not want the firebullets function with multiple arguments. Only the one with the struct.
             mb.member_functions(name='FireBullets', function=calldef_withtypes('int')).exclude()
+
+            # Default argument gets converted to the actual value, but looks like they have different values on different compilers.
+            # Causes constant too big on msvc
+            decl = mb.member_function('SetNavIgnore')
+            assert len(decl.arguments) == 1
+            decl.arguments[0].default_value = 'FLT_MAX'
             
         mb.enumeration('MoveCollide_t').include()
 
