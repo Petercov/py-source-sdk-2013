@@ -93,6 +93,7 @@ __pycache__
 
 exposed_decl.pypp.txt
 named_tuple.py
+detect_vs.o
 
 # Python
 mp/src/thirdparty/python/PCBuild/Win32-temp-Release/*

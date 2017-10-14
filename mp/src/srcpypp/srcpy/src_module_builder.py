@@ -15,7 +15,9 @@ incl_paths = [
 # Defined symbols
 basesymbols = [
     '__SSE__',
+    '__SSE2__',
     '__MMX__',
+    '__clang__',
     
     # Generation
     'PYPP_GENERATION',
@@ -29,7 +31,7 @@ usymbols = [
     'PROTECTED_THINGS_ENABLE',
 ]
 
-cflags='-arch=i386 -m32 -std=c++11 -msse -mmmx -pipe -w -fpermissive -fPIC'
+cflags='-arch=i386 -m32 -std=gnu++11 -stdlib=libc++ -Wno-c++11-narrowing -Wno-dangling-else -msse -mmmx -pipe -w -fpermissive -fPIC'
 
 # NOTE: module_builder_t == builder_t
 class src_module_builder_t(module_builder.module_builder_t):
@@ -49,7 +51,7 @@ class src_module_builder_t(module_builder.module_builder_t):
 
         includepaths = list(map(lambda p: p.replace('\\', '/'), includepaths))
         includepaths = list(filter(os.path.normpath, includepaths))
-            
+
         self.definedsymbols = symbols
         self.includes = includepaths
 

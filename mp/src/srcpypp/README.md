@@ -8,11 +8,11 @@ The following dependencies need to be installed on Ubuntu:
 
 All modules can be parsed by running:
 
-        py generatemods.py
+        python3 generatemods.py
 
 A single module can be generated a follows:
 
-        py generatemods.py -m _entities
+        python3 generatemods.py -m _entities
 
 ## Added a new module
 To create a new module you must do two things:
