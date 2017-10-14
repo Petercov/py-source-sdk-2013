@@ -1,11 +1,11 @@
 ## PySource
 A Source SDK 2013 fork with automatically generated bindings for Python 3. 
-The aim of these bindings is to have a (semi) safe Python environment of Source Engine.
+The aim of these bindings is to have a (semi) safe Python environment of Source Engine to play around with.
 For a better idea of what these bindings offer, check out the [examples](mp/game/pysource/python/examples) directory.
 
-These automatic bindings were originally made for [Lambda Wars](https://github.com/Sandern/hl2wars_asw_dev) mod. 
-Also see the [Python folder](http://svn.hl2wars.com/hl2wars_asw_dev/trunk/python/) of this for more examples 
-of what is possible (most game code of the mod is written in Python!).
+These automatic bindings were originally made for [Lambda Wars](https://github.com/Sandern/lambdawars) mod. 
+Also see the [Python folder](https://svn.lambdawars.com/lambdawars/trunk/python/) of this for more examples 
+of what is possible (most game code is written in Python!).
 
 Please let me know if you have any issues. Pull requests are welcome too!
 
@@ -31,51 +31,15 @@ These examples cover the [Your First Entity](https://developer.valvesoftware.com
 
         cpy - Evaluates a Python string on the client
 
-## Visual Studio Python Tools support (Experimental)
-To allow easier debugging, Visual Studio Python Tools is supported. 
-This includes Intellisense and setting breakpoints in Python code.
-
-You can download VSPT from:
-
-        http://pytools.codeplex.com/
-
-To use VSPT, you must first add a new Python Environment:
-
-1. Open [Python.sln](mp/game/pysource/python/python.sln)
-2. Go to "Tools -> Options"
-3. Go to "Python Tools -> Environment Options" and click "Add Environment"
-4. Enter name "Python 3.4 Source Engine"
-5. Enter "Path": path\to\py-source-sdk-2013\mp\game\pysource\python\vspt_server.bat
-6. Enter "Window Path": path\to\py-source-sdk-2013\mp\game\pysource\python\vspt_server.bat
-7. Enter "Library Path": path\to\py-source-sdk-2013\mp\game\pysource\python\Lib
-8. Set Architecture to "x86" and Language Version to "3.4"
-9. Go to "View -> Other Windows -> Python Environments". In the new tab press "Refresh DB" on the "Python 3.4 Source Engine" entry
-
-This will update the Intellisense database. It launches the game in text mode to do so. You can now test the environment by clicking
-''Interactive Window'' (type something like "import entities", followed by "entities." to see intellisense working).
-
-Follow these steps to start a debugging session using VSPT:
-
-1. Open [Python.sln](mp/game/pysource/python/python.sln)
-2. Remove the "Unknown Python 3.4" entry from "Python Environments" in the project
-3. Add "Python 3.4 Source Engine" to the project
-4. Go to properties of "Python.sln"
-5. Go to the Debug tab
-6. Add "-sv -noborder -dev -game "path\to\pysource" -vsptdebug" to "Interpreter Arguments"
-7. Add "path\to\SteamApps\common\Source SDK Base 2013 Multiplayer\hl2.exe" to "Interpreter Path"
-8. Debug -> Start Debugging
-
-Try set a breakpoint in ''examples/commands.py'' to verify debugging works.
-
 ## Generating new modules
-PySource makes use of gccxml, pygccxml and pyplusplus to generate Boost Python bindings.
+PySource makes use of castxml, pygccxml and pyplusplus to generate Boost Python bindings.
 You can find instructions in [mp/src/srcpypp](mp/src/srcpypp).
 
 ### Disabling modules.
 Open [mp/src/srcpypp/settings.py](mp/src/srcpypp/settings.py) and uncomment the unwanted modules.
 Then run in the same folder:
 
-        python generatemods.py -a
+        python3 generatemods.py -a
 
 An updated vpc file will be generated, so after this step you need to rebuild your project files.
 
