@@ -66,3 +66,7 @@ config.cfg
 *.pdb
 *.exe
 *.dll
+*.db
+*.opendb
+*.db-shm
+*.db-wal
