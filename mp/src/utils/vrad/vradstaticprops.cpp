@@ -481,13 +481,13 @@ bool LoadStudioModel( char const* pModelName, CUtlBuffer& buf )
 
 	Studio_ConvertStudioHdrToNewVersion( pHdr );
 
-	if (pHdr->version != STUDIO_VERSION)
+	if (g_bIgnoreModelVersions)
 	{
-		if (g_bIgnoreModelVersions)
-		{
-			Warning("Warning! Unexpected model version \"%s\"\n", pModelName);
-		}
-		else
+		Warning("Warning! Unexpected model version \"%s\"\n", pModelName);
+	}
+	else
+	{
+		if (pHdr->version != STUDIO_VERSION);
 		{
 			Warning("Error! Invalid model version \"%s\"\n", pModelName);
 			return false;
@@ -544,8 +544,10 @@ bool LoadVTXFile( char const* pModelName, const studiohdr_t *pStudioHdr, CUtlBuf
 	Q_StripExtension( pModelName, filename, sizeof( filename ) );
 	strcat( filename, ".dx90.vtx" );
 
-	if (!LoadFile(filename, buf) && g_bAllowDX90VTX)
+	if (!LoadFile(filename, buf) )
 	{
+		Warning("Warning! dx90 not found, trying dx80 for \"%s\"\n", filename);
+		Q_StripExtension(pModelName, filename, sizeof(filename));
 		strcat(filename, ".dx80.vtx");
 	}
 

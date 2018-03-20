@@ -284,7 +284,6 @@ extern IIncremental *g_pIncremental;	// null if not doing incremental lighting
 extern bool			g_bDumpPropLightmaps;
 extern bool			g_bIgnoreModelVersions;
 extern bool			g_bAllowDynamicPropsAsStatic;
-extern bool			g_bAllowDX90VTX;
 
 extern float g_flSkySampleScale;								// extra sampling factor for indirect light
 

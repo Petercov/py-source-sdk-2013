@@ -117,7 +117,6 @@ bool		g_bNoDetailLighting = false;
 double		g_flStartTime;
 bool		g_bStaticPropLighting = false;
 bool        g_bStaticPropPolys = false;
-bool		g_bAllowDX90VTX = false;
 bool		g_bIgnoreModelVersions = false;
 bool        g_bTextureShadows = false;
 bool		g_bAllowDynamicPropsAsStatic = false;
@@ -2390,11 +2389,6 @@ int ParseCommandLine( int argc, char **argv, bool *onlydetail )
 		else if ( !Q_stricmp( argv[i], "-StaticPropPolys" ) )
 		{
 			g_bStaticPropPolys = true;
-		}
-		else if (!Q_stricmp(argv[i], "-AllowDX90VTX"))
-		{
-			Msg("AllowDX90VTX = true\n");
-			g_bAllowDX90VTX = true;
 		}
 		else if (!Q_stricmp(argv[i], "-IgnoreModelVersions"))
 		{
