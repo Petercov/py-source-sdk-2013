@@ -527,7 +527,7 @@ static void AddDetailToLump( const char* pModelName, const Vector& pt, const QAn
 	if (!IsModelValid(pModelName))
 		return;
 
-	if (s_DetailObjectLump.Count() == 65535)
+	if (s_DetailObjectLump.Count() == 524279)
 	{
 		++s_nDetailOverflow;
 		return;
@@ -564,7 +564,7 @@ static void AddDetailSpriteToLump( const Vector &vecOrigin, const QAngle &vecAng
 
 	if (i >= 524279)
 	{
-		Error( "Error! Too many detail props emitted on this map! (524279 max!)n" );
+		Error( "Error! Too many detail props emitted on this map! (512k max!)n" );
 	}
 
 	DetailObjectLump_t& objectLump = s_DetailObjectLump[i];
