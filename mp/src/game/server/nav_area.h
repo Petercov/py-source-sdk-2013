@@ -95,7 +95,7 @@ struct NavConnect
 };
 
 typedef CUtlVectorUltraConservative<NavConnect, CNavVectorAllocator> NavConnectVector;
-
+typedef CUtlLinkedList<NavConnect, int> NavConnectList;
 
 //-------------------------------------------------------------------------------------------------------------------
 /**
@@ -112,7 +112,7 @@ union NavLadderConnect
 	}
 };
 typedef CUtlVectorUltraConservative<NavLadderConnect, CNavVectorAllocator> NavLadderConnectVector;
-
+typedef CUtlLinkedList<NavLadderConnect, int> NavLadderConnectList;
 
 //--------------------------------------------------------------------------------------------------------------
 /**
