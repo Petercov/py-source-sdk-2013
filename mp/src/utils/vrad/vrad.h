@@ -282,6 +282,8 @@ extern qboolean		do_fast;
 extern bool			g_bInterrupt;		// Was used with background lighting in WC. Tells VRAD to stop lighting.
 extern IIncremental *g_pIncremental;	// null if not doing incremental lighting
 extern bool			g_bDumpPropLightmaps;
+extern bool			g_bIgnoreModelVersions;
+extern bool			g_bAllowDynamicPropsAsStatic;
 
 extern float g_flSkySampleScale;								// extra sampling factor for indirect light
 

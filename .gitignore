@@ -38,6 +38,14 @@ Debug
 Release_mod_*
 Debug_mod_*
 
+*.filters
+*.vpc_crc
+*.bat
+*.sentinel
+vc120.pdb
+notes.txt
+unsuccessfulbuild
+
 # OSX/Linux build products
 *.mak
 *.mak.vpc_crc
@@ -84,6 +92,7 @@ __pycache__
 # shader files
 *.tmp
 
+
 # Generated tmp files for Python bindings
 *.hpp~
 *.cpp~
@@ -103,3 +112,10 @@ mp/src/thirdparty/python/PCBuild/Win32-temp-Debug_Client/*
 
 # PyCharm lib location
 mp/game/pysource/python/libdev
+
+*.lib
+*.pdb
+*.db
+*.opendb
+*.db-shm
+*.db-wal
