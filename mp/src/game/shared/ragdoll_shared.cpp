@@ -773,7 +773,7 @@ bool ShouldRemoveThisRagdoll( CBaseAnimating *pRagdoll )
 	}
 
 #else
-	CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
+//	CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
 
 	if( !UTIL_FindClientInPVS( pRagdoll->edict() ) )
 	{
@@ -782,13 +782,13 @@ bool ShouldRemoveThisRagdoll( CBaseAnimating *pRagdoll )
 
 		return true;
 	}
-	else if( !pPlayer->FInViewCone( pRagdoll ) )
+/*	else if( !pPlayer->FInViewCone( pRagdoll ) )
 	{
 		if ( g_debug_ragdoll_removal.GetBool() )
 			 NDebugOverlay::Line( pRagdoll->GetAbsOrigin(), pRagdoll->GetAbsOrigin() + Vector( 0, 0, 64 ), 0, 0, 255, true, 5 );
 		
 		return true;
-	}
+	}*/
 
 #endif
 
@@ -802,7 +802,7 @@ bool ShouldRemoveThisRagdoll( CBaseAnimating *pRagdoll )
 // Cull stale ragdolls. There is an ifdef here: one version for episodic, 
 // one for everything else.
 //-----------------------------------------------------------------------------
-#if HL2_EPISODIC
+/*#if HL2_EPISODIC
 
 void CRagdollLRURetirement::Update( float frametime ) // EPISODIC VERSION
 {
@@ -877,7 +877,6 @@ void CRagdollLRURetirement::Update( float frametime ) // EPISODIC VERSION
 	if (pPlayer && m_LRU.Count() > iMaxRagdollCount) // find the furthest one algorithm
 	{
 		Vector PlayerOrigin = pPlayer->GetAbsOrigin();
-		// const CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
 	
 		for ( i = m_LRU.Head(); i < m_LRU.InvalidIndex(); i = next )
 		{
@@ -940,7 +939,7 @@ void CRagdollLRURetirement::Update( float frametime ) // EPISODIC VERSION
 }
 
 #else
-
+*/
 void CRagdollLRURetirement::Update( float frametime ) // Non-episodic version
 {
 	VPROF( "CRagdollLRURetirement::Update" );
@@ -1024,7 +1023,7 @@ void CRagdollLRURetirement::Update( float frametime ) // Non-episodic version
 	}
 }
 
-#endif // HL2_EPISODIC
+//#endif // HL2_EPISODIC
 
 //This is pretty hacky, it's only called on the server so it just calls the update method.
 void CRagdollLRURetirement::FrameUpdatePostEntityThink( void )

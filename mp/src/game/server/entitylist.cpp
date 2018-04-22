@@ -538,7 +538,25 @@ CBaseEntity *CGlobalEntityList::FindEntityProcedural( const char *szName, CBaseE
 		//
 		if ( FStrEq( pName, "player" ) )
 		{
-			return (CBaseEntity *)UTIL_PlayerByIndex( 1 );
+			return (CBaseEntity *)UTIL_GetLocalPlayer();
+		}
+		else if (FStrEq(pName, "nearestplayer"))
+		{
+			if (pSearchingEntity)
+			{
+				return UTIL_GetNearestPlayer(pSearchingEntity->GetAbsOrigin());
+			}
+			else if (pActivator)
+			{
+				// FIXME: error condition?
+				return UTIL_GetNearestPlayer(pActivator->GetAbsOrigin());
+			}
+			else
+			{
+				// FIXME: error condition?
+				return (CBaseEntity *)UTIL_GetLocalPlayer();
+			}
+
 		}
 		else if ( FStrEq( pName, "pvsplayer" ) )
 		{
@@ -554,7 +572,7 @@ CBaseEntity *CGlobalEntityList::FindEntityProcedural( const char *szName, CBaseE
 			else
 			{
 				// FIXME: error condition?
-				return (CBaseEntity *)UTIL_PlayerByIndex( 1 );
+				return (CBaseEntity *)UTIL_GetLocalPlayer();
 			}
 
 		}
@@ -568,7 +586,7 @@ CBaseEntity *CGlobalEntityList::FindEntityProcedural( const char *szName, CBaseE
 		}
 		else if ( FStrEq( pName, "picker" ) )
 		{
-			return FindPickerEntity( UTIL_PlayerByIndex(1) );
+			return FindPickerEntity( UTIL_GetLocalPlayer() );
 		}
 		else if ( FStrEq( pName, "self" ) )
 		{
@@ -1650,4 +1668,5 @@ CON_COMMAND(report_simthinklist, "Lists all simulating/thinking entities")
 	}
 	list.ReportEntityList();
 }
+
 
