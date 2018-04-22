@@ -119,3 +119,7 @@ mp/game/pysource/python/libdev
 *.opendb
 *.db-shm
 *.db-wal
+mp/src/lib/public/vgui_controls.lib
+mp/src/lib/public/tier1.lib
+mp/src/lib/public/raytrace.lib
+mp/src/lib/public/mathlib.lib

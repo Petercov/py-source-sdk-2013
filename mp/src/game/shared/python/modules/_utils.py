@@ -69,6 +69,8 @@ class Utils(SemiSharedModuleGenerator):
         mb.free_functions('UTIL_FindClientInVisibilityPVS').call_policies = call_policies.return_value_policy( call_policies.return_by_value ) 
         mb.free_functions('UTIL_EntitiesInPVS').call_policies = call_policies.return_value_policy( call_policies.return_by_value ) 
         mb.free_functions('UTIL_FindClientInPVS').call_policies = call_policies.return_value_policy( call_policies.return_by_value )   
+        mb.free_functions('UTIL_GetNearestPlayer').call_policies = call_policies.return_value_policy( call_policies.return_by_value ) 
+        mb.free_functions('UTIL_GetNearestVisiblePlayer').call_policies = call_policies.return_value_policy( call_policies.return_by_value ) 
         
         if self.settings.branch == 'swarm':
             mb.free_functions('UTIL_FindClientInPVSGuts').call_policies = call_policies.return_value_policy( call_policies.return_by_value ) 

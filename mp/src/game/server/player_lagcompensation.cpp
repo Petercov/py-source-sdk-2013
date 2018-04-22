@@ -441,8 +441,8 @@ void CLagCompensationManager::FrameUpdatePostEntityThink()
 		record.m_flSimulationTime	= pNPC->GetSimulationTime();
 		record.m_vecAngles			= pNPC->GetLocalAngles();
 		record.m_vecOrigin			= pNPC->GetLocalOrigin();
-		record.m_vecMaxs			= pNPC->WorldAlignMaxs();
-		record.m_vecMins			= pNPC->WorldAlignMins();
+		record.m_vecMinsPreScaled	= pNPC->CollisionProp()->OBBMinsPreScaled();
+		record.m_vecMaxsPreScaled	= pNPC->CollisionProp()->OBBMaxsPreScaled();
 
 		int layerCount = pNPC->GetNumAnimOverlays();
 		for( int layerIndex = 0; layerIndex < layerCount; ++layerIndex )
@@ -1000,7 +1000,7 @@ void CLagCompensationManager::BacktrackEntity( CAI_BaseNPC *pEntity, float flTar
 		}
 
 		Vector delta = record->m_vecOrigin - prevOrg;
-		if ( delta.LengthSqr() > LAG_COMPENSATION_TELEPORTED_DISTANCE_SQR )
+		if ( delta.LengthSqr() > m_flTeleportDistanceSqr)
 		{
 			// lost track, moved too far (may have teleported)
 			return; 
@@ -1047,8 +1047,8 @@ void CLagCompensationManager::BacktrackEntity( CAI_BaseNPC *pEntity, float flTar
 
 		ang  = Lerp( frac, record->m_vecAngles, prevRecord->m_vecAngles );
 		org  = Lerp( frac, record->m_vecOrigin, prevRecord->m_vecOrigin  );
-		mins = Lerp( frac, record->m_vecMins, prevRecord->m_vecMins  );
-		maxs = Lerp( frac, record->m_vecMaxs, prevRecord->m_vecMaxs );
+		mins = Lerp( frac, record->m_vecMinsPreScaled, prevRecord->m_vecMinsPreScaled);
+		maxs = Lerp( frac, record->m_vecMaxsPreScaled, prevRecord->m_vecMaxsPreScaled);
 	}
 	else
 	{
@@ -1056,8 +1056,8 @@ void CLagCompensationManager::BacktrackEntity( CAI_BaseNPC *pEntity, float flTar
 		// just copy these values since they are the best we have
 		ang  = record->m_vecAngles;
 		org  = record->m_vecOrigin;
-		mins = record->m_vecMins;
-		maxs = record->m_vecMaxs;
+		mins = record->m_vecMinsPreScaled;
+		maxs = record->m_vecMaxsPreScaled;
 	}
 
 	// See if this is still a valid position for us to teleport to
@@ -1174,11 +1174,11 @@ void CLagCompensationManager::BacktrackEntity( CAI_BaseNPC *pEntity, float flTar
 		 ( maxs != pEntity->WorldAlignMaxs() ) )
 	{
 		flags |= LC_SIZE_CHANGED;
-		restore->m_vecMins = pEntity->WorldAlignMins() ;
-		restore->m_vecMaxs = pEntity->WorldAlignMaxs();
+		restore->m_vecMinsPreScaled = pEntity->CollisionProp()->OBBMinsPreScaled();
+		restore->m_vecMaxsPreScaled = pEntity->CollisionProp()->OBBMaxsPreScaled();
 		pEntity->SetSize( mins, maxs );
-		change->m_vecMins = mins;
-		change->m_vecMaxs = maxs;
+		change->m_vecMinsPreScaled = mins;
+		change->m_vecMaxsPreScaled = maxs;
 	}
 
 	// Note, do origin at end since it causes a relink into the k/d tree
@@ -1461,7 +1461,7 @@ void CLagCompensationManager::FinishLagCompensation( CBasePlayer *player )
 			Vector delta = pNPC->GetLocalOrigin() - change->m_vecOrigin;
 			
 			// If it moved really far, just leave the player in the new spot!!!
-			if ( delta.LengthSqr() < LAG_COMPENSATION_TELEPORTED_DISTANCE_SQR )
+			if ( delta.LengthSqr() < m_flTeleportDistanceSqr)
 			{
 				RestoreEntityTo( pNPC, restore->m_vecOrigin + delta );
 			}

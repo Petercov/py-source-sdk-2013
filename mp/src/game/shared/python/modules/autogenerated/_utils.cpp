@@ -4313,6 +4313,30 @@ BOOST_PYTHON_MODULE(_utils){
     
     }
 
+    { //::UTIL_GetNearestPlayer
+    
+        typedef ::CBasePlayer * ( *UTIL_GetNearestPlayer_function_type )( ::Vector const & );
+        
+        bp::def( 
+            "UTIL_GetNearestPlayer"
+            , UTIL_GetNearestPlayer_function_type( &::UTIL_GetNearestPlayer )
+            , ( bp::arg("origin") )
+            , bp::return_value_policy< bp::return_by_value >() );
+    
+    }
+
+    { //::UTIL_GetNearestVisiblePlayer
+    
+        typedef ::CBasePlayer * ( *UTIL_GetNearestVisiblePlayer_function_type )( ::CBaseEntity *,int );
+        
+        bp::def( 
+            "UTIL_GetNearestVisiblePlayer"
+            , UTIL_GetNearestVisiblePlayer_function_type( &::UTIL_GetNearestVisiblePlayer )
+            , ( bp::arg("pLooker"), bp::arg("mask")=(int)((1 | 16384 | 2 | 8)) )
+            , bp::return_value_policy< bp::return_by_value >() );
+    
+    }
+
     { //::UTIL_GetPlayerConnectionInfo
     
         typedef void ( *UTIL_GetPlayerConnectionInfo_function_type )( int,int &,int & );

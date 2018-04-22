@@ -188,7 +188,7 @@ void FullClientUpdatePyNetworkClsByEdict( edict_t *pEdict )
 		return;
 	}
 
-	Assert(g_SetupNetworkTablesOnHold == false);
+	//Assert(g_SetupNetworkTablesOnHold == false);
 
 	// Send messages about each server class
 	PyServerClass *p = g_pPyServerClassHead;

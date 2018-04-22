@@ -50,6 +50,7 @@ modules = [
     ('_particles', 'Particles'),
     ('materials', 'Materials'),
     ('_te', 'TE'),
+    #('_navmesh', 'NavigationMesh'),
     
     # Client
     ('_input', 'Input'),

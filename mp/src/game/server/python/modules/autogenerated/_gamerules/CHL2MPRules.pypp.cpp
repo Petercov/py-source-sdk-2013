@@ -277,6 +277,25 @@ struct CHL2MPRules_wrapper : CHL2MPRules, bp::wrapper< CHL2MPRules > {
         CHL2MPRules::GoToIntermission( );
     }
 
+    virtual void InitDefaultAIRelationships(  ) {
+        PY_OVERRIDE_CHECK( CHL2MPRules, InitDefaultAIRelationships )
+        PY_OVERRIDE_LOG( _gamerules, CHL2MPRules, InitDefaultAIRelationships )
+        bp::override func_InitDefaultAIRelationships = this->get_override( "InitDefaultAIRelationships" );
+        if( func_InitDefaultAIRelationships.ptr() != Py_None )
+            try {
+                func_InitDefaultAIRelationships(  );
+            } catch(bp::error_already_set &) {
+                PyErr_Print();
+                this->CHL2MPRules::InitDefaultAIRelationships(  );
+            }
+        else
+            this->CHL2MPRules::InitDefaultAIRelationships(  );
+    }
+    
+    void default_InitDefaultAIRelationships(  ) {
+        CHL2MPRules::InitDefaultAIRelationships( );
+    }
+
     virtual bool IsConnectedUserInfoChangeAllowed( ::CBasePlayer * pPlayer ) {
         PY_OVERRIDE_CHECK( CHL2MPRules, IsConnectedUserInfoChangeAllowed )
         PY_OVERRIDE_LOG( _gamerules, CHL2MPRules, IsConnectedUserInfoChangeAllowed )
@@ -1721,25 +1740,6 @@ struct CHL2MPRules_wrapper : CHL2MPRules, bp::wrapper< CHL2MPRules > {
         CMultiplayRules::InitCustomResponseRulesDicts( );
     }
 
-    virtual void InitDefaultAIRelationships(  ) {
-        PY_OVERRIDE_CHECK( CGameRules, InitDefaultAIRelationships )
-        PY_OVERRIDE_LOG( _gamerules, CGameRules, InitDefaultAIRelationships )
-        bp::override func_InitDefaultAIRelationships = this->get_override( "InitDefaultAIRelationships" );
-        if( func_InitDefaultAIRelationships.ptr() != Py_None )
-            try {
-                func_InitDefaultAIRelationships(  );
-            } catch(bp::error_already_set &) {
-                PyErr_Print();
-                this->CGameRules::InitDefaultAIRelationships(  );
-            }
-        else
-            this->CGameRules::InitDefaultAIRelationships(  );
-    }
-    
-    void default_InitDefaultAIRelationships(  ) {
-        CGameRules::InitDefaultAIRelationships( );
-    }
-
     virtual void InitGamerules(  ) {
         PY_OVERRIDE_CHECK( CGameRules, InitGamerules )
         PY_OVERRIDE_LOG( _gamerules, CGameRules, InitGamerules )
@@ -2860,6 +2860,10 @@ void register_CHL2MPRules_class(){
             , (void ( ::CHL2MPRules::* )(  ))(&::CHL2MPRules::GoToIntermission)
             , (void ( CHL2MPRules_wrapper::* )(  ))(&CHL2MPRules_wrapper::default_GoToIntermission) )    
         .def( 
+            "InitDefaultAIRelationships"
+            , (void ( ::CHL2MPRules::* )(  ))(&::CHL2MPRules::InitDefaultAIRelationships)
+            , (void ( CHL2MPRules_wrapper::* )(  ))(&CHL2MPRules_wrapper::default_InitDefaultAIRelationships) )    
+        .def( 
             "IsConnectedUserInfoChangeAllowed"
             , (bool ( ::CHL2MPRules::* )( ::CBasePlayer * ))(&::CHL2MPRules::IsConnectedUserInfoChangeAllowed)
             , (bool ( CHL2MPRules_wrapper::* )( ::CBasePlayer * ))(&CHL2MPRules_wrapper::default_IsConnectedUserInfoChangeAllowed)
@@ -3236,10 +3240,6 @@ void register_CHL2MPRules_class(){
             "InitCustomResponseRulesDicts"
             , (void ( ::CMultiplayRules::* )(  ))(&::CMultiplayRules::InitCustomResponseRulesDicts)
             , (void ( CHL2MPRules_wrapper::* )(  ))(&CHL2MPRules_wrapper::default_InitCustomResponseRulesDicts) )    
-        .def( 
-            "InitDefaultAIRelationships"
-            , (void ( ::CGameRules::* )(  ))(&::CGameRules::InitDefaultAIRelationships)
-            , (void ( CHL2MPRules_wrapper::* )(  ))(&CHL2MPRules_wrapper::default_InitDefaultAIRelationships) )    
         .def( 
             "InitGamerules"
             , (void ( ::CGameRules::* )(  ))(&::CGameRules::InitGamerules)
