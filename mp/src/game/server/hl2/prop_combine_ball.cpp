@@ -692,56 +692,65 @@ void CPropCombineBall::StartWhizSoundThink( void )
 //-----------------------------------------------------------------------------
 void CPropCombineBall::WhizSoundThink()
 {
+	bool bPlayedSound = false;
 	Vector vecPosition, vecVelocity;
 	IPhysicsObject *pPhysicsObject = VPhysicsGetObject();
-	
-	if ( pPhysicsObject == NULL )
+
+	if (pPhysicsObject == NULL)
 	{
 		//NOTENOTE: We should always have been created at this point
-		Assert( 0 );
-		SetContextThink( &CPropCombineBall::WhizSoundThink, gpGlobals->curtime + 2.0f * TICK_INTERVAL, s_pWhizThinkContext );
+		Assert(0);
+		SetContextThink(&CPropCombineBall::WhizSoundThink, gpGlobals->curtime + 2.0f * TICK_INTERVAL, s_pWhizThinkContext);
 		return;
 	}
 
-	pPhysicsObject->GetPosition( &vecPosition, NULL );
-	pPhysicsObject->GetVelocity( &vecVelocity, NULL );
+	pPhysicsObject->GetPosition(&vecPosition, NULL);
+	pPhysicsObject->GetVelocity(&vecVelocity, NULL);
+
 	
-	CBasePlayer *pPlayer = UTIL_GetNearestPlayer(GetAbsOrigin());
-	if ( pPlayer )
+	for (int i = 1; i <= gpGlobals->maxClients; i++)
 	{
-		Vector vecDelta;
-		VectorSubtract( pPlayer->GetAbsOrigin(), vecPosition, vecDelta );
-		VectorNormalize( vecDelta );
-		if ( DotProduct( vecDelta, vecVelocity ) > 0.5f )
+		CBasePlayer *pPlayer = UTIL_PlayerByIndex(i);
+		if (pPlayer)
 		{
-			Vector vecEndPoint;
-			VectorMA( vecPosition, 2.0f * TICK_INTERVAL, vecVelocity, vecEndPoint );
-			float flDist = CalcDistanceToLineSegment( pPlayer->GetAbsOrigin(), vecPosition, vecEndPoint );
-			if ( flDist < 200.0f )
+			Vector vecDelta;
+			VectorSubtract(pPlayer->GetAbsOrigin(), vecPosition, vecDelta);
+			VectorNormalize(vecDelta);
+			if (DotProduct(vecDelta, vecVelocity) > 0.5f)
 			{
-			CPASAttenuationFilter filter( vecPosition, ATTN_NORM );
+				Vector vecEndPoint;
+				VectorMA(vecPosition, 2.0f * TICK_INTERVAL, vecVelocity, vecEndPoint);
+				float flDist = CalcDistanceToLineSegment(pPlayer->GetAbsOrigin(), vecPosition, vecEndPoint);
+				if (flDist < 200.0f)
+				{
+					CSingleUserRecipientFilter filter(pPlayer);
 
-			EmitSound_t ep;
-			ep.m_nChannel = CHAN_STATIC;
-			if ( hl2_episodic.GetBool() )
-			{
-				ep.m_pSoundName = "NPC_CombineBall_Episodic.WhizFlyby";
+					EmitSound_t ep;
+					ep.m_nChannel = CHAN_STATIC;
+					if (hl2_episodic.GetBool())
+					{
+						ep.m_pSoundName = "NPC_CombineBall_Episodic.WhizFlyby";
+					}
+					else
+					{
+						ep.m_pSoundName = "NPC_CombineBall.WhizFlyby";
+					}
+					ep.m_flVolume = 1.0f;
+					ep.m_SoundLevel = SNDLVL_NORM;
+
+					EmitSound(filter, entindex(), ep);
+
+					SetContextThink(&CPropCombineBall::WhizSoundThink, gpGlobals->curtime + 0.5f, s_pWhizThinkContext);
+					bPlayedSound = true;
+				}
 			}
-			else
-			{
-				ep.m_pSoundName = "NPC_CombineBall.WhizFlyby";
-			}
-			ep.m_flVolume = 1.0f;
-			ep.m_SoundLevel = SNDLVL_NORM;
-
-			EmitSound( filter, entindex(), ep );
-
-			SetContextThink( &CPropCombineBall::WhizSoundThink, gpGlobals->curtime + 0.5f, s_pWhizThinkContext );
-			return;			
-		}		
+		}
 	}
 
-	SetContextThink( &CPropCombineBall::WhizSoundThink, gpGlobals->curtime + 2.0f * TICK_INTERVAL, s_pWhizThinkContext );
+	if (bPlayedSound)
+		SetContextThink(&CPropCombineBall::WhizSoundThink, gpGlobals->curtime + 0.5f, s_pWhizThinkContext);
+	else
+		SetContextThink(&CPropCombineBall::WhizSoundThink, gpGlobals->curtime + 2.0f * TICK_INTERVAL, s_pWhizThinkContext);
 }
 
 //-----------------------------------------------------------------------------

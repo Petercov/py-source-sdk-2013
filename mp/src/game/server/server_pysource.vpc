@@ -10,6 +10,7 @@ $Macro GAMENAME 	"pysource"
 $Include "$SRCDIR\game\server\server_base.vpc"
 $Include "$SRCDIR\vpc_scripts\pysource_base.vpc"
 $Include "$SRCDIR\game\server\server_pysource_autogen.vpc"
+$Include "$SRCDIR\game\server\nav_mesh.vpc"
 
 $Configuration
 {

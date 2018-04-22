@@ -1436,7 +1436,7 @@ AI_Waypoint_t *CAI_Pathfinder::BuildRoute( const Vector &vStart, const Vector &v
 	{
 		pResult = BuildNodeRoute( vStart, vEnd, buildFlags, goalTolerance );
 	}
-	
+#ifdef USE_NAV_MESH
 	//  If the node fails, try a nav mesh route
 	// the nav mesh doesn't supports flying npc's, like the strider or gunship
 	if ( !pResult && curNavType != NAV_FLY )
@@ -1451,12 +1451,12 @@ AI_Waypoint_t *CAI_Pathfinder::BuildRoute( const Vector &vStart, const Vector &v
 			pResult = BuildNavRoute( startArea, closestArea, vEnd, newway, curNavType );
 		}
 	}
-
+#endif
 	m_bIgnoreStaleLinks = false;
 
 	return pResult;
 }
-
+#ifdef USE_NAV_MESH
 //-----------------------------------------------------------------------------
 // Purpose: This is our cost func. This should likely do something different
 //			then return 0.0f...
@@ -1731,6 +1731,7 @@ AI_Waypoint_t *CAI_Pathfinder::BuildNavRoute( CNavArea *startArea, CNavArea *goa
 	}
 	
 }
+#endif //USE_NAV_MESH
 
 void CAI_Pathfinder::UnlockRouteNodes( AI_Waypoint_t *pPath )
 {
